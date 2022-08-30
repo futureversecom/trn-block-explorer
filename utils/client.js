@@ -2,13 +2,13 @@
 export const getLatestTransfers = () => {
   return Array(10).fill({
     id: Math.floor(Math.random() * 10000),
-    timestamp: Math.floor(new Date().getTime() / 1000.0) - 1000,
+    timestamp: Math.floor(new Date().getTime()) - 1000,
   });
 };
 export const getLatestBlocks = () => {
   return Array(10).fill({
     height: Math.floor(Math.random() * 10000),
-    timestamp: Math.floor(new Date().getTime() / 1000.0) - 1000,
+    timestamp: Math.floor(new Date().getTime()) - 1000,
   });
 };
 

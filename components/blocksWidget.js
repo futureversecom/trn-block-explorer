@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { sleep } from "../utils/utils";
 import * as clientApi from "../utils/client";
+import TimeAgo from "react-timeago";
 
 export default function BlocksWidget() {
   const query = useQuery(
@@ -67,7 +68,9 @@ const BlockItem = ({ height, extrinsics, events, timestamp }) => {
           <span className="text-gray-500 text-sm">Includes</span>{" "}
           <span>{extrinsics} Extrinsics</span> <span>{events} Events</span>{" "}
         </div>
-        <div>{timestamp}</div>
+        <div className="text-sm">
+          <TimeAgo date={timestamp} />
+        </div>
       </div>
     </div>
   );

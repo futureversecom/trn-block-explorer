@@ -3,6 +3,7 @@ import { formatAddress, sleep } from "../utils/utils";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import * as clientApi from "../utils/client";
+import TimeAgo from "react-timeago";
 
 export default function TransfersWidget() {
   const query = useQuery(
@@ -70,7 +71,9 @@ const TransferItem = ({ from, to, id, timestamp, amount, status }) => {
           <span className="text-gray-500">From</span> {formatAddress(from)}{" "}
           <span className="text-gray-500">to</span> {formatAddress(to)}
         </div>
-        <div>{timestamp}</div>
+        <div className="text-sm">
+          <TimeAgo date={timestamp} />
+        </div>
       </div>
     </div>
   );
