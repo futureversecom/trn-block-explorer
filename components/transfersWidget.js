@@ -1,8 +1,23 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { formatAddress } from "../utils/utils";
 import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
+import * as clientApi from "../utils/client";
 
 export default function TransfersWidget() {
+  const query = useQuery(
+    ["transferFrontpage"],
+    () => {
+      console.log('Fething transferFrontpage')
+      return clientApi.getLatestTransfers();
+    },
+    {
+      refetchInterval: 15000,
+    }
+  );
+
+  if (query.isLoading) return "Loading..";
+
   return (
     <div>
       <div className="flex flex-row justify-between py-3">
@@ -24,7 +39,7 @@ export default function TransfersWidget() {
         </div>
       </div>
       <div className=" bg-white px-4 py-5 sm:px-6 space-y-3 border border-gray-100 rounded-md">
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, key) => (
+        {query?.data?.map((item, key) => (
           <TransferItem
             key={key}
             from={"0xbE4c83Bf1dF0748804B2A92c5Bb81Ab6cCc0B94F"}
