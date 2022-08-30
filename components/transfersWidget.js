@@ -5,7 +5,6 @@ import { useQuery } from "@tanstack/react-query";
 import * as clientApi from "../utils/client";
 import TimeAgo from "react-timeago";
 import RefetchIndicator from "./refetchIndicator";
-
 export default function TransfersWidget() {
   const query = useQuery(
     ["transferFrontpage"],
@@ -70,8 +69,14 @@ const TransferItem = ({ from, to, id, timestamp, amount, status }) => {
       </div>
       <div className="flex flex-row justify-between">
         <div>
-          <span className="text-gray-500">From</span> {formatAddress(from)}{" "}
-          <span className="text-gray-500">to</span> {formatAddress(to)}
+          <span className="text-gray-500">From</span>{" "}
+          <span className="text-indigo-500 font-semibold">
+            {formatAddress(from)}
+          </span>{" "}
+          <span className="text-gray-500">to</span>{" "}
+          <span className="text-indigo-500 font-semibold">
+            {formatAddress(to)}
+          </span>
         </div>
         <div className="text-sm">
           <TimeAgo date={timestamp} />

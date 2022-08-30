@@ -16,7 +16,7 @@ export default function BlocksWidget() {
   const query = useQuery(
     ["blocksFrontpage"],
     async () => {
-      console.log("Fething blocksFrontpage");
+      console.log("Fetching blocksFrontpage");
       await sleep(1500);
       return clientApi.getLatestBlocks();
     },
@@ -75,7 +75,10 @@ const BlockItem = ({ height, extrinsics, events, timestamp, status }) => {
       <div className="flex flex-row justify-between">
         <div className="text-teal-800">
           <span className="text-gray-500 text-sm">Includes</span>{" "}
-          <span>{extrinsics} Extrinsics</span> <span>{events} Events</span>{" "}
+          <span className="text-indigo-500 font-semibold">
+            {extrinsics} Extrinsics
+          </span>{" "}
+          <span className="text-indigo-500 font-semibold">{events} Events</span>{" "}
         </div>
         <div className="flex space-x-3">
           <div className="text-sm">
@@ -83,7 +86,7 @@ const BlockItem = ({ height, extrinsics, events, timestamp, status }) => {
           </div>
           <div>
             {status == true ? (
-             <BlockFinalizedIcon/>
+              <BlockFinalizedIcon />
             ) : (
               <ExclamationCircleIcon
                 data-tip
@@ -94,7 +97,7 @@ const BlockItem = ({ height, extrinsics, events, timestamp, status }) => {
           </div>
         </div>
       </div>
-    
+
       <ReactTooltip id="unfinalizedIcon" aria-haspopup="true" type="warning">
         <span>Unfinalized</span>
       </ReactTooltip>

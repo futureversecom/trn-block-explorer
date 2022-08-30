@@ -9,7 +9,7 @@ export default function ChaindataWidget() {
   const query = useQuery(
     ["chaindataFrontpage"],
     async () => {
-      console.log("Fething chaindataFrontpage");
+      console.log("Fetching chaindataFrontpage");
       await sleep(1500);
       return clientApi.getLatestChainData();
     },
