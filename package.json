@@ -12,6 +12,7 @@
     "@headlessui/react": "^1.6.6",
     "@heroicons/react": "^2.0.8",
     "@tanstack/react-query": "^4.2.3",
+    "moment": "^2.29.4",
     "next": "12.2.5",
     "react": "18.2.0",
     "react-countup": "^6.3.1",
