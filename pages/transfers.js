@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 
-export default function Home() {
+export default function Transfers() {
   return (
     <div>
       <Head>
@@ -11,7 +11,7 @@ export default function Home() {
       </Head>
 
       <main>
-        <h1>Root Block Explorer</h1>
+        <h1>Transfers</h1>
       </main>
     </div>
   );
