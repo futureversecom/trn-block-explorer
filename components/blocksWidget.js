@@ -9,8 +9,8 @@ import { sleep } from "../utils/utils";
 import * as clientApi from "../utils/client";
 import TimeAgo from "react-timeago";
 import RefetchIndicator from "./refetchIndicator";
-import ReactTooltip from "react-tooltip";
 import BlockFinalizedIcon from "./icons/blockFinalizedIcon";
+import LoadingBlock from "./loadingBlock";
 
 export default function BlocksWidget() {
   const query = useQuery(
@@ -24,8 +24,6 @@ export default function BlocksWidget() {
       refetchInterval: 5000,
     }
   );
-
-  if (query.isLoading) return "Loading blocks..";
 
   return (
     <div>
@@ -48,18 +46,22 @@ export default function BlocksWidget() {
           </Link>
         </div>
       </div>
-      <div className=" bg-white px-4 py-3 sm:px-6 border border-gray-100 rounded-md shadow-md divide-y">
-        {query.data.map((item, key) => (
-          <BlockItem
-            key={key}
-            height={item.height}
-            extrinsics={25}
-            events={30}
-            timestamp={item.timestamp}
-            status={true}
-          />
-        ))}
-      </div>
+      {query.isLoading ? (
+        <LoadingBlock title="Blocks" />
+      ) : (
+        <div className=" bg-white px-4 py-3 sm:px-6 border border-gray-100 rounded-md shadow-md divide-y">
+          {query.data.map((item, key) => (
+            <BlockItem
+              key={key}
+              height={item.height}
+              extrinsics={25}
+              events={30}
+              timestamp={item.timestamp}
+              status={true}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -75,10 +77,8 @@ const BlockItem = ({ height, extrinsics, events, timestamp, status }) => {
       <div className="flex flex-row justify-between">
         <div className="text-teal-800">
           <span className="text-gray-500 text-sm">Includes</span>{" "}
-          <span className="text-indigo-500 font-semibold">
-            {extrinsics} Extrinsics
-          </span>{" "}
-          <span className="text-indigo-500 font-semibold">{events} Events</span>{" "}
+          <span className="text-indigo-500">{extrinsics} Extrinsics</span>{" "}
+          <span className="text-indigo-500">{events} Events</span>{" "}
         </div>
         <div className="flex space-x-3">
           <div className="text-sm">
@@ -88,19 +88,11 @@ const BlockItem = ({ height, extrinsics, events, timestamp, status }) => {
             {status == true ? (
               <BlockFinalizedIcon />
             ) : (
-              <ExclamationCircleIcon
-                data-tip
-                data-for="unfinalizedIcon"
-                className="h-5 my-auto text-red-700"
-              />
+              <ExclamationCircleIcon className="h-5 my-auto text-red-700" />
             )}
           </div>
         </div>
       </div>
-
-      <ReactTooltip id="unfinalizedIcon" aria-haspopup="true" type="warning">
-        <span>Unfinalized</span>
-      </ReactTooltip>
     </div>
   );
 };

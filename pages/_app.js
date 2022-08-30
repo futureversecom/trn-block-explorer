@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }) {
         <Header />
         <Search />
         <Component {...pageProps} />
-        <Footer/>
+        <Footer />
       </div>
     </QueryClientProvider>
   );

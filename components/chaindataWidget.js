@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import * as clientApi from "../utils/client";
 import CountUp from "react-countup";
 import RefetchIndicator from "./refetchIndicator";
+import LoadingBlock from "./loadingBlock";
 
 export default function ChaindataWidget() {
   const query = useQuery(
@@ -17,8 +18,6 @@ export default function ChaindataWidget() {
       refetchInterval: 5000,
     }
   );
-
-  if (query.isLoading) return "Loading chaindata..";
 
   return (
     <div>
@@ -35,22 +34,26 @@ export default function ChaindataWidget() {
           </div>
         )}
       </div>
-      <div className="space-y-3">
-        <dl className="mt-5 grid grid-cols-1 divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow md:grid-cols-3 md:divide-y-0 md:divide-x">
-          {query.data.map((item) => (
-            <div key={item.name} className="px-4 py-5 sm:p-6">
-              <dt className="text-base text-gray-900 font-semibold">
-                {item.name}
-              </dt>
-              <dd className="mt-1 flex items-baseline justify-between md:block lg:flex">
-                <div className="flex items-baseline text-2xl font-semibold text-indigo-600">
-                  <CountUp end={item.stat} separator={","} />
-                </div>
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </div>
+      {query.isLoading ? (
+        <LoadingBlock title="Chaindata" />
+      ) : (
+        <div className="space-y-3">
+          <dl className="mt-5 grid grid-cols-1 divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow md:grid-cols-3 md:divide-y-0 md:divide-x">
+            {query.data.map((item) => (
+              <div key={item.name} className="px-4 py-5 sm:p-6">
+                <dt className="text-base text-gray-900 font-semibold">
+                  {item.name}
+                </dt>
+                <dd className="mt-1 flex items-baseline justify-between md:block lg:flex">
+                  <div className="flex items-baseline text-2xl font-semibold text-indigo-600">
+                    <CountUp end={item.stat} separator={","} />
+                  </div>
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      )}
     </div>
   );
 }

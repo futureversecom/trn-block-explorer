@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import * as clientApi from "../utils/client";
 import TimeAgo from "react-timeago";
 import RefetchIndicator from "./refetchIndicator";
+import LoadingBlock from "./loadingBlock";
 export default function TransfersWidget() {
   const query = useQuery(
     ["transferFrontpage"],
@@ -17,8 +18,6 @@ export default function TransfersWidget() {
       refetchInterval: 5000,
     }
   );
-
-  if (query.isLoading) return "Loading transfers..";
 
   return (
     <div>
@@ -41,19 +40,23 @@ export default function TransfersWidget() {
           </Link>
         </div>
       </div>
-      <div className=" bg-white px-4 py-3 sm:px-6 border border-gray-100 rounded-md shadow-md divide-y">
-        {query?.data?.map((item, key) => (
-          <TransferItem
-            key={key}
-            from={"0xbE4c83Bf1dF0748804B2A92c5Bb81Ab6cCc0B94F"}
-            to={"0xF3918988Eb3Ce66527E2a1a4D42C303915cE28CE"}
-            id={item.id}
-            timestamp={item.timestamp}
-            amount={"1234"}
-            status={true}
-          />
-        ))}
-      </div>
+      {query.isLoading ? (
+        <LoadingBlock title="Transfers" />
+      ) : (
+        <div className=" bg-white px-4 py-3 sm:px-6 border border-gray-100 rounded-md shadow-md divide-y">
+          {query?.data?.map((item, key) => (
+            <TransferItem
+              key={key}
+              from={"0xbE4c83Bf1dF0748804B2A92c5Bb81Ab6cCc0B94F"}
+              to={"0xF3918988Eb3Ce66527E2a1a4D42C303915cE28CE"}
+              id={item.id}
+              timestamp={item.timestamp}
+              amount={"1234"}
+              status={true}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -70,13 +73,9 @@ const TransferItem = ({ from, to, id, timestamp, amount, status }) => {
       <div className="flex flex-row justify-between">
         <div>
           <span className="text-gray-500">From</span>{" "}
-          <span className="text-indigo-500 font-semibold">
-            {formatAddress(from)}
-          </span>{" "}
+          <span className="text-indigo-500">{formatAddress(from)}</span>{" "}
           <span className="text-gray-500">to</span>{" "}
-          <span className="text-indigo-500 font-semibold">
-            {formatAddress(to)}
-          </span>
+          <span className="text-indigo-500">{formatAddress(to)}</span>
         </div>
         <div className="text-sm">
           <TimeAgo date={timestamp} />
