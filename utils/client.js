@@ -4,7 +4,7 @@ export const getLatestTransfers = () => {
   for (let i = 0; i < 10; i++) {
     a.push({
       id: Math.floor(Math.random() * 10000),
-      timestamp: Math.floor(new Date().getTime()) - 1000,
+      timestamp: Math.floor(new Date().getTime()) - i * 1000,
     });
   }
   return a;
@@ -14,8 +14,14 @@ export const getLatestBlocks = () => {
   let startBlock = Math.floor(Math.random() * 10000);
   for (let i = 0; i < 10; i++) {
     a.push({
+      status: i % 2 ? true : false,
+      blockHash:
+        "0x692c6f68520dd8caccca6e5bacbfa155c5b0a3b960247e87c417a20d69e5f87b",
       height: startBlock,
-      timestamp: Math.floor(new Date().getTime()) - 1000,
+      timestamp: Math.floor(new Date().getTime()) - i * 1000,
+      extrinsics: Math.floor(Math.random() * 10),
+      events: Math.floor(Math.random() * 10),
+      collator: "0xa1e5E3C161Bceb944b655364a6848F47c6e93b56",
     });
     startBlock--;
   }

@@ -54,10 +54,10 @@ export default function BlocksWidget() {
             <BlockItem
               key={key}
               height={item.height}
-              extrinsics={25}
-              events={30}
+              extrinsics={item.extrinsics}
+              events={item.events}
               timestamp={item.timestamp}
-              status={true}
+              status={item.status}
             />
           ))}
         </div>
