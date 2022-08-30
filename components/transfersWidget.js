@@ -13,7 +13,7 @@ export default function TransfersWidget() {
       return clientApi.getLatestTransfers();
     },
     {
-      refetchInterval: 15000,
+      refetchInterval: 5000,
     }
   );
 
@@ -45,8 +45,8 @@ export default function TransfersWidget() {
             key={key}
             from={"0xbE4c83Bf1dF0748804B2A92c5Bb81Ab6cCc0B94F"}
             to={"0xF3918988Eb3Ce66527E2a1a4D42C303915cE28CE"}
-            id={`1762842-${item}`}
-            timestamp={"123"}
+            id={item.id}
+            timestamp={item.timestamp}
             amount={"1234"}
             status={true}
           />

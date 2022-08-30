@@ -13,7 +13,7 @@ export default function BlocksWidget() {
       return clientApi.getLatestBlocks();
     },
     {
-      refetchInterval: 15000,
+      refetchInterval: 5000,
     }
   );
 
@@ -40,13 +40,13 @@ export default function BlocksWidget() {
         </div>
       </div>
       <div className=" bg-white px-4 py-3 sm:px-6 border border-gray-100 rounded-md shadow-md divide-y">
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, key) => (
+        {query.data.map((item, key) => (
           <BlockItem
             key={key}
-            height={5000}
+            height={item.height}
             extrinsics={25}
             events={30}
-            timestamp={34000}
+            timestamp={item.timestamp}
           />
         ))}
       </div>

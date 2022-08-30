@@ -13,7 +13,7 @@ export default function ChaindataWidget() {
       return clientApi.getLatestChainData();
     },
     {
-      refetchInterval: 15000,
+      refetchInterval: 5000,
     }
   );
 
@@ -38,7 +38,7 @@ export default function ChaindataWidget() {
               </dt>
               <dd className="mt-1 flex items-baseline justify-between md:block lg:flex">
                 <div className="flex items-baseline text-2xl font-semibold text-indigo-600">
-                  <CountUp end={item.stat} />
+                  <CountUp end={item.stat} separator={','} />
                 </div>
               </dd>
             </div>

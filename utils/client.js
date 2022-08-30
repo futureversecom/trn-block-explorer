@@ -1,24 +1,30 @@
 // Frontpage queries
 export const getLatestTransfers = () => {
-  return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  return Array(10).fill({
+    id: Math.floor(Math.random() * 10000),
+    timestamp: Math.floor(new Date().getTime() / 1000.0) - 1000,
+  });
 };
 export const getLatestBlocks = () => {
-  return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  return Array(10).fill({
+    height: Math.floor(Math.random() * 10000),
+    timestamp: Math.floor(new Date().getTime() / 1000.0) - 1000,
+  });
 };
 
 export const getLatestChainData = () => {
   return [
     {
       name: "Transfers",
-      stat: 710897,
+      stat: Math.floor(Math.random() * 10000),
     },
     {
       name: "Finalized Blocks",
-      stat: 3120300,
+      stat: Math.floor(Math.random() * 10000),
     },
     {
       name: "Holders",
-      stat: 21983712,
+      stat: Math.floor(Math.random() * 10000),
     },
   ];
 };
