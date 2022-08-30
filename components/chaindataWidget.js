@@ -1,4 +1,4 @@
-import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import { ChartPieIcon } from "@heroicons/react/24/outline";
 import { sleep } from "../utils/utils";
 import { useQuery } from "@tanstack/react-query";
 import * as clientApi from "../utils/client";
@@ -24,7 +24,7 @@ export default function ChaindataWidget() {
     <div>
       <div className="flex flex-row justify-between py-3">
         <div className="flex flex-row">
-          <ArrowsRightLeftIcon className="h-5 my-auto pr-3" />
+          <ChartPieIcon className="h-5 my-auto pr-3" />
           <h3 className="text-md font-medium leading-6 text-gray-900">
             Chaindata
           </h3>

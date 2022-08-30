@@ -1,4 +1,8 @@
-import { CubeIcon } from "@heroicons/react/24/outline";
+import {
+  CubeIcon,
+  CheckCircleIcon,
+  ExclamationCircleIcon,
+} from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { sleep } from "../utils/utils";
@@ -31,9 +35,7 @@ export default function BlocksWidget() {
           </h3>
         </div>
         <div>
-          {query.isRefetching && (
-           <RefetchIndicator/>
-          )}
+          {query.isRefetching && <RefetchIndicator />}
           <Link href={"/blocks"}>
             <button
               type="button"
@@ -52,6 +54,7 @@ export default function BlocksWidget() {
             extrinsics={25}
             events={30}
             timestamp={item.timestamp}
+            status={true}
           />
         ))}
       </div>
@@ -59,7 +62,7 @@ export default function BlocksWidget() {
   );
 }
 
-const BlockItem = ({ height, extrinsics, events, timestamp }) => {
+const BlockItem = ({ height, extrinsics, events, timestamp, status }) => {
   return (
     <div className="block py-3">
       <div className="flex flex-row justify-between">
@@ -72,8 +75,17 @@ const BlockItem = ({ height, extrinsics, events, timestamp }) => {
           <span className="text-gray-500 text-sm">Includes</span>{" "}
           <span>{extrinsics} Extrinsics</span> <span>{events} Events</span>{" "}
         </div>
-        <div className="text-sm">
-          <TimeAgo date={timestamp} />
+        <div className="flex space-x-3">
+          <div className="text-sm">
+            <TimeAgo date={timestamp} />
+          </div>
+          <div>
+            {status == true ? (
+              <CheckCircleIcon className="h-5 my-auto text-green-700" />
+            ) : (
+              <ExclamationCircleIcon className="h-5 my-auto text-red-700" />
+            )}
+          </div>
         </div>
       </div>
     </div>
