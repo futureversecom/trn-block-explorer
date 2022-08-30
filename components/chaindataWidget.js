@@ -2,6 +2,7 @@ import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { sleep } from "../utils/utils";
 import { useQuery } from "@tanstack/react-query";
 import * as clientApi from "../utils/client";
+import CountUp from "react-countup";
 
 export default function ChaindataWidget() {
   const query = useQuery(
@@ -32,12 +33,12 @@ export default function ChaindataWidget() {
         <dl className="mt-5 grid grid-cols-1 divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow md:grid-cols-3 md:divide-y-0 md:divide-x">
           {query.data.map((item) => (
             <div key={item.name} className="px-4 py-5 sm:p-6">
-              <dt className="text-base font-normal text-gray-900">
+              <dt className="text-base text-gray-900 font-semibold">
                 {item.name}
               </dt>
               <dd className="mt-1 flex items-baseline justify-between md:block lg:flex">
                 <div className="flex items-baseline text-2xl font-semibold text-indigo-600">
-                  {item.stat}
+                  <CountUp end={item.stat} />
                 </div>
               </dd>
             </div>
