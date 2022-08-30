@@ -71,7 +71,12 @@ const BlockItem = ({ height, extrinsics, events, timestamp, status }) => {
     <div className="block py-3">
       <div className="flex flex-row justify-between">
         <div className="text-sm font-bold">
-          Block# <span className="text-lg">{height}</span>
+          Block#{" "}
+          <Link href={`/block/${height}`}>
+            <span className="text-lg cursor-pointer text-indigo-500">
+              {height}
+            </span>
+          </Link>
         </div>
       </div>
       <div className="flex flex-row justify-between">
