@@ -1,5 +1,7 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import { formatAddress } from "../../utils/utils";
+import { formatAddress } from "../utils/utils";
+import Link from "next/link";
+
 export default function TransfersWidget() {
   return (
     <div>
@@ -11,12 +13,14 @@ export default function TransfersWidget() {
           </h3>
         </div>
         <div>
-          <button
-            type="button"
-            className="inline-flex items-center rounded border border-gray-300 bg-white px-2.5 py-1.5 text-xs font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          >
-            view all
-          </button>
+          <Link href={"/transfers"}>
+            <button
+              type="button"
+              className="inline-flex items-center rounded border border-gray-300 bg-white px-2.5 py-1.5 text-xs font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            >
+              view all
+            </button>
+          </Link>
         </div>
       </div>
       <div className=" bg-white px-4 py-5 sm:px-6 space-y-3 border border-gray-100 rounded-md">

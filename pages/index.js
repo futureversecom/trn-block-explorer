@@ -1,6 +1,6 @@
 import Head from "next/head";
-import BlocksWidget from "./component/blocksWidget";
-import TransfersWidget from "./component/transfersWidget";
+import BlocksWidget from "../components/blocksWidget";
+import TransfersWidget from "../components/transfersWidget";
 
 export default function Home() {
   return (
