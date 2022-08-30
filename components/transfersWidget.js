@@ -39,7 +39,7 @@ export default function TransfersWidget() {
           </Link>
         </div>
       </div>
-      <div className=" bg-white px-4 py-5 sm:px-6 space-y-3 border border-gray-100 rounded-md">
+      <div className=" bg-white px-4 py-3 sm:px-6 border border-gray-100 rounded-md shadow-md divide-y">
         {query?.data?.map((item, key) => (
           <TransferItem
             key={key}
@@ -58,9 +58,11 @@ export default function TransfersWidget() {
 
 const TransferItem = ({ from, to, id, timestamp, amount, status }) => {
   return (
-    <div className="block">
+    <div className="block py-3">
       <div className="flex flex-row justify-between">
-        <div className="font-bold">Extrinsic# {id}</div>
+        <div className="text-sm font-bold">
+          Extrinsic# <span className="text-lg">{id}</span>
+        </div>
         <div>{amount} ROOT</div>
       </div>
       <div className="flex flex-row justify-between">

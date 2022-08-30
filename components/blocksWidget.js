@@ -39,7 +39,7 @@ export default function BlocksWidget() {
           </Link>
         </div>
       </div>
-      <div className=" bg-white px-4 py-5 sm:px-6 space-y-3 border border-gray-100 rounded-md">
+      <div className=" bg-white px-4 py-3 sm:px-6 border border-gray-100 rounded-md shadow-md divide-y">
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, key) => (
           <BlockItem
             key={key}
@@ -56,14 +56,16 @@ export default function BlocksWidget() {
 
 const BlockItem = ({ height, extrinsics, events, timestamp }) => {
   return (
-    <div className="border-b-gray-100 block">
+    <div className="block py-3">
       <div className="flex flex-row justify-between">
-        <div className="font-bold">Block# {height}</div>
+        <div className="text-sm font-bold">
+          Block# <span className="text-lg">{height}</span>
+        </div>
       </div>
       <div className="flex flex-row justify-between">
-        <div>
-          <span className="text-gray-500">Includes</span> {extrinsics}
-          <span className="text-gray-500">Events</span> {events}
+        <div className="text-teal-800">
+          <span className="text-gray-500 text-sm">Includes</span>{" "}
+          <span>{extrinsics} Extrinsics</span> <span>{events} Events</span>{" "}
         </div>
         <div>{timestamp}</div>
       </div>
