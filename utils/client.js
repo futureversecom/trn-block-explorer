@@ -38,3 +38,19 @@ export const getLatestChainData = () => {
     },
   ];
 };
+
+export const getBlock = () => {
+  return {
+    timestamp: Math.floor(new Date().getTime()) - 1000,
+    status: true,
+    hash: "0xef2963d0267a1791cd9673021dcd8c180788fcdfe3a7b30fc4e48e05c9bf5c39",
+    parentHash:
+      "0x85d5fa526a9d2edd60eb40abc814c71b820ca625b13dd6bff385b15d8123fb77",
+    stateRoot:
+      "0xac08780d749b7e9412180f91ec78305e9d3c39fe72edc1eaac441e08fcda78c2",
+    extrinsicsRoot:
+      "0x822f02f574d4ae7a0c508c208f917354779ad8fb6b65b0c26652af5f5f301cf7",
+    collator: "0x19A33caD2d311830550B41165d5faBf578347f3A",
+    specVersion: 1701,
+  };
+};
