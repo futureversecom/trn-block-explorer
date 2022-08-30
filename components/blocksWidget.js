@@ -9,6 +9,8 @@ import { sleep } from "../utils/utils";
 import * as clientApi from "../utils/client";
 import TimeAgo from "react-timeago";
 import RefetchIndicator from "./refetchIndicator";
+import ReactTooltip from "react-tooltip";
+import BlockFinalizedIcon from "./icons/blockFinalizedIcon";
 
 export default function BlocksWidget() {
   const query = useQuery(
@@ -81,13 +83,21 @@ const BlockItem = ({ height, extrinsics, events, timestamp, status }) => {
           </div>
           <div>
             {status == true ? (
-              <CheckCircleIcon className="h-5 my-auto text-green-700" />
+             <BlockFinalizedIcon/>
             ) : (
-              <ExclamationCircleIcon className="h-5 my-auto text-red-700" />
+              <ExclamationCircleIcon
+                data-tip
+                data-for="unfinalizedIcon"
+                className="h-5 my-auto text-red-700"
+              />
             )}
           </div>
         </div>
       </div>
+    
+      <ReactTooltip id="unfinalizedIcon" aria-haspopup="true" type="warning">
+        <span>Unfinalized</span>
+      </ReactTooltip>
     </div>
   );
 };

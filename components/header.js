@@ -1,6 +1,7 @@
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const links = [
   {
@@ -18,6 +19,8 @@ const links = [
 ];
 
 export default function Header() {
+  const router = useRouter();
+
   return (
     <Disclosure as="nav" className="bg-white shadow">
       {({ open }) => (
@@ -37,23 +40,16 @@ export default function Header() {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
-                  <img
-                    className="block h-8 w-auto lg:hidden"
-                    src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
-                    alt="Workflow"
-                  />
-                  <img
-                    className="hidden h-8 w-auto lg:block"
-                    src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
-                    alt="Workflow"
-                  />
+                  <span className="my-auto font-bold">ROOT NETWORK.</span>
                 </div>
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                   {links.map((link, key) => (
-                    <Link href={link.href}>
+                    <Link href={link.href} key={key}>
                       <a
                         key={key}
-                        className="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium text-gray-900"
+                        className={`inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium text-gray-900 ${
+                          router.pathname === link.href && "border-indigo-500"
+                        }`}
                       >
                         {link.title}
                       </a>
