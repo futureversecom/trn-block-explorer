@@ -1,5 +1,6 @@
 import Head from "next/head";
-import Image from "next/image";
+import BlocksWidget from "./component/blocksWidget";
+import TransfersWidget from "./component/transfersWidget";
 
 export default function Home() {
   return (
@@ -10,9 +11,14 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <h1>Root Block Explorer</h1>
-      </main>
+      <div className="overflow-hidden lg:pb-32 xl:pb-36 ">
+        <div className="mx-auto max-w-7xl py-10 px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 gap-5">
+            <BlocksWidget />
+            <TransfersWidget />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
