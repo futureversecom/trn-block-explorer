@@ -1,6 +1,6 @@
 export default function Search() {
   return (
-    <div className="bg-white">
+    <div className="bg-white border-b border-b-gray-200">
       <div className="mx-auto max-w-7xl py-3 px-4 sm:px-6 lg:px-8">
         <div className="border border-gray-300 rounded-md flex flex-row justify-between">
           <div className="w-full">

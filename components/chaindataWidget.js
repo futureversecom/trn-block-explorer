@@ -3,6 +3,7 @@ import { sleep } from "../utils/utils";
 import { useQuery } from "@tanstack/react-query";
 import * as clientApi from "../utils/client";
 import CountUp from "react-countup";
+import RefetchIndicator from "./refetchIndicator";
 
 export default function ChaindataWidget() {
   const query = useQuery(
@@ -22,12 +23,17 @@ export default function ChaindataWidget() {
   return (
     <div>
       <div className="flex flex-row justify-between py-3">
-        <div className="flex">
+        <div className="flex flex-row">
           <ArrowsRightLeftIcon className="h-5 my-auto pr-3" />
           <h3 className="text-md font-medium leading-6 text-gray-900">
             Chaindata
           </h3>
         </div>
+        {query.isRefetching && (
+          <div>
+            <RefetchIndicator />
+          </div>
+        )}
       </div>
       <div className="space-y-3">
         <dl className="mt-5 grid grid-cols-1 divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow md:grid-cols-3 md:divide-y-0 md:divide-x">
@@ -38,7 +44,7 @@ export default function ChaindataWidget() {
               </dt>
               <dd className="mt-1 flex items-baseline justify-between md:block lg:flex">
                 <div className="flex items-baseline text-2xl font-semibold text-indigo-600">
-                  <CountUp end={item.stat} separator={','} />
+                  <CountUp end={item.stat} separator={","} />
                 </div>
               </dd>
             </div>
