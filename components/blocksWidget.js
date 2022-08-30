@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { sleep } from "../utils/utils";
 import * as clientApi from "../utils/client";
 import TimeAgo from "react-timeago";
+import RefetchIndicator from "./refetchIndicator";
 
 export default function BlocksWidget() {
   const query = useQuery(
@@ -30,6 +31,9 @@ export default function BlocksWidget() {
           </h3>
         </div>
         <div>
+          {query.isRefetching && (
+           <RefetchIndicator/>
+          )}
           <Link href={"/blocks"}>
             <button
               type="button"
