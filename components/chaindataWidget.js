@@ -11,7 +11,7 @@ export default function ChaindataWidget() {
     ["chaindataFrontpage"],
     async () => {
       console.log("Fetching chaindataFrontpage");
-      await sleep(1500);
+      await sleep();
       return clientApi.getLatestChainData();
     },
     {

@@ -12,7 +12,7 @@ export default function TransfersWidget() {
     ["transferFrontpage"],
     async () => {
       console.log("Fething transferFrontpage");
-      await sleep(1500);
+      await sleep();
       return clientApi.getLatestTransfers();
     },
     {

@@ -7,7 +7,8 @@ import LoadingBlock from "../../components/loadingBlock";
 import * as clientApi from "../../utils/client";
 import moment from "moment";
 import { sleep } from "../../utils/utils";
-import Link from 'next/link'
+import Link from "next/link";
+import BlockFinalizedIcon from "../../components/icons/blockFinalizedIcon";
 
 export default function Block() {
   const router = useRouter();
@@ -16,7 +17,7 @@ export default function Block() {
     [`blocknumber_${blocknumber}`],
     async () => {
       console.log(`Fetching block ${blocknumber}`);
-      await sleep(1500);
+      await sleep();
       return clientApi.getBlock();
     },
     {
@@ -57,7 +58,15 @@ export default function Block() {
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                   <dt className="text-sm font-medium text-gray-900">Status</dt>
                   <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
-                    {query.data.status ? "Finalized" : "Unfinalized"}
+                    <div className="flex flex-row space-x-3">
+                      {query.data.status ? (
+                        <>
+                          <BlockFinalizedIcon />
+                        </>
+                      ) : (
+                        "Unfinalized"
+                      )}
+                    </div>
                   </dd>
                 </div>
 

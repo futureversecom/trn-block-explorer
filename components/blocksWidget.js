@@ -17,7 +17,7 @@ export default function BlocksWidget() {
     ["blocksFrontpage"],
     async () => {
       console.log("Fetching blocksFrontpage");
-      await sleep(1500);
+      await sleep();
       return clientApi.getLatestBlocks();
     },
     {
