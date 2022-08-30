@@ -1,4 +1,4 @@
-import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import { ArrowsRightLeftIcon, CheckCircleIcon } from "@heroicons/react/24/outline";
 import { formatAddress, sleep } from "../utils/utils";
 import { useQuery } from "@tanstack/react-query";
 import * as clientApi from "../utils/client";
@@ -69,7 +69,10 @@ const TransferItem = ({ from, to, id, timestamp, amount, status }) => {
         <div className="text-sm font-bold">
           Extrinsic# <span className="text-lg">{id}</span>
         </div>
-        <div>{amount} ROOT</div>
+        <div className="flex my-auto">
+          {amount} ROOT{" "}
+          <CheckCircleIcon className="h-5 my-auto pl-2 text-green-700" />
+        </div>
       </div>
       <div className="flex flex-row justify-between">
         <div>
@@ -86,7 +89,7 @@ const TransferItem = ({ from, to, id, timestamp, amount, status }) => {
             </span>
           </Link>
         </div>
-        <div className="text-sm">
+        <div className="text-sm text-gray-600">
           <TimeAgo date={timestamp} />
         </div>
       </div>

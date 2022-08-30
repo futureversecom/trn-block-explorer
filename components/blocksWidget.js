@@ -86,7 +86,7 @@ const BlockItem = ({ height, extrinsics, events, timestamp, status }) => {
           <span className="text-indigo-500">{events} Events</span>{" "}
         </div>
         <div className="flex space-x-3">
-          <div className="text-sm">
+          <div className="text-sm text-gray-600">
             <TimeAgo date={timestamp} />
           </div>
           <div>
