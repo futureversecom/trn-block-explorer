@@ -1,11 +1,12 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { formatAddress, sleep } from "../utils/utils";
-import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import * as clientApi from "../utils/client";
 import TimeAgo from "react-timeago";
 import RefetchIndicator from "./refetchIndicator";
 import LoadingBlock from "./loadingBlock";
+import Link from "next/link";
+
 export default function TransfersWidget() {
   const query = useQuery(
     ["transferFrontpage"],
@@ -73,9 +74,17 @@ const TransferItem = ({ from, to, id, timestamp, amount, status }) => {
       <div className="flex flex-row justify-between">
         <div>
           <span className="text-gray-500">From</span>{" "}
-          <span className="text-indigo-500">{formatAddress(from)}</span>{" "}
+          <Link href={`/account/${from}`}>
+            <span className="text-indigo-500 cursor-pointer">
+              {formatAddress(from)}
+            </span>
+          </Link>{" "}
           <span className="text-gray-500">to</span>{" "}
-          <span className="text-indigo-500">{formatAddress(to)}</span>
+          <Link href={`/account/${to}`}>
+            <span className="text-indigo-500 cursor-pointer">
+              {formatAddress(to)}
+            </span>
+          </Link>
         </div>
         <div className="text-sm">
           <TimeAgo date={timestamp} />
