@@ -7,6 +7,8 @@ import * as clientApi from "../utils/client";
 import LoadingBlock from "../components/loadingBlock";
 import TimeAgo from "react-timeago";
 import { formatAddress } from "../utils/utils";
+import BlockFinalizedIcon from "../components/icons/blockFinalizedIcon";
+
 export default function Blocks() {
   const query = useQuery(
     ["blocks"],
@@ -86,7 +88,7 @@ export default function Blocks() {
                           {block.height}
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {block.status ? "yes" : "no"}
+                          <BlockFinalizedIcon status={block.status} />
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                           <TimeAgo date={block.timestamp} />

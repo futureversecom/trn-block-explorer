@@ -1,4 +1,6 @@
-import { ArrowsRightLeftIcon, CheckCircleIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowsRightLeftIcon
+} from "@heroicons/react/24/outline";
 import { formatAddress, sleep } from "../utils/utils";
 import { useQuery } from "@tanstack/react-query";
 import * as clientApi from "../utils/client";
@@ -6,6 +8,7 @@ import TimeAgo from "react-timeago";
 import RefetchIndicator from "./refetchIndicator";
 import LoadingBlock from "./loadingBlock";
 import Link from "next/link";
+import BlockFinalizedIcon from "./icons/blockFinalizedIcon";
 
 export default function TransfersWidget() {
   const query = useQuery(
@@ -70,8 +73,7 @@ const TransferItem = ({ from, to, id, timestamp, amount, status }) => {
           Extrinsic# <span className="text-lg">{id}</span>
         </div>
         <div className="flex my-auto">
-          {amount} ROOT{" "}
-          <CheckCircleIcon className="h-5 my-auto pl-2 text-green-700" />
+          {amount} ROOT <BlockFinalizedIcon status={status} />
         </div>
       </div>
       <div className="flex flex-row justify-between">

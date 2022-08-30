@@ -59,13 +59,7 @@ export default function Block() {
                   <dt className="text-sm font-medium text-gray-900">Status</dt>
                   <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
                     <div className="flex flex-row space-x-3">
-                      {query.data.status ? (
-                        <>
-                          <BlockFinalizedIcon />
-                        </>
-                      ) : (
-                        "Unfinalized"
-                      )}
+                      <BlockFinalizedIcon status={query.data.status} />
                     </div>
                   </dd>
                 </div>

@@ -1,8 +1,4 @@
-import {
-  CubeIcon,
-  CheckCircleIcon,
-  ExclamationCircleIcon,
-} from "@heroicons/react/24/outline";
+import { CubeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { sleep } from "../utils/utils";
@@ -90,11 +86,7 @@ const BlockItem = ({ height, extrinsics, events, timestamp, status }) => {
             <TimeAgo date={timestamp} />
           </div>
           <div>
-            {status == true ? (
-              <BlockFinalizedIcon />
-            ) : (
-              <ExclamationCircleIcon className="h-5 my-auto text-red-700" />
-            )}
+            <BlockFinalizedIcon status={status} />
           </div>
         </div>
       </div>
