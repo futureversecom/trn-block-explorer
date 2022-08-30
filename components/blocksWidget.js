@@ -1,7 +1,24 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
+import { sleep } from "../utils/utils";
+import * as clientApi from "../utils/client";
 
 export default function BlocksWidget() {
+  const query = useQuery(
+    ["blocksFrontpage"],
+    async () => {
+      console.log("Fething blocksFrontpage");
+      await sleep(1500);
+      return clientApi.getLatestBlocks();
+    },
+    {
+      refetchInterval: 15000,
+    }
+  );
+
+  if (query.isLoading) return "Loading blocks..";
+
   return (
     <div>
       <div className="flex flex-row justify-between py-3">

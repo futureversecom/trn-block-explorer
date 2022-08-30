@@ -1,5 +1,5 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import { formatAddress } from "../utils/utils";
+import { formatAddress, sleep } from "../utils/utils";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import * as clientApi from "../utils/client";
@@ -7,8 +7,9 @@ import * as clientApi from "../utils/client";
 export default function TransfersWidget() {
   const query = useQuery(
     ["transferFrontpage"],
-    () => {
-      console.log('Fething transferFrontpage')
+    async () => {
+      console.log("Fething transferFrontpage");
+      await sleep(1500);
       return clientApi.getLatestTransfers();
     },
     {
@@ -16,7 +17,7 @@ export default function TransfersWidget() {
     }
   );
 
-  if (query.isLoading) return "Loading..";
+  if (query.isLoading) return "Loading transfers..";
 
   return (
     <div>
