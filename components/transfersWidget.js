@@ -7,6 +7,7 @@ import RefetchIndicator from "./refetchIndicator";
 import LoadingBlock from "./loadingBlock";
 import Link from "next/link";
 import BlockFinalizedIcon from "./icons/blockFinalizedIcon";
+import { getCurrentNativeCurrencyName } from "../utils/networkSwitcherUtils";
 
 export default function TransfersWidget() {
   const query = useQuery(
@@ -71,7 +72,7 @@ const TransferItem = ({ from, to, id, timestamp, amount, status }) => {
           Extrinsic# <span className="text-lg">{id}</span>
         </div>
         <div className="flex my-auto">
-          {amount} {"Root"}{" "}
+          {amount} {getCurrentNativeCurrencyName()} {" "}
           <BlockFinalizedIcon status={status} />
         </div>
       </div>
