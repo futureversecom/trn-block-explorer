@@ -9,6 +9,7 @@ import moment from "moment";
 import { sleep } from "../../utils/utils";
 import Link from "next/link";
 import BlockFinalizedIcon from "../../components/icons/blockFinalizedIcon";
+import TimeAgo from "react-timeago";
 
 export default function Block() {
   const router = useRouter();
@@ -51,7 +52,10 @@ export default function Block() {
                     Timestamp
                   </dt>
                   <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
-                    {moment(query.data.timestamp).format("LLL")}
+                    {moment(query.data.timestamp).format("LLL")}{" "}
+                    <span className="text-xs ml-3">
+                      <TimeAgo date={query.data.timestamp} />
+                    </span>
                   </dd>
                 </div>
 
