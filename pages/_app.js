@@ -6,8 +6,6 @@ import Footer from "../components/footer";
 const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }) {
-
-
   return (
     <QueryClientProvider client={queryClient}>
       <div className="h-full min-h-screen bg-[#fbfbfd]">

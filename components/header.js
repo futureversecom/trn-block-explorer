@@ -113,6 +113,7 @@ export default function Header() {
                                   )}
                                   onClick={() => {
                                     setActiveChain(chain.id);
+                                    window.location.reload();
                                   }}
                                 >
                                   {chain.chainName}

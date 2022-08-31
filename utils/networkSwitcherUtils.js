@@ -3,7 +3,7 @@ import { setCookie, getCookie } from "cookies-next";
 
 const cookieKey = "currentChain";
 
-const getCurrentActiveChain = () => {
+export const getCurrentActiveChain = () => {
   const val = getCookie("currentChain");
   if (!val) {
     return 0;
