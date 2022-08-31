@@ -27,3 +27,11 @@ export const getActiveGraphQLUrl = () => {
 export const getCurrentNativeCurrencyName = () => {
   return chains[getCurrentActiveChain()].currencyName;
 };
+
+export const getActiveRPCUrl = () => {
+  return chains[getCurrentActiveChain()].rpcUrl;
+};
+
+export const getActiveChainDecimals = () => {
+  return chains[getCurrentActiveChain()].decimals;
+};

@@ -6,7 +6,7 @@
     "graphQlUri": "mainnet",
     "currencyName": "Root",
     "decimals": 18,
-    "rpcUrl": "rpchere"
+    "rpcUrl": "wss://moonbeam.public.blastapi.io"
   },
   {
     "id": 1,
@@ -15,6 +15,6 @@
     "graphQlUri": "testnet",
     "currencyName": "tRoot",
     "decimals": 18,
-    "rpcUrl": "rpchere"
+    "rpcUrl": "wss://moonbase-alpha.public.blastapi.io"
   }
 ]
