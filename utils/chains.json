@@ -1,0 +1,14 @@
+[
+  {
+    "id": 0,
+    "chainName": "Root Mainnet",
+    "graphQlUri": "mainnet",
+    "currencyName": "Root"
+  },
+  {
+    "id": 1,
+    "chainName": "Root Testnet",
+    "graphQlUri": "testnet",
+    "currencyName": "tRoot"
+  }
+]

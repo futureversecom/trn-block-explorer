@@ -5,10 +5,13 @@ export const getLatestTransfers = () => {
     a.push({
       id: Math.floor(Math.random() * 10000),
       timestamp: Math.floor(new Date().getTime()) - i * 1000,
+      status: i % 2,
+      amount: Math.floor(Math.random() * 10) ** 18,
     });
   }
   return a;
 };
+
 export const getLatestBlocks = () => {
   let a = [];
   let startBlock = Math.floor(Math.random() * 10000);

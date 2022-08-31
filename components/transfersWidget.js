@@ -1,6 +1,4 @@
-import {
-  ArrowsRightLeftIcon
-} from "@heroicons/react/24/outline";
+import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { formatAddress, sleep } from "../utils/utils";
 import { useQuery } from "@tanstack/react-query";
 import * as clientApi from "../utils/client";
@@ -55,8 +53,8 @@ export default function TransfersWidget() {
               to={"0xF3918988Eb3Ce66527E2a1a4D42C303915cE28CE"}
               id={item.id}
               timestamp={item.timestamp}
-              amount={"1234"}
-              status={true}
+              amount={item.amount}
+              status={item.status}
             />
           ))}
         </div>
@@ -73,7 +71,8 @@ const TransferItem = ({ from, to, id, timestamp, amount, status }) => {
           Extrinsic# <span className="text-lg">{id}</span>
         </div>
         <div className="flex my-auto">
-          {amount} ROOT <BlockFinalizedIcon status={status} />
+          {amount} {"Root"}{" "}
+          <BlockFinalizedIcon status={status} />
         </div>
       </div>
       <div className="flex flex-row justify-between">

@@ -3,7 +3,10 @@ import BlocksWidget from "../components/blocksWidget";
 import TransfersWidget from "../components/transfersWidget";
 import ChaindataWidget from "../components/chaindataWidget";
 
+
 export default function Home() {
+  
+
   return (
     <div>
       <Head>
