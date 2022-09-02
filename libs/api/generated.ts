@@ -1984,6 +1984,13 @@ export type Transfers_TransfersConnection = {
   totalCount: Scalars['Int'];
 };
 
+export type GetAccountsQueryVariables = Exact<{
+  limit: Scalars['Int'];
+}>;
+
+
+export type GetAccountsQuery = { __typename?: 'query_root', balances?: { __typename?: 'balancesQuery', accounts: Array<{ __typename?: 'balances_Account', free: any, id: string, reserved: any, total: any, updatedAt?: number | null }> } | null };
+
 export type GetBalancesQueryVariables = Exact<{
   limit: Scalars['Int'];
 }>;
@@ -2013,6 +2020,33 @@ export type GetTransfersQueryVariables = Exact<{
 export type GetTransfersQuery = { __typename?: 'query_root', transfers?: { __typename?: 'transfersQuery', transfers: Array<{ __typename?: 'transfers_Transfer', timestamp: any, status: Transfers_AssetStatus, id: string, extrinsicHash?: string | null, blockNumber: number, assetId: string, amount: any, from: { __typename?: 'transfers_Account', id: string }, to: { __typename?: 'transfers_Account', id: string } }> } | null };
 
 
+export const GetAccountsDocument = `
+    query GetAccounts($limit: Int!) {
+  balances {
+    accounts(orderBy: total_DESC, limit: $limit) {
+      free
+      id
+      reserved
+      total
+      updatedAt
+    }
+  }
+}
+    `;
+export const useGetAccountsQuery = <
+      TData = GetAccountsQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables: GetAccountsQueryVariables,
+      options?: UseQueryOptions<GetAccountsQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<GetAccountsQuery, TError, TData>(
+      ['GetAccounts', variables],
+      fetcher<GetAccountsQuery, GetAccountsQueryVariables>(client, GetAccountsDocument, variables, headers),
+      options
+    );
 export const GetBalancesDocument = `
     query GetBalances($limit: Int!) {
   balances {

@@ -6,27 +6,27 @@ import LoadingBlock from "../components/loadingBlock";
 import TimeAgo from "react-timeago";
 import { formatAddress } from "../utils/utils";
 import BlockFinalizedIcon from "../components/icons/blockFinalizedIcon";
-import { useGetTransfersQuery } from "../libs/api/generated.ts";
+import { useGetAccountsQuery } from "../libs/api/generated.ts";
 import { usePolling } from "../libs/hooks/usePolling";
 import { ethers } from "ethers";
 
-export default function Transfers() {
-  let query = usePolling({}, useGetTransfersQuery, {
+export default function Accounts() {
+  let query = usePolling({}, useGetAccountsQuery, {
     limit: 20,
   });
 
-  query.data = query?.data?.transfers?.transfers;
+  query.data = query?.data?.balances?.accounts;
 
   console.log(query);
 
   return (
     <ContainerLayout>
       <PageHeader
-        title={`Transfers`}
+        title={`Accounts`}
         icon={<CubeIcon className="my-auto h-5 pr-3" />}
       />
       {query.isLoading ? (
-        <LoadingBlock title={"transfers"} />
+        <LoadingBlock title={"accounts"} />
       ) : (
         <div className="mt-8 flex flex-col">
           <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -37,80 +37,58 @@ export default function Transfers() {
                     <tr>
                       <th
                         scope="col"
-                        className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                        className="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-gray-900 sm:pl-6"
                       >
-                        Hash
+                        Rank
                       </th>
                       <th
                         scope="col"
                         className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                       >
-                        Height
+                        Account
+                      </th>
+                      <th
+                        scope="col"
+                        className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                      >
+                        Free
                       </th>
                       <th
                         scope="col"
                         className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                       >
-                        Status
+                        Reserved
                       </th>
                       <th
                         scope="col"
                         className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                       >
-                        Time
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                      >
-                        Amount
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                      >
-                        from
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                      >
-                        to
+                        Total
                       </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 bg-white">
-                    {query.data.map((transfer, key) => (
+                    {query.data.map((account, key) => (
                       <tr key={key}>
-                        <Link href={`/transfer/${transfer.height}`}>
+                        <td className="font-mediumsm:pl-6 cursor-pointer whitespace-nowrap py-4 pl-4 pr-3 text-center text-sm">
+                          # {key + 1}
+                        </td>
+                        <Link href={`/accounts/${account.id}`}>
                           <td className="cursor-pointer whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-indigo-500 sm:pl-6">
-                            {formatAddress(transfer.extrinsicHash, 12)}
+                            {formatAddress(account.id)}
                           </td>
                         </Link>
-                        <Link href={`/transfer/${transfer.blockNumber}`}>
-                          <td className="cursor-pointer whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-indigo-500 sm:pl-6">
-                            {transfer.blockNumber}
+                        <Link href={`/transfer/${account.blockNumber}`}>
+                          <td className="cursor-pointer whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-500 sm:pl-6">
+                            {ethers.utils.formatEther(account.free)} Root
                           </td>
                         </Link>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          <BlockFinalizedIcon status={true} />
+                          {ethers.utils.formatEther(account.reserved)} Root
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          <TimeAgo date={transfer.timestamp} />
+                          {ethers.utils.formatEther(account.total)} Root
                         </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {ethers.utils.formatEther(transfer.amount)} Root
-                        </td>
-                        <Link href={`/account/${transfer.from.id}`}>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-indigo-500 cursor-pointer font-semibold">
-                            {formatAddress(transfer?.from?.id) || "?"}
-                          </td>
-                        </Link>
-                        <Link href={`/account/${transfer.to.id}`}>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-indigo-500 cursor-pointer font-semibold">
-                            {formatAddress(transfer?.to?.id) || "? "}
-                          </td>
-                        </Link>
                       </tr>
                     ))}
                   </tbody>

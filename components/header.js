@@ -26,6 +26,10 @@ const links = [
     title: "Transfers",
     href: "/transfers",
   },
+  {
+    title: "Accounts",
+    href: "/accounts",
+  },
 ];
 
 function classNames(...classes) {
