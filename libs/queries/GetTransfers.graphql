@@ -1,6 +1,6 @@
-query GetLatestTenTransfers {
+query GetTransfers($limit: Int!) {
   transfers {
-    transfers(orderBy: blockNumber_DESC, limit: 10) {
+    transfers(orderBy: blockNumber_DESC, limit: $limit) {
       timestamp
       status
       id

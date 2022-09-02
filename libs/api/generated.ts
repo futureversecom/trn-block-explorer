@@ -2005,10 +2005,12 @@ export type GetBlocksQueryVariables = Exact<{
 
 export type GetBlocksQuery = { __typename?: 'query_root', archive?: { __typename?: 'archiveQuery', blocks: Array<{ __typename?: 'archive_Block', hash: string, height: number, id: string, parentHash: string, timestamp: any, validator?: string | null, spec: { __typename?: 'archive_Metadata', specVersion?: number | null, specName: string } }> } | null };
 
-export type GetLatestTenTransfersQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetTransfersQueryVariables = Exact<{
+  limit: Scalars['Int'];
+}>;
 
 
-export type GetLatestTenTransfersQuery = { __typename?: 'query_root', transfers?: { __typename?: 'transfersQuery', transfers: Array<{ __typename?: 'transfers_Transfer', timestamp: any, status: Transfers_AssetStatus, id: string, extrinsicHash?: string | null, blockNumber: number, assetId: string, amount: any, from: { __typename?: 'transfers_Account', id: string }, to: { __typename?: 'transfers_Account', id: string } }> } | null };
+export type GetTransfersQuery = { __typename?: 'query_root', transfers?: { __typename?: 'transfersQuery', transfers: Array<{ __typename?: 'transfers_Transfer', timestamp: any, status: Transfers_AssetStatus, id: string, extrinsicHash?: string | null, blockNumber: number, assetId: string, amount: any, from: { __typename?: 'transfers_Account', id: string }, to: { __typename?: 'transfers_Account', id: string } }> } | null };
 
 
 export const GetBalancesDocument = `
@@ -2101,10 +2103,10 @@ export const useGetBlocksQuery = <
       fetcher<GetBlocksQuery, GetBlocksQueryVariables>(client, GetBlocksDocument, variables, headers),
       options
     );
-export const GetLatestTenTransfersDocument = `
-    query GetLatestTenTransfers {
+export const GetTransfersDocument = `
+    query GetTransfers($limit: Int!) {
   transfers {
-    transfers(orderBy: blockNumber_DESC, limit: 10) {
+    transfers(orderBy: blockNumber_DESC, limit: $limit) {
       timestamp
       status
       id
@@ -2122,17 +2124,17 @@ export const GetLatestTenTransfersDocument = `
   }
 }
     `;
-export const useGetLatestTenTransfersQuery = <
-      TData = GetLatestTenTransfersQuery,
+export const useGetTransfersQuery = <
+      TData = GetTransfersQuery,
       TError = unknown
     >(
       client: GraphQLClient,
-      variables?: GetLatestTenTransfersQueryVariables,
-      options?: UseQueryOptions<GetLatestTenTransfersQuery, TError, TData>,
+      variables: GetTransfersQueryVariables,
+      options?: UseQueryOptions<GetTransfersQuery, TError, TData>,
       headers?: RequestInit['headers']
     ) =>
-    useQuery<GetLatestTenTransfersQuery, TError, TData>(
-      variables === undefined ? ['GetLatestTenTransfers'] : ['GetLatestTenTransfers', variables],
-      fetcher<GetLatestTenTransfersQuery, GetLatestTenTransfersQueryVariables>(client, GetLatestTenTransfersDocument, variables, headers),
+    useQuery<GetTransfersQuery, TError, TData>(
+      ['GetTransfers', variables],
+      fetcher<GetTransfersQuery, GetTransfersQueryVariables>(client, GetTransfersDocument, variables, headers),
       options
     );

@@ -6,11 +6,11 @@ import BlockFinalizedIcon from "./icons/blockFinalizedIcon";
 import { getCurrentNativeCurrencyName } from "../utils/networkSwitcherUtils";
 import { ethers } from "ethers";
 import RefetchIndicator from "./refetchIndicator";
-import { useGetLatestTenTransfersQuery } from "../libs/api/generated.ts";
+import { useGetTransfersQuery } from "../libs/api/generated.ts";
 import { usePolling } from "../libs/hooks/usePolling";
 
 export default function TransfersWidget() {
-  const query = usePolling({}, useGetLatestTenTransfersQuery);
+  const query = usePolling({}, useGetTransfersQuery, { limit: 10 });
   const transfers = query?.data?.transfers?.transfers;
 
   return (
