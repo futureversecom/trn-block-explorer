@@ -17,8 +17,6 @@ export default function Transfers() {
 
   query.data = query?.data?.transfers?.transfers;
 
-  console.log(query);
-
   return (
     <ContainerLayout>
       <PageHeader
@@ -82,7 +80,7 @@ export default function Transfers() {
                   <tbody className="divide-y divide-gray-200 bg-white">
                     {query.data.map((transfer, key) => (
                       <tr key={key}>
-                        <Link href={`/transfer/${transfer.height}`}>
+                        <Link href={`/transfer/${transfer.extrinsicHash}`}>
                           <td className="cursor-pointer whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-indigo-500 sm:pl-6">
                             {formatAddress(transfer.extrinsicHash, 12)}
                           </td>

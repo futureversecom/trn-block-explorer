@@ -78,11 +78,10 @@ export default function Accounts() {
                             {formatAddress(account.id)}
                           </td>
                         </Link>
-                        <Link href={`/transfer/${account.blockNumber}`}>
-                          <td className="cursor-pointer whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-500 sm:pl-6">
-                            {ethers.utils.formatEther(account.free)} Root
-                          </td>
-                        </Link>
+                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-500 sm:pl-6">
+                          {ethers.utils.formatEther(account.free)} Root
+                        </td>
+
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                           {ethers.utils.formatEther(account.reserved)} Root
                         </td>
