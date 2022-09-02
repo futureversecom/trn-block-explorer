@@ -73,7 +73,7 @@ export default function Accounts() {
                         <td className="font-mediumsm:pl-6 cursor-pointer whitespace-nowrap py-4 pl-4 pr-3 text-center text-sm">
                           # {key + 1}
                         </td>
-                        <Link href={`/accounts/${account.id}`}>
+                        <Link href={`/account/${account.id}`}>
                           <td className="cursor-pointer whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-indigo-500 sm:pl-6">
                             {formatAddress(account.id)}
                           </td>

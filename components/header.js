@@ -69,7 +69,7 @@ export default function Header() {
                     <Link href={link.href} key={key}>
                       <a
                         key={key}
-                        className={`inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium text-gray-900 ${
+                        className={`inline-flex items-center border-b-2 px-1 pt-1 text-sm text-gray-900 ${
                           router.pathname === link.href && "border-indigo-500"
                         }`}
                       >

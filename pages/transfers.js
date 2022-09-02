@@ -69,13 +69,13 @@ export default function Transfers() {
                         scope="col"
                         className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                       >
-                        from
+                        From
                       </th>
                       <th
                         scope="col"
                         className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                       >
-                        to
+                        To
                       </th>
                     </tr>
                   </thead>
@@ -102,12 +102,12 @@ export default function Transfers() {
                           {ethers.utils.formatEther(transfer.amount)} Root
                         </td>
                         <Link href={`/account/${transfer.from.id}`}>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-indigo-500 cursor-pointer font-semibold">
+                          <td className="cursor-pointer whitespace-nowrap px-3 py-4 text-sm font-semibold text-indigo-500">
                             {formatAddress(transfer?.from?.id) || "?"}
                           </td>
                         </Link>
                         <Link href={`/account/${transfer.to.id}`}>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-indigo-500 cursor-pointer font-semibold">
+                          <td className="cursor-pointer whitespace-nowrap px-3 py-4 text-sm font-semibold text-indigo-500">
                             {formatAddress(transfer?.to?.id) || "? "}
                           </td>
                         </Link>
