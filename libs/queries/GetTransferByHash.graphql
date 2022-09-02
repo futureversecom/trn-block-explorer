@@ -1,0 +1,19 @@
+query GetTransferByHash($hash: String!) {
+  transfers {
+    transfers(where: { extrinsicHash_eq: $hash }) {
+      id
+      amount
+      assetId
+      blockNumber
+      extrinsicHash
+      status
+      timestamp
+      to {
+        id
+      }
+      from {
+        id
+      }
+    }
+  }
+}

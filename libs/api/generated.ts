@@ -2012,6 +2012,13 @@ export type GetBlocksQueryVariables = Exact<{
 
 export type GetBlocksQuery = { __typename?: 'query_root', archive?: { __typename?: 'archiveQuery', blocks: Array<{ __typename?: 'archive_Block', hash: string, height: number, id: string, parentHash: string, timestamp: any, validator?: string | null, spec: { __typename?: 'archive_Metadata', specVersion?: number | null, specName: string } }> } | null };
 
+export type GetTransferByHashQueryVariables = Exact<{
+  hash: Scalars['String'];
+}>;
+
+
+export type GetTransferByHashQuery = { __typename?: 'query_root', transfers?: { __typename?: 'transfersQuery', transfers: Array<{ __typename?: 'transfers_Transfer', id: string, amount: any, assetId: string, blockNumber: number, extrinsicHash?: string | null, status: Transfers_AssetStatus, timestamp: any, to: { __typename?: 'transfers_Account', id: string }, from: { __typename?: 'transfers_Account', id: string } }> } | null };
+
 export type GetTransfersQueryVariables = Exact<{
   limit: Scalars['Int'];
 }>;
@@ -2135,6 +2142,41 @@ export const useGetBlocksQuery = <
     useQuery<GetBlocksQuery, TError, TData>(
       ['GetBlocks', variables],
       fetcher<GetBlocksQuery, GetBlocksQueryVariables>(client, GetBlocksDocument, variables, headers),
+      options
+    );
+export const GetTransferByHashDocument = `
+    query GetTransferByHash($hash: String!) {
+  transfers {
+    transfers(where: {extrinsicHash_eq: $hash}) {
+      id
+      amount
+      assetId
+      blockNumber
+      extrinsicHash
+      status
+      timestamp
+      to {
+        id
+      }
+      from {
+        id
+      }
+    }
+  }
+}
+    `;
+export const useGetTransferByHashQuery = <
+      TData = GetTransferByHashQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables: GetTransferByHashQueryVariables,
+      options?: UseQueryOptions<GetTransferByHashQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<GetTransferByHashQuery, TError, TData>(
+      ['GetTransferByHash', variables],
+      fetcher<GetTransferByHashQuery, GetTransferByHashQueryVariables>(client, GetTransferByHashDocument, variables, headers),
       options
     );
 export const GetTransfersDocument = `
