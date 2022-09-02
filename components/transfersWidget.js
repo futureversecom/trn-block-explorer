@@ -1,38 +1,21 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import { formatAddress, sleep } from "../utils/utils";
-import { useQuery } from "@tanstack/react-query";
-import * as clientApi from "../utils/client";
+import { formatAddress } from "../utils/utils";
 import TimeAgo from "react-timeago";
-import RefetchIndicator from "./refetchIndicator";
-import LoadingBlock from "./loadingBlock";
 import Link from "next/link";
 import BlockFinalizedIcon from "./icons/blockFinalizedIcon";
 import { getCurrentNativeCurrencyName } from "../utils/networkSwitcherUtils";
-
-export default function TransfersWidget() {
-  const query = useQuery(
-    ["transferFrontpage"],
-    async () => {
-      console.log("Fething transferFrontpage");
-      await sleep();
-      return clientApi.getLatestTransfers();
-    },
-    {
-      refetchInterval: 5000,
-    }
-  );
-
+import { ethers } from "ethers";
+export default function TransfersWidget({ transfers }) {
   return (
     <div>
       <div className="flex flex-row justify-between py-3">
         <div className="flex">
-          <ArrowsRightLeftIcon className="h-5 my-auto pr-3" />
+          <ArrowsRightLeftIcon className="my-auto h-5 pr-3" />
           <h3 className="text-md font-medium leading-6 text-gray-900">
             Transfers
           </h3>
         </div>
         <div>
-          {query.isRefetching && <RefetchIndicator />}
           <Link href={"/transfers"}>
             <button
               type="button"
@@ -43,23 +26,20 @@ export default function TransfersWidget() {
           </Link>
         </div>
       </div>
-      {query.isLoading ? (
-        <LoadingBlock title="Transfers" />
-      ) : (
-        <div className=" bg-white px-4 py-3 sm:px-6 border border-gray-100 rounded-md shadow-md divide-y">
-          {query?.data?.map((item, key) => (
-            <TransferItem
-              key={key}
-              from={"0xbE4c83Bf1dF0748804B2A92c5Bb81Ab6cCc0B94F"}
-              to={"0xF3918988Eb3Ce66527E2a1a4D42C303915cE28CE"}
-              id={item.id}
-              timestamp={item.timestamp}
-              amount={item.amount}
-              status={item.status}
-            />
-          ))}
-        </div>
-      )}
+
+      <div className=" divide-y rounded-md border border-gray-100 bg-white px-4 py-3 shadow-md sm:px-6">
+        {transfers?.map((item, key) => (
+          <TransferItem
+            key={key}
+            from={item?.from?.id}
+            to={item?.to?.id}
+            id={formatAddress(item.extrinsicHash)}
+            timestamp={item.timestamp}
+            amount={item.amount}
+            status={item.status === "TRANSFERRED" ? true : false}
+          />
+        ))}
+      </div>
     </div>
   );
 }
@@ -71,8 +51,9 @@ const TransferItem = ({ from, to, id, timestamp, amount, status }) => {
         <div className="text-sm font-bold">
           Extrinsic# <span className="text-lg">{id}</span>
         </div>
-        <div className="flex my-auto">
-          {amount} {getCurrentNativeCurrencyName()} {" "}
+        <div className="my-auto flex">
+          {ethers.utils.formatEther(amount.toString()).toString()}{" "}
+          {getCurrentNativeCurrencyName()}{" "}
           <BlockFinalizedIcon status={status} />
         </div>
       </div>
@@ -80,13 +61,13 @@ const TransferItem = ({ from, to, id, timestamp, amount, status }) => {
         <div>
           <span className="text-gray-500">From</span>{" "}
           <Link href={`/account/${from}`}>
-            <span className="text-indigo-500 cursor-pointer">
+            <span className="cursor-pointer text-indigo-500">
               {formatAddress(from)}
             </span>
           </Link>{" "}
           <span className="text-gray-500">to</span>{" "}
           <Link href={`/account/${to}`}>
-            <span className="text-indigo-500 cursor-pointer">
+            <span className="cursor-pointer text-indigo-500">
               {formatAddress(to)}
             </span>
           </Link>

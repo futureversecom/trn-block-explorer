@@ -1,0 +1,19 @@
+query GetLatestTenTransfers {
+  transfers {
+    transfers(orderBy: blockNumber_DESC, limit: 10) {
+      timestamp
+      status
+      id
+      extrinsicHash
+      blockNumber
+      assetId
+      amount
+      from {
+        id
+      }
+      to {
+        id
+      }
+    }
+  }
+}

@@ -69,7 +69,7 @@ export default function Footer() {
           {query.isLoading ? (
             "Loading"
           ) : (
-            <h1>Latest Block: {Number(query.data.number)}</h1>
+            <h1>Latest Block: {Number(query.data?.number)}</h1>
           )}
         </div>
       </div>

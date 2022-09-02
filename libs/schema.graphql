@@ -1,0 +1,937 @@
+schema {
+  query: query_root
+  subscription: subscription_root
+}
+
+"""whether this query should be cached (Hasura Cloud only)"""
+directive @cached(
+  """measured in seconds"""
+  ttl: Int! = 60
+
+  """refresh the cache entry"""
+  refresh: Boolean! = false
+) on QUERY
+
+type Batch {
+  calls: [JSON!]!
+  events: [JSON!]!
+  extrinsics: [JSON!]!
+  header: BlockHeader!
+}
+
+type BlockHeader {
+  extrinsicsRoot: String!
+  hash: String!
+  height: Int!
+  id: String!
+  parentHash: String!
+  specId: String!
+  stateRoot: String!
+  timestamp: DateTime!
+  validator: String
+}
+
+input CallDataSelection {
+  call: CallFields
+  extrinsic: ExtrinsicFields
+}
+
+input CallFields {
+  _all: Boolean
+  args: Boolean
+  error: Boolean
+  origin: Boolean
+  parent: ParentCallFields
+}
+
+input CallSelectionInput {
+  data: CallDataSelection
+  name: String!
+}
+
+"""
+Implement the DateTime<Utc> scalar
+
+The input/output is a string in RFC3339 format.
+"""
+scalar DateTime
+
+input EthereumTransactionSelection {
+  contract: String!
+  data: CallDataSelection
+  sighash: String
+}
+
+input EventDataSelection {
+  event: EventFields
+}
+
+input EventFields {
+  _all: Boolean
+  args: Boolean
+  call: CallFields
+  extrinsic: ExtrinsicFields
+  indexInBlock: Boolean
+  phase: Boolean
+}
+
+input EventSelection {
+  data: EventDataSelection
+  name: String!
+}
+
+input EvmLogDataSelection {
+  event: EvmLogFields
+}
+
+input EvmLogFields {
+  _all: Boolean
+  args: Boolean
+  call: CallFields
+  evmTxHash: Boolean
+  extrinsic: ExtrinsicFields
+  indexInBlock: Boolean
+  phase: Boolean
+}
+
+input EvmLogSelection {
+  contract: String!
+  data: EvmLogDataSelection
+  filter: [[String!]!]
+}
+
+input ExtrinsicFields {
+  _all: Boolean
+  call: CallFields
+  error: Boolean
+  fee: Boolean
+  hash: Boolean
+  indexInBlock: Boolean
+  signature: Boolean
+  success: Boolean
+  tip: Boolean
+  version: Boolean
+}
+
+"""A scalar that can represent any JSON value."""
+scalar JSON
+
+type Metadata {
+  blockHash: String!
+  blockHeight: Int!
+  hex: String!
+  id: String!
+  specName: String!
+  specVersion: Int!
+}
+
+input ParentCallFields {
+  _all: Boolean
+  args: Boolean
+  error: Boolean
+  origin: Boolean
+  parent: Boolean
+}
+
+type Status {
+  head: Int!
+}
+
+type balancesQuery {
+  accountById(id: String!): balances_Account
+  accountByUniqueInput(where: balances_WhereIdInput!): balances_Account
+  accounts(limit: Int, offset: Int, orderBy: [balances_AccountOrderByInput!], where: balances_AccountWhereInput): [balances_Account!]!
+  accountsConnection(after: String, first: Int, orderBy: [balances_AccountOrderByInput!]!, where: balances_AccountWhereInput): balances_AccountsConnection!
+  chainInfo: balances_ChainInfo!
+  chainStateById(id: String!): balances_ChainState
+  chainStateByUniqueInput(where: balances_WhereIdInput!): balances_ChainState
+  chainStates(limit: Int, offset: Int, orderBy: [balances_ChainStateOrderByInput!], where: balances_ChainStateWhereInput): [balances_ChainState!]!
+  chainStatesConnection(after: String, first: Int, orderBy: [balances_ChainStateOrderByInput!]!, where: balances_ChainStateWhereInput): balances_ChainStatesConnection!
+  currentChainState: balances_ChainStateObject!
+  squidStatus: balances_SquidStatus
+}
+
+type balancesSubscription {
+  accountById(id: String!): balances_Account
+  accounts(limit: Int, offset: Int, orderBy: [balances_AccountOrderByInput!], where: balances_AccountWhereInput): [balances_Account!]!
+  chainStateById(id: String!): balances_ChainState
+  chainStates(limit: Int, offset: Int, orderBy: [balances_ChainStateOrderByInput!], where: balances_ChainStateWhereInput): [balances_ChainState!]!
+}
+
+type balances_Account {
+  free: balances_BigInt!
+  id: String!
+  reserved: balances_BigInt!
+  total: balances_BigInt!
+  updatedAt: Int
+}
+
+type balances_AccountEdge {
+  cursor: String!
+  node: balances_Account!
+}
+
+enum balances_AccountOrderByInput {
+  free_ASC
+  free_DESC
+  id_ASC
+  id_DESC
+  reserved_ASC
+  reserved_DESC
+  total_ASC
+  total_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+input balances_AccountWhereInput {
+  AND: [balances_AccountWhereInput!]
+  OR: [balances_AccountWhereInput!]
+  free_eq: balances_BigInt
+  free_gt: balances_BigInt
+  free_gte: balances_BigInt
+  free_in: [balances_BigInt!]
+  free_isNull: Boolean
+  free_lt: balances_BigInt
+  free_lte: balances_BigInt
+  free_not_eq: balances_BigInt
+  free_not_in: [balances_BigInt!]
+  id_contains: String
+  id_containsInsensitive: String
+  id_endsWith: String
+  id_eq: String
+  id_gt: String
+  id_gte: String
+  id_in: [String!]
+  id_isNull: Boolean
+  id_lt: String
+  id_lte: String
+  id_not_contains: String
+  id_not_containsInsensitive: String
+  id_not_endsWith: String
+  id_not_eq: String
+  id_not_in: [String!]
+  id_not_startsWith: String
+  id_startsWith: String
+  reserved_eq: balances_BigInt
+  reserved_gt: balances_BigInt
+  reserved_gte: balances_BigInt
+  reserved_in: [balances_BigInt!]
+  reserved_isNull: Boolean
+  reserved_lt: balances_BigInt
+  reserved_lte: balances_BigInt
+  reserved_not_eq: balances_BigInt
+  reserved_not_in: [balances_BigInt!]
+  total_eq: balances_BigInt
+  total_gt: balances_BigInt
+  total_gte: balances_BigInt
+  total_in: [balances_BigInt!]
+  total_isNull: Boolean
+  total_lt: balances_BigInt
+  total_lte: balances_BigInt
+  total_not_eq: balances_BigInt
+  total_not_in: [balances_BigInt!]
+  updatedAt_eq: Int
+  updatedAt_gt: Int
+  updatedAt_gte: Int
+  updatedAt_in: [Int!]
+  updatedAt_isNull: Boolean
+  updatedAt_lt: Int
+  updatedAt_lte: Int
+  updatedAt_not_eq: Int
+  updatedAt_not_in: [Int!]
+}
+
+type balances_AccountsConnection {
+  edges: [balances_AccountEdge!]!
+  pageInfo: balances_PageInfo!
+  totalCount: Int!
+}
+
+"""Big number integer"""
+scalar balances_BigInt
+
+type balances_ChainInfo {
+  displayName: String!
+  name: String!
+  paraId: Float
+  prefix: Float
+  relayChain: String
+  tokens: [balances_Token!]!
+}
+
+type balances_ChainState {
+  blockNumber: Int!
+  councilMembers: Int!
+  councilProposals: Int!
+  democracyProposals: Int!
+  id: String!
+  timestamp: balances_DateTime!
+  tokenBalance: balances_BigInt!
+  tokenHolders: Int!
+}
+
+type balances_ChainStateEdge {
+  cursor: String!
+  node: balances_ChainState!
+}
+
+type balances_ChainStateObject {
+  blockNumber: Float!
+  councilMembers: Float!
+  councilProposals: Float!
+  democracyProposals: Float!
+  timestamp: balances_DateTime!
+  tokenBalance: balances_BigInt!
+  tokenHolders: Float!
+}
+
+enum balances_ChainStateOrderByInput {
+  blockNumber_ASC
+  blockNumber_DESC
+  councilMembers_ASC
+  councilMembers_DESC
+  councilProposals_ASC
+  councilProposals_DESC
+  democracyProposals_ASC
+  democracyProposals_DESC
+  id_ASC
+  id_DESC
+  timestamp_ASC
+  timestamp_DESC
+  tokenBalance_ASC
+  tokenBalance_DESC
+  tokenHolders_ASC
+  tokenHolders_DESC
+}
+
+input balances_ChainStateWhereInput {
+  AND: [balances_ChainStateWhereInput!]
+  OR: [balances_ChainStateWhereInput!]
+  blockNumber_eq: Int
+  blockNumber_gt: Int
+  blockNumber_gte: Int
+  blockNumber_in: [Int!]
+  blockNumber_isNull: Boolean
+  blockNumber_lt: Int
+  blockNumber_lte: Int
+  blockNumber_not_eq: Int
+  blockNumber_not_in: [Int!]
+  councilMembers_eq: Int
+  councilMembers_gt: Int
+  councilMembers_gte: Int
+  councilMembers_in: [Int!]
+  councilMembers_isNull: Boolean
+  councilMembers_lt: Int
+  councilMembers_lte: Int
+  councilMembers_not_eq: Int
+  councilMembers_not_in: [Int!]
+  councilProposals_eq: Int
+  councilProposals_gt: Int
+  councilProposals_gte: Int
+  councilProposals_in: [Int!]
+  councilProposals_isNull: Boolean
+  councilProposals_lt: Int
+  councilProposals_lte: Int
+  councilProposals_not_eq: Int
+  councilProposals_not_in: [Int!]
+  democracyProposals_eq: Int
+  democracyProposals_gt: Int
+  democracyProposals_gte: Int
+  democracyProposals_in: [Int!]
+  democracyProposals_isNull: Boolean
+  democracyProposals_lt: Int
+  democracyProposals_lte: Int
+  democracyProposals_not_eq: Int
+  democracyProposals_not_in: [Int!]
+  id_contains: String
+  id_containsInsensitive: String
+  id_endsWith: String
+  id_eq: String
+  id_gt: String
+  id_gte: String
+  id_in: [String!]
+  id_isNull: Boolean
+  id_lt: String
+  id_lte: String
+  id_not_contains: String
+  id_not_containsInsensitive: String
+  id_not_endsWith: String
+  id_not_eq: String
+  id_not_in: [String!]
+  id_not_startsWith: String
+  id_startsWith: String
+  timestamp_eq: balances_DateTime
+  timestamp_gt: balances_DateTime
+  timestamp_gte: balances_DateTime
+  timestamp_in: [balances_DateTime!]
+  timestamp_isNull: Boolean
+  timestamp_lt: balances_DateTime
+  timestamp_lte: balances_DateTime
+  timestamp_not_eq: balances_DateTime
+  timestamp_not_in: [balances_DateTime!]
+  tokenBalance_eq: balances_BigInt
+  tokenBalance_gt: balances_BigInt
+  tokenBalance_gte: balances_BigInt
+  tokenBalance_in: [balances_BigInt!]
+  tokenBalance_isNull: Boolean
+  tokenBalance_lt: balances_BigInt
+  tokenBalance_lte: balances_BigInt
+  tokenBalance_not_eq: balances_BigInt
+  tokenBalance_not_in: [balances_BigInt!]
+  tokenHolders_eq: Int
+  tokenHolders_gt: Int
+  tokenHolders_gte: Int
+  tokenHolders_in: [Int!]
+  tokenHolders_isNull: Boolean
+  tokenHolders_lt: Int
+  tokenHolders_lte: Int
+  tokenHolders_not_eq: Int
+  tokenHolders_not_in: [Int!]
+}
+
+type balances_ChainStatesConnection {
+  edges: [balances_ChainStateEdge!]!
+  pageInfo: balances_PageInfo!
+  totalCount: Int!
+}
+
+"""
+A date-time string in simplified extended ISO 8601 format (YYYY-MM-DDTHH:mm:ss.sssZ)
+"""
+scalar balances_DateTime
+
+type balances_PageInfo {
+  endCursor: String!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String!
+}
+
+type balances_SquidStatus {
+  """The height of the processed part of the chain"""
+  height: Int
+}
+
+type balances_Token {
+  decimals: String
+  symbol: String!
+}
+
+input balances_WhereIdInput {
+  id: String!
+}
+
+type evmQuery {
+  squidStatus: balances_SquidStatus
+  transactionById(id: String!): evm_Transaction
+  transactionByUniqueInput(where: balances_WhereIdInput!): evm_Transaction
+  transactions(limit: Int, offset: Int, orderBy: [evm_TransactionOrderByInput!], where: evm_TransactionWhereInput): [evm_Transaction!]!
+  transactionsConnection(after: String, first: Int, orderBy: [evm_TransactionOrderByInput!]!, where: evm_TransactionWhereInput): evm_TransactionsConnection!
+}
+
+type evmSubscription {
+  transactionById(id: String!): evm_Transaction
+  transactions(limit: Int, offset: Int, orderBy: [evm_TransactionOrderByInput!], where: evm_TransactionWhereInput): [evm_Transaction!]!
+}
+
+"""Big number integer"""
+scalar evm_BigInt
+
+"""
+A date-time string in simplified extended ISO 8601 format (YYYY-MM-DDTHH:mm:ss.sssZ)
+"""
+scalar evm_DateTime
+
+type evm_EIP1559 {
+  gasLimit: evm_BigInt!
+  maxFeePerGas: evm_BigInt!
+  maxPriorityFeePerGas: evm_BigInt!
+  value: evm_BigInt!
+}
+
+type evm_EIP2930 {
+  gasLimit: evm_BigInt!
+  gasPrice: evm_BigInt!
+  value: evm_BigInt!
+}
+
+"""A scalar that can represent any JSON value"""
+scalar evm_JSON
+
+type evm_Legacy {
+  gasLimit: evm_BigInt!
+  gasPrice: evm_BigInt!
+  value: evm_BigInt!
+}
+
+type evm_Transaction {
+  block: Int!
+  data: evm_TransactionData
+  from: String!
+  id: String!
+  input: evm_JSON!
+  method: String!
+  timestamp: evm_DateTime!
+  to: String!
+  txHash: String!
+  type: Int!
+}
+
+union evm_TransactionData = evm_EIP1559 | evm_EIP2930 | evm_Legacy
+
+input evm_TransactionDataWhereInput {
+  gasLimit_eq: evm_BigInt
+  gasLimit_gt: evm_BigInt
+  gasLimit_gte: evm_BigInt
+  gasLimit_in: [evm_BigInt!]
+  gasLimit_isNull: Boolean
+  gasLimit_lt: evm_BigInt
+  gasLimit_lte: evm_BigInt
+  gasLimit_not_eq: evm_BigInt
+  gasLimit_not_in: [evm_BigInt!]
+  gasPrice_eq: evm_BigInt
+  gasPrice_gt: evm_BigInt
+  gasPrice_gte: evm_BigInt
+  gasPrice_in: [evm_BigInt!]
+  gasPrice_isNull: Boolean
+  gasPrice_lt: evm_BigInt
+  gasPrice_lte: evm_BigInt
+  gasPrice_not_eq: evm_BigInt
+  gasPrice_not_in: [evm_BigInt!]
+  isTypeOf_contains: String
+  isTypeOf_containsInsensitive: String
+  isTypeOf_endsWith: String
+  isTypeOf_eq: String
+  isTypeOf_gt: String
+  isTypeOf_gte: String
+  isTypeOf_in: [String!]
+  isTypeOf_isNull: Boolean
+  isTypeOf_lt: String
+  isTypeOf_lte: String
+  isTypeOf_not_contains: String
+  isTypeOf_not_containsInsensitive: String
+  isTypeOf_not_endsWith: String
+  isTypeOf_not_eq: String
+  isTypeOf_not_in: [String!]
+  isTypeOf_not_startsWith: String
+  isTypeOf_startsWith: String
+  maxFeePerGas_eq: evm_BigInt
+  maxFeePerGas_gt: evm_BigInt
+  maxFeePerGas_gte: evm_BigInt
+  maxFeePerGas_in: [evm_BigInt!]
+  maxFeePerGas_isNull: Boolean
+  maxFeePerGas_lt: evm_BigInt
+  maxFeePerGas_lte: evm_BigInt
+  maxFeePerGas_not_eq: evm_BigInt
+  maxFeePerGas_not_in: [evm_BigInt!]
+  maxPriorityFeePerGas_eq: evm_BigInt
+  maxPriorityFeePerGas_gt: evm_BigInt
+  maxPriorityFeePerGas_gte: evm_BigInt
+  maxPriorityFeePerGas_in: [evm_BigInt!]
+  maxPriorityFeePerGas_isNull: Boolean
+  maxPriorityFeePerGas_lt: evm_BigInt
+  maxPriorityFeePerGas_lte: evm_BigInt
+  maxPriorityFeePerGas_not_eq: evm_BigInt
+  maxPriorityFeePerGas_not_in: [evm_BigInt!]
+  value_eq: evm_BigInt
+  value_gt: evm_BigInt
+  value_gte: evm_BigInt
+  value_in: [evm_BigInt!]
+  value_isNull: Boolean
+  value_lt: evm_BigInt
+  value_lte: evm_BigInt
+  value_not_eq: evm_BigInt
+  value_not_in: [evm_BigInt!]
+}
+
+type evm_TransactionEdge {
+  cursor: String!
+  node: evm_Transaction!
+}
+
+enum evm_TransactionOrderByInput {
+  block_ASC
+  block_DESC
+  data_gasLimit_ASC
+  data_gasLimit_DESC
+  data_gasPrice_ASC
+  data_gasPrice_DESC
+  data_isTypeOf_ASC
+  data_isTypeOf_DESC
+  data_maxFeePerGas_ASC
+  data_maxFeePerGas_DESC
+  data_maxPriorityFeePerGas_ASC
+  data_maxPriorityFeePerGas_DESC
+  data_value_ASC
+  data_value_DESC
+  from_ASC
+  from_DESC
+  id_ASC
+  id_DESC
+  method_ASC
+  method_DESC
+  timestamp_ASC
+  timestamp_DESC
+  to_ASC
+  to_DESC
+  txHash_ASC
+  txHash_DESC
+  type_ASC
+  type_DESC
+}
+
+input evm_TransactionWhereInput {
+  AND: [evm_TransactionWhereInput!]
+  OR: [evm_TransactionWhereInput!]
+  block_eq: Int
+  block_gt: Int
+  block_gte: Int
+  block_in: [Int!]
+  block_isNull: Boolean
+  block_lt: Int
+  block_lte: Int
+  block_not_eq: Int
+  block_not_in: [Int!]
+  data: evm_TransactionDataWhereInput
+  data_isNull: Boolean
+  from_contains: String
+  from_containsInsensitive: String
+  from_endsWith: String
+  from_eq: String
+  from_gt: String
+  from_gte: String
+  from_in: [String!]
+  from_isNull: Boolean
+  from_lt: String
+  from_lte: String
+  from_not_contains: String
+  from_not_containsInsensitive: String
+  from_not_endsWith: String
+  from_not_eq: String
+  from_not_in: [String!]
+  from_not_startsWith: String
+  from_startsWith: String
+  id_contains: String
+  id_containsInsensitive: String
+  id_endsWith: String
+  id_eq: String
+  id_gt: String
+  id_gte: String
+  id_in: [String!]
+  id_isNull: Boolean
+  id_lt: String
+  id_lte: String
+  id_not_contains: String
+  id_not_containsInsensitive: String
+  id_not_endsWith: String
+  id_not_eq: String
+  id_not_in: [String!]
+  id_not_startsWith: String
+  id_startsWith: String
+  input_eq: evm_JSON
+  input_isNull: Boolean
+  input_jsonContains: evm_JSON
+  input_jsonHasKey: evm_JSON
+  input_not_eq: evm_JSON
+  method_contains: String
+  method_containsInsensitive: String
+  method_endsWith: String
+  method_eq: String
+  method_gt: String
+  method_gte: String
+  method_in: [String!]
+  method_isNull: Boolean
+  method_lt: String
+  method_lte: String
+  method_not_contains: String
+  method_not_containsInsensitive: String
+  method_not_endsWith: String
+  method_not_eq: String
+  method_not_in: [String!]
+  method_not_startsWith: String
+  method_startsWith: String
+  timestamp_eq: evm_DateTime
+  timestamp_gt: evm_DateTime
+  timestamp_gte: evm_DateTime
+  timestamp_in: [evm_DateTime!]
+  timestamp_isNull: Boolean
+  timestamp_lt: evm_DateTime
+  timestamp_lte: evm_DateTime
+  timestamp_not_eq: evm_DateTime
+  timestamp_not_in: [evm_DateTime!]
+  to_contains: String
+  to_containsInsensitive: String
+  to_endsWith: String
+  to_eq: String
+  to_gt: String
+  to_gte: String
+  to_in: [String!]
+  to_isNull: Boolean
+  to_lt: String
+  to_lte: String
+  to_not_contains: String
+  to_not_containsInsensitive: String
+  to_not_endsWith: String
+  to_not_eq: String
+  to_not_in: [String!]
+  to_not_startsWith: String
+  to_startsWith: String
+  txHash_contains: String
+  txHash_containsInsensitive: String
+  txHash_endsWith: String
+  txHash_eq: String
+  txHash_gt: String
+  txHash_gte: String
+  txHash_in: [String!]
+  txHash_isNull: Boolean
+  txHash_lt: String
+  txHash_lte: String
+  txHash_not_contains: String
+  txHash_not_containsInsensitive: String
+  txHash_not_endsWith: String
+  txHash_not_eq: String
+  txHash_not_in: [String!]
+  txHash_not_startsWith: String
+  txHash_startsWith: String
+  type_eq: Int
+  type_gt: Int
+  type_gte: Int
+  type_in: [Int!]
+  type_isNull: Boolean
+  type_lt: Int
+  type_lte: Int
+  type_not_eq: Int
+  type_not_in: [Int!]
+}
+
+type evm_TransactionsConnection {
+  edges: [evm_TransactionEdge!]!
+  pageInfo: balances_PageInfo!
+  totalCount: Int!
+}
+
+type query_root {
+  balances: balancesQuery
+  batch(calls: [CallSelectionInput!], ethereumTransactions: [EthereumTransactionSelection!], events: [EventSelection!], evmLogs: [EvmLogSelection!], fromBlock: Int! = 0, includeAllBlocks: Boolean, limit: Int!, toBlock: Int): [Batch!]!
+  evm: evmQuery
+  metadata: [Metadata!]!
+  metadataById(id: String!): Metadata
+  status: Status!
+  transfers: transfersQuery
+}
+
+type subscription_root {
+  balances: balancesSubscription
+  evm: evmSubscription
+  transfers: transfersSubscription
+}
+
+type transfersQuery {
+  accountById(id: String!): transfers_Account
+  accountByUniqueInput(where: balances_WhereIdInput!): transfers_Account
+  accounts(limit: Int, offset: Int, orderBy: [transfers_AccountOrderByInput!], where: transfers_AccountWhereInput): [transfers_Account!]!
+  accountsConnection(after: String, first: Int, orderBy: [transfers_AccountOrderByInput!]!, where: transfers_AccountWhereInput): balances_AccountsConnection!
+  squidStatus: balances_SquidStatus
+  transferById(id: String!): transfers_Transfer
+  transferByUniqueInput(where: balances_WhereIdInput!): transfers_Transfer
+  transfers(limit: Int, offset: Int, orderBy: [transfers_TransferOrderByInput!], where: transfers_TransferWhereInput): [transfers_Transfer!]!
+  transfersConnection(after: String, first: Int, orderBy: [transfers_TransferOrderByInput!]!, where: transfers_TransferWhereInput): transfers_TransfersConnection!
+}
+
+type transfersSubscription {
+  accountById(id: String!): transfers_Account
+  accounts(limit: Int, offset: Int, orderBy: [transfers_AccountOrderByInput!], where: transfers_AccountWhereInput): [transfers_Account!]!
+  transferById(id: String!): transfers_Transfer
+  transfers(limit: Int, offset: Int, orderBy: [transfers_TransferOrderByInput!], where: transfers_TransferWhereInput): [transfers_Transfer!]!
+}
+
+type transfers_Account {
+  id: String!
+  transfersFrom(limit: Int, offset: Int, orderBy: [transfers_TransferOrderByInput!], where: transfers_TransferWhereInput): [transfers_Transfer!]!
+  transfersTo(limit: Int, offset: Int, orderBy: [transfers_TransferOrderByInput!], where: transfers_TransferWhereInput): [transfers_Transfer!]!
+}
+
+enum transfers_AccountOrderByInput {
+  id_ASC
+  id_DESC
+}
+
+input transfers_AccountWhereInput {
+  AND: [transfers_AccountWhereInput!]
+  OR: [transfers_AccountWhereInput!]
+  id_contains: String
+  id_containsInsensitive: String
+  id_endsWith: String
+  id_eq: String
+  id_gt: String
+  id_gte: String
+  id_in: [String!]
+  id_isNull: Boolean
+  id_lt: String
+  id_lte: String
+  id_not_contains: String
+  id_not_containsInsensitive: String
+  id_not_endsWith: String
+  id_not_eq: String
+  id_not_in: [String!]
+  id_not_startsWith: String
+  id_startsWith: String
+  transfersFrom_every: transfers_TransferWhereInput
+  transfersFrom_none: transfers_TransferWhereInput
+  transfersFrom_some: transfers_TransferWhereInput
+  transfersTo_every: transfers_TransferWhereInput
+  transfersTo_none: transfers_TransferWhereInput
+  transfersTo_some: transfers_TransferWhereInput
+}
+
+enum transfers_AssetStatus {
+  BURNED
+  ISSUED
+  TRANSFERRED
+}
+
+"""Big number integer"""
+scalar transfers_BigInt
+
+"""
+A date-time string in simplified extended ISO 8601 format (YYYY-MM-DDTHH:mm:ss.sssZ)
+"""
+scalar transfers_DateTime
+
+type transfers_Transfer {
+  amount: transfers_BigInt!
+  assetId: String!
+  blockNumber: Int!
+  extrinsicHash: String
+  from: transfers_Account!
+  id: String!
+  status: transfers_AssetStatus!
+  timestamp: transfers_DateTime!
+  to: transfers_Account!
+}
+
+type transfers_TransferEdge {
+  cursor: String!
+  node: transfers_Transfer!
+}
+
+enum transfers_TransferOrderByInput {
+  amount_ASC
+  amount_DESC
+  assetId_ASC
+  assetId_DESC
+  blockNumber_ASC
+  blockNumber_DESC
+  extrinsicHash_ASC
+  extrinsicHash_DESC
+  from_id_ASC
+  from_id_DESC
+  id_ASC
+  id_DESC
+  status_ASC
+  status_DESC
+  timestamp_ASC
+  timestamp_DESC
+  to_id_ASC
+  to_id_DESC
+}
+
+input transfers_TransferWhereInput {
+  AND: [transfers_TransferWhereInput!]
+  OR: [transfers_TransferWhereInput!]
+  amount_eq: transfers_BigInt
+  amount_gt: transfers_BigInt
+  amount_gte: transfers_BigInt
+  amount_in: [transfers_BigInt!]
+  amount_isNull: Boolean
+  amount_lt: transfers_BigInt
+  amount_lte: transfers_BigInt
+  amount_not_eq: transfers_BigInt
+  amount_not_in: [transfers_BigInt!]
+  assetId_contains: String
+  assetId_containsInsensitive: String
+  assetId_endsWith: String
+  assetId_eq: String
+  assetId_gt: String
+  assetId_gte: String
+  assetId_in: [String!]
+  assetId_isNull: Boolean
+  assetId_lt: String
+  assetId_lte: String
+  assetId_not_contains: String
+  assetId_not_containsInsensitive: String
+  assetId_not_endsWith: String
+  assetId_not_eq: String
+  assetId_not_in: [String!]
+  assetId_not_startsWith: String
+  assetId_startsWith: String
+  blockNumber_eq: Int
+  blockNumber_gt: Int
+  blockNumber_gte: Int
+  blockNumber_in: [Int!]
+  blockNumber_isNull: Boolean
+  blockNumber_lt: Int
+  blockNumber_lte: Int
+  blockNumber_not_eq: Int
+  blockNumber_not_in: [Int!]
+  extrinsicHash_contains: String
+  extrinsicHash_containsInsensitive: String
+  extrinsicHash_endsWith: String
+  extrinsicHash_eq: String
+  extrinsicHash_gt: String
+  extrinsicHash_gte: String
+  extrinsicHash_in: [String!]
+  extrinsicHash_isNull: Boolean
+  extrinsicHash_lt: String
+  extrinsicHash_lte: String
+  extrinsicHash_not_contains: String
+  extrinsicHash_not_containsInsensitive: String
+  extrinsicHash_not_endsWith: String
+  extrinsicHash_not_eq: String
+  extrinsicHash_not_in: [String!]
+  extrinsicHash_not_startsWith: String
+  extrinsicHash_startsWith: String
+  from: transfers_AccountWhereInput
+  from_isNull: Boolean
+  id_contains: String
+  id_containsInsensitive: String
+  id_endsWith: String
+  id_eq: String
+  id_gt: String
+  id_gte: String
+  id_in: [String!]
+  id_isNull: Boolean
+  id_lt: String
+  id_lte: String
+  id_not_contains: String
+  id_not_containsInsensitive: String
+  id_not_endsWith: String
+  id_not_eq: String
+  id_not_in: [String!]
+  id_not_startsWith: String
+  id_startsWith: String
+  status_eq: transfers_AssetStatus
+  status_in: [transfers_AssetStatus!]
+  status_isNull: Boolean
+  status_not_eq: transfers_AssetStatus
+  status_not_in: [transfers_AssetStatus!]
+  timestamp_eq: transfers_DateTime
+  timestamp_gt: transfers_DateTime
+  timestamp_gte: transfers_DateTime
+  timestamp_in: [transfers_DateTime!]
+  timestamp_isNull: Boolean
+  timestamp_lt: transfers_DateTime
+  timestamp_lte: transfers_DateTime
+  timestamp_not_eq: transfers_DateTime
+  timestamp_not_in: [transfers_DateTime!]
+  to: transfers_AccountWhereInput
+  to_isNull: Boolean
+}
+
+type transfers_TransfersConnection {
+  edges: [transfers_TransferEdge!]!
+  pageInfo: balances_PageInfo!
+  totalCount: Int!
+}
+

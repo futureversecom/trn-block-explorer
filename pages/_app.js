@@ -1,10 +1,9 @@
 import "../styles/globals.css";
 import Header from "../components/header";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import Search from "../components/search";
 import Footer from "../components/footer";
-
-const queryClient = new QueryClient();
+import { queryClient } from "../libs/client";
 
 function MyApp({ Component, pageProps }) {
   return (
