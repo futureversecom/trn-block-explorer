@@ -5,17 +5,14 @@ import Link from "next/link";
 import BlockFinalizedIcon from "./icons/blockFinalizedIcon";
 import { getCurrentNativeCurrencyName } from "../utils/networkSwitcherUtils";
 import { ethers } from "ethers";
-
+import RefetchIndicator from "./refetchIndicator";
 import { useGetLatestTenTransfersQuery } from "../libs/api/generated.ts";
 import { usePolling } from "../libs/hooks/usePolling";
 
 export default function TransfersWidget() {
-  const transfersQuery = usePolling(
-    transfersInitialData,
-    useGetLatestTenTransfersQuery
-  );
-  const transfers = transfersQuery?.transfers?.transfers;
-  
+  const query = usePolling({}, useGetLatestTenTransfersQuery);
+  const transfers = query?.data?.transfers?.transfers;
+
   return (
     <div>
       <div className="flex flex-row justify-between py-3">
@@ -26,6 +23,8 @@ export default function TransfersWidget() {
           </h3>
         </div>
         <div>
+          {query.isRefetching && <RefetchIndicator />}
+
           <Link href={"/transfers"}>
             <button
               type="button"

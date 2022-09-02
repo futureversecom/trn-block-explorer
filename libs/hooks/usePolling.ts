@@ -1,5 +1,5 @@
-import { useMemo } from 'react'
-import { graphQLClient } from '../client';
+import { useMemo } from "react";
+import { graphQLClient } from "../client";
 
 export const usePolling = <T>(
   initialData: T,
@@ -7,13 +7,22 @@ export const usePolling = <T>(
   queryParams?: Record<string, unknown>,
   refetchInterval: number = 5000
 ) => {
-  const { data, isFetching, isLoading, isError } = queryFunction(graphQLClient, queryParams, {
-    refetchInterval,
-    refetchIntervalInBackground: true,
-  });
+  const { data, isFetching, isLoading, isError, isRefetching } = queryFunction(
+    graphQLClient,
+    queryParams,
+    {
+      refetchInterval,
+      refetchIntervalInBackground: true,
+    }
+  );
 
-  return useMemo<T>(
-    () => (data ? data : initialData),
-    [data, initialData, isFetching, isLoading, isError]
+  return useMemo<any>(
+    () => ({
+      data: data ? data : initialData,
+      isLoading,
+      isError,
+      isRefetching,
+    }),
+    [data, initialData, isFetching, isLoading, isError, isRefetching]
   );
 };
