@@ -1,9 +1,7 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
 import ContainerLayout from "../layout/containerLayout";
 import PageHeader from "../components/pageHeader";
-import { useQuery } from "@tanstack/react-query";
-import { sleep } from "../utils/utils";
-import * as clientApi from "../utils/client";
+import Link from "next/link";
 import LoadingBlock from "../components/loadingBlock";
 import TimeAgo from "react-timeago";
 import { formatAddress } from "../utils/utils";
@@ -80,9 +78,11 @@ export default function Blocks() {
                   <tbody className="divide-y divide-gray-200 bg-white">
                     {query.data.map((block, key) => (
                       <tr key={key}>
-                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                          {block.height}
-                        </td>
+                        <Link href={`/block/${block.height}`}>
+                          <td className="cursor-pointer whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-indigo-500 sm:pl-6">
+                            {block.height}
+                          </td>
+                        </Link>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                           <BlockFinalizedIcon status={true} />
                         </td>

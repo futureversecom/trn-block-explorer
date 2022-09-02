@@ -1,8 +1,5 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
-import { sleep } from "../utils/utils";
-import * as clientApi from "../utils/client";
 import TimeAgo from "react-timeago";
 import RefetchIndicator from "./refetchIndicator";
 import BlockFinalizedIcon from "./icons/blockFinalizedIcon";

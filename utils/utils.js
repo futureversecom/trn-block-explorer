@@ -7,6 +7,7 @@ export const sleep = () => {
 };
 
 export const formatAddress = (address, len = 6) => {
+  if (!address) return null;
   return (
     address.substring(0, len) +
     " ... " +
