@@ -8,6 +8,7 @@ import { formatAddress } from "../utils/utils";
 import BlockFinalizedIcon from "../components/icons/blockFinalizedIcon";
 import { useGetTransfersQuery } from "../libs/api/generated.ts";
 import { usePolling } from "../libs/hooks/usePolling";
+import { ethers } from "ethers";
 
 export default function Transfers() {
   let query = usePolling({}, useGetTransfersQuery, {
@@ -62,6 +63,12 @@ export default function Transfers() {
                         scope="col"
                         className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                       >
+                        Amount
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                      >
                         from
                       </th>
                       <th
@@ -91,13 +98,16 @@ export default function Transfers() {
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                           <TimeAgo date={block.timestamp} />
                         </td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                          {ethers.utils.formatEther(block.amount)} Root
+                        </td>
                         <Link href={`/account/${block.from.id}`}>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-indigo-500 cursor-pointer font-semibold">
                             {formatAddress(block?.from?.id) || "?"}
                           </td>
                         </Link>
                         <Link href={`/account/${block.to.id}`}>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-indigo-500 cursor-pointer font-semibold">
                             {formatAddress(block?.to?.id) || "? "}
                           </td>
                         </Link>
