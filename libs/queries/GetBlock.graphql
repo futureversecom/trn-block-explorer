@@ -1,0 +1,16 @@
+query GetBlock($height: Int!) {
+  archive {
+    blocks(limit: 1, where: { height_eq: $height } ) {
+      hash
+      height
+      id
+      parentHash
+      timestamp
+      validator
+      spec {
+        specVersion
+        specName
+      }
+    }
+  }
+}

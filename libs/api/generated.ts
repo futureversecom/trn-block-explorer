@@ -1984,6 +1984,20 @@ export type Transfers_TransfersConnection = {
   totalCount: Scalars['Int'];
 };
 
+export type GetBalancesQueryVariables = Exact<{
+  limit: Scalars['Int'];
+}>;
+
+
+export type GetBalancesQuery = { __typename?: 'query_root', balances?: { __typename?: 'balancesQuery', accounts: Array<{ __typename?: 'balances_Account', free: any, id: string, reserved: any, total: any }> } | null };
+
+export type GetBlockQueryVariables = Exact<{
+  height: Scalars['Int'];
+}>;
+
+
+export type GetBlockQuery = { __typename?: 'query_root', archive?: { __typename?: 'archiveQuery', blocks: Array<{ __typename?: 'archive_Block', hash: string, height: number, id: string, parentHash: string, timestamp: any, validator?: string | null, spec: { __typename?: 'archive_Metadata', specVersion?: number | null, specName: string } }> } | null };
+
 export type GetBlocksQueryVariables = Exact<{
   limit: Scalars['Int'];
 }>;
@@ -1997,6 +2011,64 @@ export type GetLatestTenTransfersQueryVariables = Exact<{ [key: string]: never; 
 export type GetLatestTenTransfersQuery = { __typename?: 'query_root', transfers?: { __typename?: 'transfersQuery', transfers: Array<{ __typename?: 'transfers_Transfer', timestamp: any, status: Transfers_AssetStatus, id: string, extrinsicHash?: string | null, blockNumber: number, assetId: string, amount: any, from: { __typename?: 'transfers_Account', id: string }, to: { __typename?: 'transfers_Account', id: string } }> } | null };
 
 
+export const GetBalancesDocument = `
+    query GetBalances($limit: Int!) {
+  balances {
+    accounts(orderBy: total_DESC, limit: $limit) {
+      free
+      id
+      reserved
+      total
+    }
+  }
+}
+    `;
+export const useGetBalancesQuery = <
+      TData = GetBalancesQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables: GetBalancesQueryVariables,
+      options?: UseQueryOptions<GetBalancesQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<GetBalancesQuery, TError, TData>(
+      ['GetBalances', variables],
+      fetcher<GetBalancesQuery, GetBalancesQueryVariables>(client, GetBalancesDocument, variables, headers),
+      options
+    );
+export const GetBlockDocument = `
+    query GetBlock($height: Int!) {
+  archive {
+    blocks(limit: 1, where: {height_eq: $height}) {
+      hash
+      height
+      id
+      parentHash
+      timestamp
+      validator
+      spec {
+        specVersion
+        specName
+      }
+    }
+  }
+}
+    `;
+export const useGetBlockQuery = <
+      TData = GetBlockQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables: GetBlockQueryVariables,
+      options?: UseQueryOptions<GetBlockQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<GetBlockQuery, TError, TData>(
+      ['GetBlock', variables],
+      fetcher<GetBlockQuery, GetBlockQueryVariables>(client, GetBlockDocument, variables, headers),
+      options
+    );
 export const GetBlocksDocument = `
     query GetBlocks($limit: Int!) {
   archive {

@@ -8,24 +8,20 @@ import LoadingBlock from "../components/loadingBlock";
 import TimeAgo from "react-timeago";
 import { formatAddress } from "../utils/utils";
 import BlockFinalizedIcon from "../components/icons/blockFinalizedIcon";
+import { useGetBlocksQuery } from "../libs/api/generated.ts";
+import { usePolling } from "../libs/hooks/usePolling";
 
 export default function Blocks() {
-  const query = useQuery(
-    ["blocks"],
-    async () => {
-      console.log("Fetching blocks");
-      await sleep();
-      return clientApi.getLatestBlocks();
-    },
-    {
-      refetchInterval: 5000,
-    }
-  );
+  let query = usePolling({}, useGetBlocksQuery, {
+    limit: 20,
+  });
+  query.data = query?.data?.archive?.blocks;
+
   return (
     <ContainerLayout>
       <PageHeader
         title={`Blocks`}
-        icon={<CubeIcon className="h-5 my-auto pr-3" />}
+        icon={<CubeIcon className="my-auto h-5 pr-3" />}
       />
       {query.isLoading ? (
         <LoadingBlock title={"blocks"} />
@@ -33,7 +29,7 @@ export default function Blocks() {
         <div className="mt-8 flex flex-col">
           <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-              <div className="overflow-hidden border border-gray-100 rounded-md shadow-md ">
+              <div className="overflow-hidden rounded-md border border-gray-100 shadow-md ">
                 <table className="min-w-full divide-y divide-gray-300">
                   <thead className="bg-gray-50">
                     <tr>
@@ -71,7 +67,7 @@ export default function Blocks() {
                         scope="col"
                         className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                       >
-                        Collator
+                        Validator
                       </th>
                       <th
                         scope="col"
@@ -88,22 +84,24 @@ export default function Blocks() {
                           {block.height}
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          <BlockFinalizedIcon status={block.status} />
+                          <BlockFinalizedIcon status={true} />
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                           <TimeAgo date={block.timestamp} />
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {block.extrinsics}
+                          {block.extrinsics || "?"}
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {block.events}
+                          {block.events || "? "}
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {formatAddress(block.collator)}
+                          {block.validator
+                            ? formatAddress(block.validator)
+                            : "?"}
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {formatAddress(block.blockHash, 12)}
+                          {block.hash ? formatAddress(block.hash, 12) : "?"}
                         </td>
                       </tr>
                     ))}

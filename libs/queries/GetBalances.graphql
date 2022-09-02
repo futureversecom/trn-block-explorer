@@ -1,0 +1,10 @@
+query GetBalances($limit: Int!) {
+  balances {
+    accounts(orderBy: total_DESC, limit: $limit) {
+      free
+      id
+      reserved
+      total
+    }
+  }
+}

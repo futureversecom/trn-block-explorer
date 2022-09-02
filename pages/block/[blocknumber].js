@@ -10,21 +10,16 @@ import { sleep } from "../../utils/utils";
 import Link from "next/link";
 import BlockFinalizedIcon from "../../components/icons/blockFinalizedIcon";
 import TimeAgo from "react-timeago";
+import { useGetBlockQuery } from "../../libs/api/generated.ts";
+import { usePolling } from "../../libs/hooks/usePolling";
 
 export default function Block() {
   const router = useRouter();
   const { blocknumber } = router.query;
-  const query = useQuery(
-    [`blocknumber_${blocknumber}`],
-    async () => {
-      console.log(`Fetching block ${blocknumber}`);
-      await sleep();
-      return clientApi.getBlock();
-    },
-    {
-      refetchInterval: 5000,
-    }
-  );
+  let query = usePolling({}, useGetBlockQuery, {
+    height: parseInt(blocknumber),
+  });
+  query.data = query?.data?.archive?.blocks[0];
 
   const getPrevBlock = () => {
     if (parseInt(blocknumber) == 0) {
@@ -38,22 +33,29 @@ export default function Block() {
     <ContainerLayout>
       <PageHeader
         title={`Block # ${blocknumber}`}
-        icon={<CubeIcon className="h-5 my-auto pr-3" />}
+        icon={<CubeIcon className="my-auto h-5 pr-3" />}
       />
       {query.isLoading ? (
         <LoadingBlock title={`Block ${blocknumber}`} />
       ) : (
         <>
-          <div className="overflow-hidden bg-white border border-gray-100 rounded-md shadow-md mt-5">
+          <div className="mt-5 overflow-hidden rounded-md border border-gray-100 bg-white shadow-md">
             <div className=" px-4 py-5 sm:p-0">
               <dl className="sm:divide-y sm:divide-gray-200">
+                <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-900">Height</dt>
+                  <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
+                    {blocknumber}
+                  </dd>
+                </div>
+
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                   <dt className="text-sm font-medium text-gray-900">
                     Timestamp
                   </dt>
                   <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
                     {moment(query.data.timestamp).format("LLL")}{" "}
-                    <span className="text-xs ml-3">
+                    <span className="ml-3 text-xs">
                       <TimeAgo date={query.data.timestamp} />
                     </span>
                   </dd>
@@ -63,7 +65,7 @@ export default function Block() {
                   <dt className="text-sm font-medium text-gray-900">Status</dt>
                   <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
                     <div className="flex flex-row space-x-3">
-                      <BlockFinalizedIcon status={query.data.status} />
+                      <BlockFinalizedIcon status={true} />
                     </div>
                   </dd>
                 </div>
@@ -116,7 +118,7 @@ export default function Block() {
                     Spec Version
                   </dt>
                   <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
-                    {query.data.specVersion}
+                    {query.data.spec?.specVersion} ({query.data.spec?.specName})
                   </dd>
                 </div>
               </dl>
