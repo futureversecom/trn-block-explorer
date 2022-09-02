@@ -7,7 +7,7 @@ export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K]
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 
-export function fetcher<TData, TVariables>(client: GraphQLClient, query: string, variables?: TVariables, headers?: RequestInit['headers']) {
+function fetcher<TData, TVariables>(client: GraphQLClient, query: string, variables?: TVariables, headers?: RequestInit['headers']) {
   return async (): Promise<TData> => client.request<TData, TVariables>(query, variables, headers);
 }
 /** All built-in and custom scalars, mapped to their actual values */
@@ -17,14 +17,10 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /**
-   * Implement the DateTime<Utc> scalar
-   *
-   * The input/output is a string in RFC3339 format.
-   */
-  DateTime: any;
-  /** A scalar that can represent any JSON value. */
-  JSON: any;
+  /** Big number integer */
+  archive_BigInt: any;
+  /** A scalar that can represent any JSON value */
+  archive_JSON: any;
   /** Big number integer */
   balances_BigInt: any;
   /** A date-time string in simplified extended ISO 8601 format (YYYY-MM-DDTHH:mm:ss.sssZ) */
@@ -41,123 +37,943 @@ export type Scalars = {
   transfers_DateTime: any;
 };
 
-export type Batch = {
-  __typename?: 'Batch';
-  calls: Array<Scalars['JSON']>;
-  events: Array<Scalars['JSON']>;
-  extrinsics: Array<Scalars['JSON']>;
-  header: BlockHeader;
+export type ArchiveQuery = {
+  __typename?: 'archiveQuery';
+  blockById?: Maybe<Archive_Block>;
+  blockByUniqueInput?: Maybe<Archive_Block>;
+  blocks: Array<Archive_Block>;
+  blocksConnection: Archive_BlocksConnection;
+  callById?: Maybe<Archive_Call>;
+  callByUniqueInput?: Maybe<Archive_Call>;
+  calls: Array<Archive_Call>;
+  callsConnection: Archive_CallsConnection;
+  eventById?: Maybe<Archive_Event>;
+  eventByUniqueInput?: Maybe<Archive_Event>;
+  events: Array<Archive_Event>;
+  eventsConnection: Archive_EventsConnection;
+  extrinsicById?: Maybe<Archive_Extrinsic>;
+  extrinsicByUniqueInput?: Maybe<Archive_Extrinsic>;
+  extrinsics: Array<Archive_Extrinsic>;
+  extrinsicsConnection: Archive_ExtrinsicsConnection;
+  metadata: Array<Archive_Metadata>;
+  metadataById?: Maybe<Archive_Metadata>;
+  metadataByUniqueInput?: Maybe<Archive_Metadata>;
+  metadataConnection: Archive_MetadataConnection;
 };
 
-export type BlockHeader = {
-  __typename?: 'BlockHeader';
-  extrinsicsRoot: Scalars['String'];
+
+export type ArchiveQueryBlockByIdArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type ArchiveQueryBlockByUniqueInputArgs = {
+  where: Archive_BlockWhereUniqueInput;
+};
+
+
+export type ArchiveQueryBlocksArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Array<InputMaybe<Archive_BlockOrderByInput>>>;
+  where?: InputMaybe<Archive_BlockWhereInput>;
+};
+
+
+export type ArchiveQueryBlocksConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy: Array<Archive_BlockOrderByInput>;
+  where?: InputMaybe<Archive_BlockWhereInput>;
+};
+
+
+export type ArchiveQueryCallByIdArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type ArchiveQueryCallByUniqueInputArgs = {
+  where: Archive_CallWhereUniqueInput;
+};
+
+
+export type ArchiveQueryCallsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Array<InputMaybe<Archive_CallOrderByInput>>>;
+  where?: InputMaybe<Archive_CallWhereInput>;
+};
+
+
+export type ArchiveQueryCallsConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy: Array<Archive_CallOrderByInput>;
+  where?: InputMaybe<Archive_CallWhereInput>;
+};
+
+
+export type ArchiveQueryEventByIdArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type ArchiveQueryEventByUniqueInputArgs = {
+  where: Archive_EventWhereUniqueInput;
+};
+
+
+export type ArchiveQueryEventsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Array<InputMaybe<Archive_EventOrderByInput>>>;
+  where?: InputMaybe<Archive_EventWhereInput>;
+};
+
+
+export type ArchiveQueryEventsConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy: Array<Archive_EventOrderByInput>;
+  where?: InputMaybe<Archive_EventWhereInput>;
+};
+
+
+export type ArchiveQueryExtrinsicByIdArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type ArchiveQueryExtrinsicByUniqueInputArgs = {
+  where: Archive_ExtrinsicWhereUniqueInput;
+};
+
+
+export type ArchiveQueryExtrinsicsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Array<InputMaybe<Archive_ExtrinsicOrderByInput>>>;
+  where?: InputMaybe<Archive_ExtrinsicWhereInput>;
+};
+
+
+export type ArchiveQueryExtrinsicsConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy: Array<Archive_ExtrinsicOrderByInput>;
+  where?: InputMaybe<Archive_ExtrinsicWhereInput>;
+};
+
+
+export type ArchiveQueryMetadataArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Array<InputMaybe<Archive_MetadataOrderByInput>>>;
+  where?: InputMaybe<Archive_MetadataWhereInput>;
+};
+
+
+export type ArchiveQueryMetadataByIdArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type ArchiveQueryMetadataByUniqueInputArgs = {
+  where: Archive_MetadataWhereUniqueInput;
+};
+
+
+export type ArchiveQueryMetadataConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy: Array<Archive_MetadataOrderByInput>;
+  where?: InputMaybe<Archive_MetadataWhereInput>;
+};
+
+export type Archive_Block = {
+  __typename?: 'archive_Block';
+  calls: Array<Archive_Call>;
+  events: Array<Archive_Event>;
+  extrinsics: Array<Archive_Extrinsic>;
   hash: Scalars['String'];
   height: Scalars['Int'];
-  id: Scalars['String'];
+  id: Scalars['ID'];
   parentHash: Scalars['String'];
-  specId: Scalars['String'];
-  stateRoot: Scalars['String'];
-  timestamp: Scalars['DateTime'];
+  spec: Archive_Metadata;
+  timestamp: Scalars['archive_BigInt'];
   validator?: Maybe<Scalars['String']>;
 };
 
-export type CallDataSelection = {
-  call?: InputMaybe<CallFields>;
-  extrinsic?: InputMaybe<ExtrinsicFields>;
+
+export type Archive_BlockCallsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Array<InputMaybe<Archive_CallOrderByInput>>>;
+  where?: InputMaybe<Archive_CallWhereInput>;
 };
 
-export type CallFields = {
-  _all?: InputMaybe<Scalars['Boolean']>;
-  args?: InputMaybe<Scalars['Boolean']>;
-  error?: InputMaybe<Scalars['Boolean']>;
-  origin?: InputMaybe<Scalars['Boolean']>;
-  parent?: InputMaybe<ParentCallFields>;
+
+export type Archive_BlockEventsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Array<InputMaybe<Archive_EventOrderByInput>>>;
+  where?: InputMaybe<Archive_EventWhereInput>;
 };
 
-export type CallSelectionInput = {
-  data?: InputMaybe<CallDataSelection>;
+
+export type Archive_BlockExtrinsicsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Array<InputMaybe<Archive_ExtrinsicOrderByInput>>>;
+  where?: InputMaybe<Archive_ExtrinsicWhereInput>;
+};
+
+export type Archive_BlockEdge = {
+  __typename?: 'archive_BlockEdge';
+  cursor: Scalars['String'];
+  node: Archive_Block;
+};
+
+export enum Archive_BlockOrderByInput {
+  HashAsc = 'hash_ASC',
+  HashDesc = 'hash_DESC',
+  HeightAsc = 'height_ASC',
+  HeightDesc = 'height_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  ParentHashAsc = 'parentHash_ASC',
+  ParentHashDesc = 'parentHash_DESC',
+  SpecBlockHashAsc = 'spec_blockHash_ASC',
+  SpecBlockHashDesc = 'spec_blockHash_DESC',
+  SpecBlockHeightAsc = 'spec_blockHeight_ASC',
+  SpecBlockHeightDesc = 'spec_blockHeight_DESC',
+  SpecHexAsc = 'spec_hex_ASC',
+  SpecHexDesc = 'spec_hex_DESC',
+  SpecIdAsc = 'spec_id_ASC',
+  SpecIdDesc = 'spec_id_DESC',
+  SpecSpecNameAsc = 'spec_specName_ASC',
+  SpecSpecNameDesc = 'spec_specName_DESC',
+  SpecSpecVersionAsc = 'spec_specVersion_ASC',
+  SpecSpecVersionDesc = 'spec_specVersion_DESC',
+  TimestampAsc = 'timestamp_ASC',
+  TimestampDesc = 'timestamp_DESC',
+  ValidatorAsc = 'validator_ASC',
+  ValidatorDesc = 'validator_DESC'
+}
+
+export type Archive_BlockWhereInput = {
+  AND?: InputMaybe<Array<Archive_BlockWhereInput>>;
+  OR?: InputMaybe<Array<Archive_BlockWhereInput>>;
+  calls_every?: InputMaybe<Archive_CallWhereInput>;
+  calls_none?: InputMaybe<Archive_CallWhereInput>;
+  calls_some?: InputMaybe<Archive_CallWhereInput>;
+  events_every?: InputMaybe<Archive_EventWhereInput>;
+  events_none?: InputMaybe<Archive_EventWhereInput>;
+  events_some?: InputMaybe<Archive_EventWhereInput>;
+  extrinsics_every?: InputMaybe<Archive_ExtrinsicWhereInput>;
+  extrinsics_none?: InputMaybe<Archive_ExtrinsicWhereInput>;
+  extrinsics_some?: InputMaybe<Archive_ExtrinsicWhereInput>;
+  hash_contains?: InputMaybe<Scalars['String']>;
+  hash_containsInsensitive?: InputMaybe<Scalars['String']>;
+  hash_endsWith?: InputMaybe<Scalars['String']>;
+  hash_eq?: InputMaybe<Scalars['String']>;
+  hash_gt?: InputMaybe<Scalars['String']>;
+  hash_gte?: InputMaybe<Scalars['String']>;
+  hash_in?: InputMaybe<Array<Scalars['String']>>;
+  hash_lt?: InputMaybe<Scalars['String']>;
+  hash_lte?: InputMaybe<Scalars['String']>;
+  hash_not_contains?: InputMaybe<Scalars['String']>;
+  hash_not_containsInsensitive?: InputMaybe<Scalars['String']>;
+  hash_not_endsWith?: InputMaybe<Scalars['String']>;
+  hash_not_eq?: InputMaybe<Scalars['String']>;
+  hash_not_in?: InputMaybe<Array<Scalars['String']>>;
+  hash_not_startsWith?: InputMaybe<Scalars['String']>;
+  hash_startsWith?: InputMaybe<Scalars['String']>;
+  height_eq?: InputMaybe<Scalars['Int']>;
+  height_gt?: InputMaybe<Scalars['Int']>;
+  height_gte?: InputMaybe<Scalars['Int']>;
+  height_in?: InputMaybe<Array<Scalars['Int']>>;
+  height_lt?: InputMaybe<Scalars['Int']>;
+  height_lte?: InputMaybe<Scalars['Int']>;
+  height_not_eq?: InputMaybe<Scalars['Int']>;
+  height_not_in?: InputMaybe<Array<Scalars['Int']>>;
+  id_contains?: InputMaybe<Scalars['ID']>;
+  id_containsInsensitive?: InputMaybe<Scalars['ID']>;
+  id_endsWith?: InputMaybe<Scalars['ID']>;
+  id_eq?: InputMaybe<Scalars['ID']>;
+  id_gt?: InputMaybe<Scalars['ID']>;
+  id_gte?: InputMaybe<Scalars['ID']>;
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_lt?: InputMaybe<Scalars['ID']>;
+  id_lte?: InputMaybe<Scalars['ID']>;
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  id_not_containsInsensitive?: InputMaybe<Scalars['ID']>;
+  id_not_endsWith?: InputMaybe<Scalars['ID']>;
+  id_not_eq?: InputMaybe<Scalars['ID']>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_not_startsWith?: InputMaybe<Scalars['ID']>;
+  id_startsWith?: InputMaybe<Scalars['ID']>;
+  parentHash_contains?: InputMaybe<Scalars['String']>;
+  parentHash_containsInsensitive?: InputMaybe<Scalars['String']>;
+  parentHash_endsWith?: InputMaybe<Scalars['String']>;
+  parentHash_eq?: InputMaybe<Scalars['String']>;
+  parentHash_gt?: InputMaybe<Scalars['String']>;
+  parentHash_gte?: InputMaybe<Scalars['String']>;
+  parentHash_in?: InputMaybe<Array<Scalars['String']>>;
+  parentHash_lt?: InputMaybe<Scalars['String']>;
+  parentHash_lte?: InputMaybe<Scalars['String']>;
+  parentHash_not_contains?: InputMaybe<Scalars['String']>;
+  parentHash_not_containsInsensitive?: InputMaybe<Scalars['String']>;
+  parentHash_not_endsWith?: InputMaybe<Scalars['String']>;
+  parentHash_not_eq?: InputMaybe<Scalars['String']>;
+  parentHash_not_in?: InputMaybe<Array<Scalars['String']>>;
+  parentHash_not_startsWith?: InputMaybe<Scalars['String']>;
+  parentHash_startsWith?: InputMaybe<Scalars['String']>;
+  spec?: InputMaybe<Archive_MetadataWhereInput>;
+  timestamp_eq?: InputMaybe<Scalars['archive_BigInt']>;
+  timestamp_gt?: InputMaybe<Scalars['archive_BigInt']>;
+  timestamp_gte?: InputMaybe<Scalars['archive_BigInt']>;
+  timestamp_in?: InputMaybe<Array<Scalars['archive_BigInt']>>;
+  timestamp_lt?: InputMaybe<Scalars['archive_BigInt']>;
+  timestamp_lte?: InputMaybe<Scalars['archive_BigInt']>;
+  timestamp_not_eq?: InputMaybe<Scalars['archive_BigInt']>;
+  timestamp_not_in?: InputMaybe<Array<Scalars['archive_BigInt']>>;
+  validator_contains?: InputMaybe<Scalars['String']>;
+  validator_containsInsensitive?: InputMaybe<Scalars['String']>;
+  validator_endsWith?: InputMaybe<Scalars['String']>;
+  validator_eq?: InputMaybe<Scalars['String']>;
+  validator_gt?: InputMaybe<Scalars['String']>;
+  validator_gte?: InputMaybe<Scalars['String']>;
+  validator_in?: InputMaybe<Array<Scalars['String']>>;
+  validator_isNull?: InputMaybe<Scalars['Boolean']>;
+  validator_lt?: InputMaybe<Scalars['String']>;
+  validator_lte?: InputMaybe<Scalars['String']>;
+  validator_not_contains?: InputMaybe<Scalars['String']>;
+  validator_not_containsInsensitive?: InputMaybe<Scalars['String']>;
+  validator_not_endsWith?: InputMaybe<Scalars['String']>;
+  validator_not_eq?: InputMaybe<Scalars['String']>;
+  validator_not_in?: InputMaybe<Array<Scalars['String']>>;
+  validator_not_startsWith?: InputMaybe<Scalars['String']>;
+  validator_startsWith?: InputMaybe<Scalars['String']>;
+};
+
+export type Archive_BlockWhereUniqueInput = {
+  id: Scalars['ID'];
+};
+
+export type Archive_BlocksConnection = {
+  __typename?: 'archive_BlocksConnection';
+  edges: Array<Archive_BlockEdge>;
+  pageInfo: Balances_PageInfo;
+  totalCount: Scalars['Int'];
+};
+
+export type Archive_Call = {
+  __typename?: 'archive_Call';
+  args?: Maybe<Scalars['archive_JSON']>;
+  block: Archive_Block;
+  error?: Maybe<Scalars['archive_JSON']>;
+  extrinsic: Archive_Extrinsic;
+  id: Scalars['ID'];
   name: Scalars['String'];
+  origin?: Maybe<Scalars['archive_JSON']>;
+  parent?: Maybe<Archive_Call>;
+  pos: Scalars['Int'];
+  success: Scalars['Boolean'];
 };
 
-export type EthereumTransactionSelection = {
-  contract: Scalars['String'];
-  data?: InputMaybe<CallDataSelection>;
-  sighash?: InputMaybe<Scalars['String']>;
+export type Archive_CallEdge = {
+  __typename?: 'archive_CallEdge';
+  cursor: Scalars['String'];
+  node: Archive_Call;
 };
 
-export type EventDataSelection = {
-  event?: InputMaybe<EventFields>;
+export enum Archive_CallOrderByInput {
+  BlockHashAsc = 'block_hash_ASC',
+  BlockHashDesc = 'block_hash_DESC',
+  BlockHeightAsc = 'block_height_ASC',
+  BlockHeightDesc = 'block_height_DESC',
+  BlockIdAsc = 'block_id_ASC',
+  BlockIdDesc = 'block_id_DESC',
+  BlockParentHashAsc = 'block_parentHash_ASC',
+  BlockParentHashDesc = 'block_parentHash_DESC',
+  BlockTimestampAsc = 'block_timestamp_ASC',
+  BlockTimestampDesc = 'block_timestamp_DESC',
+  BlockValidatorAsc = 'block_validator_ASC',
+  BlockValidatorDesc = 'block_validator_DESC',
+  ExtrinsicFeeAsc = 'extrinsic_fee_ASC',
+  ExtrinsicFeeDesc = 'extrinsic_fee_DESC',
+  ExtrinsicHashAsc = 'extrinsic_hash_ASC',
+  ExtrinsicHashDesc = 'extrinsic_hash_DESC',
+  ExtrinsicIdAsc = 'extrinsic_id_ASC',
+  ExtrinsicIdDesc = 'extrinsic_id_DESC',
+  ExtrinsicIndexInBlockAsc = 'extrinsic_indexInBlock_ASC',
+  ExtrinsicIndexInBlockDesc = 'extrinsic_indexInBlock_DESC',
+  ExtrinsicPosAsc = 'extrinsic_pos_ASC',
+  ExtrinsicPosDesc = 'extrinsic_pos_DESC',
+  ExtrinsicSuccessAsc = 'extrinsic_success_ASC',
+  ExtrinsicSuccessDesc = 'extrinsic_success_DESC',
+  ExtrinsicTipAsc = 'extrinsic_tip_ASC',
+  ExtrinsicTipDesc = 'extrinsic_tip_DESC',
+  ExtrinsicVersionAsc = 'extrinsic_version_ASC',
+  ExtrinsicVersionDesc = 'extrinsic_version_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  ParentIdAsc = 'parent_id_ASC',
+  ParentIdDesc = 'parent_id_DESC',
+  ParentNameAsc = 'parent_name_ASC',
+  ParentNameDesc = 'parent_name_DESC',
+  ParentPosAsc = 'parent_pos_ASC',
+  ParentPosDesc = 'parent_pos_DESC',
+  ParentSuccessAsc = 'parent_success_ASC',
+  ParentSuccessDesc = 'parent_success_DESC',
+  PosAsc = 'pos_ASC',
+  PosDesc = 'pos_DESC',
+  SuccessAsc = 'success_ASC',
+  SuccessDesc = 'success_DESC'
+}
+
+export type Archive_CallWhereInput = {
+  AND?: InputMaybe<Array<Archive_CallWhereInput>>;
+  OR?: InputMaybe<Array<Archive_CallWhereInput>>;
+  args_eq?: InputMaybe<Scalars['archive_JSON']>;
+  args_isNull?: InputMaybe<Scalars['Boolean']>;
+  args_jsonContains?: InputMaybe<Scalars['archive_JSON']>;
+  args_jsonHasKey?: InputMaybe<Scalars['archive_JSON']>;
+  args_not_eq?: InputMaybe<Scalars['archive_JSON']>;
+  block?: InputMaybe<Archive_BlockWhereInput>;
+  error_eq?: InputMaybe<Scalars['archive_JSON']>;
+  error_isNull?: InputMaybe<Scalars['Boolean']>;
+  error_jsonContains?: InputMaybe<Scalars['archive_JSON']>;
+  error_jsonHasKey?: InputMaybe<Scalars['archive_JSON']>;
+  error_not_eq?: InputMaybe<Scalars['archive_JSON']>;
+  extrinsic?: InputMaybe<Archive_ExtrinsicWhereInput>;
+  id_contains?: InputMaybe<Scalars['ID']>;
+  id_containsInsensitive?: InputMaybe<Scalars['ID']>;
+  id_endsWith?: InputMaybe<Scalars['ID']>;
+  id_eq?: InputMaybe<Scalars['ID']>;
+  id_gt?: InputMaybe<Scalars['ID']>;
+  id_gte?: InputMaybe<Scalars['ID']>;
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_lt?: InputMaybe<Scalars['ID']>;
+  id_lte?: InputMaybe<Scalars['ID']>;
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  id_not_containsInsensitive?: InputMaybe<Scalars['ID']>;
+  id_not_endsWith?: InputMaybe<Scalars['ID']>;
+  id_not_eq?: InputMaybe<Scalars['ID']>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_not_startsWith?: InputMaybe<Scalars['ID']>;
+  id_startsWith?: InputMaybe<Scalars['ID']>;
+  name_contains?: InputMaybe<Scalars['String']>;
+  name_containsInsensitive?: InputMaybe<Scalars['String']>;
+  name_endsWith?: InputMaybe<Scalars['String']>;
+  name_eq?: InputMaybe<Scalars['String']>;
+  name_gt?: InputMaybe<Scalars['String']>;
+  name_gte?: InputMaybe<Scalars['String']>;
+  name_in?: InputMaybe<Array<Scalars['String']>>;
+  name_lt?: InputMaybe<Scalars['String']>;
+  name_lte?: InputMaybe<Scalars['String']>;
+  name_not_contains?: InputMaybe<Scalars['String']>;
+  name_not_containsInsensitive?: InputMaybe<Scalars['String']>;
+  name_not_endsWith?: InputMaybe<Scalars['String']>;
+  name_not_eq?: InputMaybe<Scalars['String']>;
+  name_not_in?: InputMaybe<Array<Scalars['String']>>;
+  name_not_startsWith?: InputMaybe<Scalars['String']>;
+  name_startsWith?: InputMaybe<Scalars['String']>;
+  origin_eq?: InputMaybe<Scalars['archive_JSON']>;
+  origin_isNull?: InputMaybe<Scalars['Boolean']>;
+  origin_jsonContains?: InputMaybe<Scalars['archive_JSON']>;
+  origin_jsonHasKey?: InputMaybe<Scalars['archive_JSON']>;
+  origin_not_eq?: InputMaybe<Scalars['archive_JSON']>;
+  parent?: InputMaybe<Archive_CallWhereInput>;
+  parent_isNull?: InputMaybe<Scalars['Boolean']>;
+  pos_eq?: InputMaybe<Scalars['Int']>;
+  pos_gt?: InputMaybe<Scalars['Int']>;
+  pos_gte?: InputMaybe<Scalars['Int']>;
+  pos_in?: InputMaybe<Array<Scalars['Int']>>;
+  pos_lt?: InputMaybe<Scalars['Int']>;
+  pos_lte?: InputMaybe<Scalars['Int']>;
+  pos_not_eq?: InputMaybe<Scalars['Int']>;
+  pos_not_in?: InputMaybe<Array<Scalars['Int']>>;
+  success_eq?: InputMaybe<Scalars['Boolean']>;
+  success_not_eq?: InputMaybe<Scalars['Boolean']>;
 };
 
-export type EventFields = {
-  _all?: InputMaybe<Scalars['Boolean']>;
-  args?: InputMaybe<Scalars['Boolean']>;
-  call?: InputMaybe<CallFields>;
-  extrinsic?: InputMaybe<ExtrinsicFields>;
-  indexInBlock?: InputMaybe<Scalars['Boolean']>;
-  phase?: InputMaybe<Scalars['Boolean']>;
+export type Archive_CallWhereUniqueInput = {
+  id: Scalars['ID'];
 };
 
-export type EventSelection = {
-  data?: InputMaybe<EventDataSelection>;
+export type Archive_CallsConnection = {
+  __typename?: 'archive_CallsConnection';
+  edges: Array<Archive_CallEdge>;
+  pageInfo: Balances_PageInfo;
+  totalCount: Scalars['Int'];
+};
+
+export type Archive_Event = {
+  __typename?: 'archive_Event';
+  args?: Maybe<Scalars['archive_JSON']>;
+  block: Archive_Block;
+  call?: Maybe<Archive_Call>;
+  extrinsic?: Maybe<Archive_Extrinsic>;
+  id: Scalars['ID'];
+  indexInBlock: Scalars['Int'];
   name: Scalars['String'];
+  phase: Scalars['String'];
+  pos: Scalars['Int'];
 };
 
-export type EvmLogDataSelection = {
-  event?: InputMaybe<EvmLogFields>;
+export type Archive_EventEdge = {
+  __typename?: 'archive_EventEdge';
+  cursor: Scalars['String'];
+  node: Archive_Event;
 };
 
-export type EvmLogFields = {
-  _all?: InputMaybe<Scalars['Boolean']>;
-  args?: InputMaybe<Scalars['Boolean']>;
-  call?: InputMaybe<CallFields>;
-  evmTxHash?: InputMaybe<Scalars['Boolean']>;
-  extrinsic?: InputMaybe<ExtrinsicFields>;
-  indexInBlock?: InputMaybe<Scalars['Boolean']>;
-  phase?: InputMaybe<Scalars['Boolean']>;
+export enum Archive_EventOrderByInput {
+  BlockHashAsc = 'block_hash_ASC',
+  BlockHashDesc = 'block_hash_DESC',
+  BlockHeightAsc = 'block_height_ASC',
+  BlockHeightDesc = 'block_height_DESC',
+  BlockIdAsc = 'block_id_ASC',
+  BlockIdDesc = 'block_id_DESC',
+  BlockParentHashAsc = 'block_parentHash_ASC',
+  BlockParentHashDesc = 'block_parentHash_DESC',
+  BlockTimestampAsc = 'block_timestamp_ASC',
+  BlockTimestampDesc = 'block_timestamp_DESC',
+  BlockValidatorAsc = 'block_validator_ASC',
+  BlockValidatorDesc = 'block_validator_DESC',
+  CallIdAsc = 'call_id_ASC',
+  CallIdDesc = 'call_id_DESC',
+  CallNameAsc = 'call_name_ASC',
+  CallNameDesc = 'call_name_DESC',
+  CallPosAsc = 'call_pos_ASC',
+  CallPosDesc = 'call_pos_DESC',
+  CallSuccessAsc = 'call_success_ASC',
+  CallSuccessDesc = 'call_success_DESC',
+  ExtrinsicFeeAsc = 'extrinsic_fee_ASC',
+  ExtrinsicFeeDesc = 'extrinsic_fee_DESC',
+  ExtrinsicHashAsc = 'extrinsic_hash_ASC',
+  ExtrinsicHashDesc = 'extrinsic_hash_DESC',
+  ExtrinsicIdAsc = 'extrinsic_id_ASC',
+  ExtrinsicIdDesc = 'extrinsic_id_DESC',
+  ExtrinsicIndexInBlockAsc = 'extrinsic_indexInBlock_ASC',
+  ExtrinsicIndexInBlockDesc = 'extrinsic_indexInBlock_DESC',
+  ExtrinsicPosAsc = 'extrinsic_pos_ASC',
+  ExtrinsicPosDesc = 'extrinsic_pos_DESC',
+  ExtrinsicSuccessAsc = 'extrinsic_success_ASC',
+  ExtrinsicSuccessDesc = 'extrinsic_success_DESC',
+  ExtrinsicTipAsc = 'extrinsic_tip_ASC',
+  ExtrinsicTipDesc = 'extrinsic_tip_DESC',
+  ExtrinsicVersionAsc = 'extrinsic_version_ASC',
+  ExtrinsicVersionDesc = 'extrinsic_version_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  IndexInBlockAsc = 'indexInBlock_ASC',
+  IndexInBlockDesc = 'indexInBlock_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  PhaseAsc = 'phase_ASC',
+  PhaseDesc = 'phase_DESC',
+  PosAsc = 'pos_ASC',
+  PosDesc = 'pos_DESC'
+}
+
+export type Archive_EventWhereInput = {
+  AND?: InputMaybe<Array<Archive_EventWhereInput>>;
+  OR?: InputMaybe<Array<Archive_EventWhereInput>>;
+  args_eq?: InputMaybe<Scalars['archive_JSON']>;
+  args_isNull?: InputMaybe<Scalars['Boolean']>;
+  args_jsonContains?: InputMaybe<Scalars['archive_JSON']>;
+  args_jsonHasKey?: InputMaybe<Scalars['archive_JSON']>;
+  args_not_eq?: InputMaybe<Scalars['archive_JSON']>;
+  block?: InputMaybe<Archive_BlockWhereInput>;
+  call?: InputMaybe<Archive_CallWhereInput>;
+  call_isNull?: InputMaybe<Scalars['Boolean']>;
+  extrinsic?: InputMaybe<Archive_ExtrinsicWhereInput>;
+  extrinsic_isNull?: InputMaybe<Scalars['Boolean']>;
+  id_contains?: InputMaybe<Scalars['ID']>;
+  id_containsInsensitive?: InputMaybe<Scalars['ID']>;
+  id_endsWith?: InputMaybe<Scalars['ID']>;
+  id_eq?: InputMaybe<Scalars['ID']>;
+  id_gt?: InputMaybe<Scalars['ID']>;
+  id_gte?: InputMaybe<Scalars['ID']>;
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_lt?: InputMaybe<Scalars['ID']>;
+  id_lte?: InputMaybe<Scalars['ID']>;
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  id_not_containsInsensitive?: InputMaybe<Scalars['ID']>;
+  id_not_endsWith?: InputMaybe<Scalars['ID']>;
+  id_not_eq?: InputMaybe<Scalars['ID']>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_not_startsWith?: InputMaybe<Scalars['ID']>;
+  id_startsWith?: InputMaybe<Scalars['ID']>;
+  indexInBlock_eq?: InputMaybe<Scalars['Int']>;
+  indexInBlock_gt?: InputMaybe<Scalars['Int']>;
+  indexInBlock_gte?: InputMaybe<Scalars['Int']>;
+  indexInBlock_in?: InputMaybe<Array<Scalars['Int']>>;
+  indexInBlock_lt?: InputMaybe<Scalars['Int']>;
+  indexInBlock_lte?: InputMaybe<Scalars['Int']>;
+  indexInBlock_not_eq?: InputMaybe<Scalars['Int']>;
+  indexInBlock_not_in?: InputMaybe<Array<Scalars['Int']>>;
+  name_contains?: InputMaybe<Scalars['String']>;
+  name_containsInsensitive?: InputMaybe<Scalars['String']>;
+  name_endsWith?: InputMaybe<Scalars['String']>;
+  name_eq?: InputMaybe<Scalars['String']>;
+  name_gt?: InputMaybe<Scalars['String']>;
+  name_gte?: InputMaybe<Scalars['String']>;
+  name_in?: InputMaybe<Array<Scalars['String']>>;
+  name_lt?: InputMaybe<Scalars['String']>;
+  name_lte?: InputMaybe<Scalars['String']>;
+  name_not_contains?: InputMaybe<Scalars['String']>;
+  name_not_containsInsensitive?: InputMaybe<Scalars['String']>;
+  name_not_endsWith?: InputMaybe<Scalars['String']>;
+  name_not_eq?: InputMaybe<Scalars['String']>;
+  name_not_in?: InputMaybe<Array<Scalars['String']>>;
+  name_not_startsWith?: InputMaybe<Scalars['String']>;
+  name_startsWith?: InputMaybe<Scalars['String']>;
+  phase_contains?: InputMaybe<Scalars['String']>;
+  phase_containsInsensitive?: InputMaybe<Scalars['String']>;
+  phase_endsWith?: InputMaybe<Scalars['String']>;
+  phase_eq?: InputMaybe<Scalars['String']>;
+  phase_gt?: InputMaybe<Scalars['String']>;
+  phase_gte?: InputMaybe<Scalars['String']>;
+  phase_in?: InputMaybe<Array<Scalars['String']>>;
+  phase_lt?: InputMaybe<Scalars['String']>;
+  phase_lte?: InputMaybe<Scalars['String']>;
+  phase_not_contains?: InputMaybe<Scalars['String']>;
+  phase_not_containsInsensitive?: InputMaybe<Scalars['String']>;
+  phase_not_endsWith?: InputMaybe<Scalars['String']>;
+  phase_not_eq?: InputMaybe<Scalars['String']>;
+  phase_not_in?: InputMaybe<Array<Scalars['String']>>;
+  phase_not_startsWith?: InputMaybe<Scalars['String']>;
+  phase_startsWith?: InputMaybe<Scalars['String']>;
+  pos_eq?: InputMaybe<Scalars['Int']>;
+  pos_gt?: InputMaybe<Scalars['Int']>;
+  pos_gte?: InputMaybe<Scalars['Int']>;
+  pos_in?: InputMaybe<Array<Scalars['Int']>>;
+  pos_lt?: InputMaybe<Scalars['Int']>;
+  pos_lte?: InputMaybe<Scalars['Int']>;
+  pos_not_eq?: InputMaybe<Scalars['Int']>;
+  pos_not_in?: InputMaybe<Array<Scalars['Int']>>;
 };
 
-export type EvmLogSelection = {
-  contract: Scalars['String'];
-  data?: InputMaybe<EvmLogDataSelection>;
-  filter?: InputMaybe<Array<Array<Scalars['String']>>>;
+export type Archive_EventWhereUniqueInput = {
+  id: Scalars['ID'];
 };
 
-export type ExtrinsicFields = {
-  _all?: InputMaybe<Scalars['Boolean']>;
-  call?: InputMaybe<CallFields>;
-  error?: InputMaybe<Scalars['Boolean']>;
-  fee?: InputMaybe<Scalars['Boolean']>;
-  hash?: InputMaybe<Scalars['Boolean']>;
-  indexInBlock?: InputMaybe<Scalars['Boolean']>;
-  signature?: InputMaybe<Scalars['Boolean']>;
-  success?: InputMaybe<Scalars['Boolean']>;
-  tip?: InputMaybe<Scalars['Boolean']>;
-  version?: InputMaybe<Scalars['Boolean']>;
+export type Archive_EventsConnection = {
+  __typename?: 'archive_EventsConnection';
+  edges: Array<Archive_EventEdge>;
+  pageInfo: Balances_PageInfo;
+  totalCount: Scalars['Int'];
 };
 
-export type Metadata = {
-  __typename?: 'Metadata';
+export type Archive_Extrinsic = {
+  __typename?: 'archive_Extrinsic';
+  block: Archive_Block;
+  call: Archive_Call;
+  calls: Array<Archive_Call>;
+  error?: Maybe<Scalars['archive_JSON']>;
+  fee?: Maybe<Scalars['Int']>;
+  hash: Scalars['String'];
+  id: Scalars['ID'];
+  indexInBlock: Scalars['Int'];
+  pos: Scalars['Int'];
+  signature?: Maybe<Scalars['archive_JSON']>;
+  success: Scalars['Boolean'];
+  tip?: Maybe<Scalars['Int']>;
+  version: Scalars['Int'];
+};
+
+
+export type Archive_ExtrinsicCallsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Array<InputMaybe<Archive_CallOrderByInput>>>;
+  where?: InputMaybe<Archive_CallWhereInput>;
+};
+
+export type Archive_ExtrinsicEdge = {
+  __typename?: 'archive_ExtrinsicEdge';
+  cursor: Scalars['String'];
+  node: Archive_Extrinsic;
+};
+
+export enum Archive_ExtrinsicOrderByInput {
+  BlockHashAsc = 'block_hash_ASC',
+  BlockHashDesc = 'block_hash_DESC',
+  BlockHeightAsc = 'block_height_ASC',
+  BlockHeightDesc = 'block_height_DESC',
+  BlockIdAsc = 'block_id_ASC',
+  BlockIdDesc = 'block_id_DESC',
+  BlockParentHashAsc = 'block_parentHash_ASC',
+  BlockParentHashDesc = 'block_parentHash_DESC',
+  BlockTimestampAsc = 'block_timestamp_ASC',
+  BlockTimestampDesc = 'block_timestamp_DESC',
+  BlockValidatorAsc = 'block_validator_ASC',
+  BlockValidatorDesc = 'block_validator_DESC',
+  CallIdAsc = 'call_id_ASC',
+  CallIdDesc = 'call_id_DESC',
+  CallNameAsc = 'call_name_ASC',
+  CallNameDesc = 'call_name_DESC',
+  CallPosAsc = 'call_pos_ASC',
+  CallPosDesc = 'call_pos_DESC',
+  CallSuccessAsc = 'call_success_ASC',
+  CallSuccessDesc = 'call_success_DESC',
+  FeeAsc = 'fee_ASC',
+  FeeDesc = 'fee_DESC',
+  HashAsc = 'hash_ASC',
+  HashDesc = 'hash_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  IndexInBlockAsc = 'indexInBlock_ASC',
+  IndexInBlockDesc = 'indexInBlock_DESC',
+  PosAsc = 'pos_ASC',
+  PosDesc = 'pos_DESC',
+  SuccessAsc = 'success_ASC',
+  SuccessDesc = 'success_DESC',
+  TipAsc = 'tip_ASC',
+  TipDesc = 'tip_DESC',
+  VersionAsc = 'version_ASC',
+  VersionDesc = 'version_DESC'
+}
+
+export type Archive_ExtrinsicWhereInput = {
+  AND?: InputMaybe<Array<Archive_ExtrinsicWhereInput>>;
+  OR?: InputMaybe<Array<Archive_ExtrinsicWhereInput>>;
+  block?: InputMaybe<Archive_BlockWhereInput>;
+  call?: InputMaybe<Archive_CallWhereInput>;
+  calls_every?: InputMaybe<Archive_CallWhereInput>;
+  calls_none?: InputMaybe<Archive_CallWhereInput>;
+  calls_some?: InputMaybe<Archive_CallWhereInput>;
+  error_eq?: InputMaybe<Scalars['archive_JSON']>;
+  error_isNull?: InputMaybe<Scalars['Boolean']>;
+  error_jsonContains?: InputMaybe<Scalars['archive_JSON']>;
+  error_jsonHasKey?: InputMaybe<Scalars['archive_JSON']>;
+  error_not_eq?: InputMaybe<Scalars['archive_JSON']>;
+  fee_eq?: InputMaybe<Scalars['Int']>;
+  fee_gt?: InputMaybe<Scalars['Int']>;
+  fee_gte?: InputMaybe<Scalars['Int']>;
+  fee_in?: InputMaybe<Array<Scalars['Int']>>;
+  fee_isNull?: InputMaybe<Scalars['Boolean']>;
+  fee_lt?: InputMaybe<Scalars['Int']>;
+  fee_lte?: InputMaybe<Scalars['Int']>;
+  fee_not_eq?: InputMaybe<Scalars['Int']>;
+  fee_not_in?: InputMaybe<Array<Scalars['Int']>>;
+  hash_contains?: InputMaybe<Scalars['String']>;
+  hash_containsInsensitive?: InputMaybe<Scalars['String']>;
+  hash_endsWith?: InputMaybe<Scalars['String']>;
+  hash_eq?: InputMaybe<Scalars['String']>;
+  hash_gt?: InputMaybe<Scalars['String']>;
+  hash_gte?: InputMaybe<Scalars['String']>;
+  hash_in?: InputMaybe<Array<Scalars['String']>>;
+  hash_lt?: InputMaybe<Scalars['String']>;
+  hash_lte?: InputMaybe<Scalars['String']>;
+  hash_not_contains?: InputMaybe<Scalars['String']>;
+  hash_not_containsInsensitive?: InputMaybe<Scalars['String']>;
+  hash_not_endsWith?: InputMaybe<Scalars['String']>;
+  hash_not_eq?: InputMaybe<Scalars['String']>;
+  hash_not_in?: InputMaybe<Array<Scalars['String']>>;
+  hash_not_startsWith?: InputMaybe<Scalars['String']>;
+  hash_startsWith?: InputMaybe<Scalars['String']>;
+  id_contains?: InputMaybe<Scalars['ID']>;
+  id_containsInsensitive?: InputMaybe<Scalars['ID']>;
+  id_endsWith?: InputMaybe<Scalars['ID']>;
+  id_eq?: InputMaybe<Scalars['ID']>;
+  id_gt?: InputMaybe<Scalars['ID']>;
+  id_gte?: InputMaybe<Scalars['ID']>;
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_lt?: InputMaybe<Scalars['ID']>;
+  id_lte?: InputMaybe<Scalars['ID']>;
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  id_not_containsInsensitive?: InputMaybe<Scalars['ID']>;
+  id_not_endsWith?: InputMaybe<Scalars['ID']>;
+  id_not_eq?: InputMaybe<Scalars['ID']>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_not_startsWith?: InputMaybe<Scalars['ID']>;
+  id_startsWith?: InputMaybe<Scalars['ID']>;
+  indexInBlock_eq?: InputMaybe<Scalars['Int']>;
+  indexInBlock_gt?: InputMaybe<Scalars['Int']>;
+  indexInBlock_gte?: InputMaybe<Scalars['Int']>;
+  indexInBlock_in?: InputMaybe<Array<Scalars['Int']>>;
+  indexInBlock_lt?: InputMaybe<Scalars['Int']>;
+  indexInBlock_lte?: InputMaybe<Scalars['Int']>;
+  indexInBlock_not_eq?: InputMaybe<Scalars['Int']>;
+  indexInBlock_not_in?: InputMaybe<Array<Scalars['Int']>>;
+  pos_eq?: InputMaybe<Scalars['Int']>;
+  pos_gt?: InputMaybe<Scalars['Int']>;
+  pos_gte?: InputMaybe<Scalars['Int']>;
+  pos_in?: InputMaybe<Array<Scalars['Int']>>;
+  pos_lt?: InputMaybe<Scalars['Int']>;
+  pos_lte?: InputMaybe<Scalars['Int']>;
+  pos_not_eq?: InputMaybe<Scalars['Int']>;
+  pos_not_in?: InputMaybe<Array<Scalars['Int']>>;
+  signature_eq?: InputMaybe<Scalars['archive_JSON']>;
+  signature_isNull?: InputMaybe<Scalars['Boolean']>;
+  signature_jsonContains?: InputMaybe<Scalars['archive_JSON']>;
+  signature_jsonHasKey?: InputMaybe<Scalars['archive_JSON']>;
+  signature_not_eq?: InputMaybe<Scalars['archive_JSON']>;
+  success_eq?: InputMaybe<Scalars['Boolean']>;
+  success_not_eq?: InputMaybe<Scalars['Boolean']>;
+  tip_eq?: InputMaybe<Scalars['Int']>;
+  tip_gt?: InputMaybe<Scalars['Int']>;
+  tip_gte?: InputMaybe<Scalars['Int']>;
+  tip_in?: InputMaybe<Array<Scalars['Int']>>;
+  tip_isNull?: InputMaybe<Scalars['Boolean']>;
+  tip_lt?: InputMaybe<Scalars['Int']>;
+  tip_lte?: InputMaybe<Scalars['Int']>;
+  tip_not_eq?: InputMaybe<Scalars['Int']>;
+  tip_not_in?: InputMaybe<Array<Scalars['Int']>>;
+  version_eq?: InputMaybe<Scalars['Int']>;
+  version_gt?: InputMaybe<Scalars['Int']>;
+  version_gte?: InputMaybe<Scalars['Int']>;
+  version_in?: InputMaybe<Array<Scalars['Int']>>;
+  version_lt?: InputMaybe<Scalars['Int']>;
+  version_lte?: InputMaybe<Scalars['Int']>;
+  version_not_eq?: InputMaybe<Scalars['Int']>;
+  version_not_in?: InputMaybe<Array<Scalars['Int']>>;
+};
+
+export type Archive_ExtrinsicWhereUniqueInput = {
+  id: Scalars['ID'];
+};
+
+export type Archive_ExtrinsicsConnection = {
+  __typename?: 'archive_ExtrinsicsConnection';
+  edges: Array<Archive_ExtrinsicEdge>;
+  pageInfo: Balances_PageInfo;
+  totalCount: Scalars['Int'];
+};
+
+export type Archive_Metadata = {
+  __typename?: 'archive_Metadata';
   blockHash: Scalars['String'];
   blockHeight: Scalars['Int'];
   hex: Scalars['String'];
-  id: Scalars['String'];
+  id: Scalars['ID'];
   specName: Scalars['String'];
-  specVersion: Scalars['Int'];
+  specVersion?: Maybe<Scalars['Int']>;
 };
 
-export type ParentCallFields = {
-  _all?: InputMaybe<Scalars['Boolean']>;
-  args?: InputMaybe<Scalars['Boolean']>;
-  error?: InputMaybe<Scalars['Boolean']>;
-  origin?: InputMaybe<Scalars['Boolean']>;
-  parent?: InputMaybe<Scalars['Boolean']>;
+export type Archive_MetadataConnection = {
+  __typename?: 'archive_MetadataConnection';
+  edges: Array<Archive_MetadataEdge>;
+  pageInfo: Balances_PageInfo;
+  totalCount: Scalars['Int'];
 };
 
-export type Status = {
-  __typename?: 'Status';
-  head: Scalars['Int'];
+export type Archive_MetadataEdge = {
+  __typename?: 'archive_MetadataEdge';
+  cursor: Scalars['String'];
+  node: Archive_Metadata;
+};
+
+export enum Archive_MetadataOrderByInput {
+  BlockHashAsc = 'blockHash_ASC',
+  BlockHashDesc = 'blockHash_DESC',
+  BlockHeightAsc = 'blockHeight_ASC',
+  BlockHeightDesc = 'blockHeight_DESC',
+  HexAsc = 'hex_ASC',
+  HexDesc = 'hex_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  SpecNameAsc = 'specName_ASC',
+  SpecNameDesc = 'specName_DESC',
+  SpecVersionAsc = 'specVersion_ASC',
+  SpecVersionDesc = 'specVersion_DESC'
+}
+
+export type Archive_MetadataWhereInput = {
+  AND?: InputMaybe<Array<Archive_MetadataWhereInput>>;
+  OR?: InputMaybe<Array<Archive_MetadataWhereInput>>;
+  blockHash_contains?: InputMaybe<Scalars['String']>;
+  blockHash_containsInsensitive?: InputMaybe<Scalars['String']>;
+  blockHash_endsWith?: InputMaybe<Scalars['String']>;
+  blockHash_eq?: InputMaybe<Scalars['String']>;
+  blockHash_gt?: InputMaybe<Scalars['String']>;
+  blockHash_gte?: InputMaybe<Scalars['String']>;
+  blockHash_in?: InputMaybe<Array<Scalars['String']>>;
+  blockHash_lt?: InputMaybe<Scalars['String']>;
+  blockHash_lte?: InputMaybe<Scalars['String']>;
+  blockHash_not_contains?: InputMaybe<Scalars['String']>;
+  blockHash_not_containsInsensitive?: InputMaybe<Scalars['String']>;
+  blockHash_not_endsWith?: InputMaybe<Scalars['String']>;
+  blockHash_not_eq?: InputMaybe<Scalars['String']>;
+  blockHash_not_in?: InputMaybe<Array<Scalars['String']>>;
+  blockHash_not_startsWith?: InputMaybe<Scalars['String']>;
+  blockHash_startsWith?: InputMaybe<Scalars['String']>;
+  blockHeight_eq?: InputMaybe<Scalars['Int']>;
+  blockHeight_gt?: InputMaybe<Scalars['Int']>;
+  blockHeight_gte?: InputMaybe<Scalars['Int']>;
+  blockHeight_in?: InputMaybe<Array<Scalars['Int']>>;
+  blockHeight_lt?: InputMaybe<Scalars['Int']>;
+  blockHeight_lte?: InputMaybe<Scalars['Int']>;
+  blockHeight_not_eq?: InputMaybe<Scalars['Int']>;
+  blockHeight_not_in?: InputMaybe<Array<Scalars['Int']>>;
+  hex_contains?: InputMaybe<Scalars['String']>;
+  hex_containsInsensitive?: InputMaybe<Scalars['String']>;
+  hex_endsWith?: InputMaybe<Scalars['String']>;
+  hex_eq?: InputMaybe<Scalars['String']>;
+  hex_gt?: InputMaybe<Scalars['String']>;
+  hex_gte?: InputMaybe<Scalars['String']>;
+  hex_in?: InputMaybe<Array<Scalars['String']>>;
+  hex_lt?: InputMaybe<Scalars['String']>;
+  hex_lte?: InputMaybe<Scalars['String']>;
+  hex_not_contains?: InputMaybe<Scalars['String']>;
+  hex_not_containsInsensitive?: InputMaybe<Scalars['String']>;
+  hex_not_endsWith?: InputMaybe<Scalars['String']>;
+  hex_not_eq?: InputMaybe<Scalars['String']>;
+  hex_not_in?: InputMaybe<Array<Scalars['String']>>;
+  hex_not_startsWith?: InputMaybe<Scalars['String']>;
+  hex_startsWith?: InputMaybe<Scalars['String']>;
+  id_contains?: InputMaybe<Scalars['ID']>;
+  id_containsInsensitive?: InputMaybe<Scalars['ID']>;
+  id_endsWith?: InputMaybe<Scalars['ID']>;
+  id_eq?: InputMaybe<Scalars['ID']>;
+  id_gt?: InputMaybe<Scalars['ID']>;
+  id_gte?: InputMaybe<Scalars['ID']>;
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_lt?: InputMaybe<Scalars['ID']>;
+  id_lte?: InputMaybe<Scalars['ID']>;
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  id_not_containsInsensitive?: InputMaybe<Scalars['ID']>;
+  id_not_endsWith?: InputMaybe<Scalars['ID']>;
+  id_not_eq?: InputMaybe<Scalars['ID']>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_not_startsWith?: InputMaybe<Scalars['ID']>;
+  id_startsWith?: InputMaybe<Scalars['ID']>;
+  specName_contains?: InputMaybe<Scalars['String']>;
+  specName_containsInsensitive?: InputMaybe<Scalars['String']>;
+  specName_endsWith?: InputMaybe<Scalars['String']>;
+  specName_eq?: InputMaybe<Scalars['String']>;
+  specName_gt?: InputMaybe<Scalars['String']>;
+  specName_gte?: InputMaybe<Scalars['String']>;
+  specName_in?: InputMaybe<Array<Scalars['String']>>;
+  specName_lt?: InputMaybe<Scalars['String']>;
+  specName_lte?: InputMaybe<Scalars['String']>;
+  specName_not_contains?: InputMaybe<Scalars['String']>;
+  specName_not_containsInsensitive?: InputMaybe<Scalars['String']>;
+  specName_not_endsWith?: InputMaybe<Scalars['String']>;
+  specName_not_eq?: InputMaybe<Scalars['String']>;
+  specName_not_in?: InputMaybe<Array<Scalars['String']>>;
+  specName_not_startsWith?: InputMaybe<Scalars['String']>;
+  specName_startsWith?: InputMaybe<Scalars['String']>;
+  specVersion_eq?: InputMaybe<Scalars['Int']>;
+  specVersion_gt?: InputMaybe<Scalars['Int']>;
+  specVersion_gte?: InputMaybe<Scalars['Int']>;
+  specVersion_in?: InputMaybe<Array<Scalars['Int']>>;
+  specVersion_isNull?: InputMaybe<Scalars['Boolean']>;
+  specVersion_lt?: InputMaybe<Scalars['Int']>;
+  specVersion_lte?: InputMaybe<Scalars['Int']>;
+  specVersion_not_eq?: InputMaybe<Scalars['Int']>;
+  specVersion_not_in?: InputMaybe<Array<Scalars['Int']>>;
+};
+
+export type Archive_MetadataWhereUniqueInput = {
+  id: Scalars['ID'];
 };
 
 export type BalancesQuery = {
@@ -855,30 +1671,10 @@ export type Evm_TransactionsConnection = {
 
 export type Query_Root = {
   __typename?: 'query_root';
+  archive?: Maybe<ArchiveQuery>;
   balances?: Maybe<BalancesQuery>;
-  batch: Array<Batch>;
   evm?: Maybe<EvmQuery>;
-  metadata: Array<Metadata>;
-  metadataById?: Maybe<Metadata>;
-  status: Status;
   transfers?: Maybe<TransfersQuery>;
-};
-
-
-export type Query_RootBatchArgs = {
-  calls?: InputMaybe<Array<CallSelectionInput>>;
-  ethereumTransactions?: InputMaybe<Array<EthereumTransactionSelection>>;
-  events?: InputMaybe<Array<EventSelection>>;
-  evmLogs?: InputMaybe<Array<EvmLogSelection>>;
-  fromBlock?: Scalars['Int'];
-  includeAllBlocks?: InputMaybe<Scalars['Boolean']>;
-  limit: Scalars['Int'];
-  toBlock?: InputMaybe<Scalars['Int']>;
-};
-
-
-export type Query_RootMetadataByIdArgs = {
-  id: Scalars['String'];
 };
 
 export type Subscription_Root = {
@@ -1188,12 +1984,51 @@ export type Transfers_TransfersConnection = {
   totalCount: Scalars['Int'];
 };
 
+export type GetBlocksQueryVariables = Exact<{
+  limit: Scalars['Int'];
+}>;
+
+
+export type GetBlocksQuery = { __typename?: 'query_root', archive?: { __typename?: 'archiveQuery', blocks: Array<{ __typename?: 'archive_Block', hash: string, height: number, id: string, parentHash: string, timestamp: any, validator?: string | null, spec: { __typename?: 'archive_Metadata', specVersion?: number | null, specName: string } }> } | null };
+
 export type GetLatestTenTransfersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetLatestTenTransfersQuery = { __typename?: 'query_root', transfers?: { __typename?: 'transfersQuery', transfers: Array<{ __typename?: 'transfers_Transfer', timestamp: any, status: Transfers_AssetStatus, id: string, extrinsicHash?: string | null, blockNumber: number, assetId: string, amount: any, from: { __typename?: 'transfers_Account', id: string }, to: { __typename?: 'transfers_Account', id: string } }> } | null };
 
 
+export const GetBlocksDocument = `
+    query GetBlocks($limit: Int!) {
+  archive {
+    blocks(orderBy: height_DESC, limit: $limit) {
+      hash
+      height
+      id
+      parentHash
+      timestamp
+      validator
+      spec {
+        specVersion
+        specName
+      }
+    }
+  }
+}
+    `;
+export const useGetBlocksQuery = <
+      TData = GetBlocksQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables: GetBlocksQueryVariables,
+      options?: UseQueryOptions<GetBlocksQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<GetBlocksQuery, TError, TData>(
+      ['GetBlocks', variables],
+      fetcher<GetBlocksQuery, GetBlocksQueryVariables>(client, GetBlocksDocument, variables, headers),
+      options
+    );
 export const GetLatestTenTransfersDocument = `
     query GetLatestTenTransfers {
   transfers {

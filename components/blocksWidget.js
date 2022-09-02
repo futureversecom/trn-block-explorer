@@ -7,25 +7,21 @@ import TimeAgo from "react-timeago";
 import RefetchIndicator from "./refetchIndicator";
 import BlockFinalizedIcon from "./icons/blockFinalizedIcon";
 import LoadingBlock from "./loadingBlock";
+import { useGetBlocksQuery } from "../libs/api/generated.ts";
+import { usePolling } from "../libs/hooks/usePolling";
 
 export default function BlocksWidget() {
-  const query = useQuery(
-    ["blocksFrontpage"],
-    async () => {
-      console.log("Fetching blocksFrontpage");
-      await sleep();
-      return clientApi.getLatestBlocks();
-    },
-    {
-      refetchInterval: 5000,
-    }
-  );
+  const query = usePolling({}, useGetBlocksQuery, {
+    limit: 10,
+  });
+
+  const blocks = query?.data?.archive?.blocks;
 
   return (
     <div>
       <div className="flex flex-row justify-between py-3">
         <div className="flex">
-          <CubeIcon className="h-5 my-auto pr-3" />
+          <CubeIcon className="my-auto h-5 pr-3" />
           <h3 className="text-md font-medium leading-6 text-gray-900">
             Blocks
           </h3>
@@ -45,15 +41,15 @@ export default function BlocksWidget() {
       {query.isLoading ? (
         <LoadingBlock title="Blocks" />
       ) : (
-        <div className=" bg-white px-4 py-3 sm:px-6 border border-gray-100 rounded-md shadow-md divide-y">
-          {query.data.map((item, key) => (
+        <div className=" divide-y rounded-md border border-gray-100 bg-white px-4 py-3 shadow-md sm:px-6">
+          {blocks?.map((item, key) => (
             <BlockItem
               key={key}
               height={item.height}
-              extrinsics={item.extrinsics}
-              events={item.events}
+              extrinsics={item.extrinsics || "?"}
+              events={item.events || "?"}
               timestamp={item.timestamp}
-              status={item.status}
+              status={true}
             />
           ))}
         </div>
@@ -69,7 +65,7 @@ const BlockItem = ({ height, extrinsics, events, timestamp, status }) => {
         <div className="text-sm font-bold">
           Block#{" "}
           <Link href={`/block/${height}`}>
-            <span className="text-lg cursor-pointer text-indigo-500">
+            <span className="cursor-pointer text-lg text-indigo-500">
               {height}
             </span>
           </Link>
@@ -77,7 +73,7 @@ const BlockItem = ({ height, extrinsics, events, timestamp, status }) => {
       </div>
       <div className="flex flex-row justify-between">
         <div className="text-teal-800">
-          <span className="text-gray-500 text-sm">Includes</span>{" "}
+          <span className="text-sm text-gray-500">Includes</span>{" "}
           <span className="text-indigo-500">{extrinsics} Extrinsics</span>{" "}
           <span className="text-indigo-500">{events} Events</span>{" "}
         </div>

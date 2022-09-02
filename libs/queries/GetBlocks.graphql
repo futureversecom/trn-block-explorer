@@ -1,0 +1,16 @@
+query GetBlocks($limit: Int!) {
+  archive {
+    blocks(orderBy: height_DESC, limit: $limit) {
+      hash
+      height
+      id
+      parentHash
+      timestamp
+      validator
+      spec {
+        specVersion
+        specName
+      }
+    }
+  }
+}

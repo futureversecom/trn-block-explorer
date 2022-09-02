@@ -12,129 +12,771 @@ directive @cached(
   refresh: Boolean! = false
 ) on QUERY
 
-type Batch {
-  calls: [JSON!]!
-  events: [JSON!]!
-  extrinsics: [JSON!]!
-  header: BlockHeader!
+type archiveQuery {
+  blockById(id: ID!): archive_Block
+  blockByUniqueInput(where: archive_BlockWhereUniqueInput!): archive_Block
+  blocks(limit: Int, offset: Int, orderBy: [archive_BlockOrderByInput], where: archive_BlockWhereInput): [archive_Block!]!
+  blocksConnection(after: String, first: Int, orderBy: [archive_BlockOrderByInput!]!, where: archive_BlockWhereInput): archive_BlocksConnection!
+  callById(id: ID!): archive_Call
+  callByUniqueInput(where: archive_CallWhereUniqueInput!): archive_Call
+  calls(limit: Int, offset: Int, orderBy: [archive_CallOrderByInput], where: archive_CallWhereInput): [archive_Call!]!
+  callsConnection(after: String, first: Int, orderBy: [archive_CallOrderByInput!]!, where: archive_CallWhereInput): archive_CallsConnection!
+  eventById(id: ID!): archive_Event
+  eventByUniqueInput(where: archive_EventWhereUniqueInput!): archive_Event
+  events(limit: Int, offset: Int, orderBy: [archive_EventOrderByInput], where: archive_EventWhereInput): [archive_Event!]!
+  eventsConnection(after: String, first: Int, orderBy: [archive_EventOrderByInput!]!, where: archive_EventWhereInput): archive_EventsConnection!
+  extrinsicById(id: ID!): archive_Extrinsic
+  extrinsicByUniqueInput(where: archive_ExtrinsicWhereUniqueInput!): archive_Extrinsic
+  extrinsics(limit: Int, offset: Int, orderBy: [archive_ExtrinsicOrderByInput], where: archive_ExtrinsicWhereInput): [archive_Extrinsic!]!
+  extrinsicsConnection(after: String, first: Int, orderBy: [archive_ExtrinsicOrderByInput!]!, where: archive_ExtrinsicWhereInput): archive_ExtrinsicsConnection!
+  metadata(limit: Int, offset: Int, orderBy: [archive_MetadataOrderByInput], where: archive_MetadataWhereInput): [archive_Metadata!]!
+  metadataById(id: ID!): archive_Metadata
+  metadataByUniqueInput(where: archive_MetadataWhereUniqueInput!): archive_Metadata
+  metadataConnection(after: String, first: Int, orderBy: [archive_MetadataOrderByInput!]!, where: archive_MetadataWhereInput): archive_MetadataConnection!
 }
 
-type BlockHeader {
-  extrinsicsRoot: String!
+"""Big number integer"""
+scalar archive_BigInt
+
+type archive_Block {
+  calls(limit: Int, offset: Int, orderBy: [archive_CallOrderByInput], where: archive_CallWhereInput): [archive_Call!]!
+  events(limit: Int, offset: Int, orderBy: [archive_EventOrderByInput], where: archive_EventWhereInput): [archive_Event!]!
+  extrinsics(limit: Int, offset: Int, orderBy: [archive_ExtrinsicOrderByInput], where: archive_ExtrinsicWhereInput): [archive_Extrinsic!]!
   hash: String!
   height: Int!
-  id: String!
+  id: ID!
   parentHash: String!
-  specId: String!
-  stateRoot: String!
-  timestamp: DateTime!
+  spec: archive_Metadata!
+  timestamp: archive_BigInt!
   validator: String
 }
 
-input CallDataSelection {
-  call: CallFields
-  extrinsic: ExtrinsicFields
+type archive_BlockEdge {
+  cursor: String!
+  node: archive_Block!
 }
 
-input CallFields {
-  _all: Boolean
-  args: Boolean
-  error: Boolean
-  origin: Boolean
-  parent: ParentCallFields
+enum archive_BlockOrderByInput {
+  hash_ASC
+  hash_DESC
+  height_ASC
+  height_DESC
+  id_ASC
+  id_DESC
+  parentHash_ASC
+  parentHash_DESC
+  spec_blockHash_ASC
+  spec_blockHash_DESC
+  spec_blockHeight_ASC
+  spec_blockHeight_DESC
+  spec_hex_ASC
+  spec_hex_DESC
+  spec_id_ASC
+  spec_id_DESC
+  spec_specName_ASC
+  spec_specName_DESC
+  spec_specVersion_ASC
+  spec_specVersion_DESC
+  timestamp_ASC
+  timestamp_DESC
+  validator_ASC
+  validator_DESC
 }
 
-input CallSelectionInput {
-  data: CallDataSelection
+input archive_BlockWhereInput {
+  AND: [archive_BlockWhereInput!]
+  OR: [archive_BlockWhereInput!]
+  calls_every: archive_CallWhereInput
+  calls_none: archive_CallWhereInput
+  calls_some: archive_CallWhereInput
+  events_every: archive_EventWhereInput
+  events_none: archive_EventWhereInput
+  events_some: archive_EventWhereInput
+  extrinsics_every: archive_ExtrinsicWhereInput
+  extrinsics_none: archive_ExtrinsicWhereInput
+  extrinsics_some: archive_ExtrinsicWhereInput
+  hash_contains: String
+  hash_containsInsensitive: String
+  hash_endsWith: String
+  hash_eq: String
+  hash_gt: String
+  hash_gte: String
+  hash_in: [String!]
+  hash_lt: String
+  hash_lte: String
+  hash_not_contains: String
+  hash_not_containsInsensitive: String
+  hash_not_endsWith: String
+  hash_not_eq: String
+  hash_not_in: [String!]
+  hash_not_startsWith: String
+  hash_startsWith: String
+  height_eq: Int
+  height_gt: Int
+  height_gte: Int
+  height_in: [Int!]
+  height_lt: Int
+  height_lte: Int
+  height_not_eq: Int
+  height_not_in: [Int!]
+  id_contains: ID
+  id_containsInsensitive: ID
+  id_endsWith: ID
+  id_eq: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_not_contains: ID
+  id_not_containsInsensitive: ID
+  id_not_endsWith: ID
+  id_not_eq: ID
+  id_not_in: [ID!]
+  id_not_startsWith: ID
+  id_startsWith: ID
+  parentHash_contains: String
+  parentHash_containsInsensitive: String
+  parentHash_endsWith: String
+  parentHash_eq: String
+  parentHash_gt: String
+  parentHash_gte: String
+  parentHash_in: [String!]
+  parentHash_lt: String
+  parentHash_lte: String
+  parentHash_not_contains: String
+  parentHash_not_containsInsensitive: String
+  parentHash_not_endsWith: String
+  parentHash_not_eq: String
+  parentHash_not_in: [String!]
+  parentHash_not_startsWith: String
+  parentHash_startsWith: String
+  spec: archive_MetadataWhereInput
+  timestamp_eq: archive_BigInt
+  timestamp_gt: archive_BigInt
+  timestamp_gte: archive_BigInt
+  timestamp_in: [archive_BigInt!]
+  timestamp_lt: archive_BigInt
+  timestamp_lte: archive_BigInt
+  timestamp_not_eq: archive_BigInt
+  timestamp_not_in: [archive_BigInt!]
+  validator_contains: String
+  validator_containsInsensitive: String
+  validator_endsWith: String
+  validator_eq: String
+  validator_gt: String
+  validator_gte: String
+  validator_in: [String!]
+  validator_isNull: Boolean
+  validator_lt: String
+  validator_lte: String
+  validator_not_contains: String
+  validator_not_containsInsensitive: String
+  validator_not_endsWith: String
+  validator_not_eq: String
+  validator_not_in: [String!]
+  validator_not_startsWith: String
+  validator_startsWith: String
+}
+
+input archive_BlockWhereUniqueInput {
+  id: ID!
+}
+
+type archive_BlocksConnection {
+  edges: [archive_BlockEdge!]!
+  pageInfo: balances_PageInfo!
+  totalCount: Int!
+}
+
+type archive_Call {
+  args: archive_JSON
+  block: archive_Block!
+  error: archive_JSON
+  extrinsic: archive_Extrinsic!
+  id: ID!
   name: String!
+  origin: archive_JSON
+  parent: archive_Call
+  pos: Int!
+  success: Boolean!
 }
 
-"""
-Implement the DateTime<Utc> scalar
-
-The input/output is a string in RFC3339 format.
-"""
-scalar DateTime
-
-input EthereumTransactionSelection {
-  contract: String!
-  data: CallDataSelection
-  sighash: String
+type archive_CallEdge {
+  cursor: String!
+  node: archive_Call!
 }
 
-input EventDataSelection {
-  event: EventFields
+enum archive_CallOrderByInput {
+  block_hash_ASC
+  block_hash_DESC
+  block_height_ASC
+  block_height_DESC
+  block_id_ASC
+  block_id_DESC
+  block_parentHash_ASC
+  block_parentHash_DESC
+  block_timestamp_ASC
+  block_timestamp_DESC
+  block_validator_ASC
+  block_validator_DESC
+  extrinsic_fee_ASC
+  extrinsic_fee_DESC
+  extrinsic_hash_ASC
+  extrinsic_hash_DESC
+  extrinsic_id_ASC
+  extrinsic_id_DESC
+  extrinsic_indexInBlock_ASC
+  extrinsic_indexInBlock_DESC
+  extrinsic_pos_ASC
+  extrinsic_pos_DESC
+  extrinsic_success_ASC
+  extrinsic_success_DESC
+  extrinsic_tip_ASC
+  extrinsic_tip_DESC
+  extrinsic_version_ASC
+  extrinsic_version_DESC
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  parent_id_ASC
+  parent_id_DESC
+  parent_name_ASC
+  parent_name_DESC
+  parent_pos_ASC
+  parent_pos_DESC
+  parent_success_ASC
+  parent_success_DESC
+  pos_ASC
+  pos_DESC
+  success_ASC
+  success_DESC
 }
 
-input EventFields {
-  _all: Boolean
-  args: Boolean
-  call: CallFields
-  extrinsic: ExtrinsicFields
-  indexInBlock: Boolean
-  phase: Boolean
+input archive_CallWhereInput {
+  AND: [archive_CallWhereInput!]
+  OR: [archive_CallWhereInput!]
+  args_eq: archive_JSON
+  args_isNull: Boolean
+  args_jsonContains: archive_JSON
+  args_jsonHasKey: archive_JSON
+  args_not_eq: archive_JSON
+  block: archive_BlockWhereInput
+  error_eq: archive_JSON
+  error_isNull: Boolean
+  error_jsonContains: archive_JSON
+  error_jsonHasKey: archive_JSON
+  error_not_eq: archive_JSON
+  extrinsic: archive_ExtrinsicWhereInput
+  id_contains: ID
+  id_containsInsensitive: ID
+  id_endsWith: ID
+  id_eq: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_not_contains: ID
+  id_not_containsInsensitive: ID
+  id_not_endsWith: ID
+  id_not_eq: ID
+  id_not_in: [ID!]
+  id_not_startsWith: ID
+  id_startsWith: ID
+  name_contains: String
+  name_containsInsensitive: String
+  name_endsWith: String
+  name_eq: String
+  name_gt: String
+  name_gte: String
+  name_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_not_contains: String
+  name_not_containsInsensitive: String
+  name_not_endsWith: String
+  name_not_eq: String
+  name_not_in: [String!]
+  name_not_startsWith: String
+  name_startsWith: String
+  origin_eq: archive_JSON
+  origin_isNull: Boolean
+  origin_jsonContains: archive_JSON
+  origin_jsonHasKey: archive_JSON
+  origin_not_eq: archive_JSON
+  parent: archive_CallWhereInput
+  parent_isNull: Boolean
+  pos_eq: Int
+  pos_gt: Int
+  pos_gte: Int
+  pos_in: [Int!]
+  pos_lt: Int
+  pos_lte: Int
+  pos_not_eq: Int
+  pos_not_in: [Int!]
+  success_eq: Boolean
+  success_not_eq: Boolean
 }
 
-input EventSelection {
-  data: EventDataSelection
+input archive_CallWhereUniqueInput {
+  id: ID!
+}
+
+type archive_CallsConnection {
+  edges: [archive_CallEdge!]!
+  pageInfo: balances_PageInfo!
+  totalCount: Int!
+}
+
+type archive_Event {
+  args: archive_JSON
+  block: archive_Block!
+  call: archive_Call
+  extrinsic: archive_Extrinsic
+  id: ID!
+  indexInBlock: Int!
   name: String!
+  phase: String!
+  pos: Int!
 }
 
-input EvmLogDataSelection {
-  event: EvmLogFields
+type archive_EventEdge {
+  cursor: String!
+  node: archive_Event!
 }
 
-input EvmLogFields {
-  _all: Boolean
-  args: Boolean
-  call: CallFields
-  evmTxHash: Boolean
-  extrinsic: ExtrinsicFields
-  indexInBlock: Boolean
-  phase: Boolean
+enum archive_EventOrderByInput {
+  block_hash_ASC
+  block_hash_DESC
+  block_height_ASC
+  block_height_DESC
+  block_id_ASC
+  block_id_DESC
+  block_parentHash_ASC
+  block_parentHash_DESC
+  block_timestamp_ASC
+  block_timestamp_DESC
+  block_validator_ASC
+  block_validator_DESC
+  call_id_ASC
+  call_id_DESC
+  call_name_ASC
+  call_name_DESC
+  call_pos_ASC
+  call_pos_DESC
+  call_success_ASC
+  call_success_DESC
+  extrinsic_fee_ASC
+  extrinsic_fee_DESC
+  extrinsic_hash_ASC
+  extrinsic_hash_DESC
+  extrinsic_id_ASC
+  extrinsic_id_DESC
+  extrinsic_indexInBlock_ASC
+  extrinsic_indexInBlock_DESC
+  extrinsic_pos_ASC
+  extrinsic_pos_DESC
+  extrinsic_success_ASC
+  extrinsic_success_DESC
+  extrinsic_tip_ASC
+  extrinsic_tip_DESC
+  extrinsic_version_ASC
+  extrinsic_version_DESC
+  id_ASC
+  id_DESC
+  indexInBlock_ASC
+  indexInBlock_DESC
+  name_ASC
+  name_DESC
+  phase_ASC
+  phase_DESC
+  pos_ASC
+  pos_DESC
 }
 
-input EvmLogSelection {
-  contract: String!
-  data: EvmLogDataSelection
-  filter: [[String!]!]
+input archive_EventWhereInput {
+  AND: [archive_EventWhereInput!]
+  OR: [archive_EventWhereInput!]
+  args_eq: archive_JSON
+  args_isNull: Boolean
+  args_jsonContains: archive_JSON
+  args_jsonHasKey: archive_JSON
+  args_not_eq: archive_JSON
+  block: archive_BlockWhereInput
+  call: archive_CallWhereInput
+  call_isNull: Boolean
+  extrinsic: archive_ExtrinsicWhereInput
+  extrinsic_isNull: Boolean
+  id_contains: ID
+  id_containsInsensitive: ID
+  id_endsWith: ID
+  id_eq: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_not_contains: ID
+  id_not_containsInsensitive: ID
+  id_not_endsWith: ID
+  id_not_eq: ID
+  id_not_in: [ID!]
+  id_not_startsWith: ID
+  id_startsWith: ID
+  indexInBlock_eq: Int
+  indexInBlock_gt: Int
+  indexInBlock_gte: Int
+  indexInBlock_in: [Int!]
+  indexInBlock_lt: Int
+  indexInBlock_lte: Int
+  indexInBlock_not_eq: Int
+  indexInBlock_not_in: [Int!]
+  name_contains: String
+  name_containsInsensitive: String
+  name_endsWith: String
+  name_eq: String
+  name_gt: String
+  name_gte: String
+  name_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_not_contains: String
+  name_not_containsInsensitive: String
+  name_not_endsWith: String
+  name_not_eq: String
+  name_not_in: [String!]
+  name_not_startsWith: String
+  name_startsWith: String
+  phase_contains: String
+  phase_containsInsensitive: String
+  phase_endsWith: String
+  phase_eq: String
+  phase_gt: String
+  phase_gte: String
+  phase_in: [String!]
+  phase_lt: String
+  phase_lte: String
+  phase_not_contains: String
+  phase_not_containsInsensitive: String
+  phase_not_endsWith: String
+  phase_not_eq: String
+  phase_not_in: [String!]
+  phase_not_startsWith: String
+  phase_startsWith: String
+  pos_eq: Int
+  pos_gt: Int
+  pos_gte: Int
+  pos_in: [Int!]
+  pos_lt: Int
+  pos_lte: Int
+  pos_not_eq: Int
+  pos_not_in: [Int!]
 }
 
-input ExtrinsicFields {
-  _all: Boolean
-  call: CallFields
-  error: Boolean
-  fee: Boolean
-  hash: Boolean
-  indexInBlock: Boolean
-  signature: Boolean
-  success: Boolean
-  tip: Boolean
-  version: Boolean
+input archive_EventWhereUniqueInput {
+  id: ID!
 }
 
-"""A scalar that can represent any JSON value."""
-scalar JSON
+type archive_EventsConnection {
+  edges: [archive_EventEdge!]!
+  pageInfo: balances_PageInfo!
+  totalCount: Int!
+}
 
-type Metadata {
+type archive_Extrinsic {
+  block: archive_Block!
+  call: archive_Call!
+  calls(limit: Int, offset: Int, orderBy: [archive_CallOrderByInput], where: archive_CallWhereInput): [archive_Call!]!
+  error: archive_JSON
+  fee: Int
+  hash: String!
+  id: ID!
+  indexInBlock: Int!
+  pos: Int!
+  signature: archive_JSON
+  success: Boolean!
+  tip: Int
+  version: Int!
+}
+
+type archive_ExtrinsicEdge {
+  cursor: String!
+  node: archive_Extrinsic!
+}
+
+enum archive_ExtrinsicOrderByInput {
+  block_hash_ASC
+  block_hash_DESC
+  block_height_ASC
+  block_height_DESC
+  block_id_ASC
+  block_id_DESC
+  block_parentHash_ASC
+  block_parentHash_DESC
+  block_timestamp_ASC
+  block_timestamp_DESC
+  block_validator_ASC
+  block_validator_DESC
+  call_id_ASC
+  call_id_DESC
+  call_name_ASC
+  call_name_DESC
+  call_pos_ASC
+  call_pos_DESC
+  call_success_ASC
+  call_success_DESC
+  fee_ASC
+  fee_DESC
+  hash_ASC
+  hash_DESC
+  id_ASC
+  id_DESC
+  indexInBlock_ASC
+  indexInBlock_DESC
+  pos_ASC
+  pos_DESC
+  success_ASC
+  success_DESC
+  tip_ASC
+  tip_DESC
+  version_ASC
+  version_DESC
+}
+
+input archive_ExtrinsicWhereInput {
+  AND: [archive_ExtrinsicWhereInput!]
+  OR: [archive_ExtrinsicWhereInput!]
+  block: archive_BlockWhereInput
+  call: archive_CallWhereInput
+  calls_every: archive_CallWhereInput
+  calls_none: archive_CallWhereInput
+  calls_some: archive_CallWhereInput
+  error_eq: archive_JSON
+  error_isNull: Boolean
+  error_jsonContains: archive_JSON
+  error_jsonHasKey: archive_JSON
+  error_not_eq: archive_JSON
+  fee_eq: Int
+  fee_gt: Int
+  fee_gte: Int
+  fee_in: [Int!]
+  fee_isNull: Boolean
+  fee_lt: Int
+  fee_lte: Int
+  fee_not_eq: Int
+  fee_not_in: [Int!]
+  hash_contains: String
+  hash_containsInsensitive: String
+  hash_endsWith: String
+  hash_eq: String
+  hash_gt: String
+  hash_gte: String
+  hash_in: [String!]
+  hash_lt: String
+  hash_lte: String
+  hash_not_contains: String
+  hash_not_containsInsensitive: String
+  hash_not_endsWith: String
+  hash_not_eq: String
+  hash_not_in: [String!]
+  hash_not_startsWith: String
+  hash_startsWith: String
+  id_contains: ID
+  id_containsInsensitive: ID
+  id_endsWith: ID
+  id_eq: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_not_contains: ID
+  id_not_containsInsensitive: ID
+  id_not_endsWith: ID
+  id_not_eq: ID
+  id_not_in: [ID!]
+  id_not_startsWith: ID
+  id_startsWith: ID
+  indexInBlock_eq: Int
+  indexInBlock_gt: Int
+  indexInBlock_gte: Int
+  indexInBlock_in: [Int!]
+  indexInBlock_lt: Int
+  indexInBlock_lte: Int
+  indexInBlock_not_eq: Int
+  indexInBlock_not_in: [Int!]
+  pos_eq: Int
+  pos_gt: Int
+  pos_gte: Int
+  pos_in: [Int!]
+  pos_lt: Int
+  pos_lte: Int
+  pos_not_eq: Int
+  pos_not_in: [Int!]
+  signature_eq: archive_JSON
+  signature_isNull: Boolean
+  signature_jsonContains: archive_JSON
+  signature_jsonHasKey: archive_JSON
+  signature_not_eq: archive_JSON
+  success_eq: Boolean
+  success_not_eq: Boolean
+  tip_eq: Int
+  tip_gt: Int
+  tip_gte: Int
+  tip_in: [Int!]
+  tip_isNull: Boolean
+  tip_lt: Int
+  tip_lte: Int
+  tip_not_eq: Int
+  tip_not_in: [Int!]
+  version_eq: Int
+  version_gt: Int
+  version_gte: Int
+  version_in: [Int!]
+  version_lt: Int
+  version_lte: Int
+  version_not_eq: Int
+  version_not_in: [Int!]
+}
+
+input archive_ExtrinsicWhereUniqueInput {
+  id: ID!
+}
+
+type archive_ExtrinsicsConnection {
+  edges: [archive_ExtrinsicEdge!]!
+  pageInfo: balances_PageInfo!
+  totalCount: Int!
+}
+
+"""A scalar that can represent any JSON value"""
+scalar archive_JSON
+
+type archive_Metadata {
   blockHash: String!
   blockHeight: Int!
   hex: String!
-  id: String!
+  id: ID!
   specName: String!
-  specVersion: Int!
+  specVersion: Int
 }
 
-input ParentCallFields {
-  _all: Boolean
-  args: Boolean
-  error: Boolean
-  origin: Boolean
-  parent: Boolean
+type archive_MetadataConnection {
+  edges: [archive_MetadataEdge!]!
+  pageInfo: balances_PageInfo!
+  totalCount: Int!
 }
 
-type Status {
-  head: Int!
+type archive_MetadataEdge {
+  cursor: String!
+  node: archive_Metadata!
+}
+
+enum archive_MetadataOrderByInput {
+  blockHash_ASC
+  blockHash_DESC
+  blockHeight_ASC
+  blockHeight_DESC
+  hex_ASC
+  hex_DESC
+  id_ASC
+  id_DESC
+  specName_ASC
+  specName_DESC
+  specVersion_ASC
+  specVersion_DESC
+}
+
+input archive_MetadataWhereInput {
+  AND: [archive_MetadataWhereInput!]
+  OR: [archive_MetadataWhereInput!]
+  blockHash_contains: String
+  blockHash_containsInsensitive: String
+  blockHash_endsWith: String
+  blockHash_eq: String
+  blockHash_gt: String
+  blockHash_gte: String
+  blockHash_in: [String!]
+  blockHash_lt: String
+  blockHash_lte: String
+  blockHash_not_contains: String
+  blockHash_not_containsInsensitive: String
+  blockHash_not_endsWith: String
+  blockHash_not_eq: String
+  blockHash_not_in: [String!]
+  blockHash_not_startsWith: String
+  blockHash_startsWith: String
+  blockHeight_eq: Int
+  blockHeight_gt: Int
+  blockHeight_gte: Int
+  blockHeight_in: [Int!]
+  blockHeight_lt: Int
+  blockHeight_lte: Int
+  blockHeight_not_eq: Int
+  blockHeight_not_in: [Int!]
+  hex_contains: String
+  hex_containsInsensitive: String
+  hex_endsWith: String
+  hex_eq: String
+  hex_gt: String
+  hex_gte: String
+  hex_in: [String!]
+  hex_lt: String
+  hex_lte: String
+  hex_not_contains: String
+  hex_not_containsInsensitive: String
+  hex_not_endsWith: String
+  hex_not_eq: String
+  hex_not_in: [String!]
+  hex_not_startsWith: String
+  hex_startsWith: String
+  id_contains: ID
+  id_containsInsensitive: ID
+  id_endsWith: ID
+  id_eq: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_not_contains: ID
+  id_not_containsInsensitive: ID
+  id_not_endsWith: ID
+  id_not_eq: ID
+  id_not_in: [ID!]
+  id_not_startsWith: ID
+  id_startsWith: ID
+  specName_contains: String
+  specName_containsInsensitive: String
+  specName_endsWith: String
+  specName_eq: String
+  specName_gt: String
+  specName_gte: String
+  specName_in: [String!]
+  specName_lt: String
+  specName_lte: String
+  specName_not_contains: String
+  specName_not_containsInsensitive: String
+  specName_not_endsWith: String
+  specName_not_eq: String
+  specName_not_in: [String!]
+  specName_not_startsWith: String
+  specName_startsWith: String
+  specVersion_eq: Int
+  specVersion_gt: Int
+  specVersion_gte: Int
+  specVersion_in: [Int!]
+  specVersion_isNull: Boolean
+  specVersion_lt: Int
+  specVersion_lte: Int
+  specVersion_not_eq: Int
+  specVersion_not_in: [Int!]
+}
+
+input archive_MetadataWhereUniqueInput {
+  id: ID!
 }
 
 type balancesQuery {
@@ -712,12 +1354,9 @@ type evm_TransactionsConnection {
 }
 
 type query_root {
+  archive: archiveQuery
   balances: balancesQuery
-  batch(calls: [CallSelectionInput!], ethereumTransactions: [EthereumTransactionSelection!], events: [EventSelection!], evmLogs: [EvmLogSelection!], fromBlock: Int! = 0, includeAllBlocks: Boolean, limit: Int!, toBlock: Int): [Batch!]!
   evm: evmQuery
-  metadata: [Metadata!]!
-  metadataById(id: String!): Metadata
-  status: Status!
   transfers: transfersQuery
 }
 

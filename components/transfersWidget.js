@@ -42,7 +42,7 @@ export default function TransfersWidget() {
             key={key}
             from={item?.from?.id}
             to={item?.to?.id}
-            id={formatAddress(item.extrinsicHash)}
+            id={item.extrinsicHash}
             timestamp={item.timestamp}
             amount={item.amount}
             status={item.status === "TRANSFERRED" ? true : false}
@@ -58,7 +58,7 @@ const TransferItem = ({ from, to, id, timestamp, amount, status }) => {
     <div className="block py-3">
       <div className="flex flex-row justify-between">
         <div className="text-sm font-bold">
-          Extrinsic# <span className="text-lg">{id}</span>
+          Extrinsic# <span className="text-lg">{formatAddress(id)}</span>
         </div>
         <div className="my-auto flex">
           {ethers.utils.formatEther(amount.toString()).toString()}{" "}
