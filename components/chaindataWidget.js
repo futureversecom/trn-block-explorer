@@ -39,10 +39,10 @@ export default function ChaindataWidget() {
         )}
       </div>
       {query.isLoading ? (
-        <LoadingBlock title="Chaindata" />
+        <LoadingBlock title="Chaindata" height="h-28" />
       ) : (
         <div className="space-y-3">
-          <dl className="mt-5 grid grid-cols-1 divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow md:grid-cols-3 md:divide-y-0 md:divide-x">
+          <dl className="grid grid-cols-1 divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow md:grid-cols-3 md:divide-y-0 md:divide-x">
             {query.data.map((item) => (
               <div
                 key={item.name}

@@ -8,6 +8,7 @@ import { ethers } from "ethers";
 import RefetchIndicator from "./refetchIndicator";
 import { useGetTransfersQuery } from "../libs/api/generated.ts";
 import { usePolling } from "../libs/hooks/usePolling";
+import LoadingBlock from "./loadingBlock";
 
 export default function TransfersWidget() {
   const query = usePolling({}, useGetTransfersQuery, { limit: 10 });
@@ -35,20 +36,23 @@ export default function TransfersWidget() {
           </Link>
         </div>
       </div>
-
-      <div className=" divide-y rounded-md border border-gray-100 bg-white px-4 py-3 shadow-md sm:px-6">
-        {transfers?.map((item, key) => (
-          <TransferItem
-            key={key}
-            from={item?.from?.id}
-            to={item?.to?.id}
-            id={item.extrinsicHash}
-            timestamp={item.timestamp}
-            amount={item.amount}
-            status={item.status === "TRANSFERRED" ? true : false}
-          />
-        ))}
-      </div>
+      {query.isLoading ? (
+        <LoadingBlock title="Blocks" height="h-80" />
+      ) : (
+        <div className=" divide-y rounded-md h- border border-gray-100 bg-white px-4 py-3 shadow-md sm:px-6">
+          {transfers?.map((item, key) => (
+            <TransferItem
+              key={key}
+              from={item?.from?.id}
+              to={item?.to?.id}
+              id={item.extrinsicHash}
+              timestamp={item.timestamp}
+              amount={item.amount}
+              status={item.status === "TRANSFERRED" ? true : false}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
