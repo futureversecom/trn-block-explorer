@@ -5,7 +5,17 @@ import Link from "next/link";
 import BlockFinalizedIcon from "./icons/blockFinalizedIcon";
 import { getCurrentNativeCurrencyName } from "../utils/networkSwitcherUtils";
 import { ethers } from "ethers";
-export default function TransfersWidget({ transfers }) {
+
+import { useGetLatestTenTransfersQuery } from "../libs/api/generated.ts";
+import { usePolling } from "../libs/hooks/usePolling";
+
+export default function TransfersWidget() {
+  const transfersQuery = usePolling(
+    transfersInitialData,
+    useGetLatestTenTransfersQuery
+  );
+  const transfers = transfersQuery?.transfers?.transfers;
+  
   return (
     <div>
       <div className="flex flex-row justify-between py-3">

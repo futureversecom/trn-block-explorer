@@ -3,16 +3,7 @@ import BlocksWidget from "../components/blocksWidget";
 import TransfersWidget from "../components/transfersWidget";
 import ChaindataWidget from "../components/chaindataWidget";
 
-import { useGetLatestTenTransfersQuery } from "../libs/api/generated.ts";
-import { usePolling } from "../libs/hooks/usePolling";
-
-export default function Home({ transfersInitialData }) {
-  const transfersQuery = usePolling(
-    transfersInitialData,
-    useGetLatestTenTransfersQuery
-  );
-  const transfers = transfersQuery?.transfers?.transfers;
-
+export default function Home() {
   return (
     <div>
       <Head>
@@ -30,7 +21,7 @@ export default function Home({ transfersInitialData }) {
         <div className="mx-auto max-w-7xl py-3 px-4 sm:px-6 lg:px-8">
           <div className="grid gap-5 sm:grid-cols-1 md:grid-cols-2">
             <BlocksWidget />
-            <TransfersWidget transfers={transfers} query={transfersQuery} />
+            <TransfersWidget/>
           </div>
         </div>
       </div>
