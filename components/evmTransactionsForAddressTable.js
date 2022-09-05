@@ -8,9 +8,14 @@ import { usePolling } from "../libs/hooks/usePolling";
 import LoadingBlock from "./loadingBlock";
 
 export default function EVMTransactionsForAddress({ walletAddress }) {
-  const query = usePolling({}, useGetEvmTransactionsForAddressQuery, {
-    address: walletAddress,
-  });
+  const query = usePolling(
+    {},
+    useGetEvmTransactionsForAddressQuery,
+    {
+      address: walletAddress,
+    },
+    12000
+  );
 
   query.data = query?.data?.evm?.transactions;
 
