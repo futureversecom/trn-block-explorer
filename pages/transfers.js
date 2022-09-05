@@ -85,7 +85,7 @@ export default function Transfers() {
                             {formatAddress(transfer.extrinsicHash, 12)}
                           </td>
                         </Link>
-                        <Link href={`/transfer/${transfer.blockNumber}`}>
+                        <Link href={`/block/${transfer.blockNumber}`}>
                           <td className="cursor-pointer whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-indigo-500 sm:pl-6">
                             {transfer.blockNumber}
                           </td>
