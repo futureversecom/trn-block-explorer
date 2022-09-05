@@ -3,7 +3,6 @@ import { formatAddress } from "../utils/utils";
 import TimeAgo from "react-timeago";
 import Link from "next/link";
 import BlockFinalizedIcon from "./icons/blockFinalizedIcon";
-import { getCurrentNativeCurrencyName } from "../utils/networkSwitcherUtils";
 import { ethers } from "ethers";
 import RefetchIndicator from "./refetchIndicator";
 import { useGetTransfersQuery } from "../libs/api/generated.ts";
@@ -66,7 +65,7 @@ const TransferItem = ({ from, to, id, timestamp, amount, status }) => {
         </div>
         <div className="my-auto flex">
           {ethers.utils.formatEther(amount.toString()).toString()}{" "}
-          {getCurrentNativeCurrencyName()}{" "}
+          Root{" "}
           <BlockFinalizedIcon status={status} />
         </div>
       </div>

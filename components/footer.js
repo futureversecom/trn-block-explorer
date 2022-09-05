@@ -1,4 +1,3 @@
-import * as rpcApi from "../utils/rpcApi";
 import { useQuery } from "@tanstack/react-query";
 
 const navigation = {
@@ -50,29 +49,8 @@ const navigation = {
 };
 
 export default function Footer() {
-  const query = useQuery(
-    ["getHeader"],
-    async () => {
-      console.log("Fetching getHeader");
-      const data = await rpcApi.getHeader();
-      return data;
-    },
-    {
-      refetchInterval: 15000,
-    }
-  );
-
   return (
     <footer className="bg-white">
-      <div className="mx-auto max-w-7xl overflow-hidden py-3 px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          {query.isLoading ? (
-            "Loading"
-          ) : (
-            <h1>Latest Block: {Number(query.data?.number)}</h1>
-          )}
-        </div>
-      </div>
       <div className="mx-auto max-w-7xl overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
         <nav
           className="-mx-5 -my-2 flex flex-wrap justify-center"
