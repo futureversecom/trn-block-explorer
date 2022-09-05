@@ -11,6 +11,7 @@ import { useGetTransferByHashQuery } from "../../libs/api/generated.ts";
 import { usePolling } from "../../libs/hooks/usePolling";
 import { ethers } from "ethers";
 import Link from "next/link";
+import CopyToClipBoard from "../../components/copyToClipboard";
 
 export default function Transfer() {
   const router = useRouter();
@@ -25,7 +26,7 @@ export default function Transfer() {
   return (
     <ContainerLayout>
       <PageHeader
-        title={`Transfer # ${hash}`}
+        title={`Transfer # ${formatAddress(hash, 12)}`}
         icon={<CubeIcon className="my-auto h-5 pr-3" />}
       />
       {query.isLoading ? (
@@ -39,8 +40,11 @@ export default function Transfer() {
                   <dt className="text-sm font-medium text-gray-900">
                     Transaction Hash
                   </dt>
-                  <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
-                    {hash}
+                  <dd className="mt-1 flex flex-row space-x-3 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
+                    <div>{hash}</div>
+                    <div>
+                      <CopyToClipBoard value={hash} />
+                    </div>
                   </dd>
                 </div>
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
@@ -78,15 +82,22 @@ export default function Transfer() {
 
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                   <dt className="text-sm font-medium text-gray-900">From</dt>
-                  <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
-                    {query.data.from?.id}
+                  <dd className="mt-1 flex cursor-pointer flex-row space-x-3 text-sm text-indigo-500 sm:col-span-2 sm:mt-0">
+                    <Link href={`/account/${query.data.from?.id}`}>
+                      {query.data.from?.id}
+                    </Link>
+                    <CopyToClipBoard value={query.data.from?.id} />
                   </dd>
                 </div>
 
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                   <dt className="text-sm font-medium text-gray-900">To</dt>
-                  <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
-                    {query.data.to?.id}
+
+                  <dd className="mt-1 flex cursor-pointer flex-row space-x-3 text-sm text-indigo-500 sm:col-span-2 sm:mt-0">
+                    <Link href={`/account/${query.data.to?.id}`}>
+                      {query.data.to?.id}
+                    </Link>
+                    <CopyToClipBoard value={query.data.to?.id} />
                   </dd>
                 </div>
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">

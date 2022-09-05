@@ -22,7 +22,7 @@ export default function CopyToClipBoard({ value }) {
     }
   };
 
-  const classes = "h-5 w-5";
+  const classes = "h-5 w-5 text-gray-600";
 
   return (
     <div
