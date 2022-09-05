@@ -4,9 +4,14 @@ import ContainerLayout from "../../layout/containerLayout";
 import PageHeader from "../../components/pageHeader";
 import EVMTransactionsForAddress from "../../components/evmTransactionsForAddressTable";
 import BalanceForAddress from "../../components/balanceForAddress";
+import { ethers } from "ethers";
 export default function Account() {
   const router = useRouter();
   const { walletaddress } = router.query;
+
+  if (!ethers.utils.isAddress(walletaddress)) {
+    return "Invalid address";
+  }
 
   return (
     <ContainerLayout>
