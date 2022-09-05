@@ -2012,6 +2012,13 @@ export type GetBlocksQueryVariables = Exact<{
 
 export type GetBlocksQuery = { __typename?: 'query_root', archive?: { __typename?: 'archiveQuery', blocks: Array<{ __typename?: 'archive_Block', hash: string, height: number, id: string, parentHash: string, timestamp: any, validator?: string | null, spec: { __typename?: 'archive_Metadata', specVersion?: number | null, specName: string } }> } | null };
 
+export type GetEvmTransactionsForAddressQueryVariables = Exact<{
+  address: Scalars['String'];
+}>;
+
+
+export type GetEvmTransactionsForAddressQuery = { __typename?: 'query_root', evm?: { __typename?: 'evmQuery', transactions: Array<{ __typename?: 'evm_Transaction', id: string, type: number, txHash: string, to: string, timestamp: any, method: string, input: any, from: string, block: number }> } | null };
+
 export type GetTransferByHashQueryVariables = Exact<{
   hash: Scalars['String'];
 }>;
@@ -2142,6 +2149,41 @@ export const useGetBlocksQuery = <
     useQuery<GetBlocksQuery, TError, TData>(
       ['GetBlocks', variables],
       fetcher<GetBlocksQuery, GetBlocksQueryVariables>(client, GetBlocksDocument, variables, headers),
+      options
+    );
+export const GetEvmTransactionsForAddressDocument = `
+    query GetEVMTransactionsForAddress($address: String!) {
+  evm {
+    transactions(
+      orderBy: block_DESC
+      limit: 10
+      where: {OR: {from_eq: $address}, to_eq: $address}
+    ) {
+      id
+      type
+      txHash
+      to
+      timestamp
+      method
+      input
+      from
+      block
+    }
+  }
+}
+    `;
+export const useGetEvmTransactionsForAddressQuery = <
+      TData = GetEvmTransactionsForAddressQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables: GetEvmTransactionsForAddressQueryVariables,
+      options?: UseQueryOptions<GetEvmTransactionsForAddressQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<GetEvmTransactionsForAddressQuery, TError, TData>(
+      ['GetEVMTransactionsForAddress', variables],
+      fetcher<GetEvmTransactionsForAddressQuery, GetEvmTransactionsForAddressQueryVariables>(client, GetEvmTransactionsForAddressDocument, variables, headers),
       options
     );
 export const GetTransferByHashDocument = `
