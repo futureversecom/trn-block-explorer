@@ -3,19 +3,32 @@ import { ethers } from "ethers";
 import { useState } from "react";
 export default function Search() {
   const [search, setSearch] = useState("");
+  const [error, setError] = useState(undefined);
   const router = useRouter();
   const doSearch = () => {
+    let to = undefined;
     // if its an address
     if (ethers.utils.isAddress(search)) {
-      return router.push(`/account/${search}`);
+      to = `/account/${search}`;
     }
     // if its an tx hash
     if (search.length === 66) {
-      return router.push(`/transfer/${search}`);
+      to = `/transfer/${search}`;
     }
     // if its a block
     if (Number(search) || search >= 0) {
-      return router.push(`/block/${search}`);
+      to = `/block/${search}`;
+    }
+
+    if (search && to) {
+      if (error) {
+        setSearch("");
+        setError(undefined);
+      }
+      return router.push(to);
+    } else {
+      setSearch("");
+      setError("Invalid search parameter");
     }
   };
   return (
@@ -27,7 +40,7 @@ export default function Search() {
               value={search}
               type="text"
               onChange={(e) => setSearch(e.target.value)}
-              className="block h-12 w-full rounded-md border-gray-300 p-3 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="block h-12 w-full rounded-l border-gray-300 p-3 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               placeholder="Search by Block / Account / Transaction Hash"
             />
           </div>
@@ -37,12 +50,13 @@ export default function Search() {
                 doSearch();
               }}
               type="button"
-              className="inline-flex h-12 items-center rounded border border-transparent bg-indigo-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className="inline-flex h-12 items-center rounded-r border border-transparent bg-indigo-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
               Search
             </button>
           </div>
         </div>
+        <div className="select-none py-3 text-sm text-red-400">{error}</div>
       </div>
     </div>
   );
