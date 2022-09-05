@@ -1,19 +1,43 @@
+import { useRouter } from "next/router";
+import { ethers } from "ethers";
+import { useState } from "react";
 export default function Search() {
+  const [search, setSearch] = useState("");
+  const router = useRouter();
+  const doSearch = () => {
+    // if its an address
+    if (ethers.utils.isAddress(search)) {
+      return router.push(`/account/${search}`);
+    }
+    // if its an tx hash
+    if (search.length === 66) {
+      return router.push(`/transfer/${search}`);
+    }
+    // if its a block
+    if (Number(search) || search >= 0) {
+      return router.push(`/block/${search}`);
+    }
+  };
   return (
-    <div className="bg-white border-b border-b-gray-200">
+    <div className="border-b border-b-gray-200 bg-white">
       <div className="mx-auto max-w-7xl py-3 px-4 sm:px-6 lg:px-8">
-        <div className="border border-gray-300 rounded-md flex flex-row justify-between">
+        <div className="flex flex-row justify-between rounded-md border border-gray-300">
           <div className="w-full">
             <input
+              value={search}
               type="text"
-              className="block p-3 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-12"
-              placeholder="Search by Block / Extrinsic / Account / Token"
+              onChange={(e) => setSearch(e.target.value)}
+              className="block h-12 w-full rounded-md border-gray-300 p-3 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              placeholder="Search by Block / Account / Transaction Hash"
             />
           </div>
           <div>
             <button
+              onClick={() => {
+                doSearch();
+              }}
               type="button"
-              className="inline-flex items-center rounded border border-transparent h-12 bg-indigo-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className="inline-flex h-12 items-center rounded border border-transparent bg-indigo-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
               Search
             </button>

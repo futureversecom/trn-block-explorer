@@ -36,7 +36,7 @@ export default function BlocksWidget() {
         </div>
       </div>
       {query.isLoading ? (
-        <LoadingBlock title="Blocks" height="h-80"/>
+        <LoadingBlock title="Blocks" height="h-80" />
       ) : (
         <div className="divide-y rounded-md border border-gray-100 bg-white px-4 py-3 shadow-md sm:px-6">
           {blocks?.map((item, key) => (
