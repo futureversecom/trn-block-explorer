@@ -8,6 +8,7 @@ import { usePolling } from "../libs/hooks/usePolling";
 import LoadingBlock from "./loadingBlock";
 import { ethers } from "ethers";
 import QRCode from "react-qr-code";
+import CopyToClipBoard from "./copyToClipboard";
 
 export default function BalanceForAddress({ walletAddress }) {
   const query = usePolling(
@@ -55,7 +56,9 @@ export default function BalanceForAddress({ walletAddress }) {
                   <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                     <div className="flex flex-row space-x-3 text-sm font-medium text-gray-900">
                       <div>{walletAddress}</div>
-                      <div className="my-auto">COPY</div>
+                      <div className="my-auto">
+                        <CopyToClipBoard value={walletAddress} />
+                      </div>
                     </div>
                   </div>
                 </dl>
