@@ -9,6 +9,7 @@ import BlockFinalizedIcon from "../../components/icons/blockFinalizedIcon";
 import TimeAgo from "react-timeago";
 import { useGetBlockQuery } from "../../libs/api/generated.ts";
 import { usePolling } from "../../libs/hooks/usePolling";
+import JSONPretty from "react-json-pretty";
 
 export default function Block() {
   const router = useRouter();
@@ -16,6 +17,8 @@ export default function Block() {
   let query = usePolling({}, useGetBlockQuery, {
     height: parseInt(blocknumber),
   });
+
+  console.log(query);
 
   query.data = query?.data?.archive?.block[0];
 
@@ -27,7 +30,10 @@ export default function Block() {
     }
   };
 
-  if (!query.isLoading && !query.data || Number(blocknumber) >= Number.MAX_SAFE_INTEGER) {
+  if (
+    (!query.isLoading && !query.data) ||
+    Number(blocknumber) >= Number.MAX_SAFE_INTEGER
+  ) {
     return "No data found";
   }
 
@@ -86,7 +92,7 @@ export default function Block() {
                   <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
                     <Link href={`/block/${getPrevBlock()}`}>
                       <span className="cursor-pointer text-indigo-500">
-                        {query.data.parentHash}
+                        {query.data.parent_hash}
                       </span>
                     </Link>
                   </dd>
@@ -96,7 +102,7 @@ export default function Block() {
                     State Root
                   </dt>
                   <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
-                    {query.data.stateRoot}
+                    {query.data.state_root}
                   </dd>
                 </div>
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
@@ -108,11 +114,24 @@ export default function Block() {
                   </dd>
                 </div>
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-900">Events</dt>
+                  <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
+                    <div className="h-64 overflow-scroll">
+                      <JSONPretty id="json-pretty" data={query.data.events} />
+                    </div>
+                  </dd>
+                </div>
+                <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                   <dt className="text-sm font-medium text-gray-900">
-                    Collator
+                    Extrinsics
                   </dt>
                   <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
-                    {query.data.collator}
+                    <div className="h-64 overflow-scroll">
+                      <JSONPretty
+                        id="json-pretty"
+                        data={query.data.extrinsics}
+                      />
+                    </div>
                   </dd>
                 </div>
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
@@ -120,7 +139,7 @@ export default function Block() {
                     Spec Version
                   </dt>
                   <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
-                    {query.data.spec?.specVersion} ({query.data.spec?.specName})
+                    {query.data.spec_id}
                   </dd>
                 </div>
               </dl>
