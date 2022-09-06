@@ -17,10 +17,11 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** Big number integer */
-  archive_BigInt: any;
-  /** A scalar that can represent any JSON value */
-  archive_JSON: any;
+  archive_bpchar: any;
+  archive_jsonb: any;
+  archive_numeric: any;
+  archive_timestamp: any;
+  archive_timestamptz: any;
   /** Big number integer */
   balances_BigInt: any;
   /** A date-time string in simplified extended ISO 8601 format (YYYY-MM-DDTHH:mm:ss.sssZ) */
@@ -37,943 +38,4943 @@ export type Scalars = {
   transfers_DateTime: any;
 };
 
-export type ArchiveQuery = {
-  __typename?: 'archiveQuery';
-  blockById?: Maybe<Archive_Block>;
-  blockByUniqueInput?: Maybe<Archive_Block>;
-  blocks: Array<Archive_Block>;
-  blocksConnection: Archive_BlocksConnection;
-  callById?: Maybe<Archive_Call>;
-  callByUniqueInput?: Maybe<Archive_Call>;
-  calls: Array<Archive_Call>;
-  callsConnection: Archive_CallsConnection;
-  eventById?: Maybe<Archive_Event>;
-  eventByUniqueInput?: Maybe<Archive_Event>;
-  events: Array<Archive_Event>;
-  eventsConnection: Archive_EventsConnection;
-  extrinsicById?: Maybe<Archive_Extrinsic>;
-  extrinsicByUniqueInput?: Maybe<Archive_Extrinsic>;
-  extrinsics: Array<Archive_Extrinsic>;
-  extrinsicsConnection: Archive_ExtrinsicsConnection;
-  metadata: Array<Archive_Metadata>;
-  metadataById?: Maybe<Archive_Metadata>;
-  metadataByUniqueInput?: Maybe<Archive_Metadata>;
-  metadataConnection: Archive_MetadataConnection;
+/** Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'. */
+export type Archive_Boolean_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['Boolean']>;
+  _gt?: InputMaybe<Scalars['Boolean']>;
+  _gte?: InputMaybe<Scalars['Boolean']>;
+  _in?: InputMaybe<Array<Scalars['Boolean']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['Boolean']>;
+  _lte?: InputMaybe<Scalars['Boolean']>;
+  _neq?: InputMaybe<Scalars['Boolean']>;
+  _nin?: InputMaybe<Array<Scalars['Boolean']>>;
 };
 
-
-export type ArchiveQueryBlockByIdArgs = {
-  id: Scalars['ID'];
+/** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
+export type Archive_Int_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['Int']>;
+  _gt?: InputMaybe<Scalars['Int']>;
+  _gte?: InputMaybe<Scalars['Int']>;
+  _in?: InputMaybe<Array<Scalars['Int']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['Int']>;
+  _lte?: InputMaybe<Scalars['Int']>;
+  _neq?: InputMaybe<Scalars['Int']>;
+  _nin?: InputMaybe<Array<Scalars['Int']>>;
 };
 
-
-export type ArchiveQueryBlockByUniqueInputArgs = {
-  where: Archive_BlockWhereUniqueInput;
+/** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
+export type Archive_String_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['String']>;
+  _gt?: InputMaybe<Scalars['String']>;
+  _gte?: InputMaybe<Scalars['String']>;
+  /** does the column match the given case-insensitive pattern */
+  _ilike?: InputMaybe<Scalars['String']>;
+  _in?: InputMaybe<Array<Scalars['String']>>;
+  /** does the column match the given POSIX regular expression, case insensitive */
+  _iregex?: InputMaybe<Scalars['String']>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  /** does the column match the given pattern */
+  _like?: InputMaybe<Scalars['String']>;
+  _lt?: InputMaybe<Scalars['String']>;
+  _lte?: InputMaybe<Scalars['String']>;
+  _neq?: InputMaybe<Scalars['String']>;
+  /** does the column NOT match the given case-insensitive pattern */
+  _nilike?: InputMaybe<Scalars['String']>;
+  _nin?: InputMaybe<Array<Scalars['String']>>;
+  /** does the column NOT match the given POSIX regular expression, case insensitive */
+  _niregex?: InputMaybe<Scalars['String']>;
+  /** does the column NOT match the given pattern */
+  _nlike?: InputMaybe<Scalars['String']>;
+  /** does the column NOT match the given POSIX regular expression, case sensitive */
+  _nregex?: InputMaybe<Scalars['String']>;
+  /** does the column NOT match the given SQL regular expression */
+  _nsimilar?: InputMaybe<Scalars['String']>;
+  /** does the column match the given POSIX regular expression, case sensitive */
+  _regex?: InputMaybe<Scalars['String']>;
+  /** does the column match the given SQL regular expression */
+  _similar?: InputMaybe<Scalars['String']>;
 };
 
-
-export type ArchiveQueryBlocksArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Array<InputMaybe<Archive_BlockOrderByInput>>>;
-  where?: InputMaybe<Archive_BlockWhereInput>;
-};
-
-
-export type ArchiveQueryBlocksConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy: Array<Archive_BlockOrderByInput>;
-  where?: InputMaybe<Archive_BlockWhereInput>;
-};
-
-
-export type ArchiveQueryCallByIdArgs = {
-  id: Scalars['ID'];
-};
-
-
-export type ArchiveQueryCallByUniqueInputArgs = {
-  where: Archive_CallWhereUniqueInput;
-};
-
-
-export type ArchiveQueryCallsArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Array<InputMaybe<Archive_CallOrderByInput>>>;
-  where?: InputMaybe<Archive_CallWhereInput>;
-};
-
-
-export type ArchiveQueryCallsConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy: Array<Archive_CallOrderByInput>;
-  where?: InputMaybe<Archive_CallWhereInput>;
-};
-
-
-export type ArchiveQueryEventByIdArgs = {
-  id: Scalars['ID'];
-};
-
-
-export type ArchiveQueryEventByUniqueInputArgs = {
-  where: Archive_EventWhereUniqueInput;
-};
-
-
-export type ArchiveQueryEventsArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Array<InputMaybe<Archive_EventOrderByInput>>>;
-  where?: InputMaybe<Archive_EventWhereInput>;
-};
-
-
-export type ArchiveQueryEventsConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy: Array<Archive_EventOrderByInput>;
-  where?: InputMaybe<Archive_EventWhereInput>;
-};
-
-
-export type ArchiveQueryExtrinsicByIdArgs = {
-  id: Scalars['ID'];
-};
-
-
-export type ArchiveQueryExtrinsicByUniqueInputArgs = {
-  where: Archive_ExtrinsicWhereUniqueInput;
-};
-
-
-export type ArchiveQueryExtrinsicsArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Array<InputMaybe<Archive_ExtrinsicOrderByInput>>>;
-  where?: InputMaybe<Archive_ExtrinsicWhereInput>;
-};
-
-
-export type ArchiveQueryExtrinsicsConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy: Array<Archive_ExtrinsicOrderByInput>;
-  where?: InputMaybe<Archive_ExtrinsicWhereInput>;
-};
-
-
-export type ArchiveQueryMetadataArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Array<InputMaybe<Archive_MetadataOrderByInput>>>;
-  where?: InputMaybe<Archive_MetadataWhereInput>;
-};
-
-
-export type ArchiveQueryMetadataByIdArgs = {
-  id: Scalars['ID'];
-};
-
-
-export type ArchiveQueryMetadataByUniqueInputArgs = {
-  where: Archive_MetadataWhereUniqueInput;
-};
-
-
-export type ArchiveQueryMetadataConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy: Array<Archive_MetadataOrderByInput>;
-  where?: InputMaybe<Archive_MetadataWhereInput>;
-};
-
+/** columns and relationships of "block" */
 export type Archive_Block = {
-  __typename?: 'archive_Block';
+  __typename?: 'archive_block';
+  /** An array relationship */
   calls: Array<Archive_Call>;
+  /** An aggregate relationship */
+  calls_aggregate: Archive_Call_Aggregate;
+  /** An array relationship */
   events: Array<Archive_Event>;
+  /** An aggregate relationship */
+  events_aggregate: Archive_Event_Aggregate;
+  /** An array relationship */
   extrinsics: Array<Archive_Extrinsic>;
-  hash: Scalars['String'];
+  /** An aggregate relationship */
+  extrinsics_aggregate: Archive_Extrinsic_Aggregate;
+  extrinsics_root: Scalars['archive_bpchar'];
+  hash: Scalars['archive_bpchar'];
   height: Scalars['Int'];
-  id: Scalars['ID'];
-  parentHash: Scalars['String'];
-  spec: Archive_Metadata;
-  timestamp: Scalars['archive_BigInt'];
+  id: Scalars['archive_bpchar'];
+  parent_hash: Scalars['archive_bpchar'];
+  spec_id: Scalars['String'];
+  state_root: Scalars['archive_bpchar'];
+  timestamp: Scalars['archive_timestamptz'];
   validator?: Maybe<Scalars['String']>;
 };
 
 
+/** columns and relationships of "block" */
 export type Archive_BlockCallsArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Call_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Array<InputMaybe<Archive_CallOrderByInput>>>;
-  where?: InputMaybe<Archive_CallWhereInput>;
+  order_by?: InputMaybe<Array<Archive_Call_Order_By>>;
+  where?: InputMaybe<Archive_Call_Bool_Exp>;
 };
 
 
+/** columns and relationships of "block" */
+export type Archive_BlockCalls_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Call_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Call_Order_By>>;
+  where?: InputMaybe<Archive_Call_Bool_Exp>;
+};
+
+
+/** columns and relationships of "block" */
 export type Archive_BlockEventsArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Event_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Array<InputMaybe<Archive_EventOrderByInput>>>;
-  where?: InputMaybe<Archive_EventWhereInput>;
+  order_by?: InputMaybe<Array<Archive_Event_Order_By>>;
+  where?: InputMaybe<Archive_Event_Bool_Exp>;
 };
 
 
+/** columns and relationships of "block" */
+export type Archive_BlockEvents_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Event_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Event_Order_By>>;
+  where?: InputMaybe<Archive_Event_Bool_Exp>;
+};
+
+
+/** columns and relationships of "block" */
 export type Archive_BlockExtrinsicsArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Extrinsic_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Array<InputMaybe<Archive_ExtrinsicOrderByInput>>>;
-  where?: InputMaybe<Archive_ExtrinsicWhereInput>;
+  order_by?: InputMaybe<Array<Archive_Extrinsic_Order_By>>;
+  where?: InputMaybe<Archive_Extrinsic_Bool_Exp>;
 };
 
-export type Archive_BlockEdge = {
-  __typename?: 'archive_BlockEdge';
-  cursor: Scalars['String'];
-  node: Archive_Block;
+
+/** columns and relationships of "block" */
+export type Archive_BlockExtrinsics_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Extrinsic_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Extrinsic_Order_By>>;
+  where?: InputMaybe<Archive_Extrinsic_Bool_Exp>;
 };
 
-export enum Archive_BlockOrderByInput {
-  HashAsc = 'hash_ASC',
-  HashDesc = 'hash_DESC',
-  HeightAsc = 'height_ASC',
-  HeightDesc = 'height_DESC',
-  IdAsc = 'id_ASC',
-  IdDesc = 'id_DESC',
-  ParentHashAsc = 'parentHash_ASC',
-  ParentHashDesc = 'parentHash_DESC',
-  SpecBlockHashAsc = 'spec_blockHash_ASC',
-  SpecBlockHashDesc = 'spec_blockHash_DESC',
-  SpecBlockHeightAsc = 'spec_blockHeight_ASC',
-  SpecBlockHeightDesc = 'spec_blockHeight_DESC',
-  SpecHexAsc = 'spec_hex_ASC',
-  SpecHexDesc = 'spec_hex_DESC',
-  SpecIdAsc = 'spec_id_ASC',
-  SpecIdDesc = 'spec_id_DESC',
-  SpecSpecNameAsc = 'spec_specName_ASC',
-  SpecSpecNameDesc = 'spec_specName_DESC',
-  SpecSpecVersionAsc = 'spec_specVersion_ASC',
-  SpecSpecVersionDesc = 'spec_specVersion_DESC',
-  TimestampAsc = 'timestamp_ASC',
-  TimestampDesc = 'timestamp_DESC',
-  ValidatorAsc = 'validator_ASC',
-  ValidatorDesc = 'validator_DESC'
+/** aggregated selection of "block" */
+export type Archive_Block_Aggregate = {
+  __typename?: 'archive_block_aggregate';
+  aggregate?: Maybe<Archive_Block_Aggregate_Fields>;
+  nodes: Array<Archive_Block>;
+};
+
+/** aggregate fields of "block" */
+export type Archive_Block_Aggregate_Fields = {
+  __typename?: 'archive_block_aggregate_fields';
+  avg?: Maybe<Archive_Block_Avg_Fields>;
+  count: Scalars['Int'];
+  max?: Maybe<Archive_Block_Max_Fields>;
+  min?: Maybe<Archive_Block_Min_Fields>;
+  stddev?: Maybe<Archive_Block_Stddev_Fields>;
+  stddev_pop?: Maybe<Archive_Block_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Archive_Block_Stddev_Samp_Fields>;
+  sum?: Maybe<Archive_Block_Sum_Fields>;
+  var_pop?: Maybe<Archive_Block_Var_Pop_Fields>;
+  var_samp?: Maybe<Archive_Block_Var_Samp_Fields>;
+  variance?: Maybe<Archive_Block_Variance_Fields>;
+};
+
+
+/** aggregate fields of "block" */
+export type Archive_Block_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Archive_Block_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** aggregate avg on columns */
+export type Archive_Block_Avg_Fields = {
+  __typename?: 'archive_block_avg_fields';
+  height?: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to filter rows from the table "block". All fields are combined with a logical 'AND'. */
+export type Archive_Block_Bool_Exp = {
+  _and?: InputMaybe<Array<Archive_Block_Bool_Exp>>;
+  _not?: InputMaybe<Archive_Block_Bool_Exp>;
+  _or?: InputMaybe<Array<Archive_Block_Bool_Exp>>;
+  calls?: InputMaybe<Archive_Call_Bool_Exp>;
+  events?: InputMaybe<Archive_Event_Bool_Exp>;
+  extrinsics?: InputMaybe<Archive_Extrinsic_Bool_Exp>;
+  extrinsics_root?: InputMaybe<Archive_Bpchar_Comparison_Exp>;
+  hash?: InputMaybe<Archive_Bpchar_Comparison_Exp>;
+  height?: InputMaybe<Archive_Int_Comparison_Exp>;
+  id?: InputMaybe<Archive_Bpchar_Comparison_Exp>;
+  parent_hash?: InputMaybe<Archive_Bpchar_Comparison_Exp>;
+  spec_id?: InputMaybe<Archive_String_Comparison_Exp>;
+  state_root?: InputMaybe<Archive_Bpchar_Comparison_Exp>;
+  timestamp?: InputMaybe<Archive_Timestamptz_Comparison_Exp>;
+  validator?: InputMaybe<Archive_String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "block" */
+export enum Archive_Block_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  BlockPkey = 'block_pkey'
 }
 
-export type Archive_BlockWhereInput = {
-  AND?: InputMaybe<Array<Archive_BlockWhereInput>>;
-  OR?: InputMaybe<Array<Archive_BlockWhereInput>>;
-  calls_every?: InputMaybe<Archive_CallWhereInput>;
-  calls_none?: InputMaybe<Archive_CallWhereInput>;
-  calls_some?: InputMaybe<Archive_CallWhereInput>;
-  events_every?: InputMaybe<Archive_EventWhereInput>;
-  events_none?: InputMaybe<Archive_EventWhereInput>;
-  events_some?: InputMaybe<Archive_EventWhereInput>;
-  extrinsics_every?: InputMaybe<Archive_ExtrinsicWhereInput>;
-  extrinsics_none?: InputMaybe<Archive_ExtrinsicWhereInput>;
-  extrinsics_some?: InputMaybe<Archive_ExtrinsicWhereInput>;
-  hash_contains?: InputMaybe<Scalars['String']>;
-  hash_containsInsensitive?: InputMaybe<Scalars['String']>;
-  hash_endsWith?: InputMaybe<Scalars['String']>;
-  hash_eq?: InputMaybe<Scalars['String']>;
-  hash_gt?: InputMaybe<Scalars['String']>;
-  hash_gte?: InputMaybe<Scalars['String']>;
-  hash_in?: InputMaybe<Array<Scalars['String']>>;
-  hash_lt?: InputMaybe<Scalars['String']>;
-  hash_lte?: InputMaybe<Scalars['String']>;
-  hash_not_contains?: InputMaybe<Scalars['String']>;
-  hash_not_containsInsensitive?: InputMaybe<Scalars['String']>;
-  hash_not_endsWith?: InputMaybe<Scalars['String']>;
-  hash_not_eq?: InputMaybe<Scalars['String']>;
-  hash_not_in?: InputMaybe<Array<Scalars['String']>>;
-  hash_not_startsWith?: InputMaybe<Scalars['String']>;
-  hash_startsWith?: InputMaybe<Scalars['String']>;
-  height_eq?: InputMaybe<Scalars['Int']>;
-  height_gt?: InputMaybe<Scalars['Int']>;
-  height_gte?: InputMaybe<Scalars['Int']>;
-  height_in?: InputMaybe<Array<Scalars['Int']>>;
-  height_lt?: InputMaybe<Scalars['Int']>;
-  height_lte?: InputMaybe<Scalars['Int']>;
-  height_not_eq?: InputMaybe<Scalars['Int']>;
-  height_not_in?: InputMaybe<Array<Scalars['Int']>>;
-  id_contains?: InputMaybe<Scalars['ID']>;
-  id_containsInsensitive?: InputMaybe<Scalars['ID']>;
-  id_endsWith?: InputMaybe<Scalars['ID']>;
-  id_eq?: InputMaybe<Scalars['ID']>;
-  id_gt?: InputMaybe<Scalars['ID']>;
-  id_gte?: InputMaybe<Scalars['ID']>;
-  id_in?: InputMaybe<Array<Scalars['ID']>>;
-  id_lt?: InputMaybe<Scalars['ID']>;
-  id_lte?: InputMaybe<Scalars['ID']>;
-  id_not_contains?: InputMaybe<Scalars['ID']>;
-  id_not_containsInsensitive?: InputMaybe<Scalars['ID']>;
-  id_not_endsWith?: InputMaybe<Scalars['ID']>;
-  id_not_eq?: InputMaybe<Scalars['ID']>;
-  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
-  id_not_startsWith?: InputMaybe<Scalars['ID']>;
-  id_startsWith?: InputMaybe<Scalars['ID']>;
-  parentHash_contains?: InputMaybe<Scalars['String']>;
-  parentHash_containsInsensitive?: InputMaybe<Scalars['String']>;
-  parentHash_endsWith?: InputMaybe<Scalars['String']>;
-  parentHash_eq?: InputMaybe<Scalars['String']>;
-  parentHash_gt?: InputMaybe<Scalars['String']>;
-  parentHash_gte?: InputMaybe<Scalars['String']>;
-  parentHash_in?: InputMaybe<Array<Scalars['String']>>;
-  parentHash_lt?: InputMaybe<Scalars['String']>;
-  parentHash_lte?: InputMaybe<Scalars['String']>;
-  parentHash_not_contains?: InputMaybe<Scalars['String']>;
-  parentHash_not_containsInsensitive?: InputMaybe<Scalars['String']>;
-  parentHash_not_endsWith?: InputMaybe<Scalars['String']>;
-  parentHash_not_eq?: InputMaybe<Scalars['String']>;
-  parentHash_not_in?: InputMaybe<Array<Scalars['String']>>;
-  parentHash_not_startsWith?: InputMaybe<Scalars['String']>;
-  parentHash_startsWith?: InputMaybe<Scalars['String']>;
-  spec?: InputMaybe<Archive_MetadataWhereInput>;
-  timestamp_eq?: InputMaybe<Scalars['archive_BigInt']>;
-  timestamp_gt?: InputMaybe<Scalars['archive_BigInt']>;
-  timestamp_gte?: InputMaybe<Scalars['archive_BigInt']>;
-  timestamp_in?: InputMaybe<Array<Scalars['archive_BigInt']>>;
-  timestamp_lt?: InputMaybe<Scalars['archive_BigInt']>;
-  timestamp_lte?: InputMaybe<Scalars['archive_BigInt']>;
-  timestamp_not_eq?: InputMaybe<Scalars['archive_BigInt']>;
-  timestamp_not_in?: InputMaybe<Array<Scalars['archive_BigInt']>>;
-  validator_contains?: InputMaybe<Scalars['String']>;
-  validator_containsInsensitive?: InputMaybe<Scalars['String']>;
-  validator_endsWith?: InputMaybe<Scalars['String']>;
-  validator_eq?: InputMaybe<Scalars['String']>;
-  validator_gt?: InputMaybe<Scalars['String']>;
-  validator_gte?: InputMaybe<Scalars['String']>;
-  validator_in?: InputMaybe<Array<Scalars['String']>>;
-  validator_isNull?: InputMaybe<Scalars['Boolean']>;
-  validator_lt?: InputMaybe<Scalars['String']>;
-  validator_lte?: InputMaybe<Scalars['String']>;
-  validator_not_contains?: InputMaybe<Scalars['String']>;
-  validator_not_containsInsensitive?: InputMaybe<Scalars['String']>;
-  validator_not_endsWith?: InputMaybe<Scalars['String']>;
-  validator_not_eq?: InputMaybe<Scalars['String']>;
-  validator_not_in?: InputMaybe<Array<Scalars['String']>>;
-  validator_not_startsWith?: InputMaybe<Scalars['String']>;
-  validator_startsWith?: InputMaybe<Scalars['String']>;
+/** input type for incrementing numeric columns in table "block" */
+export type Archive_Block_Inc_Input = {
+  height?: InputMaybe<Scalars['Int']>;
 };
 
-export type Archive_BlockWhereUniqueInput = {
-  id: Scalars['ID'];
+/** input type for inserting data into table "block" */
+export type Archive_Block_Insert_Input = {
+  calls?: InputMaybe<Archive_Call_Arr_Rel_Insert_Input>;
+  events?: InputMaybe<Archive_Event_Arr_Rel_Insert_Input>;
+  extrinsics?: InputMaybe<Archive_Extrinsic_Arr_Rel_Insert_Input>;
+  extrinsics_root?: InputMaybe<Scalars['archive_bpchar']>;
+  hash?: InputMaybe<Scalars['archive_bpchar']>;
+  height?: InputMaybe<Scalars['Int']>;
+  id?: InputMaybe<Scalars['archive_bpchar']>;
+  parent_hash?: InputMaybe<Scalars['archive_bpchar']>;
+  spec_id?: InputMaybe<Scalars['String']>;
+  state_root?: InputMaybe<Scalars['archive_bpchar']>;
+  timestamp?: InputMaybe<Scalars['archive_timestamptz']>;
+  validator?: InputMaybe<Scalars['String']>;
 };
 
-export type Archive_BlocksConnection = {
-  __typename?: 'archive_BlocksConnection';
-  edges: Array<Archive_BlockEdge>;
-  pageInfo: Balances_PageInfo;
-  totalCount: Scalars['Int'];
+/** aggregate max on columns */
+export type Archive_Block_Max_Fields = {
+  __typename?: 'archive_block_max_fields';
+  extrinsics_root?: Maybe<Scalars['archive_bpchar']>;
+  hash?: Maybe<Scalars['archive_bpchar']>;
+  height?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['archive_bpchar']>;
+  parent_hash?: Maybe<Scalars['archive_bpchar']>;
+  spec_id?: Maybe<Scalars['String']>;
+  state_root?: Maybe<Scalars['archive_bpchar']>;
+  timestamp?: Maybe<Scalars['archive_timestamptz']>;
+  validator?: Maybe<Scalars['String']>;
 };
 
+/** aggregate min on columns */
+export type Archive_Block_Min_Fields = {
+  __typename?: 'archive_block_min_fields';
+  extrinsics_root?: Maybe<Scalars['archive_bpchar']>;
+  hash?: Maybe<Scalars['archive_bpchar']>;
+  height?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['archive_bpchar']>;
+  parent_hash?: Maybe<Scalars['archive_bpchar']>;
+  spec_id?: Maybe<Scalars['String']>;
+  state_root?: Maybe<Scalars['archive_bpchar']>;
+  timestamp?: Maybe<Scalars['archive_timestamptz']>;
+  validator?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "block" */
+export type Archive_Block_Mutation_Response = {
+  __typename?: 'archive_block_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Archive_Block>;
+};
+
+/** input type for inserting object relation for remote table "block" */
+export type Archive_Block_Obj_Rel_Insert_Input = {
+  data: Archive_Block_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Archive_Block_On_Conflict>;
+};
+
+/** on_conflict condition type for table "block" */
+export type Archive_Block_On_Conflict = {
+  constraint: Archive_Block_Constraint;
+  update_columns?: Array<Archive_Block_Update_Column>;
+  where?: InputMaybe<Archive_Block_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "block". */
+export type Archive_Block_Order_By = {
+  calls_aggregate?: InputMaybe<Archive_Call_Aggregate_Order_By>;
+  events_aggregate?: InputMaybe<Archive_Event_Aggregate_Order_By>;
+  extrinsics_aggregate?: InputMaybe<Archive_Extrinsic_Aggregate_Order_By>;
+  extrinsics_root?: InputMaybe<Archive_Order_By>;
+  hash?: InputMaybe<Archive_Order_By>;
+  height?: InputMaybe<Archive_Order_By>;
+  id?: InputMaybe<Archive_Order_By>;
+  parent_hash?: InputMaybe<Archive_Order_By>;
+  spec_id?: InputMaybe<Archive_Order_By>;
+  state_root?: InputMaybe<Archive_Order_By>;
+  timestamp?: InputMaybe<Archive_Order_By>;
+  validator?: InputMaybe<Archive_Order_By>;
+};
+
+/** primary key columns input for table: block */
+export type Archive_Block_Pk_Columns_Input = {
+  id: Scalars['archive_bpchar'];
+};
+
+/** select columns of table "block" */
+export enum Archive_Block_Select_Column {
+  /** column name */
+  ExtrinsicsRoot = 'extrinsics_root',
+  /** column name */
+  Hash = 'hash',
+  /** column name */
+  Height = 'height',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  ParentHash = 'parent_hash',
+  /** column name */
+  SpecId = 'spec_id',
+  /** column name */
+  StateRoot = 'state_root',
+  /** column name */
+  Timestamp = 'timestamp',
+  /** column name */
+  Validator = 'validator'
+}
+
+/** input type for updating data in table "block" */
+export type Archive_Block_Set_Input = {
+  extrinsics_root?: InputMaybe<Scalars['archive_bpchar']>;
+  hash?: InputMaybe<Scalars['archive_bpchar']>;
+  height?: InputMaybe<Scalars['Int']>;
+  id?: InputMaybe<Scalars['archive_bpchar']>;
+  parent_hash?: InputMaybe<Scalars['archive_bpchar']>;
+  spec_id?: InputMaybe<Scalars['String']>;
+  state_root?: InputMaybe<Scalars['archive_bpchar']>;
+  timestamp?: InputMaybe<Scalars['archive_timestamptz']>;
+  validator?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate stddev on columns */
+export type Archive_Block_Stddev_Fields = {
+  __typename?: 'archive_block_stddev_fields';
+  height?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Archive_Block_Stddev_Pop_Fields = {
+  __typename?: 'archive_block_stddev_pop_fields';
+  height?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Archive_Block_Stddev_Samp_Fields = {
+  __typename?: 'archive_block_stddev_samp_fields';
+  height?: Maybe<Scalars['Float']>;
+};
+
+/** Streaming cursor of the table "block" */
+export type Archive_Block_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Archive_Block_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Archive_Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Archive_Block_Stream_Cursor_Value_Input = {
+  extrinsics_root?: InputMaybe<Scalars['archive_bpchar']>;
+  hash?: InputMaybe<Scalars['archive_bpchar']>;
+  height?: InputMaybe<Scalars['Int']>;
+  id?: InputMaybe<Scalars['archive_bpchar']>;
+  parent_hash?: InputMaybe<Scalars['archive_bpchar']>;
+  spec_id?: InputMaybe<Scalars['String']>;
+  state_root?: InputMaybe<Scalars['archive_bpchar']>;
+  timestamp?: InputMaybe<Scalars['archive_timestamptz']>;
+  validator?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate sum on columns */
+export type Archive_Block_Sum_Fields = {
+  __typename?: 'archive_block_sum_fields';
+  height?: Maybe<Scalars['Int']>;
+};
+
+/** update columns of table "block" */
+export enum Archive_Block_Update_Column {
+  /** column name */
+  ExtrinsicsRoot = 'extrinsics_root',
+  /** column name */
+  Hash = 'hash',
+  /** column name */
+  Height = 'height',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  ParentHash = 'parent_hash',
+  /** column name */
+  SpecId = 'spec_id',
+  /** column name */
+  StateRoot = 'state_root',
+  /** column name */
+  Timestamp = 'timestamp',
+  /** column name */
+  Validator = 'validator'
+}
+
+export type Archive_Block_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Archive_Block_Inc_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Archive_Block_Set_Input>;
+  where: Archive_Block_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Archive_Block_Var_Pop_Fields = {
+  __typename?: 'archive_block_var_pop_fields';
+  height?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate var_samp on columns */
+export type Archive_Block_Var_Samp_Fields = {
+  __typename?: 'archive_block_var_samp_fields';
+  height?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate variance on columns */
+export type Archive_Block_Variance_Fields = {
+  __typename?: 'archive_block_variance_fields';
+  height?: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to compare columns of type "bpchar". All fields are combined with logical 'AND'. */
+export type Archive_Bpchar_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['archive_bpchar']>;
+  _gt?: InputMaybe<Scalars['archive_bpchar']>;
+  _gte?: InputMaybe<Scalars['archive_bpchar']>;
+  /** does the column match the given case-insensitive pattern */
+  _ilike?: InputMaybe<Scalars['archive_bpchar']>;
+  _in?: InputMaybe<Array<Scalars['archive_bpchar']>>;
+  /** does the column match the given POSIX regular expression, case insensitive */
+  _iregex?: InputMaybe<Scalars['archive_bpchar']>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  /** does the column match the given pattern */
+  _like?: InputMaybe<Scalars['archive_bpchar']>;
+  _lt?: InputMaybe<Scalars['archive_bpchar']>;
+  _lte?: InputMaybe<Scalars['archive_bpchar']>;
+  _neq?: InputMaybe<Scalars['archive_bpchar']>;
+  /** does the column NOT match the given case-insensitive pattern */
+  _nilike?: InputMaybe<Scalars['archive_bpchar']>;
+  _nin?: InputMaybe<Array<Scalars['archive_bpchar']>>;
+  /** does the column NOT match the given POSIX regular expression, case insensitive */
+  _niregex?: InputMaybe<Scalars['archive_bpchar']>;
+  /** does the column NOT match the given pattern */
+  _nlike?: InputMaybe<Scalars['archive_bpchar']>;
+  /** does the column NOT match the given POSIX regular expression, case sensitive */
+  _nregex?: InputMaybe<Scalars['archive_bpchar']>;
+  /** does the column NOT match the given SQL regular expression */
+  _nsimilar?: InputMaybe<Scalars['archive_bpchar']>;
+  /** does the column match the given POSIX regular expression, case sensitive */
+  _regex?: InputMaybe<Scalars['archive_bpchar']>;
+  /** does the column match the given SQL regular expression */
+  _similar?: InputMaybe<Scalars['archive_bpchar']>;
+};
+
+/** columns and relationships of "call" */
 export type Archive_Call = {
-  __typename?: 'archive_Call';
-  args?: Maybe<Scalars['archive_JSON']>;
+  __typename?: 'archive_call';
+  args?: Maybe<Scalars['archive_jsonb']>;
+  /** An object relationship */
   block: Archive_Block;
-  error?: Maybe<Scalars['archive_JSON']>;
+  block_id: Scalars['archive_bpchar'];
+  /** An object relationship */
+  call?: Maybe<Archive_Call>;
+  /** An array relationship */
+  calls: Array<Archive_Call>;
+  /** An aggregate relationship */
+  calls_aggregate: Archive_Call_Aggregate;
+  error?: Maybe<Scalars['archive_jsonb']>;
+  /** An array relationship */
+  events: Array<Archive_Event>;
+  /** An aggregate relationship */
+  events_aggregate: Archive_Event_Aggregate;
+  /** An object relationship */
   extrinsic: Archive_Extrinsic;
-  id: Scalars['ID'];
+  extrinsic_id: Scalars['archive_bpchar'];
+  /** An object relationship */
+  frontier_ethereum_transaction?: Maybe<Archive_Frontier_Ethereum_Transaction>;
+  id: Scalars['String'];
   name: Scalars['String'];
-  origin?: Maybe<Scalars['archive_JSON']>;
-  parent?: Maybe<Archive_Call>;
+  origin?: Maybe<Scalars['archive_jsonb']>;
+  parent_id?: Maybe<Scalars['String']>;
   pos: Scalars['Int'];
   success: Scalars['Boolean'];
 };
 
-export type Archive_CallEdge = {
-  __typename?: 'archive_CallEdge';
-  cursor: Scalars['String'];
-  node: Archive_Call;
+
+/** columns and relationships of "call" */
+export type Archive_CallArgsArgs = {
+  path?: InputMaybe<Scalars['String']>;
 };
 
-export enum Archive_CallOrderByInput {
-  BlockHashAsc = 'block_hash_ASC',
-  BlockHashDesc = 'block_hash_DESC',
-  BlockHeightAsc = 'block_height_ASC',
-  BlockHeightDesc = 'block_height_DESC',
-  BlockIdAsc = 'block_id_ASC',
-  BlockIdDesc = 'block_id_DESC',
-  BlockParentHashAsc = 'block_parentHash_ASC',
-  BlockParentHashDesc = 'block_parentHash_DESC',
-  BlockTimestampAsc = 'block_timestamp_ASC',
-  BlockTimestampDesc = 'block_timestamp_DESC',
-  BlockValidatorAsc = 'block_validator_ASC',
-  BlockValidatorDesc = 'block_validator_DESC',
-  ExtrinsicFeeAsc = 'extrinsic_fee_ASC',
-  ExtrinsicFeeDesc = 'extrinsic_fee_DESC',
-  ExtrinsicHashAsc = 'extrinsic_hash_ASC',
-  ExtrinsicHashDesc = 'extrinsic_hash_DESC',
-  ExtrinsicIdAsc = 'extrinsic_id_ASC',
-  ExtrinsicIdDesc = 'extrinsic_id_DESC',
-  ExtrinsicIndexInBlockAsc = 'extrinsic_indexInBlock_ASC',
-  ExtrinsicIndexInBlockDesc = 'extrinsic_indexInBlock_DESC',
-  ExtrinsicPosAsc = 'extrinsic_pos_ASC',
-  ExtrinsicPosDesc = 'extrinsic_pos_DESC',
-  ExtrinsicSuccessAsc = 'extrinsic_success_ASC',
-  ExtrinsicSuccessDesc = 'extrinsic_success_DESC',
-  ExtrinsicTipAsc = 'extrinsic_tip_ASC',
-  ExtrinsicTipDesc = 'extrinsic_tip_DESC',
-  ExtrinsicVersionAsc = 'extrinsic_version_ASC',
-  ExtrinsicVersionDesc = 'extrinsic_version_DESC',
-  IdAsc = 'id_ASC',
-  IdDesc = 'id_DESC',
-  NameAsc = 'name_ASC',
-  NameDesc = 'name_DESC',
-  ParentIdAsc = 'parent_id_ASC',
-  ParentIdDesc = 'parent_id_DESC',
-  ParentNameAsc = 'parent_name_ASC',
-  ParentNameDesc = 'parent_name_DESC',
-  ParentPosAsc = 'parent_pos_ASC',
-  ParentPosDesc = 'parent_pos_DESC',
-  ParentSuccessAsc = 'parent_success_ASC',
-  ParentSuccessDesc = 'parent_success_DESC',
-  PosAsc = 'pos_ASC',
-  PosDesc = 'pos_DESC',
-  SuccessAsc = 'success_ASC',
-  SuccessDesc = 'success_DESC'
+
+/** columns and relationships of "call" */
+export type Archive_CallCallsArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Call_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Call_Order_By>>;
+  where?: InputMaybe<Archive_Call_Bool_Exp>;
+};
+
+
+/** columns and relationships of "call" */
+export type Archive_CallCalls_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Call_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Call_Order_By>>;
+  where?: InputMaybe<Archive_Call_Bool_Exp>;
+};
+
+
+/** columns and relationships of "call" */
+export type Archive_CallErrorArgs = {
+  path?: InputMaybe<Scalars['String']>;
+};
+
+
+/** columns and relationships of "call" */
+export type Archive_CallEventsArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Event_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Event_Order_By>>;
+  where?: InputMaybe<Archive_Event_Bool_Exp>;
+};
+
+
+/** columns and relationships of "call" */
+export type Archive_CallEvents_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Event_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Event_Order_By>>;
+  where?: InputMaybe<Archive_Event_Bool_Exp>;
+};
+
+
+/** columns and relationships of "call" */
+export type Archive_CallOriginArgs = {
+  path?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregated selection of "call" */
+export type Archive_Call_Aggregate = {
+  __typename?: 'archive_call_aggregate';
+  aggregate?: Maybe<Archive_Call_Aggregate_Fields>;
+  nodes: Array<Archive_Call>;
+};
+
+/** aggregate fields of "call" */
+export type Archive_Call_Aggregate_Fields = {
+  __typename?: 'archive_call_aggregate_fields';
+  avg?: Maybe<Archive_Call_Avg_Fields>;
+  count: Scalars['Int'];
+  max?: Maybe<Archive_Call_Max_Fields>;
+  min?: Maybe<Archive_Call_Min_Fields>;
+  stddev?: Maybe<Archive_Call_Stddev_Fields>;
+  stddev_pop?: Maybe<Archive_Call_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Archive_Call_Stddev_Samp_Fields>;
+  sum?: Maybe<Archive_Call_Sum_Fields>;
+  var_pop?: Maybe<Archive_Call_Var_Pop_Fields>;
+  var_samp?: Maybe<Archive_Call_Var_Samp_Fields>;
+  variance?: Maybe<Archive_Call_Variance_Fields>;
+};
+
+
+/** aggregate fields of "call" */
+export type Archive_Call_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Archive_Call_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "call" */
+export type Archive_Call_Aggregate_Order_By = {
+  avg?: InputMaybe<Archive_Call_Avg_Order_By>;
+  count?: InputMaybe<Archive_Order_By>;
+  max?: InputMaybe<Archive_Call_Max_Order_By>;
+  min?: InputMaybe<Archive_Call_Min_Order_By>;
+  stddev?: InputMaybe<Archive_Call_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Archive_Call_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Archive_Call_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Archive_Call_Sum_Order_By>;
+  var_pop?: InputMaybe<Archive_Call_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Archive_Call_Var_Samp_Order_By>;
+  variance?: InputMaybe<Archive_Call_Variance_Order_By>;
+};
+
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type Archive_Call_Append_Input = {
+  args?: InputMaybe<Scalars['archive_jsonb']>;
+  error?: InputMaybe<Scalars['archive_jsonb']>;
+  origin?: InputMaybe<Scalars['archive_jsonb']>;
+};
+
+/** input type for inserting array relation for remote table "call" */
+export type Archive_Call_Arr_Rel_Insert_Input = {
+  data: Array<Archive_Call_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Archive_Call_On_Conflict>;
+};
+
+/** aggregate avg on columns */
+export type Archive_Call_Avg_Fields = {
+  __typename?: 'archive_call_avg_fields';
+  pos?: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "call" */
+export type Archive_Call_Avg_Order_By = {
+  pos?: InputMaybe<Archive_Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "call". All fields are combined with a logical 'AND'. */
+export type Archive_Call_Bool_Exp = {
+  _and?: InputMaybe<Array<Archive_Call_Bool_Exp>>;
+  _not?: InputMaybe<Archive_Call_Bool_Exp>;
+  _or?: InputMaybe<Array<Archive_Call_Bool_Exp>>;
+  args?: InputMaybe<Archive_Jsonb_Comparison_Exp>;
+  block?: InputMaybe<Archive_Block_Bool_Exp>;
+  block_id?: InputMaybe<Archive_Bpchar_Comparison_Exp>;
+  call?: InputMaybe<Archive_Call_Bool_Exp>;
+  calls?: InputMaybe<Archive_Call_Bool_Exp>;
+  error?: InputMaybe<Archive_Jsonb_Comparison_Exp>;
+  events?: InputMaybe<Archive_Event_Bool_Exp>;
+  extrinsic?: InputMaybe<Archive_Extrinsic_Bool_Exp>;
+  extrinsic_id?: InputMaybe<Archive_Bpchar_Comparison_Exp>;
+  frontier_ethereum_transaction?: InputMaybe<Archive_Frontier_Ethereum_Transaction_Bool_Exp>;
+  id?: InputMaybe<Archive_String_Comparison_Exp>;
+  name?: InputMaybe<Archive_String_Comparison_Exp>;
+  origin?: InputMaybe<Archive_Jsonb_Comparison_Exp>;
+  parent_id?: InputMaybe<Archive_String_Comparison_Exp>;
+  pos?: InputMaybe<Archive_Int_Comparison_Exp>;
+  success?: InputMaybe<Archive_Boolean_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "call" */
+export enum Archive_Call_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  CallPkey = 'call_pkey'
 }
 
-export type Archive_CallWhereInput = {
-  AND?: InputMaybe<Array<Archive_CallWhereInput>>;
-  OR?: InputMaybe<Array<Archive_CallWhereInput>>;
-  args_eq?: InputMaybe<Scalars['archive_JSON']>;
-  args_isNull?: InputMaybe<Scalars['Boolean']>;
-  args_jsonContains?: InputMaybe<Scalars['archive_JSON']>;
-  args_jsonHasKey?: InputMaybe<Scalars['archive_JSON']>;
-  args_not_eq?: InputMaybe<Scalars['archive_JSON']>;
-  block?: InputMaybe<Archive_BlockWhereInput>;
-  error_eq?: InputMaybe<Scalars['archive_JSON']>;
-  error_isNull?: InputMaybe<Scalars['Boolean']>;
-  error_jsonContains?: InputMaybe<Scalars['archive_JSON']>;
-  error_jsonHasKey?: InputMaybe<Scalars['archive_JSON']>;
-  error_not_eq?: InputMaybe<Scalars['archive_JSON']>;
-  extrinsic?: InputMaybe<Archive_ExtrinsicWhereInput>;
-  id_contains?: InputMaybe<Scalars['ID']>;
-  id_containsInsensitive?: InputMaybe<Scalars['ID']>;
-  id_endsWith?: InputMaybe<Scalars['ID']>;
-  id_eq?: InputMaybe<Scalars['ID']>;
-  id_gt?: InputMaybe<Scalars['ID']>;
-  id_gte?: InputMaybe<Scalars['ID']>;
-  id_in?: InputMaybe<Array<Scalars['ID']>>;
-  id_lt?: InputMaybe<Scalars['ID']>;
-  id_lte?: InputMaybe<Scalars['ID']>;
-  id_not_contains?: InputMaybe<Scalars['ID']>;
-  id_not_containsInsensitive?: InputMaybe<Scalars['ID']>;
-  id_not_endsWith?: InputMaybe<Scalars['ID']>;
-  id_not_eq?: InputMaybe<Scalars['ID']>;
-  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
-  id_not_startsWith?: InputMaybe<Scalars['ID']>;
-  id_startsWith?: InputMaybe<Scalars['ID']>;
-  name_contains?: InputMaybe<Scalars['String']>;
-  name_containsInsensitive?: InputMaybe<Scalars['String']>;
-  name_endsWith?: InputMaybe<Scalars['String']>;
-  name_eq?: InputMaybe<Scalars['String']>;
-  name_gt?: InputMaybe<Scalars['String']>;
-  name_gte?: InputMaybe<Scalars['String']>;
-  name_in?: InputMaybe<Array<Scalars['String']>>;
-  name_lt?: InputMaybe<Scalars['String']>;
-  name_lte?: InputMaybe<Scalars['String']>;
-  name_not_contains?: InputMaybe<Scalars['String']>;
-  name_not_containsInsensitive?: InputMaybe<Scalars['String']>;
-  name_not_endsWith?: InputMaybe<Scalars['String']>;
-  name_not_eq?: InputMaybe<Scalars['String']>;
-  name_not_in?: InputMaybe<Array<Scalars['String']>>;
-  name_not_startsWith?: InputMaybe<Scalars['String']>;
-  name_startsWith?: InputMaybe<Scalars['String']>;
-  origin_eq?: InputMaybe<Scalars['archive_JSON']>;
-  origin_isNull?: InputMaybe<Scalars['Boolean']>;
-  origin_jsonContains?: InputMaybe<Scalars['archive_JSON']>;
-  origin_jsonHasKey?: InputMaybe<Scalars['archive_JSON']>;
-  origin_not_eq?: InputMaybe<Scalars['archive_JSON']>;
-  parent?: InputMaybe<Archive_CallWhereInput>;
-  parent_isNull?: InputMaybe<Scalars['Boolean']>;
-  pos_eq?: InputMaybe<Scalars['Int']>;
-  pos_gt?: InputMaybe<Scalars['Int']>;
-  pos_gte?: InputMaybe<Scalars['Int']>;
-  pos_in?: InputMaybe<Array<Scalars['Int']>>;
-  pos_lt?: InputMaybe<Scalars['Int']>;
-  pos_lte?: InputMaybe<Scalars['Int']>;
-  pos_not_eq?: InputMaybe<Scalars['Int']>;
-  pos_not_in?: InputMaybe<Array<Scalars['Int']>>;
-  success_eq?: InputMaybe<Scalars['Boolean']>;
-  success_not_eq?: InputMaybe<Scalars['Boolean']>;
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type Archive_Call_Delete_At_Path_Input = {
+  args?: InputMaybe<Array<Scalars['String']>>;
+  error?: InputMaybe<Array<Scalars['String']>>;
+  origin?: InputMaybe<Array<Scalars['String']>>;
 };
 
-export type Archive_CallWhereUniqueInput = {
-  id: Scalars['ID'];
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type Archive_Call_Delete_Elem_Input = {
+  args?: InputMaybe<Scalars['Int']>;
+  error?: InputMaybe<Scalars['Int']>;
+  origin?: InputMaybe<Scalars['Int']>;
 };
 
-export type Archive_CallsConnection = {
-  __typename?: 'archive_CallsConnection';
-  edges: Array<Archive_CallEdge>;
-  pageInfo: Balances_PageInfo;
-  totalCount: Scalars['Int'];
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type Archive_Call_Delete_Key_Input = {
+  args?: InputMaybe<Scalars['String']>;
+  error?: InputMaybe<Scalars['String']>;
+  origin?: InputMaybe<Scalars['String']>;
 };
 
+/** input type for incrementing numeric columns in table "call" */
+export type Archive_Call_Inc_Input = {
+  pos?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "call" */
+export type Archive_Call_Insert_Input = {
+  args?: InputMaybe<Scalars['archive_jsonb']>;
+  block?: InputMaybe<Archive_Block_Obj_Rel_Insert_Input>;
+  block_id?: InputMaybe<Scalars['archive_bpchar']>;
+  call?: InputMaybe<Archive_Call_Obj_Rel_Insert_Input>;
+  calls?: InputMaybe<Archive_Call_Arr_Rel_Insert_Input>;
+  error?: InputMaybe<Scalars['archive_jsonb']>;
+  events?: InputMaybe<Archive_Event_Arr_Rel_Insert_Input>;
+  extrinsic?: InputMaybe<Archive_Extrinsic_Obj_Rel_Insert_Input>;
+  extrinsic_id?: InputMaybe<Scalars['archive_bpchar']>;
+  frontier_ethereum_transaction?: InputMaybe<Archive_Frontier_Ethereum_Transaction_Obj_Rel_Insert_Input>;
+  id?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  origin?: InputMaybe<Scalars['archive_jsonb']>;
+  parent_id?: InputMaybe<Scalars['String']>;
+  pos?: InputMaybe<Scalars['Int']>;
+  success?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** aggregate max on columns */
+export type Archive_Call_Max_Fields = {
+  __typename?: 'archive_call_max_fields';
+  block_id?: Maybe<Scalars['archive_bpchar']>;
+  extrinsic_id?: Maybe<Scalars['archive_bpchar']>;
+  id?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  parent_id?: Maybe<Scalars['String']>;
+  pos?: Maybe<Scalars['Int']>;
+};
+
+/** order by max() on columns of table "call" */
+export type Archive_Call_Max_Order_By = {
+  block_id?: InputMaybe<Archive_Order_By>;
+  extrinsic_id?: InputMaybe<Archive_Order_By>;
+  id?: InputMaybe<Archive_Order_By>;
+  name?: InputMaybe<Archive_Order_By>;
+  parent_id?: InputMaybe<Archive_Order_By>;
+  pos?: InputMaybe<Archive_Order_By>;
+};
+
+/** aggregate min on columns */
+export type Archive_Call_Min_Fields = {
+  __typename?: 'archive_call_min_fields';
+  block_id?: Maybe<Scalars['archive_bpchar']>;
+  extrinsic_id?: Maybe<Scalars['archive_bpchar']>;
+  id?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  parent_id?: Maybe<Scalars['String']>;
+  pos?: Maybe<Scalars['Int']>;
+};
+
+/** order by min() on columns of table "call" */
+export type Archive_Call_Min_Order_By = {
+  block_id?: InputMaybe<Archive_Order_By>;
+  extrinsic_id?: InputMaybe<Archive_Order_By>;
+  id?: InputMaybe<Archive_Order_By>;
+  name?: InputMaybe<Archive_Order_By>;
+  parent_id?: InputMaybe<Archive_Order_By>;
+  pos?: InputMaybe<Archive_Order_By>;
+};
+
+/** response of any mutation on the table "call" */
+export type Archive_Call_Mutation_Response = {
+  __typename?: 'archive_call_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Archive_Call>;
+};
+
+/** input type for inserting object relation for remote table "call" */
+export type Archive_Call_Obj_Rel_Insert_Input = {
+  data: Archive_Call_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Archive_Call_On_Conflict>;
+};
+
+/** on_conflict condition type for table "call" */
+export type Archive_Call_On_Conflict = {
+  constraint: Archive_Call_Constraint;
+  update_columns?: Array<Archive_Call_Update_Column>;
+  where?: InputMaybe<Archive_Call_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "call". */
+export type Archive_Call_Order_By = {
+  args?: InputMaybe<Archive_Order_By>;
+  block?: InputMaybe<Archive_Block_Order_By>;
+  block_id?: InputMaybe<Archive_Order_By>;
+  call?: InputMaybe<Archive_Call_Order_By>;
+  calls_aggregate?: InputMaybe<Archive_Call_Aggregate_Order_By>;
+  error?: InputMaybe<Archive_Order_By>;
+  events_aggregate?: InputMaybe<Archive_Event_Aggregate_Order_By>;
+  extrinsic?: InputMaybe<Archive_Extrinsic_Order_By>;
+  extrinsic_id?: InputMaybe<Archive_Order_By>;
+  frontier_ethereum_transaction?: InputMaybe<Archive_Frontier_Ethereum_Transaction_Order_By>;
+  id?: InputMaybe<Archive_Order_By>;
+  name?: InputMaybe<Archive_Order_By>;
+  origin?: InputMaybe<Archive_Order_By>;
+  parent_id?: InputMaybe<Archive_Order_By>;
+  pos?: InputMaybe<Archive_Order_By>;
+  success?: InputMaybe<Archive_Order_By>;
+};
+
+/** primary key columns input for table: call */
+export type Archive_Call_Pk_Columns_Input = {
+  id: Scalars['String'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type Archive_Call_Prepend_Input = {
+  args?: InputMaybe<Scalars['archive_jsonb']>;
+  error?: InputMaybe<Scalars['archive_jsonb']>;
+  origin?: InputMaybe<Scalars['archive_jsonb']>;
+};
+
+/** select columns of table "call" */
+export enum Archive_Call_Select_Column {
+  /** column name */
+  Args = 'args',
+  /** column name */
+  BlockId = 'block_id',
+  /** column name */
+  Error = 'error',
+  /** column name */
+  ExtrinsicId = 'extrinsic_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  Origin = 'origin',
+  /** column name */
+  ParentId = 'parent_id',
+  /** column name */
+  Pos = 'pos',
+  /** column name */
+  Success = 'success'
+}
+
+/** input type for updating data in table "call" */
+export type Archive_Call_Set_Input = {
+  args?: InputMaybe<Scalars['archive_jsonb']>;
+  block_id?: InputMaybe<Scalars['archive_bpchar']>;
+  error?: InputMaybe<Scalars['archive_jsonb']>;
+  extrinsic_id?: InputMaybe<Scalars['archive_bpchar']>;
+  id?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  origin?: InputMaybe<Scalars['archive_jsonb']>;
+  parent_id?: InputMaybe<Scalars['String']>;
+  pos?: InputMaybe<Scalars['Int']>;
+  success?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** aggregate stddev on columns */
+export type Archive_Call_Stddev_Fields = {
+  __typename?: 'archive_call_stddev_fields';
+  pos?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev() on columns of table "call" */
+export type Archive_Call_Stddev_Order_By = {
+  pos?: InputMaybe<Archive_Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Archive_Call_Stddev_Pop_Fields = {
+  __typename?: 'archive_call_stddev_pop_fields';
+  pos?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "call" */
+export type Archive_Call_Stddev_Pop_Order_By = {
+  pos?: InputMaybe<Archive_Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Archive_Call_Stddev_Samp_Fields = {
+  __typename?: 'archive_call_stddev_samp_fields';
+  pos?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_samp() on columns of table "call" */
+export type Archive_Call_Stddev_Samp_Order_By = {
+  pos?: InputMaybe<Archive_Order_By>;
+};
+
+/** Streaming cursor of the table "call" */
+export type Archive_Call_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Archive_Call_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Archive_Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Archive_Call_Stream_Cursor_Value_Input = {
+  args?: InputMaybe<Scalars['archive_jsonb']>;
+  block_id?: InputMaybe<Scalars['archive_bpchar']>;
+  error?: InputMaybe<Scalars['archive_jsonb']>;
+  extrinsic_id?: InputMaybe<Scalars['archive_bpchar']>;
+  id?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  origin?: InputMaybe<Scalars['archive_jsonb']>;
+  parent_id?: InputMaybe<Scalars['String']>;
+  pos?: InputMaybe<Scalars['Int']>;
+  success?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** aggregate sum on columns */
+export type Archive_Call_Sum_Fields = {
+  __typename?: 'archive_call_sum_fields';
+  pos?: Maybe<Scalars['Int']>;
+};
+
+/** order by sum() on columns of table "call" */
+export type Archive_Call_Sum_Order_By = {
+  pos?: InputMaybe<Archive_Order_By>;
+};
+
+/** update columns of table "call" */
+export enum Archive_Call_Update_Column {
+  /** column name */
+  Args = 'args',
+  /** column name */
+  BlockId = 'block_id',
+  /** column name */
+  Error = 'error',
+  /** column name */
+  ExtrinsicId = 'extrinsic_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  Origin = 'origin',
+  /** column name */
+  ParentId = 'parent_id',
+  /** column name */
+  Pos = 'pos',
+  /** column name */
+  Success = 'success'
+}
+
+export type Archive_Call_Updates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<Archive_Call_Append_Input>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: InputMaybe<Archive_Call_Delete_At_Path_Input>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: InputMaybe<Archive_Call_Delete_Elem_Input>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: InputMaybe<Archive_Call_Delete_Key_Input>;
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Archive_Call_Inc_Input>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<Archive_Call_Prepend_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Archive_Call_Set_Input>;
+  where: Archive_Call_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Archive_Call_Var_Pop_Fields = {
+  __typename?: 'archive_call_var_pop_fields';
+  pos?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_pop() on columns of table "call" */
+export type Archive_Call_Var_Pop_Order_By = {
+  pos?: InputMaybe<Archive_Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Archive_Call_Var_Samp_Fields = {
+  __typename?: 'archive_call_var_samp_fields';
+  pos?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_samp() on columns of table "call" */
+export type Archive_Call_Var_Samp_Order_By = {
+  pos?: InputMaybe<Archive_Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Archive_Call_Variance_Fields = {
+  __typename?: 'archive_call_variance_fields';
+  pos?: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "call" */
+export type Archive_Call_Variance_Order_By = {
+  pos?: InputMaybe<Archive_Order_By>;
+};
+
+/** columns and relationships of "contracts_contract_emitted" */
+export type Archive_Contracts_Contract_Emitted = {
+  __typename?: 'archive_contracts_contract_emitted';
+  contract: Scalars['String'];
+  /** An object relationship */
+  event: Archive_Event;
+  event_id: Scalars['archive_bpchar'];
+};
+
+/** aggregated selection of "contracts_contract_emitted" */
+export type Archive_Contracts_Contract_Emitted_Aggregate = {
+  __typename?: 'archive_contracts_contract_emitted_aggregate';
+  aggregate?: Maybe<Archive_Contracts_Contract_Emitted_Aggregate_Fields>;
+  nodes: Array<Archive_Contracts_Contract_Emitted>;
+};
+
+/** aggregate fields of "contracts_contract_emitted" */
+export type Archive_Contracts_Contract_Emitted_Aggregate_Fields = {
+  __typename?: 'archive_contracts_contract_emitted_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<Archive_Contracts_Contract_Emitted_Max_Fields>;
+  min?: Maybe<Archive_Contracts_Contract_Emitted_Min_Fields>;
+};
+
+
+/** aggregate fields of "contracts_contract_emitted" */
+export type Archive_Contracts_Contract_Emitted_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Archive_Contracts_Contract_Emitted_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Boolean expression to filter rows from the table "contracts_contract_emitted". All fields are combined with a logical 'AND'. */
+export type Archive_Contracts_Contract_Emitted_Bool_Exp = {
+  _and?: InputMaybe<Array<Archive_Contracts_Contract_Emitted_Bool_Exp>>;
+  _not?: InputMaybe<Archive_Contracts_Contract_Emitted_Bool_Exp>;
+  _or?: InputMaybe<Array<Archive_Contracts_Contract_Emitted_Bool_Exp>>;
+  contract?: InputMaybe<Archive_String_Comparison_Exp>;
+  event?: InputMaybe<Archive_Event_Bool_Exp>;
+  event_id?: InputMaybe<Archive_Bpchar_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "contracts_contract_emitted" */
+export enum Archive_Contracts_Contract_Emitted_Constraint {
+  /** unique or primary key constraint on columns "event_id" */
+  ContractsContractEmittedPkey = 'contracts_contract_emitted_pkey'
+}
+
+/** input type for inserting data into table "contracts_contract_emitted" */
+export type Archive_Contracts_Contract_Emitted_Insert_Input = {
+  contract?: InputMaybe<Scalars['String']>;
+  event?: InputMaybe<Archive_Event_Obj_Rel_Insert_Input>;
+  event_id?: InputMaybe<Scalars['archive_bpchar']>;
+};
+
+/** aggregate max on columns */
+export type Archive_Contracts_Contract_Emitted_Max_Fields = {
+  __typename?: 'archive_contracts_contract_emitted_max_fields';
+  contract?: Maybe<Scalars['String']>;
+  event_id?: Maybe<Scalars['archive_bpchar']>;
+};
+
+/** aggregate min on columns */
+export type Archive_Contracts_Contract_Emitted_Min_Fields = {
+  __typename?: 'archive_contracts_contract_emitted_min_fields';
+  contract?: Maybe<Scalars['String']>;
+  event_id?: Maybe<Scalars['archive_bpchar']>;
+};
+
+/** response of any mutation on the table "contracts_contract_emitted" */
+export type Archive_Contracts_Contract_Emitted_Mutation_Response = {
+  __typename?: 'archive_contracts_contract_emitted_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Archive_Contracts_Contract_Emitted>;
+};
+
+/** input type for inserting object relation for remote table "contracts_contract_emitted" */
+export type Archive_Contracts_Contract_Emitted_Obj_Rel_Insert_Input = {
+  data: Archive_Contracts_Contract_Emitted_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Archive_Contracts_Contract_Emitted_On_Conflict>;
+};
+
+/** on_conflict condition type for table "contracts_contract_emitted" */
+export type Archive_Contracts_Contract_Emitted_On_Conflict = {
+  constraint: Archive_Contracts_Contract_Emitted_Constraint;
+  update_columns?: Array<Archive_Contracts_Contract_Emitted_Update_Column>;
+  where?: InputMaybe<Archive_Contracts_Contract_Emitted_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "contracts_contract_emitted". */
+export type Archive_Contracts_Contract_Emitted_Order_By = {
+  contract?: InputMaybe<Archive_Order_By>;
+  event?: InputMaybe<Archive_Event_Order_By>;
+  event_id?: InputMaybe<Archive_Order_By>;
+};
+
+/** primary key columns input for table: contracts_contract_emitted */
+export type Archive_Contracts_Contract_Emitted_Pk_Columns_Input = {
+  event_id: Scalars['archive_bpchar'];
+};
+
+/** select columns of table "contracts_contract_emitted" */
+export enum Archive_Contracts_Contract_Emitted_Select_Column {
+  /** column name */
+  Contract = 'contract',
+  /** column name */
+  EventId = 'event_id'
+}
+
+/** input type for updating data in table "contracts_contract_emitted" */
+export type Archive_Contracts_Contract_Emitted_Set_Input = {
+  contract?: InputMaybe<Scalars['String']>;
+  event_id?: InputMaybe<Scalars['archive_bpchar']>;
+};
+
+/** Streaming cursor of the table "contracts_contract_emitted" */
+export type Archive_Contracts_Contract_Emitted_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Archive_Contracts_Contract_Emitted_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Archive_Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Archive_Contracts_Contract_Emitted_Stream_Cursor_Value_Input = {
+  contract?: InputMaybe<Scalars['String']>;
+  event_id?: InputMaybe<Scalars['archive_bpchar']>;
+};
+
+/** update columns of table "contracts_contract_emitted" */
+export enum Archive_Contracts_Contract_Emitted_Update_Column {
+  /** column name */
+  Contract = 'contract',
+  /** column name */
+  EventId = 'event_id'
+}
+
+export type Archive_Contracts_Contract_Emitted_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Archive_Contracts_Contract_Emitted_Set_Input>;
+  where: Archive_Contracts_Contract_Emitted_Bool_Exp;
+};
+
+/** ordering argument of a cursor */
+export enum Archive_Cursor_Ordering {
+  /** ascending ordering of the cursor */
+  Asc = 'ASC',
+  /** descending ordering of the cursor */
+  Desc = 'DESC'
+}
+
+/** columns and relationships of "event" */
 export type Archive_Event = {
-  __typename?: 'archive_Event';
-  args?: Maybe<Scalars['archive_JSON']>;
+  __typename?: 'archive_event';
+  args?: Maybe<Scalars['archive_jsonb']>;
+  /** An object relationship */
   block: Archive_Block;
+  block_id: Scalars['archive_bpchar'];
+  /** An object relationship */
   call?: Maybe<Archive_Call>;
+  call_id?: Maybe<Scalars['String']>;
+  /** An object relationship */
+  contracts_contract_emitted?: Maybe<Archive_Contracts_Contract_Emitted>;
+  /** An object relationship */
   extrinsic?: Maybe<Archive_Extrinsic>;
-  id: Scalars['ID'];
-  indexInBlock: Scalars['Int'];
+  extrinsic_id?: Maybe<Scalars['archive_bpchar']>;
+  /** An object relationship */
+  frontier_evm_log?: Maybe<Archive_Frontier_Evm_Log>;
+  /** An object relationship */
+  gear_message_enqueued?: Maybe<Archive_Gear_Message_Enqueued>;
+  /** An object relationship */
+  gear_user_message_sent?: Maybe<Archive_Gear_User_Message_Sent>;
+  id: Scalars['archive_bpchar'];
+  index_in_block: Scalars['Int'];
   name: Scalars['String'];
   phase: Scalars['String'];
   pos: Scalars['Int'];
 };
 
-export type Archive_EventEdge = {
-  __typename?: 'archive_EventEdge';
-  cursor: Scalars['String'];
-  node: Archive_Event;
+
+/** columns and relationships of "event" */
+export type Archive_EventArgsArgs = {
+  path?: InputMaybe<Scalars['String']>;
 };
 
-export enum Archive_EventOrderByInput {
-  BlockHashAsc = 'block_hash_ASC',
-  BlockHashDesc = 'block_hash_DESC',
-  BlockHeightAsc = 'block_height_ASC',
-  BlockHeightDesc = 'block_height_DESC',
-  BlockIdAsc = 'block_id_ASC',
-  BlockIdDesc = 'block_id_DESC',
-  BlockParentHashAsc = 'block_parentHash_ASC',
-  BlockParentHashDesc = 'block_parentHash_DESC',
-  BlockTimestampAsc = 'block_timestamp_ASC',
-  BlockTimestampDesc = 'block_timestamp_DESC',
-  BlockValidatorAsc = 'block_validator_ASC',
-  BlockValidatorDesc = 'block_validator_DESC',
-  CallIdAsc = 'call_id_ASC',
-  CallIdDesc = 'call_id_DESC',
-  CallNameAsc = 'call_name_ASC',
-  CallNameDesc = 'call_name_DESC',
-  CallPosAsc = 'call_pos_ASC',
-  CallPosDesc = 'call_pos_DESC',
-  CallSuccessAsc = 'call_success_ASC',
-  CallSuccessDesc = 'call_success_DESC',
-  ExtrinsicFeeAsc = 'extrinsic_fee_ASC',
-  ExtrinsicFeeDesc = 'extrinsic_fee_DESC',
-  ExtrinsicHashAsc = 'extrinsic_hash_ASC',
-  ExtrinsicHashDesc = 'extrinsic_hash_DESC',
-  ExtrinsicIdAsc = 'extrinsic_id_ASC',
-  ExtrinsicIdDesc = 'extrinsic_id_DESC',
-  ExtrinsicIndexInBlockAsc = 'extrinsic_indexInBlock_ASC',
-  ExtrinsicIndexInBlockDesc = 'extrinsic_indexInBlock_DESC',
-  ExtrinsicPosAsc = 'extrinsic_pos_ASC',
-  ExtrinsicPosDesc = 'extrinsic_pos_DESC',
-  ExtrinsicSuccessAsc = 'extrinsic_success_ASC',
-  ExtrinsicSuccessDesc = 'extrinsic_success_DESC',
-  ExtrinsicTipAsc = 'extrinsic_tip_ASC',
-  ExtrinsicTipDesc = 'extrinsic_tip_DESC',
-  ExtrinsicVersionAsc = 'extrinsic_version_ASC',
-  ExtrinsicVersionDesc = 'extrinsic_version_DESC',
-  IdAsc = 'id_ASC',
-  IdDesc = 'id_DESC',
-  IndexInBlockAsc = 'indexInBlock_ASC',
-  IndexInBlockDesc = 'indexInBlock_DESC',
-  NameAsc = 'name_ASC',
-  NameDesc = 'name_DESC',
-  PhaseAsc = 'phase_ASC',
-  PhaseDesc = 'phase_DESC',
-  PosAsc = 'pos_ASC',
-  PosDesc = 'pos_DESC'
+/** aggregated selection of "event" */
+export type Archive_Event_Aggregate = {
+  __typename?: 'archive_event_aggregate';
+  aggregate?: Maybe<Archive_Event_Aggregate_Fields>;
+  nodes: Array<Archive_Event>;
+};
+
+/** aggregate fields of "event" */
+export type Archive_Event_Aggregate_Fields = {
+  __typename?: 'archive_event_aggregate_fields';
+  avg?: Maybe<Archive_Event_Avg_Fields>;
+  count: Scalars['Int'];
+  max?: Maybe<Archive_Event_Max_Fields>;
+  min?: Maybe<Archive_Event_Min_Fields>;
+  stddev?: Maybe<Archive_Event_Stddev_Fields>;
+  stddev_pop?: Maybe<Archive_Event_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Archive_Event_Stddev_Samp_Fields>;
+  sum?: Maybe<Archive_Event_Sum_Fields>;
+  var_pop?: Maybe<Archive_Event_Var_Pop_Fields>;
+  var_samp?: Maybe<Archive_Event_Var_Samp_Fields>;
+  variance?: Maybe<Archive_Event_Variance_Fields>;
+};
+
+
+/** aggregate fields of "event" */
+export type Archive_Event_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Archive_Event_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "event" */
+export type Archive_Event_Aggregate_Order_By = {
+  avg?: InputMaybe<Archive_Event_Avg_Order_By>;
+  count?: InputMaybe<Archive_Order_By>;
+  max?: InputMaybe<Archive_Event_Max_Order_By>;
+  min?: InputMaybe<Archive_Event_Min_Order_By>;
+  stddev?: InputMaybe<Archive_Event_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Archive_Event_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Archive_Event_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Archive_Event_Sum_Order_By>;
+  var_pop?: InputMaybe<Archive_Event_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Archive_Event_Var_Samp_Order_By>;
+  variance?: InputMaybe<Archive_Event_Variance_Order_By>;
+};
+
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type Archive_Event_Append_Input = {
+  args?: InputMaybe<Scalars['archive_jsonb']>;
+};
+
+/** input type for inserting array relation for remote table "event" */
+export type Archive_Event_Arr_Rel_Insert_Input = {
+  data: Array<Archive_Event_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Archive_Event_On_Conflict>;
+};
+
+/** aggregate avg on columns */
+export type Archive_Event_Avg_Fields = {
+  __typename?: 'archive_event_avg_fields';
+  index_in_block?: Maybe<Scalars['Float']>;
+  pos?: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "event" */
+export type Archive_Event_Avg_Order_By = {
+  index_in_block?: InputMaybe<Archive_Order_By>;
+  pos?: InputMaybe<Archive_Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "event". All fields are combined with a logical 'AND'. */
+export type Archive_Event_Bool_Exp = {
+  _and?: InputMaybe<Array<Archive_Event_Bool_Exp>>;
+  _not?: InputMaybe<Archive_Event_Bool_Exp>;
+  _or?: InputMaybe<Array<Archive_Event_Bool_Exp>>;
+  args?: InputMaybe<Archive_Jsonb_Comparison_Exp>;
+  block?: InputMaybe<Archive_Block_Bool_Exp>;
+  block_id?: InputMaybe<Archive_Bpchar_Comparison_Exp>;
+  call?: InputMaybe<Archive_Call_Bool_Exp>;
+  call_id?: InputMaybe<Archive_String_Comparison_Exp>;
+  contracts_contract_emitted?: InputMaybe<Archive_Contracts_Contract_Emitted_Bool_Exp>;
+  extrinsic?: InputMaybe<Archive_Extrinsic_Bool_Exp>;
+  extrinsic_id?: InputMaybe<Archive_Bpchar_Comparison_Exp>;
+  frontier_evm_log?: InputMaybe<Archive_Frontier_Evm_Log_Bool_Exp>;
+  gear_message_enqueued?: InputMaybe<Archive_Gear_Message_Enqueued_Bool_Exp>;
+  gear_user_message_sent?: InputMaybe<Archive_Gear_User_Message_Sent_Bool_Exp>;
+  id?: InputMaybe<Archive_Bpchar_Comparison_Exp>;
+  index_in_block?: InputMaybe<Archive_Int_Comparison_Exp>;
+  name?: InputMaybe<Archive_String_Comparison_Exp>;
+  phase?: InputMaybe<Archive_String_Comparison_Exp>;
+  pos?: InputMaybe<Archive_Int_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "event" */
+export enum Archive_Event_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  EventPkey = 'event_pkey'
 }
 
-export type Archive_EventWhereInput = {
-  AND?: InputMaybe<Array<Archive_EventWhereInput>>;
-  OR?: InputMaybe<Array<Archive_EventWhereInput>>;
-  args_eq?: InputMaybe<Scalars['archive_JSON']>;
-  args_isNull?: InputMaybe<Scalars['Boolean']>;
-  args_jsonContains?: InputMaybe<Scalars['archive_JSON']>;
-  args_jsonHasKey?: InputMaybe<Scalars['archive_JSON']>;
-  args_not_eq?: InputMaybe<Scalars['archive_JSON']>;
-  block?: InputMaybe<Archive_BlockWhereInput>;
-  call?: InputMaybe<Archive_CallWhereInput>;
-  call_isNull?: InputMaybe<Scalars['Boolean']>;
-  extrinsic?: InputMaybe<Archive_ExtrinsicWhereInput>;
-  extrinsic_isNull?: InputMaybe<Scalars['Boolean']>;
-  id_contains?: InputMaybe<Scalars['ID']>;
-  id_containsInsensitive?: InputMaybe<Scalars['ID']>;
-  id_endsWith?: InputMaybe<Scalars['ID']>;
-  id_eq?: InputMaybe<Scalars['ID']>;
-  id_gt?: InputMaybe<Scalars['ID']>;
-  id_gte?: InputMaybe<Scalars['ID']>;
-  id_in?: InputMaybe<Array<Scalars['ID']>>;
-  id_lt?: InputMaybe<Scalars['ID']>;
-  id_lte?: InputMaybe<Scalars['ID']>;
-  id_not_contains?: InputMaybe<Scalars['ID']>;
-  id_not_containsInsensitive?: InputMaybe<Scalars['ID']>;
-  id_not_endsWith?: InputMaybe<Scalars['ID']>;
-  id_not_eq?: InputMaybe<Scalars['ID']>;
-  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
-  id_not_startsWith?: InputMaybe<Scalars['ID']>;
-  id_startsWith?: InputMaybe<Scalars['ID']>;
-  indexInBlock_eq?: InputMaybe<Scalars['Int']>;
-  indexInBlock_gt?: InputMaybe<Scalars['Int']>;
-  indexInBlock_gte?: InputMaybe<Scalars['Int']>;
-  indexInBlock_in?: InputMaybe<Array<Scalars['Int']>>;
-  indexInBlock_lt?: InputMaybe<Scalars['Int']>;
-  indexInBlock_lte?: InputMaybe<Scalars['Int']>;
-  indexInBlock_not_eq?: InputMaybe<Scalars['Int']>;
-  indexInBlock_not_in?: InputMaybe<Array<Scalars['Int']>>;
-  name_contains?: InputMaybe<Scalars['String']>;
-  name_containsInsensitive?: InputMaybe<Scalars['String']>;
-  name_endsWith?: InputMaybe<Scalars['String']>;
-  name_eq?: InputMaybe<Scalars['String']>;
-  name_gt?: InputMaybe<Scalars['String']>;
-  name_gte?: InputMaybe<Scalars['String']>;
-  name_in?: InputMaybe<Array<Scalars['String']>>;
-  name_lt?: InputMaybe<Scalars['String']>;
-  name_lte?: InputMaybe<Scalars['String']>;
-  name_not_contains?: InputMaybe<Scalars['String']>;
-  name_not_containsInsensitive?: InputMaybe<Scalars['String']>;
-  name_not_endsWith?: InputMaybe<Scalars['String']>;
-  name_not_eq?: InputMaybe<Scalars['String']>;
-  name_not_in?: InputMaybe<Array<Scalars['String']>>;
-  name_not_startsWith?: InputMaybe<Scalars['String']>;
-  name_startsWith?: InputMaybe<Scalars['String']>;
-  phase_contains?: InputMaybe<Scalars['String']>;
-  phase_containsInsensitive?: InputMaybe<Scalars['String']>;
-  phase_endsWith?: InputMaybe<Scalars['String']>;
-  phase_eq?: InputMaybe<Scalars['String']>;
-  phase_gt?: InputMaybe<Scalars['String']>;
-  phase_gte?: InputMaybe<Scalars['String']>;
-  phase_in?: InputMaybe<Array<Scalars['String']>>;
-  phase_lt?: InputMaybe<Scalars['String']>;
-  phase_lte?: InputMaybe<Scalars['String']>;
-  phase_not_contains?: InputMaybe<Scalars['String']>;
-  phase_not_containsInsensitive?: InputMaybe<Scalars['String']>;
-  phase_not_endsWith?: InputMaybe<Scalars['String']>;
-  phase_not_eq?: InputMaybe<Scalars['String']>;
-  phase_not_in?: InputMaybe<Array<Scalars['String']>>;
-  phase_not_startsWith?: InputMaybe<Scalars['String']>;
-  phase_startsWith?: InputMaybe<Scalars['String']>;
-  pos_eq?: InputMaybe<Scalars['Int']>;
-  pos_gt?: InputMaybe<Scalars['Int']>;
-  pos_gte?: InputMaybe<Scalars['Int']>;
-  pos_in?: InputMaybe<Array<Scalars['Int']>>;
-  pos_lt?: InputMaybe<Scalars['Int']>;
-  pos_lte?: InputMaybe<Scalars['Int']>;
-  pos_not_eq?: InputMaybe<Scalars['Int']>;
-  pos_not_in?: InputMaybe<Array<Scalars['Int']>>;
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type Archive_Event_Delete_At_Path_Input = {
+  args?: InputMaybe<Array<Scalars['String']>>;
 };
 
-export type Archive_EventWhereUniqueInput = {
-  id: Scalars['ID'];
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type Archive_Event_Delete_Elem_Input = {
+  args?: InputMaybe<Scalars['Int']>;
 };
 
-export type Archive_EventsConnection = {
-  __typename?: 'archive_EventsConnection';
-  edges: Array<Archive_EventEdge>;
-  pageInfo: Balances_PageInfo;
-  totalCount: Scalars['Int'];
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type Archive_Event_Delete_Key_Input = {
+  args?: InputMaybe<Scalars['String']>;
 };
 
+/** input type for incrementing numeric columns in table "event" */
+export type Archive_Event_Inc_Input = {
+  index_in_block?: InputMaybe<Scalars['Int']>;
+  pos?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "event" */
+export type Archive_Event_Insert_Input = {
+  args?: InputMaybe<Scalars['archive_jsonb']>;
+  block?: InputMaybe<Archive_Block_Obj_Rel_Insert_Input>;
+  block_id?: InputMaybe<Scalars['archive_bpchar']>;
+  call?: InputMaybe<Archive_Call_Obj_Rel_Insert_Input>;
+  call_id?: InputMaybe<Scalars['String']>;
+  contracts_contract_emitted?: InputMaybe<Archive_Contracts_Contract_Emitted_Obj_Rel_Insert_Input>;
+  extrinsic?: InputMaybe<Archive_Extrinsic_Obj_Rel_Insert_Input>;
+  extrinsic_id?: InputMaybe<Scalars['archive_bpchar']>;
+  frontier_evm_log?: InputMaybe<Archive_Frontier_Evm_Log_Obj_Rel_Insert_Input>;
+  gear_message_enqueued?: InputMaybe<Archive_Gear_Message_Enqueued_Obj_Rel_Insert_Input>;
+  gear_user_message_sent?: InputMaybe<Archive_Gear_User_Message_Sent_Obj_Rel_Insert_Input>;
+  id?: InputMaybe<Scalars['archive_bpchar']>;
+  index_in_block?: InputMaybe<Scalars['Int']>;
+  name?: InputMaybe<Scalars['String']>;
+  phase?: InputMaybe<Scalars['String']>;
+  pos?: InputMaybe<Scalars['Int']>;
+};
+
+/** aggregate max on columns */
+export type Archive_Event_Max_Fields = {
+  __typename?: 'archive_event_max_fields';
+  block_id?: Maybe<Scalars['archive_bpchar']>;
+  call_id?: Maybe<Scalars['String']>;
+  extrinsic_id?: Maybe<Scalars['archive_bpchar']>;
+  id?: Maybe<Scalars['archive_bpchar']>;
+  index_in_block?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  phase?: Maybe<Scalars['String']>;
+  pos?: Maybe<Scalars['Int']>;
+};
+
+/** order by max() on columns of table "event" */
+export type Archive_Event_Max_Order_By = {
+  block_id?: InputMaybe<Archive_Order_By>;
+  call_id?: InputMaybe<Archive_Order_By>;
+  extrinsic_id?: InputMaybe<Archive_Order_By>;
+  id?: InputMaybe<Archive_Order_By>;
+  index_in_block?: InputMaybe<Archive_Order_By>;
+  name?: InputMaybe<Archive_Order_By>;
+  phase?: InputMaybe<Archive_Order_By>;
+  pos?: InputMaybe<Archive_Order_By>;
+};
+
+/** aggregate min on columns */
+export type Archive_Event_Min_Fields = {
+  __typename?: 'archive_event_min_fields';
+  block_id?: Maybe<Scalars['archive_bpchar']>;
+  call_id?: Maybe<Scalars['String']>;
+  extrinsic_id?: Maybe<Scalars['archive_bpchar']>;
+  id?: Maybe<Scalars['archive_bpchar']>;
+  index_in_block?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  phase?: Maybe<Scalars['String']>;
+  pos?: Maybe<Scalars['Int']>;
+};
+
+/** order by min() on columns of table "event" */
+export type Archive_Event_Min_Order_By = {
+  block_id?: InputMaybe<Archive_Order_By>;
+  call_id?: InputMaybe<Archive_Order_By>;
+  extrinsic_id?: InputMaybe<Archive_Order_By>;
+  id?: InputMaybe<Archive_Order_By>;
+  index_in_block?: InputMaybe<Archive_Order_By>;
+  name?: InputMaybe<Archive_Order_By>;
+  phase?: InputMaybe<Archive_Order_By>;
+  pos?: InputMaybe<Archive_Order_By>;
+};
+
+/** response of any mutation on the table "event" */
+export type Archive_Event_Mutation_Response = {
+  __typename?: 'archive_event_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Archive_Event>;
+};
+
+/** input type for inserting object relation for remote table "event" */
+export type Archive_Event_Obj_Rel_Insert_Input = {
+  data: Archive_Event_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Archive_Event_On_Conflict>;
+};
+
+/** on_conflict condition type for table "event" */
+export type Archive_Event_On_Conflict = {
+  constraint: Archive_Event_Constraint;
+  update_columns?: Array<Archive_Event_Update_Column>;
+  where?: InputMaybe<Archive_Event_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "event". */
+export type Archive_Event_Order_By = {
+  args?: InputMaybe<Archive_Order_By>;
+  block?: InputMaybe<Archive_Block_Order_By>;
+  block_id?: InputMaybe<Archive_Order_By>;
+  call?: InputMaybe<Archive_Call_Order_By>;
+  call_id?: InputMaybe<Archive_Order_By>;
+  contracts_contract_emitted?: InputMaybe<Archive_Contracts_Contract_Emitted_Order_By>;
+  extrinsic?: InputMaybe<Archive_Extrinsic_Order_By>;
+  extrinsic_id?: InputMaybe<Archive_Order_By>;
+  frontier_evm_log?: InputMaybe<Archive_Frontier_Evm_Log_Order_By>;
+  gear_message_enqueued?: InputMaybe<Archive_Gear_Message_Enqueued_Order_By>;
+  gear_user_message_sent?: InputMaybe<Archive_Gear_User_Message_Sent_Order_By>;
+  id?: InputMaybe<Archive_Order_By>;
+  index_in_block?: InputMaybe<Archive_Order_By>;
+  name?: InputMaybe<Archive_Order_By>;
+  phase?: InputMaybe<Archive_Order_By>;
+  pos?: InputMaybe<Archive_Order_By>;
+};
+
+/** primary key columns input for table: event */
+export type Archive_Event_Pk_Columns_Input = {
+  id: Scalars['archive_bpchar'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type Archive_Event_Prepend_Input = {
+  args?: InputMaybe<Scalars['archive_jsonb']>;
+};
+
+/** select columns of table "event" */
+export enum Archive_Event_Select_Column {
+  /** column name */
+  Args = 'args',
+  /** column name */
+  BlockId = 'block_id',
+  /** column name */
+  CallId = 'call_id',
+  /** column name */
+  ExtrinsicId = 'extrinsic_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  IndexInBlock = 'index_in_block',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  Phase = 'phase',
+  /** column name */
+  Pos = 'pos'
+}
+
+/** input type for updating data in table "event" */
+export type Archive_Event_Set_Input = {
+  args?: InputMaybe<Scalars['archive_jsonb']>;
+  block_id?: InputMaybe<Scalars['archive_bpchar']>;
+  call_id?: InputMaybe<Scalars['String']>;
+  extrinsic_id?: InputMaybe<Scalars['archive_bpchar']>;
+  id?: InputMaybe<Scalars['archive_bpchar']>;
+  index_in_block?: InputMaybe<Scalars['Int']>;
+  name?: InputMaybe<Scalars['String']>;
+  phase?: InputMaybe<Scalars['String']>;
+  pos?: InputMaybe<Scalars['Int']>;
+};
+
+/** aggregate stddev on columns */
+export type Archive_Event_Stddev_Fields = {
+  __typename?: 'archive_event_stddev_fields';
+  index_in_block?: Maybe<Scalars['Float']>;
+  pos?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev() on columns of table "event" */
+export type Archive_Event_Stddev_Order_By = {
+  index_in_block?: InputMaybe<Archive_Order_By>;
+  pos?: InputMaybe<Archive_Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Archive_Event_Stddev_Pop_Fields = {
+  __typename?: 'archive_event_stddev_pop_fields';
+  index_in_block?: Maybe<Scalars['Float']>;
+  pos?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "event" */
+export type Archive_Event_Stddev_Pop_Order_By = {
+  index_in_block?: InputMaybe<Archive_Order_By>;
+  pos?: InputMaybe<Archive_Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Archive_Event_Stddev_Samp_Fields = {
+  __typename?: 'archive_event_stddev_samp_fields';
+  index_in_block?: Maybe<Scalars['Float']>;
+  pos?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_samp() on columns of table "event" */
+export type Archive_Event_Stddev_Samp_Order_By = {
+  index_in_block?: InputMaybe<Archive_Order_By>;
+  pos?: InputMaybe<Archive_Order_By>;
+};
+
+/** Streaming cursor of the table "event" */
+export type Archive_Event_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Archive_Event_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Archive_Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Archive_Event_Stream_Cursor_Value_Input = {
+  args?: InputMaybe<Scalars['archive_jsonb']>;
+  block_id?: InputMaybe<Scalars['archive_bpchar']>;
+  call_id?: InputMaybe<Scalars['String']>;
+  extrinsic_id?: InputMaybe<Scalars['archive_bpchar']>;
+  id?: InputMaybe<Scalars['archive_bpchar']>;
+  index_in_block?: InputMaybe<Scalars['Int']>;
+  name?: InputMaybe<Scalars['String']>;
+  phase?: InputMaybe<Scalars['String']>;
+  pos?: InputMaybe<Scalars['Int']>;
+};
+
+/** aggregate sum on columns */
+export type Archive_Event_Sum_Fields = {
+  __typename?: 'archive_event_sum_fields';
+  index_in_block?: Maybe<Scalars['Int']>;
+  pos?: Maybe<Scalars['Int']>;
+};
+
+/** order by sum() on columns of table "event" */
+export type Archive_Event_Sum_Order_By = {
+  index_in_block?: InputMaybe<Archive_Order_By>;
+  pos?: InputMaybe<Archive_Order_By>;
+};
+
+/** update columns of table "event" */
+export enum Archive_Event_Update_Column {
+  /** column name */
+  Args = 'args',
+  /** column name */
+  BlockId = 'block_id',
+  /** column name */
+  CallId = 'call_id',
+  /** column name */
+  ExtrinsicId = 'extrinsic_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  IndexInBlock = 'index_in_block',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  Phase = 'phase',
+  /** column name */
+  Pos = 'pos'
+}
+
+export type Archive_Event_Updates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<Archive_Event_Append_Input>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: InputMaybe<Archive_Event_Delete_At_Path_Input>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: InputMaybe<Archive_Event_Delete_Elem_Input>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: InputMaybe<Archive_Event_Delete_Key_Input>;
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Archive_Event_Inc_Input>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<Archive_Event_Prepend_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Archive_Event_Set_Input>;
+  where: Archive_Event_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Archive_Event_Var_Pop_Fields = {
+  __typename?: 'archive_event_var_pop_fields';
+  index_in_block?: Maybe<Scalars['Float']>;
+  pos?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_pop() on columns of table "event" */
+export type Archive_Event_Var_Pop_Order_By = {
+  index_in_block?: InputMaybe<Archive_Order_By>;
+  pos?: InputMaybe<Archive_Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Archive_Event_Var_Samp_Fields = {
+  __typename?: 'archive_event_var_samp_fields';
+  index_in_block?: Maybe<Scalars['Float']>;
+  pos?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_samp() on columns of table "event" */
+export type Archive_Event_Var_Samp_Order_By = {
+  index_in_block?: InputMaybe<Archive_Order_By>;
+  pos?: InputMaybe<Archive_Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Archive_Event_Variance_Fields = {
+  __typename?: 'archive_event_variance_fields';
+  index_in_block?: Maybe<Scalars['Float']>;
+  pos?: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "event" */
+export type Archive_Event_Variance_Order_By = {
+  index_in_block?: InputMaybe<Archive_Order_By>;
+  pos?: InputMaybe<Archive_Order_By>;
+};
+
+/** columns and relationships of "extrinsic" */
 export type Archive_Extrinsic = {
-  __typename?: 'archive_Extrinsic';
+  __typename?: 'archive_extrinsic';
+  /** An object relationship */
   block: Archive_Block;
-  call: Archive_Call;
+  block_id: Scalars['archive_bpchar'];
+  call_id: Scalars['String'];
+  /** An array relationship */
   calls: Array<Archive_Call>;
-  error?: Maybe<Scalars['archive_JSON']>;
-  fee?: Maybe<Scalars['Int']>;
-  hash: Scalars['String'];
-  id: Scalars['ID'];
-  indexInBlock: Scalars['Int'];
+  /** An aggregate relationship */
+  calls_aggregate: Archive_Call_Aggregate;
+  error?: Maybe<Scalars['archive_jsonb']>;
+  /** An array relationship */
+  events: Array<Archive_Event>;
+  /** An aggregate relationship */
+  events_aggregate: Archive_Event_Aggregate;
+  fee?: Maybe<Scalars['archive_numeric']>;
+  hash: Scalars['archive_bpchar'];
+  id: Scalars['archive_bpchar'];
+  index_in_block: Scalars['Int'];
   pos: Scalars['Int'];
-  signature?: Maybe<Scalars['archive_JSON']>;
+  signature?: Maybe<Scalars['archive_jsonb']>;
   success: Scalars['Boolean'];
-  tip?: Maybe<Scalars['Int']>;
+  tip?: Maybe<Scalars['archive_numeric']>;
   version: Scalars['Int'];
 };
 
 
+/** columns and relationships of "extrinsic" */
 export type Archive_ExtrinsicCallsArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Call_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Array<InputMaybe<Archive_CallOrderByInput>>>;
-  where?: InputMaybe<Archive_CallWhereInput>;
+  order_by?: InputMaybe<Array<Archive_Call_Order_By>>;
+  where?: InputMaybe<Archive_Call_Bool_Exp>;
 };
 
-export type Archive_ExtrinsicEdge = {
-  __typename?: 'archive_ExtrinsicEdge';
-  cursor: Scalars['String'];
-  node: Archive_Extrinsic;
+
+/** columns and relationships of "extrinsic" */
+export type Archive_ExtrinsicCalls_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Call_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Call_Order_By>>;
+  where?: InputMaybe<Archive_Call_Bool_Exp>;
 };
 
-export enum Archive_ExtrinsicOrderByInput {
-  BlockHashAsc = 'block_hash_ASC',
-  BlockHashDesc = 'block_hash_DESC',
-  BlockHeightAsc = 'block_height_ASC',
-  BlockHeightDesc = 'block_height_DESC',
-  BlockIdAsc = 'block_id_ASC',
-  BlockIdDesc = 'block_id_DESC',
-  BlockParentHashAsc = 'block_parentHash_ASC',
-  BlockParentHashDesc = 'block_parentHash_DESC',
-  BlockTimestampAsc = 'block_timestamp_ASC',
-  BlockTimestampDesc = 'block_timestamp_DESC',
-  BlockValidatorAsc = 'block_validator_ASC',
-  BlockValidatorDesc = 'block_validator_DESC',
-  CallIdAsc = 'call_id_ASC',
-  CallIdDesc = 'call_id_DESC',
-  CallNameAsc = 'call_name_ASC',
-  CallNameDesc = 'call_name_DESC',
-  CallPosAsc = 'call_pos_ASC',
-  CallPosDesc = 'call_pos_DESC',
-  CallSuccessAsc = 'call_success_ASC',
-  CallSuccessDesc = 'call_success_DESC',
-  FeeAsc = 'fee_ASC',
-  FeeDesc = 'fee_DESC',
-  HashAsc = 'hash_ASC',
-  HashDesc = 'hash_DESC',
-  IdAsc = 'id_ASC',
-  IdDesc = 'id_DESC',
-  IndexInBlockAsc = 'indexInBlock_ASC',
-  IndexInBlockDesc = 'indexInBlock_DESC',
-  PosAsc = 'pos_ASC',
-  PosDesc = 'pos_DESC',
-  SuccessAsc = 'success_ASC',
-  SuccessDesc = 'success_DESC',
-  TipAsc = 'tip_ASC',
-  TipDesc = 'tip_DESC',
-  VersionAsc = 'version_ASC',
-  VersionDesc = 'version_DESC'
+
+/** columns and relationships of "extrinsic" */
+export type Archive_ExtrinsicErrorArgs = {
+  path?: InputMaybe<Scalars['String']>;
+};
+
+
+/** columns and relationships of "extrinsic" */
+export type Archive_ExtrinsicEventsArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Event_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Event_Order_By>>;
+  where?: InputMaybe<Archive_Event_Bool_Exp>;
+};
+
+
+/** columns and relationships of "extrinsic" */
+export type Archive_ExtrinsicEvents_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Event_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Event_Order_By>>;
+  where?: InputMaybe<Archive_Event_Bool_Exp>;
+};
+
+
+/** columns and relationships of "extrinsic" */
+export type Archive_ExtrinsicSignatureArgs = {
+  path?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregated selection of "extrinsic" */
+export type Archive_Extrinsic_Aggregate = {
+  __typename?: 'archive_extrinsic_aggregate';
+  aggregate?: Maybe<Archive_Extrinsic_Aggregate_Fields>;
+  nodes: Array<Archive_Extrinsic>;
+};
+
+/** aggregate fields of "extrinsic" */
+export type Archive_Extrinsic_Aggregate_Fields = {
+  __typename?: 'archive_extrinsic_aggregate_fields';
+  avg?: Maybe<Archive_Extrinsic_Avg_Fields>;
+  count: Scalars['Int'];
+  max?: Maybe<Archive_Extrinsic_Max_Fields>;
+  min?: Maybe<Archive_Extrinsic_Min_Fields>;
+  stddev?: Maybe<Archive_Extrinsic_Stddev_Fields>;
+  stddev_pop?: Maybe<Archive_Extrinsic_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Archive_Extrinsic_Stddev_Samp_Fields>;
+  sum?: Maybe<Archive_Extrinsic_Sum_Fields>;
+  var_pop?: Maybe<Archive_Extrinsic_Var_Pop_Fields>;
+  var_samp?: Maybe<Archive_Extrinsic_Var_Samp_Fields>;
+  variance?: Maybe<Archive_Extrinsic_Variance_Fields>;
+};
+
+
+/** aggregate fields of "extrinsic" */
+export type Archive_Extrinsic_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Archive_Extrinsic_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "extrinsic" */
+export type Archive_Extrinsic_Aggregate_Order_By = {
+  avg?: InputMaybe<Archive_Extrinsic_Avg_Order_By>;
+  count?: InputMaybe<Archive_Order_By>;
+  max?: InputMaybe<Archive_Extrinsic_Max_Order_By>;
+  min?: InputMaybe<Archive_Extrinsic_Min_Order_By>;
+  stddev?: InputMaybe<Archive_Extrinsic_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Archive_Extrinsic_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Archive_Extrinsic_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Archive_Extrinsic_Sum_Order_By>;
+  var_pop?: InputMaybe<Archive_Extrinsic_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Archive_Extrinsic_Var_Samp_Order_By>;
+  variance?: InputMaybe<Archive_Extrinsic_Variance_Order_By>;
+};
+
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type Archive_Extrinsic_Append_Input = {
+  error?: InputMaybe<Scalars['archive_jsonb']>;
+  signature?: InputMaybe<Scalars['archive_jsonb']>;
+};
+
+/** input type for inserting array relation for remote table "extrinsic" */
+export type Archive_Extrinsic_Arr_Rel_Insert_Input = {
+  data: Array<Archive_Extrinsic_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Archive_Extrinsic_On_Conflict>;
+};
+
+/** aggregate avg on columns */
+export type Archive_Extrinsic_Avg_Fields = {
+  __typename?: 'archive_extrinsic_avg_fields';
+  fee?: Maybe<Scalars['Float']>;
+  index_in_block?: Maybe<Scalars['Float']>;
+  pos?: Maybe<Scalars['Float']>;
+  tip?: Maybe<Scalars['Float']>;
+  version?: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "extrinsic" */
+export type Archive_Extrinsic_Avg_Order_By = {
+  fee?: InputMaybe<Archive_Order_By>;
+  index_in_block?: InputMaybe<Archive_Order_By>;
+  pos?: InputMaybe<Archive_Order_By>;
+  tip?: InputMaybe<Archive_Order_By>;
+  version?: InputMaybe<Archive_Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "extrinsic". All fields are combined with a logical 'AND'. */
+export type Archive_Extrinsic_Bool_Exp = {
+  _and?: InputMaybe<Array<Archive_Extrinsic_Bool_Exp>>;
+  _not?: InputMaybe<Archive_Extrinsic_Bool_Exp>;
+  _or?: InputMaybe<Array<Archive_Extrinsic_Bool_Exp>>;
+  block?: InputMaybe<Archive_Block_Bool_Exp>;
+  block_id?: InputMaybe<Archive_Bpchar_Comparison_Exp>;
+  call_id?: InputMaybe<Archive_String_Comparison_Exp>;
+  calls?: InputMaybe<Archive_Call_Bool_Exp>;
+  error?: InputMaybe<Archive_Jsonb_Comparison_Exp>;
+  events?: InputMaybe<Archive_Event_Bool_Exp>;
+  fee?: InputMaybe<Archive_Numeric_Comparison_Exp>;
+  hash?: InputMaybe<Archive_Bpchar_Comparison_Exp>;
+  id?: InputMaybe<Archive_Bpchar_Comparison_Exp>;
+  index_in_block?: InputMaybe<Archive_Int_Comparison_Exp>;
+  pos?: InputMaybe<Archive_Int_Comparison_Exp>;
+  signature?: InputMaybe<Archive_Jsonb_Comparison_Exp>;
+  success?: InputMaybe<Archive_Boolean_Comparison_Exp>;
+  tip?: InputMaybe<Archive_Numeric_Comparison_Exp>;
+  version?: InputMaybe<Archive_Int_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "extrinsic" */
+export enum Archive_Extrinsic_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  ExtrinsicPkey = 'extrinsic_pkey'
 }
 
-export type Archive_ExtrinsicWhereInput = {
-  AND?: InputMaybe<Array<Archive_ExtrinsicWhereInput>>;
-  OR?: InputMaybe<Array<Archive_ExtrinsicWhereInput>>;
-  block?: InputMaybe<Archive_BlockWhereInput>;
-  call?: InputMaybe<Archive_CallWhereInput>;
-  calls_every?: InputMaybe<Archive_CallWhereInput>;
-  calls_none?: InputMaybe<Archive_CallWhereInput>;
-  calls_some?: InputMaybe<Archive_CallWhereInput>;
-  error_eq?: InputMaybe<Scalars['archive_JSON']>;
-  error_isNull?: InputMaybe<Scalars['Boolean']>;
-  error_jsonContains?: InputMaybe<Scalars['archive_JSON']>;
-  error_jsonHasKey?: InputMaybe<Scalars['archive_JSON']>;
-  error_not_eq?: InputMaybe<Scalars['archive_JSON']>;
-  fee_eq?: InputMaybe<Scalars['Int']>;
-  fee_gt?: InputMaybe<Scalars['Int']>;
-  fee_gte?: InputMaybe<Scalars['Int']>;
-  fee_in?: InputMaybe<Array<Scalars['Int']>>;
-  fee_isNull?: InputMaybe<Scalars['Boolean']>;
-  fee_lt?: InputMaybe<Scalars['Int']>;
-  fee_lte?: InputMaybe<Scalars['Int']>;
-  fee_not_eq?: InputMaybe<Scalars['Int']>;
-  fee_not_in?: InputMaybe<Array<Scalars['Int']>>;
-  hash_contains?: InputMaybe<Scalars['String']>;
-  hash_containsInsensitive?: InputMaybe<Scalars['String']>;
-  hash_endsWith?: InputMaybe<Scalars['String']>;
-  hash_eq?: InputMaybe<Scalars['String']>;
-  hash_gt?: InputMaybe<Scalars['String']>;
-  hash_gte?: InputMaybe<Scalars['String']>;
-  hash_in?: InputMaybe<Array<Scalars['String']>>;
-  hash_lt?: InputMaybe<Scalars['String']>;
-  hash_lte?: InputMaybe<Scalars['String']>;
-  hash_not_contains?: InputMaybe<Scalars['String']>;
-  hash_not_containsInsensitive?: InputMaybe<Scalars['String']>;
-  hash_not_endsWith?: InputMaybe<Scalars['String']>;
-  hash_not_eq?: InputMaybe<Scalars['String']>;
-  hash_not_in?: InputMaybe<Array<Scalars['String']>>;
-  hash_not_startsWith?: InputMaybe<Scalars['String']>;
-  hash_startsWith?: InputMaybe<Scalars['String']>;
-  id_contains?: InputMaybe<Scalars['ID']>;
-  id_containsInsensitive?: InputMaybe<Scalars['ID']>;
-  id_endsWith?: InputMaybe<Scalars['ID']>;
-  id_eq?: InputMaybe<Scalars['ID']>;
-  id_gt?: InputMaybe<Scalars['ID']>;
-  id_gte?: InputMaybe<Scalars['ID']>;
-  id_in?: InputMaybe<Array<Scalars['ID']>>;
-  id_lt?: InputMaybe<Scalars['ID']>;
-  id_lte?: InputMaybe<Scalars['ID']>;
-  id_not_contains?: InputMaybe<Scalars['ID']>;
-  id_not_containsInsensitive?: InputMaybe<Scalars['ID']>;
-  id_not_endsWith?: InputMaybe<Scalars['ID']>;
-  id_not_eq?: InputMaybe<Scalars['ID']>;
-  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
-  id_not_startsWith?: InputMaybe<Scalars['ID']>;
-  id_startsWith?: InputMaybe<Scalars['ID']>;
-  indexInBlock_eq?: InputMaybe<Scalars['Int']>;
-  indexInBlock_gt?: InputMaybe<Scalars['Int']>;
-  indexInBlock_gte?: InputMaybe<Scalars['Int']>;
-  indexInBlock_in?: InputMaybe<Array<Scalars['Int']>>;
-  indexInBlock_lt?: InputMaybe<Scalars['Int']>;
-  indexInBlock_lte?: InputMaybe<Scalars['Int']>;
-  indexInBlock_not_eq?: InputMaybe<Scalars['Int']>;
-  indexInBlock_not_in?: InputMaybe<Array<Scalars['Int']>>;
-  pos_eq?: InputMaybe<Scalars['Int']>;
-  pos_gt?: InputMaybe<Scalars['Int']>;
-  pos_gte?: InputMaybe<Scalars['Int']>;
-  pos_in?: InputMaybe<Array<Scalars['Int']>>;
-  pos_lt?: InputMaybe<Scalars['Int']>;
-  pos_lte?: InputMaybe<Scalars['Int']>;
-  pos_not_eq?: InputMaybe<Scalars['Int']>;
-  pos_not_in?: InputMaybe<Array<Scalars['Int']>>;
-  signature_eq?: InputMaybe<Scalars['archive_JSON']>;
-  signature_isNull?: InputMaybe<Scalars['Boolean']>;
-  signature_jsonContains?: InputMaybe<Scalars['archive_JSON']>;
-  signature_jsonHasKey?: InputMaybe<Scalars['archive_JSON']>;
-  signature_not_eq?: InputMaybe<Scalars['archive_JSON']>;
-  success_eq?: InputMaybe<Scalars['Boolean']>;
-  success_not_eq?: InputMaybe<Scalars['Boolean']>;
-  tip_eq?: InputMaybe<Scalars['Int']>;
-  tip_gt?: InputMaybe<Scalars['Int']>;
-  tip_gte?: InputMaybe<Scalars['Int']>;
-  tip_in?: InputMaybe<Array<Scalars['Int']>>;
-  tip_isNull?: InputMaybe<Scalars['Boolean']>;
-  tip_lt?: InputMaybe<Scalars['Int']>;
-  tip_lte?: InputMaybe<Scalars['Int']>;
-  tip_not_eq?: InputMaybe<Scalars['Int']>;
-  tip_not_in?: InputMaybe<Array<Scalars['Int']>>;
-  version_eq?: InputMaybe<Scalars['Int']>;
-  version_gt?: InputMaybe<Scalars['Int']>;
-  version_gte?: InputMaybe<Scalars['Int']>;
-  version_in?: InputMaybe<Array<Scalars['Int']>>;
-  version_lt?: InputMaybe<Scalars['Int']>;
-  version_lte?: InputMaybe<Scalars['Int']>;
-  version_not_eq?: InputMaybe<Scalars['Int']>;
-  version_not_in?: InputMaybe<Array<Scalars['Int']>>;
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type Archive_Extrinsic_Delete_At_Path_Input = {
+  error?: InputMaybe<Array<Scalars['String']>>;
+  signature?: InputMaybe<Array<Scalars['String']>>;
 };
 
-export type Archive_ExtrinsicWhereUniqueInput = {
-  id: Scalars['ID'];
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type Archive_Extrinsic_Delete_Elem_Input = {
+  error?: InputMaybe<Scalars['Int']>;
+  signature?: InputMaybe<Scalars['Int']>;
 };
 
-export type Archive_ExtrinsicsConnection = {
-  __typename?: 'archive_ExtrinsicsConnection';
-  edges: Array<Archive_ExtrinsicEdge>;
-  pageInfo: Balances_PageInfo;
-  totalCount: Scalars['Int'];
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type Archive_Extrinsic_Delete_Key_Input = {
+  error?: InputMaybe<Scalars['String']>;
+  signature?: InputMaybe<Scalars['String']>;
 };
 
+/** input type for incrementing numeric columns in table "extrinsic" */
+export type Archive_Extrinsic_Inc_Input = {
+  fee?: InputMaybe<Scalars['archive_numeric']>;
+  index_in_block?: InputMaybe<Scalars['Int']>;
+  pos?: InputMaybe<Scalars['Int']>;
+  tip?: InputMaybe<Scalars['archive_numeric']>;
+  version?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "extrinsic" */
+export type Archive_Extrinsic_Insert_Input = {
+  block?: InputMaybe<Archive_Block_Obj_Rel_Insert_Input>;
+  block_id?: InputMaybe<Scalars['archive_bpchar']>;
+  call_id?: InputMaybe<Scalars['String']>;
+  calls?: InputMaybe<Archive_Call_Arr_Rel_Insert_Input>;
+  error?: InputMaybe<Scalars['archive_jsonb']>;
+  events?: InputMaybe<Archive_Event_Arr_Rel_Insert_Input>;
+  fee?: InputMaybe<Scalars['archive_numeric']>;
+  hash?: InputMaybe<Scalars['archive_bpchar']>;
+  id?: InputMaybe<Scalars['archive_bpchar']>;
+  index_in_block?: InputMaybe<Scalars['Int']>;
+  pos?: InputMaybe<Scalars['Int']>;
+  signature?: InputMaybe<Scalars['archive_jsonb']>;
+  success?: InputMaybe<Scalars['Boolean']>;
+  tip?: InputMaybe<Scalars['archive_numeric']>;
+  version?: InputMaybe<Scalars['Int']>;
+};
+
+/** aggregate max on columns */
+export type Archive_Extrinsic_Max_Fields = {
+  __typename?: 'archive_extrinsic_max_fields';
+  block_id?: Maybe<Scalars['archive_bpchar']>;
+  call_id?: Maybe<Scalars['String']>;
+  fee?: Maybe<Scalars['archive_numeric']>;
+  hash?: Maybe<Scalars['archive_bpchar']>;
+  id?: Maybe<Scalars['archive_bpchar']>;
+  index_in_block?: Maybe<Scalars['Int']>;
+  pos?: Maybe<Scalars['Int']>;
+  tip?: Maybe<Scalars['archive_numeric']>;
+  version?: Maybe<Scalars['Int']>;
+};
+
+/** order by max() on columns of table "extrinsic" */
+export type Archive_Extrinsic_Max_Order_By = {
+  block_id?: InputMaybe<Archive_Order_By>;
+  call_id?: InputMaybe<Archive_Order_By>;
+  fee?: InputMaybe<Archive_Order_By>;
+  hash?: InputMaybe<Archive_Order_By>;
+  id?: InputMaybe<Archive_Order_By>;
+  index_in_block?: InputMaybe<Archive_Order_By>;
+  pos?: InputMaybe<Archive_Order_By>;
+  tip?: InputMaybe<Archive_Order_By>;
+  version?: InputMaybe<Archive_Order_By>;
+};
+
+/** aggregate min on columns */
+export type Archive_Extrinsic_Min_Fields = {
+  __typename?: 'archive_extrinsic_min_fields';
+  block_id?: Maybe<Scalars['archive_bpchar']>;
+  call_id?: Maybe<Scalars['String']>;
+  fee?: Maybe<Scalars['archive_numeric']>;
+  hash?: Maybe<Scalars['archive_bpchar']>;
+  id?: Maybe<Scalars['archive_bpchar']>;
+  index_in_block?: Maybe<Scalars['Int']>;
+  pos?: Maybe<Scalars['Int']>;
+  tip?: Maybe<Scalars['archive_numeric']>;
+  version?: Maybe<Scalars['Int']>;
+};
+
+/** order by min() on columns of table "extrinsic" */
+export type Archive_Extrinsic_Min_Order_By = {
+  block_id?: InputMaybe<Archive_Order_By>;
+  call_id?: InputMaybe<Archive_Order_By>;
+  fee?: InputMaybe<Archive_Order_By>;
+  hash?: InputMaybe<Archive_Order_By>;
+  id?: InputMaybe<Archive_Order_By>;
+  index_in_block?: InputMaybe<Archive_Order_By>;
+  pos?: InputMaybe<Archive_Order_By>;
+  tip?: InputMaybe<Archive_Order_By>;
+  version?: InputMaybe<Archive_Order_By>;
+};
+
+/** response of any mutation on the table "extrinsic" */
+export type Archive_Extrinsic_Mutation_Response = {
+  __typename?: 'archive_extrinsic_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Archive_Extrinsic>;
+};
+
+/** input type for inserting object relation for remote table "extrinsic" */
+export type Archive_Extrinsic_Obj_Rel_Insert_Input = {
+  data: Archive_Extrinsic_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Archive_Extrinsic_On_Conflict>;
+};
+
+/** on_conflict condition type for table "extrinsic" */
+export type Archive_Extrinsic_On_Conflict = {
+  constraint: Archive_Extrinsic_Constraint;
+  update_columns?: Array<Archive_Extrinsic_Update_Column>;
+  where?: InputMaybe<Archive_Extrinsic_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "extrinsic". */
+export type Archive_Extrinsic_Order_By = {
+  block?: InputMaybe<Archive_Block_Order_By>;
+  block_id?: InputMaybe<Archive_Order_By>;
+  call_id?: InputMaybe<Archive_Order_By>;
+  calls_aggregate?: InputMaybe<Archive_Call_Aggregate_Order_By>;
+  error?: InputMaybe<Archive_Order_By>;
+  events_aggregate?: InputMaybe<Archive_Event_Aggregate_Order_By>;
+  fee?: InputMaybe<Archive_Order_By>;
+  hash?: InputMaybe<Archive_Order_By>;
+  id?: InputMaybe<Archive_Order_By>;
+  index_in_block?: InputMaybe<Archive_Order_By>;
+  pos?: InputMaybe<Archive_Order_By>;
+  signature?: InputMaybe<Archive_Order_By>;
+  success?: InputMaybe<Archive_Order_By>;
+  tip?: InputMaybe<Archive_Order_By>;
+  version?: InputMaybe<Archive_Order_By>;
+};
+
+/** primary key columns input for table: extrinsic */
+export type Archive_Extrinsic_Pk_Columns_Input = {
+  id: Scalars['archive_bpchar'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type Archive_Extrinsic_Prepend_Input = {
+  error?: InputMaybe<Scalars['archive_jsonb']>;
+  signature?: InputMaybe<Scalars['archive_jsonb']>;
+};
+
+/** select columns of table "extrinsic" */
+export enum Archive_Extrinsic_Select_Column {
+  /** column name */
+  BlockId = 'block_id',
+  /** column name */
+  CallId = 'call_id',
+  /** column name */
+  Error = 'error',
+  /** column name */
+  Fee = 'fee',
+  /** column name */
+  Hash = 'hash',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  IndexInBlock = 'index_in_block',
+  /** column name */
+  Pos = 'pos',
+  /** column name */
+  Signature = 'signature',
+  /** column name */
+  Success = 'success',
+  /** column name */
+  Tip = 'tip',
+  /** column name */
+  Version = 'version'
+}
+
+/** input type for updating data in table "extrinsic" */
+export type Archive_Extrinsic_Set_Input = {
+  block_id?: InputMaybe<Scalars['archive_bpchar']>;
+  call_id?: InputMaybe<Scalars['String']>;
+  error?: InputMaybe<Scalars['archive_jsonb']>;
+  fee?: InputMaybe<Scalars['archive_numeric']>;
+  hash?: InputMaybe<Scalars['archive_bpchar']>;
+  id?: InputMaybe<Scalars['archive_bpchar']>;
+  index_in_block?: InputMaybe<Scalars['Int']>;
+  pos?: InputMaybe<Scalars['Int']>;
+  signature?: InputMaybe<Scalars['archive_jsonb']>;
+  success?: InputMaybe<Scalars['Boolean']>;
+  tip?: InputMaybe<Scalars['archive_numeric']>;
+  version?: InputMaybe<Scalars['Int']>;
+};
+
+/** aggregate stddev on columns */
+export type Archive_Extrinsic_Stddev_Fields = {
+  __typename?: 'archive_extrinsic_stddev_fields';
+  fee?: Maybe<Scalars['Float']>;
+  index_in_block?: Maybe<Scalars['Float']>;
+  pos?: Maybe<Scalars['Float']>;
+  tip?: Maybe<Scalars['Float']>;
+  version?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev() on columns of table "extrinsic" */
+export type Archive_Extrinsic_Stddev_Order_By = {
+  fee?: InputMaybe<Archive_Order_By>;
+  index_in_block?: InputMaybe<Archive_Order_By>;
+  pos?: InputMaybe<Archive_Order_By>;
+  tip?: InputMaybe<Archive_Order_By>;
+  version?: InputMaybe<Archive_Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Archive_Extrinsic_Stddev_Pop_Fields = {
+  __typename?: 'archive_extrinsic_stddev_pop_fields';
+  fee?: Maybe<Scalars['Float']>;
+  index_in_block?: Maybe<Scalars['Float']>;
+  pos?: Maybe<Scalars['Float']>;
+  tip?: Maybe<Scalars['Float']>;
+  version?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "extrinsic" */
+export type Archive_Extrinsic_Stddev_Pop_Order_By = {
+  fee?: InputMaybe<Archive_Order_By>;
+  index_in_block?: InputMaybe<Archive_Order_By>;
+  pos?: InputMaybe<Archive_Order_By>;
+  tip?: InputMaybe<Archive_Order_By>;
+  version?: InputMaybe<Archive_Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Archive_Extrinsic_Stddev_Samp_Fields = {
+  __typename?: 'archive_extrinsic_stddev_samp_fields';
+  fee?: Maybe<Scalars['Float']>;
+  index_in_block?: Maybe<Scalars['Float']>;
+  pos?: Maybe<Scalars['Float']>;
+  tip?: Maybe<Scalars['Float']>;
+  version?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_samp() on columns of table "extrinsic" */
+export type Archive_Extrinsic_Stddev_Samp_Order_By = {
+  fee?: InputMaybe<Archive_Order_By>;
+  index_in_block?: InputMaybe<Archive_Order_By>;
+  pos?: InputMaybe<Archive_Order_By>;
+  tip?: InputMaybe<Archive_Order_By>;
+  version?: InputMaybe<Archive_Order_By>;
+};
+
+/** Streaming cursor of the table "extrinsic" */
+export type Archive_Extrinsic_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Archive_Extrinsic_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Archive_Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Archive_Extrinsic_Stream_Cursor_Value_Input = {
+  block_id?: InputMaybe<Scalars['archive_bpchar']>;
+  call_id?: InputMaybe<Scalars['String']>;
+  error?: InputMaybe<Scalars['archive_jsonb']>;
+  fee?: InputMaybe<Scalars['archive_numeric']>;
+  hash?: InputMaybe<Scalars['archive_bpchar']>;
+  id?: InputMaybe<Scalars['archive_bpchar']>;
+  index_in_block?: InputMaybe<Scalars['Int']>;
+  pos?: InputMaybe<Scalars['Int']>;
+  signature?: InputMaybe<Scalars['archive_jsonb']>;
+  success?: InputMaybe<Scalars['Boolean']>;
+  tip?: InputMaybe<Scalars['archive_numeric']>;
+  version?: InputMaybe<Scalars['Int']>;
+};
+
+/** aggregate sum on columns */
+export type Archive_Extrinsic_Sum_Fields = {
+  __typename?: 'archive_extrinsic_sum_fields';
+  fee?: Maybe<Scalars['archive_numeric']>;
+  index_in_block?: Maybe<Scalars['Int']>;
+  pos?: Maybe<Scalars['Int']>;
+  tip?: Maybe<Scalars['archive_numeric']>;
+  version?: Maybe<Scalars['Int']>;
+};
+
+/** order by sum() on columns of table "extrinsic" */
+export type Archive_Extrinsic_Sum_Order_By = {
+  fee?: InputMaybe<Archive_Order_By>;
+  index_in_block?: InputMaybe<Archive_Order_By>;
+  pos?: InputMaybe<Archive_Order_By>;
+  tip?: InputMaybe<Archive_Order_By>;
+  version?: InputMaybe<Archive_Order_By>;
+};
+
+/** update columns of table "extrinsic" */
+export enum Archive_Extrinsic_Update_Column {
+  /** column name */
+  BlockId = 'block_id',
+  /** column name */
+  CallId = 'call_id',
+  /** column name */
+  Error = 'error',
+  /** column name */
+  Fee = 'fee',
+  /** column name */
+  Hash = 'hash',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  IndexInBlock = 'index_in_block',
+  /** column name */
+  Pos = 'pos',
+  /** column name */
+  Signature = 'signature',
+  /** column name */
+  Success = 'success',
+  /** column name */
+  Tip = 'tip',
+  /** column name */
+  Version = 'version'
+}
+
+export type Archive_Extrinsic_Updates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<Archive_Extrinsic_Append_Input>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: InputMaybe<Archive_Extrinsic_Delete_At_Path_Input>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: InputMaybe<Archive_Extrinsic_Delete_Elem_Input>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: InputMaybe<Archive_Extrinsic_Delete_Key_Input>;
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Archive_Extrinsic_Inc_Input>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<Archive_Extrinsic_Prepend_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Archive_Extrinsic_Set_Input>;
+  where: Archive_Extrinsic_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Archive_Extrinsic_Var_Pop_Fields = {
+  __typename?: 'archive_extrinsic_var_pop_fields';
+  fee?: Maybe<Scalars['Float']>;
+  index_in_block?: Maybe<Scalars['Float']>;
+  pos?: Maybe<Scalars['Float']>;
+  tip?: Maybe<Scalars['Float']>;
+  version?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_pop() on columns of table "extrinsic" */
+export type Archive_Extrinsic_Var_Pop_Order_By = {
+  fee?: InputMaybe<Archive_Order_By>;
+  index_in_block?: InputMaybe<Archive_Order_By>;
+  pos?: InputMaybe<Archive_Order_By>;
+  tip?: InputMaybe<Archive_Order_By>;
+  version?: InputMaybe<Archive_Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Archive_Extrinsic_Var_Samp_Fields = {
+  __typename?: 'archive_extrinsic_var_samp_fields';
+  fee?: Maybe<Scalars['Float']>;
+  index_in_block?: Maybe<Scalars['Float']>;
+  pos?: Maybe<Scalars['Float']>;
+  tip?: Maybe<Scalars['Float']>;
+  version?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_samp() on columns of table "extrinsic" */
+export type Archive_Extrinsic_Var_Samp_Order_By = {
+  fee?: InputMaybe<Archive_Order_By>;
+  index_in_block?: InputMaybe<Archive_Order_By>;
+  pos?: InputMaybe<Archive_Order_By>;
+  tip?: InputMaybe<Archive_Order_By>;
+  version?: InputMaybe<Archive_Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Archive_Extrinsic_Variance_Fields = {
+  __typename?: 'archive_extrinsic_variance_fields';
+  fee?: Maybe<Scalars['Float']>;
+  index_in_block?: Maybe<Scalars['Float']>;
+  pos?: Maybe<Scalars['Float']>;
+  tip?: Maybe<Scalars['Float']>;
+  version?: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "extrinsic" */
+export type Archive_Extrinsic_Variance_Order_By = {
+  fee?: InputMaybe<Archive_Order_By>;
+  index_in_block?: InputMaybe<Archive_Order_By>;
+  pos?: InputMaybe<Archive_Order_By>;
+  tip?: InputMaybe<Archive_Order_By>;
+  version?: InputMaybe<Archive_Order_By>;
+};
+
+/** columns and relationships of "frontier_ethereum_transaction" */
+export type Archive_Frontier_Ethereum_Transaction = {
+  __typename?: 'archive_frontier_ethereum_transaction';
+  /** An object relationship */
+  call: Archive_Call;
+  call_id: Scalars['String'];
+  contract: Scalars['archive_bpchar'];
+  sighash?: Maybe<Scalars['String']>;
+};
+
+/** aggregated selection of "frontier_ethereum_transaction" */
+export type Archive_Frontier_Ethereum_Transaction_Aggregate = {
+  __typename?: 'archive_frontier_ethereum_transaction_aggregate';
+  aggregate?: Maybe<Archive_Frontier_Ethereum_Transaction_Aggregate_Fields>;
+  nodes: Array<Archive_Frontier_Ethereum_Transaction>;
+};
+
+/** aggregate fields of "frontier_ethereum_transaction" */
+export type Archive_Frontier_Ethereum_Transaction_Aggregate_Fields = {
+  __typename?: 'archive_frontier_ethereum_transaction_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<Archive_Frontier_Ethereum_Transaction_Max_Fields>;
+  min?: Maybe<Archive_Frontier_Ethereum_Transaction_Min_Fields>;
+};
+
+
+/** aggregate fields of "frontier_ethereum_transaction" */
+export type Archive_Frontier_Ethereum_Transaction_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Archive_Frontier_Ethereum_Transaction_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Boolean expression to filter rows from the table "frontier_ethereum_transaction". All fields are combined with a logical 'AND'. */
+export type Archive_Frontier_Ethereum_Transaction_Bool_Exp = {
+  _and?: InputMaybe<Array<Archive_Frontier_Ethereum_Transaction_Bool_Exp>>;
+  _not?: InputMaybe<Archive_Frontier_Ethereum_Transaction_Bool_Exp>;
+  _or?: InputMaybe<Array<Archive_Frontier_Ethereum_Transaction_Bool_Exp>>;
+  call?: InputMaybe<Archive_Call_Bool_Exp>;
+  call_id?: InputMaybe<Archive_String_Comparison_Exp>;
+  contract?: InputMaybe<Archive_Bpchar_Comparison_Exp>;
+  sighash?: InputMaybe<Archive_String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "frontier_ethereum_transaction" */
+export enum Archive_Frontier_Ethereum_Transaction_Constraint {
+  /** unique or primary key constraint on columns "call_id" */
+  FrontierEthereumTransactionPkey = 'frontier_ethereum_transaction_pkey'
+}
+
+/** input type for inserting data into table "frontier_ethereum_transaction" */
+export type Archive_Frontier_Ethereum_Transaction_Insert_Input = {
+  call?: InputMaybe<Archive_Call_Obj_Rel_Insert_Input>;
+  call_id?: InputMaybe<Scalars['String']>;
+  contract?: InputMaybe<Scalars['archive_bpchar']>;
+  sighash?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type Archive_Frontier_Ethereum_Transaction_Max_Fields = {
+  __typename?: 'archive_frontier_ethereum_transaction_max_fields';
+  call_id?: Maybe<Scalars['String']>;
+  contract?: Maybe<Scalars['archive_bpchar']>;
+  sighash?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type Archive_Frontier_Ethereum_Transaction_Min_Fields = {
+  __typename?: 'archive_frontier_ethereum_transaction_min_fields';
+  call_id?: Maybe<Scalars['String']>;
+  contract?: Maybe<Scalars['archive_bpchar']>;
+  sighash?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "frontier_ethereum_transaction" */
+export type Archive_Frontier_Ethereum_Transaction_Mutation_Response = {
+  __typename?: 'archive_frontier_ethereum_transaction_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Archive_Frontier_Ethereum_Transaction>;
+};
+
+/** input type for inserting object relation for remote table "frontier_ethereum_transaction" */
+export type Archive_Frontier_Ethereum_Transaction_Obj_Rel_Insert_Input = {
+  data: Archive_Frontier_Ethereum_Transaction_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Archive_Frontier_Ethereum_Transaction_On_Conflict>;
+};
+
+/** on_conflict condition type for table "frontier_ethereum_transaction" */
+export type Archive_Frontier_Ethereum_Transaction_On_Conflict = {
+  constraint: Archive_Frontier_Ethereum_Transaction_Constraint;
+  update_columns?: Array<Archive_Frontier_Ethereum_Transaction_Update_Column>;
+  where?: InputMaybe<Archive_Frontier_Ethereum_Transaction_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "frontier_ethereum_transaction". */
+export type Archive_Frontier_Ethereum_Transaction_Order_By = {
+  call?: InputMaybe<Archive_Call_Order_By>;
+  call_id?: InputMaybe<Archive_Order_By>;
+  contract?: InputMaybe<Archive_Order_By>;
+  sighash?: InputMaybe<Archive_Order_By>;
+};
+
+/** primary key columns input for table: frontier_ethereum_transaction */
+export type Archive_Frontier_Ethereum_Transaction_Pk_Columns_Input = {
+  call_id: Scalars['String'];
+};
+
+/** select columns of table "frontier_ethereum_transaction" */
+export enum Archive_Frontier_Ethereum_Transaction_Select_Column {
+  /** column name */
+  CallId = 'call_id',
+  /** column name */
+  Contract = 'contract',
+  /** column name */
+  Sighash = 'sighash'
+}
+
+/** input type for updating data in table "frontier_ethereum_transaction" */
+export type Archive_Frontier_Ethereum_Transaction_Set_Input = {
+  call_id?: InputMaybe<Scalars['String']>;
+  contract?: InputMaybe<Scalars['archive_bpchar']>;
+  sighash?: InputMaybe<Scalars['String']>;
+};
+
+/** Streaming cursor of the table "frontier_ethereum_transaction" */
+export type Archive_Frontier_Ethereum_Transaction_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Archive_Frontier_Ethereum_Transaction_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Archive_Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Archive_Frontier_Ethereum_Transaction_Stream_Cursor_Value_Input = {
+  call_id?: InputMaybe<Scalars['String']>;
+  contract?: InputMaybe<Scalars['archive_bpchar']>;
+  sighash?: InputMaybe<Scalars['String']>;
+};
+
+/** update columns of table "frontier_ethereum_transaction" */
+export enum Archive_Frontier_Ethereum_Transaction_Update_Column {
+  /** column name */
+  CallId = 'call_id',
+  /** column name */
+  Contract = 'contract',
+  /** column name */
+  Sighash = 'sighash'
+}
+
+export type Archive_Frontier_Ethereum_Transaction_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Archive_Frontier_Ethereum_Transaction_Set_Input>;
+  where: Archive_Frontier_Ethereum_Transaction_Bool_Exp;
+};
+
+/** columns and relationships of "frontier_evm_log" */
+export type Archive_Frontier_Evm_Log = {
+  __typename?: 'archive_frontier_evm_log';
+  contract: Scalars['archive_bpchar'];
+  /** An object relationship */
+  event: Archive_Event;
+  event_id: Scalars['archive_bpchar'];
+  topic0?: Maybe<Scalars['archive_bpchar']>;
+  topic1?: Maybe<Scalars['archive_bpchar']>;
+  topic2?: Maybe<Scalars['archive_bpchar']>;
+  topic3?: Maybe<Scalars['archive_bpchar']>;
+};
+
+/** aggregated selection of "frontier_evm_log" */
+export type Archive_Frontier_Evm_Log_Aggregate = {
+  __typename?: 'archive_frontier_evm_log_aggregate';
+  aggregate?: Maybe<Archive_Frontier_Evm_Log_Aggregate_Fields>;
+  nodes: Array<Archive_Frontier_Evm_Log>;
+};
+
+/** aggregate fields of "frontier_evm_log" */
+export type Archive_Frontier_Evm_Log_Aggregate_Fields = {
+  __typename?: 'archive_frontier_evm_log_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<Archive_Frontier_Evm_Log_Max_Fields>;
+  min?: Maybe<Archive_Frontier_Evm_Log_Min_Fields>;
+};
+
+
+/** aggregate fields of "frontier_evm_log" */
+export type Archive_Frontier_Evm_Log_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Archive_Frontier_Evm_Log_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Boolean expression to filter rows from the table "frontier_evm_log". All fields are combined with a logical 'AND'. */
+export type Archive_Frontier_Evm_Log_Bool_Exp = {
+  _and?: InputMaybe<Array<Archive_Frontier_Evm_Log_Bool_Exp>>;
+  _not?: InputMaybe<Archive_Frontier_Evm_Log_Bool_Exp>;
+  _or?: InputMaybe<Array<Archive_Frontier_Evm_Log_Bool_Exp>>;
+  contract?: InputMaybe<Archive_Bpchar_Comparison_Exp>;
+  event?: InputMaybe<Archive_Event_Bool_Exp>;
+  event_id?: InputMaybe<Archive_Bpchar_Comparison_Exp>;
+  topic0?: InputMaybe<Archive_Bpchar_Comparison_Exp>;
+  topic1?: InputMaybe<Archive_Bpchar_Comparison_Exp>;
+  topic2?: InputMaybe<Archive_Bpchar_Comparison_Exp>;
+  topic3?: InputMaybe<Archive_Bpchar_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "frontier_evm_log" */
+export enum Archive_Frontier_Evm_Log_Constraint {
+  /** unique or primary key constraint on columns "event_id" */
+  FrontierEvmLogPkey = 'frontier_evm_log_pkey'
+}
+
+/** input type for inserting data into table "frontier_evm_log" */
+export type Archive_Frontier_Evm_Log_Insert_Input = {
+  contract?: InputMaybe<Scalars['archive_bpchar']>;
+  event?: InputMaybe<Archive_Event_Obj_Rel_Insert_Input>;
+  event_id?: InputMaybe<Scalars['archive_bpchar']>;
+  topic0?: InputMaybe<Scalars['archive_bpchar']>;
+  topic1?: InputMaybe<Scalars['archive_bpchar']>;
+  topic2?: InputMaybe<Scalars['archive_bpchar']>;
+  topic3?: InputMaybe<Scalars['archive_bpchar']>;
+};
+
+/** aggregate max on columns */
+export type Archive_Frontier_Evm_Log_Max_Fields = {
+  __typename?: 'archive_frontier_evm_log_max_fields';
+  contract?: Maybe<Scalars['archive_bpchar']>;
+  event_id?: Maybe<Scalars['archive_bpchar']>;
+  topic0?: Maybe<Scalars['archive_bpchar']>;
+  topic1?: Maybe<Scalars['archive_bpchar']>;
+  topic2?: Maybe<Scalars['archive_bpchar']>;
+  topic3?: Maybe<Scalars['archive_bpchar']>;
+};
+
+/** aggregate min on columns */
+export type Archive_Frontier_Evm_Log_Min_Fields = {
+  __typename?: 'archive_frontier_evm_log_min_fields';
+  contract?: Maybe<Scalars['archive_bpchar']>;
+  event_id?: Maybe<Scalars['archive_bpchar']>;
+  topic0?: Maybe<Scalars['archive_bpchar']>;
+  topic1?: Maybe<Scalars['archive_bpchar']>;
+  topic2?: Maybe<Scalars['archive_bpchar']>;
+  topic3?: Maybe<Scalars['archive_bpchar']>;
+};
+
+/** response of any mutation on the table "frontier_evm_log" */
+export type Archive_Frontier_Evm_Log_Mutation_Response = {
+  __typename?: 'archive_frontier_evm_log_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Archive_Frontier_Evm_Log>;
+};
+
+/** input type for inserting object relation for remote table "frontier_evm_log" */
+export type Archive_Frontier_Evm_Log_Obj_Rel_Insert_Input = {
+  data: Archive_Frontier_Evm_Log_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Archive_Frontier_Evm_Log_On_Conflict>;
+};
+
+/** on_conflict condition type for table "frontier_evm_log" */
+export type Archive_Frontier_Evm_Log_On_Conflict = {
+  constraint: Archive_Frontier_Evm_Log_Constraint;
+  update_columns?: Array<Archive_Frontier_Evm_Log_Update_Column>;
+  where?: InputMaybe<Archive_Frontier_Evm_Log_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "frontier_evm_log". */
+export type Archive_Frontier_Evm_Log_Order_By = {
+  contract?: InputMaybe<Archive_Order_By>;
+  event?: InputMaybe<Archive_Event_Order_By>;
+  event_id?: InputMaybe<Archive_Order_By>;
+  topic0?: InputMaybe<Archive_Order_By>;
+  topic1?: InputMaybe<Archive_Order_By>;
+  topic2?: InputMaybe<Archive_Order_By>;
+  topic3?: InputMaybe<Archive_Order_By>;
+};
+
+/** primary key columns input for table: frontier_evm_log */
+export type Archive_Frontier_Evm_Log_Pk_Columns_Input = {
+  event_id: Scalars['archive_bpchar'];
+};
+
+/** select columns of table "frontier_evm_log" */
+export enum Archive_Frontier_Evm_Log_Select_Column {
+  /** column name */
+  Contract = 'contract',
+  /** column name */
+  EventId = 'event_id',
+  /** column name */
+  Topic0 = 'topic0',
+  /** column name */
+  Topic1 = 'topic1',
+  /** column name */
+  Topic2 = 'topic2',
+  /** column name */
+  Topic3 = 'topic3'
+}
+
+/** input type for updating data in table "frontier_evm_log" */
+export type Archive_Frontier_Evm_Log_Set_Input = {
+  contract?: InputMaybe<Scalars['archive_bpchar']>;
+  event_id?: InputMaybe<Scalars['archive_bpchar']>;
+  topic0?: InputMaybe<Scalars['archive_bpchar']>;
+  topic1?: InputMaybe<Scalars['archive_bpchar']>;
+  topic2?: InputMaybe<Scalars['archive_bpchar']>;
+  topic3?: InputMaybe<Scalars['archive_bpchar']>;
+};
+
+/** Streaming cursor of the table "frontier_evm_log" */
+export type Archive_Frontier_Evm_Log_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Archive_Frontier_Evm_Log_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Archive_Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Archive_Frontier_Evm_Log_Stream_Cursor_Value_Input = {
+  contract?: InputMaybe<Scalars['archive_bpchar']>;
+  event_id?: InputMaybe<Scalars['archive_bpchar']>;
+  topic0?: InputMaybe<Scalars['archive_bpchar']>;
+  topic1?: InputMaybe<Scalars['archive_bpchar']>;
+  topic2?: InputMaybe<Scalars['archive_bpchar']>;
+  topic3?: InputMaybe<Scalars['archive_bpchar']>;
+};
+
+/** update columns of table "frontier_evm_log" */
+export enum Archive_Frontier_Evm_Log_Update_Column {
+  /** column name */
+  Contract = 'contract',
+  /** column name */
+  EventId = 'event_id',
+  /** column name */
+  Topic0 = 'topic0',
+  /** column name */
+  Topic1 = 'topic1',
+  /** column name */
+  Topic2 = 'topic2',
+  /** column name */
+  Topic3 = 'topic3'
+}
+
+export type Archive_Frontier_Evm_Log_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Archive_Frontier_Evm_Log_Set_Input>;
+  where: Archive_Frontier_Evm_Log_Bool_Exp;
+};
+
+/** columns and relationships of "gear_message_enqueued" */
+export type Archive_Gear_Message_Enqueued = {
+  __typename?: 'archive_gear_message_enqueued';
+  /** An object relationship */
+  event: Archive_Event;
+  event_id: Scalars['archive_bpchar'];
+  program: Scalars['String'];
+};
+
+/** aggregated selection of "gear_message_enqueued" */
+export type Archive_Gear_Message_Enqueued_Aggregate = {
+  __typename?: 'archive_gear_message_enqueued_aggregate';
+  aggregate?: Maybe<Archive_Gear_Message_Enqueued_Aggregate_Fields>;
+  nodes: Array<Archive_Gear_Message_Enqueued>;
+};
+
+/** aggregate fields of "gear_message_enqueued" */
+export type Archive_Gear_Message_Enqueued_Aggregate_Fields = {
+  __typename?: 'archive_gear_message_enqueued_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<Archive_Gear_Message_Enqueued_Max_Fields>;
+  min?: Maybe<Archive_Gear_Message_Enqueued_Min_Fields>;
+};
+
+
+/** aggregate fields of "gear_message_enqueued" */
+export type Archive_Gear_Message_Enqueued_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Archive_Gear_Message_Enqueued_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Boolean expression to filter rows from the table "gear_message_enqueued". All fields are combined with a logical 'AND'. */
+export type Archive_Gear_Message_Enqueued_Bool_Exp = {
+  _and?: InputMaybe<Array<Archive_Gear_Message_Enqueued_Bool_Exp>>;
+  _not?: InputMaybe<Archive_Gear_Message_Enqueued_Bool_Exp>;
+  _or?: InputMaybe<Array<Archive_Gear_Message_Enqueued_Bool_Exp>>;
+  event?: InputMaybe<Archive_Event_Bool_Exp>;
+  event_id?: InputMaybe<Archive_Bpchar_Comparison_Exp>;
+  program?: InputMaybe<Archive_String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "gear_message_enqueued" */
+export enum Archive_Gear_Message_Enqueued_Constraint {
+  /** unique or primary key constraint on columns "event_id" */
+  GearMessageEnqueuedPkey = 'gear_message_enqueued_pkey'
+}
+
+/** input type for inserting data into table "gear_message_enqueued" */
+export type Archive_Gear_Message_Enqueued_Insert_Input = {
+  event?: InputMaybe<Archive_Event_Obj_Rel_Insert_Input>;
+  event_id?: InputMaybe<Scalars['archive_bpchar']>;
+  program?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type Archive_Gear_Message_Enqueued_Max_Fields = {
+  __typename?: 'archive_gear_message_enqueued_max_fields';
+  event_id?: Maybe<Scalars['archive_bpchar']>;
+  program?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type Archive_Gear_Message_Enqueued_Min_Fields = {
+  __typename?: 'archive_gear_message_enqueued_min_fields';
+  event_id?: Maybe<Scalars['archive_bpchar']>;
+  program?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "gear_message_enqueued" */
+export type Archive_Gear_Message_Enqueued_Mutation_Response = {
+  __typename?: 'archive_gear_message_enqueued_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Archive_Gear_Message_Enqueued>;
+};
+
+/** input type for inserting object relation for remote table "gear_message_enqueued" */
+export type Archive_Gear_Message_Enqueued_Obj_Rel_Insert_Input = {
+  data: Archive_Gear_Message_Enqueued_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Archive_Gear_Message_Enqueued_On_Conflict>;
+};
+
+/** on_conflict condition type for table "gear_message_enqueued" */
+export type Archive_Gear_Message_Enqueued_On_Conflict = {
+  constraint: Archive_Gear_Message_Enqueued_Constraint;
+  update_columns?: Array<Archive_Gear_Message_Enqueued_Update_Column>;
+  where?: InputMaybe<Archive_Gear_Message_Enqueued_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "gear_message_enqueued". */
+export type Archive_Gear_Message_Enqueued_Order_By = {
+  event?: InputMaybe<Archive_Event_Order_By>;
+  event_id?: InputMaybe<Archive_Order_By>;
+  program?: InputMaybe<Archive_Order_By>;
+};
+
+/** primary key columns input for table: gear_message_enqueued */
+export type Archive_Gear_Message_Enqueued_Pk_Columns_Input = {
+  event_id: Scalars['archive_bpchar'];
+};
+
+/** select columns of table "gear_message_enqueued" */
+export enum Archive_Gear_Message_Enqueued_Select_Column {
+  /** column name */
+  EventId = 'event_id',
+  /** column name */
+  Program = 'program'
+}
+
+/** input type for updating data in table "gear_message_enqueued" */
+export type Archive_Gear_Message_Enqueued_Set_Input = {
+  event_id?: InputMaybe<Scalars['archive_bpchar']>;
+  program?: InputMaybe<Scalars['String']>;
+};
+
+/** Streaming cursor of the table "gear_message_enqueued" */
+export type Archive_Gear_Message_Enqueued_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Archive_Gear_Message_Enqueued_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Archive_Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Archive_Gear_Message_Enqueued_Stream_Cursor_Value_Input = {
+  event_id?: InputMaybe<Scalars['archive_bpchar']>;
+  program?: InputMaybe<Scalars['String']>;
+};
+
+/** update columns of table "gear_message_enqueued" */
+export enum Archive_Gear_Message_Enqueued_Update_Column {
+  /** column name */
+  EventId = 'event_id',
+  /** column name */
+  Program = 'program'
+}
+
+export type Archive_Gear_Message_Enqueued_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Archive_Gear_Message_Enqueued_Set_Input>;
+  where: Archive_Gear_Message_Enqueued_Bool_Exp;
+};
+
+/** columns and relationships of "gear_user_message_sent" */
+export type Archive_Gear_User_Message_Sent = {
+  __typename?: 'archive_gear_user_message_sent';
+  /** An object relationship */
+  event: Archive_Event;
+  event_id: Scalars['archive_bpchar'];
+  program: Scalars['String'];
+};
+
+/** aggregated selection of "gear_user_message_sent" */
+export type Archive_Gear_User_Message_Sent_Aggregate = {
+  __typename?: 'archive_gear_user_message_sent_aggregate';
+  aggregate?: Maybe<Archive_Gear_User_Message_Sent_Aggregate_Fields>;
+  nodes: Array<Archive_Gear_User_Message_Sent>;
+};
+
+/** aggregate fields of "gear_user_message_sent" */
+export type Archive_Gear_User_Message_Sent_Aggregate_Fields = {
+  __typename?: 'archive_gear_user_message_sent_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<Archive_Gear_User_Message_Sent_Max_Fields>;
+  min?: Maybe<Archive_Gear_User_Message_Sent_Min_Fields>;
+};
+
+
+/** aggregate fields of "gear_user_message_sent" */
+export type Archive_Gear_User_Message_Sent_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Archive_Gear_User_Message_Sent_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Boolean expression to filter rows from the table "gear_user_message_sent". All fields are combined with a logical 'AND'. */
+export type Archive_Gear_User_Message_Sent_Bool_Exp = {
+  _and?: InputMaybe<Array<Archive_Gear_User_Message_Sent_Bool_Exp>>;
+  _not?: InputMaybe<Archive_Gear_User_Message_Sent_Bool_Exp>;
+  _or?: InputMaybe<Array<Archive_Gear_User_Message_Sent_Bool_Exp>>;
+  event?: InputMaybe<Archive_Event_Bool_Exp>;
+  event_id?: InputMaybe<Archive_Bpchar_Comparison_Exp>;
+  program?: InputMaybe<Archive_String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "gear_user_message_sent" */
+export enum Archive_Gear_User_Message_Sent_Constraint {
+  /** unique or primary key constraint on columns "event_id" */
+  GearUserMessageSentPkey = 'gear_user_message_sent_pkey'
+}
+
+/** input type for inserting data into table "gear_user_message_sent" */
+export type Archive_Gear_User_Message_Sent_Insert_Input = {
+  event?: InputMaybe<Archive_Event_Obj_Rel_Insert_Input>;
+  event_id?: InputMaybe<Scalars['archive_bpchar']>;
+  program?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type Archive_Gear_User_Message_Sent_Max_Fields = {
+  __typename?: 'archive_gear_user_message_sent_max_fields';
+  event_id?: Maybe<Scalars['archive_bpchar']>;
+  program?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type Archive_Gear_User_Message_Sent_Min_Fields = {
+  __typename?: 'archive_gear_user_message_sent_min_fields';
+  event_id?: Maybe<Scalars['archive_bpchar']>;
+  program?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "gear_user_message_sent" */
+export type Archive_Gear_User_Message_Sent_Mutation_Response = {
+  __typename?: 'archive_gear_user_message_sent_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Archive_Gear_User_Message_Sent>;
+};
+
+/** input type for inserting object relation for remote table "gear_user_message_sent" */
+export type Archive_Gear_User_Message_Sent_Obj_Rel_Insert_Input = {
+  data: Archive_Gear_User_Message_Sent_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Archive_Gear_User_Message_Sent_On_Conflict>;
+};
+
+/** on_conflict condition type for table "gear_user_message_sent" */
+export type Archive_Gear_User_Message_Sent_On_Conflict = {
+  constraint: Archive_Gear_User_Message_Sent_Constraint;
+  update_columns?: Array<Archive_Gear_User_Message_Sent_Update_Column>;
+  where?: InputMaybe<Archive_Gear_User_Message_Sent_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "gear_user_message_sent". */
+export type Archive_Gear_User_Message_Sent_Order_By = {
+  event?: InputMaybe<Archive_Event_Order_By>;
+  event_id?: InputMaybe<Archive_Order_By>;
+  program?: InputMaybe<Archive_Order_By>;
+};
+
+/** primary key columns input for table: gear_user_message_sent */
+export type Archive_Gear_User_Message_Sent_Pk_Columns_Input = {
+  event_id: Scalars['archive_bpchar'];
+};
+
+/** select columns of table "gear_user_message_sent" */
+export enum Archive_Gear_User_Message_Sent_Select_Column {
+  /** column name */
+  EventId = 'event_id',
+  /** column name */
+  Program = 'program'
+}
+
+/** input type for updating data in table "gear_user_message_sent" */
+export type Archive_Gear_User_Message_Sent_Set_Input = {
+  event_id?: InputMaybe<Scalars['archive_bpchar']>;
+  program?: InputMaybe<Scalars['String']>;
+};
+
+/** Streaming cursor of the table "gear_user_message_sent" */
+export type Archive_Gear_User_Message_Sent_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Archive_Gear_User_Message_Sent_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Archive_Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Archive_Gear_User_Message_Sent_Stream_Cursor_Value_Input = {
+  event_id?: InputMaybe<Scalars['archive_bpchar']>;
+  program?: InputMaybe<Scalars['String']>;
+};
+
+/** update columns of table "gear_user_message_sent" */
+export enum Archive_Gear_User_Message_Sent_Update_Column {
+  /** column name */
+  EventId = 'event_id',
+  /** column name */
+  Program = 'program'
+}
+
+export type Archive_Gear_User_Message_Sent_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Archive_Gear_User_Message_Sent_Set_Input>;
+  where: Archive_Gear_User_Message_Sent_Bool_Exp;
+};
+
+export type Archive_Jsonb_Cast_Exp = {
+  String?: InputMaybe<Archive_String_Comparison_Exp>;
+};
+
+/** Boolean expression to compare columns of type "jsonb". All fields are combined with logical 'AND'. */
+export type Archive_Jsonb_Comparison_Exp = {
+  _cast?: InputMaybe<Archive_Jsonb_Cast_Exp>;
+  /** is the column contained in the given json value */
+  _contained_in?: InputMaybe<Scalars['archive_jsonb']>;
+  /** does the column contain the given json value at the top level */
+  _contains?: InputMaybe<Scalars['archive_jsonb']>;
+  _eq?: InputMaybe<Scalars['archive_jsonb']>;
+  _gt?: InputMaybe<Scalars['archive_jsonb']>;
+  _gte?: InputMaybe<Scalars['archive_jsonb']>;
+  /** does the string exist as a top-level key in the column */
+  _has_key?: InputMaybe<Scalars['String']>;
+  /** do all of these strings exist as top-level keys in the column */
+  _has_keys_all?: InputMaybe<Array<Scalars['String']>>;
+  /** do any of these strings exist as top-level keys in the column */
+  _has_keys_any?: InputMaybe<Array<Scalars['String']>>;
+  _in?: InputMaybe<Array<Scalars['archive_jsonb']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['archive_jsonb']>;
+  _lte?: InputMaybe<Scalars['archive_jsonb']>;
+  _neq?: InputMaybe<Scalars['archive_jsonb']>;
+  _nin?: InputMaybe<Array<Scalars['archive_jsonb']>>;
+};
+
+/** columns and relationships of "metadata" */
 export type Archive_Metadata = {
-  __typename?: 'archive_Metadata';
-  blockHash: Scalars['String'];
-  blockHeight: Scalars['Int'];
+  __typename?: 'archive_metadata';
+  block_hash: Scalars['archive_bpchar'];
+  block_height: Scalars['Int'];
   hex: Scalars['String'];
-  id: Scalars['ID'];
-  specName: Scalars['String'];
-  specVersion?: Maybe<Scalars['Int']>;
+  id: Scalars['String'];
+  spec_name: Scalars['String'];
+  spec_version?: Maybe<Scalars['Int']>;
 };
 
-export type Archive_MetadataConnection = {
-  __typename?: 'archive_MetadataConnection';
-  edges: Array<Archive_MetadataEdge>;
-  pageInfo: Balances_PageInfo;
-  totalCount: Scalars['Int'];
+/** aggregated selection of "metadata" */
+export type Archive_Metadata_Aggregate = {
+  __typename?: 'archive_metadata_aggregate';
+  aggregate?: Maybe<Archive_Metadata_Aggregate_Fields>;
+  nodes: Array<Archive_Metadata>;
 };
 
-export type Archive_MetadataEdge = {
-  __typename?: 'archive_MetadataEdge';
-  cursor: Scalars['String'];
-  node: Archive_Metadata;
+/** aggregate fields of "metadata" */
+export type Archive_Metadata_Aggregate_Fields = {
+  __typename?: 'archive_metadata_aggregate_fields';
+  avg?: Maybe<Archive_Metadata_Avg_Fields>;
+  count: Scalars['Int'];
+  max?: Maybe<Archive_Metadata_Max_Fields>;
+  min?: Maybe<Archive_Metadata_Min_Fields>;
+  stddev?: Maybe<Archive_Metadata_Stddev_Fields>;
+  stddev_pop?: Maybe<Archive_Metadata_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Archive_Metadata_Stddev_Samp_Fields>;
+  sum?: Maybe<Archive_Metadata_Sum_Fields>;
+  var_pop?: Maybe<Archive_Metadata_Var_Pop_Fields>;
+  var_samp?: Maybe<Archive_Metadata_Var_Samp_Fields>;
+  variance?: Maybe<Archive_Metadata_Variance_Fields>;
 };
 
-export enum Archive_MetadataOrderByInput {
-  BlockHashAsc = 'blockHash_ASC',
-  BlockHashDesc = 'blockHash_DESC',
-  BlockHeightAsc = 'blockHeight_ASC',
-  BlockHeightDesc = 'blockHeight_DESC',
-  HexAsc = 'hex_ASC',
-  HexDesc = 'hex_DESC',
-  IdAsc = 'id_ASC',
-  IdDesc = 'id_DESC',
-  SpecNameAsc = 'specName_ASC',
-  SpecNameDesc = 'specName_DESC',
-  SpecVersionAsc = 'specVersion_ASC',
-  SpecVersionDesc = 'specVersion_DESC'
+
+/** aggregate fields of "metadata" */
+export type Archive_Metadata_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Archive_Metadata_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** aggregate avg on columns */
+export type Archive_Metadata_Avg_Fields = {
+  __typename?: 'archive_metadata_avg_fields';
+  block_height?: Maybe<Scalars['Float']>;
+  spec_version?: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to filter rows from the table "metadata". All fields are combined with a logical 'AND'. */
+export type Archive_Metadata_Bool_Exp = {
+  _and?: InputMaybe<Array<Archive_Metadata_Bool_Exp>>;
+  _not?: InputMaybe<Archive_Metadata_Bool_Exp>;
+  _or?: InputMaybe<Array<Archive_Metadata_Bool_Exp>>;
+  block_hash?: InputMaybe<Archive_Bpchar_Comparison_Exp>;
+  block_height?: InputMaybe<Archive_Int_Comparison_Exp>;
+  hex?: InputMaybe<Archive_String_Comparison_Exp>;
+  id?: InputMaybe<Archive_String_Comparison_Exp>;
+  spec_name?: InputMaybe<Archive_String_Comparison_Exp>;
+  spec_version?: InputMaybe<Archive_Int_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "metadata" */
+export enum Archive_Metadata_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  MetadataPkey = 'metadata_pkey'
 }
 
-export type Archive_MetadataWhereInput = {
-  AND?: InputMaybe<Array<Archive_MetadataWhereInput>>;
-  OR?: InputMaybe<Array<Archive_MetadataWhereInput>>;
-  blockHash_contains?: InputMaybe<Scalars['String']>;
-  blockHash_containsInsensitive?: InputMaybe<Scalars['String']>;
-  blockHash_endsWith?: InputMaybe<Scalars['String']>;
-  blockHash_eq?: InputMaybe<Scalars['String']>;
-  blockHash_gt?: InputMaybe<Scalars['String']>;
-  blockHash_gte?: InputMaybe<Scalars['String']>;
-  blockHash_in?: InputMaybe<Array<Scalars['String']>>;
-  blockHash_lt?: InputMaybe<Scalars['String']>;
-  blockHash_lte?: InputMaybe<Scalars['String']>;
-  blockHash_not_contains?: InputMaybe<Scalars['String']>;
-  blockHash_not_containsInsensitive?: InputMaybe<Scalars['String']>;
-  blockHash_not_endsWith?: InputMaybe<Scalars['String']>;
-  blockHash_not_eq?: InputMaybe<Scalars['String']>;
-  blockHash_not_in?: InputMaybe<Array<Scalars['String']>>;
-  blockHash_not_startsWith?: InputMaybe<Scalars['String']>;
-  blockHash_startsWith?: InputMaybe<Scalars['String']>;
-  blockHeight_eq?: InputMaybe<Scalars['Int']>;
-  blockHeight_gt?: InputMaybe<Scalars['Int']>;
-  blockHeight_gte?: InputMaybe<Scalars['Int']>;
-  blockHeight_in?: InputMaybe<Array<Scalars['Int']>>;
-  blockHeight_lt?: InputMaybe<Scalars['Int']>;
-  blockHeight_lte?: InputMaybe<Scalars['Int']>;
-  blockHeight_not_eq?: InputMaybe<Scalars['Int']>;
-  blockHeight_not_in?: InputMaybe<Array<Scalars['Int']>>;
-  hex_contains?: InputMaybe<Scalars['String']>;
-  hex_containsInsensitive?: InputMaybe<Scalars['String']>;
-  hex_endsWith?: InputMaybe<Scalars['String']>;
-  hex_eq?: InputMaybe<Scalars['String']>;
-  hex_gt?: InputMaybe<Scalars['String']>;
-  hex_gte?: InputMaybe<Scalars['String']>;
-  hex_in?: InputMaybe<Array<Scalars['String']>>;
-  hex_lt?: InputMaybe<Scalars['String']>;
-  hex_lte?: InputMaybe<Scalars['String']>;
-  hex_not_contains?: InputMaybe<Scalars['String']>;
-  hex_not_containsInsensitive?: InputMaybe<Scalars['String']>;
-  hex_not_endsWith?: InputMaybe<Scalars['String']>;
-  hex_not_eq?: InputMaybe<Scalars['String']>;
-  hex_not_in?: InputMaybe<Array<Scalars['String']>>;
-  hex_not_startsWith?: InputMaybe<Scalars['String']>;
-  hex_startsWith?: InputMaybe<Scalars['String']>;
-  id_contains?: InputMaybe<Scalars['ID']>;
-  id_containsInsensitive?: InputMaybe<Scalars['ID']>;
-  id_endsWith?: InputMaybe<Scalars['ID']>;
-  id_eq?: InputMaybe<Scalars['ID']>;
-  id_gt?: InputMaybe<Scalars['ID']>;
-  id_gte?: InputMaybe<Scalars['ID']>;
-  id_in?: InputMaybe<Array<Scalars['ID']>>;
-  id_lt?: InputMaybe<Scalars['ID']>;
-  id_lte?: InputMaybe<Scalars['ID']>;
-  id_not_contains?: InputMaybe<Scalars['ID']>;
-  id_not_containsInsensitive?: InputMaybe<Scalars['ID']>;
-  id_not_endsWith?: InputMaybe<Scalars['ID']>;
-  id_not_eq?: InputMaybe<Scalars['ID']>;
-  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
-  id_not_startsWith?: InputMaybe<Scalars['ID']>;
-  id_startsWith?: InputMaybe<Scalars['ID']>;
-  specName_contains?: InputMaybe<Scalars['String']>;
-  specName_containsInsensitive?: InputMaybe<Scalars['String']>;
-  specName_endsWith?: InputMaybe<Scalars['String']>;
-  specName_eq?: InputMaybe<Scalars['String']>;
-  specName_gt?: InputMaybe<Scalars['String']>;
-  specName_gte?: InputMaybe<Scalars['String']>;
-  specName_in?: InputMaybe<Array<Scalars['String']>>;
-  specName_lt?: InputMaybe<Scalars['String']>;
-  specName_lte?: InputMaybe<Scalars['String']>;
-  specName_not_contains?: InputMaybe<Scalars['String']>;
-  specName_not_containsInsensitive?: InputMaybe<Scalars['String']>;
-  specName_not_endsWith?: InputMaybe<Scalars['String']>;
-  specName_not_eq?: InputMaybe<Scalars['String']>;
-  specName_not_in?: InputMaybe<Array<Scalars['String']>>;
-  specName_not_startsWith?: InputMaybe<Scalars['String']>;
-  specName_startsWith?: InputMaybe<Scalars['String']>;
-  specVersion_eq?: InputMaybe<Scalars['Int']>;
-  specVersion_gt?: InputMaybe<Scalars['Int']>;
-  specVersion_gte?: InputMaybe<Scalars['Int']>;
-  specVersion_in?: InputMaybe<Array<Scalars['Int']>>;
-  specVersion_isNull?: InputMaybe<Scalars['Boolean']>;
-  specVersion_lt?: InputMaybe<Scalars['Int']>;
-  specVersion_lte?: InputMaybe<Scalars['Int']>;
-  specVersion_not_eq?: InputMaybe<Scalars['Int']>;
-  specVersion_not_in?: InputMaybe<Array<Scalars['Int']>>;
+/** input type for incrementing numeric columns in table "metadata" */
+export type Archive_Metadata_Inc_Input = {
+  block_height?: InputMaybe<Scalars['Int']>;
+  spec_version?: InputMaybe<Scalars['Int']>;
 };
 
-export type Archive_MetadataWhereUniqueInput = {
-  id: Scalars['ID'];
+/** input type for inserting data into table "metadata" */
+export type Archive_Metadata_Insert_Input = {
+  block_hash?: InputMaybe<Scalars['archive_bpchar']>;
+  block_height?: InputMaybe<Scalars['Int']>;
+  hex?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['String']>;
+  spec_name?: InputMaybe<Scalars['String']>;
+  spec_version?: InputMaybe<Scalars['Int']>;
+};
+
+/** aggregate max on columns */
+export type Archive_Metadata_Max_Fields = {
+  __typename?: 'archive_metadata_max_fields';
+  block_hash?: Maybe<Scalars['archive_bpchar']>;
+  block_height?: Maybe<Scalars['Int']>;
+  hex?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  spec_name?: Maybe<Scalars['String']>;
+  spec_version?: Maybe<Scalars['Int']>;
+};
+
+/** aggregate min on columns */
+export type Archive_Metadata_Min_Fields = {
+  __typename?: 'archive_metadata_min_fields';
+  block_hash?: Maybe<Scalars['archive_bpchar']>;
+  block_height?: Maybe<Scalars['Int']>;
+  hex?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  spec_name?: Maybe<Scalars['String']>;
+  spec_version?: Maybe<Scalars['Int']>;
+};
+
+/** response of any mutation on the table "metadata" */
+export type Archive_Metadata_Mutation_Response = {
+  __typename?: 'archive_metadata_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Archive_Metadata>;
+};
+
+/** on_conflict condition type for table "metadata" */
+export type Archive_Metadata_On_Conflict = {
+  constraint: Archive_Metadata_Constraint;
+  update_columns?: Array<Archive_Metadata_Update_Column>;
+  where?: InputMaybe<Archive_Metadata_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "metadata". */
+export type Archive_Metadata_Order_By = {
+  block_hash?: InputMaybe<Archive_Order_By>;
+  block_height?: InputMaybe<Archive_Order_By>;
+  hex?: InputMaybe<Archive_Order_By>;
+  id?: InputMaybe<Archive_Order_By>;
+  spec_name?: InputMaybe<Archive_Order_By>;
+  spec_version?: InputMaybe<Archive_Order_By>;
+};
+
+/** primary key columns input for table: metadata */
+export type Archive_Metadata_Pk_Columns_Input = {
+  id: Scalars['String'];
+};
+
+/** select columns of table "metadata" */
+export enum Archive_Metadata_Select_Column {
+  /** column name */
+  BlockHash = 'block_hash',
+  /** column name */
+  BlockHeight = 'block_height',
+  /** column name */
+  Hex = 'hex',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  SpecName = 'spec_name',
+  /** column name */
+  SpecVersion = 'spec_version'
+}
+
+/** input type for updating data in table "metadata" */
+export type Archive_Metadata_Set_Input = {
+  block_hash?: InputMaybe<Scalars['archive_bpchar']>;
+  block_height?: InputMaybe<Scalars['Int']>;
+  hex?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['String']>;
+  spec_name?: InputMaybe<Scalars['String']>;
+  spec_version?: InputMaybe<Scalars['Int']>;
+};
+
+/** aggregate stddev on columns */
+export type Archive_Metadata_Stddev_Fields = {
+  __typename?: 'archive_metadata_stddev_fields';
+  block_height?: Maybe<Scalars['Float']>;
+  spec_version?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Archive_Metadata_Stddev_Pop_Fields = {
+  __typename?: 'archive_metadata_stddev_pop_fields';
+  block_height?: Maybe<Scalars['Float']>;
+  spec_version?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Archive_Metadata_Stddev_Samp_Fields = {
+  __typename?: 'archive_metadata_stddev_samp_fields';
+  block_height?: Maybe<Scalars['Float']>;
+  spec_version?: Maybe<Scalars['Float']>;
+};
+
+/** Streaming cursor of the table "metadata" */
+export type Archive_Metadata_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Archive_Metadata_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Archive_Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Archive_Metadata_Stream_Cursor_Value_Input = {
+  block_hash?: InputMaybe<Scalars['archive_bpchar']>;
+  block_height?: InputMaybe<Scalars['Int']>;
+  hex?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['String']>;
+  spec_name?: InputMaybe<Scalars['String']>;
+  spec_version?: InputMaybe<Scalars['Int']>;
+};
+
+/** aggregate sum on columns */
+export type Archive_Metadata_Sum_Fields = {
+  __typename?: 'archive_metadata_sum_fields';
+  block_height?: Maybe<Scalars['Int']>;
+  spec_version?: Maybe<Scalars['Int']>;
+};
+
+/** update columns of table "metadata" */
+export enum Archive_Metadata_Update_Column {
+  /** column name */
+  BlockHash = 'block_hash',
+  /** column name */
+  BlockHeight = 'block_height',
+  /** column name */
+  Hex = 'hex',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  SpecName = 'spec_name',
+  /** column name */
+  SpecVersion = 'spec_version'
+}
+
+export type Archive_Metadata_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Archive_Metadata_Inc_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Archive_Metadata_Set_Input>;
+  where: Archive_Metadata_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Archive_Metadata_Var_Pop_Fields = {
+  __typename?: 'archive_metadata_var_pop_fields';
+  block_height?: Maybe<Scalars['Float']>;
+  spec_version?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate var_samp on columns */
+export type Archive_Metadata_Var_Samp_Fields = {
+  __typename?: 'archive_metadata_var_samp_fields';
+  block_height?: Maybe<Scalars['Float']>;
+  spec_version?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate variance on columns */
+export type Archive_Metadata_Variance_Fields = {
+  __typename?: 'archive_metadata_variance_fields';
+  block_height?: Maybe<Scalars['Float']>;
+  spec_version?: Maybe<Scalars['Float']>;
+};
+
+/** columns and relationships of "migrations" */
+export type Archive_Migrations = {
+  __typename?: 'archive_migrations';
+  executed_at?: Maybe<Scalars['archive_timestamp']>;
+  hash: Scalars['String'];
+  id: Scalars['Int'];
+  name: Scalars['String'];
+};
+
+/** aggregated selection of "migrations" */
+export type Archive_Migrations_Aggregate = {
+  __typename?: 'archive_migrations_aggregate';
+  aggregate?: Maybe<Archive_Migrations_Aggregate_Fields>;
+  nodes: Array<Archive_Migrations>;
+};
+
+/** aggregate fields of "migrations" */
+export type Archive_Migrations_Aggregate_Fields = {
+  __typename?: 'archive_migrations_aggregate_fields';
+  avg?: Maybe<Archive_Migrations_Avg_Fields>;
+  count: Scalars['Int'];
+  max?: Maybe<Archive_Migrations_Max_Fields>;
+  min?: Maybe<Archive_Migrations_Min_Fields>;
+  stddev?: Maybe<Archive_Migrations_Stddev_Fields>;
+  stddev_pop?: Maybe<Archive_Migrations_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Archive_Migrations_Stddev_Samp_Fields>;
+  sum?: Maybe<Archive_Migrations_Sum_Fields>;
+  var_pop?: Maybe<Archive_Migrations_Var_Pop_Fields>;
+  var_samp?: Maybe<Archive_Migrations_Var_Samp_Fields>;
+  variance?: Maybe<Archive_Migrations_Variance_Fields>;
+};
+
+
+/** aggregate fields of "migrations" */
+export type Archive_Migrations_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Archive_Migrations_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** aggregate avg on columns */
+export type Archive_Migrations_Avg_Fields = {
+  __typename?: 'archive_migrations_avg_fields';
+  id?: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to filter rows from the table "migrations". All fields are combined with a logical 'AND'. */
+export type Archive_Migrations_Bool_Exp = {
+  _and?: InputMaybe<Array<Archive_Migrations_Bool_Exp>>;
+  _not?: InputMaybe<Archive_Migrations_Bool_Exp>;
+  _or?: InputMaybe<Array<Archive_Migrations_Bool_Exp>>;
+  executed_at?: InputMaybe<Archive_Timestamp_Comparison_Exp>;
+  hash?: InputMaybe<Archive_String_Comparison_Exp>;
+  id?: InputMaybe<Archive_Int_Comparison_Exp>;
+  name?: InputMaybe<Archive_String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "migrations" */
+export enum Archive_Migrations_Constraint {
+  /** unique or primary key constraint on columns "name" */
+  MigrationsNameKey = 'migrations_name_key',
+  /** unique or primary key constraint on columns "id" */
+  MigrationsPkey = 'migrations_pkey'
+}
+
+/** input type for incrementing numeric columns in table "migrations" */
+export type Archive_Migrations_Inc_Input = {
+  id?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "migrations" */
+export type Archive_Migrations_Insert_Input = {
+  executed_at?: InputMaybe<Scalars['archive_timestamp']>;
+  hash?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Int']>;
+  name?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type Archive_Migrations_Max_Fields = {
+  __typename?: 'archive_migrations_max_fields';
+  executed_at?: Maybe<Scalars['archive_timestamp']>;
+  hash?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type Archive_Migrations_Min_Fields = {
+  __typename?: 'archive_migrations_min_fields';
+  executed_at?: Maybe<Scalars['archive_timestamp']>;
+  hash?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "migrations" */
+export type Archive_Migrations_Mutation_Response = {
+  __typename?: 'archive_migrations_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Archive_Migrations>;
+};
+
+/** on_conflict condition type for table "migrations" */
+export type Archive_Migrations_On_Conflict = {
+  constraint: Archive_Migrations_Constraint;
+  update_columns?: Array<Archive_Migrations_Update_Column>;
+  where?: InputMaybe<Archive_Migrations_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "migrations". */
+export type Archive_Migrations_Order_By = {
+  executed_at?: InputMaybe<Archive_Order_By>;
+  hash?: InputMaybe<Archive_Order_By>;
+  id?: InputMaybe<Archive_Order_By>;
+  name?: InputMaybe<Archive_Order_By>;
+};
+
+/** primary key columns input for table: migrations */
+export type Archive_Migrations_Pk_Columns_Input = {
+  id: Scalars['Int'];
+};
+
+/** select columns of table "migrations" */
+export enum Archive_Migrations_Select_Column {
+  /** column name */
+  ExecutedAt = 'executed_at',
+  /** column name */
+  Hash = 'hash',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name'
+}
+
+/** input type for updating data in table "migrations" */
+export type Archive_Migrations_Set_Input = {
+  executed_at?: InputMaybe<Scalars['archive_timestamp']>;
+  hash?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Int']>;
+  name?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate stddev on columns */
+export type Archive_Migrations_Stddev_Fields = {
+  __typename?: 'archive_migrations_stddev_fields';
+  id?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Archive_Migrations_Stddev_Pop_Fields = {
+  __typename?: 'archive_migrations_stddev_pop_fields';
+  id?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Archive_Migrations_Stddev_Samp_Fields = {
+  __typename?: 'archive_migrations_stddev_samp_fields';
+  id?: Maybe<Scalars['Float']>;
+};
+
+/** Streaming cursor of the table "migrations" */
+export type Archive_Migrations_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Archive_Migrations_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Archive_Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Archive_Migrations_Stream_Cursor_Value_Input = {
+  executed_at?: InputMaybe<Scalars['archive_timestamp']>;
+  hash?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Int']>;
+  name?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate sum on columns */
+export type Archive_Migrations_Sum_Fields = {
+  __typename?: 'archive_migrations_sum_fields';
+  id?: Maybe<Scalars['Int']>;
+};
+
+/** update columns of table "migrations" */
+export enum Archive_Migrations_Update_Column {
+  /** column name */
+  ExecutedAt = 'executed_at',
+  /** column name */
+  Hash = 'hash',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name'
+}
+
+export type Archive_Migrations_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Archive_Migrations_Inc_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Archive_Migrations_Set_Input>;
+  where: Archive_Migrations_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Archive_Migrations_Var_Pop_Fields = {
+  __typename?: 'archive_migrations_var_pop_fields';
+  id?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate var_samp on columns */
+export type Archive_Migrations_Var_Samp_Fields = {
+  __typename?: 'archive_migrations_var_samp_fields';
+  id?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate variance on columns */
+export type Archive_Migrations_Variance_Fields = {
+  __typename?: 'archive_migrations_variance_fields';
+  id?: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to compare columns of type "numeric". All fields are combined with logical 'AND'. */
+export type Archive_Numeric_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['archive_numeric']>;
+  _gt?: InputMaybe<Scalars['archive_numeric']>;
+  _gte?: InputMaybe<Scalars['archive_numeric']>;
+  _in?: InputMaybe<Array<Scalars['archive_numeric']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['archive_numeric']>;
+  _lte?: InputMaybe<Scalars['archive_numeric']>;
+  _neq?: InputMaybe<Scalars['archive_numeric']>;
+  _nin?: InputMaybe<Array<Scalars['archive_numeric']>>;
+};
+
+/** column ordering options */
+export enum Archive_Order_By {
+  /** in ascending order, nulls last */
+  Asc = 'asc',
+  /** in ascending order, nulls first */
+  AscNullsFirst = 'asc_nulls_first',
+  /** in ascending order, nulls last */
+  AscNullsLast = 'asc_nulls_last',
+  /** in descending order, nulls first */
+  Desc = 'desc',
+  /** in descending order, nulls first */
+  DescNullsFirst = 'desc_nulls_first',
+  /** in descending order, nulls last */
+  DescNullsLast = 'desc_nulls_last'
+}
+
+/** Boolean expression to compare columns of type "timestamp". All fields are combined with logical 'AND'. */
+export type Archive_Timestamp_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['archive_timestamp']>;
+  _gt?: InputMaybe<Scalars['archive_timestamp']>;
+  _gte?: InputMaybe<Scalars['archive_timestamp']>;
+  _in?: InputMaybe<Array<Scalars['archive_timestamp']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['archive_timestamp']>;
+  _lte?: InputMaybe<Scalars['archive_timestamp']>;
+  _neq?: InputMaybe<Scalars['archive_timestamp']>;
+  _nin?: InputMaybe<Array<Scalars['archive_timestamp']>>;
+};
+
+/** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
+export type Archive_Timestamptz_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['archive_timestamptz']>;
+  _gt?: InputMaybe<Scalars['archive_timestamptz']>;
+  _gte?: InputMaybe<Scalars['archive_timestamptz']>;
+  _in?: InputMaybe<Array<Scalars['archive_timestamptz']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['archive_timestamptz']>;
+  _lte?: InputMaybe<Scalars['archive_timestamptz']>;
+  _neq?: InputMaybe<Scalars['archive_timestamptz']>;
+  _nin?: InputMaybe<Array<Scalars['archive_timestamptz']>>;
+};
+
+/** columns and relationships of "warning" */
+export type Archive_Warning = {
+  __typename?: 'archive_warning';
+  block_id?: Maybe<Scalars['archive_bpchar']>;
+  message?: Maybe<Scalars['String']>;
+};
+
+/** aggregated selection of "warning" */
+export type Archive_Warning_Aggregate = {
+  __typename?: 'archive_warning_aggregate';
+  aggregate?: Maybe<Archive_Warning_Aggregate_Fields>;
+  nodes: Array<Archive_Warning>;
+};
+
+/** aggregate fields of "warning" */
+export type Archive_Warning_Aggregate_Fields = {
+  __typename?: 'archive_warning_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<Archive_Warning_Max_Fields>;
+  min?: Maybe<Archive_Warning_Min_Fields>;
+};
+
+
+/** aggregate fields of "warning" */
+export type Archive_Warning_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Archive_Warning_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Boolean expression to filter rows from the table "warning". All fields are combined with a logical 'AND'. */
+export type Archive_Warning_Bool_Exp = {
+  _and?: InputMaybe<Array<Archive_Warning_Bool_Exp>>;
+  _not?: InputMaybe<Archive_Warning_Bool_Exp>;
+  _or?: InputMaybe<Array<Archive_Warning_Bool_Exp>>;
+  block_id?: InputMaybe<Archive_Bpchar_Comparison_Exp>;
+  message?: InputMaybe<Archive_String_Comparison_Exp>;
+};
+
+/** input type for inserting data into table "warning" */
+export type Archive_Warning_Insert_Input = {
+  block_id?: InputMaybe<Scalars['archive_bpchar']>;
+  message?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type Archive_Warning_Max_Fields = {
+  __typename?: 'archive_warning_max_fields';
+  block_id?: Maybe<Scalars['archive_bpchar']>;
+  message?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type Archive_Warning_Min_Fields = {
+  __typename?: 'archive_warning_min_fields';
+  block_id?: Maybe<Scalars['archive_bpchar']>;
+  message?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "warning" */
+export type Archive_Warning_Mutation_Response = {
+  __typename?: 'archive_warning_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Archive_Warning>;
+};
+
+/** Ordering options when selecting data from "warning". */
+export type Archive_Warning_Order_By = {
+  block_id?: InputMaybe<Archive_Order_By>;
+  message?: InputMaybe<Archive_Order_By>;
+};
+
+/** select columns of table "warning" */
+export enum Archive_Warning_Select_Column {
+  /** column name */
+  BlockId = 'block_id',
+  /** column name */
+  Message = 'message'
+}
+
+/** input type for updating data in table "warning" */
+export type Archive_Warning_Set_Input = {
+  block_id?: InputMaybe<Scalars['archive_bpchar']>;
+  message?: InputMaybe<Scalars['String']>;
+};
+
+/** Streaming cursor of the table "warning" */
+export type Archive_Warning_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Archive_Warning_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Archive_Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Archive_Warning_Stream_Cursor_Value_Input = {
+  block_id?: InputMaybe<Scalars['archive_bpchar']>;
+  message?: InputMaybe<Scalars['String']>;
+};
+
+export type Archive_Warning_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Archive_Warning_Set_Input>;
+  where: Archive_Warning_Bool_Exp;
+};
+
+export type Archivemutation_Root = {
+  __typename?: 'archivemutation_root';
+  /** delete data from the table: "block" */
+  delete_block?: Maybe<Archive_Block_Mutation_Response>;
+  /** delete single row from the table: "block" */
+  delete_block_by_pk?: Maybe<Archive_Block>;
+  /** delete data from the table: "call" */
+  delete_call?: Maybe<Archive_Call_Mutation_Response>;
+  /** delete single row from the table: "call" */
+  delete_call_by_pk?: Maybe<Archive_Call>;
+  /** delete data from the table: "contracts_contract_emitted" */
+  delete_contracts_contract_emitted?: Maybe<Archive_Contracts_Contract_Emitted_Mutation_Response>;
+  /** delete single row from the table: "contracts_contract_emitted" */
+  delete_contracts_contract_emitted_by_pk?: Maybe<Archive_Contracts_Contract_Emitted>;
+  /** delete data from the table: "event" */
+  delete_event?: Maybe<Archive_Event_Mutation_Response>;
+  /** delete single row from the table: "event" */
+  delete_event_by_pk?: Maybe<Archive_Event>;
+  /** delete data from the table: "extrinsic" */
+  delete_extrinsic?: Maybe<Archive_Extrinsic_Mutation_Response>;
+  /** delete single row from the table: "extrinsic" */
+  delete_extrinsic_by_pk?: Maybe<Archive_Extrinsic>;
+  /** delete data from the table: "frontier_ethereum_transaction" */
+  delete_frontier_ethereum_transaction?: Maybe<Archive_Frontier_Ethereum_Transaction_Mutation_Response>;
+  /** delete single row from the table: "frontier_ethereum_transaction" */
+  delete_frontier_ethereum_transaction_by_pk?: Maybe<Archive_Frontier_Ethereum_Transaction>;
+  /** delete data from the table: "frontier_evm_log" */
+  delete_frontier_evm_log?: Maybe<Archive_Frontier_Evm_Log_Mutation_Response>;
+  /** delete single row from the table: "frontier_evm_log" */
+  delete_frontier_evm_log_by_pk?: Maybe<Archive_Frontier_Evm_Log>;
+  /** delete data from the table: "gear_message_enqueued" */
+  delete_gear_message_enqueued?: Maybe<Archive_Gear_Message_Enqueued_Mutation_Response>;
+  /** delete single row from the table: "gear_message_enqueued" */
+  delete_gear_message_enqueued_by_pk?: Maybe<Archive_Gear_Message_Enqueued>;
+  /** delete data from the table: "gear_user_message_sent" */
+  delete_gear_user_message_sent?: Maybe<Archive_Gear_User_Message_Sent_Mutation_Response>;
+  /** delete single row from the table: "gear_user_message_sent" */
+  delete_gear_user_message_sent_by_pk?: Maybe<Archive_Gear_User_Message_Sent>;
+  /** delete data from the table: "metadata" */
+  delete_metadata?: Maybe<Archive_Metadata_Mutation_Response>;
+  /** delete single row from the table: "metadata" */
+  delete_metadata_by_pk?: Maybe<Archive_Metadata>;
+  /** delete data from the table: "migrations" */
+  delete_migrations?: Maybe<Archive_Migrations_Mutation_Response>;
+  /** delete single row from the table: "migrations" */
+  delete_migrations_by_pk?: Maybe<Archive_Migrations>;
+  /** delete data from the table: "warning" */
+  delete_warning?: Maybe<Archive_Warning_Mutation_Response>;
+  /** insert data into the table: "block" */
+  insert_block?: Maybe<Archive_Block_Mutation_Response>;
+  /** insert a single row into the table: "block" */
+  insert_block_one?: Maybe<Archive_Block>;
+  /** insert data into the table: "call" */
+  insert_call?: Maybe<Archive_Call_Mutation_Response>;
+  /** insert a single row into the table: "call" */
+  insert_call_one?: Maybe<Archive_Call>;
+  /** insert data into the table: "contracts_contract_emitted" */
+  insert_contracts_contract_emitted?: Maybe<Archive_Contracts_Contract_Emitted_Mutation_Response>;
+  /** insert a single row into the table: "contracts_contract_emitted" */
+  insert_contracts_contract_emitted_one?: Maybe<Archive_Contracts_Contract_Emitted>;
+  /** insert data into the table: "event" */
+  insert_event?: Maybe<Archive_Event_Mutation_Response>;
+  /** insert a single row into the table: "event" */
+  insert_event_one?: Maybe<Archive_Event>;
+  /** insert data into the table: "extrinsic" */
+  insert_extrinsic?: Maybe<Archive_Extrinsic_Mutation_Response>;
+  /** insert a single row into the table: "extrinsic" */
+  insert_extrinsic_one?: Maybe<Archive_Extrinsic>;
+  /** insert data into the table: "frontier_ethereum_transaction" */
+  insert_frontier_ethereum_transaction?: Maybe<Archive_Frontier_Ethereum_Transaction_Mutation_Response>;
+  /** insert a single row into the table: "frontier_ethereum_transaction" */
+  insert_frontier_ethereum_transaction_one?: Maybe<Archive_Frontier_Ethereum_Transaction>;
+  /** insert data into the table: "frontier_evm_log" */
+  insert_frontier_evm_log?: Maybe<Archive_Frontier_Evm_Log_Mutation_Response>;
+  /** insert a single row into the table: "frontier_evm_log" */
+  insert_frontier_evm_log_one?: Maybe<Archive_Frontier_Evm_Log>;
+  /** insert data into the table: "gear_message_enqueued" */
+  insert_gear_message_enqueued?: Maybe<Archive_Gear_Message_Enqueued_Mutation_Response>;
+  /** insert a single row into the table: "gear_message_enqueued" */
+  insert_gear_message_enqueued_one?: Maybe<Archive_Gear_Message_Enqueued>;
+  /** insert data into the table: "gear_user_message_sent" */
+  insert_gear_user_message_sent?: Maybe<Archive_Gear_User_Message_Sent_Mutation_Response>;
+  /** insert a single row into the table: "gear_user_message_sent" */
+  insert_gear_user_message_sent_one?: Maybe<Archive_Gear_User_Message_Sent>;
+  /** insert data into the table: "metadata" */
+  insert_metadata?: Maybe<Archive_Metadata_Mutation_Response>;
+  /** insert a single row into the table: "metadata" */
+  insert_metadata_one?: Maybe<Archive_Metadata>;
+  /** insert data into the table: "migrations" */
+  insert_migrations?: Maybe<Archive_Migrations_Mutation_Response>;
+  /** insert a single row into the table: "migrations" */
+  insert_migrations_one?: Maybe<Archive_Migrations>;
+  /** insert data into the table: "warning" */
+  insert_warning?: Maybe<Archive_Warning_Mutation_Response>;
+  /** insert a single row into the table: "warning" */
+  insert_warning_one?: Maybe<Archive_Warning>;
+  /** update data of the table: "block" */
+  update_block?: Maybe<Archive_Block_Mutation_Response>;
+  /** update single row of the table: "block" */
+  update_block_by_pk?: Maybe<Archive_Block>;
+  /** update multiples rows of table: "block" */
+  update_block_many?: Maybe<Array<Maybe<Archive_Block_Mutation_Response>>>;
+  /** update data of the table: "call" */
+  update_call?: Maybe<Archive_Call_Mutation_Response>;
+  /** update single row of the table: "call" */
+  update_call_by_pk?: Maybe<Archive_Call>;
+  /** update multiples rows of table: "call" */
+  update_call_many?: Maybe<Array<Maybe<Archive_Call_Mutation_Response>>>;
+  /** update data of the table: "contracts_contract_emitted" */
+  update_contracts_contract_emitted?: Maybe<Archive_Contracts_Contract_Emitted_Mutation_Response>;
+  /** update single row of the table: "contracts_contract_emitted" */
+  update_contracts_contract_emitted_by_pk?: Maybe<Archive_Contracts_Contract_Emitted>;
+  /** update multiples rows of table: "contracts_contract_emitted" */
+  update_contracts_contract_emitted_many?: Maybe<Array<Maybe<Archive_Contracts_Contract_Emitted_Mutation_Response>>>;
+  /** update data of the table: "event" */
+  update_event?: Maybe<Archive_Event_Mutation_Response>;
+  /** update single row of the table: "event" */
+  update_event_by_pk?: Maybe<Archive_Event>;
+  /** update multiples rows of table: "event" */
+  update_event_many?: Maybe<Array<Maybe<Archive_Event_Mutation_Response>>>;
+  /** update data of the table: "extrinsic" */
+  update_extrinsic?: Maybe<Archive_Extrinsic_Mutation_Response>;
+  /** update single row of the table: "extrinsic" */
+  update_extrinsic_by_pk?: Maybe<Archive_Extrinsic>;
+  /** update multiples rows of table: "extrinsic" */
+  update_extrinsic_many?: Maybe<Array<Maybe<Archive_Extrinsic_Mutation_Response>>>;
+  /** update data of the table: "frontier_ethereum_transaction" */
+  update_frontier_ethereum_transaction?: Maybe<Archive_Frontier_Ethereum_Transaction_Mutation_Response>;
+  /** update single row of the table: "frontier_ethereum_transaction" */
+  update_frontier_ethereum_transaction_by_pk?: Maybe<Archive_Frontier_Ethereum_Transaction>;
+  /** update multiples rows of table: "frontier_ethereum_transaction" */
+  update_frontier_ethereum_transaction_many?: Maybe<Array<Maybe<Archive_Frontier_Ethereum_Transaction_Mutation_Response>>>;
+  /** update data of the table: "frontier_evm_log" */
+  update_frontier_evm_log?: Maybe<Archive_Frontier_Evm_Log_Mutation_Response>;
+  /** update single row of the table: "frontier_evm_log" */
+  update_frontier_evm_log_by_pk?: Maybe<Archive_Frontier_Evm_Log>;
+  /** update multiples rows of table: "frontier_evm_log" */
+  update_frontier_evm_log_many?: Maybe<Array<Maybe<Archive_Frontier_Evm_Log_Mutation_Response>>>;
+  /** update data of the table: "gear_message_enqueued" */
+  update_gear_message_enqueued?: Maybe<Archive_Gear_Message_Enqueued_Mutation_Response>;
+  /** update single row of the table: "gear_message_enqueued" */
+  update_gear_message_enqueued_by_pk?: Maybe<Archive_Gear_Message_Enqueued>;
+  /** update multiples rows of table: "gear_message_enqueued" */
+  update_gear_message_enqueued_many?: Maybe<Array<Maybe<Archive_Gear_Message_Enqueued_Mutation_Response>>>;
+  /** update data of the table: "gear_user_message_sent" */
+  update_gear_user_message_sent?: Maybe<Archive_Gear_User_Message_Sent_Mutation_Response>;
+  /** update single row of the table: "gear_user_message_sent" */
+  update_gear_user_message_sent_by_pk?: Maybe<Archive_Gear_User_Message_Sent>;
+  /** update multiples rows of table: "gear_user_message_sent" */
+  update_gear_user_message_sent_many?: Maybe<Array<Maybe<Archive_Gear_User_Message_Sent_Mutation_Response>>>;
+  /** update data of the table: "metadata" */
+  update_metadata?: Maybe<Archive_Metadata_Mutation_Response>;
+  /** update single row of the table: "metadata" */
+  update_metadata_by_pk?: Maybe<Archive_Metadata>;
+  /** update multiples rows of table: "metadata" */
+  update_metadata_many?: Maybe<Array<Maybe<Archive_Metadata_Mutation_Response>>>;
+  /** update data of the table: "migrations" */
+  update_migrations?: Maybe<Archive_Migrations_Mutation_Response>;
+  /** update single row of the table: "migrations" */
+  update_migrations_by_pk?: Maybe<Archive_Migrations>;
+  /** update multiples rows of table: "migrations" */
+  update_migrations_many?: Maybe<Array<Maybe<Archive_Migrations_Mutation_Response>>>;
+  /** update data of the table: "warning" */
+  update_warning?: Maybe<Archive_Warning_Mutation_Response>;
+  /** update multiples rows of table: "warning" */
+  update_warning_many?: Maybe<Array<Maybe<Archive_Warning_Mutation_Response>>>;
+};
+
+
+export type Archivemutation_RootDelete_BlockArgs = {
+  where: Archive_Block_Bool_Exp;
+};
+
+
+export type Archivemutation_RootDelete_Block_By_PkArgs = {
+  id: Scalars['archive_bpchar'];
+};
+
+
+export type Archivemutation_RootDelete_CallArgs = {
+  where: Archive_Call_Bool_Exp;
+};
+
+
+export type Archivemutation_RootDelete_Call_By_PkArgs = {
+  id: Scalars['String'];
+};
+
+
+export type Archivemutation_RootDelete_Contracts_Contract_EmittedArgs = {
+  where: Archive_Contracts_Contract_Emitted_Bool_Exp;
+};
+
+
+export type Archivemutation_RootDelete_Contracts_Contract_Emitted_By_PkArgs = {
+  event_id: Scalars['archive_bpchar'];
+};
+
+
+export type Archivemutation_RootDelete_EventArgs = {
+  where: Archive_Event_Bool_Exp;
+};
+
+
+export type Archivemutation_RootDelete_Event_By_PkArgs = {
+  id: Scalars['archive_bpchar'];
+};
+
+
+export type Archivemutation_RootDelete_ExtrinsicArgs = {
+  where: Archive_Extrinsic_Bool_Exp;
+};
+
+
+export type Archivemutation_RootDelete_Extrinsic_By_PkArgs = {
+  id: Scalars['archive_bpchar'];
+};
+
+
+export type Archivemutation_RootDelete_Frontier_Ethereum_TransactionArgs = {
+  where: Archive_Frontier_Ethereum_Transaction_Bool_Exp;
+};
+
+
+export type Archivemutation_RootDelete_Frontier_Ethereum_Transaction_By_PkArgs = {
+  call_id: Scalars['String'];
+};
+
+
+export type Archivemutation_RootDelete_Frontier_Evm_LogArgs = {
+  where: Archive_Frontier_Evm_Log_Bool_Exp;
+};
+
+
+export type Archivemutation_RootDelete_Frontier_Evm_Log_By_PkArgs = {
+  event_id: Scalars['archive_bpchar'];
+};
+
+
+export type Archivemutation_RootDelete_Gear_Message_EnqueuedArgs = {
+  where: Archive_Gear_Message_Enqueued_Bool_Exp;
+};
+
+
+export type Archivemutation_RootDelete_Gear_Message_Enqueued_By_PkArgs = {
+  event_id: Scalars['archive_bpchar'];
+};
+
+
+export type Archivemutation_RootDelete_Gear_User_Message_SentArgs = {
+  where: Archive_Gear_User_Message_Sent_Bool_Exp;
+};
+
+
+export type Archivemutation_RootDelete_Gear_User_Message_Sent_By_PkArgs = {
+  event_id: Scalars['archive_bpchar'];
+};
+
+
+export type Archivemutation_RootDelete_MetadataArgs = {
+  where: Archive_Metadata_Bool_Exp;
+};
+
+
+export type Archivemutation_RootDelete_Metadata_By_PkArgs = {
+  id: Scalars['String'];
+};
+
+
+export type Archivemutation_RootDelete_MigrationsArgs = {
+  where: Archive_Migrations_Bool_Exp;
+};
+
+
+export type Archivemutation_RootDelete_Migrations_By_PkArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type Archivemutation_RootDelete_WarningArgs = {
+  where: Archive_Warning_Bool_Exp;
+};
+
+
+export type Archivemutation_RootInsert_BlockArgs = {
+  objects: Array<Archive_Block_Insert_Input>;
+  on_conflict?: InputMaybe<Archive_Block_On_Conflict>;
+};
+
+
+export type Archivemutation_RootInsert_Block_OneArgs = {
+  object: Archive_Block_Insert_Input;
+  on_conflict?: InputMaybe<Archive_Block_On_Conflict>;
+};
+
+
+export type Archivemutation_RootInsert_CallArgs = {
+  objects: Array<Archive_Call_Insert_Input>;
+  on_conflict?: InputMaybe<Archive_Call_On_Conflict>;
+};
+
+
+export type Archivemutation_RootInsert_Call_OneArgs = {
+  object: Archive_Call_Insert_Input;
+  on_conflict?: InputMaybe<Archive_Call_On_Conflict>;
+};
+
+
+export type Archivemutation_RootInsert_Contracts_Contract_EmittedArgs = {
+  objects: Array<Archive_Contracts_Contract_Emitted_Insert_Input>;
+  on_conflict?: InputMaybe<Archive_Contracts_Contract_Emitted_On_Conflict>;
+};
+
+
+export type Archivemutation_RootInsert_Contracts_Contract_Emitted_OneArgs = {
+  object: Archive_Contracts_Contract_Emitted_Insert_Input;
+  on_conflict?: InputMaybe<Archive_Contracts_Contract_Emitted_On_Conflict>;
+};
+
+
+export type Archivemutation_RootInsert_EventArgs = {
+  objects: Array<Archive_Event_Insert_Input>;
+  on_conflict?: InputMaybe<Archive_Event_On_Conflict>;
+};
+
+
+export type Archivemutation_RootInsert_Event_OneArgs = {
+  object: Archive_Event_Insert_Input;
+  on_conflict?: InputMaybe<Archive_Event_On_Conflict>;
+};
+
+
+export type Archivemutation_RootInsert_ExtrinsicArgs = {
+  objects: Array<Archive_Extrinsic_Insert_Input>;
+  on_conflict?: InputMaybe<Archive_Extrinsic_On_Conflict>;
+};
+
+
+export type Archivemutation_RootInsert_Extrinsic_OneArgs = {
+  object: Archive_Extrinsic_Insert_Input;
+  on_conflict?: InputMaybe<Archive_Extrinsic_On_Conflict>;
+};
+
+
+export type Archivemutation_RootInsert_Frontier_Ethereum_TransactionArgs = {
+  objects: Array<Archive_Frontier_Ethereum_Transaction_Insert_Input>;
+  on_conflict?: InputMaybe<Archive_Frontier_Ethereum_Transaction_On_Conflict>;
+};
+
+
+export type Archivemutation_RootInsert_Frontier_Ethereum_Transaction_OneArgs = {
+  object: Archive_Frontier_Ethereum_Transaction_Insert_Input;
+  on_conflict?: InputMaybe<Archive_Frontier_Ethereum_Transaction_On_Conflict>;
+};
+
+
+export type Archivemutation_RootInsert_Frontier_Evm_LogArgs = {
+  objects: Array<Archive_Frontier_Evm_Log_Insert_Input>;
+  on_conflict?: InputMaybe<Archive_Frontier_Evm_Log_On_Conflict>;
+};
+
+
+export type Archivemutation_RootInsert_Frontier_Evm_Log_OneArgs = {
+  object: Archive_Frontier_Evm_Log_Insert_Input;
+  on_conflict?: InputMaybe<Archive_Frontier_Evm_Log_On_Conflict>;
+};
+
+
+export type Archivemutation_RootInsert_Gear_Message_EnqueuedArgs = {
+  objects: Array<Archive_Gear_Message_Enqueued_Insert_Input>;
+  on_conflict?: InputMaybe<Archive_Gear_Message_Enqueued_On_Conflict>;
+};
+
+
+export type Archivemutation_RootInsert_Gear_Message_Enqueued_OneArgs = {
+  object: Archive_Gear_Message_Enqueued_Insert_Input;
+  on_conflict?: InputMaybe<Archive_Gear_Message_Enqueued_On_Conflict>;
+};
+
+
+export type Archivemutation_RootInsert_Gear_User_Message_SentArgs = {
+  objects: Array<Archive_Gear_User_Message_Sent_Insert_Input>;
+  on_conflict?: InputMaybe<Archive_Gear_User_Message_Sent_On_Conflict>;
+};
+
+
+export type Archivemutation_RootInsert_Gear_User_Message_Sent_OneArgs = {
+  object: Archive_Gear_User_Message_Sent_Insert_Input;
+  on_conflict?: InputMaybe<Archive_Gear_User_Message_Sent_On_Conflict>;
+};
+
+
+export type Archivemutation_RootInsert_MetadataArgs = {
+  objects: Array<Archive_Metadata_Insert_Input>;
+  on_conflict?: InputMaybe<Archive_Metadata_On_Conflict>;
+};
+
+
+export type Archivemutation_RootInsert_Metadata_OneArgs = {
+  object: Archive_Metadata_Insert_Input;
+  on_conflict?: InputMaybe<Archive_Metadata_On_Conflict>;
+};
+
+
+export type Archivemutation_RootInsert_MigrationsArgs = {
+  objects: Array<Archive_Migrations_Insert_Input>;
+  on_conflict?: InputMaybe<Archive_Migrations_On_Conflict>;
+};
+
+
+export type Archivemutation_RootInsert_Migrations_OneArgs = {
+  object: Archive_Migrations_Insert_Input;
+  on_conflict?: InputMaybe<Archive_Migrations_On_Conflict>;
+};
+
+
+export type Archivemutation_RootInsert_WarningArgs = {
+  objects: Array<Archive_Warning_Insert_Input>;
+};
+
+
+export type Archivemutation_RootInsert_Warning_OneArgs = {
+  object: Archive_Warning_Insert_Input;
+};
+
+
+export type Archivemutation_RootUpdate_BlockArgs = {
+  _inc?: InputMaybe<Archive_Block_Inc_Input>;
+  _set?: InputMaybe<Archive_Block_Set_Input>;
+  where: Archive_Block_Bool_Exp;
+};
+
+
+export type Archivemutation_RootUpdate_Block_By_PkArgs = {
+  _inc?: InputMaybe<Archive_Block_Inc_Input>;
+  _set?: InputMaybe<Archive_Block_Set_Input>;
+  pk_columns: Archive_Block_Pk_Columns_Input;
+};
+
+
+export type Archivemutation_RootUpdate_Block_ManyArgs = {
+  updates: Array<Archive_Block_Updates>;
+};
+
+
+export type Archivemutation_RootUpdate_CallArgs = {
+  _append?: InputMaybe<Archive_Call_Append_Input>;
+  _delete_at_path?: InputMaybe<Archive_Call_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Archive_Call_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Archive_Call_Delete_Key_Input>;
+  _inc?: InputMaybe<Archive_Call_Inc_Input>;
+  _prepend?: InputMaybe<Archive_Call_Prepend_Input>;
+  _set?: InputMaybe<Archive_Call_Set_Input>;
+  where: Archive_Call_Bool_Exp;
+};
+
+
+export type Archivemutation_RootUpdate_Call_By_PkArgs = {
+  _append?: InputMaybe<Archive_Call_Append_Input>;
+  _delete_at_path?: InputMaybe<Archive_Call_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Archive_Call_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Archive_Call_Delete_Key_Input>;
+  _inc?: InputMaybe<Archive_Call_Inc_Input>;
+  _prepend?: InputMaybe<Archive_Call_Prepend_Input>;
+  _set?: InputMaybe<Archive_Call_Set_Input>;
+  pk_columns: Archive_Call_Pk_Columns_Input;
+};
+
+
+export type Archivemutation_RootUpdate_Call_ManyArgs = {
+  updates: Array<Archive_Call_Updates>;
+};
+
+
+export type Archivemutation_RootUpdate_Contracts_Contract_EmittedArgs = {
+  _set?: InputMaybe<Archive_Contracts_Contract_Emitted_Set_Input>;
+  where: Archive_Contracts_Contract_Emitted_Bool_Exp;
+};
+
+
+export type Archivemutation_RootUpdate_Contracts_Contract_Emitted_By_PkArgs = {
+  _set?: InputMaybe<Archive_Contracts_Contract_Emitted_Set_Input>;
+  pk_columns: Archive_Contracts_Contract_Emitted_Pk_Columns_Input;
+};
+
+
+export type Archivemutation_RootUpdate_Contracts_Contract_Emitted_ManyArgs = {
+  updates: Array<Archive_Contracts_Contract_Emitted_Updates>;
+};
+
+
+export type Archivemutation_RootUpdate_EventArgs = {
+  _append?: InputMaybe<Archive_Event_Append_Input>;
+  _delete_at_path?: InputMaybe<Archive_Event_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Archive_Event_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Archive_Event_Delete_Key_Input>;
+  _inc?: InputMaybe<Archive_Event_Inc_Input>;
+  _prepend?: InputMaybe<Archive_Event_Prepend_Input>;
+  _set?: InputMaybe<Archive_Event_Set_Input>;
+  where: Archive_Event_Bool_Exp;
+};
+
+
+export type Archivemutation_RootUpdate_Event_By_PkArgs = {
+  _append?: InputMaybe<Archive_Event_Append_Input>;
+  _delete_at_path?: InputMaybe<Archive_Event_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Archive_Event_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Archive_Event_Delete_Key_Input>;
+  _inc?: InputMaybe<Archive_Event_Inc_Input>;
+  _prepend?: InputMaybe<Archive_Event_Prepend_Input>;
+  _set?: InputMaybe<Archive_Event_Set_Input>;
+  pk_columns: Archive_Event_Pk_Columns_Input;
+};
+
+
+export type Archivemutation_RootUpdate_Event_ManyArgs = {
+  updates: Array<Archive_Event_Updates>;
+};
+
+
+export type Archivemutation_RootUpdate_ExtrinsicArgs = {
+  _append?: InputMaybe<Archive_Extrinsic_Append_Input>;
+  _delete_at_path?: InputMaybe<Archive_Extrinsic_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Archive_Extrinsic_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Archive_Extrinsic_Delete_Key_Input>;
+  _inc?: InputMaybe<Archive_Extrinsic_Inc_Input>;
+  _prepend?: InputMaybe<Archive_Extrinsic_Prepend_Input>;
+  _set?: InputMaybe<Archive_Extrinsic_Set_Input>;
+  where: Archive_Extrinsic_Bool_Exp;
+};
+
+
+export type Archivemutation_RootUpdate_Extrinsic_By_PkArgs = {
+  _append?: InputMaybe<Archive_Extrinsic_Append_Input>;
+  _delete_at_path?: InputMaybe<Archive_Extrinsic_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Archive_Extrinsic_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Archive_Extrinsic_Delete_Key_Input>;
+  _inc?: InputMaybe<Archive_Extrinsic_Inc_Input>;
+  _prepend?: InputMaybe<Archive_Extrinsic_Prepend_Input>;
+  _set?: InputMaybe<Archive_Extrinsic_Set_Input>;
+  pk_columns: Archive_Extrinsic_Pk_Columns_Input;
+};
+
+
+export type Archivemutation_RootUpdate_Extrinsic_ManyArgs = {
+  updates: Array<Archive_Extrinsic_Updates>;
+};
+
+
+export type Archivemutation_RootUpdate_Frontier_Ethereum_TransactionArgs = {
+  _set?: InputMaybe<Archive_Frontier_Ethereum_Transaction_Set_Input>;
+  where: Archive_Frontier_Ethereum_Transaction_Bool_Exp;
+};
+
+
+export type Archivemutation_RootUpdate_Frontier_Ethereum_Transaction_By_PkArgs = {
+  _set?: InputMaybe<Archive_Frontier_Ethereum_Transaction_Set_Input>;
+  pk_columns: Archive_Frontier_Ethereum_Transaction_Pk_Columns_Input;
+};
+
+
+export type Archivemutation_RootUpdate_Frontier_Ethereum_Transaction_ManyArgs = {
+  updates: Array<Archive_Frontier_Ethereum_Transaction_Updates>;
+};
+
+
+export type Archivemutation_RootUpdate_Frontier_Evm_LogArgs = {
+  _set?: InputMaybe<Archive_Frontier_Evm_Log_Set_Input>;
+  where: Archive_Frontier_Evm_Log_Bool_Exp;
+};
+
+
+export type Archivemutation_RootUpdate_Frontier_Evm_Log_By_PkArgs = {
+  _set?: InputMaybe<Archive_Frontier_Evm_Log_Set_Input>;
+  pk_columns: Archive_Frontier_Evm_Log_Pk_Columns_Input;
+};
+
+
+export type Archivemutation_RootUpdate_Frontier_Evm_Log_ManyArgs = {
+  updates: Array<Archive_Frontier_Evm_Log_Updates>;
+};
+
+
+export type Archivemutation_RootUpdate_Gear_Message_EnqueuedArgs = {
+  _set?: InputMaybe<Archive_Gear_Message_Enqueued_Set_Input>;
+  where: Archive_Gear_Message_Enqueued_Bool_Exp;
+};
+
+
+export type Archivemutation_RootUpdate_Gear_Message_Enqueued_By_PkArgs = {
+  _set?: InputMaybe<Archive_Gear_Message_Enqueued_Set_Input>;
+  pk_columns: Archive_Gear_Message_Enqueued_Pk_Columns_Input;
+};
+
+
+export type Archivemutation_RootUpdate_Gear_Message_Enqueued_ManyArgs = {
+  updates: Array<Archive_Gear_Message_Enqueued_Updates>;
+};
+
+
+export type Archivemutation_RootUpdate_Gear_User_Message_SentArgs = {
+  _set?: InputMaybe<Archive_Gear_User_Message_Sent_Set_Input>;
+  where: Archive_Gear_User_Message_Sent_Bool_Exp;
+};
+
+
+export type Archivemutation_RootUpdate_Gear_User_Message_Sent_By_PkArgs = {
+  _set?: InputMaybe<Archive_Gear_User_Message_Sent_Set_Input>;
+  pk_columns: Archive_Gear_User_Message_Sent_Pk_Columns_Input;
+};
+
+
+export type Archivemutation_RootUpdate_Gear_User_Message_Sent_ManyArgs = {
+  updates: Array<Archive_Gear_User_Message_Sent_Updates>;
+};
+
+
+export type Archivemutation_RootUpdate_MetadataArgs = {
+  _inc?: InputMaybe<Archive_Metadata_Inc_Input>;
+  _set?: InputMaybe<Archive_Metadata_Set_Input>;
+  where: Archive_Metadata_Bool_Exp;
+};
+
+
+export type Archivemutation_RootUpdate_Metadata_By_PkArgs = {
+  _inc?: InputMaybe<Archive_Metadata_Inc_Input>;
+  _set?: InputMaybe<Archive_Metadata_Set_Input>;
+  pk_columns: Archive_Metadata_Pk_Columns_Input;
+};
+
+
+export type Archivemutation_RootUpdate_Metadata_ManyArgs = {
+  updates: Array<Archive_Metadata_Updates>;
+};
+
+
+export type Archivemutation_RootUpdate_MigrationsArgs = {
+  _inc?: InputMaybe<Archive_Migrations_Inc_Input>;
+  _set?: InputMaybe<Archive_Migrations_Set_Input>;
+  where: Archive_Migrations_Bool_Exp;
+};
+
+
+export type Archivemutation_RootUpdate_Migrations_By_PkArgs = {
+  _inc?: InputMaybe<Archive_Migrations_Inc_Input>;
+  _set?: InputMaybe<Archive_Migrations_Set_Input>;
+  pk_columns: Archive_Migrations_Pk_Columns_Input;
+};
+
+
+export type Archivemutation_RootUpdate_Migrations_ManyArgs = {
+  updates: Array<Archive_Migrations_Updates>;
+};
+
+
+export type Archivemutation_RootUpdate_WarningArgs = {
+  _set?: InputMaybe<Archive_Warning_Set_Input>;
+  where: Archive_Warning_Bool_Exp;
+};
+
+
+export type Archivemutation_RootUpdate_Warning_ManyArgs = {
+  updates: Array<Archive_Warning_Updates>;
+};
+
+export type Archivequery_Root = {
+  __typename?: 'archivequery_root';
+  /** fetch data from the table: "block" */
+  block: Array<Archive_Block>;
+  /** fetch aggregated fields from the table: "block" */
+  block_aggregate: Archive_Block_Aggregate;
+  /** fetch data from the table: "block" using primary key columns */
+  block_by_pk?: Maybe<Archive_Block>;
+  /** fetch data from the table: "call" */
+  call: Array<Archive_Call>;
+  /** fetch aggregated fields from the table: "call" */
+  call_aggregate: Archive_Call_Aggregate;
+  /** fetch data from the table: "call" using primary key columns */
+  call_by_pk?: Maybe<Archive_Call>;
+  /** fetch data from the table: "contracts_contract_emitted" */
+  contracts_contract_emitted: Array<Archive_Contracts_Contract_Emitted>;
+  /** fetch aggregated fields from the table: "contracts_contract_emitted" */
+  contracts_contract_emitted_aggregate: Archive_Contracts_Contract_Emitted_Aggregate;
+  /** fetch data from the table: "contracts_contract_emitted" using primary key columns */
+  contracts_contract_emitted_by_pk?: Maybe<Archive_Contracts_Contract_Emitted>;
+  /** fetch data from the table: "event" */
+  event: Array<Archive_Event>;
+  /** fetch aggregated fields from the table: "event" */
+  event_aggregate: Archive_Event_Aggregate;
+  /** fetch data from the table: "event" using primary key columns */
+  event_by_pk?: Maybe<Archive_Event>;
+  /** fetch data from the table: "extrinsic" */
+  extrinsic: Array<Archive_Extrinsic>;
+  /** fetch aggregated fields from the table: "extrinsic" */
+  extrinsic_aggregate: Archive_Extrinsic_Aggregate;
+  /** fetch data from the table: "extrinsic" using primary key columns */
+  extrinsic_by_pk?: Maybe<Archive_Extrinsic>;
+  /** fetch data from the table: "frontier_ethereum_transaction" */
+  frontier_ethereum_transaction: Array<Archive_Frontier_Ethereum_Transaction>;
+  /** fetch aggregated fields from the table: "frontier_ethereum_transaction" */
+  frontier_ethereum_transaction_aggregate: Archive_Frontier_Ethereum_Transaction_Aggregate;
+  /** fetch data from the table: "frontier_ethereum_transaction" using primary key columns */
+  frontier_ethereum_transaction_by_pk?: Maybe<Archive_Frontier_Ethereum_Transaction>;
+  /** fetch data from the table: "frontier_evm_log" */
+  frontier_evm_log: Array<Archive_Frontier_Evm_Log>;
+  /** fetch aggregated fields from the table: "frontier_evm_log" */
+  frontier_evm_log_aggregate: Archive_Frontier_Evm_Log_Aggregate;
+  /** fetch data from the table: "frontier_evm_log" using primary key columns */
+  frontier_evm_log_by_pk?: Maybe<Archive_Frontier_Evm_Log>;
+  /** fetch data from the table: "gear_message_enqueued" */
+  gear_message_enqueued: Array<Archive_Gear_Message_Enqueued>;
+  /** fetch aggregated fields from the table: "gear_message_enqueued" */
+  gear_message_enqueued_aggregate: Archive_Gear_Message_Enqueued_Aggregate;
+  /** fetch data from the table: "gear_message_enqueued" using primary key columns */
+  gear_message_enqueued_by_pk?: Maybe<Archive_Gear_Message_Enqueued>;
+  /** fetch data from the table: "gear_user_message_sent" */
+  gear_user_message_sent: Array<Archive_Gear_User_Message_Sent>;
+  /** fetch aggregated fields from the table: "gear_user_message_sent" */
+  gear_user_message_sent_aggregate: Archive_Gear_User_Message_Sent_Aggregate;
+  /** fetch data from the table: "gear_user_message_sent" using primary key columns */
+  gear_user_message_sent_by_pk?: Maybe<Archive_Gear_User_Message_Sent>;
+  /** fetch data from the table: "metadata" */
+  metadata: Array<Archive_Metadata>;
+  /** fetch aggregated fields from the table: "metadata" */
+  metadata_aggregate: Archive_Metadata_Aggregate;
+  /** fetch data from the table: "metadata" using primary key columns */
+  metadata_by_pk?: Maybe<Archive_Metadata>;
+  /** fetch data from the table: "migrations" */
+  migrations: Array<Archive_Migrations>;
+  /** fetch aggregated fields from the table: "migrations" */
+  migrations_aggregate: Archive_Migrations_Aggregate;
+  /** fetch data from the table: "migrations" using primary key columns */
+  migrations_by_pk?: Maybe<Archive_Migrations>;
+  /** fetch data from the table: "warning" */
+  warning: Array<Archive_Warning>;
+  /** fetch aggregated fields from the table: "warning" */
+  warning_aggregate: Archive_Warning_Aggregate;
+};
+
+
+export type Archivequery_RootBlockArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Block_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Block_Order_By>>;
+  where?: InputMaybe<Archive_Block_Bool_Exp>;
+};
+
+
+export type Archivequery_RootBlock_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Block_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Block_Order_By>>;
+  where?: InputMaybe<Archive_Block_Bool_Exp>;
+};
+
+
+export type Archivequery_RootBlock_By_PkArgs = {
+  id: Scalars['archive_bpchar'];
+};
+
+
+export type Archivequery_RootCallArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Call_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Call_Order_By>>;
+  where?: InputMaybe<Archive_Call_Bool_Exp>;
+};
+
+
+export type Archivequery_RootCall_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Call_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Call_Order_By>>;
+  where?: InputMaybe<Archive_Call_Bool_Exp>;
+};
+
+
+export type Archivequery_RootCall_By_PkArgs = {
+  id: Scalars['String'];
+};
+
+
+export type Archivequery_RootContracts_Contract_EmittedArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Contracts_Contract_Emitted_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Contracts_Contract_Emitted_Order_By>>;
+  where?: InputMaybe<Archive_Contracts_Contract_Emitted_Bool_Exp>;
+};
+
+
+export type Archivequery_RootContracts_Contract_Emitted_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Contracts_Contract_Emitted_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Contracts_Contract_Emitted_Order_By>>;
+  where?: InputMaybe<Archive_Contracts_Contract_Emitted_Bool_Exp>;
+};
+
+
+export type Archivequery_RootContracts_Contract_Emitted_By_PkArgs = {
+  event_id: Scalars['archive_bpchar'];
+};
+
+
+export type Archivequery_RootEventArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Event_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Event_Order_By>>;
+  where?: InputMaybe<Archive_Event_Bool_Exp>;
+};
+
+
+export type Archivequery_RootEvent_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Event_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Event_Order_By>>;
+  where?: InputMaybe<Archive_Event_Bool_Exp>;
+};
+
+
+export type Archivequery_RootEvent_By_PkArgs = {
+  id: Scalars['archive_bpchar'];
+};
+
+
+export type Archivequery_RootExtrinsicArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Extrinsic_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Extrinsic_Order_By>>;
+  where?: InputMaybe<Archive_Extrinsic_Bool_Exp>;
+};
+
+
+export type Archivequery_RootExtrinsic_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Extrinsic_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Extrinsic_Order_By>>;
+  where?: InputMaybe<Archive_Extrinsic_Bool_Exp>;
+};
+
+
+export type Archivequery_RootExtrinsic_By_PkArgs = {
+  id: Scalars['archive_bpchar'];
+};
+
+
+export type Archivequery_RootFrontier_Ethereum_TransactionArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Frontier_Ethereum_Transaction_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Frontier_Ethereum_Transaction_Order_By>>;
+  where?: InputMaybe<Archive_Frontier_Ethereum_Transaction_Bool_Exp>;
+};
+
+
+export type Archivequery_RootFrontier_Ethereum_Transaction_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Frontier_Ethereum_Transaction_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Frontier_Ethereum_Transaction_Order_By>>;
+  where?: InputMaybe<Archive_Frontier_Ethereum_Transaction_Bool_Exp>;
+};
+
+
+export type Archivequery_RootFrontier_Ethereum_Transaction_By_PkArgs = {
+  call_id: Scalars['String'];
+};
+
+
+export type Archivequery_RootFrontier_Evm_LogArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Frontier_Evm_Log_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Frontier_Evm_Log_Order_By>>;
+  where?: InputMaybe<Archive_Frontier_Evm_Log_Bool_Exp>;
+};
+
+
+export type Archivequery_RootFrontier_Evm_Log_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Frontier_Evm_Log_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Frontier_Evm_Log_Order_By>>;
+  where?: InputMaybe<Archive_Frontier_Evm_Log_Bool_Exp>;
+};
+
+
+export type Archivequery_RootFrontier_Evm_Log_By_PkArgs = {
+  event_id: Scalars['archive_bpchar'];
+};
+
+
+export type Archivequery_RootGear_Message_EnqueuedArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Gear_Message_Enqueued_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Gear_Message_Enqueued_Order_By>>;
+  where?: InputMaybe<Archive_Gear_Message_Enqueued_Bool_Exp>;
+};
+
+
+export type Archivequery_RootGear_Message_Enqueued_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Gear_Message_Enqueued_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Gear_Message_Enqueued_Order_By>>;
+  where?: InputMaybe<Archive_Gear_Message_Enqueued_Bool_Exp>;
+};
+
+
+export type Archivequery_RootGear_Message_Enqueued_By_PkArgs = {
+  event_id: Scalars['archive_bpchar'];
+};
+
+
+export type Archivequery_RootGear_User_Message_SentArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Gear_User_Message_Sent_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Gear_User_Message_Sent_Order_By>>;
+  where?: InputMaybe<Archive_Gear_User_Message_Sent_Bool_Exp>;
+};
+
+
+export type Archivequery_RootGear_User_Message_Sent_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Gear_User_Message_Sent_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Gear_User_Message_Sent_Order_By>>;
+  where?: InputMaybe<Archive_Gear_User_Message_Sent_Bool_Exp>;
+};
+
+
+export type Archivequery_RootGear_User_Message_Sent_By_PkArgs = {
+  event_id: Scalars['archive_bpchar'];
+};
+
+
+export type Archivequery_RootMetadataArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Metadata_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Metadata_Order_By>>;
+  where?: InputMaybe<Archive_Metadata_Bool_Exp>;
+};
+
+
+export type Archivequery_RootMetadata_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Metadata_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Metadata_Order_By>>;
+  where?: InputMaybe<Archive_Metadata_Bool_Exp>;
+};
+
+
+export type Archivequery_RootMetadata_By_PkArgs = {
+  id: Scalars['String'];
+};
+
+
+export type Archivequery_RootMigrationsArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Migrations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Migrations_Order_By>>;
+  where?: InputMaybe<Archive_Migrations_Bool_Exp>;
+};
+
+
+export type Archivequery_RootMigrations_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Migrations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Migrations_Order_By>>;
+  where?: InputMaybe<Archive_Migrations_Bool_Exp>;
+};
+
+
+export type Archivequery_RootMigrations_By_PkArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type Archivequery_RootWarningArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Warning_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Warning_Order_By>>;
+  where?: InputMaybe<Archive_Warning_Bool_Exp>;
+};
+
+
+export type Archivequery_RootWarning_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Warning_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Warning_Order_By>>;
+  where?: InputMaybe<Archive_Warning_Bool_Exp>;
+};
+
+export type Archivesubscription_Root = {
+  __typename?: 'archivesubscription_root';
+  /** fetch data from the table: "block" */
+  block: Array<Archive_Block>;
+  /** fetch aggregated fields from the table: "block" */
+  block_aggregate: Archive_Block_Aggregate;
+  /** fetch data from the table: "block" using primary key columns */
+  block_by_pk?: Maybe<Archive_Block>;
+  /** fetch data from the table in a streaming manner : "block" */
+  block_stream: Array<Archive_Block>;
+  /** fetch data from the table: "call" */
+  call: Array<Archive_Call>;
+  /** fetch aggregated fields from the table: "call" */
+  call_aggregate: Archive_Call_Aggregate;
+  /** fetch data from the table: "call" using primary key columns */
+  call_by_pk?: Maybe<Archive_Call>;
+  /** fetch data from the table in a streaming manner : "call" */
+  call_stream: Array<Archive_Call>;
+  /** fetch data from the table: "contracts_contract_emitted" */
+  contracts_contract_emitted: Array<Archive_Contracts_Contract_Emitted>;
+  /** fetch aggregated fields from the table: "contracts_contract_emitted" */
+  contracts_contract_emitted_aggregate: Archive_Contracts_Contract_Emitted_Aggregate;
+  /** fetch data from the table: "contracts_contract_emitted" using primary key columns */
+  contracts_contract_emitted_by_pk?: Maybe<Archive_Contracts_Contract_Emitted>;
+  /** fetch data from the table in a streaming manner : "contracts_contract_emitted" */
+  contracts_contract_emitted_stream: Array<Archive_Contracts_Contract_Emitted>;
+  /** fetch data from the table: "event" */
+  event: Array<Archive_Event>;
+  /** fetch aggregated fields from the table: "event" */
+  event_aggregate: Archive_Event_Aggregate;
+  /** fetch data from the table: "event" using primary key columns */
+  event_by_pk?: Maybe<Archive_Event>;
+  /** fetch data from the table in a streaming manner : "event" */
+  event_stream: Array<Archive_Event>;
+  /** fetch data from the table: "extrinsic" */
+  extrinsic: Array<Archive_Extrinsic>;
+  /** fetch aggregated fields from the table: "extrinsic" */
+  extrinsic_aggregate: Archive_Extrinsic_Aggregate;
+  /** fetch data from the table: "extrinsic" using primary key columns */
+  extrinsic_by_pk?: Maybe<Archive_Extrinsic>;
+  /** fetch data from the table in a streaming manner : "extrinsic" */
+  extrinsic_stream: Array<Archive_Extrinsic>;
+  /** fetch data from the table: "frontier_ethereum_transaction" */
+  frontier_ethereum_transaction: Array<Archive_Frontier_Ethereum_Transaction>;
+  /** fetch aggregated fields from the table: "frontier_ethereum_transaction" */
+  frontier_ethereum_transaction_aggregate: Archive_Frontier_Ethereum_Transaction_Aggregate;
+  /** fetch data from the table: "frontier_ethereum_transaction" using primary key columns */
+  frontier_ethereum_transaction_by_pk?: Maybe<Archive_Frontier_Ethereum_Transaction>;
+  /** fetch data from the table in a streaming manner : "frontier_ethereum_transaction" */
+  frontier_ethereum_transaction_stream: Array<Archive_Frontier_Ethereum_Transaction>;
+  /** fetch data from the table: "frontier_evm_log" */
+  frontier_evm_log: Array<Archive_Frontier_Evm_Log>;
+  /** fetch aggregated fields from the table: "frontier_evm_log" */
+  frontier_evm_log_aggregate: Archive_Frontier_Evm_Log_Aggregate;
+  /** fetch data from the table: "frontier_evm_log" using primary key columns */
+  frontier_evm_log_by_pk?: Maybe<Archive_Frontier_Evm_Log>;
+  /** fetch data from the table in a streaming manner : "frontier_evm_log" */
+  frontier_evm_log_stream: Array<Archive_Frontier_Evm_Log>;
+  /** fetch data from the table: "gear_message_enqueued" */
+  gear_message_enqueued: Array<Archive_Gear_Message_Enqueued>;
+  /** fetch aggregated fields from the table: "gear_message_enqueued" */
+  gear_message_enqueued_aggregate: Archive_Gear_Message_Enqueued_Aggregate;
+  /** fetch data from the table: "gear_message_enqueued" using primary key columns */
+  gear_message_enqueued_by_pk?: Maybe<Archive_Gear_Message_Enqueued>;
+  /** fetch data from the table in a streaming manner : "gear_message_enqueued" */
+  gear_message_enqueued_stream: Array<Archive_Gear_Message_Enqueued>;
+  /** fetch data from the table: "gear_user_message_sent" */
+  gear_user_message_sent: Array<Archive_Gear_User_Message_Sent>;
+  /** fetch aggregated fields from the table: "gear_user_message_sent" */
+  gear_user_message_sent_aggregate: Archive_Gear_User_Message_Sent_Aggregate;
+  /** fetch data from the table: "gear_user_message_sent" using primary key columns */
+  gear_user_message_sent_by_pk?: Maybe<Archive_Gear_User_Message_Sent>;
+  /** fetch data from the table in a streaming manner : "gear_user_message_sent" */
+  gear_user_message_sent_stream: Array<Archive_Gear_User_Message_Sent>;
+  /** fetch data from the table: "metadata" */
+  metadata: Array<Archive_Metadata>;
+  /** fetch aggregated fields from the table: "metadata" */
+  metadata_aggregate: Archive_Metadata_Aggregate;
+  /** fetch data from the table: "metadata" using primary key columns */
+  metadata_by_pk?: Maybe<Archive_Metadata>;
+  /** fetch data from the table in a streaming manner : "metadata" */
+  metadata_stream: Array<Archive_Metadata>;
+  /** fetch data from the table: "migrations" */
+  migrations: Array<Archive_Migrations>;
+  /** fetch aggregated fields from the table: "migrations" */
+  migrations_aggregate: Archive_Migrations_Aggregate;
+  /** fetch data from the table: "migrations" using primary key columns */
+  migrations_by_pk?: Maybe<Archive_Migrations>;
+  /** fetch data from the table in a streaming manner : "migrations" */
+  migrations_stream: Array<Archive_Migrations>;
+  /** fetch data from the table: "warning" */
+  warning: Array<Archive_Warning>;
+  /** fetch aggregated fields from the table: "warning" */
+  warning_aggregate: Archive_Warning_Aggregate;
+  /** fetch data from the table in a streaming manner : "warning" */
+  warning_stream: Array<Archive_Warning>;
+};
+
+
+export type Archivesubscription_RootBlockArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Block_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Block_Order_By>>;
+  where?: InputMaybe<Archive_Block_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootBlock_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Block_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Block_Order_By>>;
+  where?: InputMaybe<Archive_Block_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootBlock_By_PkArgs = {
+  id: Scalars['archive_bpchar'];
+};
+
+
+export type Archivesubscription_RootBlock_StreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<Archive_Block_Stream_Cursor_Input>>;
+  where?: InputMaybe<Archive_Block_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootCallArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Call_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Call_Order_By>>;
+  where?: InputMaybe<Archive_Call_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootCall_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Call_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Call_Order_By>>;
+  where?: InputMaybe<Archive_Call_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootCall_By_PkArgs = {
+  id: Scalars['String'];
+};
+
+
+export type Archivesubscription_RootCall_StreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<Archive_Call_Stream_Cursor_Input>>;
+  where?: InputMaybe<Archive_Call_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootContracts_Contract_EmittedArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Contracts_Contract_Emitted_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Contracts_Contract_Emitted_Order_By>>;
+  where?: InputMaybe<Archive_Contracts_Contract_Emitted_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootContracts_Contract_Emitted_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Contracts_Contract_Emitted_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Contracts_Contract_Emitted_Order_By>>;
+  where?: InputMaybe<Archive_Contracts_Contract_Emitted_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootContracts_Contract_Emitted_By_PkArgs = {
+  event_id: Scalars['archive_bpchar'];
+};
+
+
+export type Archivesubscription_RootContracts_Contract_Emitted_StreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<Archive_Contracts_Contract_Emitted_Stream_Cursor_Input>>;
+  where?: InputMaybe<Archive_Contracts_Contract_Emitted_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootEventArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Event_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Event_Order_By>>;
+  where?: InputMaybe<Archive_Event_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootEvent_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Event_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Event_Order_By>>;
+  where?: InputMaybe<Archive_Event_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootEvent_By_PkArgs = {
+  id: Scalars['archive_bpchar'];
+};
+
+
+export type Archivesubscription_RootEvent_StreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<Archive_Event_Stream_Cursor_Input>>;
+  where?: InputMaybe<Archive_Event_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootExtrinsicArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Extrinsic_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Extrinsic_Order_By>>;
+  where?: InputMaybe<Archive_Extrinsic_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootExtrinsic_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Extrinsic_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Extrinsic_Order_By>>;
+  where?: InputMaybe<Archive_Extrinsic_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootExtrinsic_By_PkArgs = {
+  id: Scalars['archive_bpchar'];
+};
+
+
+export type Archivesubscription_RootExtrinsic_StreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<Archive_Extrinsic_Stream_Cursor_Input>>;
+  where?: InputMaybe<Archive_Extrinsic_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootFrontier_Ethereum_TransactionArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Frontier_Ethereum_Transaction_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Frontier_Ethereum_Transaction_Order_By>>;
+  where?: InputMaybe<Archive_Frontier_Ethereum_Transaction_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootFrontier_Ethereum_Transaction_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Frontier_Ethereum_Transaction_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Frontier_Ethereum_Transaction_Order_By>>;
+  where?: InputMaybe<Archive_Frontier_Ethereum_Transaction_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootFrontier_Ethereum_Transaction_By_PkArgs = {
+  call_id: Scalars['String'];
+};
+
+
+export type Archivesubscription_RootFrontier_Ethereum_Transaction_StreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<Archive_Frontier_Ethereum_Transaction_Stream_Cursor_Input>>;
+  where?: InputMaybe<Archive_Frontier_Ethereum_Transaction_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootFrontier_Evm_LogArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Frontier_Evm_Log_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Frontier_Evm_Log_Order_By>>;
+  where?: InputMaybe<Archive_Frontier_Evm_Log_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootFrontier_Evm_Log_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Frontier_Evm_Log_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Frontier_Evm_Log_Order_By>>;
+  where?: InputMaybe<Archive_Frontier_Evm_Log_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootFrontier_Evm_Log_By_PkArgs = {
+  event_id: Scalars['archive_bpchar'];
+};
+
+
+export type Archivesubscription_RootFrontier_Evm_Log_StreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<Archive_Frontier_Evm_Log_Stream_Cursor_Input>>;
+  where?: InputMaybe<Archive_Frontier_Evm_Log_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootGear_Message_EnqueuedArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Gear_Message_Enqueued_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Gear_Message_Enqueued_Order_By>>;
+  where?: InputMaybe<Archive_Gear_Message_Enqueued_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootGear_Message_Enqueued_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Gear_Message_Enqueued_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Gear_Message_Enqueued_Order_By>>;
+  where?: InputMaybe<Archive_Gear_Message_Enqueued_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootGear_Message_Enqueued_By_PkArgs = {
+  event_id: Scalars['archive_bpchar'];
+};
+
+
+export type Archivesubscription_RootGear_Message_Enqueued_StreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<Archive_Gear_Message_Enqueued_Stream_Cursor_Input>>;
+  where?: InputMaybe<Archive_Gear_Message_Enqueued_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootGear_User_Message_SentArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Gear_User_Message_Sent_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Gear_User_Message_Sent_Order_By>>;
+  where?: InputMaybe<Archive_Gear_User_Message_Sent_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootGear_User_Message_Sent_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Gear_User_Message_Sent_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Gear_User_Message_Sent_Order_By>>;
+  where?: InputMaybe<Archive_Gear_User_Message_Sent_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootGear_User_Message_Sent_By_PkArgs = {
+  event_id: Scalars['archive_bpchar'];
+};
+
+
+export type Archivesubscription_RootGear_User_Message_Sent_StreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<Archive_Gear_User_Message_Sent_Stream_Cursor_Input>>;
+  where?: InputMaybe<Archive_Gear_User_Message_Sent_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootMetadataArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Metadata_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Metadata_Order_By>>;
+  where?: InputMaybe<Archive_Metadata_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootMetadata_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Metadata_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Metadata_Order_By>>;
+  where?: InputMaybe<Archive_Metadata_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootMetadata_By_PkArgs = {
+  id: Scalars['String'];
+};
+
+
+export type Archivesubscription_RootMetadata_StreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<Archive_Metadata_Stream_Cursor_Input>>;
+  where?: InputMaybe<Archive_Metadata_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootMigrationsArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Migrations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Migrations_Order_By>>;
+  where?: InputMaybe<Archive_Migrations_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootMigrations_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Migrations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Migrations_Order_By>>;
+  where?: InputMaybe<Archive_Migrations_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootMigrations_By_PkArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type Archivesubscription_RootMigrations_StreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<Archive_Migrations_Stream_Cursor_Input>>;
+  where?: InputMaybe<Archive_Migrations_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootWarningArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Warning_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Warning_Order_By>>;
+  where?: InputMaybe<Archive_Warning_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootWarning_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Archive_Warning_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Archive_Warning_Order_By>>;
+  where?: InputMaybe<Archive_Warning_Bool_Exp>;
+};
+
+
+export type Archivesubscription_RootWarning_StreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<Archive_Warning_Stream_Cursor_Input>>;
+  where?: InputMaybe<Archive_Warning_Bool_Exp>;
 };
 
 export type BalancesQuery = {
@@ -1669,9 +5670,15 @@ export type Evm_TransactionsConnection = {
   totalCount: Scalars['Int'];
 };
 
+/** mutation root */
+export type Mutation_Root = {
+  __typename?: 'mutation_root';
+  archive?: Maybe<Archivemutation_Root>;
+};
+
 export type Query_Root = {
   __typename?: 'query_root';
-  archive?: Maybe<ArchiveQuery>;
+  archive?: Maybe<Archivequery_Root>;
   balances?: Maybe<BalancesQuery>;
   evm?: Maybe<EvmQuery>;
   transfers?: Maybe<TransfersQuery>;
@@ -1679,6 +5686,7 @@ export type Query_Root = {
 
 export type Subscription_Root = {
   __typename?: 'subscription_root';
+  archive?: Maybe<Archivesubscription_Root>;
   balances?: Maybe<BalancesSubscription>;
   evm?: Maybe<EvmSubscription>;
   transfers?: Maybe<TransfersSubscription>;
@@ -2010,14 +6018,14 @@ export type GetBlockQueryVariables = Exact<{
 }>;
 
 
-export type GetBlockQuery = { __typename?: 'query_root', archive?: { __typename?: 'archiveQuery', blocks: Array<{ __typename?: 'archive_Block', hash: string, height: number, id: string, parentHash: string, timestamp: any, validator?: string | null, spec: { __typename?: 'archive_Metadata', specVersion?: number | null, specName: string } }> } | null };
+export type GetBlockQuery = { __typename?: 'query_root', archive?: { __typename?: 'archivequery_root', block: Array<{ __typename?: 'archive_block', validator?: string | null, timestamp: any, state_root: any, spec_id: string, parent_hash: any, id: any, height: number, hash: any, extrinsics: Array<{ __typename?: 'archive_extrinsic', version: number, tip?: any | null, success: boolean, signature?: any | null, pos: number, index_in_block: number, id: any, hash: any, fee?: any | null, call_id: string, block_id: any }>, events: Array<{ __typename?: 'archive_event', pos: number, phase: string, name: string, index_in_block: number, id: any, block_id: any, args?: any | null, extrinsic_id?: any | null }> }> } | null };
 
 export type GetBlocksQueryVariables = Exact<{
   limit: Scalars['Int'];
 }>;
 
 
-export type GetBlocksQuery = { __typename?: 'query_root', archive?: { __typename?: 'archiveQuery', blocks: Array<{ __typename?: 'archive_Block', hash: string, height: number, id: string, parentHash: string, timestamp: any, validator?: string | null, spec: { __typename?: 'archive_Metadata', specVersion?: number | null, specName: string } }> } | null };
+export type GetBlocksQuery = { __typename?: 'query_root', archive?: { __typename?: 'archivequery_root', block: Array<{ __typename?: 'archive_block', hash: any, height: number, id: any, timestamp: any, validator?: string | null, state_root: any, spec_id: string, parent_hash: any, extrinsics_root: any, events_aggregate: { __typename?: 'archive_event_aggregate', aggregate?: { __typename?: 'archive_event_aggregate_fields', count: number } | null }, extrinsics_aggregate: { __typename?: 'archive_extrinsic_aggregate', aggregate?: { __typename?: 'archive_extrinsic_aggregate_fields', count: number } | null } }> } | null };
 
 export type GetEvmTransactionsForAddressQueryVariables = Exact<{
   address: Scalars['String'];
@@ -2123,16 +6131,37 @@ export const useGetBalancesQuery = <
 export const GetBlockDocument = `
     query GetBlock($height: Int!) {
   archive {
-    blocks(limit: 1, where: {height_eq: $height}) {
-      hash
-      height
-      id
-      parentHash
-      timestamp
+    block(limit: 1, where: {height: {_eq: $height}}) {
       validator
-      spec {
-        specVersion
-        specName
+      timestamp
+      state_root
+      spec_id
+      parent_hash
+      id
+      height
+      hash
+      extrinsics {
+        version
+        tip
+        success
+        signature
+        pos
+        index_in_block
+        id
+        hash
+        fee
+        call_id
+        block_id
+      }
+      events {
+        pos
+        phase
+        name
+        index_in_block
+        id
+        block_id
+        args
+        extrinsic_id
       }
     }
   }
@@ -2155,17 +6184,26 @@ export const useGetBlockQuery = <
 export const GetBlocksDocument = `
     query GetBlocks($limit: Int!) {
   archive {
-    blocks(orderBy: height_DESC, limit: $limit) {
+    block(order_by: {height: desc}, limit: $limit) {
       hash
       height
       id
-      parentHash
       timestamp
       validator
-      spec {
-        specVersion
-        specName
+      events_aggregate {
+        aggregate {
+          count
+        }
       }
+      extrinsics_aggregate {
+        aggregate {
+          count
+        }
+      }
+      state_root
+      spec_id
+      parent_hash
+      extrinsics_root
     }
   }
 }

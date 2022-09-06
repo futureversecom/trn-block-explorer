@@ -16,7 +16,8 @@ export default function Block() {
   let query = usePolling({}, useGetBlockQuery, {
     height: parseInt(blocknumber),
   });
-  query.data = query?.data?.archive?.blocks[0];
+
+  query.data = query?.data?.archive?.block[0];
 
   const getPrevBlock = () => {
     if (parseInt(blocknumber) == 0) {
@@ -25,6 +26,10 @@ export default function Block() {
       return parseInt(blocknumber) - 1;
     }
   };
+
+  if (!query.isLoading && !query.data || Number(blocknumber) >= Number.MAX_SAFE_INTEGER) {
+    return "No data found";
+  }
 
   return (
     <ContainerLayout>

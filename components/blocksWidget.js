@@ -12,7 +12,7 @@ export default function BlocksWidget() {
     limit: 10,
   });
 
-  const blocks = query?.data?.archive?.blocks;
+  const blocks = query?.data?.archive?.block;
 
   return (
     <div>
@@ -43,8 +43,8 @@ export default function BlocksWidget() {
             <BlockItem
               key={key}
               height={item.height}
-              extrinsics={item.extrinsics || "?"}
-              events={item.events || "?"}
+              extrinsics={item?.extrinsics_aggregate?.aggregate?.count || "?"}
+              events={item?.events_aggregate?.aggregate?.count || "?"}
               timestamp={item.timestamp}
               status={true}
             />

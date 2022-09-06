@@ -1,15 +1,36 @@
 query GetBlock($height: Int!) {
   archive {
-    blocks(limit: 1, where: { height_eq: $height } ) {
-      hash
-      height
-      id
-      parentHash
-      timestamp
+    block(limit: 1, where: { height: { _eq: $height } }) {
       validator
-      spec {
-        specVersion
-        specName
+      timestamp
+      state_root
+      spec_id
+      parent_hash
+      id
+      height
+      hash
+      extrinsics {
+        version
+        tip
+        success
+        signature
+        pos
+        index_in_block
+        id
+        hash
+        fee
+        call_id
+        block_id
+      }
+      events {
+        pos
+        phase
+        name
+        index_in_block
+        id
+        block_id
+        args
+        extrinsic_id
       }
     }
   }

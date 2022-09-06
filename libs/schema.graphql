@@ -1,5 +1,6 @@
 schema {
   query: query_root
+  mutation: mutation_root
   subscription: subscription_root
 }
 
@@ -12,771 +13,6160 @@ directive @cached(
   refresh: Boolean! = false
 ) on QUERY
 
-type archiveQuery {
-  blockById(id: ID!): archive_Block
-  blockByUniqueInput(where: archive_BlockWhereUniqueInput!): archive_Block
-  blocks(limit: Int, offset: Int, orderBy: [archive_BlockOrderByInput], where: archive_BlockWhereInput): [archive_Block!]!
-  blocksConnection(after: String, first: Int, orderBy: [archive_BlockOrderByInput!]!, where: archive_BlockWhereInput): archive_BlocksConnection!
-  callById(id: ID!): archive_Call
-  callByUniqueInput(where: archive_CallWhereUniqueInput!): archive_Call
-  calls(limit: Int, offset: Int, orderBy: [archive_CallOrderByInput], where: archive_CallWhereInput): [archive_Call!]!
-  callsConnection(after: String, first: Int, orderBy: [archive_CallOrderByInput!]!, where: archive_CallWhereInput): archive_CallsConnection!
-  eventById(id: ID!): archive_Event
-  eventByUniqueInput(where: archive_EventWhereUniqueInput!): archive_Event
-  events(limit: Int, offset: Int, orderBy: [archive_EventOrderByInput], where: archive_EventWhereInput): [archive_Event!]!
-  eventsConnection(after: String, first: Int, orderBy: [archive_EventOrderByInput!]!, where: archive_EventWhereInput): archive_EventsConnection!
-  extrinsicById(id: ID!): archive_Extrinsic
-  extrinsicByUniqueInput(where: archive_ExtrinsicWhereUniqueInput!): archive_Extrinsic
-  extrinsics(limit: Int, offset: Int, orderBy: [archive_ExtrinsicOrderByInput], where: archive_ExtrinsicWhereInput): [archive_Extrinsic!]!
-  extrinsicsConnection(after: String, first: Int, orderBy: [archive_ExtrinsicOrderByInput!]!, where: archive_ExtrinsicWhereInput): archive_ExtrinsicsConnection!
-  metadata(limit: Int, offset: Int, orderBy: [archive_MetadataOrderByInput], where: archive_MetadataWhereInput): [archive_Metadata!]!
-  metadataById(id: ID!): archive_Metadata
-  metadataByUniqueInput(where: archive_MetadataWhereUniqueInput!): archive_Metadata
-  metadataConnection(after: String, first: Int, orderBy: [archive_MetadataOrderByInput!]!, where: archive_MetadataWhereInput): archive_MetadataConnection!
+"""
+Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'.
+"""
+input archive_Boolean_comparison_exp {
+  _eq: Boolean
+  _gt: Boolean
+  _gte: Boolean
+  _in: [Boolean!]
+  _is_null: Boolean
+  _lt: Boolean
+  _lte: Boolean
+  _neq: Boolean
+  _nin: [Boolean!]
 }
 
-"""Big number integer"""
-scalar archive_BigInt
+"""
+Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'.
+"""
+input archive_Int_comparison_exp {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  _is_null: Boolean
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int!]
+}
 
-type archive_Block {
-  calls(limit: Int, offset: Int, orderBy: [archive_CallOrderByInput], where: archive_CallWhereInput): [archive_Call!]!
-  events(limit: Int, offset: Int, orderBy: [archive_EventOrderByInput], where: archive_EventWhereInput): [archive_Event!]!
-  extrinsics(limit: Int, offset: Int, orderBy: [archive_ExtrinsicOrderByInput], where: archive_ExtrinsicWhereInput): [archive_Extrinsic!]!
-  hash: String!
+"""
+Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'.
+"""
+input archive_String_comparison_exp {
+  _eq: String
+  _gt: String
+  _gte: String
+
+  """does the column match the given case-insensitive pattern"""
+  _ilike: String
+  _in: [String!]
+
+  """
+  does the column match the given POSIX regular expression, case insensitive
+  """
+  _iregex: String
+  _is_null: Boolean
+
+  """does the column match the given pattern"""
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+
+  """does the column NOT match the given case-insensitive pattern"""
+  _nilike: String
+  _nin: [String!]
+
+  """
+  does the column NOT match the given POSIX regular expression, case insensitive
+  """
+  _niregex: String
+
+  """does the column NOT match the given pattern"""
+  _nlike: String
+
+  """
+  does the column NOT match the given POSIX regular expression, case sensitive
+  """
+  _nregex: String
+
+  """does the column NOT match the given SQL regular expression"""
+  _nsimilar: String
+
+  """
+  does the column match the given POSIX regular expression, case sensitive
+  """
+  _regex: String
+
+  """does the column match the given SQL regular expression"""
+  _similar: String
+}
+
+"""
+columns and relationships of "block"
+"""
+type archive_block {
+  """An array relationship"""
+  calls(
+    """distinct select on columns"""
+    distinct_on: [archive_call_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_call_order_by!]
+
+    """filter the rows returned"""
+    where: archive_call_bool_exp
+  ): [archive_call!]!
+
+  """An aggregate relationship"""
+  calls_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_call_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_call_order_by!]
+
+    """filter the rows returned"""
+    where: archive_call_bool_exp
+  ): archive_call_aggregate!
+
+  """An array relationship"""
+  events(
+    """distinct select on columns"""
+    distinct_on: [archive_event_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_event_order_by!]
+
+    """filter the rows returned"""
+    where: archive_event_bool_exp
+  ): [archive_event!]!
+
+  """An aggregate relationship"""
+  events_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_event_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_event_order_by!]
+
+    """filter the rows returned"""
+    where: archive_event_bool_exp
+  ): archive_event_aggregate!
+
+  """An array relationship"""
+  extrinsics(
+    """distinct select on columns"""
+    distinct_on: [archive_extrinsic_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_extrinsic_order_by!]
+
+    """filter the rows returned"""
+    where: archive_extrinsic_bool_exp
+  ): [archive_extrinsic!]!
+
+  """An aggregate relationship"""
+  extrinsics_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_extrinsic_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_extrinsic_order_by!]
+
+    """filter the rows returned"""
+    where: archive_extrinsic_bool_exp
+  ): archive_extrinsic_aggregate!
+  extrinsics_root: archive_bpchar!
+  hash: archive_bpchar!
   height: Int!
-  id: ID!
-  parentHash: String!
-  spec: archive_Metadata!
-  timestamp: archive_BigInt!
+  id: archive_bpchar!
+  parent_hash: archive_bpchar!
+  spec_id: String!
+  state_root: archive_bpchar!
+  timestamp: archive_timestamptz!
   validator: String
 }
 
-type archive_BlockEdge {
-  cursor: String!
-  node: archive_Block!
+"""
+aggregated selection of "block"
+"""
+type archive_block_aggregate {
+  aggregate: archive_block_aggregate_fields
+  nodes: [archive_block!]!
 }
 
-enum archive_BlockOrderByInput {
-  hash_ASC
-  hash_DESC
-  height_ASC
-  height_DESC
-  id_ASC
-  id_DESC
-  parentHash_ASC
-  parentHash_DESC
-  spec_blockHash_ASC
-  spec_blockHash_DESC
-  spec_blockHeight_ASC
-  spec_blockHeight_DESC
-  spec_hex_ASC
-  spec_hex_DESC
-  spec_id_ASC
-  spec_id_DESC
-  spec_specName_ASC
-  spec_specName_DESC
-  spec_specVersion_ASC
-  spec_specVersion_DESC
-  timestamp_ASC
-  timestamp_DESC
-  validator_ASC
-  validator_DESC
+"""
+aggregate fields of "block"
+"""
+type archive_block_aggregate_fields {
+  avg: archive_block_avg_fields
+  count(columns: [archive_block_select_column!], distinct: Boolean): Int!
+  max: archive_block_max_fields
+  min: archive_block_min_fields
+  stddev: archive_block_stddev_fields
+  stddev_pop: archive_block_stddev_pop_fields
+  stddev_samp: archive_block_stddev_samp_fields
+  sum: archive_block_sum_fields
+  var_pop: archive_block_var_pop_fields
+  var_samp: archive_block_var_samp_fields
+  variance: archive_block_variance_fields
 }
 
-input archive_BlockWhereInput {
-  AND: [archive_BlockWhereInput!]
-  OR: [archive_BlockWhereInput!]
-  calls_every: archive_CallWhereInput
-  calls_none: archive_CallWhereInput
-  calls_some: archive_CallWhereInput
-  events_every: archive_EventWhereInput
-  events_none: archive_EventWhereInput
-  events_some: archive_EventWhereInput
-  extrinsics_every: archive_ExtrinsicWhereInput
-  extrinsics_none: archive_ExtrinsicWhereInput
-  extrinsics_some: archive_ExtrinsicWhereInput
-  hash_contains: String
-  hash_containsInsensitive: String
-  hash_endsWith: String
-  hash_eq: String
-  hash_gt: String
-  hash_gte: String
-  hash_in: [String!]
-  hash_lt: String
-  hash_lte: String
-  hash_not_contains: String
-  hash_not_containsInsensitive: String
-  hash_not_endsWith: String
-  hash_not_eq: String
-  hash_not_in: [String!]
-  hash_not_startsWith: String
-  hash_startsWith: String
-  height_eq: Int
-  height_gt: Int
-  height_gte: Int
-  height_in: [Int!]
-  height_lt: Int
-  height_lte: Int
-  height_not_eq: Int
-  height_not_in: [Int!]
-  id_contains: ID
-  id_containsInsensitive: ID
-  id_endsWith: ID
-  id_eq: ID
-  id_gt: ID
-  id_gte: ID
-  id_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_not_contains: ID
-  id_not_containsInsensitive: ID
-  id_not_endsWith: ID
-  id_not_eq: ID
-  id_not_in: [ID!]
-  id_not_startsWith: ID
-  id_startsWith: ID
-  parentHash_contains: String
-  parentHash_containsInsensitive: String
-  parentHash_endsWith: String
-  parentHash_eq: String
-  parentHash_gt: String
-  parentHash_gte: String
-  parentHash_in: [String!]
-  parentHash_lt: String
-  parentHash_lte: String
-  parentHash_not_contains: String
-  parentHash_not_containsInsensitive: String
-  parentHash_not_endsWith: String
-  parentHash_not_eq: String
-  parentHash_not_in: [String!]
-  parentHash_not_startsWith: String
-  parentHash_startsWith: String
-  spec: archive_MetadataWhereInput
-  timestamp_eq: archive_BigInt
-  timestamp_gt: archive_BigInt
-  timestamp_gte: archive_BigInt
-  timestamp_in: [archive_BigInt!]
-  timestamp_lt: archive_BigInt
-  timestamp_lte: archive_BigInt
-  timestamp_not_eq: archive_BigInt
-  timestamp_not_in: [archive_BigInt!]
-  validator_contains: String
-  validator_containsInsensitive: String
-  validator_endsWith: String
-  validator_eq: String
-  validator_gt: String
-  validator_gte: String
-  validator_in: [String!]
-  validator_isNull: Boolean
-  validator_lt: String
-  validator_lte: String
-  validator_not_contains: String
-  validator_not_containsInsensitive: String
-  validator_not_endsWith: String
-  validator_not_eq: String
-  validator_not_in: [String!]
-  validator_not_startsWith: String
-  validator_startsWith: String
+"""aggregate avg on columns"""
+type archive_block_avg_fields {
+  height: Float
 }
 
-input archive_BlockWhereUniqueInput {
-  id: ID!
+"""
+Boolean expression to filter rows from the table "block". All fields are combined with a logical 'AND'.
+"""
+input archive_block_bool_exp {
+  _and: [archive_block_bool_exp!]
+  _not: archive_block_bool_exp
+  _or: [archive_block_bool_exp!]
+  calls: archive_call_bool_exp
+  events: archive_event_bool_exp
+  extrinsics: archive_extrinsic_bool_exp
+  extrinsics_root: archive_bpchar_comparison_exp
+  hash: archive_bpchar_comparison_exp
+  height: archive_Int_comparison_exp
+  id: archive_bpchar_comparison_exp
+  parent_hash: archive_bpchar_comparison_exp
+  spec_id: archive_String_comparison_exp
+  state_root: archive_bpchar_comparison_exp
+  timestamp: archive_timestamptz_comparison_exp
+  validator: archive_String_comparison_exp
 }
 
-type archive_BlocksConnection {
-  edges: [archive_BlockEdge!]!
-  pageInfo: balances_PageInfo!
-  totalCount: Int!
+"""
+unique or primary key constraints on table "block"
+"""
+enum archive_block_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  block_pkey
 }
 
-type archive_Call {
-  args: archive_JSON
-  block: archive_Block!
-  error: archive_JSON
-  extrinsic: archive_Extrinsic!
-  id: ID!
+"""
+input type for incrementing numeric columns in table "block"
+"""
+input archive_block_inc_input {
+  height: Int
+}
+
+"""
+input type for inserting data into table "block"
+"""
+input archive_block_insert_input {
+  calls: archive_call_arr_rel_insert_input
+  events: archive_event_arr_rel_insert_input
+  extrinsics: archive_extrinsic_arr_rel_insert_input
+  extrinsics_root: archive_bpchar
+  hash: archive_bpchar
+  height: Int
+  id: archive_bpchar
+  parent_hash: archive_bpchar
+  spec_id: String
+  state_root: archive_bpchar
+  timestamp: archive_timestamptz
+  validator: String
+}
+
+"""aggregate max on columns"""
+type archive_block_max_fields {
+  extrinsics_root: archive_bpchar
+  hash: archive_bpchar
+  height: Int
+  id: archive_bpchar
+  parent_hash: archive_bpchar
+  spec_id: String
+  state_root: archive_bpchar
+  timestamp: archive_timestamptz
+  validator: String
+}
+
+"""aggregate min on columns"""
+type archive_block_min_fields {
+  extrinsics_root: archive_bpchar
+  hash: archive_bpchar
+  height: Int
+  id: archive_bpchar
+  parent_hash: archive_bpchar
+  spec_id: String
+  state_root: archive_bpchar
+  timestamp: archive_timestamptz
+  validator: String
+}
+
+"""
+response of any mutation on the table "block"
+"""
+type archive_block_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [archive_block!]!
+}
+
+"""
+input type for inserting object relation for remote table "block"
+"""
+input archive_block_obj_rel_insert_input {
+  data: archive_block_insert_input!
+
+  """upsert condition"""
+  on_conflict: archive_block_on_conflict
+}
+
+"""
+on_conflict condition type for table "block"
+"""
+input archive_block_on_conflict {
+  constraint: archive_block_constraint!
+  update_columns: [archive_block_update_column!]! = []
+  where: archive_block_bool_exp
+}
+
+"""Ordering options when selecting data from "block"."""
+input archive_block_order_by {
+  calls_aggregate: archive_call_aggregate_order_by
+  events_aggregate: archive_event_aggregate_order_by
+  extrinsics_aggregate: archive_extrinsic_aggregate_order_by
+  extrinsics_root: archive_order_by
+  hash: archive_order_by
+  height: archive_order_by
+  id: archive_order_by
+  parent_hash: archive_order_by
+  spec_id: archive_order_by
+  state_root: archive_order_by
+  timestamp: archive_order_by
+  validator: archive_order_by
+}
+
+"""primary key columns input for table: block"""
+input archive_block_pk_columns_input {
+  id: archive_bpchar!
+}
+
+"""
+select columns of table "block"
+"""
+enum archive_block_select_column {
+  """column name"""
+  extrinsics_root
+
+  """column name"""
+  hash
+
+  """column name"""
+  height
+
+  """column name"""
+  id
+
+  """column name"""
+  parent_hash
+
+  """column name"""
+  spec_id
+
+  """column name"""
+  state_root
+
+  """column name"""
+  timestamp
+
+  """column name"""
+  validator
+}
+
+"""
+input type for updating data in table "block"
+"""
+input archive_block_set_input {
+  extrinsics_root: archive_bpchar
+  hash: archive_bpchar
+  height: Int
+  id: archive_bpchar
+  parent_hash: archive_bpchar
+  spec_id: String
+  state_root: archive_bpchar
+  timestamp: archive_timestamptz
+  validator: String
+}
+
+"""aggregate stddev on columns"""
+type archive_block_stddev_fields {
+  height: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type archive_block_stddev_pop_fields {
+  height: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type archive_block_stddev_samp_fields {
+  height: Float
+}
+
+"""
+Streaming cursor of the table "block"
+"""
+input archive_block_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: archive_block_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: archive_cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input archive_block_stream_cursor_value_input {
+  extrinsics_root: archive_bpchar
+  hash: archive_bpchar
+  height: Int
+  id: archive_bpchar
+  parent_hash: archive_bpchar
+  spec_id: String
+  state_root: archive_bpchar
+  timestamp: archive_timestamptz
+  validator: String
+}
+
+"""aggregate sum on columns"""
+type archive_block_sum_fields {
+  height: Int
+}
+
+"""
+update columns of table "block"
+"""
+enum archive_block_update_column {
+  """column name"""
+  extrinsics_root
+
+  """column name"""
+  hash
+
+  """column name"""
+  height
+
+  """column name"""
+  id
+
+  """column name"""
+  parent_hash
+
+  """column name"""
+  spec_id
+
+  """column name"""
+  state_root
+
+  """column name"""
+  timestamp
+
+  """column name"""
+  validator
+}
+
+input archive_block_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: archive_block_inc_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: archive_block_set_input
+  where: archive_block_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type archive_block_var_pop_fields {
+  height: Float
+}
+
+"""aggregate var_samp on columns"""
+type archive_block_var_samp_fields {
+  height: Float
+}
+
+"""aggregate variance on columns"""
+type archive_block_variance_fields {
+  height: Float
+}
+
+scalar archive_bpchar
+
+"""
+Boolean expression to compare columns of type "bpchar". All fields are combined with logical 'AND'.
+"""
+input archive_bpchar_comparison_exp {
+  _eq: archive_bpchar
+  _gt: archive_bpchar
+  _gte: archive_bpchar
+
+  """does the column match the given case-insensitive pattern"""
+  _ilike: archive_bpchar
+  _in: [archive_bpchar!]
+
+  """
+  does the column match the given POSIX regular expression, case insensitive
+  """
+  _iregex: archive_bpchar
+  _is_null: Boolean
+
+  """does the column match the given pattern"""
+  _like: archive_bpchar
+  _lt: archive_bpchar
+  _lte: archive_bpchar
+  _neq: archive_bpchar
+
+  """does the column NOT match the given case-insensitive pattern"""
+  _nilike: archive_bpchar
+  _nin: [archive_bpchar!]
+
+  """
+  does the column NOT match the given POSIX regular expression, case insensitive
+  """
+  _niregex: archive_bpchar
+
+  """does the column NOT match the given pattern"""
+  _nlike: archive_bpchar
+
+  """
+  does the column NOT match the given POSIX regular expression, case sensitive
+  """
+  _nregex: archive_bpchar
+
+  """does the column NOT match the given SQL regular expression"""
+  _nsimilar: archive_bpchar
+
+  """
+  does the column match the given POSIX regular expression, case sensitive
+  """
+  _regex: archive_bpchar
+
+  """does the column match the given SQL regular expression"""
+  _similar: archive_bpchar
+}
+
+"""
+columns and relationships of "call"
+"""
+type archive_call {
+  args(
+    """JSON select path"""
+    path: String
+  ): archive_jsonb
+
+  """An object relationship"""
+  block: archive_block!
+  block_id: archive_bpchar!
+
+  """An object relationship"""
+  call: archive_call
+
+  """An array relationship"""
+  calls(
+    """distinct select on columns"""
+    distinct_on: [archive_call_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_call_order_by!]
+
+    """filter the rows returned"""
+    where: archive_call_bool_exp
+  ): [archive_call!]!
+
+  """An aggregate relationship"""
+  calls_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_call_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_call_order_by!]
+
+    """filter the rows returned"""
+    where: archive_call_bool_exp
+  ): archive_call_aggregate!
+  error(
+    """JSON select path"""
+    path: String
+  ): archive_jsonb
+
+  """An array relationship"""
+  events(
+    """distinct select on columns"""
+    distinct_on: [archive_event_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_event_order_by!]
+
+    """filter the rows returned"""
+    where: archive_event_bool_exp
+  ): [archive_event!]!
+
+  """An aggregate relationship"""
+  events_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_event_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_event_order_by!]
+
+    """filter the rows returned"""
+    where: archive_event_bool_exp
+  ): archive_event_aggregate!
+
+  """An object relationship"""
+  extrinsic: archive_extrinsic!
+  extrinsic_id: archive_bpchar!
+
+  """An object relationship"""
+  frontier_ethereum_transaction: archive_frontier_ethereum_transaction
+  id: String!
   name: String!
-  origin: archive_JSON
-  parent: archive_Call
+  origin(
+    """JSON select path"""
+    path: String
+  ): archive_jsonb
+  parent_id: String
   pos: Int!
   success: Boolean!
 }
 
-type archive_CallEdge {
-  cursor: String!
-  node: archive_Call!
+"""
+aggregated selection of "call"
+"""
+type archive_call_aggregate {
+  aggregate: archive_call_aggregate_fields
+  nodes: [archive_call!]!
 }
 
-enum archive_CallOrderByInput {
-  block_hash_ASC
-  block_hash_DESC
-  block_height_ASC
-  block_height_DESC
-  block_id_ASC
-  block_id_DESC
-  block_parentHash_ASC
-  block_parentHash_DESC
-  block_timestamp_ASC
-  block_timestamp_DESC
-  block_validator_ASC
-  block_validator_DESC
-  extrinsic_fee_ASC
-  extrinsic_fee_DESC
-  extrinsic_hash_ASC
-  extrinsic_hash_DESC
-  extrinsic_id_ASC
-  extrinsic_id_DESC
-  extrinsic_indexInBlock_ASC
-  extrinsic_indexInBlock_DESC
-  extrinsic_pos_ASC
-  extrinsic_pos_DESC
-  extrinsic_success_ASC
-  extrinsic_success_DESC
-  extrinsic_tip_ASC
-  extrinsic_tip_DESC
-  extrinsic_version_ASC
-  extrinsic_version_DESC
-  id_ASC
-  id_DESC
-  name_ASC
-  name_DESC
-  parent_id_ASC
-  parent_id_DESC
-  parent_name_ASC
-  parent_name_DESC
-  parent_pos_ASC
-  parent_pos_DESC
-  parent_success_ASC
-  parent_success_DESC
-  pos_ASC
-  pos_DESC
-  success_ASC
-  success_DESC
+"""
+aggregate fields of "call"
+"""
+type archive_call_aggregate_fields {
+  avg: archive_call_avg_fields
+  count(columns: [archive_call_select_column!], distinct: Boolean): Int!
+  max: archive_call_max_fields
+  min: archive_call_min_fields
+  stddev: archive_call_stddev_fields
+  stddev_pop: archive_call_stddev_pop_fields
+  stddev_samp: archive_call_stddev_samp_fields
+  sum: archive_call_sum_fields
+  var_pop: archive_call_var_pop_fields
+  var_samp: archive_call_var_samp_fields
+  variance: archive_call_variance_fields
 }
 
-input archive_CallWhereInput {
-  AND: [archive_CallWhereInput!]
-  OR: [archive_CallWhereInput!]
-  args_eq: archive_JSON
-  args_isNull: Boolean
-  args_jsonContains: archive_JSON
-  args_jsonHasKey: archive_JSON
-  args_not_eq: archive_JSON
-  block: archive_BlockWhereInput
-  error_eq: archive_JSON
-  error_isNull: Boolean
-  error_jsonContains: archive_JSON
-  error_jsonHasKey: archive_JSON
-  error_not_eq: archive_JSON
-  extrinsic: archive_ExtrinsicWhereInput
-  id_contains: ID
-  id_containsInsensitive: ID
-  id_endsWith: ID
-  id_eq: ID
-  id_gt: ID
-  id_gte: ID
-  id_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_not_contains: ID
-  id_not_containsInsensitive: ID
-  id_not_endsWith: ID
-  id_not_eq: ID
-  id_not_in: [ID!]
-  id_not_startsWith: ID
-  id_startsWith: ID
-  name_contains: String
-  name_containsInsensitive: String
-  name_endsWith: String
-  name_eq: String
-  name_gt: String
-  name_gte: String
-  name_in: [String!]
-  name_lt: String
-  name_lte: String
-  name_not_contains: String
-  name_not_containsInsensitive: String
-  name_not_endsWith: String
-  name_not_eq: String
-  name_not_in: [String!]
-  name_not_startsWith: String
-  name_startsWith: String
-  origin_eq: archive_JSON
-  origin_isNull: Boolean
-  origin_jsonContains: archive_JSON
-  origin_jsonHasKey: archive_JSON
-  origin_not_eq: archive_JSON
-  parent: archive_CallWhereInput
-  parent_isNull: Boolean
-  pos_eq: Int
-  pos_gt: Int
-  pos_gte: Int
-  pos_in: [Int!]
-  pos_lt: Int
-  pos_lte: Int
-  pos_not_eq: Int
-  pos_not_in: [Int!]
-  success_eq: Boolean
-  success_not_eq: Boolean
+"""
+order by aggregate values of table "call"
+"""
+input archive_call_aggregate_order_by {
+  avg: archive_call_avg_order_by
+  count: archive_order_by
+  max: archive_call_max_order_by
+  min: archive_call_min_order_by
+  stddev: archive_call_stddev_order_by
+  stddev_pop: archive_call_stddev_pop_order_by
+  stddev_samp: archive_call_stddev_samp_order_by
+  sum: archive_call_sum_order_by
+  var_pop: archive_call_var_pop_order_by
+  var_samp: archive_call_var_samp_order_by
+  variance: archive_call_variance_order_by
 }
 
-input archive_CallWhereUniqueInput {
-  id: ID!
+"""append existing jsonb value of filtered columns with new jsonb value"""
+input archive_call_append_input {
+  args: archive_jsonb
+  error: archive_jsonb
+  origin: archive_jsonb
 }
 
-type archive_CallsConnection {
-  edges: [archive_CallEdge!]!
-  pageInfo: balances_PageInfo!
-  totalCount: Int!
+"""
+input type for inserting array relation for remote table "call"
+"""
+input archive_call_arr_rel_insert_input {
+  data: [archive_call_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: archive_call_on_conflict
 }
 
-type archive_Event {
-  args: archive_JSON
-  block: archive_Block!
-  call: archive_Call
-  extrinsic: archive_Extrinsic
-  id: ID!
-  indexInBlock: Int!
+"""aggregate avg on columns"""
+type archive_call_avg_fields {
+  pos: Float
+}
+
+"""
+order by avg() on columns of table "call"
+"""
+input archive_call_avg_order_by {
+  pos: archive_order_by
+}
+
+"""
+Boolean expression to filter rows from the table "call". All fields are combined with a logical 'AND'.
+"""
+input archive_call_bool_exp {
+  _and: [archive_call_bool_exp!]
+  _not: archive_call_bool_exp
+  _or: [archive_call_bool_exp!]
+  args: archive_jsonb_comparison_exp
+  block: archive_block_bool_exp
+  block_id: archive_bpchar_comparison_exp
+  call: archive_call_bool_exp
+  calls: archive_call_bool_exp
+  error: archive_jsonb_comparison_exp
+  events: archive_event_bool_exp
+  extrinsic: archive_extrinsic_bool_exp
+  extrinsic_id: archive_bpchar_comparison_exp
+  frontier_ethereum_transaction: archive_frontier_ethereum_transaction_bool_exp
+  id: archive_String_comparison_exp
+  name: archive_String_comparison_exp
+  origin: archive_jsonb_comparison_exp
+  parent_id: archive_String_comparison_exp
+  pos: archive_Int_comparison_exp
+  success: archive_Boolean_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "call"
+"""
+enum archive_call_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  call_pkey
+}
+
+"""
+delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+"""
+input archive_call_delete_at_path_input {
+  args: [String!]
+  error: [String!]
+  origin: [String!]
+}
+
+"""
+delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+"""
+input archive_call_delete_elem_input {
+  args: Int
+  error: Int
+  origin: Int
+}
+
+"""
+delete key/value pair or string element. key/value pairs are matched based on their key value
+"""
+input archive_call_delete_key_input {
+  args: String
+  error: String
+  origin: String
+}
+
+"""
+input type for incrementing numeric columns in table "call"
+"""
+input archive_call_inc_input {
+  pos: Int
+}
+
+"""
+input type for inserting data into table "call"
+"""
+input archive_call_insert_input {
+  args: archive_jsonb
+  block: archive_block_obj_rel_insert_input
+  block_id: archive_bpchar
+  call: archive_call_obj_rel_insert_input
+  calls: archive_call_arr_rel_insert_input
+  error: archive_jsonb
+  events: archive_event_arr_rel_insert_input
+  extrinsic: archive_extrinsic_obj_rel_insert_input
+  extrinsic_id: archive_bpchar
+  frontier_ethereum_transaction: archive_frontier_ethereum_transaction_obj_rel_insert_input
+  id: String
+  name: String
+  origin: archive_jsonb
+  parent_id: String
+  pos: Int
+  success: Boolean
+}
+
+"""aggregate max on columns"""
+type archive_call_max_fields {
+  block_id: archive_bpchar
+  extrinsic_id: archive_bpchar
+  id: String
+  name: String
+  parent_id: String
+  pos: Int
+}
+
+"""
+order by max() on columns of table "call"
+"""
+input archive_call_max_order_by {
+  block_id: archive_order_by
+  extrinsic_id: archive_order_by
+  id: archive_order_by
+  name: archive_order_by
+  parent_id: archive_order_by
+  pos: archive_order_by
+}
+
+"""aggregate min on columns"""
+type archive_call_min_fields {
+  block_id: archive_bpchar
+  extrinsic_id: archive_bpchar
+  id: String
+  name: String
+  parent_id: String
+  pos: Int
+}
+
+"""
+order by min() on columns of table "call"
+"""
+input archive_call_min_order_by {
+  block_id: archive_order_by
+  extrinsic_id: archive_order_by
+  id: archive_order_by
+  name: archive_order_by
+  parent_id: archive_order_by
+  pos: archive_order_by
+}
+
+"""
+response of any mutation on the table "call"
+"""
+type archive_call_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [archive_call!]!
+}
+
+"""
+input type for inserting object relation for remote table "call"
+"""
+input archive_call_obj_rel_insert_input {
+  data: archive_call_insert_input!
+
+  """upsert condition"""
+  on_conflict: archive_call_on_conflict
+}
+
+"""
+on_conflict condition type for table "call"
+"""
+input archive_call_on_conflict {
+  constraint: archive_call_constraint!
+  update_columns: [archive_call_update_column!]! = []
+  where: archive_call_bool_exp
+}
+
+"""Ordering options when selecting data from "call"."""
+input archive_call_order_by {
+  args: archive_order_by
+  block: archive_block_order_by
+  block_id: archive_order_by
+  call: archive_call_order_by
+  calls_aggregate: archive_call_aggregate_order_by
+  error: archive_order_by
+  events_aggregate: archive_event_aggregate_order_by
+  extrinsic: archive_extrinsic_order_by
+  extrinsic_id: archive_order_by
+  frontier_ethereum_transaction: archive_frontier_ethereum_transaction_order_by
+  id: archive_order_by
+  name: archive_order_by
+  origin: archive_order_by
+  parent_id: archive_order_by
+  pos: archive_order_by
+  success: archive_order_by
+}
+
+"""primary key columns input for table: call"""
+input archive_call_pk_columns_input {
+  id: String!
+}
+
+"""prepend existing jsonb value of filtered columns with new jsonb value"""
+input archive_call_prepend_input {
+  args: archive_jsonb
+  error: archive_jsonb
+  origin: archive_jsonb
+}
+
+"""
+select columns of table "call"
+"""
+enum archive_call_select_column {
+  """column name"""
+  args
+
+  """column name"""
+  block_id
+
+  """column name"""
+  error
+
+  """column name"""
+  extrinsic_id
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  origin
+
+  """column name"""
+  parent_id
+
+  """column name"""
+  pos
+
+  """column name"""
+  success
+}
+
+"""
+input type for updating data in table "call"
+"""
+input archive_call_set_input {
+  args: archive_jsonb
+  block_id: archive_bpchar
+  error: archive_jsonb
+  extrinsic_id: archive_bpchar
+  id: String
+  name: String
+  origin: archive_jsonb
+  parent_id: String
+  pos: Int
+  success: Boolean
+}
+
+"""aggregate stddev on columns"""
+type archive_call_stddev_fields {
+  pos: Float
+}
+
+"""
+order by stddev() on columns of table "call"
+"""
+input archive_call_stddev_order_by {
+  pos: archive_order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type archive_call_stddev_pop_fields {
+  pos: Float
+}
+
+"""
+order by stddev_pop() on columns of table "call"
+"""
+input archive_call_stddev_pop_order_by {
+  pos: archive_order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type archive_call_stddev_samp_fields {
+  pos: Float
+}
+
+"""
+order by stddev_samp() on columns of table "call"
+"""
+input archive_call_stddev_samp_order_by {
+  pos: archive_order_by
+}
+
+"""
+Streaming cursor of the table "call"
+"""
+input archive_call_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: archive_call_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: archive_cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input archive_call_stream_cursor_value_input {
+  args: archive_jsonb
+  block_id: archive_bpchar
+  error: archive_jsonb
+  extrinsic_id: archive_bpchar
+  id: String
+  name: String
+  origin: archive_jsonb
+  parent_id: String
+  pos: Int
+  success: Boolean
+}
+
+"""aggregate sum on columns"""
+type archive_call_sum_fields {
+  pos: Int
+}
+
+"""
+order by sum() on columns of table "call"
+"""
+input archive_call_sum_order_by {
+  pos: archive_order_by
+}
+
+"""
+update columns of table "call"
+"""
+enum archive_call_update_column {
+  """column name"""
+  args
+
+  """column name"""
+  block_id
+
+  """column name"""
+  error
+
+  """column name"""
+  extrinsic_id
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  origin
+
+  """column name"""
+  parent_id
+
+  """column name"""
+  pos
+
+  """column name"""
+  success
+}
+
+input archive_call_updates {
+  """append existing jsonb value of filtered columns with new jsonb value"""
+  _append: archive_call_append_input
+
+  """
+  delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+  """
+  _delete_at_path: archive_call_delete_at_path_input
+
+  """
+  delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+  """
+  _delete_elem: archive_call_delete_elem_input
+
+  """
+  delete key/value pair or string element. key/value pairs are matched based on their key value
+  """
+  _delete_key: archive_call_delete_key_input
+
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: archive_call_inc_input
+
+  """prepend existing jsonb value of filtered columns with new jsonb value"""
+  _prepend: archive_call_prepend_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: archive_call_set_input
+  where: archive_call_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type archive_call_var_pop_fields {
+  pos: Float
+}
+
+"""
+order by var_pop() on columns of table "call"
+"""
+input archive_call_var_pop_order_by {
+  pos: archive_order_by
+}
+
+"""aggregate var_samp on columns"""
+type archive_call_var_samp_fields {
+  pos: Float
+}
+
+"""
+order by var_samp() on columns of table "call"
+"""
+input archive_call_var_samp_order_by {
+  pos: archive_order_by
+}
+
+"""aggregate variance on columns"""
+type archive_call_variance_fields {
+  pos: Float
+}
+
+"""
+order by variance() on columns of table "call"
+"""
+input archive_call_variance_order_by {
+  pos: archive_order_by
+}
+
+"""
+columns and relationships of "contracts_contract_emitted"
+"""
+type archive_contracts_contract_emitted {
+  contract: String!
+
+  """An object relationship"""
+  event: archive_event!
+  event_id: archive_bpchar!
+}
+
+"""
+aggregated selection of "contracts_contract_emitted"
+"""
+type archive_contracts_contract_emitted_aggregate {
+  aggregate: archive_contracts_contract_emitted_aggregate_fields
+  nodes: [archive_contracts_contract_emitted!]!
+}
+
+"""
+aggregate fields of "contracts_contract_emitted"
+"""
+type archive_contracts_contract_emitted_aggregate_fields {
+  count(columns: [archive_contracts_contract_emitted_select_column!], distinct: Boolean): Int!
+  max: archive_contracts_contract_emitted_max_fields
+  min: archive_contracts_contract_emitted_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "contracts_contract_emitted". All fields are combined with a logical 'AND'.
+"""
+input archive_contracts_contract_emitted_bool_exp {
+  _and: [archive_contracts_contract_emitted_bool_exp!]
+  _not: archive_contracts_contract_emitted_bool_exp
+  _or: [archive_contracts_contract_emitted_bool_exp!]
+  contract: archive_String_comparison_exp
+  event: archive_event_bool_exp
+  event_id: archive_bpchar_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "contracts_contract_emitted"
+"""
+enum archive_contracts_contract_emitted_constraint {
+  """
+  unique or primary key constraint on columns "event_id"
+  """
+  contracts_contract_emitted_pkey
+}
+
+"""
+input type for inserting data into table "contracts_contract_emitted"
+"""
+input archive_contracts_contract_emitted_insert_input {
+  contract: String
+  event: archive_event_obj_rel_insert_input
+  event_id: archive_bpchar
+}
+
+"""aggregate max on columns"""
+type archive_contracts_contract_emitted_max_fields {
+  contract: String
+  event_id: archive_bpchar
+}
+
+"""aggregate min on columns"""
+type archive_contracts_contract_emitted_min_fields {
+  contract: String
+  event_id: archive_bpchar
+}
+
+"""
+response of any mutation on the table "contracts_contract_emitted"
+"""
+type archive_contracts_contract_emitted_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [archive_contracts_contract_emitted!]!
+}
+
+"""
+input type for inserting object relation for remote table "contracts_contract_emitted"
+"""
+input archive_contracts_contract_emitted_obj_rel_insert_input {
+  data: archive_contracts_contract_emitted_insert_input!
+
+  """upsert condition"""
+  on_conflict: archive_contracts_contract_emitted_on_conflict
+}
+
+"""
+on_conflict condition type for table "contracts_contract_emitted"
+"""
+input archive_contracts_contract_emitted_on_conflict {
+  constraint: archive_contracts_contract_emitted_constraint!
+  update_columns: [archive_contracts_contract_emitted_update_column!]! = []
+  where: archive_contracts_contract_emitted_bool_exp
+}
+
+"""
+Ordering options when selecting data from "contracts_contract_emitted".
+"""
+input archive_contracts_contract_emitted_order_by {
+  contract: archive_order_by
+  event: archive_event_order_by
+  event_id: archive_order_by
+}
+
+"""primary key columns input for table: contracts_contract_emitted"""
+input archive_contracts_contract_emitted_pk_columns_input {
+  event_id: archive_bpchar!
+}
+
+"""
+select columns of table "contracts_contract_emitted"
+"""
+enum archive_contracts_contract_emitted_select_column {
+  """column name"""
+  contract
+
+  """column name"""
+  event_id
+}
+
+"""
+input type for updating data in table "contracts_contract_emitted"
+"""
+input archive_contracts_contract_emitted_set_input {
+  contract: String
+  event_id: archive_bpchar
+}
+
+"""
+Streaming cursor of the table "contracts_contract_emitted"
+"""
+input archive_contracts_contract_emitted_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: archive_contracts_contract_emitted_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: archive_cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input archive_contracts_contract_emitted_stream_cursor_value_input {
+  contract: String
+  event_id: archive_bpchar
+}
+
+"""
+update columns of table "contracts_contract_emitted"
+"""
+enum archive_contracts_contract_emitted_update_column {
+  """column name"""
+  contract
+
+  """column name"""
+  event_id
+}
+
+input archive_contracts_contract_emitted_updates {
+  """sets the columns of the filtered rows to the given values"""
+  _set: archive_contracts_contract_emitted_set_input
+  where: archive_contracts_contract_emitted_bool_exp!
+}
+
+"""ordering argument of a cursor"""
+enum archive_cursor_ordering {
+  """ascending ordering of the cursor"""
+  ASC
+
+  """descending ordering of the cursor"""
+  DESC
+}
+
+"""
+columns and relationships of "event"
+"""
+type archive_event {
+  args(
+    """JSON select path"""
+    path: String
+  ): archive_jsonb
+
+  """An object relationship"""
+  block: archive_block!
+  block_id: archive_bpchar!
+
+  """An object relationship"""
+  call: archive_call
+  call_id: String
+
+  """An object relationship"""
+  contracts_contract_emitted: archive_contracts_contract_emitted
+
+  """An object relationship"""
+  extrinsic: archive_extrinsic
+  extrinsic_id: archive_bpchar
+
+  """An object relationship"""
+  frontier_evm_log: archive_frontier_evm_log
+
+  """An object relationship"""
+  gear_message_enqueued: archive_gear_message_enqueued
+
+  """An object relationship"""
+  gear_user_message_sent: archive_gear_user_message_sent
+  id: archive_bpchar!
+  index_in_block: Int!
   name: String!
   phase: String!
   pos: Int!
 }
 
-type archive_EventEdge {
-  cursor: String!
-  node: archive_Event!
+"""
+aggregated selection of "event"
+"""
+type archive_event_aggregate {
+  aggregate: archive_event_aggregate_fields
+  nodes: [archive_event!]!
 }
 
-enum archive_EventOrderByInput {
-  block_hash_ASC
-  block_hash_DESC
-  block_height_ASC
-  block_height_DESC
-  block_id_ASC
-  block_id_DESC
-  block_parentHash_ASC
-  block_parentHash_DESC
-  block_timestamp_ASC
-  block_timestamp_DESC
-  block_validator_ASC
-  block_validator_DESC
-  call_id_ASC
-  call_id_DESC
-  call_name_ASC
-  call_name_DESC
-  call_pos_ASC
-  call_pos_DESC
-  call_success_ASC
-  call_success_DESC
-  extrinsic_fee_ASC
-  extrinsic_fee_DESC
-  extrinsic_hash_ASC
-  extrinsic_hash_DESC
-  extrinsic_id_ASC
-  extrinsic_id_DESC
-  extrinsic_indexInBlock_ASC
-  extrinsic_indexInBlock_DESC
-  extrinsic_pos_ASC
-  extrinsic_pos_DESC
-  extrinsic_success_ASC
-  extrinsic_success_DESC
-  extrinsic_tip_ASC
-  extrinsic_tip_DESC
-  extrinsic_version_ASC
-  extrinsic_version_DESC
-  id_ASC
-  id_DESC
-  indexInBlock_ASC
-  indexInBlock_DESC
-  name_ASC
-  name_DESC
-  phase_ASC
-  phase_DESC
-  pos_ASC
-  pos_DESC
+"""
+aggregate fields of "event"
+"""
+type archive_event_aggregate_fields {
+  avg: archive_event_avg_fields
+  count(columns: [archive_event_select_column!], distinct: Boolean): Int!
+  max: archive_event_max_fields
+  min: archive_event_min_fields
+  stddev: archive_event_stddev_fields
+  stddev_pop: archive_event_stddev_pop_fields
+  stddev_samp: archive_event_stddev_samp_fields
+  sum: archive_event_sum_fields
+  var_pop: archive_event_var_pop_fields
+  var_samp: archive_event_var_samp_fields
+  variance: archive_event_variance_fields
 }
 
-input archive_EventWhereInput {
-  AND: [archive_EventWhereInput!]
-  OR: [archive_EventWhereInput!]
-  args_eq: archive_JSON
-  args_isNull: Boolean
-  args_jsonContains: archive_JSON
-  args_jsonHasKey: archive_JSON
-  args_not_eq: archive_JSON
-  block: archive_BlockWhereInput
-  call: archive_CallWhereInput
-  call_isNull: Boolean
-  extrinsic: archive_ExtrinsicWhereInput
-  extrinsic_isNull: Boolean
-  id_contains: ID
-  id_containsInsensitive: ID
-  id_endsWith: ID
-  id_eq: ID
-  id_gt: ID
-  id_gte: ID
-  id_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_not_contains: ID
-  id_not_containsInsensitive: ID
-  id_not_endsWith: ID
-  id_not_eq: ID
-  id_not_in: [ID!]
-  id_not_startsWith: ID
-  id_startsWith: ID
-  indexInBlock_eq: Int
-  indexInBlock_gt: Int
-  indexInBlock_gte: Int
-  indexInBlock_in: [Int!]
-  indexInBlock_lt: Int
-  indexInBlock_lte: Int
-  indexInBlock_not_eq: Int
-  indexInBlock_not_in: [Int!]
-  name_contains: String
-  name_containsInsensitive: String
-  name_endsWith: String
-  name_eq: String
-  name_gt: String
-  name_gte: String
-  name_in: [String!]
-  name_lt: String
-  name_lte: String
-  name_not_contains: String
-  name_not_containsInsensitive: String
-  name_not_endsWith: String
-  name_not_eq: String
-  name_not_in: [String!]
-  name_not_startsWith: String
-  name_startsWith: String
-  phase_contains: String
-  phase_containsInsensitive: String
-  phase_endsWith: String
-  phase_eq: String
-  phase_gt: String
-  phase_gte: String
-  phase_in: [String!]
-  phase_lt: String
-  phase_lte: String
-  phase_not_contains: String
-  phase_not_containsInsensitive: String
-  phase_not_endsWith: String
-  phase_not_eq: String
-  phase_not_in: [String!]
-  phase_not_startsWith: String
-  phase_startsWith: String
-  pos_eq: Int
-  pos_gt: Int
-  pos_gte: Int
-  pos_in: [Int!]
-  pos_lt: Int
-  pos_lte: Int
-  pos_not_eq: Int
-  pos_not_in: [Int!]
+"""
+order by aggregate values of table "event"
+"""
+input archive_event_aggregate_order_by {
+  avg: archive_event_avg_order_by
+  count: archive_order_by
+  max: archive_event_max_order_by
+  min: archive_event_min_order_by
+  stddev: archive_event_stddev_order_by
+  stddev_pop: archive_event_stddev_pop_order_by
+  stddev_samp: archive_event_stddev_samp_order_by
+  sum: archive_event_sum_order_by
+  var_pop: archive_event_var_pop_order_by
+  var_samp: archive_event_var_samp_order_by
+  variance: archive_event_variance_order_by
 }
 
-input archive_EventWhereUniqueInput {
-  id: ID!
+"""append existing jsonb value of filtered columns with new jsonb value"""
+input archive_event_append_input {
+  args: archive_jsonb
 }
 
-type archive_EventsConnection {
-  edges: [archive_EventEdge!]!
-  pageInfo: balances_PageInfo!
-  totalCount: Int!
+"""
+input type for inserting array relation for remote table "event"
+"""
+input archive_event_arr_rel_insert_input {
+  data: [archive_event_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: archive_event_on_conflict
 }
 
-type archive_Extrinsic {
-  block: archive_Block!
-  call: archive_Call!
-  calls(limit: Int, offset: Int, orderBy: [archive_CallOrderByInput], where: archive_CallWhereInput): [archive_Call!]!
-  error: archive_JSON
-  fee: Int
-  hash: String!
-  id: ID!
-  indexInBlock: Int!
+"""aggregate avg on columns"""
+type archive_event_avg_fields {
+  index_in_block: Float
+  pos: Float
+}
+
+"""
+order by avg() on columns of table "event"
+"""
+input archive_event_avg_order_by {
+  index_in_block: archive_order_by
+  pos: archive_order_by
+}
+
+"""
+Boolean expression to filter rows from the table "event". All fields are combined with a logical 'AND'.
+"""
+input archive_event_bool_exp {
+  _and: [archive_event_bool_exp!]
+  _not: archive_event_bool_exp
+  _or: [archive_event_bool_exp!]
+  args: archive_jsonb_comparison_exp
+  block: archive_block_bool_exp
+  block_id: archive_bpchar_comparison_exp
+  call: archive_call_bool_exp
+  call_id: archive_String_comparison_exp
+  contracts_contract_emitted: archive_contracts_contract_emitted_bool_exp
+  extrinsic: archive_extrinsic_bool_exp
+  extrinsic_id: archive_bpchar_comparison_exp
+  frontier_evm_log: archive_frontier_evm_log_bool_exp
+  gear_message_enqueued: archive_gear_message_enqueued_bool_exp
+  gear_user_message_sent: archive_gear_user_message_sent_bool_exp
+  id: archive_bpchar_comparison_exp
+  index_in_block: archive_Int_comparison_exp
+  name: archive_String_comparison_exp
+  phase: archive_String_comparison_exp
+  pos: archive_Int_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "event"
+"""
+enum archive_event_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  event_pkey
+}
+
+"""
+delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+"""
+input archive_event_delete_at_path_input {
+  args: [String!]
+}
+
+"""
+delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+"""
+input archive_event_delete_elem_input {
+  args: Int
+}
+
+"""
+delete key/value pair or string element. key/value pairs are matched based on their key value
+"""
+input archive_event_delete_key_input {
+  args: String
+}
+
+"""
+input type for incrementing numeric columns in table "event"
+"""
+input archive_event_inc_input {
+  index_in_block: Int
+  pos: Int
+}
+
+"""
+input type for inserting data into table "event"
+"""
+input archive_event_insert_input {
+  args: archive_jsonb
+  block: archive_block_obj_rel_insert_input
+  block_id: archive_bpchar
+  call: archive_call_obj_rel_insert_input
+  call_id: String
+  contracts_contract_emitted: archive_contracts_contract_emitted_obj_rel_insert_input
+  extrinsic: archive_extrinsic_obj_rel_insert_input
+  extrinsic_id: archive_bpchar
+  frontier_evm_log: archive_frontier_evm_log_obj_rel_insert_input
+  gear_message_enqueued: archive_gear_message_enqueued_obj_rel_insert_input
+  gear_user_message_sent: archive_gear_user_message_sent_obj_rel_insert_input
+  id: archive_bpchar
+  index_in_block: Int
+  name: String
+  phase: String
+  pos: Int
+}
+
+"""aggregate max on columns"""
+type archive_event_max_fields {
+  block_id: archive_bpchar
+  call_id: String
+  extrinsic_id: archive_bpchar
+  id: archive_bpchar
+  index_in_block: Int
+  name: String
+  phase: String
+  pos: Int
+}
+
+"""
+order by max() on columns of table "event"
+"""
+input archive_event_max_order_by {
+  block_id: archive_order_by
+  call_id: archive_order_by
+  extrinsic_id: archive_order_by
+  id: archive_order_by
+  index_in_block: archive_order_by
+  name: archive_order_by
+  phase: archive_order_by
+  pos: archive_order_by
+}
+
+"""aggregate min on columns"""
+type archive_event_min_fields {
+  block_id: archive_bpchar
+  call_id: String
+  extrinsic_id: archive_bpchar
+  id: archive_bpchar
+  index_in_block: Int
+  name: String
+  phase: String
+  pos: Int
+}
+
+"""
+order by min() on columns of table "event"
+"""
+input archive_event_min_order_by {
+  block_id: archive_order_by
+  call_id: archive_order_by
+  extrinsic_id: archive_order_by
+  id: archive_order_by
+  index_in_block: archive_order_by
+  name: archive_order_by
+  phase: archive_order_by
+  pos: archive_order_by
+}
+
+"""
+response of any mutation on the table "event"
+"""
+type archive_event_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [archive_event!]!
+}
+
+"""
+input type for inserting object relation for remote table "event"
+"""
+input archive_event_obj_rel_insert_input {
+  data: archive_event_insert_input!
+
+  """upsert condition"""
+  on_conflict: archive_event_on_conflict
+}
+
+"""
+on_conflict condition type for table "event"
+"""
+input archive_event_on_conflict {
+  constraint: archive_event_constraint!
+  update_columns: [archive_event_update_column!]! = []
+  where: archive_event_bool_exp
+}
+
+"""Ordering options when selecting data from "event"."""
+input archive_event_order_by {
+  args: archive_order_by
+  block: archive_block_order_by
+  block_id: archive_order_by
+  call: archive_call_order_by
+  call_id: archive_order_by
+  contracts_contract_emitted: archive_contracts_contract_emitted_order_by
+  extrinsic: archive_extrinsic_order_by
+  extrinsic_id: archive_order_by
+  frontier_evm_log: archive_frontier_evm_log_order_by
+  gear_message_enqueued: archive_gear_message_enqueued_order_by
+  gear_user_message_sent: archive_gear_user_message_sent_order_by
+  id: archive_order_by
+  index_in_block: archive_order_by
+  name: archive_order_by
+  phase: archive_order_by
+  pos: archive_order_by
+}
+
+"""primary key columns input for table: event"""
+input archive_event_pk_columns_input {
+  id: archive_bpchar!
+}
+
+"""prepend existing jsonb value of filtered columns with new jsonb value"""
+input archive_event_prepend_input {
+  args: archive_jsonb
+}
+
+"""
+select columns of table "event"
+"""
+enum archive_event_select_column {
+  """column name"""
+  args
+
+  """column name"""
+  block_id
+
+  """column name"""
+  call_id
+
+  """column name"""
+  extrinsic_id
+
+  """column name"""
+  id
+
+  """column name"""
+  index_in_block
+
+  """column name"""
+  name
+
+  """column name"""
+  phase
+
+  """column name"""
+  pos
+}
+
+"""
+input type for updating data in table "event"
+"""
+input archive_event_set_input {
+  args: archive_jsonb
+  block_id: archive_bpchar
+  call_id: String
+  extrinsic_id: archive_bpchar
+  id: archive_bpchar
+  index_in_block: Int
+  name: String
+  phase: String
+  pos: Int
+}
+
+"""aggregate stddev on columns"""
+type archive_event_stddev_fields {
+  index_in_block: Float
+  pos: Float
+}
+
+"""
+order by stddev() on columns of table "event"
+"""
+input archive_event_stddev_order_by {
+  index_in_block: archive_order_by
+  pos: archive_order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type archive_event_stddev_pop_fields {
+  index_in_block: Float
+  pos: Float
+}
+
+"""
+order by stddev_pop() on columns of table "event"
+"""
+input archive_event_stddev_pop_order_by {
+  index_in_block: archive_order_by
+  pos: archive_order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type archive_event_stddev_samp_fields {
+  index_in_block: Float
+  pos: Float
+}
+
+"""
+order by stddev_samp() on columns of table "event"
+"""
+input archive_event_stddev_samp_order_by {
+  index_in_block: archive_order_by
+  pos: archive_order_by
+}
+
+"""
+Streaming cursor of the table "event"
+"""
+input archive_event_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: archive_event_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: archive_cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input archive_event_stream_cursor_value_input {
+  args: archive_jsonb
+  block_id: archive_bpchar
+  call_id: String
+  extrinsic_id: archive_bpchar
+  id: archive_bpchar
+  index_in_block: Int
+  name: String
+  phase: String
+  pos: Int
+}
+
+"""aggregate sum on columns"""
+type archive_event_sum_fields {
+  index_in_block: Int
+  pos: Int
+}
+
+"""
+order by sum() on columns of table "event"
+"""
+input archive_event_sum_order_by {
+  index_in_block: archive_order_by
+  pos: archive_order_by
+}
+
+"""
+update columns of table "event"
+"""
+enum archive_event_update_column {
+  """column name"""
+  args
+
+  """column name"""
+  block_id
+
+  """column name"""
+  call_id
+
+  """column name"""
+  extrinsic_id
+
+  """column name"""
+  id
+
+  """column name"""
+  index_in_block
+
+  """column name"""
+  name
+
+  """column name"""
+  phase
+
+  """column name"""
+  pos
+}
+
+input archive_event_updates {
+  """append existing jsonb value of filtered columns with new jsonb value"""
+  _append: archive_event_append_input
+
+  """
+  delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+  """
+  _delete_at_path: archive_event_delete_at_path_input
+
+  """
+  delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+  """
+  _delete_elem: archive_event_delete_elem_input
+
+  """
+  delete key/value pair or string element. key/value pairs are matched based on their key value
+  """
+  _delete_key: archive_event_delete_key_input
+
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: archive_event_inc_input
+
+  """prepend existing jsonb value of filtered columns with new jsonb value"""
+  _prepend: archive_event_prepend_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: archive_event_set_input
+  where: archive_event_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type archive_event_var_pop_fields {
+  index_in_block: Float
+  pos: Float
+}
+
+"""
+order by var_pop() on columns of table "event"
+"""
+input archive_event_var_pop_order_by {
+  index_in_block: archive_order_by
+  pos: archive_order_by
+}
+
+"""aggregate var_samp on columns"""
+type archive_event_var_samp_fields {
+  index_in_block: Float
+  pos: Float
+}
+
+"""
+order by var_samp() on columns of table "event"
+"""
+input archive_event_var_samp_order_by {
+  index_in_block: archive_order_by
+  pos: archive_order_by
+}
+
+"""aggregate variance on columns"""
+type archive_event_variance_fields {
+  index_in_block: Float
+  pos: Float
+}
+
+"""
+order by variance() on columns of table "event"
+"""
+input archive_event_variance_order_by {
+  index_in_block: archive_order_by
+  pos: archive_order_by
+}
+
+"""
+columns and relationships of "extrinsic"
+"""
+type archive_extrinsic {
+  """An object relationship"""
+  block: archive_block!
+  block_id: archive_bpchar!
+  call_id: String!
+
+  """An array relationship"""
+  calls(
+    """distinct select on columns"""
+    distinct_on: [archive_call_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_call_order_by!]
+
+    """filter the rows returned"""
+    where: archive_call_bool_exp
+  ): [archive_call!]!
+
+  """An aggregate relationship"""
+  calls_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_call_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_call_order_by!]
+
+    """filter the rows returned"""
+    where: archive_call_bool_exp
+  ): archive_call_aggregate!
+  error(
+    """JSON select path"""
+    path: String
+  ): archive_jsonb
+
+  """An array relationship"""
+  events(
+    """distinct select on columns"""
+    distinct_on: [archive_event_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_event_order_by!]
+
+    """filter the rows returned"""
+    where: archive_event_bool_exp
+  ): [archive_event!]!
+
+  """An aggregate relationship"""
+  events_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_event_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_event_order_by!]
+
+    """filter the rows returned"""
+    where: archive_event_bool_exp
+  ): archive_event_aggregate!
+  fee: archive_numeric
+  hash: archive_bpchar!
+  id: archive_bpchar!
+  index_in_block: Int!
   pos: Int!
-  signature: archive_JSON
+  signature(
+    """JSON select path"""
+    path: String
+  ): archive_jsonb
   success: Boolean!
-  tip: Int
+  tip: archive_numeric
   version: Int!
 }
 
-type archive_ExtrinsicEdge {
-  cursor: String!
-  node: archive_Extrinsic!
+"""
+aggregated selection of "extrinsic"
+"""
+type archive_extrinsic_aggregate {
+  aggregate: archive_extrinsic_aggregate_fields
+  nodes: [archive_extrinsic!]!
 }
 
-enum archive_ExtrinsicOrderByInput {
-  block_hash_ASC
-  block_hash_DESC
-  block_height_ASC
-  block_height_DESC
-  block_id_ASC
-  block_id_DESC
-  block_parentHash_ASC
-  block_parentHash_DESC
-  block_timestamp_ASC
-  block_timestamp_DESC
-  block_validator_ASC
-  block_validator_DESC
-  call_id_ASC
-  call_id_DESC
-  call_name_ASC
-  call_name_DESC
-  call_pos_ASC
-  call_pos_DESC
-  call_success_ASC
-  call_success_DESC
-  fee_ASC
-  fee_DESC
-  hash_ASC
-  hash_DESC
-  id_ASC
-  id_DESC
-  indexInBlock_ASC
-  indexInBlock_DESC
-  pos_ASC
-  pos_DESC
-  success_ASC
-  success_DESC
-  tip_ASC
-  tip_DESC
-  version_ASC
-  version_DESC
+"""
+aggregate fields of "extrinsic"
+"""
+type archive_extrinsic_aggregate_fields {
+  avg: archive_extrinsic_avg_fields
+  count(columns: [archive_extrinsic_select_column!], distinct: Boolean): Int!
+  max: archive_extrinsic_max_fields
+  min: archive_extrinsic_min_fields
+  stddev: archive_extrinsic_stddev_fields
+  stddev_pop: archive_extrinsic_stddev_pop_fields
+  stddev_samp: archive_extrinsic_stddev_samp_fields
+  sum: archive_extrinsic_sum_fields
+  var_pop: archive_extrinsic_var_pop_fields
+  var_samp: archive_extrinsic_var_samp_fields
+  variance: archive_extrinsic_variance_fields
 }
 
-input archive_ExtrinsicWhereInput {
-  AND: [archive_ExtrinsicWhereInput!]
-  OR: [archive_ExtrinsicWhereInput!]
-  block: archive_BlockWhereInput
-  call: archive_CallWhereInput
-  calls_every: archive_CallWhereInput
-  calls_none: archive_CallWhereInput
-  calls_some: archive_CallWhereInput
-  error_eq: archive_JSON
-  error_isNull: Boolean
-  error_jsonContains: archive_JSON
-  error_jsonHasKey: archive_JSON
-  error_not_eq: archive_JSON
-  fee_eq: Int
-  fee_gt: Int
-  fee_gte: Int
-  fee_in: [Int!]
-  fee_isNull: Boolean
-  fee_lt: Int
-  fee_lte: Int
-  fee_not_eq: Int
-  fee_not_in: [Int!]
-  hash_contains: String
-  hash_containsInsensitive: String
-  hash_endsWith: String
-  hash_eq: String
-  hash_gt: String
-  hash_gte: String
-  hash_in: [String!]
-  hash_lt: String
-  hash_lte: String
-  hash_not_contains: String
-  hash_not_containsInsensitive: String
-  hash_not_endsWith: String
-  hash_not_eq: String
-  hash_not_in: [String!]
-  hash_not_startsWith: String
-  hash_startsWith: String
-  id_contains: ID
-  id_containsInsensitive: ID
-  id_endsWith: ID
-  id_eq: ID
-  id_gt: ID
-  id_gte: ID
-  id_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_not_contains: ID
-  id_not_containsInsensitive: ID
-  id_not_endsWith: ID
-  id_not_eq: ID
-  id_not_in: [ID!]
-  id_not_startsWith: ID
-  id_startsWith: ID
-  indexInBlock_eq: Int
-  indexInBlock_gt: Int
-  indexInBlock_gte: Int
-  indexInBlock_in: [Int!]
-  indexInBlock_lt: Int
-  indexInBlock_lte: Int
-  indexInBlock_not_eq: Int
-  indexInBlock_not_in: [Int!]
-  pos_eq: Int
-  pos_gt: Int
-  pos_gte: Int
-  pos_in: [Int!]
-  pos_lt: Int
-  pos_lte: Int
-  pos_not_eq: Int
-  pos_not_in: [Int!]
-  signature_eq: archive_JSON
-  signature_isNull: Boolean
-  signature_jsonContains: archive_JSON
-  signature_jsonHasKey: archive_JSON
-  signature_not_eq: archive_JSON
-  success_eq: Boolean
-  success_not_eq: Boolean
-  tip_eq: Int
-  tip_gt: Int
-  tip_gte: Int
-  tip_in: [Int!]
-  tip_isNull: Boolean
-  tip_lt: Int
-  tip_lte: Int
-  tip_not_eq: Int
-  tip_not_in: [Int!]
-  version_eq: Int
-  version_gt: Int
-  version_gte: Int
-  version_in: [Int!]
-  version_lt: Int
-  version_lte: Int
-  version_not_eq: Int
-  version_not_in: [Int!]
+"""
+order by aggregate values of table "extrinsic"
+"""
+input archive_extrinsic_aggregate_order_by {
+  avg: archive_extrinsic_avg_order_by
+  count: archive_order_by
+  max: archive_extrinsic_max_order_by
+  min: archive_extrinsic_min_order_by
+  stddev: archive_extrinsic_stddev_order_by
+  stddev_pop: archive_extrinsic_stddev_pop_order_by
+  stddev_samp: archive_extrinsic_stddev_samp_order_by
+  sum: archive_extrinsic_sum_order_by
+  var_pop: archive_extrinsic_var_pop_order_by
+  var_samp: archive_extrinsic_var_samp_order_by
+  variance: archive_extrinsic_variance_order_by
 }
 
-input archive_ExtrinsicWhereUniqueInput {
-  id: ID!
+"""append existing jsonb value of filtered columns with new jsonb value"""
+input archive_extrinsic_append_input {
+  error: archive_jsonb
+  signature: archive_jsonb
 }
 
-type archive_ExtrinsicsConnection {
-  edges: [archive_ExtrinsicEdge!]!
-  pageInfo: balances_PageInfo!
-  totalCount: Int!
+"""
+input type for inserting array relation for remote table "extrinsic"
+"""
+input archive_extrinsic_arr_rel_insert_input {
+  data: [archive_extrinsic_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: archive_extrinsic_on_conflict
 }
 
-"""A scalar that can represent any JSON value"""
-scalar archive_JSON
+"""aggregate avg on columns"""
+type archive_extrinsic_avg_fields {
+  fee: Float
+  index_in_block: Float
+  pos: Float
+  tip: Float
+  version: Float
+}
 
-type archive_Metadata {
-  blockHash: String!
-  blockHeight: Int!
+"""
+order by avg() on columns of table "extrinsic"
+"""
+input archive_extrinsic_avg_order_by {
+  fee: archive_order_by
+  index_in_block: archive_order_by
+  pos: archive_order_by
+  tip: archive_order_by
+  version: archive_order_by
+}
+
+"""
+Boolean expression to filter rows from the table "extrinsic". All fields are combined with a logical 'AND'.
+"""
+input archive_extrinsic_bool_exp {
+  _and: [archive_extrinsic_bool_exp!]
+  _not: archive_extrinsic_bool_exp
+  _or: [archive_extrinsic_bool_exp!]
+  block: archive_block_bool_exp
+  block_id: archive_bpchar_comparison_exp
+  call_id: archive_String_comparison_exp
+  calls: archive_call_bool_exp
+  error: archive_jsonb_comparison_exp
+  events: archive_event_bool_exp
+  fee: archive_numeric_comparison_exp
+  hash: archive_bpchar_comparison_exp
+  id: archive_bpchar_comparison_exp
+  index_in_block: archive_Int_comparison_exp
+  pos: archive_Int_comparison_exp
+  signature: archive_jsonb_comparison_exp
+  success: archive_Boolean_comparison_exp
+  tip: archive_numeric_comparison_exp
+  version: archive_Int_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "extrinsic"
+"""
+enum archive_extrinsic_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  extrinsic_pkey
+}
+
+"""
+delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+"""
+input archive_extrinsic_delete_at_path_input {
+  error: [String!]
+  signature: [String!]
+}
+
+"""
+delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+"""
+input archive_extrinsic_delete_elem_input {
+  error: Int
+  signature: Int
+}
+
+"""
+delete key/value pair or string element. key/value pairs are matched based on their key value
+"""
+input archive_extrinsic_delete_key_input {
+  error: String
+  signature: String
+}
+
+"""
+input type for incrementing numeric columns in table "extrinsic"
+"""
+input archive_extrinsic_inc_input {
+  fee: archive_numeric
+  index_in_block: Int
+  pos: Int
+  tip: archive_numeric
+  version: Int
+}
+
+"""
+input type for inserting data into table "extrinsic"
+"""
+input archive_extrinsic_insert_input {
+  block: archive_block_obj_rel_insert_input
+  block_id: archive_bpchar
+  call_id: String
+  calls: archive_call_arr_rel_insert_input
+  error: archive_jsonb
+  events: archive_event_arr_rel_insert_input
+  fee: archive_numeric
+  hash: archive_bpchar
+  id: archive_bpchar
+  index_in_block: Int
+  pos: Int
+  signature: archive_jsonb
+  success: Boolean
+  tip: archive_numeric
+  version: Int
+}
+
+"""aggregate max on columns"""
+type archive_extrinsic_max_fields {
+  block_id: archive_bpchar
+  call_id: String
+  fee: archive_numeric
+  hash: archive_bpchar
+  id: archive_bpchar
+  index_in_block: Int
+  pos: Int
+  tip: archive_numeric
+  version: Int
+}
+
+"""
+order by max() on columns of table "extrinsic"
+"""
+input archive_extrinsic_max_order_by {
+  block_id: archive_order_by
+  call_id: archive_order_by
+  fee: archive_order_by
+  hash: archive_order_by
+  id: archive_order_by
+  index_in_block: archive_order_by
+  pos: archive_order_by
+  tip: archive_order_by
+  version: archive_order_by
+}
+
+"""aggregate min on columns"""
+type archive_extrinsic_min_fields {
+  block_id: archive_bpchar
+  call_id: String
+  fee: archive_numeric
+  hash: archive_bpchar
+  id: archive_bpchar
+  index_in_block: Int
+  pos: Int
+  tip: archive_numeric
+  version: Int
+}
+
+"""
+order by min() on columns of table "extrinsic"
+"""
+input archive_extrinsic_min_order_by {
+  block_id: archive_order_by
+  call_id: archive_order_by
+  fee: archive_order_by
+  hash: archive_order_by
+  id: archive_order_by
+  index_in_block: archive_order_by
+  pos: archive_order_by
+  tip: archive_order_by
+  version: archive_order_by
+}
+
+"""
+response of any mutation on the table "extrinsic"
+"""
+type archive_extrinsic_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [archive_extrinsic!]!
+}
+
+"""
+input type for inserting object relation for remote table "extrinsic"
+"""
+input archive_extrinsic_obj_rel_insert_input {
+  data: archive_extrinsic_insert_input!
+
+  """upsert condition"""
+  on_conflict: archive_extrinsic_on_conflict
+}
+
+"""
+on_conflict condition type for table "extrinsic"
+"""
+input archive_extrinsic_on_conflict {
+  constraint: archive_extrinsic_constraint!
+  update_columns: [archive_extrinsic_update_column!]! = []
+  where: archive_extrinsic_bool_exp
+}
+
+"""Ordering options when selecting data from "extrinsic"."""
+input archive_extrinsic_order_by {
+  block: archive_block_order_by
+  block_id: archive_order_by
+  call_id: archive_order_by
+  calls_aggregate: archive_call_aggregate_order_by
+  error: archive_order_by
+  events_aggregate: archive_event_aggregate_order_by
+  fee: archive_order_by
+  hash: archive_order_by
+  id: archive_order_by
+  index_in_block: archive_order_by
+  pos: archive_order_by
+  signature: archive_order_by
+  success: archive_order_by
+  tip: archive_order_by
+  version: archive_order_by
+}
+
+"""primary key columns input for table: extrinsic"""
+input archive_extrinsic_pk_columns_input {
+  id: archive_bpchar!
+}
+
+"""prepend existing jsonb value of filtered columns with new jsonb value"""
+input archive_extrinsic_prepend_input {
+  error: archive_jsonb
+  signature: archive_jsonb
+}
+
+"""
+select columns of table "extrinsic"
+"""
+enum archive_extrinsic_select_column {
+  """column name"""
+  block_id
+
+  """column name"""
+  call_id
+
+  """column name"""
+  error
+
+  """column name"""
+  fee
+
+  """column name"""
+  hash
+
+  """column name"""
+  id
+
+  """column name"""
+  index_in_block
+
+  """column name"""
+  pos
+
+  """column name"""
+  signature
+
+  """column name"""
+  success
+
+  """column name"""
+  tip
+
+  """column name"""
+  version
+}
+
+"""
+input type for updating data in table "extrinsic"
+"""
+input archive_extrinsic_set_input {
+  block_id: archive_bpchar
+  call_id: String
+  error: archive_jsonb
+  fee: archive_numeric
+  hash: archive_bpchar
+  id: archive_bpchar
+  index_in_block: Int
+  pos: Int
+  signature: archive_jsonb
+  success: Boolean
+  tip: archive_numeric
+  version: Int
+}
+
+"""aggregate stddev on columns"""
+type archive_extrinsic_stddev_fields {
+  fee: Float
+  index_in_block: Float
+  pos: Float
+  tip: Float
+  version: Float
+}
+
+"""
+order by stddev() on columns of table "extrinsic"
+"""
+input archive_extrinsic_stddev_order_by {
+  fee: archive_order_by
+  index_in_block: archive_order_by
+  pos: archive_order_by
+  tip: archive_order_by
+  version: archive_order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type archive_extrinsic_stddev_pop_fields {
+  fee: Float
+  index_in_block: Float
+  pos: Float
+  tip: Float
+  version: Float
+}
+
+"""
+order by stddev_pop() on columns of table "extrinsic"
+"""
+input archive_extrinsic_stddev_pop_order_by {
+  fee: archive_order_by
+  index_in_block: archive_order_by
+  pos: archive_order_by
+  tip: archive_order_by
+  version: archive_order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type archive_extrinsic_stddev_samp_fields {
+  fee: Float
+  index_in_block: Float
+  pos: Float
+  tip: Float
+  version: Float
+}
+
+"""
+order by stddev_samp() on columns of table "extrinsic"
+"""
+input archive_extrinsic_stddev_samp_order_by {
+  fee: archive_order_by
+  index_in_block: archive_order_by
+  pos: archive_order_by
+  tip: archive_order_by
+  version: archive_order_by
+}
+
+"""
+Streaming cursor of the table "extrinsic"
+"""
+input archive_extrinsic_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: archive_extrinsic_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: archive_cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input archive_extrinsic_stream_cursor_value_input {
+  block_id: archive_bpchar
+  call_id: String
+  error: archive_jsonb
+  fee: archive_numeric
+  hash: archive_bpchar
+  id: archive_bpchar
+  index_in_block: Int
+  pos: Int
+  signature: archive_jsonb
+  success: Boolean
+  tip: archive_numeric
+  version: Int
+}
+
+"""aggregate sum on columns"""
+type archive_extrinsic_sum_fields {
+  fee: archive_numeric
+  index_in_block: Int
+  pos: Int
+  tip: archive_numeric
+  version: Int
+}
+
+"""
+order by sum() on columns of table "extrinsic"
+"""
+input archive_extrinsic_sum_order_by {
+  fee: archive_order_by
+  index_in_block: archive_order_by
+  pos: archive_order_by
+  tip: archive_order_by
+  version: archive_order_by
+}
+
+"""
+update columns of table "extrinsic"
+"""
+enum archive_extrinsic_update_column {
+  """column name"""
+  block_id
+
+  """column name"""
+  call_id
+
+  """column name"""
+  error
+
+  """column name"""
+  fee
+
+  """column name"""
+  hash
+
+  """column name"""
+  id
+
+  """column name"""
+  index_in_block
+
+  """column name"""
+  pos
+
+  """column name"""
+  signature
+
+  """column name"""
+  success
+
+  """column name"""
+  tip
+
+  """column name"""
+  version
+}
+
+input archive_extrinsic_updates {
+  """append existing jsonb value of filtered columns with new jsonb value"""
+  _append: archive_extrinsic_append_input
+
+  """
+  delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+  """
+  _delete_at_path: archive_extrinsic_delete_at_path_input
+
+  """
+  delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+  """
+  _delete_elem: archive_extrinsic_delete_elem_input
+
+  """
+  delete key/value pair or string element. key/value pairs are matched based on their key value
+  """
+  _delete_key: archive_extrinsic_delete_key_input
+
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: archive_extrinsic_inc_input
+
+  """prepend existing jsonb value of filtered columns with new jsonb value"""
+  _prepend: archive_extrinsic_prepend_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: archive_extrinsic_set_input
+  where: archive_extrinsic_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type archive_extrinsic_var_pop_fields {
+  fee: Float
+  index_in_block: Float
+  pos: Float
+  tip: Float
+  version: Float
+}
+
+"""
+order by var_pop() on columns of table "extrinsic"
+"""
+input archive_extrinsic_var_pop_order_by {
+  fee: archive_order_by
+  index_in_block: archive_order_by
+  pos: archive_order_by
+  tip: archive_order_by
+  version: archive_order_by
+}
+
+"""aggregate var_samp on columns"""
+type archive_extrinsic_var_samp_fields {
+  fee: Float
+  index_in_block: Float
+  pos: Float
+  tip: Float
+  version: Float
+}
+
+"""
+order by var_samp() on columns of table "extrinsic"
+"""
+input archive_extrinsic_var_samp_order_by {
+  fee: archive_order_by
+  index_in_block: archive_order_by
+  pos: archive_order_by
+  tip: archive_order_by
+  version: archive_order_by
+}
+
+"""aggregate variance on columns"""
+type archive_extrinsic_variance_fields {
+  fee: Float
+  index_in_block: Float
+  pos: Float
+  tip: Float
+  version: Float
+}
+
+"""
+order by variance() on columns of table "extrinsic"
+"""
+input archive_extrinsic_variance_order_by {
+  fee: archive_order_by
+  index_in_block: archive_order_by
+  pos: archive_order_by
+  tip: archive_order_by
+  version: archive_order_by
+}
+
+"""
+columns and relationships of "frontier_ethereum_transaction"
+"""
+type archive_frontier_ethereum_transaction {
+  """An object relationship"""
+  call: archive_call!
+  call_id: String!
+  contract: archive_bpchar!
+  sighash: String
+}
+
+"""
+aggregated selection of "frontier_ethereum_transaction"
+"""
+type archive_frontier_ethereum_transaction_aggregate {
+  aggregate: archive_frontier_ethereum_transaction_aggregate_fields
+  nodes: [archive_frontier_ethereum_transaction!]!
+}
+
+"""
+aggregate fields of "frontier_ethereum_transaction"
+"""
+type archive_frontier_ethereum_transaction_aggregate_fields {
+  count(columns: [archive_frontier_ethereum_transaction_select_column!], distinct: Boolean): Int!
+  max: archive_frontier_ethereum_transaction_max_fields
+  min: archive_frontier_ethereum_transaction_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "frontier_ethereum_transaction". All fields are combined with a logical 'AND'.
+"""
+input archive_frontier_ethereum_transaction_bool_exp {
+  _and: [archive_frontier_ethereum_transaction_bool_exp!]
+  _not: archive_frontier_ethereum_transaction_bool_exp
+  _or: [archive_frontier_ethereum_transaction_bool_exp!]
+  call: archive_call_bool_exp
+  call_id: archive_String_comparison_exp
+  contract: archive_bpchar_comparison_exp
+  sighash: archive_String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "frontier_ethereum_transaction"
+"""
+enum archive_frontier_ethereum_transaction_constraint {
+  """
+  unique or primary key constraint on columns "call_id"
+  """
+  frontier_ethereum_transaction_pkey
+}
+
+"""
+input type for inserting data into table "frontier_ethereum_transaction"
+"""
+input archive_frontier_ethereum_transaction_insert_input {
+  call: archive_call_obj_rel_insert_input
+  call_id: String
+  contract: archive_bpchar
+  sighash: String
+}
+
+"""aggregate max on columns"""
+type archive_frontier_ethereum_transaction_max_fields {
+  call_id: String
+  contract: archive_bpchar
+  sighash: String
+}
+
+"""aggregate min on columns"""
+type archive_frontier_ethereum_transaction_min_fields {
+  call_id: String
+  contract: archive_bpchar
+  sighash: String
+}
+
+"""
+response of any mutation on the table "frontier_ethereum_transaction"
+"""
+type archive_frontier_ethereum_transaction_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [archive_frontier_ethereum_transaction!]!
+}
+
+"""
+input type for inserting object relation for remote table "frontier_ethereum_transaction"
+"""
+input archive_frontier_ethereum_transaction_obj_rel_insert_input {
+  data: archive_frontier_ethereum_transaction_insert_input!
+
+  """upsert condition"""
+  on_conflict: archive_frontier_ethereum_transaction_on_conflict
+}
+
+"""
+on_conflict condition type for table "frontier_ethereum_transaction"
+"""
+input archive_frontier_ethereum_transaction_on_conflict {
+  constraint: archive_frontier_ethereum_transaction_constraint!
+  update_columns: [archive_frontier_ethereum_transaction_update_column!]! = []
+  where: archive_frontier_ethereum_transaction_bool_exp
+}
+
+"""
+Ordering options when selecting data from "frontier_ethereum_transaction".
+"""
+input archive_frontier_ethereum_transaction_order_by {
+  call: archive_call_order_by
+  call_id: archive_order_by
+  contract: archive_order_by
+  sighash: archive_order_by
+}
+
+"""primary key columns input for table: frontier_ethereum_transaction"""
+input archive_frontier_ethereum_transaction_pk_columns_input {
+  call_id: String!
+}
+
+"""
+select columns of table "frontier_ethereum_transaction"
+"""
+enum archive_frontier_ethereum_transaction_select_column {
+  """column name"""
+  call_id
+
+  """column name"""
+  contract
+
+  """column name"""
+  sighash
+}
+
+"""
+input type for updating data in table "frontier_ethereum_transaction"
+"""
+input archive_frontier_ethereum_transaction_set_input {
+  call_id: String
+  contract: archive_bpchar
+  sighash: String
+}
+
+"""
+Streaming cursor of the table "frontier_ethereum_transaction"
+"""
+input archive_frontier_ethereum_transaction_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: archive_frontier_ethereum_transaction_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: archive_cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input archive_frontier_ethereum_transaction_stream_cursor_value_input {
+  call_id: String
+  contract: archive_bpchar
+  sighash: String
+}
+
+"""
+update columns of table "frontier_ethereum_transaction"
+"""
+enum archive_frontier_ethereum_transaction_update_column {
+  """column name"""
+  call_id
+
+  """column name"""
+  contract
+
+  """column name"""
+  sighash
+}
+
+input archive_frontier_ethereum_transaction_updates {
+  """sets the columns of the filtered rows to the given values"""
+  _set: archive_frontier_ethereum_transaction_set_input
+  where: archive_frontier_ethereum_transaction_bool_exp!
+}
+
+"""
+columns and relationships of "frontier_evm_log"
+"""
+type archive_frontier_evm_log {
+  contract: archive_bpchar!
+
+  """An object relationship"""
+  event: archive_event!
+  event_id: archive_bpchar!
+  topic0: archive_bpchar
+  topic1: archive_bpchar
+  topic2: archive_bpchar
+  topic3: archive_bpchar
+}
+
+"""
+aggregated selection of "frontier_evm_log"
+"""
+type archive_frontier_evm_log_aggregate {
+  aggregate: archive_frontier_evm_log_aggregate_fields
+  nodes: [archive_frontier_evm_log!]!
+}
+
+"""
+aggregate fields of "frontier_evm_log"
+"""
+type archive_frontier_evm_log_aggregate_fields {
+  count(columns: [archive_frontier_evm_log_select_column!], distinct: Boolean): Int!
+  max: archive_frontier_evm_log_max_fields
+  min: archive_frontier_evm_log_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "frontier_evm_log". All fields are combined with a logical 'AND'.
+"""
+input archive_frontier_evm_log_bool_exp {
+  _and: [archive_frontier_evm_log_bool_exp!]
+  _not: archive_frontier_evm_log_bool_exp
+  _or: [archive_frontier_evm_log_bool_exp!]
+  contract: archive_bpchar_comparison_exp
+  event: archive_event_bool_exp
+  event_id: archive_bpchar_comparison_exp
+  topic0: archive_bpchar_comparison_exp
+  topic1: archive_bpchar_comparison_exp
+  topic2: archive_bpchar_comparison_exp
+  topic3: archive_bpchar_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "frontier_evm_log"
+"""
+enum archive_frontier_evm_log_constraint {
+  """
+  unique or primary key constraint on columns "event_id"
+  """
+  frontier_evm_log_pkey
+}
+
+"""
+input type for inserting data into table "frontier_evm_log"
+"""
+input archive_frontier_evm_log_insert_input {
+  contract: archive_bpchar
+  event: archive_event_obj_rel_insert_input
+  event_id: archive_bpchar
+  topic0: archive_bpchar
+  topic1: archive_bpchar
+  topic2: archive_bpchar
+  topic3: archive_bpchar
+}
+
+"""aggregate max on columns"""
+type archive_frontier_evm_log_max_fields {
+  contract: archive_bpchar
+  event_id: archive_bpchar
+  topic0: archive_bpchar
+  topic1: archive_bpchar
+  topic2: archive_bpchar
+  topic3: archive_bpchar
+}
+
+"""aggregate min on columns"""
+type archive_frontier_evm_log_min_fields {
+  contract: archive_bpchar
+  event_id: archive_bpchar
+  topic0: archive_bpchar
+  topic1: archive_bpchar
+  topic2: archive_bpchar
+  topic3: archive_bpchar
+}
+
+"""
+response of any mutation on the table "frontier_evm_log"
+"""
+type archive_frontier_evm_log_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [archive_frontier_evm_log!]!
+}
+
+"""
+input type for inserting object relation for remote table "frontier_evm_log"
+"""
+input archive_frontier_evm_log_obj_rel_insert_input {
+  data: archive_frontier_evm_log_insert_input!
+
+  """upsert condition"""
+  on_conflict: archive_frontier_evm_log_on_conflict
+}
+
+"""
+on_conflict condition type for table "frontier_evm_log"
+"""
+input archive_frontier_evm_log_on_conflict {
+  constraint: archive_frontier_evm_log_constraint!
+  update_columns: [archive_frontier_evm_log_update_column!]! = []
+  where: archive_frontier_evm_log_bool_exp
+}
+
+"""Ordering options when selecting data from "frontier_evm_log"."""
+input archive_frontier_evm_log_order_by {
+  contract: archive_order_by
+  event: archive_event_order_by
+  event_id: archive_order_by
+  topic0: archive_order_by
+  topic1: archive_order_by
+  topic2: archive_order_by
+  topic3: archive_order_by
+}
+
+"""primary key columns input for table: frontier_evm_log"""
+input archive_frontier_evm_log_pk_columns_input {
+  event_id: archive_bpchar!
+}
+
+"""
+select columns of table "frontier_evm_log"
+"""
+enum archive_frontier_evm_log_select_column {
+  """column name"""
+  contract
+
+  """column name"""
+  event_id
+
+  """column name"""
+  topic0
+
+  """column name"""
+  topic1
+
+  """column name"""
+  topic2
+
+  """column name"""
+  topic3
+}
+
+"""
+input type for updating data in table "frontier_evm_log"
+"""
+input archive_frontier_evm_log_set_input {
+  contract: archive_bpchar
+  event_id: archive_bpchar
+  topic0: archive_bpchar
+  topic1: archive_bpchar
+  topic2: archive_bpchar
+  topic3: archive_bpchar
+}
+
+"""
+Streaming cursor of the table "frontier_evm_log"
+"""
+input archive_frontier_evm_log_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: archive_frontier_evm_log_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: archive_cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input archive_frontier_evm_log_stream_cursor_value_input {
+  contract: archive_bpchar
+  event_id: archive_bpchar
+  topic0: archive_bpchar
+  topic1: archive_bpchar
+  topic2: archive_bpchar
+  topic3: archive_bpchar
+}
+
+"""
+update columns of table "frontier_evm_log"
+"""
+enum archive_frontier_evm_log_update_column {
+  """column name"""
+  contract
+
+  """column name"""
+  event_id
+
+  """column name"""
+  topic0
+
+  """column name"""
+  topic1
+
+  """column name"""
+  topic2
+
+  """column name"""
+  topic3
+}
+
+input archive_frontier_evm_log_updates {
+  """sets the columns of the filtered rows to the given values"""
+  _set: archive_frontier_evm_log_set_input
+  where: archive_frontier_evm_log_bool_exp!
+}
+
+"""
+columns and relationships of "gear_message_enqueued"
+"""
+type archive_gear_message_enqueued {
+  """An object relationship"""
+  event: archive_event!
+  event_id: archive_bpchar!
+  program: String!
+}
+
+"""
+aggregated selection of "gear_message_enqueued"
+"""
+type archive_gear_message_enqueued_aggregate {
+  aggregate: archive_gear_message_enqueued_aggregate_fields
+  nodes: [archive_gear_message_enqueued!]!
+}
+
+"""
+aggregate fields of "gear_message_enqueued"
+"""
+type archive_gear_message_enqueued_aggregate_fields {
+  count(columns: [archive_gear_message_enqueued_select_column!], distinct: Boolean): Int!
+  max: archive_gear_message_enqueued_max_fields
+  min: archive_gear_message_enqueued_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "gear_message_enqueued". All fields are combined with a logical 'AND'.
+"""
+input archive_gear_message_enqueued_bool_exp {
+  _and: [archive_gear_message_enqueued_bool_exp!]
+  _not: archive_gear_message_enqueued_bool_exp
+  _or: [archive_gear_message_enqueued_bool_exp!]
+  event: archive_event_bool_exp
+  event_id: archive_bpchar_comparison_exp
+  program: archive_String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "gear_message_enqueued"
+"""
+enum archive_gear_message_enqueued_constraint {
+  """
+  unique or primary key constraint on columns "event_id"
+  """
+  gear_message_enqueued_pkey
+}
+
+"""
+input type for inserting data into table "gear_message_enqueued"
+"""
+input archive_gear_message_enqueued_insert_input {
+  event: archive_event_obj_rel_insert_input
+  event_id: archive_bpchar
+  program: String
+}
+
+"""aggregate max on columns"""
+type archive_gear_message_enqueued_max_fields {
+  event_id: archive_bpchar
+  program: String
+}
+
+"""aggregate min on columns"""
+type archive_gear_message_enqueued_min_fields {
+  event_id: archive_bpchar
+  program: String
+}
+
+"""
+response of any mutation on the table "gear_message_enqueued"
+"""
+type archive_gear_message_enqueued_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [archive_gear_message_enqueued!]!
+}
+
+"""
+input type for inserting object relation for remote table "gear_message_enqueued"
+"""
+input archive_gear_message_enqueued_obj_rel_insert_input {
+  data: archive_gear_message_enqueued_insert_input!
+
+  """upsert condition"""
+  on_conflict: archive_gear_message_enqueued_on_conflict
+}
+
+"""
+on_conflict condition type for table "gear_message_enqueued"
+"""
+input archive_gear_message_enqueued_on_conflict {
+  constraint: archive_gear_message_enqueued_constraint!
+  update_columns: [archive_gear_message_enqueued_update_column!]! = []
+  where: archive_gear_message_enqueued_bool_exp
+}
+
+"""Ordering options when selecting data from "gear_message_enqueued"."""
+input archive_gear_message_enqueued_order_by {
+  event: archive_event_order_by
+  event_id: archive_order_by
+  program: archive_order_by
+}
+
+"""primary key columns input for table: gear_message_enqueued"""
+input archive_gear_message_enqueued_pk_columns_input {
+  event_id: archive_bpchar!
+}
+
+"""
+select columns of table "gear_message_enqueued"
+"""
+enum archive_gear_message_enqueued_select_column {
+  """column name"""
+  event_id
+
+  """column name"""
+  program
+}
+
+"""
+input type for updating data in table "gear_message_enqueued"
+"""
+input archive_gear_message_enqueued_set_input {
+  event_id: archive_bpchar
+  program: String
+}
+
+"""
+Streaming cursor of the table "gear_message_enqueued"
+"""
+input archive_gear_message_enqueued_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: archive_gear_message_enqueued_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: archive_cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input archive_gear_message_enqueued_stream_cursor_value_input {
+  event_id: archive_bpchar
+  program: String
+}
+
+"""
+update columns of table "gear_message_enqueued"
+"""
+enum archive_gear_message_enqueued_update_column {
+  """column name"""
+  event_id
+
+  """column name"""
+  program
+}
+
+input archive_gear_message_enqueued_updates {
+  """sets the columns of the filtered rows to the given values"""
+  _set: archive_gear_message_enqueued_set_input
+  where: archive_gear_message_enqueued_bool_exp!
+}
+
+"""
+columns and relationships of "gear_user_message_sent"
+"""
+type archive_gear_user_message_sent {
+  """An object relationship"""
+  event: archive_event!
+  event_id: archive_bpchar!
+  program: String!
+}
+
+"""
+aggregated selection of "gear_user_message_sent"
+"""
+type archive_gear_user_message_sent_aggregate {
+  aggregate: archive_gear_user_message_sent_aggregate_fields
+  nodes: [archive_gear_user_message_sent!]!
+}
+
+"""
+aggregate fields of "gear_user_message_sent"
+"""
+type archive_gear_user_message_sent_aggregate_fields {
+  count(columns: [archive_gear_user_message_sent_select_column!], distinct: Boolean): Int!
+  max: archive_gear_user_message_sent_max_fields
+  min: archive_gear_user_message_sent_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "gear_user_message_sent". All fields are combined with a logical 'AND'.
+"""
+input archive_gear_user_message_sent_bool_exp {
+  _and: [archive_gear_user_message_sent_bool_exp!]
+  _not: archive_gear_user_message_sent_bool_exp
+  _or: [archive_gear_user_message_sent_bool_exp!]
+  event: archive_event_bool_exp
+  event_id: archive_bpchar_comparison_exp
+  program: archive_String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "gear_user_message_sent"
+"""
+enum archive_gear_user_message_sent_constraint {
+  """
+  unique or primary key constraint on columns "event_id"
+  """
+  gear_user_message_sent_pkey
+}
+
+"""
+input type for inserting data into table "gear_user_message_sent"
+"""
+input archive_gear_user_message_sent_insert_input {
+  event: archive_event_obj_rel_insert_input
+  event_id: archive_bpchar
+  program: String
+}
+
+"""aggregate max on columns"""
+type archive_gear_user_message_sent_max_fields {
+  event_id: archive_bpchar
+  program: String
+}
+
+"""aggregate min on columns"""
+type archive_gear_user_message_sent_min_fields {
+  event_id: archive_bpchar
+  program: String
+}
+
+"""
+response of any mutation on the table "gear_user_message_sent"
+"""
+type archive_gear_user_message_sent_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [archive_gear_user_message_sent!]!
+}
+
+"""
+input type for inserting object relation for remote table "gear_user_message_sent"
+"""
+input archive_gear_user_message_sent_obj_rel_insert_input {
+  data: archive_gear_user_message_sent_insert_input!
+
+  """upsert condition"""
+  on_conflict: archive_gear_user_message_sent_on_conflict
+}
+
+"""
+on_conflict condition type for table "gear_user_message_sent"
+"""
+input archive_gear_user_message_sent_on_conflict {
+  constraint: archive_gear_user_message_sent_constraint!
+  update_columns: [archive_gear_user_message_sent_update_column!]! = []
+  where: archive_gear_user_message_sent_bool_exp
+}
+
+"""Ordering options when selecting data from "gear_user_message_sent"."""
+input archive_gear_user_message_sent_order_by {
+  event: archive_event_order_by
+  event_id: archive_order_by
+  program: archive_order_by
+}
+
+"""primary key columns input for table: gear_user_message_sent"""
+input archive_gear_user_message_sent_pk_columns_input {
+  event_id: archive_bpchar!
+}
+
+"""
+select columns of table "gear_user_message_sent"
+"""
+enum archive_gear_user_message_sent_select_column {
+  """column name"""
+  event_id
+
+  """column name"""
+  program
+}
+
+"""
+input type for updating data in table "gear_user_message_sent"
+"""
+input archive_gear_user_message_sent_set_input {
+  event_id: archive_bpchar
+  program: String
+}
+
+"""
+Streaming cursor of the table "gear_user_message_sent"
+"""
+input archive_gear_user_message_sent_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: archive_gear_user_message_sent_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: archive_cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input archive_gear_user_message_sent_stream_cursor_value_input {
+  event_id: archive_bpchar
+  program: String
+}
+
+"""
+update columns of table "gear_user_message_sent"
+"""
+enum archive_gear_user_message_sent_update_column {
+  """column name"""
+  event_id
+
+  """column name"""
+  program
+}
+
+input archive_gear_user_message_sent_updates {
+  """sets the columns of the filtered rows to the given values"""
+  _set: archive_gear_user_message_sent_set_input
+  where: archive_gear_user_message_sent_bool_exp!
+}
+
+scalar archive_jsonb
+
+input archive_jsonb_cast_exp {
+  String: archive_String_comparison_exp
+}
+
+"""
+Boolean expression to compare columns of type "jsonb". All fields are combined with logical 'AND'.
+"""
+input archive_jsonb_comparison_exp {
+  _cast: archive_jsonb_cast_exp
+
+  """is the column contained in the given json value"""
+  _contained_in: archive_jsonb
+
+  """does the column contain the given json value at the top level"""
+  _contains: archive_jsonb
+  _eq: archive_jsonb
+  _gt: archive_jsonb
+  _gte: archive_jsonb
+
+  """does the string exist as a top-level key in the column"""
+  _has_key: String
+
+  """do all of these strings exist as top-level keys in the column"""
+  _has_keys_all: [String!]
+
+  """do any of these strings exist as top-level keys in the column"""
+  _has_keys_any: [String!]
+  _in: [archive_jsonb!]
+  _is_null: Boolean
+  _lt: archive_jsonb
+  _lte: archive_jsonb
+  _neq: archive_jsonb
+  _nin: [archive_jsonb!]
+}
+
+"""
+columns and relationships of "metadata"
+"""
+type archive_metadata {
+  block_hash: archive_bpchar!
+  block_height: Int!
   hex: String!
-  id: ID!
-  specName: String!
-  specVersion: Int
+  id: String!
+  spec_name: String!
+  spec_version: Int
 }
 
-type archive_MetadataConnection {
-  edges: [archive_MetadataEdge!]!
-  pageInfo: balances_PageInfo!
-  totalCount: Int!
+"""
+aggregated selection of "metadata"
+"""
+type archive_metadata_aggregate {
+  aggregate: archive_metadata_aggregate_fields
+  nodes: [archive_metadata!]!
 }
 
-type archive_MetadataEdge {
-  cursor: String!
-  node: archive_Metadata!
+"""
+aggregate fields of "metadata"
+"""
+type archive_metadata_aggregate_fields {
+  avg: archive_metadata_avg_fields
+  count(columns: [archive_metadata_select_column!], distinct: Boolean): Int!
+  max: archive_metadata_max_fields
+  min: archive_metadata_min_fields
+  stddev: archive_metadata_stddev_fields
+  stddev_pop: archive_metadata_stddev_pop_fields
+  stddev_samp: archive_metadata_stddev_samp_fields
+  sum: archive_metadata_sum_fields
+  var_pop: archive_metadata_var_pop_fields
+  var_samp: archive_metadata_var_samp_fields
+  variance: archive_metadata_variance_fields
 }
 
-enum archive_MetadataOrderByInput {
-  blockHash_ASC
-  blockHash_DESC
-  blockHeight_ASC
-  blockHeight_DESC
-  hex_ASC
-  hex_DESC
-  id_ASC
-  id_DESC
-  specName_ASC
-  specName_DESC
-  specVersion_ASC
-  specVersion_DESC
+"""aggregate avg on columns"""
+type archive_metadata_avg_fields {
+  block_height: Float
+  spec_version: Float
 }
 
-input archive_MetadataWhereInput {
-  AND: [archive_MetadataWhereInput!]
-  OR: [archive_MetadataWhereInput!]
-  blockHash_contains: String
-  blockHash_containsInsensitive: String
-  blockHash_endsWith: String
-  blockHash_eq: String
-  blockHash_gt: String
-  blockHash_gte: String
-  blockHash_in: [String!]
-  blockHash_lt: String
-  blockHash_lte: String
-  blockHash_not_contains: String
-  blockHash_not_containsInsensitive: String
-  blockHash_not_endsWith: String
-  blockHash_not_eq: String
-  blockHash_not_in: [String!]
-  blockHash_not_startsWith: String
-  blockHash_startsWith: String
-  blockHeight_eq: Int
-  blockHeight_gt: Int
-  blockHeight_gte: Int
-  blockHeight_in: [Int!]
-  blockHeight_lt: Int
-  blockHeight_lte: Int
-  blockHeight_not_eq: Int
-  blockHeight_not_in: [Int!]
-  hex_contains: String
-  hex_containsInsensitive: String
-  hex_endsWith: String
-  hex_eq: String
-  hex_gt: String
-  hex_gte: String
-  hex_in: [String!]
-  hex_lt: String
-  hex_lte: String
-  hex_not_contains: String
-  hex_not_containsInsensitive: String
-  hex_not_endsWith: String
-  hex_not_eq: String
-  hex_not_in: [String!]
-  hex_not_startsWith: String
-  hex_startsWith: String
-  id_contains: ID
-  id_containsInsensitive: ID
-  id_endsWith: ID
-  id_eq: ID
-  id_gt: ID
-  id_gte: ID
-  id_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_not_contains: ID
-  id_not_containsInsensitive: ID
-  id_not_endsWith: ID
-  id_not_eq: ID
-  id_not_in: [ID!]
-  id_not_startsWith: ID
-  id_startsWith: ID
-  specName_contains: String
-  specName_containsInsensitive: String
-  specName_endsWith: String
-  specName_eq: String
-  specName_gt: String
-  specName_gte: String
-  specName_in: [String!]
-  specName_lt: String
-  specName_lte: String
-  specName_not_contains: String
-  specName_not_containsInsensitive: String
-  specName_not_endsWith: String
-  specName_not_eq: String
-  specName_not_in: [String!]
-  specName_not_startsWith: String
-  specName_startsWith: String
-  specVersion_eq: Int
-  specVersion_gt: Int
-  specVersion_gte: Int
-  specVersion_in: [Int!]
-  specVersion_isNull: Boolean
-  specVersion_lt: Int
-  specVersion_lte: Int
-  specVersion_not_eq: Int
-  specVersion_not_in: [Int!]
+"""
+Boolean expression to filter rows from the table "metadata". All fields are combined with a logical 'AND'.
+"""
+input archive_metadata_bool_exp {
+  _and: [archive_metadata_bool_exp!]
+  _not: archive_metadata_bool_exp
+  _or: [archive_metadata_bool_exp!]
+  block_hash: archive_bpchar_comparison_exp
+  block_height: archive_Int_comparison_exp
+  hex: archive_String_comparison_exp
+  id: archive_String_comparison_exp
+  spec_name: archive_String_comparison_exp
+  spec_version: archive_Int_comparison_exp
 }
 
-input archive_MetadataWhereUniqueInput {
-  id: ID!
+"""
+unique or primary key constraints on table "metadata"
+"""
+enum archive_metadata_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  metadata_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "metadata"
+"""
+input archive_metadata_inc_input {
+  block_height: Int
+  spec_version: Int
+}
+
+"""
+input type for inserting data into table "metadata"
+"""
+input archive_metadata_insert_input {
+  block_hash: archive_bpchar
+  block_height: Int
+  hex: String
+  id: String
+  spec_name: String
+  spec_version: Int
+}
+
+"""aggregate max on columns"""
+type archive_metadata_max_fields {
+  block_hash: archive_bpchar
+  block_height: Int
+  hex: String
+  id: String
+  spec_name: String
+  spec_version: Int
+}
+
+"""aggregate min on columns"""
+type archive_metadata_min_fields {
+  block_hash: archive_bpchar
+  block_height: Int
+  hex: String
+  id: String
+  spec_name: String
+  spec_version: Int
+}
+
+"""
+response of any mutation on the table "metadata"
+"""
+type archive_metadata_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [archive_metadata!]!
+}
+
+"""
+on_conflict condition type for table "metadata"
+"""
+input archive_metadata_on_conflict {
+  constraint: archive_metadata_constraint!
+  update_columns: [archive_metadata_update_column!]! = []
+  where: archive_metadata_bool_exp
+}
+
+"""Ordering options when selecting data from "metadata"."""
+input archive_metadata_order_by {
+  block_hash: archive_order_by
+  block_height: archive_order_by
+  hex: archive_order_by
+  id: archive_order_by
+  spec_name: archive_order_by
+  spec_version: archive_order_by
+}
+
+"""primary key columns input for table: metadata"""
+input archive_metadata_pk_columns_input {
+  id: String!
+}
+
+"""
+select columns of table "metadata"
+"""
+enum archive_metadata_select_column {
+  """column name"""
+  block_hash
+
+  """column name"""
+  block_height
+
+  """column name"""
+  hex
+
+  """column name"""
+  id
+
+  """column name"""
+  spec_name
+
+  """column name"""
+  spec_version
+}
+
+"""
+input type for updating data in table "metadata"
+"""
+input archive_metadata_set_input {
+  block_hash: archive_bpchar
+  block_height: Int
+  hex: String
+  id: String
+  spec_name: String
+  spec_version: Int
+}
+
+"""aggregate stddev on columns"""
+type archive_metadata_stddev_fields {
+  block_height: Float
+  spec_version: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type archive_metadata_stddev_pop_fields {
+  block_height: Float
+  spec_version: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type archive_metadata_stddev_samp_fields {
+  block_height: Float
+  spec_version: Float
+}
+
+"""
+Streaming cursor of the table "metadata"
+"""
+input archive_metadata_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: archive_metadata_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: archive_cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input archive_metadata_stream_cursor_value_input {
+  block_hash: archive_bpchar
+  block_height: Int
+  hex: String
+  id: String
+  spec_name: String
+  spec_version: Int
+}
+
+"""aggregate sum on columns"""
+type archive_metadata_sum_fields {
+  block_height: Int
+  spec_version: Int
+}
+
+"""
+update columns of table "metadata"
+"""
+enum archive_metadata_update_column {
+  """column name"""
+  block_hash
+
+  """column name"""
+  block_height
+
+  """column name"""
+  hex
+
+  """column name"""
+  id
+
+  """column name"""
+  spec_name
+
+  """column name"""
+  spec_version
+}
+
+input archive_metadata_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: archive_metadata_inc_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: archive_metadata_set_input
+  where: archive_metadata_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type archive_metadata_var_pop_fields {
+  block_height: Float
+  spec_version: Float
+}
+
+"""aggregate var_samp on columns"""
+type archive_metadata_var_samp_fields {
+  block_height: Float
+  spec_version: Float
+}
+
+"""aggregate variance on columns"""
+type archive_metadata_variance_fields {
+  block_height: Float
+  spec_version: Float
+}
+
+"""
+columns and relationships of "migrations"
+"""
+type archive_migrations {
+  executed_at: archive_timestamp
+  hash: String!
+  id: Int!
+  name: String!
+}
+
+"""
+aggregated selection of "migrations"
+"""
+type archive_migrations_aggregate {
+  aggregate: archive_migrations_aggregate_fields
+  nodes: [archive_migrations!]!
+}
+
+"""
+aggregate fields of "migrations"
+"""
+type archive_migrations_aggregate_fields {
+  avg: archive_migrations_avg_fields
+  count(columns: [archive_migrations_select_column!], distinct: Boolean): Int!
+  max: archive_migrations_max_fields
+  min: archive_migrations_min_fields
+  stddev: archive_migrations_stddev_fields
+  stddev_pop: archive_migrations_stddev_pop_fields
+  stddev_samp: archive_migrations_stddev_samp_fields
+  sum: archive_migrations_sum_fields
+  var_pop: archive_migrations_var_pop_fields
+  var_samp: archive_migrations_var_samp_fields
+  variance: archive_migrations_variance_fields
+}
+
+"""aggregate avg on columns"""
+type archive_migrations_avg_fields {
+  id: Float
+}
+
+"""
+Boolean expression to filter rows from the table "migrations". All fields are combined with a logical 'AND'.
+"""
+input archive_migrations_bool_exp {
+  _and: [archive_migrations_bool_exp!]
+  _not: archive_migrations_bool_exp
+  _or: [archive_migrations_bool_exp!]
+  executed_at: archive_timestamp_comparison_exp
+  hash: archive_String_comparison_exp
+  id: archive_Int_comparison_exp
+  name: archive_String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "migrations"
+"""
+enum archive_migrations_constraint {
+  """
+  unique or primary key constraint on columns "name"
+  """
+  migrations_name_key
+
+  """
+  unique or primary key constraint on columns "id"
+  """
+  migrations_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "migrations"
+"""
+input archive_migrations_inc_input {
+  id: Int
+}
+
+"""
+input type for inserting data into table "migrations"
+"""
+input archive_migrations_insert_input {
+  executed_at: archive_timestamp
+  hash: String
+  id: Int
+  name: String
+}
+
+"""aggregate max on columns"""
+type archive_migrations_max_fields {
+  executed_at: archive_timestamp
+  hash: String
+  id: Int
+  name: String
+}
+
+"""aggregate min on columns"""
+type archive_migrations_min_fields {
+  executed_at: archive_timestamp
+  hash: String
+  id: Int
+  name: String
+}
+
+"""
+response of any mutation on the table "migrations"
+"""
+type archive_migrations_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [archive_migrations!]!
+}
+
+"""
+on_conflict condition type for table "migrations"
+"""
+input archive_migrations_on_conflict {
+  constraint: archive_migrations_constraint!
+  update_columns: [archive_migrations_update_column!]! = []
+  where: archive_migrations_bool_exp
+}
+
+"""Ordering options when selecting data from "migrations"."""
+input archive_migrations_order_by {
+  executed_at: archive_order_by
+  hash: archive_order_by
+  id: archive_order_by
+  name: archive_order_by
+}
+
+"""primary key columns input for table: migrations"""
+input archive_migrations_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "migrations"
+"""
+enum archive_migrations_select_column {
+  """column name"""
+  executed_at
+
+  """column name"""
+  hash
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+}
+
+"""
+input type for updating data in table "migrations"
+"""
+input archive_migrations_set_input {
+  executed_at: archive_timestamp
+  hash: String
+  id: Int
+  name: String
+}
+
+"""aggregate stddev on columns"""
+type archive_migrations_stddev_fields {
+  id: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type archive_migrations_stddev_pop_fields {
+  id: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type archive_migrations_stddev_samp_fields {
+  id: Float
+}
+
+"""
+Streaming cursor of the table "migrations"
+"""
+input archive_migrations_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: archive_migrations_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: archive_cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input archive_migrations_stream_cursor_value_input {
+  executed_at: archive_timestamp
+  hash: String
+  id: Int
+  name: String
+}
+
+"""aggregate sum on columns"""
+type archive_migrations_sum_fields {
+  id: Int
+}
+
+"""
+update columns of table "migrations"
+"""
+enum archive_migrations_update_column {
+  """column name"""
+  executed_at
+
+  """column name"""
+  hash
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+}
+
+input archive_migrations_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: archive_migrations_inc_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: archive_migrations_set_input
+  where: archive_migrations_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type archive_migrations_var_pop_fields {
+  id: Float
+}
+
+"""aggregate var_samp on columns"""
+type archive_migrations_var_samp_fields {
+  id: Float
+}
+
+"""aggregate variance on columns"""
+type archive_migrations_variance_fields {
+  id: Float
+}
+
+scalar archive_numeric
+
+"""
+Boolean expression to compare columns of type "numeric". All fields are combined with logical 'AND'.
+"""
+input archive_numeric_comparison_exp {
+  _eq: archive_numeric
+  _gt: archive_numeric
+  _gte: archive_numeric
+  _in: [archive_numeric!]
+  _is_null: Boolean
+  _lt: archive_numeric
+  _lte: archive_numeric
+  _neq: archive_numeric
+  _nin: [archive_numeric!]
+}
+
+"""column ordering options"""
+enum archive_order_by {
+  """in ascending order, nulls last"""
+  asc
+
+  """in ascending order, nulls first"""
+  asc_nulls_first
+
+  """in ascending order, nulls last"""
+  asc_nulls_last
+
+  """in descending order, nulls first"""
+  desc
+
+  """in descending order, nulls first"""
+  desc_nulls_first
+
+  """in descending order, nulls last"""
+  desc_nulls_last
+}
+
+scalar archive_timestamp
+
+"""
+Boolean expression to compare columns of type "timestamp". All fields are combined with logical 'AND'.
+"""
+input archive_timestamp_comparison_exp {
+  _eq: archive_timestamp
+  _gt: archive_timestamp
+  _gte: archive_timestamp
+  _in: [archive_timestamp!]
+  _is_null: Boolean
+  _lt: archive_timestamp
+  _lte: archive_timestamp
+  _neq: archive_timestamp
+  _nin: [archive_timestamp!]
+}
+
+scalar archive_timestamptz
+
+"""
+Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'.
+"""
+input archive_timestamptz_comparison_exp {
+  _eq: archive_timestamptz
+  _gt: archive_timestamptz
+  _gte: archive_timestamptz
+  _in: [archive_timestamptz!]
+  _is_null: Boolean
+  _lt: archive_timestamptz
+  _lte: archive_timestamptz
+  _neq: archive_timestamptz
+  _nin: [archive_timestamptz!]
+}
+
+"""
+columns and relationships of "warning"
+"""
+type archive_warning {
+  block_id: archive_bpchar
+  message: String
+}
+
+"""
+aggregated selection of "warning"
+"""
+type archive_warning_aggregate {
+  aggregate: archive_warning_aggregate_fields
+  nodes: [archive_warning!]!
+}
+
+"""
+aggregate fields of "warning"
+"""
+type archive_warning_aggregate_fields {
+  count(columns: [archive_warning_select_column!], distinct: Boolean): Int!
+  max: archive_warning_max_fields
+  min: archive_warning_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "warning". All fields are combined with a logical 'AND'.
+"""
+input archive_warning_bool_exp {
+  _and: [archive_warning_bool_exp!]
+  _not: archive_warning_bool_exp
+  _or: [archive_warning_bool_exp!]
+  block_id: archive_bpchar_comparison_exp
+  message: archive_String_comparison_exp
+}
+
+"""
+input type for inserting data into table "warning"
+"""
+input archive_warning_insert_input {
+  block_id: archive_bpchar
+  message: String
+}
+
+"""aggregate max on columns"""
+type archive_warning_max_fields {
+  block_id: archive_bpchar
+  message: String
+}
+
+"""aggregate min on columns"""
+type archive_warning_min_fields {
+  block_id: archive_bpchar
+  message: String
+}
+
+"""
+response of any mutation on the table "warning"
+"""
+type archive_warning_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [archive_warning!]!
+}
+
+"""Ordering options when selecting data from "warning"."""
+input archive_warning_order_by {
+  block_id: archive_order_by
+  message: archive_order_by
+}
+
+"""
+select columns of table "warning"
+"""
+enum archive_warning_select_column {
+  """column name"""
+  block_id
+
+  """column name"""
+  message
+}
+
+"""
+input type for updating data in table "warning"
+"""
+input archive_warning_set_input {
+  block_id: archive_bpchar
+  message: String
+}
+
+"""
+Streaming cursor of the table "warning"
+"""
+input archive_warning_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: archive_warning_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: archive_cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input archive_warning_stream_cursor_value_input {
+  block_id: archive_bpchar
+  message: String
+}
+
+input archive_warning_updates {
+  """sets the columns of the filtered rows to the given values"""
+  _set: archive_warning_set_input
+  where: archive_warning_bool_exp!
+}
+
+type archivemutation_root {
+  """
+  delete data from the table: "block"
+  """
+  delete_block(
+    """filter the rows which have to be deleted"""
+    where: archive_block_bool_exp!
+  ): archive_block_mutation_response
+
+  """
+  delete single row from the table: "block"
+  """
+  delete_block_by_pk(id: archive_bpchar!): archive_block
+
+  """
+  delete data from the table: "call"
+  """
+  delete_call(
+    """filter the rows which have to be deleted"""
+    where: archive_call_bool_exp!
+  ): archive_call_mutation_response
+
+  """
+  delete single row from the table: "call"
+  """
+  delete_call_by_pk(id: String!): archive_call
+
+  """
+  delete data from the table: "contracts_contract_emitted"
+  """
+  delete_contracts_contract_emitted(
+    """filter the rows which have to be deleted"""
+    where: archive_contracts_contract_emitted_bool_exp!
+  ): archive_contracts_contract_emitted_mutation_response
+
+  """
+  delete single row from the table: "contracts_contract_emitted"
+  """
+  delete_contracts_contract_emitted_by_pk(event_id: archive_bpchar!): archive_contracts_contract_emitted
+
+  """
+  delete data from the table: "event"
+  """
+  delete_event(
+    """filter the rows which have to be deleted"""
+    where: archive_event_bool_exp!
+  ): archive_event_mutation_response
+
+  """
+  delete single row from the table: "event"
+  """
+  delete_event_by_pk(id: archive_bpchar!): archive_event
+
+  """
+  delete data from the table: "extrinsic"
+  """
+  delete_extrinsic(
+    """filter the rows which have to be deleted"""
+    where: archive_extrinsic_bool_exp!
+  ): archive_extrinsic_mutation_response
+
+  """
+  delete single row from the table: "extrinsic"
+  """
+  delete_extrinsic_by_pk(id: archive_bpchar!): archive_extrinsic
+
+  """
+  delete data from the table: "frontier_ethereum_transaction"
+  """
+  delete_frontier_ethereum_transaction(
+    """filter the rows which have to be deleted"""
+    where: archive_frontier_ethereum_transaction_bool_exp!
+  ): archive_frontier_ethereum_transaction_mutation_response
+
+  """
+  delete single row from the table: "frontier_ethereum_transaction"
+  """
+  delete_frontier_ethereum_transaction_by_pk(call_id: String!): archive_frontier_ethereum_transaction
+
+  """
+  delete data from the table: "frontier_evm_log"
+  """
+  delete_frontier_evm_log(
+    """filter the rows which have to be deleted"""
+    where: archive_frontier_evm_log_bool_exp!
+  ): archive_frontier_evm_log_mutation_response
+
+  """
+  delete single row from the table: "frontier_evm_log"
+  """
+  delete_frontier_evm_log_by_pk(event_id: archive_bpchar!): archive_frontier_evm_log
+
+  """
+  delete data from the table: "gear_message_enqueued"
+  """
+  delete_gear_message_enqueued(
+    """filter the rows which have to be deleted"""
+    where: archive_gear_message_enqueued_bool_exp!
+  ): archive_gear_message_enqueued_mutation_response
+
+  """
+  delete single row from the table: "gear_message_enqueued"
+  """
+  delete_gear_message_enqueued_by_pk(event_id: archive_bpchar!): archive_gear_message_enqueued
+
+  """
+  delete data from the table: "gear_user_message_sent"
+  """
+  delete_gear_user_message_sent(
+    """filter the rows which have to be deleted"""
+    where: archive_gear_user_message_sent_bool_exp!
+  ): archive_gear_user_message_sent_mutation_response
+
+  """
+  delete single row from the table: "gear_user_message_sent"
+  """
+  delete_gear_user_message_sent_by_pk(event_id: archive_bpchar!): archive_gear_user_message_sent
+
+  """
+  delete data from the table: "metadata"
+  """
+  delete_metadata(
+    """filter the rows which have to be deleted"""
+    where: archive_metadata_bool_exp!
+  ): archive_metadata_mutation_response
+
+  """
+  delete single row from the table: "metadata"
+  """
+  delete_metadata_by_pk(id: String!): archive_metadata
+
+  """
+  delete data from the table: "migrations"
+  """
+  delete_migrations(
+    """filter the rows which have to be deleted"""
+    where: archive_migrations_bool_exp!
+  ): archive_migrations_mutation_response
+
+  """
+  delete single row from the table: "migrations"
+  """
+  delete_migrations_by_pk(id: Int!): archive_migrations
+
+  """
+  delete data from the table: "warning"
+  """
+  delete_warning(
+    """filter the rows which have to be deleted"""
+    where: archive_warning_bool_exp!
+  ): archive_warning_mutation_response
+
+  """
+  insert data into the table: "block"
+  """
+  insert_block(
+    """the rows to be inserted"""
+    objects: [archive_block_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: archive_block_on_conflict
+  ): archive_block_mutation_response
+
+  """
+  insert a single row into the table: "block"
+  """
+  insert_block_one(
+    """the row to be inserted"""
+    object: archive_block_insert_input!
+
+    """upsert condition"""
+    on_conflict: archive_block_on_conflict
+  ): archive_block
+
+  """
+  insert data into the table: "call"
+  """
+  insert_call(
+    """the rows to be inserted"""
+    objects: [archive_call_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: archive_call_on_conflict
+  ): archive_call_mutation_response
+
+  """
+  insert a single row into the table: "call"
+  """
+  insert_call_one(
+    """the row to be inserted"""
+    object: archive_call_insert_input!
+
+    """upsert condition"""
+    on_conflict: archive_call_on_conflict
+  ): archive_call
+
+  """
+  insert data into the table: "contracts_contract_emitted"
+  """
+  insert_contracts_contract_emitted(
+    """the rows to be inserted"""
+    objects: [archive_contracts_contract_emitted_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: archive_contracts_contract_emitted_on_conflict
+  ): archive_contracts_contract_emitted_mutation_response
+
+  """
+  insert a single row into the table: "contracts_contract_emitted"
+  """
+  insert_contracts_contract_emitted_one(
+    """the row to be inserted"""
+    object: archive_contracts_contract_emitted_insert_input!
+
+    """upsert condition"""
+    on_conflict: archive_contracts_contract_emitted_on_conflict
+  ): archive_contracts_contract_emitted
+
+  """
+  insert data into the table: "event"
+  """
+  insert_event(
+    """the rows to be inserted"""
+    objects: [archive_event_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: archive_event_on_conflict
+  ): archive_event_mutation_response
+
+  """
+  insert a single row into the table: "event"
+  """
+  insert_event_one(
+    """the row to be inserted"""
+    object: archive_event_insert_input!
+
+    """upsert condition"""
+    on_conflict: archive_event_on_conflict
+  ): archive_event
+
+  """
+  insert data into the table: "extrinsic"
+  """
+  insert_extrinsic(
+    """the rows to be inserted"""
+    objects: [archive_extrinsic_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: archive_extrinsic_on_conflict
+  ): archive_extrinsic_mutation_response
+
+  """
+  insert a single row into the table: "extrinsic"
+  """
+  insert_extrinsic_one(
+    """the row to be inserted"""
+    object: archive_extrinsic_insert_input!
+
+    """upsert condition"""
+    on_conflict: archive_extrinsic_on_conflict
+  ): archive_extrinsic
+
+  """
+  insert data into the table: "frontier_ethereum_transaction"
+  """
+  insert_frontier_ethereum_transaction(
+    """the rows to be inserted"""
+    objects: [archive_frontier_ethereum_transaction_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: archive_frontier_ethereum_transaction_on_conflict
+  ): archive_frontier_ethereum_transaction_mutation_response
+
+  """
+  insert a single row into the table: "frontier_ethereum_transaction"
+  """
+  insert_frontier_ethereum_transaction_one(
+    """the row to be inserted"""
+    object: archive_frontier_ethereum_transaction_insert_input!
+
+    """upsert condition"""
+    on_conflict: archive_frontier_ethereum_transaction_on_conflict
+  ): archive_frontier_ethereum_transaction
+
+  """
+  insert data into the table: "frontier_evm_log"
+  """
+  insert_frontier_evm_log(
+    """the rows to be inserted"""
+    objects: [archive_frontier_evm_log_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: archive_frontier_evm_log_on_conflict
+  ): archive_frontier_evm_log_mutation_response
+
+  """
+  insert a single row into the table: "frontier_evm_log"
+  """
+  insert_frontier_evm_log_one(
+    """the row to be inserted"""
+    object: archive_frontier_evm_log_insert_input!
+
+    """upsert condition"""
+    on_conflict: archive_frontier_evm_log_on_conflict
+  ): archive_frontier_evm_log
+
+  """
+  insert data into the table: "gear_message_enqueued"
+  """
+  insert_gear_message_enqueued(
+    """the rows to be inserted"""
+    objects: [archive_gear_message_enqueued_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: archive_gear_message_enqueued_on_conflict
+  ): archive_gear_message_enqueued_mutation_response
+
+  """
+  insert a single row into the table: "gear_message_enqueued"
+  """
+  insert_gear_message_enqueued_one(
+    """the row to be inserted"""
+    object: archive_gear_message_enqueued_insert_input!
+
+    """upsert condition"""
+    on_conflict: archive_gear_message_enqueued_on_conflict
+  ): archive_gear_message_enqueued
+
+  """
+  insert data into the table: "gear_user_message_sent"
+  """
+  insert_gear_user_message_sent(
+    """the rows to be inserted"""
+    objects: [archive_gear_user_message_sent_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: archive_gear_user_message_sent_on_conflict
+  ): archive_gear_user_message_sent_mutation_response
+
+  """
+  insert a single row into the table: "gear_user_message_sent"
+  """
+  insert_gear_user_message_sent_one(
+    """the row to be inserted"""
+    object: archive_gear_user_message_sent_insert_input!
+
+    """upsert condition"""
+    on_conflict: archive_gear_user_message_sent_on_conflict
+  ): archive_gear_user_message_sent
+
+  """
+  insert data into the table: "metadata"
+  """
+  insert_metadata(
+    """the rows to be inserted"""
+    objects: [archive_metadata_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: archive_metadata_on_conflict
+  ): archive_metadata_mutation_response
+
+  """
+  insert a single row into the table: "metadata"
+  """
+  insert_metadata_one(
+    """the row to be inserted"""
+    object: archive_metadata_insert_input!
+
+    """upsert condition"""
+    on_conflict: archive_metadata_on_conflict
+  ): archive_metadata
+
+  """
+  insert data into the table: "migrations"
+  """
+  insert_migrations(
+    """the rows to be inserted"""
+    objects: [archive_migrations_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: archive_migrations_on_conflict
+  ): archive_migrations_mutation_response
+
+  """
+  insert a single row into the table: "migrations"
+  """
+  insert_migrations_one(
+    """the row to be inserted"""
+    object: archive_migrations_insert_input!
+
+    """upsert condition"""
+    on_conflict: archive_migrations_on_conflict
+  ): archive_migrations
+
+  """
+  insert data into the table: "warning"
+  """
+  insert_warning(
+    """the rows to be inserted"""
+    objects: [archive_warning_insert_input!]!
+  ): archive_warning_mutation_response
+
+  """
+  insert a single row into the table: "warning"
+  """
+  insert_warning_one(
+    """the row to be inserted"""
+    object: archive_warning_insert_input!
+  ): archive_warning
+
+  """
+  update data of the table: "block"
+  """
+  update_block(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: archive_block_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: archive_block_set_input
+
+    """filter the rows which have to be updated"""
+    where: archive_block_bool_exp!
+  ): archive_block_mutation_response
+
+  """
+  update single row of the table: "block"
+  """
+  update_block_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: archive_block_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: archive_block_set_input
+    pk_columns: archive_block_pk_columns_input!
+  ): archive_block
+
+  """
+  update multiples rows of table: "block"
+  """
+  update_block_many(
+    """updates to execute, in order"""
+    updates: [archive_block_updates!]!
+  ): [archive_block_mutation_response]
+
+  """
+  update data of the table: "call"
+  """
+  update_call(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: archive_call_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: archive_call_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: archive_call_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: archive_call_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: archive_call_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: archive_call_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: archive_call_set_input
+
+    """filter the rows which have to be updated"""
+    where: archive_call_bool_exp!
+  ): archive_call_mutation_response
+
+  """
+  update single row of the table: "call"
+  """
+  update_call_by_pk(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: archive_call_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: archive_call_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: archive_call_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: archive_call_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: archive_call_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: archive_call_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: archive_call_set_input
+    pk_columns: archive_call_pk_columns_input!
+  ): archive_call
+
+  """
+  update multiples rows of table: "call"
+  """
+  update_call_many(
+    """updates to execute, in order"""
+    updates: [archive_call_updates!]!
+  ): [archive_call_mutation_response]
+
+  """
+  update data of the table: "contracts_contract_emitted"
+  """
+  update_contracts_contract_emitted(
+    """sets the columns of the filtered rows to the given values"""
+    _set: archive_contracts_contract_emitted_set_input
+
+    """filter the rows which have to be updated"""
+    where: archive_contracts_contract_emitted_bool_exp!
+  ): archive_contracts_contract_emitted_mutation_response
+
+  """
+  update single row of the table: "contracts_contract_emitted"
+  """
+  update_contracts_contract_emitted_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: archive_contracts_contract_emitted_set_input
+    pk_columns: archive_contracts_contract_emitted_pk_columns_input!
+  ): archive_contracts_contract_emitted
+
+  """
+  update multiples rows of table: "contracts_contract_emitted"
+  """
+  update_contracts_contract_emitted_many(
+    """updates to execute, in order"""
+    updates: [archive_contracts_contract_emitted_updates!]!
+  ): [archive_contracts_contract_emitted_mutation_response]
+
+  """
+  update data of the table: "event"
+  """
+  update_event(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: archive_event_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: archive_event_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: archive_event_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: archive_event_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: archive_event_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: archive_event_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: archive_event_set_input
+
+    """filter the rows which have to be updated"""
+    where: archive_event_bool_exp!
+  ): archive_event_mutation_response
+
+  """
+  update single row of the table: "event"
+  """
+  update_event_by_pk(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: archive_event_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: archive_event_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: archive_event_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: archive_event_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: archive_event_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: archive_event_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: archive_event_set_input
+    pk_columns: archive_event_pk_columns_input!
+  ): archive_event
+
+  """
+  update multiples rows of table: "event"
+  """
+  update_event_many(
+    """updates to execute, in order"""
+    updates: [archive_event_updates!]!
+  ): [archive_event_mutation_response]
+
+  """
+  update data of the table: "extrinsic"
+  """
+  update_extrinsic(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: archive_extrinsic_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: archive_extrinsic_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: archive_extrinsic_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: archive_extrinsic_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: archive_extrinsic_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: archive_extrinsic_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: archive_extrinsic_set_input
+
+    """filter the rows which have to be updated"""
+    where: archive_extrinsic_bool_exp!
+  ): archive_extrinsic_mutation_response
+
+  """
+  update single row of the table: "extrinsic"
+  """
+  update_extrinsic_by_pk(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: archive_extrinsic_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: archive_extrinsic_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: archive_extrinsic_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: archive_extrinsic_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: archive_extrinsic_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: archive_extrinsic_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: archive_extrinsic_set_input
+    pk_columns: archive_extrinsic_pk_columns_input!
+  ): archive_extrinsic
+
+  """
+  update multiples rows of table: "extrinsic"
+  """
+  update_extrinsic_many(
+    """updates to execute, in order"""
+    updates: [archive_extrinsic_updates!]!
+  ): [archive_extrinsic_mutation_response]
+
+  """
+  update data of the table: "frontier_ethereum_transaction"
+  """
+  update_frontier_ethereum_transaction(
+    """sets the columns of the filtered rows to the given values"""
+    _set: archive_frontier_ethereum_transaction_set_input
+
+    """filter the rows which have to be updated"""
+    where: archive_frontier_ethereum_transaction_bool_exp!
+  ): archive_frontier_ethereum_transaction_mutation_response
+
+  """
+  update single row of the table: "frontier_ethereum_transaction"
+  """
+  update_frontier_ethereum_transaction_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: archive_frontier_ethereum_transaction_set_input
+    pk_columns: archive_frontier_ethereum_transaction_pk_columns_input!
+  ): archive_frontier_ethereum_transaction
+
+  """
+  update multiples rows of table: "frontier_ethereum_transaction"
+  """
+  update_frontier_ethereum_transaction_many(
+    """updates to execute, in order"""
+    updates: [archive_frontier_ethereum_transaction_updates!]!
+  ): [archive_frontier_ethereum_transaction_mutation_response]
+
+  """
+  update data of the table: "frontier_evm_log"
+  """
+  update_frontier_evm_log(
+    """sets the columns of the filtered rows to the given values"""
+    _set: archive_frontier_evm_log_set_input
+
+    """filter the rows which have to be updated"""
+    where: archive_frontier_evm_log_bool_exp!
+  ): archive_frontier_evm_log_mutation_response
+
+  """
+  update single row of the table: "frontier_evm_log"
+  """
+  update_frontier_evm_log_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: archive_frontier_evm_log_set_input
+    pk_columns: archive_frontier_evm_log_pk_columns_input!
+  ): archive_frontier_evm_log
+
+  """
+  update multiples rows of table: "frontier_evm_log"
+  """
+  update_frontier_evm_log_many(
+    """updates to execute, in order"""
+    updates: [archive_frontier_evm_log_updates!]!
+  ): [archive_frontier_evm_log_mutation_response]
+
+  """
+  update data of the table: "gear_message_enqueued"
+  """
+  update_gear_message_enqueued(
+    """sets the columns of the filtered rows to the given values"""
+    _set: archive_gear_message_enqueued_set_input
+
+    """filter the rows which have to be updated"""
+    where: archive_gear_message_enqueued_bool_exp!
+  ): archive_gear_message_enqueued_mutation_response
+
+  """
+  update single row of the table: "gear_message_enqueued"
+  """
+  update_gear_message_enqueued_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: archive_gear_message_enqueued_set_input
+    pk_columns: archive_gear_message_enqueued_pk_columns_input!
+  ): archive_gear_message_enqueued
+
+  """
+  update multiples rows of table: "gear_message_enqueued"
+  """
+  update_gear_message_enqueued_many(
+    """updates to execute, in order"""
+    updates: [archive_gear_message_enqueued_updates!]!
+  ): [archive_gear_message_enqueued_mutation_response]
+
+  """
+  update data of the table: "gear_user_message_sent"
+  """
+  update_gear_user_message_sent(
+    """sets the columns of the filtered rows to the given values"""
+    _set: archive_gear_user_message_sent_set_input
+
+    """filter the rows which have to be updated"""
+    where: archive_gear_user_message_sent_bool_exp!
+  ): archive_gear_user_message_sent_mutation_response
+
+  """
+  update single row of the table: "gear_user_message_sent"
+  """
+  update_gear_user_message_sent_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: archive_gear_user_message_sent_set_input
+    pk_columns: archive_gear_user_message_sent_pk_columns_input!
+  ): archive_gear_user_message_sent
+
+  """
+  update multiples rows of table: "gear_user_message_sent"
+  """
+  update_gear_user_message_sent_many(
+    """updates to execute, in order"""
+    updates: [archive_gear_user_message_sent_updates!]!
+  ): [archive_gear_user_message_sent_mutation_response]
+
+  """
+  update data of the table: "metadata"
+  """
+  update_metadata(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: archive_metadata_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: archive_metadata_set_input
+
+    """filter the rows which have to be updated"""
+    where: archive_metadata_bool_exp!
+  ): archive_metadata_mutation_response
+
+  """
+  update single row of the table: "metadata"
+  """
+  update_metadata_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: archive_metadata_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: archive_metadata_set_input
+    pk_columns: archive_metadata_pk_columns_input!
+  ): archive_metadata
+
+  """
+  update multiples rows of table: "metadata"
+  """
+  update_metadata_many(
+    """updates to execute, in order"""
+    updates: [archive_metadata_updates!]!
+  ): [archive_metadata_mutation_response]
+
+  """
+  update data of the table: "migrations"
+  """
+  update_migrations(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: archive_migrations_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: archive_migrations_set_input
+
+    """filter the rows which have to be updated"""
+    where: archive_migrations_bool_exp!
+  ): archive_migrations_mutation_response
+
+  """
+  update single row of the table: "migrations"
+  """
+  update_migrations_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: archive_migrations_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: archive_migrations_set_input
+    pk_columns: archive_migrations_pk_columns_input!
+  ): archive_migrations
+
+  """
+  update multiples rows of table: "migrations"
+  """
+  update_migrations_many(
+    """updates to execute, in order"""
+    updates: [archive_migrations_updates!]!
+  ): [archive_migrations_mutation_response]
+
+  """
+  update data of the table: "warning"
+  """
+  update_warning(
+    """sets the columns of the filtered rows to the given values"""
+    _set: archive_warning_set_input
+
+    """filter the rows which have to be updated"""
+    where: archive_warning_bool_exp!
+  ): archive_warning_mutation_response
+
+  """
+  update multiples rows of table: "warning"
+  """
+  update_warning_many(
+    """updates to execute, in order"""
+    updates: [archive_warning_updates!]!
+  ): [archive_warning_mutation_response]
+}
+
+type archivequery_root {
+  """
+  fetch data from the table: "block"
+  """
+  block(
+    """distinct select on columns"""
+    distinct_on: [archive_block_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_block_order_by!]
+
+    """filter the rows returned"""
+    where: archive_block_bool_exp
+  ): [archive_block!]!
+
+  """
+  fetch aggregated fields from the table: "block"
+  """
+  block_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_block_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_block_order_by!]
+
+    """filter the rows returned"""
+    where: archive_block_bool_exp
+  ): archive_block_aggregate!
+
+  """fetch data from the table: "block" using primary key columns"""
+  block_by_pk(id: archive_bpchar!): archive_block
+
+  """
+  fetch data from the table: "call"
+  """
+  call(
+    """distinct select on columns"""
+    distinct_on: [archive_call_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_call_order_by!]
+
+    """filter the rows returned"""
+    where: archive_call_bool_exp
+  ): [archive_call!]!
+
+  """
+  fetch aggregated fields from the table: "call"
+  """
+  call_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_call_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_call_order_by!]
+
+    """filter the rows returned"""
+    where: archive_call_bool_exp
+  ): archive_call_aggregate!
+
+  """fetch data from the table: "call" using primary key columns"""
+  call_by_pk(id: String!): archive_call
+
+  """
+  fetch data from the table: "contracts_contract_emitted"
+  """
+  contracts_contract_emitted(
+    """distinct select on columns"""
+    distinct_on: [archive_contracts_contract_emitted_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_contracts_contract_emitted_order_by!]
+
+    """filter the rows returned"""
+    where: archive_contracts_contract_emitted_bool_exp
+  ): [archive_contracts_contract_emitted!]!
+
+  """
+  fetch aggregated fields from the table: "contracts_contract_emitted"
+  """
+  contracts_contract_emitted_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_contracts_contract_emitted_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_contracts_contract_emitted_order_by!]
+
+    """filter the rows returned"""
+    where: archive_contracts_contract_emitted_bool_exp
+  ): archive_contracts_contract_emitted_aggregate!
+
+  """
+  fetch data from the table: "contracts_contract_emitted" using primary key columns
+  """
+  contracts_contract_emitted_by_pk(event_id: archive_bpchar!): archive_contracts_contract_emitted
+
+  """
+  fetch data from the table: "event"
+  """
+  event(
+    """distinct select on columns"""
+    distinct_on: [archive_event_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_event_order_by!]
+
+    """filter the rows returned"""
+    where: archive_event_bool_exp
+  ): [archive_event!]!
+
+  """
+  fetch aggregated fields from the table: "event"
+  """
+  event_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_event_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_event_order_by!]
+
+    """filter the rows returned"""
+    where: archive_event_bool_exp
+  ): archive_event_aggregate!
+
+  """fetch data from the table: "event" using primary key columns"""
+  event_by_pk(id: archive_bpchar!): archive_event
+
+  """
+  fetch data from the table: "extrinsic"
+  """
+  extrinsic(
+    """distinct select on columns"""
+    distinct_on: [archive_extrinsic_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_extrinsic_order_by!]
+
+    """filter the rows returned"""
+    where: archive_extrinsic_bool_exp
+  ): [archive_extrinsic!]!
+
+  """
+  fetch aggregated fields from the table: "extrinsic"
+  """
+  extrinsic_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_extrinsic_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_extrinsic_order_by!]
+
+    """filter the rows returned"""
+    where: archive_extrinsic_bool_exp
+  ): archive_extrinsic_aggregate!
+
+  """fetch data from the table: "extrinsic" using primary key columns"""
+  extrinsic_by_pk(id: archive_bpchar!): archive_extrinsic
+
+  """
+  fetch data from the table: "frontier_ethereum_transaction"
+  """
+  frontier_ethereum_transaction(
+    """distinct select on columns"""
+    distinct_on: [archive_frontier_ethereum_transaction_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_frontier_ethereum_transaction_order_by!]
+
+    """filter the rows returned"""
+    where: archive_frontier_ethereum_transaction_bool_exp
+  ): [archive_frontier_ethereum_transaction!]!
+
+  """
+  fetch aggregated fields from the table: "frontier_ethereum_transaction"
+  """
+  frontier_ethereum_transaction_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_frontier_ethereum_transaction_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_frontier_ethereum_transaction_order_by!]
+
+    """filter the rows returned"""
+    where: archive_frontier_ethereum_transaction_bool_exp
+  ): archive_frontier_ethereum_transaction_aggregate!
+
+  """
+  fetch data from the table: "frontier_ethereum_transaction" using primary key columns
+  """
+  frontier_ethereum_transaction_by_pk(call_id: String!): archive_frontier_ethereum_transaction
+
+  """
+  fetch data from the table: "frontier_evm_log"
+  """
+  frontier_evm_log(
+    """distinct select on columns"""
+    distinct_on: [archive_frontier_evm_log_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_frontier_evm_log_order_by!]
+
+    """filter the rows returned"""
+    where: archive_frontier_evm_log_bool_exp
+  ): [archive_frontier_evm_log!]!
+
+  """
+  fetch aggregated fields from the table: "frontier_evm_log"
+  """
+  frontier_evm_log_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_frontier_evm_log_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_frontier_evm_log_order_by!]
+
+    """filter the rows returned"""
+    where: archive_frontier_evm_log_bool_exp
+  ): archive_frontier_evm_log_aggregate!
+
+  """
+  fetch data from the table: "frontier_evm_log" using primary key columns
+  """
+  frontier_evm_log_by_pk(event_id: archive_bpchar!): archive_frontier_evm_log
+
+  """
+  fetch data from the table: "gear_message_enqueued"
+  """
+  gear_message_enqueued(
+    """distinct select on columns"""
+    distinct_on: [archive_gear_message_enqueued_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_gear_message_enqueued_order_by!]
+
+    """filter the rows returned"""
+    where: archive_gear_message_enqueued_bool_exp
+  ): [archive_gear_message_enqueued!]!
+
+  """
+  fetch aggregated fields from the table: "gear_message_enqueued"
+  """
+  gear_message_enqueued_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_gear_message_enqueued_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_gear_message_enqueued_order_by!]
+
+    """filter the rows returned"""
+    where: archive_gear_message_enqueued_bool_exp
+  ): archive_gear_message_enqueued_aggregate!
+
+  """
+  fetch data from the table: "gear_message_enqueued" using primary key columns
+  """
+  gear_message_enqueued_by_pk(event_id: archive_bpchar!): archive_gear_message_enqueued
+
+  """
+  fetch data from the table: "gear_user_message_sent"
+  """
+  gear_user_message_sent(
+    """distinct select on columns"""
+    distinct_on: [archive_gear_user_message_sent_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_gear_user_message_sent_order_by!]
+
+    """filter the rows returned"""
+    where: archive_gear_user_message_sent_bool_exp
+  ): [archive_gear_user_message_sent!]!
+
+  """
+  fetch aggregated fields from the table: "gear_user_message_sent"
+  """
+  gear_user_message_sent_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_gear_user_message_sent_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_gear_user_message_sent_order_by!]
+
+    """filter the rows returned"""
+    where: archive_gear_user_message_sent_bool_exp
+  ): archive_gear_user_message_sent_aggregate!
+
+  """
+  fetch data from the table: "gear_user_message_sent" using primary key columns
+  """
+  gear_user_message_sent_by_pk(event_id: archive_bpchar!): archive_gear_user_message_sent
+
+  """
+  fetch data from the table: "metadata"
+  """
+  metadata(
+    """distinct select on columns"""
+    distinct_on: [archive_metadata_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_metadata_order_by!]
+
+    """filter the rows returned"""
+    where: archive_metadata_bool_exp
+  ): [archive_metadata!]!
+
+  """
+  fetch aggregated fields from the table: "metadata"
+  """
+  metadata_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_metadata_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_metadata_order_by!]
+
+    """filter the rows returned"""
+    where: archive_metadata_bool_exp
+  ): archive_metadata_aggregate!
+
+  """fetch data from the table: "metadata" using primary key columns"""
+  metadata_by_pk(id: String!): archive_metadata
+
+  """
+  fetch data from the table: "migrations"
+  """
+  migrations(
+    """distinct select on columns"""
+    distinct_on: [archive_migrations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_migrations_order_by!]
+
+    """filter the rows returned"""
+    where: archive_migrations_bool_exp
+  ): [archive_migrations!]!
+
+  """
+  fetch aggregated fields from the table: "migrations"
+  """
+  migrations_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_migrations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_migrations_order_by!]
+
+    """filter the rows returned"""
+    where: archive_migrations_bool_exp
+  ): archive_migrations_aggregate!
+
+  """fetch data from the table: "migrations" using primary key columns"""
+  migrations_by_pk(id: Int!): archive_migrations
+
+  """
+  fetch data from the table: "warning"
+  """
+  warning(
+    """distinct select on columns"""
+    distinct_on: [archive_warning_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_warning_order_by!]
+
+    """filter the rows returned"""
+    where: archive_warning_bool_exp
+  ): [archive_warning!]!
+
+  """
+  fetch aggregated fields from the table: "warning"
+  """
+  warning_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_warning_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_warning_order_by!]
+
+    """filter the rows returned"""
+    where: archive_warning_bool_exp
+  ): archive_warning_aggregate!
+}
+
+type archivesubscription_root {
+  """
+  fetch data from the table: "block"
+  """
+  block(
+    """distinct select on columns"""
+    distinct_on: [archive_block_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_block_order_by!]
+
+    """filter the rows returned"""
+    where: archive_block_bool_exp
+  ): [archive_block!]!
+
+  """
+  fetch aggregated fields from the table: "block"
+  """
+  block_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_block_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_block_order_by!]
+
+    """filter the rows returned"""
+    where: archive_block_bool_exp
+  ): archive_block_aggregate!
+
+  """fetch data from the table: "block" using primary key columns"""
+  block_by_pk(id: archive_bpchar!): archive_block
+
+  """
+  fetch data from the table in a streaming manner : "block"
+  """
+  block_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [archive_block_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: archive_block_bool_exp
+  ): [archive_block!]!
+
+  """
+  fetch data from the table: "call"
+  """
+  call(
+    """distinct select on columns"""
+    distinct_on: [archive_call_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_call_order_by!]
+
+    """filter the rows returned"""
+    where: archive_call_bool_exp
+  ): [archive_call!]!
+
+  """
+  fetch aggregated fields from the table: "call"
+  """
+  call_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_call_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_call_order_by!]
+
+    """filter the rows returned"""
+    where: archive_call_bool_exp
+  ): archive_call_aggregate!
+
+  """fetch data from the table: "call" using primary key columns"""
+  call_by_pk(id: String!): archive_call
+
+  """
+  fetch data from the table in a streaming manner : "call"
+  """
+  call_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [archive_call_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: archive_call_bool_exp
+  ): [archive_call!]!
+
+  """
+  fetch data from the table: "contracts_contract_emitted"
+  """
+  contracts_contract_emitted(
+    """distinct select on columns"""
+    distinct_on: [archive_contracts_contract_emitted_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_contracts_contract_emitted_order_by!]
+
+    """filter the rows returned"""
+    where: archive_contracts_contract_emitted_bool_exp
+  ): [archive_contracts_contract_emitted!]!
+
+  """
+  fetch aggregated fields from the table: "contracts_contract_emitted"
+  """
+  contracts_contract_emitted_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_contracts_contract_emitted_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_contracts_contract_emitted_order_by!]
+
+    """filter the rows returned"""
+    where: archive_contracts_contract_emitted_bool_exp
+  ): archive_contracts_contract_emitted_aggregate!
+
+  """
+  fetch data from the table: "contracts_contract_emitted" using primary key columns
+  """
+  contracts_contract_emitted_by_pk(event_id: archive_bpchar!): archive_contracts_contract_emitted
+
+  """
+  fetch data from the table in a streaming manner : "contracts_contract_emitted"
+  """
+  contracts_contract_emitted_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [archive_contracts_contract_emitted_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: archive_contracts_contract_emitted_bool_exp
+  ): [archive_contracts_contract_emitted!]!
+
+  """
+  fetch data from the table: "event"
+  """
+  event(
+    """distinct select on columns"""
+    distinct_on: [archive_event_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_event_order_by!]
+
+    """filter the rows returned"""
+    where: archive_event_bool_exp
+  ): [archive_event!]!
+
+  """
+  fetch aggregated fields from the table: "event"
+  """
+  event_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_event_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_event_order_by!]
+
+    """filter the rows returned"""
+    where: archive_event_bool_exp
+  ): archive_event_aggregate!
+
+  """fetch data from the table: "event" using primary key columns"""
+  event_by_pk(id: archive_bpchar!): archive_event
+
+  """
+  fetch data from the table in a streaming manner : "event"
+  """
+  event_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [archive_event_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: archive_event_bool_exp
+  ): [archive_event!]!
+
+  """
+  fetch data from the table: "extrinsic"
+  """
+  extrinsic(
+    """distinct select on columns"""
+    distinct_on: [archive_extrinsic_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_extrinsic_order_by!]
+
+    """filter the rows returned"""
+    where: archive_extrinsic_bool_exp
+  ): [archive_extrinsic!]!
+
+  """
+  fetch aggregated fields from the table: "extrinsic"
+  """
+  extrinsic_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_extrinsic_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_extrinsic_order_by!]
+
+    """filter the rows returned"""
+    where: archive_extrinsic_bool_exp
+  ): archive_extrinsic_aggregate!
+
+  """fetch data from the table: "extrinsic" using primary key columns"""
+  extrinsic_by_pk(id: archive_bpchar!): archive_extrinsic
+
+  """
+  fetch data from the table in a streaming manner : "extrinsic"
+  """
+  extrinsic_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [archive_extrinsic_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: archive_extrinsic_bool_exp
+  ): [archive_extrinsic!]!
+
+  """
+  fetch data from the table: "frontier_ethereum_transaction"
+  """
+  frontier_ethereum_transaction(
+    """distinct select on columns"""
+    distinct_on: [archive_frontier_ethereum_transaction_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_frontier_ethereum_transaction_order_by!]
+
+    """filter the rows returned"""
+    where: archive_frontier_ethereum_transaction_bool_exp
+  ): [archive_frontier_ethereum_transaction!]!
+
+  """
+  fetch aggregated fields from the table: "frontier_ethereum_transaction"
+  """
+  frontier_ethereum_transaction_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_frontier_ethereum_transaction_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_frontier_ethereum_transaction_order_by!]
+
+    """filter the rows returned"""
+    where: archive_frontier_ethereum_transaction_bool_exp
+  ): archive_frontier_ethereum_transaction_aggregate!
+
+  """
+  fetch data from the table: "frontier_ethereum_transaction" using primary key columns
+  """
+  frontier_ethereum_transaction_by_pk(call_id: String!): archive_frontier_ethereum_transaction
+
+  """
+  fetch data from the table in a streaming manner : "frontier_ethereum_transaction"
+  """
+  frontier_ethereum_transaction_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [archive_frontier_ethereum_transaction_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: archive_frontier_ethereum_transaction_bool_exp
+  ): [archive_frontier_ethereum_transaction!]!
+
+  """
+  fetch data from the table: "frontier_evm_log"
+  """
+  frontier_evm_log(
+    """distinct select on columns"""
+    distinct_on: [archive_frontier_evm_log_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_frontier_evm_log_order_by!]
+
+    """filter the rows returned"""
+    where: archive_frontier_evm_log_bool_exp
+  ): [archive_frontier_evm_log!]!
+
+  """
+  fetch aggregated fields from the table: "frontier_evm_log"
+  """
+  frontier_evm_log_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_frontier_evm_log_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_frontier_evm_log_order_by!]
+
+    """filter the rows returned"""
+    where: archive_frontier_evm_log_bool_exp
+  ): archive_frontier_evm_log_aggregate!
+
+  """
+  fetch data from the table: "frontier_evm_log" using primary key columns
+  """
+  frontier_evm_log_by_pk(event_id: archive_bpchar!): archive_frontier_evm_log
+
+  """
+  fetch data from the table in a streaming manner : "frontier_evm_log"
+  """
+  frontier_evm_log_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [archive_frontier_evm_log_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: archive_frontier_evm_log_bool_exp
+  ): [archive_frontier_evm_log!]!
+
+  """
+  fetch data from the table: "gear_message_enqueued"
+  """
+  gear_message_enqueued(
+    """distinct select on columns"""
+    distinct_on: [archive_gear_message_enqueued_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_gear_message_enqueued_order_by!]
+
+    """filter the rows returned"""
+    where: archive_gear_message_enqueued_bool_exp
+  ): [archive_gear_message_enqueued!]!
+
+  """
+  fetch aggregated fields from the table: "gear_message_enqueued"
+  """
+  gear_message_enqueued_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_gear_message_enqueued_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_gear_message_enqueued_order_by!]
+
+    """filter the rows returned"""
+    where: archive_gear_message_enqueued_bool_exp
+  ): archive_gear_message_enqueued_aggregate!
+
+  """
+  fetch data from the table: "gear_message_enqueued" using primary key columns
+  """
+  gear_message_enqueued_by_pk(event_id: archive_bpchar!): archive_gear_message_enqueued
+
+  """
+  fetch data from the table in a streaming manner : "gear_message_enqueued"
+  """
+  gear_message_enqueued_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [archive_gear_message_enqueued_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: archive_gear_message_enqueued_bool_exp
+  ): [archive_gear_message_enqueued!]!
+
+  """
+  fetch data from the table: "gear_user_message_sent"
+  """
+  gear_user_message_sent(
+    """distinct select on columns"""
+    distinct_on: [archive_gear_user_message_sent_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_gear_user_message_sent_order_by!]
+
+    """filter the rows returned"""
+    where: archive_gear_user_message_sent_bool_exp
+  ): [archive_gear_user_message_sent!]!
+
+  """
+  fetch aggregated fields from the table: "gear_user_message_sent"
+  """
+  gear_user_message_sent_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_gear_user_message_sent_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_gear_user_message_sent_order_by!]
+
+    """filter the rows returned"""
+    where: archive_gear_user_message_sent_bool_exp
+  ): archive_gear_user_message_sent_aggregate!
+
+  """
+  fetch data from the table: "gear_user_message_sent" using primary key columns
+  """
+  gear_user_message_sent_by_pk(event_id: archive_bpchar!): archive_gear_user_message_sent
+
+  """
+  fetch data from the table in a streaming manner : "gear_user_message_sent"
+  """
+  gear_user_message_sent_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [archive_gear_user_message_sent_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: archive_gear_user_message_sent_bool_exp
+  ): [archive_gear_user_message_sent!]!
+
+  """
+  fetch data from the table: "metadata"
+  """
+  metadata(
+    """distinct select on columns"""
+    distinct_on: [archive_metadata_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_metadata_order_by!]
+
+    """filter the rows returned"""
+    where: archive_metadata_bool_exp
+  ): [archive_metadata!]!
+
+  """
+  fetch aggregated fields from the table: "metadata"
+  """
+  metadata_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_metadata_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_metadata_order_by!]
+
+    """filter the rows returned"""
+    where: archive_metadata_bool_exp
+  ): archive_metadata_aggregate!
+
+  """fetch data from the table: "metadata" using primary key columns"""
+  metadata_by_pk(id: String!): archive_metadata
+
+  """
+  fetch data from the table in a streaming manner : "metadata"
+  """
+  metadata_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [archive_metadata_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: archive_metadata_bool_exp
+  ): [archive_metadata!]!
+
+  """
+  fetch data from the table: "migrations"
+  """
+  migrations(
+    """distinct select on columns"""
+    distinct_on: [archive_migrations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_migrations_order_by!]
+
+    """filter the rows returned"""
+    where: archive_migrations_bool_exp
+  ): [archive_migrations!]!
+
+  """
+  fetch aggregated fields from the table: "migrations"
+  """
+  migrations_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_migrations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_migrations_order_by!]
+
+    """filter the rows returned"""
+    where: archive_migrations_bool_exp
+  ): archive_migrations_aggregate!
+
+  """fetch data from the table: "migrations" using primary key columns"""
+  migrations_by_pk(id: Int!): archive_migrations
+
+  """
+  fetch data from the table in a streaming manner : "migrations"
+  """
+  migrations_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [archive_migrations_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: archive_migrations_bool_exp
+  ): [archive_migrations!]!
+
+  """
+  fetch data from the table: "warning"
+  """
+  warning(
+    """distinct select on columns"""
+    distinct_on: [archive_warning_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_warning_order_by!]
+
+    """filter the rows returned"""
+    where: archive_warning_bool_exp
+  ): [archive_warning!]!
+
+  """
+  fetch aggregated fields from the table: "warning"
+  """
+  warning_aggregate(
+    """distinct select on columns"""
+    distinct_on: [archive_warning_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [archive_warning_order_by!]
+
+    """filter the rows returned"""
+    where: archive_warning_bool_exp
+  ): archive_warning_aggregate!
+
+  """
+  fetch data from the table in a streaming manner : "warning"
+  """
+  warning_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [archive_warning_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: archive_warning_bool_exp
+  ): [archive_warning!]!
 }
 
 type balancesQuery {
@@ -1353,14 +6743,20 @@ type evm_TransactionsConnection {
   totalCount: Int!
 }
 
+"""mutation root"""
+type mutation_root {
+  archive: archivemutation_root
+}
+
 type query_root {
-  archive: archiveQuery
+  archive: archivequery_root
   balances: balancesQuery
   evm: evmQuery
   transfers: transfersQuery
 }
 
 type subscription_root {
+  archive: archivesubscription_root
   balances: balancesSubscription
   evm: evmSubscription
   transfers: transfersSubscription

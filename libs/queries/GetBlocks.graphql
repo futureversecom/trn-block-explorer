@@ -1,16 +1,25 @@
 query GetBlocks($limit: Int!) {
   archive {
-    blocks(orderBy: height_DESC, limit: $limit) {
+    block(order_by: { height: desc }, limit: $limit) {
       hash
       height
       id
-      parentHash
       timestamp
       validator
-      spec {
-        specVersion
-        specName
+      events_aggregate {
+        aggregate {
+          count
+        }
       }
+      extrinsics_aggregate {
+        aggregate {
+          count
+        }
+      }
+      state_root
+      spec_id
+      parent_hash
+      extrinsics_root
     }
   }
 }
