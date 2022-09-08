@@ -3,7 +3,7 @@ import Link from "next/link";
 import { PageHeader, LoadingBlock, ContainerLayout } from "@/components";
 import TimeAgo from "react-timeago";
 import { formatAddress } from "@/libs/utils";
-import { BlockFinalizedIcon } from "@/components/icons";
+import { TransferStatusIcon } from "@/components/icons";
 import { useGetTransfersQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks/usePolling";
 import { ethers } from "ethers";
@@ -90,7 +90,10 @@ export default function Transfers() {
 													</td>
 												</Link>
 												<td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-													<BlockFinalizedIcon status={true} />
+													<TransferStatusIcon
+														status={transfer?.status}
+														iconClassName="h-5"
+													/>
 												</td>
 												<td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
 													<TimeAgo date={transfer.timestamp} />
