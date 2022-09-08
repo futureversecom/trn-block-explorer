@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { ethers } from "ethers";
 import { useState } from "react";
+
 export default function Search() {
 	const [search, setSearch] = useState("");
 	const [error, setError] = useState(undefined);
@@ -31,6 +32,7 @@ export default function Search() {
 			setError("Invalid search parameter");
 		}
 	};
+	
 	return (
 		<div className="border-b border-b-gray-200 bg-white">
 			<div className="mx-auto max-w-7xl py-3 px-4 sm:px-6 lg:px-8">
