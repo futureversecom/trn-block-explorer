@@ -10,6 +10,7 @@ import TimeAgo from "react-timeago";
 import { useGetBlockQuery } from "../../libs/api/generated.ts";
 import { usePolling } from "../../libs/hooks/usePolling";
 import JSONPretty from "react-json-pretty";
+import "react-json-pretty/themes/adventure_time.css";
 
 export default function Block() {
   const router = useRouter();
@@ -17,8 +18,6 @@ export default function Block() {
   let query = usePolling({}, useGetBlockQuery, {
     height: parseInt(blocknumber),
   });
-
-  console.log(query);
 
   query.data = query?.data?.archive?.block[0];
 
@@ -117,7 +116,7 @@ export default function Block() {
                   <dt className="text-sm font-medium text-gray-900">Events</dt>
                   <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
                     <div className="h-64 overflow-scroll">
-                      <JSONPretty id="json-pretty" data={query.data.events} />
+                      <JSONPretty data={query.data.events} />
                     </div>
                   </dd>
                 </div>
@@ -127,10 +126,7 @@ export default function Block() {
                   </dt>
                   <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
                     <div className="h-64 overflow-scroll">
-                      <JSONPretty
-                        id="json-pretty"
-                        data={query.data.extrinsics}
-                      />
+                      <JSONPretty data={query.data.extrinsics} />
                     </div>
                   </dd>
                 </div>
