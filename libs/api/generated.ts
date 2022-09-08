@@ -6027,6 +6027,11 @@ export type GetBlocksQueryVariables = Exact<{
 
 export type GetBlocksQuery = { __typename?: 'query_root', archive?: { __typename?: 'archivequery_root', block: Array<{ __typename?: 'archive_block', hash: any, height: number, id: any, timestamp: any, validator?: string | null, state_root: any, spec_id: string, parent_hash: any, extrinsics_root: any, events_aggregate: { __typename?: 'archive_event_aggregate', aggregate?: { __typename?: 'archive_event_aggregate_fields', count: number } | null }, extrinsics_aggregate: { __typename?: 'archive_extrinsic_aggregate', aggregate?: { __typename?: 'archive_extrinsic_aggregate_fields', count: number } | null } }> } | null };
 
+export type GetChainDataQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetChainDataQuery = { __typename?: 'query_root', balances?: { __typename?: 'balancesQuery', currentChainState: { __typename?: 'balances_ChainStateObject', blockNumber: number, tokenHolders: number } } | null, transfers?: { __typename?: 'transfersQuery', transfersConnection: { __typename?: 'transfers_TransfersConnection', totalCount: number } } | null };
+
 export type GetEvmTransactionsForAddressQueryVariables = Exact<{
   address: Scalars['String'];
 }>;
@@ -6220,6 +6225,35 @@ export const useGetBlocksQuery = <
     useQuery<GetBlocksQuery, TError, TData>(
       ['GetBlocks', variables],
       fetcher<GetBlocksQuery, GetBlocksQueryVariables>(client, GetBlocksDocument, variables, headers),
+      options
+    );
+export const GetChainDataDocument = `
+    query GetChainData {
+  balances {
+    currentChainState {
+      blockNumber
+      tokenHolders
+    }
+  }
+  transfers {
+    transfersConnection(orderBy: blockNumber_DESC) {
+      totalCount
+    }
+  }
+}
+    `;
+export const useGetChainDataQuery = <
+      TData = GetChainDataQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables?: GetChainDataQueryVariables,
+      options?: UseQueryOptions<GetChainDataQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<GetChainDataQuery, TError, TData>(
+      variables === undefined ? ['GetChainData'] : ['GetChainData', variables],
+      fetcher<GetChainDataQuery, GetChainDataQueryVariables>(client, GetChainDataDocument, variables, headers),
       options
     );
 export const GetEvmTransactionsForAddressDocument = `

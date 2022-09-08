@@ -1,17 +1,28 @@
+import { useMemo } from "react";
 import {
   ChartPieIcon,
   UserGroupIcon,
   CubeIcon,
 } from "@heroicons/react/24/outline";
 import CountUp from "react-countup";
-import RefetchIndicator from "./refetchIndicator";
 import LoadingBlock from "./loadingBlock";
+import RefetchIndicator from "./refetchIndicator";
+import { usePolling } from "../libs/hooks/usePolling";
+import {useGetChainDataQuery} from "../libs/api/generated";
 
 export default function ChaindataWidget() {
-  const query = {
-    isRefetching: false,
-    isLoading: false,
-  };
+  const query = usePolling({}, useGetChainDataQuery);
+
+  const chainData = useMemo(() => {
+    const currentChainState = query?.data?.balances?.currentChainState
+
+    return {
+      blocks: currentChainState?.blockNumber,
+      holders: currentChainState?.tokenHolders,
+      transfers: query?.data?.transfers?.transfersConnection?.totalCount,
+    }
+  }, [query?.data]);
+
   return (
     <div>
       <div className="flex flex-row justify-between py-3">
@@ -35,15 +46,15 @@ export default function ChaindataWidget() {
             {[
               {
                 name: "Transfers",
-                stat: 5000,
+                stat: chainData?.transfers,
               },
               {
                 name: "Finalized Blocks",
-                stat: 5000,
+                stat: chainData?.blocks,
               },
               {
                 name: "Holders",
-                stat: 5000,
+                stat: chainData?.holders,
               },
             ].map((item) => (
               <div
