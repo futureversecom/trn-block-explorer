@@ -18,8 +18,6 @@ export default function Block() {
     height: parseInt(blocknumber),
   });
 
-  console.log(query);
-
   query.data = query?.data?.archive?.block[0];
 
   const getPrevBlock = () => {
@@ -110,7 +108,7 @@ export default function Block() {
                     Extrinsics Root
                   </dt>
                   <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
-                    {query.data.extrinsicsRoot}
+                    {query.data.extrinsics_root}
                   </dd>
                 </div>
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">

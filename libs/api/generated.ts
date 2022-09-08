@@ -6018,7 +6018,7 @@ export type GetBlockQueryVariables = Exact<{
 }>;
 
 
-export type GetBlockQuery = { __typename?: 'query_root', archive?: { __typename?: 'archivequery_root', block: Array<{ __typename?: 'archive_block', validator?: string | null, timestamp: any, state_root: any, spec_id: string, parent_hash: any, id: any, height: number, hash: any, extrinsics: Array<{ __typename?: 'archive_extrinsic', version: number, tip?: any | null, success: boolean, signature?: any | null, pos: number, index_in_block: number, id: any, hash: any, fee?: any | null, call_id: string, block_id: any }>, events: Array<{ __typename?: 'archive_event', pos: number, phase: string, name: string, index_in_block: number, id: any, block_id: any, args?: any | null, extrinsic_id?: any | null }> }> } | null };
+export type GetBlockQuery = { __typename?: 'query_root', archive?: { __typename?: 'archivequery_root', block: Array<{ __typename?: 'archive_block', validator?: string | null, timestamp: any, state_root: any, spec_id: string, parent_hash: any, id: any, height: number, hash: any, extrinsics_root: any, extrinsics: Array<{ __typename?: 'archive_extrinsic', version: number, tip?: any | null, success: boolean, signature?: any | null, pos: number, index_in_block: number, id: any, hash: any, fee?: any | null, call_id: string, block_id: any }>, events: Array<{ __typename?: 'archive_event', pos: number, phase: string, name: string, index_in_block: number, id: any, block_id: any, args?: any | null, extrinsic_id?: any | null }> }> } | null };
 
 export type GetBlocksQueryVariables = Exact<{
   limit: Scalars['Int'];
@@ -6145,6 +6145,7 @@ export const GetBlockDocument = `
       id
       height
       hash
+      extrinsics_root
       extrinsics {
         version
         tip

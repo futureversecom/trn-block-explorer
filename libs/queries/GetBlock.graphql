@@ -9,6 +9,7 @@ query GetBlock($height: Int!) {
       id
       height
       hash
+      extrinsics_root
       extrinsics {
         version
         tip
