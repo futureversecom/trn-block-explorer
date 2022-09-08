@@ -9,6 +9,7 @@ import BlockFinalizedIcon from "../components/icons/blockFinalizedIcon";
 import { useGetTransfersQuery } from "../libs/api/generated.ts";
 import { usePolling } from "../libs/hooks/usePolling";
 import { ethers } from "ethers";
+import clsx from "clsx";
 
 export default function Transfers() {
   let query = usePolling({}, useGetTransfersQuery, {
@@ -99,16 +100,28 @@ export default function Transfers() {
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                           {ethers.utils.formatEther(transfer.amount)} Root
                         </td>
-                        <Link href={`/account/${transfer.from.id}`}>
-                          <td className="cursor-pointer whitespace-nowrap px-3 py-4 text-sm font-semibold text-indigo-500">
-                            {formatAddress(transfer?.from?.id) || "?"}
-                          </td>
-                        </Link>
-                        <Link href={`/account/${transfer.to.id}`}>
-                          <td className="cursor-pointer whitespace-nowrap px-3 py-4 text-sm font-semibold text-indigo-500">
-                            {formatAddress(transfer?.to?.id) || "? "}
-                          </td>
-                        </Link>
+                        {transfer?.from?.id ? (
+                          <Link href={`/account/${transfer.from.id}`}>
+                            <AddressData variant="address">
+                              {formatAddress(transfer.from.id)}
+                            </AddressData>
+                          </Link>
+                        ) : (
+                          <AddressData variant="status">
+                            {transfer?.status ?? "?"}
+                          </AddressData>
+                        )}
+                        {transfer?.to?.id ? (
+                          <Link href={`/account/${transfer.to.id}`}>
+                            <AddressData variant="address">
+                              {formatAddress(transfer.to.id)}
+                            </AddressData>
+                          </Link>
+                        ) : (
+                          <AddressData variant="status">
+                            {transfer?.status ?? "?"}
+                          </AddressData>
+                        )}
                       </tr>
                     ))}
                   </tbody>
@@ -121,3 +134,17 @@ export default function Transfers() {
     </ContainerLayout>
   );
 }
+
+const AddressData = ({variant, children}) => (
+  <td
+    className={clsx(
+      "cursor-pointer whitespace-nowrap px-3 py-4 text-sm",
+      {
+        address: "font-semibold text-indigo-500",
+        status: "text-gray-500",
+      }[variant]
+    )}
+  >
+    {children}
+  </td>
+);
