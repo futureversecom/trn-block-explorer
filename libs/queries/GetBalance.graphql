@@ -1,10 +1,10 @@
 query GetBalance($address: String!) {
-  balances {
-    accounts(limit: 1, where: { id_eq: $address }) {
-      total
-      reserved
-      id
-      free
-    }
-  }
+	balances {
+		accounts(limit: 1, where: { id_eq: $address }) {
+			total
+			reserved
+			id
+			free
+		}
+	}
 }

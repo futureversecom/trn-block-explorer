@@ -1,19 +1,19 @@
 query GetEVMTransactionsForAddress($address: String!) {
-  evm {
-    transactions(
-      orderBy: block_DESC
-      limit: 10
-      where: { OR: { from_eq: $address }, to_eq: $address }
-    ) {
-      id
-      type
-      txHash
-      to
-      timestamp
-      method
-      input
-      from
-      block
-    }
-  }
+	evm {
+		transactions(
+			orderBy: block_DESC
+			limit: 10
+			where: { OR: { from_eq: $address }, to_eq: $address }
+		) {
+			id
+			type
+			txHash
+			to
+			timestamp
+			method
+			input
+			from
+			block
+		}
+	}
 }

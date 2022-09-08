@@ -1,25 +1,25 @@
 query GetBlocks($limit: Int!) {
-  archive {
-    block(order_by: { height: desc }, limit: $limit) {
-      hash
-      height
-      id
-      timestamp
-      validator
-      events_aggregate {
-        aggregate {
-          count
-        }
-      }
-      extrinsics_aggregate {
-        aggregate {
-          count
-        }
-      }
-      state_root
-      spec_id
-      parent_hash
-      extrinsics_root
-    }
-  }
+	archive {
+		block(order_by: { height: desc }, limit: $limit) {
+			hash
+			height
+			id
+			timestamp
+			validator
+			events_aggregate {
+				aggregate {
+					count
+				}
+			}
+			extrinsics_aggregate {
+				aggregate {
+					count
+				}
+			}
+			state_root
+			spec_id
+			parent_hash
+			extrinsics_root
+		}
+	}
 }

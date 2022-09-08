@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "format": "prettier --config .prettierrc.json ./ --write",
     "gen": "graphql-codegen --config codegen.yml",
     "schema": "gq $GRAPHQL_ENDPOINT -H \"X-Hasura-Admin-Secret: $HASURA_SECRET\" --introspect > libs/schema.graphql"
   },
@@ -44,7 +45,7 @@
     "eslint": "8.21.0",
     "eslint-config-next": "12.2.3",
     "graphql": "^16.6.0",
-    "graphql-request": "^5.0.0",
+    "graphql-request": "^4.3.0",
     "postcss": "^8.4.14",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.13",
