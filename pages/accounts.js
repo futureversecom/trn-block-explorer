@@ -21,7 +21,7 @@ export default function Accounts() {
 				title={`Accounts`}
 				icon={<CubeIcon className="my-auto h-5 pr-3" />}
 			/>
-			{query.isLoading ? (
+			{query.isLoading || query.isError ? (
 				<LoadingBlock title={"accounts"} />
 			) : (
 				<div className="mt-8 flex flex-col">

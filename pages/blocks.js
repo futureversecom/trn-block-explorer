@@ -19,7 +19,7 @@ export default function Blocks() {
 				title={`Blocks`}
 				icon={<CubeIcon className="my-auto h-5 pr-3" />}
 			/>
-			{query.isLoading ? (
+			{query.isLoading || query.isError ? (
 				<LoadingBlock title={"blocks"} />
 			) : (
 				<div className="mt-8 flex flex-col">

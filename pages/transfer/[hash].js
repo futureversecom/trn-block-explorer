@@ -26,7 +26,7 @@ export default function Transfer() {
 				title={`Transfer # ${formatAddress(hash, 12)}`}
 				icon={<CubeIcon className="my-auto h-5 pr-3" />}
 			/>
-			{query.isLoading ? (
+			{query.isLoading || query.isError ? (
 				<LoadingBlock title={`Transfer ${hash}`} />
 			) : (
 				<>
