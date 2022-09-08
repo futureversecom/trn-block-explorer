@@ -8,6 +8,7 @@ import TimeAgo from "react-timeago";
 import { useGetBlockQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks/usePolling";
 import JSONPretty from "react-json-pretty";
+import "react-json-pretty/themes/adventure_time.css";
 
 export default function Block() {
 	const router = useRouter();
