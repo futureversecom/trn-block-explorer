@@ -13,7 +13,7 @@ export default function Blocks() {
   let query = usePolling({}, useGetBlocksQuery, {
     limit: 20,
   });
-  query.data = query?.data?.archive?.blocks;
+  query.data = query?.data?.archive?.block;
 
   return (
     <ContainerLayout>
@@ -90,10 +90,10 @@ export default function Blocks() {
                           <TimeAgo date={block.timestamp} />
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {block.extrinsics || "?"}
+                          {block.extrinsics_aggregate.aggregate.count || "?"}
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {block.events || "? "}
+                          {block.events_aggregate.aggregate.count || "? "}
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                           {block.validator
