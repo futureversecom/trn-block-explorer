@@ -1,10 +1,11 @@
 import { useRouter } from "next/router";
-import { CubeIcon } from "@heroicons/react/24/outline";
 import ContainerLayout from "../../layout/containerLayout";
 import PageHeader from "../../components/pageHeader";
 import EVMTransactionsForAddress from "../../components/evmTransactionsForAddressTable";
 import BalanceForAddress from "../../components/balanceForAddress";
 import { ethers } from "ethers";
+import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
+
 export default function Account() {
   const router = useRouter();
   const { walletaddress } = router.query;
@@ -17,7 +18,14 @@ export default function Account() {
     <ContainerLayout>
       <PageHeader
         title={`Wallet # ${walletaddress}`}
-        icon={<CubeIcon className="my-auto h-5 pr-3" />}
+        icon={
+          <div className="my-auto h-5 pr-3">
+            <Jazzicon
+              diameter={20}
+              seed={jsNumberForAddress(walletaddress)}
+            />
+          </div>
+        }
       />
       <BalanceForAddress walletAddress={walletaddress} />
       <EVMTransactionsForAddress walletAddress={walletaddress} />
