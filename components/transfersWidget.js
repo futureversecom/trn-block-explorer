@@ -2,7 +2,7 @@ import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { formatAddress } from "../utils/utils";
 import TimeAgo from "react-timeago";
 import Link from "next/link";
-import BlockFinalizedIcon from "./icons/blockFinalizedIcon";
+import TransferStatusIcon from "./icons/transferStatusIcon";
 import { ethers } from "ethers";
 import RefetchIndicator from "./refetchIndicator";
 import { useGetTransfersQuery } from "../libs/api/generated.ts";
@@ -24,7 +24,6 @@ export default function TransfersWidget() {
         </div>
         <div>
           {query.isRefetching && <RefetchIndicator />}
-
           <Link href={"/transfers"}>
             <button
               type="button"
@@ -47,7 +46,7 @@ export default function TransfersWidget() {
               id={item.extrinsicHash}
               timestamp={item.timestamp}
               amount={item.amount}
-              status={item.status === "TRANSFERRED" ? true : false}
+              status={item.status}
             />
           ))}
         </div>
@@ -64,25 +63,34 @@ const TransferItem = ({ from, to, id, timestamp, amount, status }) => {
           Extrinsic# <span className="text-lg">{formatAddress(id)}</span>
         </div>
         <div className="my-auto flex">
-          {ethers.utils.formatEther(amount.toString()).toString()}{" "}
-          Root{" "}
-          <BlockFinalizedIcon status={status} />
+          {ethers.utils.formatEther(amount.toString()).toString()} Root{" "}
+          <TransferStatusIcon status={status} iconClassName="h-5" />
         </div>
       </div>
       <div className="flex flex-row justify-between">
         <div>
-          <span className="text-gray-500">From</span>{" "}
-          <Link href={`/account/${from}`}>
-            <span className="cursor-pointer text-indigo-500">
-              {formatAddress(from)}
-            </span>
-          </Link>{" "}
-          <span className="text-gray-500">to</span>{" "}
-          <Link href={`/account/${to}`}>
-            <span className="cursor-pointer text-indigo-500">
-              {formatAddress(to)}
-            </span>
-          </Link>
+          {status !== "ISSUED" && (
+            <>
+              <span className="text-gray-500">From</span>{" "}
+              <Link href={`/account/${from}`}>
+                <span className="cursor-pointer text-indigo-500">
+                  {formatAddress(from)}
+                </span>
+              </Link>{" "}
+            </>
+          )}
+          {status !== "BURNED" && (
+            <>
+              <span className="text-gray-500">
+                {status === "ISSUED" ? "To" : "to"}
+              </span>{" "}
+              <Link href={`/account/${to}`}>
+                <span className="cursor-pointer text-indigo-500">
+                  {formatAddress(to)}
+                </span>
+              </Link>
+            </>
+          )}
         </div>
         <div className="text-sm text-gray-600">
           <TimeAgo date={timestamp} />
