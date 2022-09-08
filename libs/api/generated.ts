@@ -6004,6 +6004,18 @@ export type GetEvmTransactionsForAddressQuery = {
 	} | null;
 };
 
+export type GetExtrinsicIdFromHashQueryVariables = Exact<{
+	extrinsicHash: Scalars["archive_bpchar"];
+}>;
+
+export type GetExtrinsicIdFromHashQuery = {
+	__typename?: "query_root";
+	archive?: {
+		__typename?: "archivequery_root";
+		extrinsic: Array<{ __typename?: "archive_extrinsic"; id: any }>;
+	} | null;
+};
+
 export type GetTransferByHashQueryVariables = Exact<{
 	hash: Scalars["String"];
 }>;
@@ -6304,6 +6316,34 @@ export const useGetEvmTransactionsForAddressQuery = <
 			GetEvmTransactionsForAddressQuery,
 			GetEvmTransactionsForAddressQueryVariables
 		>(client, GetEvmTransactionsForAddressDocument, variables, headers),
+		options
+	);
+export const GetExtrinsicIdFromHashDocument = `
+    query GetExtrinsicIdFromHash($extrinsicHash: archive_bpchar!) {
+  archive {
+    extrinsic(where: {hash: {_eq: $extrinsicHash}}) {
+      id
+    }
+  }
+}
+    `;
+export const useGetExtrinsicIdFromHashQuery = <
+	TData = GetExtrinsicIdFromHashQuery,
+	TError = unknown
+>(
+	client: GraphQLClient,
+	variables: GetExtrinsicIdFromHashQueryVariables,
+	options?: UseQueryOptions<GetExtrinsicIdFromHashQuery, TError, TData>,
+	headers?: RequestInit["headers"]
+) =>
+	useQuery<GetExtrinsicIdFromHashQuery, TError, TData>(
+		["GetExtrinsicIdFromHash", variables],
+		fetcher<GetExtrinsicIdFromHashQuery, GetExtrinsicIdFromHashQueryVariables>(
+			client,
+			GetExtrinsicIdFromHashDocument,
+			variables,
+			headers
+		),
 		options
 	);
 export const GetTransferByHashDocument = `

@@ -4,9 +4,14 @@ import TimeAgo from "react-timeago";
 import Link from "next/link";
 import { TransferStatusIcon } from "@/components/icons";
 import { ethers } from "ethers";
-import { useGetTransfersQuery } from "@/libs/api/generated.ts";
+import {
+	useGetTransfersQuery,
+	useGetExtrinsicIdFromHashQuery,
+} from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks/usePolling";
 import { LoadingBlock, RefetchIndicator } from "@/components";
+import { useMemo } from "react";
+import { graphQLClient } from "@/libs/client";
 
 export default function TransfersWidget() {
 	const query = usePolling({}, useGetTransfersQuery, { limit: 10 });
@@ -42,10 +47,11 @@ export default function TransfersWidget() {
 							key={key}
 							from={item?.from?.id}
 							to={item?.to?.id}
-							id={item.extrinsicHash}
+							extrinsicHash={item.extrinsicHash}
 							timestamp={item.timestamp}
 							amount={item.amount}
 							status={item.status}
+							blockNumber={item.blockNumber}
 						/>
 					))}
 				</div>
@@ -54,12 +60,31 @@ export default function TransfersWidget() {
 	);
 }
 
-const TransferItem = ({ from, to, id, timestamp, amount, status }) => {
+const TransferItem = ({
+	from,
+	to,
+	extrinsicHash,
+	timestamp,
+	amount,
+	status,
+	blockNumber,
+}) => {
+	const id = useExtrinsicId(extrinsicHash);
+
 	return (
 		<div className="block py-3">
 			<div className="flex flex-row justify-between">
 				<div className="text-sm font-bold">
-					Extrinsic# <span className="text-lg">{formatAddress(id)}</span>
+					Extrinsic#{" "}
+					{id ? (
+						<Link href={`/extrinsic/${id.raw}`}>
+							<span className="cursor-pointer text-lg text-indigo-500">
+								{id.formatted}
+							</span>
+						</Link>
+					) : (
+						<span className="text-lg">{blockNumber}-</span>
+					)}
 				</div>
 				<div className="my-auto flex">
 					{ethers.utils.formatEther(amount.toString()).toString()} Root{" "}
@@ -97,4 +122,27 @@ const TransferItem = ({ from, to, id, timestamp, amount, status }) => {
 			</div>
 		</div>
 	);
+};
+
+const useExtrinsicId = (extrinsicHash) => {
+	const { data } = useGetExtrinsicIdFromHashQuery(graphQLClient, {
+		extrinsicHash,
+	});
+
+	const stripLeadingZeros = (str) => str.replaceAll(/0+(?!$)/g, "");
+
+	return useMemo(() => {
+		if (!data) return;
+
+		const raw = data?.archive?.extrinsic[0]?.id;
+
+		let [blockNumber, indexInBlock] = raw?.split("-");
+		blockNumber = stripLeadingZeros(blockNumber);
+		indexInBlock = stripLeadingZeros(indexInBlock);
+
+		return {
+			raw,
+			formatted: `${blockNumber}-${indexInBlock}`,
+		};
+	}, [data]);
 };
