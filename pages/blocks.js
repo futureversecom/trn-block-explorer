@@ -1,6 +1,11 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { PageHeader, LoadingBlock, ContainerLayout } from "@/components";
+import {
+	PageHeader,
+	LoadingBlock,
+	ContainerLayout,
+	TableLayout,
+} from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import TimeAgo from "react-timeago";
 import { formatAddress } from "@/libs/utils";
@@ -26,85 +31,50 @@ export default function Blocks() {
 					<div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
 						<div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
 							<div className="overflow-hidden rounded-md border border-gray-100 shadow-md ">
-								<table className="min-w-full divide-y divide-gray-300">
+								<TableLayout.Table>
 									<thead className="bg-gray-50">
 										<tr>
-											<th
-												scope="col"
-												className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-											>
-												Block
-											</th>
-											<th
-												scope="col"
-												className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-											>
-												Status
-											</th>
-											<th
-												scope="col"
-												className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-											>
-												Time
-											</th>
-											<th
-												scope="col"
-												className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-											>
-												Extrinsics
-											</th>
-											<th
-												scope="col"
-												className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-											>
-												Events
-											</th>
-											<th
-												scope="col"
-												className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-											>
-												Validator
-											</th>
-											<th
-												scope="col"
-												className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-											>
-												Block hash
-											</th>
+											<TableLayout.HeadItem text="Block" />
+											<TableLayout.HeadItem text="Status" />
+											<TableLayout.HeadItem text="Time" />
+											<TableLayout.HeadItem text="Extrinsics" />
+											<TableLayout.HeadItem text="Events" />
+											<TableLayout.HeadItem text="Validator" />
+											<TableLayout.HeadItem text="Block hash" />
 										</tr>
 									</thead>
 									<tbody className="divide-y divide-gray-200 bg-white">
 										{query.data.map((block, key) => (
 											<tr key={key}>
-												<Link href={`/block/${block.height}`}>
-													<td className="cursor-pointer whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-indigo-500 sm:pl-6">
+												<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500">
+													<Link href={`/block/${block.height}`}>
 														{block.height}
-													</td>
-												</Link>
-												<td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+													</Link>
+												</TableLayout.Data>
+												<TableLayout.Data>
 													<BlockFinalizedIcon status={true} />
-												</td>
-												<td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+												</TableLayout.Data>
+												<TableLayout.Data>
 													<TimeAgo date={block.timestamp} />
-												</td>
-												<td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+												</TableLayout.Data>
+												<TableLayout.Data>
 													{block.extrinsics_aggregate.aggregate.count || "?"}
-												</td>
-												<td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+												</TableLayout.Data>
+												<TableLayout.Data>
 													{block.events_aggregate.aggregate.count || "? "}
-												</td>
-												<td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+												</TableLayout.Data>
+												<TableLayout.Data>
 													{block.validator
 														? formatAddress(block.validator)
 														: "?"}
-												</td>
-												<td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+												</TableLayout.Data>
+												<TableLayout.Data>
 													{block.hash ? formatAddress(block.hash, 12) : "?"}
-												</td>
+												</TableLayout.Data>
 											</tr>
 										))}
 									</tbody>
-								</table>
+								</TableLayout.Table>
 							</div>
 						</div>
 					</div>

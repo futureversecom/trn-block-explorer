@@ -1,13 +1,17 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { PageHeader, LoadingBlock, ContainerLayout } from "@/components";
+import {
+	PageHeader,
+	LoadingBlock,
+	ContainerLayout,
+	TableLayout,
+} from "@/components";
 import TimeAgo from "react-timeago";
 import { formatAddress } from "@/libs/utils";
 import { TransferStatusIcon } from "@/components/icons";
 import { useGetTransfersQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks/usePolling";
 import { ethers } from "ethers";
-import clsx from "clsx";
 
 export default function Transfers() {
 	let query = usePolling({}, useGetTransfersQuery, {
@@ -29,104 +33,69 @@ export default function Transfers() {
 					<div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
 						<div className="inline-transfer min-w-full py-2 align-middle md:px-6 lg:px-8">
 							<div className="overflow-hidden rounded-md border border-gray-100 shadow-md ">
-								<table className="min-w-full divide-y divide-gray-300">
+								<TableLayout.Table>
 									<thead className="bg-gray-50">
 										<tr>
-											<th
-												scope="col"
-												className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-											>
-												Hash
-											</th>
-											<th
-												scope="col"
-												className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-											>
-												Height
-											</th>
-											<th
-												scope="col"
-												className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-											>
-												Status
-											</th>
-											<th
-												scope="col"
-												className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-											>
-												Time
-											</th>
-											<th
-												scope="col"
-												className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-											>
-												Amount
-											</th>
-											<th
-												scope="col"
-												className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-											>
-												From
-											</th>
-											<th
-												scope="col"
-												className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-											>
-												To
-											</th>
+											<TableLayout.HeadItem text="Hash" />
+											<TableLayout.HeadItem text="Height" />
+											<TableLayout.HeadItem text="Status" />
+											<TableLayout.HeadItem text="Time" />
+											<TableLayout.HeadItem text="Amount" />
+											<TableLayout.HeadItem text="From" />
+											<TableLayout.HeadItem text="To" />
 										</tr>
 									</thead>
 									<tbody className="divide-y divide-gray-200 bg-white">
 										{query.data.map((transfer, key) => (
 											<tr key={key}>
-												<Link href={`/transfer/${transfer.extrinsicHash}`}>
-													<td className="cursor-pointer whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-indigo-500 sm:pl-6">
+												<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500">
+													<Link href={`/transfer/${transfer.extrinsicHash}`}>
 														{formatAddress(transfer.extrinsicHash, 12)}
-													</td>
-												</Link>
+													</Link>
+												</TableLayout.Data>
 												<Link href={`/block/${transfer.blockNumber}`}>
-													<td className="cursor-pointer whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-indigo-500 sm:pl-6">
+													<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500">
 														{transfer.blockNumber}
-													</td>
+													</TableLayout.Data>
 												</Link>
-												<td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+												<TableLayout.Data>
 													<TransferStatusIcon
 														status={transfer?.status}
 														iconClassName="h-5"
 													/>
-												</td>
-												<td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+												</TableLayout.Data>
+												<TableLayout.Data>
 													<TimeAgo date={transfer.timestamp} />
-												</td>
-												<td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+												</TableLayout.Data>
+												<TableLayout.Data>
 													{ethers.utils.formatEther(transfer.amount)} Root
-												</td>
+												</TableLayout.Data>
 												{transfer?.from?.id ? (
-													<Link href={`/account/${transfer.from.id}`}>
-														<AddressData variant="address">
+													<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500">
+														<Link href={`/account/${transfer.from.id}`}>
 															{formatAddress(transfer.from.id)}
-														</AddressData>
-													</Link>
+														</Link>
+													</TableLayout.Data>
 												) : (
-													<AddressData variant="status">
+													<TableLayout.Data>
 														{transfer?.status ?? "?"}
-													</AddressData>
+													</TableLayout.Data>
 												)}
 												{transfer?.to?.id ? (
-													<Link href={`/account/${transfer.to.id}`}>
-														<AddressData variant="address">
+													<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500">
+														<Link href={`/account/${transfer.to.id}`}>
 															{formatAddress(transfer.to.id)}
-														</AddressData>
-													</Link>
+														</Link>
+													</TableLayout.Data>
 												) : (
-													<AddressData variant="status">
+													<TableLayout.Data>
 														{transfer?.status ?? "?"}
-													</AddressData>
+													</TableLayout.Data>
 												)}
 											</tr>
 										))}
 									</tbody>
-								</table>
+								</TableLayout.Table>
 							</div>
 						</div>
 					</div>
@@ -135,17 +104,3 @@ export default function Transfers() {
 		</ContainerLayout>
 	);
 }
-
-const AddressData = ({ variant, children }) => (
-	<td
-		className={clsx(
-			"cursor-pointer whitespace-nowrap px-3 py-4 text-sm",
-			{
-				address: "font-semibold text-indigo-500",
-				status: "text-gray-500",
-			}[variant]
-		)}
-	>
-		{children}
-	</td>
-);

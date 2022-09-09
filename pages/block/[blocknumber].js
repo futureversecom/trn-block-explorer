@@ -1,6 +1,11 @@
 import { useRouter } from "next/router";
 import { CubeIcon } from "@heroicons/react/24/outline";
-import { PageHeader, LoadingBlock, ContainerLayout } from "@/components";
+import {
+	PageHeader,
+	LoadingBlock,
+	ContainerLayout,
+	DetailsLayout,
+} from "@/components";
 import moment from "moment";
 import Link from "next/link";
 import { BlockFinalizedIcon } from "@/components/icons";
@@ -47,98 +52,85 @@ export default function Block() {
 					<div className="mt-5 overflow-hidden rounded-md border border-gray-100 bg-white shadow-md">
 						<div className=" px-4 py-5 sm:p-0">
 							<dl className="sm:divide-y sm:divide-gray-200">
-								<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-									<dt className="text-sm font-medium text-gray-900">Height</dt>
-									<dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
-										{blocknumber}
-									</dd>
-								</div>
+								<DetailsLayout.Wrapper>
+									<DetailsLayout.Title title="Height" />
+									<DetailsLayout.Data>{blocknumber}</DetailsLayout.Data>
+								</DetailsLayout.Wrapper>
 
-								<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-									<dt className="text-sm font-medium text-gray-900">
-										Timestamp
-									</dt>
-									<dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
+								<DetailsLayout.Wrapper>
+									<DetailsLayout.Title title="Timestamp" />
+									<DetailsLayout.Data>
 										{moment(query.data.timestamp).format("LLL")}{" "}
 										<span className="ml-3 text-xs">
 											<TimeAgo date={query.data.timestamp} />
 										</span>
-									</dd>
-								</div>
+									</DetailsLayout.Data>
+								</DetailsLayout.Wrapper>
 
-								<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-									<dt className="text-sm font-medium text-gray-900">Status</dt>
-									<dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
+								<DetailsLayout.Wrapper>
+									<DetailsLayout.Title title="Status" />
+									<DetailsLayout.Data>
 										<div className="flex flex-row space-x-3">
 											<BlockFinalizedIcon status={true} />
 										</div>
-									</dd>
-								</div>
+									</DetailsLayout.Data>
+								</DetailsLayout.Wrapper>
 
-								<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-									<dt className="text-sm font-medium text-gray-900">Hash</dt>
-									<dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
-										{query.data.hash}
-									</dd>
-								</div>
+								<DetailsLayout.Wrapper>
+									<DetailsLayout.Title title="Hash" />
+									<DetailsLayout.Data>{query.data.hash}</DetailsLayout.Data>
+								</DetailsLayout.Wrapper>
 
-								<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-									<dt className="text-sm font-medium text-gray-900">
-										Parent Hash
-									</dt>
-									<dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
+								<DetailsLayout.Wrapper>
+									<DetailsLayout.Title title="Parent Hash" />
+									<DetailsLayout.Data>
 										<Link href={`/block/${getPrevBlock()}`}>
 											<span className="cursor-pointer text-indigo-500">
 												{query.data.parent_hash}
 											</span>
 										</Link>
-									</dd>
-								</div>
-								<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-									<dt className="text-sm font-medium text-gray-900">
-										State Root
-									</dt>
-									<dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
+									</DetailsLayout.Data>
+								</DetailsLayout.Wrapper>
+
+								<DetailsLayout.Wrapper>
+									<DetailsLayout.Title title="State Root" />
+									<DetailsLayout.Data>
 										{query.data.state_root}
-									</dd>
-								</div>
-								<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-									<dt className="text-sm font-medium text-gray-900">
-										Extrinsics Root
-									</dt>
-									<dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
+									</DetailsLayout.Data>
+								</DetailsLayout.Wrapper>
+
+								<DetailsLayout.Wrapper>
+									<DetailsLayout.Title title="Extrinsics Root" />
+									<DetailsLayout.Data>
 										{query.data.extrinsics_root}
-									</dd>
-								</div>
-								<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-									<dt className="text-sm font-medium text-gray-900">Events</dt>
-									<dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
-										<div className="h-64 overflow-scroll">
+									</DetailsLayout.Data>
+								</DetailsLayout.Wrapper>
+
+								<DetailsLayout.Wrapper>
+									<DetailsLayout.Title title="Events" />
+									<DetailsLayout.Data>
+										<div className="h-64 overflow-scroll rounded bg-black p-2">
 											<JSONPretty id="json-pretty" data={query.data.events} />
 										</div>
-									</dd>
-								</div>
-								<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-									<dt className="text-sm font-medium text-gray-900">
-										Extrinsics
-									</dt>
-									<dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
-										<div className="h-64 overflow-scroll">
+									</DetailsLayout.Data>
+								</DetailsLayout.Wrapper>
+
+								<DetailsLayout.Wrapper>
+									<DetailsLayout.Title title="Extrinsics" />
+									<DetailsLayout.Data>
+										<div className="h-64 overflow-scroll rounded bg-black p-2">
 											<JSONPretty
 												id="json-pretty"
 												data={query.data.extrinsics}
 											/>
 										</div>
-									</dd>
-								</div>
-								<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-									<dt className="text-sm font-medium text-gray-900">
-										Spec Version
-									</dt>
-									<dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
-										{query.data.spec_id}
-									</dd>
-								</div>
+									</DetailsLayout.Data>
+								</DetailsLayout.Wrapper>
+
+								<DetailsLayout.Wrapper>
+									<DetailsLayout.Title title="Spec Version" />
+									<DetailsLayout.Data>{query.data.spec_id}</DetailsLayout.Data>
+								</DetailsLayout.Wrapper>
 							</dl>
 						</div>
 					</div>

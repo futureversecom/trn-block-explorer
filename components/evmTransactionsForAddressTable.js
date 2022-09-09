@@ -4,7 +4,8 @@ import TimeAgo from "react-timeago";
 import Link from "next/link";
 import { useGetEvmTransactionsForAddressQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks/usePolling";
-import { LoadingBlock, RefetchIndicator } from "@/components";
+import { LoadingBlock, RefetchIndicator, TableLayout } from "@/components";
+import clsx from "clsx";
 
 export default function EVMTransactionsForAddress({ walletAddress }) {
 	const query = usePolling(
@@ -32,104 +33,73 @@ export default function EVMTransactionsForAddress({ walletAddress }) {
 			{query.isLoading ? (
 				<LoadingBlock title="EVM Transactions" height="h-20" />
 			) : (
-				<div className=" h- divide-y rounded-md border border-gray-100 bg-white px-4 py-3 shadow-md sm:px-6">
+				<div className="divide-y rounded-md border border-gray-100 bg-white shadow-md">
 					{query?.data?.length > 0 ? (
-						<table className="min-w-full divide-y divide-gray-300">
+						<TableLayout.Table>
 							<thead className="bg-gray-50">
 								<tr>
-									<th
-										scope="col"
-										className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-									>
-										Hash
-									</th>
-									<th
-										scope="col"
-										className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-									>
-										Height
-									</th>
-									<th
-										scope="col"
-										className="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-gray-900 sm:pl-6"
-									>
-										Type
-									</th>
-									<th
-										scope="col"
-										className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-									>
-										Timestamp
-									</th>
-									<th
-										scope="col"
-										className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
-									>
-										Method
-									</th>
-									<th
-										scope="col"
-										className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-									>
-										From
-									</th>
-									<th
-										scope="col"
-										className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-									>
-										To
-									</th>
+									<TableLayout.HeadItem text="Hash" />
+									<TableLayout.HeadItem text="Height" />
+									<TableLayout.HeadItem text="Type" />
+									<TableLayout.HeadItem text="Timestamp" />
+									<TableLayout.HeadItem text="Method" />
+									<TableLayout.HeadItem text="From" />
+									<TableLayout.HeadItem text="To" />
 								</tr>
 							</thead>
 							<tbody className="divide-y divide-gray-200 bg-white">
 								{query.data.map((block, key) => (
 									<tr key={key}>
-										<Link href={`/block/${block.height}`}>
-											<td className="cursor-pointer whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-indigo-500 sm:pl-6">
+										<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500">
+											<Link href={`/block/${block.height}`}>
 												{block?.txHash ? formatAddress(block.txHash, 12) : "?"}
-											</td>
-										</Link>
-										<td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-											{block?.block}
-										</td>
-										<td className="whitespace-nowrap px-3 py-4 text-center text-sm text-gray-500">
+											</Link>
+										</TableLayout.Data>
+
+										<TableLayout.Data>{block?.block}</TableLayout.Data>
+
+										<TableLayout.Data>
 											<span
-												className={`rounded-md ${
+												className={clsx(
+													"rounded-md p-2 text-gray-50",
 													block?.from.toLowerCase() ===
-													walletAddress.toLowerCase()
+														walletAddress.toLowerCase()
 														? "bg-green-800"
 														: "bg-red-600"
-												} p-2 text-gray-50`}
+												)}
 											>
 												{block?.from.toLowerCase() ==
 												walletAddress.toLowerCase()
 													? "Out"
 													: "In"}
 											</span>
-										</td>
+										</TableLayout.Data>
 
-										<td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+										<TableLayout.Data>
 											<TimeAgo date={block.timestamp} />
-										</td>
-										<td className="mx-auto whitespace-nowrap px-3 py-4 text-center text-sm text-gray-500">
+										</TableLayout.Data>
+
+										<TableLayout.Data dataClassName="!px-3">
 											<span className="rounded-md bg-slate-700 p-2 text-gray-50">
 												{block?.input?.method || "?"}
 											</span>
-										</td>
-										<Link href={`/account/${block.from}`}>
-											<td className="cursor-pointer whitespace-nowrap px-3 py-4 text-sm text-indigo-500">
+										</TableLayout.Data>
+
+										<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500">
+											<Link href={`/account/${block.from}`}>
 												{block?.from ? formatAddress(block.from) : "? "}
-											</td>
-										</Link>
-										<Link href={`/account/${block.to}`}>
-											<td className="cursor-pointer whitespace-nowrap px-3 py-4 text-sm text-indigo-500">
+											</Link>
+										</TableLayout.Data>
+
+										<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500">
+											<Link href={`/account/${block.to}`}>
 												{block?.to ? formatAddress(block.to) : "? "}
-											</td>
-										</Link>
+											</Link>
+										</TableLayout.Data>
 									</tr>
 								))}
 							</tbody>
-						</table>
+						</TableLayout.Table>
 					) : (
 						<div className="space-x-3 text-center">😥 No EVM Transactions</div>
 					)}
