@@ -1,0 +1,13 @@
+query GetChainData {
+	balances {
+		currentChainState {
+			blockNumber
+			tokenHolders
+		}
+	}
+	transfers {
+		transfersConnection(orderBy: blockNumber_DESC) {
+			totalCount
+		}
+	}
+}

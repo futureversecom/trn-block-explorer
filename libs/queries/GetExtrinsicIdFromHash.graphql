@@ -1,0 +1,7 @@
+query GetExtrinsicIdFromHash($extrinsicHash: archive_bpchar!) {
+	archive {
+		extrinsic(where: { hash: { _eq: $extrinsicHash } }) {
+			id
+		}
+	}
+}

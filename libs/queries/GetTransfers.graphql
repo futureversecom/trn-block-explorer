@@ -1,19 +1,19 @@
 query GetTransfers($limit: Int!) {
-  transfers {
-    transfers(orderBy: blockNumber_DESC, limit: $limit) {
-      timestamp
-      status
-      id
-      extrinsicHash
-      blockNumber
-      assetId
-      amount
-      from {
-        id
-      }
-      to {
-        id
-      }
-    }
-  }
+	transfers {
+		transfers(orderBy: blockNumber_DESC, limit: $limit) {
+			timestamp
+			status
+			id
+			extrinsicHash
+			blockNumber
+			assetId
+			amount
+			from {
+				id
+			}
+			to {
+				id
+			}
+		}
+	}
 }
