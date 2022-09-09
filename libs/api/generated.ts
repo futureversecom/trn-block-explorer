@@ -45,6 +45,10 @@ export type Scalars = {
 	/** A scalar that can represent any JSON value */
 	evm_JSON: any;
 	/** Big number integer */
+	tokens_BigInt: any;
+	/** A date-time string in simplified extended ISO 8601 format (YYYY-MM-DDTHH:mm:ss.sssZ) */
+	tokens_DateTime: any;
+	/** Big number integer */
 	transfers_BigInt: any;
 	/** A date-time string in simplified extended ISO 8601 format (YYYY-MM-DDTHH:mm:ss.sssZ) */
 	transfers_DateTime: any;
@@ -4842,7 +4846,7 @@ export type BalancesQuery = {
 	accountById?: Maybe<Balances_Account>;
 	accountByUniqueInput?: Maybe<Balances_Account>;
 	accounts: Array<Balances_Account>;
-	accountsConnection: Balances_AccountsConnection;
+	accountsConnection: Tokens_AccountsConnection;
 	chainInfo: Balances_ChainInfo;
 	chainStateById?: Maybe<Balances_ChainState>;
 	chainStateByUniqueInput?: Maybe<Balances_ChainState>;
@@ -4935,12 +4939,6 @@ export type Balances_Account = {
 	updatedAt?: Maybe<Scalars["Int"]>;
 };
 
-export type Balances_AccountEdge = {
-	__typename?: "balances_AccountEdge";
-	cursor: Scalars["String"];
-	node: Balances_Account;
-};
-
 export enum Balances_AccountOrderByInput {
 	FreeAsc = "free_ASC",
 	FreeDesc = "free_DESC",
@@ -5010,13 +5008,6 @@ export type Balances_AccountWhereInput = {
 	updatedAt_lte?: InputMaybe<Scalars["Int"]>;
 	updatedAt_not_eq?: InputMaybe<Scalars["Int"]>;
 	updatedAt_not_in?: InputMaybe<Array<Scalars["Int"]>>;
-};
-
-export type Balances_AccountsConnection = {
-	__typename?: "balances_AccountsConnection";
-	edges: Array<Balances_AccountEdge>;
-	pageInfo: Balances_PageInfo;
-	totalCount: Scalars["Int"];
 };
 
 export type Balances_ChainInfo = {
@@ -5165,16 +5156,8 @@ export type Balances_ChainStateWhereInput = {
 export type Balances_ChainStatesConnection = {
 	__typename?: "balances_ChainStatesConnection";
 	edges: Array<Balances_ChainStateEdge>;
-	pageInfo: Balances_PageInfo;
+	pageInfo: Tokens_PageInfo;
 	totalCount: Scalars["Int"];
-};
-
-export type Balances_PageInfo = {
-	__typename?: "balances_PageInfo";
-	endCursor: Scalars["String"];
-	hasNextPage: Scalars["Boolean"];
-	hasPreviousPage: Scalars["Boolean"];
-	startCursor: Scalars["String"];
 };
 
 export type Balances_SquidStatus = {
@@ -5508,7 +5491,7 @@ export type Evm_TransactionWhereInput = {
 export type Evm_TransactionsConnection = {
 	__typename?: "evm_TransactionsConnection";
 	edges: Array<Evm_TransactionEdge>;
-	pageInfo: Balances_PageInfo;
+	pageInfo: Tokens_PageInfo;
 	totalCount: Scalars["Int"];
 };
 
@@ -5523,6 +5506,7 @@ export type Query_Root = {
 	archive?: Maybe<Archivequery_Root>;
 	balances?: Maybe<BalancesQuery>;
 	evm?: Maybe<EvmQuery>;
+	tokens?: Maybe<TokensQuery>;
 	transfers?: Maybe<TransfersQuery>;
 };
 
@@ -5534,12 +5518,1462 @@ export type Subscription_Root = {
 	transfers?: Maybe<TransfersSubscription>;
 };
 
+export type TokensQuery = {
+	__typename?: "tokensQuery";
+	accountById?: Maybe<Tokens_Account>;
+	accountByUniqueInput?: Maybe<Tokens_Account>;
+	accountFTokenBalanceById?: Maybe<Tokens_AccountFTokenBalance>;
+	accountFTokenBalanceByUniqueInput?: Maybe<Tokens_AccountFTokenBalance>;
+	accountFTokenBalances: Array<Tokens_AccountFTokenBalance>;
+	accountFTokenBalancesConnection: Tokens_AccountFTokenBalancesConnection;
+	accountFtTransferById?: Maybe<Tokens_AccountFtTransfer>;
+	accountFtTransferByUniqueInput?: Maybe<Tokens_AccountFtTransfer>;
+	accountFtTransfers: Array<Tokens_AccountFtTransfer>;
+	accountFtTransfersConnection: Tokens_AccountFtTransfersConnection;
+	accountNftTransferById?: Maybe<Tokens_AccountNftTransfer>;
+	accountNftTransferByUniqueInput?: Maybe<Tokens_AccountNftTransfer>;
+	accountNftTransfers: Array<Tokens_AccountNftTransfer>;
+	accountNftTransfersConnection: Tokens_AccountNftTransfersConnection;
+	accounts: Array<Tokens_Account>;
+	accountsConnection: Tokens_AccountsConnection;
+	collectionById?: Maybe<Tokens_Collection>;
+	collectionByUniqueInput?: Maybe<Tokens_Collection>;
+	collections: Array<Tokens_Collection>;
+	collectionsConnection: Tokens_CollectionsConnection;
+	fTokenById?: Maybe<Tokens_FToken>;
+	fTokenByUniqueInput?: Maybe<Tokens_FToken>;
+	fTokens: Array<Tokens_FToken>;
+	fTokensConnection: Tokens_FTokensConnection;
+	ftTransferById?: Maybe<Tokens_FtTransfer>;
+	ftTransferByUniqueInput?: Maybe<Tokens_FtTransfer>;
+	ftTransfers: Array<Tokens_FtTransfer>;
+	ftTransfersConnection: Tokens_FtTransfersConnection;
+	nfTokenById?: Maybe<Tokens_NfToken>;
+	nfTokenByUniqueInput?: Maybe<Tokens_NfToken>;
+	nfTokens: Array<Tokens_NfToken>;
+	nfTokensConnection: Tokens_NfTokensConnection;
+	nftTransferById?: Maybe<Tokens_NftTransfer>;
+	nftTransferByUniqueInput?: Maybe<Tokens_NftTransfer>;
+	nftTransfers: Array<Tokens_NftTransfer>;
+	nftTransfersConnection: Tokens_NftTransfersConnection;
+	uriUpdateActionById?: Maybe<Tokens_UriUpdateAction>;
+	uriUpdateActionByUniqueInput?: Maybe<Tokens_UriUpdateAction>;
+	uriUpdateActions: Array<Tokens_UriUpdateAction>;
+	uriUpdateActionsConnection: Tokens_UriUpdateActionsConnection;
+};
+
+export type TokensQueryAccountByIdArgs = {
+	id: Scalars["ID"];
+};
+
+export type TokensQueryAccountByUniqueInputArgs = {
+	where: Tokens_AccountWhereUniqueInput;
+};
+
+export type TokensQueryAccountFTokenBalanceByIdArgs = {
+	id: Scalars["ID"];
+};
+
+export type TokensQueryAccountFTokenBalanceByUniqueInputArgs = {
+	where: Tokens_AccountFTokenBalanceWhereUniqueInput;
+};
+
+export type TokensQueryAccountFTokenBalancesArgs = {
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	orderBy?: InputMaybe<
+		Array<InputMaybe<Tokens_AccountFTokenBalanceOrderByInput>>
+	>;
+	where?: InputMaybe<Tokens_AccountFTokenBalanceWhereInput>;
+};
+
+export type TokensQueryAccountFTokenBalancesConnectionArgs = {
+	after?: InputMaybe<Scalars["String"]>;
+	first?: InputMaybe<Scalars["Int"]>;
+	orderBy: Array<Tokens_AccountFTokenBalanceOrderByInput>;
+	where?: InputMaybe<Tokens_AccountFTokenBalanceWhereInput>;
+};
+
+export type TokensQueryAccountFtTransferByIdArgs = {
+	id: Scalars["ID"];
+};
+
+export type TokensQueryAccountFtTransferByUniqueInputArgs = {
+	where: Tokens_AccountFtTransferWhereUniqueInput;
+};
+
+export type TokensQueryAccountFtTransfersArgs = {
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	orderBy?: InputMaybe<Array<InputMaybe<Tokens_AccountFtTransferOrderByInput>>>;
+	where?: InputMaybe<Tokens_AccountFtTransferWhereInput>;
+};
+
+export type TokensQueryAccountFtTransfersConnectionArgs = {
+	after?: InputMaybe<Scalars["String"]>;
+	first?: InputMaybe<Scalars["Int"]>;
+	orderBy: Array<Tokens_AccountFtTransferOrderByInput>;
+	where?: InputMaybe<Tokens_AccountFtTransferWhereInput>;
+};
+
+export type TokensQueryAccountNftTransferByIdArgs = {
+	id: Scalars["ID"];
+};
+
+export type TokensQueryAccountNftTransferByUniqueInputArgs = {
+	where: Tokens_AccountNftTransferWhereUniqueInput;
+};
+
+export type TokensQueryAccountNftTransfersArgs = {
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	orderBy?: InputMaybe<
+		Array<InputMaybe<Tokens_AccountNftTransferOrderByInput>>
+	>;
+	where?: InputMaybe<Tokens_AccountNftTransferWhereInput>;
+};
+
+export type TokensQueryAccountNftTransfersConnectionArgs = {
+	after?: InputMaybe<Scalars["String"]>;
+	first?: InputMaybe<Scalars["Int"]>;
+	orderBy: Array<Tokens_AccountNftTransferOrderByInput>;
+	where?: InputMaybe<Tokens_AccountNftTransferWhereInput>;
+};
+
+export type TokensQueryAccountsArgs = {
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	orderBy?: InputMaybe<Array<InputMaybe<Tokens_AccountOrderByInput>>>;
+	where?: InputMaybe<Tokens_AccountWhereInput>;
+};
+
+export type TokensQueryAccountsConnectionArgs = {
+	after?: InputMaybe<Scalars["String"]>;
+	first?: InputMaybe<Scalars["Int"]>;
+	orderBy: Array<Tokens_AccountOrderByInput>;
+	where?: InputMaybe<Tokens_AccountWhereInput>;
+};
+
+export type TokensQueryCollectionByIdArgs = {
+	id: Scalars["ID"];
+};
+
+export type TokensQueryCollectionByUniqueInputArgs = {
+	where: Tokens_CollectionWhereUniqueInput;
+};
+
+export type TokensQueryCollectionsArgs = {
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	orderBy?: InputMaybe<Array<InputMaybe<Tokens_CollectionOrderByInput>>>;
+	where?: InputMaybe<Tokens_CollectionWhereInput>;
+};
+
+export type TokensQueryCollectionsConnectionArgs = {
+	after?: InputMaybe<Scalars["String"]>;
+	first?: InputMaybe<Scalars["Int"]>;
+	orderBy: Array<Tokens_CollectionOrderByInput>;
+	where?: InputMaybe<Tokens_CollectionWhereInput>;
+};
+
+export type TokensQueryFTokenByIdArgs = {
+	id: Scalars["ID"];
+};
+
+export type TokensQueryFTokenByUniqueInputArgs = {
+	where: Tokens_FTokenWhereUniqueInput;
+};
+
+export type TokensQueryFTokensArgs = {
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	orderBy?: InputMaybe<Array<InputMaybe<Tokens_FTokenOrderByInput>>>;
+	where?: InputMaybe<Tokens_FTokenWhereInput>;
+};
+
+export type TokensQueryFTokensConnectionArgs = {
+	after?: InputMaybe<Scalars["String"]>;
+	first?: InputMaybe<Scalars["Int"]>;
+	orderBy: Array<Tokens_FTokenOrderByInput>;
+	where?: InputMaybe<Tokens_FTokenWhereInput>;
+};
+
+export type TokensQueryFtTransferByIdArgs = {
+	id: Scalars["ID"];
+};
+
+export type TokensQueryFtTransferByUniqueInputArgs = {
+	where: Tokens_FtTransferWhereUniqueInput;
+};
+
+export type TokensQueryFtTransfersArgs = {
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	orderBy?: InputMaybe<Array<InputMaybe<Tokens_FtTransferOrderByInput>>>;
+	where?: InputMaybe<Tokens_FtTransferWhereInput>;
+};
+
+export type TokensQueryFtTransfersConnectionArgs = {
+	after?: InputMaybe<Scalars["String"]>;
+	first?: InputMaybe<Scalars["Int"]>;
+	orderBy: Array<Tokens_FtTransferOrderByInput>;
+	where?: InputMaybe<Tokens_FtTransferWhereInput>;
+};
+
+export type TokensQueryNfTokenByIdArgs = {
+	id: Scalars["ID"];
+};
+
+export type TokensQueryNfTokenByUniqueInputArgs = {
+	where: Tokens_NfTokenWhereUniqueInput;
+};
+
+export type TokensQueryNfTokensArgs = {
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	orderBy?: InputMaybe<Array<InputMaybe<Tokens_NfTokenOrderByInput>>>;
+	where?: InputMaybe<Tokens_NfTokenWhereInput>;
+};
+
+export type TokensQueryNfTokensConnectionArgs = {
+	after?: InputMaybe<Scalars["String"]>;
+	first?: InputMaybe<Scalars["Int"]>;
+	orderBy: Array<Tokens_NfTokenOrderByInput>;
+	where?: InputMaybe<Tokens_NfTokenWhereInput>;
+};
+
+export type TokensQueryNftTransferByIdArgs = {
+	id: Scalars["ID"];
+};
+
+export type TokensQueryNftTransferByUniqueInputArgs = {
+	where: Tokens_NftTransferWhereUniqueInput;
+};
+
+export type TokensQueryNftTransfersArgs = {
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	orderBy?: InputMaybe<Array<InputMaybe<Tokens_NftTransferOrderByInput>>>;
+	where?: InputMaybe<Tokens_NftTransferWhereInput>;
+};
+
+export type TokensQueryNftTransfersConnectionArgs = {
+	after?: InputMaybe<Scalars["String"]>;
+	first?: InputMaybe<Scalars["Int"]>;
+	orderBy: Array<Tokens_NftTransferOrderByInput>;
+	where?: InputMaybe<Tokens_NftTransferWhereInput>;
+};
+
+export type TokensQueryUriUpdateActionByIdArgs = {
+	id: Scalars["ID"];
+};
+
+export type TokensQueryUriUpdateActionByUniqueInputArgs = {
+	where: Tokens_UriUpdateActionWhereUniqueInput;
+};
+
+export type TokensQueryUriUpdateActionsArgs = {
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	orderBy?: InputMaybe<Array<InputMaybe<Tokens_UriUpdateActionOrderByInput>>>;
+	where?: InputMaybe<Tokens_UriUpdateActionWhereInput>;
+};
+
+export type TokensQueryUriUpdateActionsConnectionArgs = {
+	after?: InputMaybe<Scalars["String"]>;
+	first?: InputMaybe<Scalars["Int"]>;
+	orderBy: Array<Tokens_UriUpdateActionOrderByInput>;
+	where?: InputMaybe<Tokens_UriUpdateActionWhereInput>;
+};
+
+export type Tokens_Account = {
+	__typename?: "tokens_Account";
+	balancesFToken: Array<Tokens_AccountFTokenBalance>;
+	ftTransfers: Array<Tokens_AccountFtTransfer>;
+	id: Scalars["ID"];
+	nftTransfers: Array<Tokens_AccountNftTransfer>;
+	ownedTokens: Array<Tokens_NfToken>;
+};
+
+export type Tokens_AccountBalancesFTokenArgs = {
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	orderBy?: InputMaybe<
+		Array<InputMaybe<Tokens_AccountFTokenBalanceOrderByInput>>
+	>;
+	where?: InputMaybe<Tokens_AccountFTokenBalanceWhereInput>;
+};
+
+export type Tokens_AccountFtTransfersArgs = {
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	orderBy?: InputMaybe<Array<InputMaybe<Tokens_AccountFtTransferOrderByInput>>>;
+	where?: InputMaybe<Tokens_AccountFtTransferWhereInput>;
+};
+
+export type Tokens_AccountNftTransfersArgs = {
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	orderBy?: InputMaybe<
+		Array<InputMaybe<Tokens_AccountNftTransferOrderByInput>>
+	>;
+	where?: InputMaybe<Tokens_AccountNftTransferWhereInput>;
+};
+
+export type Tokens_AccountOwnedTokensArgs = {
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	orderBy?: InputMaybe<Array<InputMaybe<Tokens_NfTokenOrderByInput>>>;
+	where?: InputMaybe<Tokens_NfTokenWhereInput>;
+};
+
+export type Tokens_AccountEdge = {
+	__typename?: "tokens_AccountEdge";
+	cursor: Scalars["String"];
+	node: Tokens_Account;
+};
+
+export type Tokens_AccountFTokenBalance = {
+	__typename?: "tokens_AccountFTokenBalance";
+	account: Tokens_Account;
+	amount: Scalars["tokens_BigInt"];
+	id: Scalars["ID"];
+	token: Tokens_FToken;
+	updatedAt: Scalars["tokens_DateTime"];
+	updatedAtBlock: Scalars["tokens_BigInt"];
+};
+
+export type Tokens_AccountFTokenBalanceEdge = {
+	__typename?: "tokens_AccountFTokenBalanceEdge";
+	cursor: Scalars["String"];
+	node: Tokens_AccountFTokenBalance;
+};
+
+export enum Tokens_AccountFTokenBalanceOrderByInput {
+	AccountIdAsc = "account_id_ASC",
+	AccountIdDesc = "account_id_DESC",
+	AmountAsc = "amount_ASC",
+	AmountDesc = "amount_DESC",
+	IdAsc = "id_ASC",
+	IdDesc = "id_DESC",
+	TokenDecimalsAsc = "token_decimals_ASC",
+	TokenDecimalsDesc = "token_decimals_DESC",
+	TokenIdAsc = "token_id_ASC",
+	TokenIdDesc = "token_id_DESC",
+	TokenNameAsc = "token_name_ASC",
+	TokenNameDesc = "token_name_DESC",
+	TokenSymbolAsc = "token_symbol_ASC",
+	TokenSymbolDesc = "token_symbol_DESC",
+	UpdatedAtBlockAsc = "updatedAtBlock_ASC",
+	UpdatedAtBlockDesc = "updatedAtBlock_DESC",
+	UpdatedAtAsc = "updatedAt_ASC",
+	UpdatedAtDesc = "updatedAt_DESC",
+}
+
+export type Tokens_AccountFTokenBalanceWhereInput = {
+	AND?: InputMaybe<Array<Tokens_AccountFTokenBalanceWhereInput>>;
+	OR?: InputMaybe<Array<Tokens_AccountFTokenBalanceWhereInput>>;
+	account?: InputMaybe<Tokens_AccountWhereInput>;
+	amount_eq?: InputMaybe<Scalars["tokens_BigInt"]>;
+	amount_gt?: InputMaybe<Scalars["tokens_BigInt"]>;
+	amount_gte?: InputMaybe<Scalars["tokens_BigInt"]>;
+	amount_in?: InputMaybe<Array<Scalars["tokens_BigInt"]>>;
+	amount_lt?: InputMaybe<Scalars["tokens_BigInt"]>;
+	amount_lte?: InputMaybe<Scalars["tokens_BigInt"]>;
+	amount_not_eq?: InputMaybe<Scalars["tokens_BigInt"]>;
+	amount_not_in?: InputMaybe<Array<Scalars["tokens_BigInt"]>>;
+	id_contains?: InputMaybe<Scalars["ID"]>;
+	id_containsInsensitive?: InputMaybe<Scalars["ID"]>;
+	id_endsWith?: InputMaybe<Scalars["ID"]>;
+	id_eq?: InputMaybe<Scalars["ID"]>;
+	id_gt?: InputMaybe<Scalars["ID"]>;
+	id_gte?: InputMaybe<Scalars["ID"]>;
+	id_in?: InputMaybe<Array<Scalars["ID"]>>;
+	id_lt?: InputMaybe<Scalars["ID"]>;
+	id_lte?: InputMaybe<Scalars["ID"]>;
+	id_not_contains?: InputMaybe<Scalars["ID"]>;
+	id_not_containsInsensitive?: InputMaybe<Scalars["ID"]>;
+	id_not_endsWith?: InputMaybe<Scalars["ID"]>;
+	id_not_eq?: InputMaybe<Scalars["ID"]>;
+	id_not_in?: InputMaybe<Array<Scalars["ID"]>>;
+	id_not_startsWith?: InputMaybe<Scalars["ID"]>;
+	id_startsWith?: InputMaybe<Scalars["ID"]>;
+	token?: InputMaybe<Tokens_FTokenWhereInput>;
+	updatedAtBlock_eq?: InputMaybe<Scalars["tokens_BigInt"]>;
+	updatedAtBlock_gt?: InputMaybe<Scalars["tokens_BigInt"]>;
+	updatedAtBlock_gte?: InputMaybe<Scalars["tokens_BigInt"]>;
+	updatedAtBlock_in?: InputMaybe<Array<Scalars["tokens_BigInt"]>>;
+	updatedAtBlock_lt?: InputMaybe<Scalars["tokens_BigInt"]>;
+	updatedAtBlock_lte?: InputMaybe<Scalars["tokens_BigInt"]>;
+	updatedAtBlock_not_eq?: InputMaybe<Scalars["tokens_BigInt"]>;
+	updatedAtBlock_not_in?: InputMaybe<Array<Scalars["tokens_BigInt"]>>;
+	updatedAt_eq?: InputMaybe<Scalars["tokens_DateTime"]>;
+	updatedAt_gt?: InputMaybe<Scalars["tokens_DateTime"]>;
+	updatedAt_gte?: InputMaybe<Scalars["tokens_DateTime"]>;
+	updatedAt_in?: InputMaybe<Array<Scalars["tokens_DateTime"]>>;
+	updatedAt_lt?: InputMaybe<Scalars["tokens_DateTime"]>;
+	updatedAt_lte?: InputMaybe<Scalars["tokens_DateTime"]>;
+	updatedAt_not_eq?: InputMaybe<Scalars["tokens_DateTime"]>;
+	updatedAt_not_in?: InputMaybe<Array<Scalars["tokens_DateTime"]>>;
+};
+
+export type Tokens_AccountFTokenBalanceWhereUniqueInput = {
+	id: Scalars["ID"];
+};
+
+export type Tokens_AccountFTokenBalancesConnection = {
+	__typename?: "tokens_AccountFTokenBalancesConnection";
+	edges: Array<Tokens_AccountFTokenBalanceEdge>;
+	pageInfo: Tokens_PageInfo;
+	totalCount: Scalars["Int"];
+};
+
+export type Tokens_AccountFtTransfer = {
+	__typename?: "tokens_AccountFtTransfer";
+	account: Tokens_Account;
+	direction?: Maybe<Tokens_TransferDirection>;
+	id: Scalars["ID"];
+	transfer?: Maybe<Tokens_FtTransfer>;
+};
+
+export type Tokens_AccountFtTransferEdge = {
+	__typename?: "tokens_AccountFtTransferEdge";
+	cursor: Scalars["String"];
+	node: Tokens_AccountFtTransfer;
+};
+
+export enum Tokens_AccountFtTransferOrderByInput {
+	AccountIdAsc = "account_id_ASC",
+	AccountIdDesc = "account_id_DESC",
+	DirectionAsc = "direction_ASC",
+	DirectionDesc = "direction_DESC",
+	IdAsc = "id_ASC",
+	IdDesc = "id_DESC",
+	TransferAmountAsc = "transfer_amount_ASC",
+	TransferAmountDesc = "transfer_amount_DESC",
+	TransferBlockNumberAsc = "transfer_blockNumber_ASC",
+	TransferBlockNumberDesc = "transfer_blockNumber_DESC",
+	TransferEventIndexAsc = "transfer_eventIndex_ASC",
+	TransferEventIndexDesc = "transfer_eventIndex_DESC",
+	TransferIdAsc = "transfer_id_ASC",
+	TransferIdDesc = "transfer_id_DESC",
+	TransferTimestampAsc = "transfer_timestamp_ASC",
+	TransferTimestampDesc = "transfer_timestamp_DESC",
+	TransferTransferTypeAsc = "transfer_transferType_ASC",
+	TransferTransferTypeDesc = "transfer_transferType_DESC",
+	TransferTxnHashAsc = "transfer_txnHash_ASC",
+	TransferTxnHashDesc = "transfer_txnHash_DESC",
+}
+
+export type Tokens_AccountFtTransferWhereInput = {
+	AND?: InputMaybe<Array<Tokens_AccountFtTransferWhereInput>>;
+	OR?: InputMaybe<Array<Tokens_AccountFtTransferWhereInput>>;
+	account?: InputMaybe<Tokens_AccountWhereInput>;
+	direction_eq?: InputMaybe<Tokens_TransferDirection>;
+	direction_in?: InputMaybe<Array<Tokens_TransferDirection>>;
+	direction_isNull?: InputMaybe<Scalars["Boolean"]>;
+	direction_not_eq?: InputMaybe<Tokens_TransferDirection>;
+	direction_not_in?: InputMaybe<Array<Tokens_TransferDirection>>;
+	id_contains?: InputMaybe<Scalars["ID"]>;
+	id_containsInsensitive?: InputMaybe<Scalars["ID"]>;
+	id_endsWith?: InputMaybe<Scalars["ID"]>;
+	id_eq?: InputMaybe<Scalars["ID"]>;
+	id_gt?: InputMaybe<Scalars["ID"]>;
+	id_gte?: InputMaybe<Scalars["ID"]>;
+	id_in?: InputMaybe<Array<Scalars["ID"]>>;
+	id_lt?: InputMaybe<Scalars["ID"]>;
+	id_lte?: InputMaybe<Scalars["ID"]>;
+	id_not_contains?: InputMaybe<Scalars["ID"]>;
+	id_not_containsInsensitive?: InputMaybe<Scalars["ID"]>;
+	id_not_endsWith?: InputMaybe<Scalars["ID"]>;
+	id_not_eq?: InputMaybe<Scalars["ID"]>;
+	id_not_in?: InputMaybe<Array<Scalars["ID"]>>;
+	id_not_startsWith?: InputMaybe<Scalars["ID"]>;
+	id_startsWith?: InputMaybe<Scalars["ID"]>;
+	transfer?: InputMaybe<Tokens_FtTransferWhereInput>;
+	transfer_isNull?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type Tokens_AccountFtTransferWhereUniqueInput = {
+	id: Scalars["ID"];
+};
+
+export type Tokens_AccountFtTransfersConnection = {
+	__typename?: "tokens_AccountFtTransfersConnection";
+	edges: Array<Tokens_AccountFtTransferEdge>;
+	pageInfo: Tokens_PageInfo;
+	totalCount: Scalars["Int"];
+};
+
+export type Tokens_AccountNftTransfer = {
+	__typename?: "tokens_AccountNftTransfer";
+	account: Tokens_Account;
+	direction?: Maybe<Tokens_TransferDirection>;
+	id: Scalars["ID"];
+	transfer?: Maybe<Tokens_NftTransfer>;
+};
+
+export type Tokens_AccountNftTransferEdge = {
+	__typename?: "tokens_AccountNftTransferEdge";
+	cursor: Scalars["String"];
+	node: Tokens_AccountNftTransfer;
+};
+
+export enum Tokens_AccountNftTransferOrderByInput {
+	AccountIdAsc = "account_id_ASC",
+	AccountIdDesc = "account_id_DESC",
+	DirectionAsc = "direction_ASC",
+	DirectionDesc = "direction_DESC",
+	IdAsc = "id_ASC",
+	IdDesc = "id_DESC",
+	TransferAmountAsc = "transfer_amount_ASC",
+	TransferAmountDesc = "transfer_amount_DESC",
+	TransferBlockNumberAsc = "transfer_blockNumber_ASC",
+	TransferBlockNumberDesc = "transfer_blockNumber_DESC",
+	TransferEventIndexAsc = "transfer_eventIndex_ASC",
+	TransferEventIndexDesc = "transfer_eventIndex_DESC",
+	TransferIdAsc = "transfer_id_ASC",
+	TransferIdDesc = "transfer_id_DESC",
+	TransferIsBatchAsc = "transfer_isBatch_ASC",
+	TransferIsBatchDesc = "transfer_isBatch_DESC",
+	TransferTimestampAsc = "transfer_timestamp_ASC",
+	TransferTimestampDesc = "transfer_timestamp_DESC",
+	TransferTransferTypeAsc = "transfer_transferType_ASC",
+	TransferTransferTypeDesc = "transfer_transferType_DESC",
+	TransferTxnHashAsc = "transfer_txnHash_ASC",
+	TransferTxnHashDesc = "transfer_txnHash_DESC",
+}
+
+export type Tokens_AccountNftTransferWhereInput = {
+	AND?: InputMaybe<Array<Tokens_AccountNftTransferWhereInput>>;
+	OR?: InputMaybe<Array<Tokens_AccountNftTransferWhereInput>>;
+	account?: InputMaybe<Tokens_AccountWhereInput>;
+	direction_eq?: InputMaybe<Tokens_TransferDirection>;
+	direction_in?: InputMaybe<Array<Tokens_TransferDirection>>;
+	direction_isNull?: InputMaybe<Scalars["Boolean"]>;
+	direction_not_eq?: InputMaybe<Tokens_TransferDirection>;
+	direction_not_in?: InputMaybe<Array<Tokens_TransferDirection>>;
+	id_contains?: InputMaybe<Scalars["ID"]>;
+	id_containsInsensitive?: InputMaybe<Scalars["ID"]>;
+	id_endsWith?: InputMaybe<Scalars["ID"]>;
+	id_eq?: InputMaybe<Scalars["ID"]>;
+	id_gt?: InputMaybe<Scalars["ID"]>;
+	id_gte?: InputMaybe<Scalars["ID"]>;
+	id_in?: InputMaybe<Array<Scalars["ID"]>>;
+	id_lt?: InputMaybe<Scalars["ID"]>;
+	id_lte?: InputMaybe<Scalars["ID"]>;
+	id_not_contains?: InputMaybe<Scalars["ID"]>;
+	id_not_containsInsensitive?: InputMaybe<Scalars["ID"]>;
+	id_not_endsWith?: InputMaybe<Scalars["ID"]>;
+	id_not_eq?: InputMaybe<Scalars["ID"]>;
+	id_not_in?: InputMaybe<Array<Scalars["ID"]>>;
+	id_not_startsWith?: InputMaybe<Scalars["ID"]>;
+	id_startsWith?: InputMaybe<Scalars["ID"]>;
+	transfer?: InputMaybe<Tokens_NftTransferWhereInput>;
+	transfer_isNull?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type Tokens_AccountNftTransferWhereUniqueInput = {
+	id: Scalars["ID"];
+};
+
+export type Tokens_AccountNftTransfersConnection = {
+	__typename?: "tokens_AccountNftTransfersConnection";
+	edges: Array<Tokens_AccountNftTransferEdge>;
+	pageInfo: Tokens_PageInfo;
+	totalCount: Scalars["Int"];
+};
+
+export enum Tokens_AccountOrderByInput {
+	IdAsc = "id_ASC",
+	IdDesc = "id_DESC",
+}
+
+export type Tokens_AccountWhereInput = {
+	AND?: InputMaybe<Array<Tokens_AccountWhereInput>>;
+	OR?: InputMaybe<Array<Tokens_AccountWhereInput>>;
+	balancesFToken_every?: InputMaybe<Tokens_AccountFTokenBalanceWhereInput>;
+	balancesFToken_none?: InputMaybe<Tokens_AccountFTokenBalanceWhereInput>;
+	balancesFToken_some?: InputMaybe<Tokens_AccountFTokenBalanceWhereInput>;
+	ftTransfers_every?: InputMaybe<Tokens_AccountFtTransferWhereInput>;
+	ftTransfers_none?: InputMaybe<Tokens_AccountFtTransferWhereInput>;
+	ftTransfers_some?: InputMaybe<Tokens_AccountFtTransferWhereInput>;
+	id_contains?: InputMaybe<Scalars["ID"]>;
+	id_containsInsensitive?: InputMaybe<Scalars["ID"]>;
+	id_endsWith?: InputMaybe<Scalars["ID"]>;
+	id_eq?: InputMaybe<Scalars["ID"]>;
+	id_gt?: InputMaybe<Scalars["ID"]>;
+	id_gte?: InputMaybe<Scalars["ID"]>;
+	id_in?: InputMaybe<Array<Scalars["ID"]>>;
+	id_lt?: InputMaybe<Scalars["ID"]>;
+	id_lte?: InputMaybe<Scalars["ID"]>;
+	id_not_contains?: InputMaybe<Scalars["ID"]>;
+	id_not_containsInsensitive?: InputMaybe<Scalars["ID"]>;
+	id_not_endsWith?: InputMaybe<Scalars["ID"]>;
+	id_not_eq?: InputMaybe<Scalars["ID"]>;
+	id_not_in?: InputMaybe<Array<Scalars["ID"]>>;
+	id_not_startsWith?: InputMaybe<Scalars["ID"]>;
+	id_startsWith?: InputMaybe<Scalars["ID"]>;
+	nftTransfers_every?: InputMaybe<Tokens_AccountNftTransferWhereInput>;
+	nftTransfers_none?: InputMaybe<Tokens_AccountNftTransferWhereInput>;
+	nftTransfers_some?: InputMaybe<Tokens_AccountNftTransferWhereInput>;
+	ownedTokens_every?: InputMaybe<Tokens_NfTokenWhereInput>;
+	ownedTokens_none?: InputMaybe<Tokens_NfTokenWhereInput>;
+	ownedTokens_some?: InputMaybe<Tokens_NfTokenWhereInput>;
+};
+
+export type Tokens_AccountWhereUniqueInput = {
+	id: Scalars["ID"];
+};
+
+export type Tokens_AccountsConnection = {
+	__typename?: "tokens_AccountsConnection";
+	edges: Array<Tokens_AccountEdge>;
+	pageInfo: Tokens_PageInfo;
+	totalCount: Scalars["Int"];
+};
+
+export type Tokens_Collection = {
+	__typename?: "tokens_Collection";
+	collectionType: Tokens_ContractStandard;
+	createdAt: Scalars["tokens_DateTime"];
+	createdAtBlock: Scalars["tokens_BigInt"];
+	id: Scalars["ID"];
+	nfts: Array<Tokens_NfToken>;
+};
+
+export type Tokens_CollectionNftsArgs = {
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	orderBy?: InputMaybe<Array<InputMaybe<Tokens_NfTokenOrderByInput>>>;
+	where?: InputMaybe<Tokens_NfTokenWhereInput>;
+};
+
+export type Tokens_CollectionEdge = {
+	__typename?: "tokens_CollectionEdge";
+	cursor: Scalars["String"];
+	node: Tokens_Collection;
+};
+
+export enum Tokens_CollectionOrderByInput {
+	CollectionTypeAsc = "collectionType_ASC",
+	CollectionTypeDesc = "collectionType_DESC",
+	CreatedAtBlockAsc = "createdAtBlock_ASC",
+	CreatedAtBlockDesc = "createdAtBlock_DESC",
+	CreatedAtAsc = "createdAt_ASC",
+	CreatedAtDesc = "createdAt_DESC",
+	IdAsc = "id_ASC",
+	IdDesc = "id_DESC",
+}
+
+export type Tokens_CollectionWhereInput = {
+	AND?: InputMaybe<Array<Tokens_CollectionWhereInput>>;
+	OR?: InputMaybe<Array<Tokens_CollectionWhereInput>>;
+	collectionType_eq?: InputMaybe<Tokens_ContractStandard>;
+	collectionType_in?: InputMaybe<Array<Tokens_ContractStandard>>;
+	collectionType_not_eq?: InputMaybe<Tokens_ContractStandard>;
+	collectionType_not_in?: InputMaybe<Array<Tokens_ContractStandard>>;
+	createdAtBlock_eq?: InputMaybe<Scalars["tokens_BigInt"]>;
+	createdAtBlock_gt?: InputMaybe<Scalars["tokens_BigInt"]>;
+	createdAtBlock_gte?: InputMaybe<Scalars["tokens_BigInt"]>;
+	createdAtBlock_in?: InputMaybe<Array<Scalars["tokens_BigInt"]>>;
+	createdAtBlock_lt?: InputMaybe<Scalars["tokens_BigInt"]>;
+	createdAtBlock_lte?: InputMaybe<Scalars["tokens_BigInt"]>;
+	createdAtBlock_not_eq?: InputMaybe<Scalars["tokens_BigInt"]>;
+	createdAtBlock_not_in?: InputMaybe<Array<Scalars["tokens_BigInt"]>>;
+	createdAt_eq?: InputMaybe<Scalars["tokens_DateTime"]>;
+	createdAt_gt?: InputMaybe<Scalars["tokens_DateTime"]>;
+	createdAt_gte?: InputMaybe<Scalars["tokens_DateTime"]>;
+	createdAt_in?: InputMaybe<Array<Scalars["tokens_DateTime"]>>;
+	createdAt_lt?: InputMaybe<Scalars["tokens_DateTime"]>;
+	createdAt_lte?: InputMaybe<Scalars["tokens_DateTime"]>;
+	createdAt_not_eq?: InputMaybe<Scalars["tokens_DateTime"]>;
+	createdAt_not_in?: InputMaybe<Array<Scalars["tokens_DateTime"]>>;
+	id_contains?: InputMaybe<Scalars["ID"]>;
+	id_containsInsensitive?: InputMaybe<Scalars["ID"]>;
+	id_endsWith?: InputMaybe<Scalars["ID"]>;
+	id_eq?: InputMaybe<Scalars["ID"]>;
+	id_gt?: InputMaybe<Scalars["ID"]>;
+	id_gte?: InputMaybe<Scalars["ID"]>;
+	id_in?: InputMaybe<Array<Scalars["ID"]>>;
+	id_lt?: InputMaybe<Scalars["ID"]>;
+	id_lte?: InputMaybe<Scalars["ID"]>;
+	id_not_contains?: InputMaybe<Scalars["ID"]>;
+	id_not_containsInsensitive?: InputMaybe<Scalars["ID"]>;
+	id_not_endsWith?: InputMaybe<Scalars["ID"]>;
+	id_not_eq?: InputMaybe<Scalars["ID"]>;
+	id_not_in?: InputMaybe<Array<Scalars["ID"]>>;
+	id_not_startsWith?: InputMaybe<Scalars["ID"]>;
+	id_startsWith?: InputMaybe<Scalars["ID"]>;
+	nfts_every?: InputMaybe<Tokens_NfTokenWhereInput>;
+	nfts_none?: InputMaybe<Tokens_NfTokenWhereInput>;
+	nfts_some?: InputMaybe<Tokens_NfTokenWhereInput>;
+};
+
+export type Tokens_CollectionWhereUniqueInput = {
+	id: Scalars["ID"];
+};
+
+export type Tokens_CollectionsConnection = {
+	__typename?: "tokens_CollectionsConnection";
+	edges: Array<Tokens_CollectionEdge>;
+	pageInfo: Tokens_PageInfo;
+	totalCount: Scalars["Int"];
+};
+
+export enum Tokens_ContractStandard {
+	Erc20 = "ERC20",
+	Erc721 = "ERC721",
+	Erc1155 = "ERC1155",
+}
+
+export type Tokens_FToken = Tokens_Token & {
+	__typename?: "tokens_FToken";
+	decimals?: Maybe<Scalars["Int"]>;
+	id: Scalars["ID"];
+	name?: Maybe<Scalars["String"]>;
+	symbol?: Maybe<Scalars["String"]>;
+};
+
+export type Tokens_FTokenEdge = {
+	__typename?: "tokens_FTokenEdge";
+	cursor: Scalars["String"];
+	node: Tokens_FToken;
+};
+
+export enum Tokens_FTokenOrderByInput {
+	DecimalsAsc = "decimals_ASC",
+	DecimalsDesc = "decimals_DESC",
+	IdAsc = "id_ASC",
+	IdDesc = "id_DESC",
+	NameAsc = "name_ASC",
+	NameDesc = "name_DESC",
+	SymbolAsc = "symbol_ASC",
+	SymbolDesc = "symbol_DESC",
+}
+
+export type Tokens_FTokenWhereInput = {
+	AND?: InputMaybe<Array<Tokens_FTokenWhereInput>>;
+	OR?: InputMaybe<Array<Tokens_FTokenWhereInput>>;
+	decimals_eq?: InputMaybe<Scalars["Int"]>;
+	decimals_gt?: InputMaybe<Scalars["Int"]>;
+	decimals_gte?: InputMaybe<Scalars["Int"]>;
+	decimals_in?: InputMaybe<Array<Scalars["Int"]>>;
+	decimals_isNull?: InputMaybe<Scalars["Boolean"]>;
+	decimals_lt?: InputMaybe<Scalars["Int"]>;
+	decimals_lte?: InputMaybe<Scalars["Int"]>;
+	decimals_not_eq?: InputMaybe<Scalars["Int"]>;
+	decimals_not_in?: InputMaybe<Array<Scalars["Int"]>>;
+	id_contains?: InputMaybe<Scalars["ID"]>;
+	id_containsInsensitive?: InputMaybe<Scalars["ID"]>;
+	id_endsWith?: InputMaybe<Scalars["ID"]>;
+	id_eq?: InputMaybe<Scalars["ID"]>;
+	id_gt?: InputMaybe<Scalars["ID"]>;
+	id_gte?: InputMaybe<Scalars["ID"]>;
+	id_in?: InputMaybe<Array<Scalars["ID"]>>;
+	id_lt?: InputMaybe<Scalars["ID"]>;
+	id_lte?: InputMaybe<Scalars["ID"]>;
+	id_not_contains?: InputMaybe<Scalars["ID"]>;
+	id_not_containsInsensitive?: InputMaybe<Scalars["ID"]>;
+	id_not_endsWith?: InputMaybe<Scalars["ID"]>;
+	id_not_eq?: InputMaybe<Scalars["ID"]>;
+	id_not_in?: InputMaybe<Array<Scalars["ID"]>>;
+	id_not_startsWith?: InputMaybe<Scalars["ID"]>;
+	id_startsWith?: InputMaybe<Scalars["ID"]>;
+	name_contains?: InputMaybe<Scalars["String"]>;
+	name_containsInsensitive?: InputMaybe<Scalars["String"]>;
+	name_endsWith?: InputMaybe<Scalars["String"]>;
+	name_eq?: InputMaybe<Scalars["String"]>;
+	name_gt?: InputMaybe<Scalars["String"]>;
+	name_gte?: InputMaybe<Scalars["String"]>;
+	name_in?: InputMaybe<Array<Scalars["String"]>>;
+	name_isNull?: InputMaybe<Scalars["Boolean"]>;
+	name_lt?: InputMaybe<Scalars["String"]>;
+	name_lte?: InputMaybe<Scalars["String"]>;
+	name_not_contains?: InputMaybe<Scalars["String"]>;
+	name_not_containsInsensitive?: InputMaybe<Scalars["String"]>;
+	name_not_endsWith?: InputMaybe<Scalars["String"]>;
+	name_not_eq?: InputMaybe<Scalars["String"]>;
+	name_not_in?: InputMaybe<Array<Scalars["String"]>>;
+	name_not_startsWith?: InputMaybe<Scalars["String"]>;
+	name_startsWith?: InputMaybe<Scalars["String"]>;
+	symbol_contains?: InputMaybe<Scalars["String"]>;
+	symbol_containsInsensitive?: InputMaybe<Scalars["String"]>;
+	symbol_endsWith?: InputMaybe<Scalars["String"]>;
+	symbol_eq?: InputMaybe<Scalars["String"]>;
+	symbol_gt?: InputMaybe<Scalars["String"]>;
+	symbol_gte?: InputMaybe<Scalars["String"]>;
+	symbol_in?: InputMaybe<Array<Scalars["String"]>>;
+	symbol_isNull?: InputMaybe<Scalars["Boolean"]>;
+	symbol_lt?: InputMaybe<Scalars["String"]>;
+	symbol_lte?: InputMaybe<Scalars["String"]>;
+	symbol_not_contains?: InputMaybe<Scalars["String"]>;
+	symbol_not_containsInsensitive?: InputMaybe<Scalars["String"]>;
+	symbol_not_endsWith?: InputMaybe<Scalars["String"]>;
+	symbol_not_eq?: InputMaybe<Scalars["String"]>;
+	symbol_not_in?: InputMaybe<Array<Scalars["String"]>>;
+	symbol_not_startsWith?: InputMaybe<Scalars["String"]>;
+	symbol_startsWith?: InputMaybe<Scalars["String"]>;
+};
+
+export type Tokens_FTokenWhereUniqueInput = {
+	id: Scalars["ID"];
+};
+
+export type Tokens_FTokensConnection = {
+	__typename?: "tokens_FTokensConnection";
+	edges: Array<Tokens_FTokenEdge>;
+	pageInfo: Tokens_PageInfo;
+	totalCount: Scalars["Int"];
+};
+
+export type Tokens_FtTransfer = Tokens_Transfer & {
+	__typename?: "tokens_FtTransfer";
+	amount?: Maybe<Scalars["tokens_BigInt"]>;
+	blockNumber: Scalars["tokens_BigInt"];
+	eventIndex: Scalars["Int"];
+	from: Tokens_Account;
+	id: Scalars["ID"];
+	timestamp: Scalars["tokens_DateTime"];
+	to: Tokens_Account;
+	token: Tokens_FToken;
+	transferType?: Maybe<Tokens_TransferType>;
+	txnHash: Scalars["String"];
+};
+
+export type Tokens_FtTransferEdge = {
+	__typename?: "tokens_FtTransferEdge";
+	cursor: Scalars["String"];
+	node: Tokens_FtTransfer;
+};
+
+export enum Tokens_FtTransferOrderByInput {
+	AmountAsc = "amount_ASC",
+	AmountDesc = "amount_DESC",
+	BlockNumberAsc = "blockNumber_ASC",
+	BlockNumberDesc = "blockNumber_DESC",
+	EventIndexAsc = "eventIndex_ASC",
+	EventIndexDesc = "eventIndex_DESC",
+	FromIdAsc = "from_id_ASC",
+	FromIdDesc = "from_id_DESC",
+	IdAsc = "id_ASC",
+	IdDesc = "id_DESC",
+	TimestampAsc = "timestamp_ASC",
+	TimestampDesc = "timestamp_DESC",
+	ToIdAsc = "to_id_ASC",
+	ToIdDesc = "to_id_DESC",
+	TokenDecimalsAsc = "token_decimals_ASC",
+	TokenDecimalsDesc = "token_decimals_DESC",
+	TokenIdAsc = "token_id_ASC",
+	TokenIdDesc = "token_id_DESC",
+	TokenNameAsc = "token_name_ASC",
+	TokenNameDesc = "token_name_DESC",
+	TokenSymbolAsc = "token_symbol_ASC",
+	TokenSymbolDesc = "token_symbol_DESC",
+	TransferTypeAsc = "transferType_ASC",
+	TransferTypeDesc = "transferType_DESC",
+	TxnHashAsc = "txnHash_ASC",
+	TxnHashDesc = "txnHash_DESC",
+}
+
+export type Tokens_FtTransferWhereInput = {
+	AND?: InputMaybe<Array<Tokens_FtTransferWhereInput>>;
+	OR?: InputMaybe<Array<Tokens_FtTransferWhereInput>>;
+	amount_eq?: InputMaybe<Scalars["tokens_BigInt"]>;
+	amount_gt?: InputMaybe<Scalars["tokens_BigInt"]>;
+	amount_gte?: InputMaybe<Scalars["tokens_BigInt"]>;
+	amount_in?: InputMaybe<Array<Scalars["tokens_BigInt"]>>;
+	amount_isNull?: InputMaybe<Scalars["Boolean"]>;
+	amount_lt?: InputMaybe<Scalars["tokens_BigInt"]>;
+	amount_lte?: InputMaybe<Scalars["tokens_BigInt"]>;
+	amount_not_eq?: InputMaybe<Scalars["tokens_BigInt"]>;
+	amount_not_in?: InputMaybe<Array<Scalars["tokens_BigInt"]>>;
+	blockNumber_eq?: InputMaybe<Scalars["tokens_BigInt"]>;
+	blockNumber_gt?: InputMaybe<Scalars["tokens_BigInt"]>;
+	blockNumber_gte?: InputMaybe<Scalars["tokens_BigInt"]>;
+	blockNumber_in?: InputMaybe<Array<Scalars["tokens_BigInt"]>>;
+	blockNumber_lt?: InputMaybe<Scalars["tokens_BigInt"]>;
+	blockNumber_lte?: InputMaybe<Scalars["tokens_BigInt"]>;
+	blockNumber_not_eq?: InputMaybe<Scalars["tokens_BigInt"]>;
+	blockNumber_not_in?: InputMaybe<Array<Scalars["tokens_BigInt"]>>;
+	eventIndex_eq?: InputMaybe<Scalars["Int"]>;
+	eventIndex_gt?: InputMaybe<Scalars["Int"]>;
+	eventIndex_gte?: InputMaybe<Scalars["Int"]>;
+	eventIndex_in?: InputMaybe<Array<Scalars["Int"]>>;
+	eventIndex_lt?: InputMaybe<Scalars["Int"]>;
+	eventIndex_lte?: InputMaybe<Scalars["Int"]>;
+	eventIndex_not_eq?: InputMaybe<Scalars["Int"]>;
+	eventIndex_not_in?: InputMaybe<Array<Scalars["Int"]>>;
+	from?: InputMaybe<Tokens_AccountWhereInput>;
+	id_contains?: InputMaybe<Scalars["ID"]>;
+	id_containsInsensitive?: InputMaybe<Scalars["ID"]>;
+	id_endsWith?: InputMaybe<Scalars["ID"]>;
+	id_eq?: InputMaybe<Scalars["ID"]>;
+	id_gt?: InputMaybe<Scalars["ID"]>;
+	id_gte?: InputMaybe<Scalars["ID"]>;
+	id_in?: InputMaybe<Array<Scalars["ID"]>>;
+	id_lt?: InputMaybe<Scalars["ID"]>;
+	id_lte?: InputMaybe<Scalars["ID"]>;
+	id_not_contains?: InputMaybe<Scalars["ID"]>;
+	id_not_containsInsensitive?: InputMaybe<Scalars["ID"]>;
+	id_not_endsWith?: InputMaybe<Scalars["ID"]>;
+	id_not_eq?: InputMaybe<Scalars["ID"]>;
+	id_not_in?: InputMaybe<Array<Scalars["ID"]>>;
+	id_not_startsWith?: InputMaybe<Scalars["ID"]>;
+	id_startsWith?: InputMaybe<Scalars["ID"]>;
+	timestamp_eq?: InputMaybe<Scalars["tokens_DateTime"]>;
+	timestamp_gt?: InputMaybe<Scalars["tokens_DateTime"]>;
+	timestamp_gte?: InputMaybe<Scalars["tokens_DateTime"]>;
+	timestamp_in?: InputMaybe<Array<Scalars["tokens_DateTime"]>>;
+	timestamp_lt?: InputMaybe<Scalars["tokens_DateTime"]>;
+	timestamp_lte?: InputMaybe<Scalars["tokens_DateTime"]>;
+	timestamp_not_eq?: InputMaybe<Scalars["tokens_DateTime"]>;
+	timestamp_not_in?: InputMaybe<Array<Scalars["tokens_DateTime"]>>;
+	to?: InputMaybe<Tokens_AccountWhereInput>;
+	token?: InputMaybe<Tokens_FTokenWhereInput>;
+	transferType_eq?: InputMaybe<Tokens_TransferType>;
+	transferType_in?: InputMaybe<Array<Tokens_TransferType>>;
+	transferType_isNull?: InputMaybe<Scalars["Boolean"]>;
+	transferType_not_eq?: InputMaybe<Tokens_TransferType>;
+	transferType_not_in?: InputMaybe<Array<Tokens_TransferType>>;
+	txnHash_contains?: InputMaybe<Scalars["String"]>;
+	txnHash_containsInsensitive?: InputMaybe<Scalars["String"]>;
+	txnHash_endsWith?: InputMaybe<Scalars["String"]>;
+	txnHash_eq?: InputMaybe<Scalars["String"]>;
+	txnHash_gt?: InputMaybe<Scalars["String"]>;
+	txnHash_gte?: InputMaybe<Scalars["String"]>;
+	txnHash_in?: InputMaybe<Array<Scalars["String"]>>;
+	txnHash_lt?: InputMaybe<Scalars["String"]>;
+	txnHash_lte?: InputMaybe<Scalars["String"]>;
+	txnHash_not_contains?: InputMaybe<Scalars["String"]>;
+	txnHash_not_containsInsensitive?: InputMaybe<Scalars["String"]>;
+	txnHash_not_endsWith?: InputMaybe<Scalars["String"]>;
+	txnHash_not_eq?: InputMaybe<Scalars["String"]>;
+	txnHash_not_in?: InputMaybe<Array<Scalars["String"]>>;
+	txnHash_not_startsWith?: InputMaybe<Scalars["String"]>;
+	txnHash_startsWith?: InputMaybe<Scalars["String"]>;
+};
+
+export type Tokens_FtTransferWhereUniqueInput = {
+	id: Scalars["ID"];
+};
+
+export type Tokens_FtTransfersConnection = {
+	__typename?: "tokens_FtTransfersConnection";
+	edges: Array<Tokens_FtTransferEdge>;
+	pageInfo: Tokens_PageInfo;
+	totalCount: Scalars["Int"];
+};
+
+export type Tokens_NfToken = Tokens_Token & {
+	__typename?: "tokens_NfToken";
+	amount: Scalars["tokens_BigInt"];
+	collection: Tokens_Collection;
+	currentOwner: Tokens_Account;
+	id: Scalars["ID"];
+	isBurned: Scalars["Boolean"];
+	name?: Maybe<Scalars["String"]>;
+	nativeId: Scalars["String"];
+	symbol?: Maybe<Scalars["String"]>;
+	uri?: Maybe<Scalars["String"]>;
+	uriUpdateActions: Array<Tokens_UriUpdateAction>;
+};
+
+export type Tokens_NfTokenUriUpdateActionsArgs = {
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	orderBy?: InputMaybe<Array<InputMaybe<Tokens_UriUpdateActionOrderByInput>>>;
+	where?: InputMaybe<Tokens_UriUpdateActionWhereInput>;
+};
+
+export type Tokens_NfTokenEdge = {
+	__typename?: "tokens_NfTokenEdge";
+	cursor: Scalars["String"];
+	node: Tokens_NfToken;
+};
+
+export enum Tokens_NfTokenOrderByInput {
+	AmountAsc = "amount_ASC",
+	AmountDesc = "amount_DESC",
+	CollectionCollectionTypeAsc = "collection_collectionType_ASC",
+	CollectionCollectionTypeDesc = "collection_collectionType_DESC",
+	CollectionCreatedAtBlockAsc = "collection_createdAtBlock_ASC",
+	CollectionCreatedAtBlockDesc = "collection_createdAtBlock_DESC",
+	CollectionCreatedAtAsc = "collection_createdAt_ASC",
+	CollectionCreatedAtDesc = "collection_createdAt_DESC",
+	CollectionIdAsc = "collection_id_ASC",
+	CollectionIdDesc = "collection_id_DESC",
+	CurrentOwnerIdAsc = "currentOwner_id_ASC",
+	CurrentOwnerIdDesc = "currentOwner_id_DESC",
+	IdAsc = "id_ASC",
+	IdDesc = "id_DESC",
+	IsBurnedAsc = "isBurned_ASC",
+	IsBurnedDesc = "isBurned_DESC",
+	NameAsc = "name_ASC",
+	NameDesc = "name_DESC",
+	NativeIdAsc = "nativeId_ASC",
+	NativeIdDesc = "nativeId_DESC",
+	SymbolAsc = "symbol_ASC",
+	SymbolDesc = "symbol_DESC",
+	UriAsc = "uri_ASC",
+	UriDesc = "uri_DESC",
+}
+
+export type Tokens_NfTokenWhereInput = {
+	AND?: InputMaybe<Array<Tokens_NfTokenWhereInput>>;
+	OR?: InputMaybe<Array<Tokens_NfTokenWhereInput>>;
+	amount_eq?: InputMaybe<Scalars["tokens_BigInt"]>;
+	amount_gt?: InputMaybe<Scalars["tokens_BigInt"]>;
+	amount_gte?: InputMaybe<Scalars["tokens_BigInt"]>;
+	amount_in?: InputMaybe<Array<Scalars["tokens_BigInt"]>>;
+	amount_lt?: InputMaybe<Scalars["tokens_BigInt"]>;
+	amount_lte?: InputMaybe<Scalars["tokens_BigInt"]>;
+	amount_not_eq?: InputMaybe<Scalars["tokens_BigInt"]>;
+	amount_not_in?: InputMaybe<Array<Scalars["tokens_BigInt"]>>;
+	collection?: InputMaybe<Tokens_CollectionWhereInput>;
+	currentOwner?: InputMaybe<Tokens_AccountWhereInput>;
+	id_contains?: InputMaybe<Scalars["ID"]>;
+	id_containsInsensitive?: InputMaybe<Scalars["ID"]>;
+	id_endsWith?: InputMaybe<Scalars["ID"]>;
+	id_eq?: InputMaybe<Scalars["ID"]>;
+	id_gt?: InputMaybe<Scalars["ID"]>;
+	id_gte?: InputMaybe<Scalars["ID"]>;
+	id_in?: InputMaybe<Array<Scalars["ID"]>>;
+	id_lt?: InputMaybe<Scalars["ID"]>;
+	id_lte?: InputMaybe<Scalars["ID"]>;
+	id_not_contains?: InputMaybe<Scalars["ID"]>;
+	id_not_containsInsensitive?: InputMaybe<Scalars["ID"]>;
+	id_not_endsWith?: InputMaybe<Scalars["ID"]>;
+	id_not_eq?: InputMaybe<Scalars["ID"]>;
+	id_not_in?: InputMaybe<Array<Scalars["ID"]>>;
+	id_not_startsWith?: InputMaybe<Scalars["ID"]>;
+	id_startsWith?: InputMaybe<Scalars["ID"]>;
+	isBurned_eq?: InputMaybe<Scalars["Boolean"]>;
+	isBurned_not_eq?: InputMaybe<Scalars["Boolean"]>;
+	name_contains?: InputMaybe<Scalars["String"]>;
+	name_containsInsensitive?: InputMaybe<Scalars["String"]>;
+	name_endsWith?: InputMaybe<Scalars["String"]>;
+	name_eq?: InputMaybe<Scalars["String"]>;
+	name_gt?: InputMaybe<Scalars["String"]>;
+	name_gte?: InputMaybe<Scalars["String"]>;
+	name_in?: InputMaybe<Array<Scalars["String"]>>;
+	name_isNull?: InputMaybe<Scalars["Boolean"]>;
+	name_lt?: InputMaybe<Scalars["String"]>;
+	name_lte?: InputMaybe<Scalars["String"]>;
+	name_not_contains?: InputMaybe<Scalars["String"]>;
+	name_not_containsInsensitive?: InputMaybe<Scalars["String"]>;
+	name_not_endsWith?: InputMaybe<Scalars["String"]>;
+	name_not_eq?: InputMaybe<Scalars["String"]>;
+	name_not_in?: InputMaybe<Array<Scalars["String"]>>;
+	name_not_startsWith?: InputMaybe<Scalars["String"]>;
+	name_startsWith?: InputMaybe<Scalars["String"]>;
+	nativeId_contains?: InputMaybe<Scalars["String"]>;
+	nativeId_containsInsensitive?: InputMaybe<Scalars["String"]>;
+	nativeId_endsWith?: InputMaybe<Scalars["String"]>;
+	nativeId_eq?: InputMaybe<Scalars["String"]>;
+	nativeId_gt?: InputMaybe<Scalars["String"]>;
+	nativeId_gte?: InputMaybe<Scalars["String"]>;
+	nativeId_in?: InputMaybe<Array<Scalars["String"]>>;
+	nativeId_lt?: InputMaybe<Scalars["String"]>;
+	nativeId_lte?: InputMaybe<Scalars["String"]>;
+	nativeId_not_contains?: InputMaybe<Scalars["String"]>;
+	nativeId_not_containsInsensitive?: InputMaybe<Scalars["String"]>;
+	nativeId_not_endsWith?: InputMaybe<Scalars["String"]>;
+	nativeId_not_eq?: InputMaybe<Scalars["String"]>;
+	nativeId_not_in?: InputMaybe<Array<Scalars["String"]>>;
+	nativeId_not_startsWith?: InputMaybe<Scalars["String"]>;
+	nativeId_startsWith?: InputMaybe<Scalars["String"]>;
+	symbol_contains?: InputMaybe<Scalars["String"]>;
+	symbol_containsInsensitive?: InputMaybe<Scalars["String"]>;
+	symbol_endsWith?: InputMaybe<Scalars["String"]>;
+	symbol_eq?: InputMaybe<Scalars["String"]>;
+	symbol_gt?: InputMaybe<Scalars["String"]>;
+	symbol_gte?: InputMaybe<Scalars["String"]>;
+	symbol_in?: InputMaybe<Array<Scalars["String"]>>;
+	symbol_isNull?: InputMaybe<Scalars["Boolean"]>;
+	symbol_lt?: InputMaybe<Scalars["String"]>;
+	symbol_lte?: InputMaybe<Scalars["String"]>;
+	symbol_not_contains?: InputMaybe<Scalars["String"]>;
+	symbol_not_containsInsensitive?: InputMaybe<Scalars["String"]>;
+	symbol_not_endsWith?: InputMaybe<Scalars["String"]>;
+	symbol_not_eq?: InputMaybe<Scalars["String"]>;
+	symbol_not_in?: InputMaybe<Array<Scalars["String"]>>;
+	symbol_not_startsWith?: InputMaybe<Scalars["String"]>;
+	symbol_startsWith?: InputMaybe<Scalars["String"]>;
+	uriUpdateActions_every?: InputMaybe<Tokens_UriUpdateActionWhereInput>;
+	uriUpdateActions_none?: InputMaybe<Tokens_UriUpdateActionWhereInput>;
+	uriUpdateActions_some?: InputMaybe<Tokens_UriUpdateActionWhereInput>;
+	uri_contains?: InputMaybe<Scalars["String"]>;
+	uri_containsInsensitive?: InputMaybe<Scalars["String"]>;
+	uri_endsWith?: InputMaybe<Scalars["String"]>;
+	uri_eq?: InputMaybe<Scalars["String"]>;
+	uri_gt?: InputMaybe<Scalars["String"]>;
+	uri_gte?: InputMaybe<Scalars["String"]>;
+	uri_in?: InputMaybe<Array<Scalars["String"]>>;
+	uri_isNull?: InputMaybe<Scalars["Boolean"]>;
+	uri_lt?: InputMaybe<Scalars["String"]>;
+	uri_lte?: InputMaybe<Scalars["String"]>;
+	uri_not_contains?: InputMaybe<Scalars["String"]>;
+	uri_not_containsInsensitive?: InputMaybe<Scalars["String"]>;
+	uri_not_endsWith?: InputMaybe<Scalars["String"]>;
+	uri_not_eq?: InputMaybe<Scalars["String"]>;
+	uri_not_in?: InputMaybe<Array<Scalars["String"]>>;
+	uri_not_startsWith?: InputMaybe<Scalars["String"]>;
+	uri_startsWith?: InputMaybe<Scalars["String"]>;
+};
+
+export type Tokens_NfTokenWhereUniqueInput = {
+	id: Scalars["ID"];
+};
+
+export type Tokens_NfTokensConnection = {
+	__typename?: "tokens_NfTokensConnection";
+	edges: Array<Tokens_NfTokenEdge>;
+	pageInfo: Tokens_PageInfo;
+	totalCount: Scalars["Int"];
+};
+
+export type Tokens_NftTransfer = Tokens_Transfer & {
+	__typename?: "tokens_NftTransfer";
+	amount: Scalars["tokens_BigInt"];
+	blockNumber: Scalars["tokens_BigInt"];
+	eventIndex: Scalars["Int"];
+	from: Tokens_Account;
+	id: Scalars["ID"];
+	isBatch: Scalars["Boolean"];
+	operator?: Maybe<Tokens_Account>;
+	timestamp: Scalars["tokens_DateTime"];
+	to: Tokens_Account;
+	token: Tokens_NfToken;
+	transferType?: Maybe<Tokens_TransferType>;
+	txnHash: Scalars["String"];
+};
+
+export type Tokens_NftTransferEdge = {
+	__typename?: "tokens_NftTransferEdge";
+	cursor: Scalars["String"];
+	node: Tokens_NftTransfer;
+};
+
+export enum Tokens_NftTransferOrderByInput {
+	AmountAsc = "amount_ASC",
+	AmountDesc = "amount_DESC",
+	BlockNumberAsc = "blockNumber_ASC",
+	BlockNumberDesc = "blockNumber_DESC",
+	EventIndexAsc = "eventIndex_ASC",
+	EventIndexDesc = "eventIndex_DESC",
+	FromIdAsc = "from_id_ASC",
+	FromIdDesc = "from_id_DESC",
+	IdAsc = "id_ASC",
+	IdDesc = "id_DESC",
+	IsBatchAsc = "isBatch_ASC",
+	IsBatchDesc = "isBatch_DESC",
+	OperatorIdAsc = "operator_id_ASC",
+	OperatorIdDesc = "operator_id_DESC",
+	TimestampAsc = "timestamp_ASC",
+	TimestampDesc = "timestamp_DESC",
+	ToIdAsc = "to_id_ASC",
+	ToIdDesc = "to_id_DESC",
+	TokenAmountAsc = "token_amount_ASC",
+	TokenAmountDesc = "token_amount_DESC",
+	TokenIdAsc = "token_id_ASC",
+	TokenIdDesc = "token_id_DESC",
+	TokenIsBurnedAsc = "token_isBurned_ASC",
+	TokenIsBurnedDesc = "token_isBurned_DESC",
+	TokenNameAsc = "token_name_ASC",
+	TokenNameDesc = "token_name_DESC",
+	TokenNativeIdAsc = "token_nativeId_ASC",
+	TokenNativeIdDesc = "token_nativeId_DESC",
+	TokenSymbolAsc = "token_symbol_ASC",
+	TokenSymbolDesc = "token_symbol_DESC",
+	TokenUriAsc = "token_uri_ASC",
+	TokenUriDesc = "token_uri_DESC",
+	TransferTypeAsc = "transferType_ASC",
+	TransferTypeDesc = "transferType_DESC",
+	TxnHashAsc = "txnHash_ASC",
+	TxnHashDesc = "txnHash_DESC",
+}
+
+export type Tokens_NftTransferWhereInput = {
+	AND?: InputMaybe<Array<Tokens_NftTransferWhereInput>>;
+	OR?: InputMaybe<Array<Tokens_NftTransferWhereInput>>;
+	amount_eq?: InputMaybe<Scalars["tokens_BigInt"]>;
+	amount_gt?: InputMaybe<Scalars["tokens_BigInt"]>;
+	amount_gte?: InputMaybe<Scalars["tokens_BigInt"]>;
+	amount_in?: InputMaybe<Array<Scalars["tokens_BigInt"]>>;
+	amount_lt?: InputMaybe<Scalars["tokens_BigInt"]>;
+	amount_lte?: InputMaybe<Scalars["tokens_BigInt"]>;
+	amount_not_eq?: InputMaybe<Scalars["tokens_BigInt"]>;
+	amount_not_in?: InputMaybe<Array<Scalars["tokens_BigInt"]>>;
+	blockNumber_eq?: InputMaybe<Scalars["tokens_BigInt"]>;
+	blockNumber_gt?: InputMaybe<Scalars["tokens_BigInt"]>;
+	blockNumber_gte?: InputMaybe<Scalars["tokens_BigInt"]>;
+	blockNumber_in?: InputMaybe<Array<Scalars["tokens_BigInt"]>>;
+	blockNumber_lt?: InputMaybe<Scalars["tokens_BigInt"]>;
+	blockNumber_lte?: InputMaybe<Scalars["tokens_BigInt"]>;
+	blockNumber_not_eq?: InputMaybe<Scalars["tokens_BigInt"]>;
+	blockNumber_not_in?: InputMaybe<Array<Scalars["tokens_BigInt"]>>;
+	eventIndex_eq?: InputMaybe<Scalars["Int"]>;
+	eventIndex_gt?: InputMaybe<Scalars["Int"]>;
+	eventIndex_gte?: InputMaybe<Scalars["Int"]>;
+	eventIndex_in?: InputMaybe<Array<Scalars["Int"]>>;
+	eventIndex_lt?: InputMaybe<Scalars["Int"]>;
+	eventIndex_lte?: InputMaybe<Scalars["Int"]>;
+	eventIndex_not_eq?: InputMaybe<Scalars["Int"]>;
+	eventIndex_not_in?: InputMaybe<Array<Scalars["Int"]>>;
+	from?: InputMaybe<Tokens_AccountWhereInput>;
+	id_contains?: InputMaybe<Scalars["ID"]>;
+	id_containsInsensitive?: InputMaybe<Scalars["ID"]>;
+	id_endsWith?: InputMaybe<Scalars["ID"]>;
+	id_eq?: InputMaybe<Scalars["ID"]>;
+	id_gt?: InputMaybe<Scalars["ID"]>;
+	id_gte?: InputMaybe<Scalars["ID"]>;
+	id_in?: InputMaybe<Array<Scalars["ID"]>>;
+	id_lt?: InputMaybe<Scalars["ID"]>;
+	id_lte?: InputMaybe<Scalars["ID"]>;
+	id_not_contains?: InputMaybe<Scalars["ID"]>;
+	id_not_containsInsensitive?: InputMaybe<Scalars["ID"]>;
+	id_not_endsWith?: InputMaybe<Scalars["ID"]>;
+	id_not_eq?: InputMaybe<Scalars["ID"]>;
+	id_not_in?: InputMaybe<Array<Scalars["ID"]>>;
+	id_not_startsWith?: InputMaybe<Scalars["ID"]>;
+	id_startsWith?: InputMaybe<Scalars["ID"]>;
+	isBatch_eq?: InputMaybe<Scalars["Boolean"]>;
+	isBatch_not_eq?: InputMaybe<Scalars["Boolean"]>;
+	operator?: InputMaybe<Tokens_AccountWhereInput>;
+	operator_isNull?: InputMaybe<Scalars["Boolean"]>;
+	timestamp_eq?: InputMaybe<Scalars["tokens_DateTime"]>;
+	timestamp_gt?: InputMaybe<Scalars["tokens_DateTime"]>;
+	timestamp_gte?: InputMaybe<Scalars["tokens_DateTime"]>;
+	timestamp_in?: InputMaybe<Array<Scalars["tokens_DateTime"]>>;
+	timestamp_lt?: InputMaybe<Scalars["tokens_DateTime"]>;
+	timestamp_lte?: InputMaybe<Scalars["tokens_DateTime"]>;
+	timestamp_not_eq?: InputMaybe<Scalars["tokens_DateTime"]>;
+	timestamp_not_in?: InputMaybe<Array<Scalars["tokens_DateTime"]>>;
+	to?: InputMaybe<Tokens_AccountWhereInput>;
+	token?: InputMaybe<Tokens_NfTokenWhereInput>;
+	transferType_eq?: InputMaybe<Tokens_TransferType>;
+	transferType_in?: InputMaybe<Array<Tokens_TransferType>>;
+	transferType_isNull?: InputMaybe<Scalars["Boolean"]>;
+	transferType_not_eq?: InputMaybe<Tokens_TransferType>;
+	transferType_not_in?: InputMaybe<Array<Tokens_TransferType>>;
+	txnHash_contains?: InputMaybe<Scalars["String"]>;
+	txnHash_containsInsensitive?: InputMaybe<Scalars["String"]>;
+	txnHash_endsWith?: InputMaybe<Scalars["String"]>;
+	txnHash_eq?: InputMaybe<Scalars["String"]>;
+	txnHash_gt?: InputMaybe<Scalars["String"]>;
+	txnHash_gte?: InputMaybe<Scalars["String"]>;
+	txnHash_in?: InputMaybe<Array<Scalars["String"]>>;
+	txnHash_lt?: InputMaybe<Scalars["String"]>;
+	txnHash_lte?: InputMaybe<Scalars["String"]>;
+	txnHash_not_contains?: InputMaybe<Scalars["String"]>;
+	txnHash_not_containsInsensitive?: InputMaybe<Scalars["String"]>;
+	txnHash_not_endsWith?: InputMaybe<Scalars["String"]>;
+	txnHash_not_eq?: InputMaybe<Scalars["String"]>;
+	txnHash_not_in?: InputMaybe<Array<Scalars["String"]>>;
+	txnHash_not_startsWith?: InputMaybe<Scalars["String"]>;
+	txnHash_startsWith?: InputMaybe<Scalars["String"]>;
+};
+
+export type Tokens_NftTransferWhereUniqueInput = {
+	id: Scalars["ID"];
+};
+
+export type Tokens_NftTransfersConnection = {
+	__typename?: "tokens_NftTransfersConnection";
+	edges: Array<Tokens_NftTransferEdge>;
+	pageInfo: Tokens_PageInfo;
+	totalCount: Scalars["Int"];
+};
+
+export type Tokens_PageInfo = {
+	__typename?: "tokens_PageInfo";
+	endCursor: Scalars["String"];
+	hasNextPage: Scalars["Boolean"];
+	hasPreviousPage: Scalars["Boolean"];
+	startCursor: Scalars["String"];
+};
+
+export type Tokens_Token = {
+	id: Scalars["ID"];
+	name?: Maybe<Scalars["String"]>;
+	symbol?: Maybe<Scalars["String"]>;
+};
+
+export type Tokens_Transfer = {
+	amount?: Maybe<Scalars["tokens_BigInt"]>;
+	blockNumber: Scalars["tokens_BigInt"];
+	eventIndex: Scalars["Int"];
+	from: Tokens_Account;
+	id: Scalars["ID"];
+	timestamp: Scalars["tokens_DateTime"];
+	to: Tokens_Account;
+	transferType?: Maybe<Tokens_TransferType>;
+	txnHash: Scalars["String"];
+};
+
+export enum Tokens_TransferDirection {
+	From = "From",
+	To = "To",
+}
+
+export enum Tokens_TransferType {
+	Burn = "BURN",
+	Mint = "MINT",
+	Transfer = "TRANSFER",
+}
+
+export type Tokens_UriUpdateAction = {
+	__typename?: "tokens_UriUpdateAction";
+	blockNumber: Scalars["tokens_BigInt"];
+	id: Scalars["ID"];
+	newValue?: Maybe<Scalars["String"]>;
+	oldValue?: Maybe<Scalars["String"]>;
+	timestamp: Scalars["tokens_DateTime"];
+	token: Tokens_NfToken;
+	txnHash: Scalars["String"];
+};
+
+export type Tokens_UriUpdateActionEdge = {
+	__typename?: "tokens_UriUpdateActionEdge";
+	cursor: Scalars["String"];
+	node: Tokens_UriUpdateAction;
+};
+
+export enum Tokens_UriUpdateActionOrderByInput {
+	BlockNumberAsc = "blockNumber_ASC",
+	BlockNumberDesc = "blockNumber_DESC",
+	IdAsc = "id_ASC",
+	IdDesc = "id_DESC",
+	NewValueAsc = "newValue_ASC",
+	NewValueDesc = "newValue_DESC",
+	OldValueAsc = "oldValue_ASC",
+	OldValueDesc = "oldValue_DESC",
+	TimestampAsc = "timestamp_ASC",
+	TimestampDesc = "timestamp_DESC",
+	TokenAmountAsc = "token_amount_ASC",
+	TokenAmountDesc = "token_amount_DESC",
+	TokenIdAsc = "token_id_ASC",
+	TokenIdDesc = "token_id_DESC",
+	TokenIsBurnedAsc = "token_isBurned_ASC",
+	TokenIsBurnedDesc = "token_isBurned_DESC",
+	TokenNameAsc = "token_name_ASC",
+	TokenNameDesc = "token_name_DESC",
+	TokenNativeIdAsc = "token_nativeId_ASC",
+	TokenNativeIdDesc = "token_nativeId_DESC",
+	TokenSymbolAsc = "token_symbol_ASC",
+	TokenSymbolDesc = "token_symbol_DESC",
+	TokenUriAsc = "token_uri_ASC",
+	TokenUriDesc = "token_uri_DESC",
+	TxnHashAsc = "txnHash_ASC",
+	TxnHashDesc = "txnHash_DESC",
+}
+
+export type Tokens_UriUpdateActionWhereInput = {
+	AND?: InputMaybe<Array<Tokens_UriUpdateActionWhereInput>>;
+	OR?: InputMaybe<Array<Tokens_UriUpdateActionWhereInput>>;
+	blockNumber_eq?: InputMaybe<Scalars["tokens_BigInt"]>;
+	blockNumber_gt?: InputMaybe<Scalars["tokens_BigInt"]>;
+	blockNumber_gte?: InputMaybe<Scalars["tokens_BigInt"]>;
+	blockNumber_in?: InputMaybe<Array<Scalars["tokens_BigInt"]>>;
+	blockNumber_lt?: InputMaybe<Scalars["tokens_BigInt"]>;
+	blockNumber_lte?: InputMaybe<Scalars["tokens_BigInt"]>;
+	blockNumber_not_eq?: InputMaybe<Scalars["tokens_BigInt"]>;
+	blockNumber_not_in?: InputMaybe<Array<Scalars["tokens_BigInt"]>>;
+	id_contains?: InputMaybe<Scalars["ID"]>;
+	id_containsInsensitive?: InputMaybe<Scalars["ID"]>;
+	id_endsWith?: InputMaybe<Scalars["ID"]>;
+	id_eq?: InputMaybe<Scalars["ID"]>;
+	id_gt?: InputMaybe<Scalars["ID"]>;
+	id_gte?: InputMaybe<Scalars["ID"]>;
+	id_in?: InputMaybe<Array<Scalars["ID"]>>;
+	id_lt?: InputMaybe<Scalars["ID"]>;
+	id_lte?: InputMaybe<Scalars["ID"]>;
+	id_not_contains?: InputMaybe<Scalars["ID"]>;
+	id_not_containsInsensitive?: InputMaybe<Scalars["ID"]>;
+	id_not_endsWith?: InputMaybe<Scalars["ID"]>;
+	id_not_eq?: InputMaybe<Scalars["ID"]>;
+	id_not_in?: InputMaybe<Array<Scalars["ID"]>>;
+	id_not_startsWith?: InputMaybe<Scalars["ID"]>;
+	id_startsWith?: InputMaybe<Scalars["ID"]>;
+	newValue_contains?: InputMaybe<Scalars["String"]>;
+	newValue_containsInsensitive?: InputMaybe<Scalars["String"]>;
+	newValue_endsWith?: InputMaybe<Scalars["String"]>;
+	newValue_eq?: InputMaybe<Scalars["String"]>;
+	newValue_gt?: InputMaybe<Scalars["String"]>;
+	newValue_gte?: InputMaybe<Scalars["String"]>;
+	newValue_in?: InputMaybe<Array<Scalars["String"]>>;
+	newValue_isNull?: InputMaybe<Scalars["Boolean"]>;
+	newValue_lt?: InputMaybe<Scalars["String"]>;
+	newValue_lte?: InputMaybe<Scalars["String"]>;
+	newValue_not_contains?: InputMaybe<Scalars["String"]>;
+	newValue_not_containsInsensitive?: InputMaybe<Scalars["String"]>;
+	newValue_not_endsWith?: InputMaybe<Scalars["String"]>;
+	newValue_not_eq?: InputMaybe<Scalars["String"]>;
+	newValue_not_in?: InputMaybe<Array<Scalars["String"]>>;
+	newValue_not_startsWith?: InputMaybe<Scalars["String"]>;
+	newValue_startsWith?: InputMaybe<Scalars["String"]>;
+	oldValue_contains?: InputMaybe<Scalars["String"]>;
+	oldValue_containsInsensitive?: InputMaybe<Scalars["String"]>;
+	oldValue_endsWith?: InputMaybe<Scalars["String"]>;
+	oldValue_eq?: InputMaybe<Scalars["String"]>;
+	oldValue_gt?: InputMaybe<Scalars["String"]>;
+	oldValue_gte?: InputMaybe<Scalars["String"]>;
+	oldValue_in?: InputMaybe<Array<Scalars["String"]>>;
+	oldValue_isNull?: InputMaybe<Scalars["Boolean"]>;
+	oldValue_lt?: InputMaybe<Scalars["String"]>;
+	oldValue_lte?: InputMaybe<Scalars["String"]>;
+	oldValue_not_contains?: InputMaybe<Scalars["String"]>;
+	oldValue_not_containsInsensitive?: InputMaybe<Scalars["String"]>;
+	oldValue_not_endsWith?: InputMaybe<Scalars["String"]>;
+	oldValue_not_eq?: InputMaybe<Scalars["String"]>;
+	oldValue_not_in?: InputMaybe<Array<Scalars["String"]>>;
+	oldValue_not_startsWith?: InputMaybe<Scalars["String"]>;
+	oldValue_startsWith?: InputMaybe<Scalars["String"]>;
+	timestamp_eq?: InputMaybe<Scalars["tokens_DateTime"]>;
+	timestamp_gt?: InputMaybe<Scalars["tokens_DateTime"]>;
+	timestamp_gte?: InputMaybe<Scalars["tokens_DateTime"]>;
+	timestamp_in?: InputMaybe<Array<Scalars["tokens_DateTime"]>>;
+	timestamp_lt?: InputMaybe<Scalars["tokens_DateTime"]>;
+	timestamp_lte?: InputMaybe<Scalars["tokens_DateTime"]>;
+	timestamp_not_eq?: InputMaybe<Scalars["tokens_DateTime"]>;
+	timestamp_not_in?: InputMaybe<Array<Scalars["tokens_DateTime"]>>;
+	token?: InputMaybe<Tokens_NfTokenWhereInput>;
+	txnHash_contains?: InputMaybe<Scalars["String"]>;
+	txnHash_containsInsensitive?: InputMaybe<Scalars["String"]>;
+	txnHash_endsWith?: InputMaybe<Scalars["String"]>;
+	txnHash_eq?: InputMaybe<Scalars["String"]>;
+	txnHash_gt?: InputMaybe<Scalars["String"]>;
+	txnHash_gte?: InputMaybe<Scalars["String"]>;
+	txnHash_in?: InputMaybe<Array<Scalars["String"]>>;
+	txnHash_lt?: InputMaybe<Scalars["String"]>;
+	txnHash_lte?: InputMaybe<Scalars["String"]>;
+	txnHash_not_contains?: InputMaybe<Scalars["String"]>;
+	txnHash_not_containsInsensitive?: InputMaybe<Scalars["String"]>;
+	txnHash_not_endsWith?: InputMaybe<Scalars["String"]>;
+	txnHash_not_eq?: InputMaybe<Scalars["String"]>;
+	txnHash_not_in?: InputMaybe<Array<Scalars["String"]>>;
+	txnHash_not_startsWith?: InputMaybe<Scalars["String"]>;
+	txnHash_startsWith?: InputMaybe<Scalars["String"]>;
+};
+
+export type Tokens_UriUpdateActionWhereUniqueInput = {
+	id: Scalars["ID"];
+};
+
+export type Tokens_UriUpdateActionsConnection = {
+	__typename?: "tokens_UriUpdateActionsConnection";
+	edges: Array<Tokens_UriUpdateActionEdge>;
+	pageInfo: Tokens_PageInfo;
+	totalCount: Scalars["Int"];
+};
+
 export type TransfersQuery = {
 	__typename?: "transfersQuery";
 	accountById?: Maybe<Transfers_Account>;
 	accountByUniqueInput?: Maybe<Transfers_Account>;
 	accounts: Array<Transfers_Account>;
-	accountsConnection: Balances_AccountsConnection;
+	accountsConnection: Tokens_AccountsConnection;
 	squidStatus?: Maybe<Balances_SquidStatus>;
 	transferById?: Maybe<Transfers_Transfer>;
 	transferByUniqueInput?: Maybe<Transfers_Transfer>;
@@ -5816,7 +7250,7 @@ export type Transfers_TransferWhereInput = {
 export type Transfers_TransfersConnection = {
 	__typename?: "transfers_TransfersConnection";
 	edges: Array<Transfers_TransferEdge>;
-	pageInfo: Balances_PageInfo;
+	pageInfo: Tokens_PageInfo;
 	totalCount: Scalars["Int"];
 };
 
@@ -6001,6 +7435,51 @@ export type GetEvmTransactionsForAddressQuery = {
 			from: string;
 			block: number;
 		}>;
+	} | null;
+};
+
+export type GetExtrinsicQueryVariables = Exact<{
+	extrinsicId: Scalars["archive_bpchar"];
+}>;
+
+export type GetExtrinsicQuery = {
+	__typename?: "query_root";
+	archive?: {
+		__typename?: "archivequery_root";
+		extrinsic_by_pk?: {
+			__typename?: "archive_extrinsic";
+			id: any;
+			hash: any;
+			fee?: any | null;
+			error?: any | null;
+			index_in_block: number;
+			pos: number;
+			signature?: any | null;
+			success: boolean;
+			tip?: any | null;
+			version: number;
+			block: { __typename?: "archive_block"; height: number; timestamp: any };
+			calls: Array<{
+				__typename?: "archive_call";
+				error?: any | null;
+				id: string;
+				name: string;
+				origin?: any | null;
+				parent_id?: string | null;
+				pos: number;
+				success: boolean;
+				args?: any | null;
+			}>;
+			events: Array<{
+				__typename?: "archive_event";
+				id: any;
+				name: string;
+				phase: string;
+				pos: number;
+				index_in_block: number;
+				args?: any | null;
+			}>;
+		} | null;
 	} | null;
 };
 
@@ -6316,6 +7795,65 @@ export const useGetEvmTransactionsForAddressQuery = <
 			GetEvmTransactionsForAddressQuery,
 			GetEvmTransactionsForAddressQueryVariables
 		>(client, GetEvmTransactionsForAddressDocument, variables, headers),
+		options
+	);
+export const GetExtrinsicDocument = `
+    query GetExtrinsic($extrinsicId: archive_bpchar!) {
+  archive {
+    extrinsic_by_pk(id: $extrinsicId) {
+      id
+      hash
+      fee
+      error
+      index_in_block
+      pos
+      signature
+      success
+      tip
+      version
+      block {
+        height
+        timestamp
+      }
+      calls {
+        error
+        id
+        name
+        origin
+        parent_id
+        pos
+        success
+        args
+      }
+      events(order_by: {index_in_block: asc}) {
+        id
+        name
+        phase
+        pos
+        index_in_block
+        args
+      }
+    }
+  }
+}
+    `;
+export const useGetExtrinsicQuery = <
+	TData = GetExtrinsicQuery,
+	TError = unknown
+>(
+	client: GraphQLClient,
+	variables: GetExtrinsicQueryVariables,
+	options?: UseQueryOptions<GetExtrinsicQuery, TError, TData>,
+	headers?: RequestInit["headers"]
+) =>
+	useQuery<GetExtrinsicQuery, TError, TData>(
+		["GetExtrinsic", variables],
+		fetcher<GetExtrinsicQuery, GetExtrinsicQueryVariables>(
+			client,
+			GetExtrinsicDocument,
+			variables,
+			headers
+		),
 		options
 	);
 export const GetExtrinsicIdFromHashDocument = `

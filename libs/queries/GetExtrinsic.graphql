@@ -1,0 +1,38 @@
+query GetExtrinsic($extrinsicId: archive_bpchar!) {
+	archive {
+		extrinsic_by_pk(id: $extrinsicId) {
+			id
+			hash
+			fee
+			error
+			index_in_block
+			pos
+			signature
+			success
+			tip
+			version
+			block {
+				height
+				timestamp
+			}
+			calls {
+				error
+				id
+				name
+				origin
+				parent_id
+				pos
+				success
+				args
+			}
+			events(order_by: { index_in_block: asc }) {
+				id
+				name
+				phase
+				pos
+				index_in_block
+				args
+			}
+		}
+	}
+}
