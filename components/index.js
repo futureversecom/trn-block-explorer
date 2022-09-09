@@ -10,3 +10,4 @@ export { default as RefetchIndicator } from "./refetchIndicator";
 export { default as Search } from "./search";
 export { default as TransfersWidget } from "./transfersWidget";
 export { default as ContainerLayout } from "./containerLayout";
+export * from "./detailsLayout";
