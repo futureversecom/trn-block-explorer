@@ -3,6 +3,7 @@ import {
 	LoadingBlock,
 	ContainerLayout,
 	DetailsLayout,
+	TableLayout,
 } from "@/components";
 import { useGetExtrinsicQuery } from "@/libs/api/generated";
 import { graphQLClient } from "@/libs/client";
@@ -135,44 +136,24 @@ const Events = ({ events }) => {
 			<div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
 				<div className="inline-transfer min-w-full py-2 align-middle md:px-6 lg:px-8">
 					<div className="overflow-hidden rounded-md border border-gray-100 shadow-md ">
-						<table className="min-w-full divide-y divide-gray-300">
+						<TableLayout.Table>
 							<thead className="bg-gray-50">
 								<tr>
-									<th
-										scope="col"
-										className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-									>
-										Event ID
-									</th>
-									<th
-										scope="col"
-										className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-									>
-										Action
-									</th>
-									<th
-										scope="col"
-										className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-									>
-										Phase
-									</th>
-									<th
-										scope="col"
-										className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-									>
-										Args
-									</th>
+									<TableLayout.HeadItem text="Event ID" />
+									<TableLayout.HeadItem text="Action" />
+									<TableLayout.HeadItem text="Phase" />
+									<TableLayout.HeadItem text="Args" />
 								</tr>
 							</thead>
 							<tbody className="divide-y divide-gray-200 bg-white">
 								{events.map((event, key) => (
 									<>
 										<tr key={key}>
-											<td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
+											<TableLayout.Data>
 												{formatExtrinsicId(event.id)}
-											</td>
+											</TableLayout.Data>
 
-											<td className="space-y-4 whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
+											<TableLayout.Data dataClassName="space-y-4">
 												{event.name}
 
 												{viewArgs.includes(key) && (
@@ -180,13 +161,11 @@ const Events = ({ events }) => {
 														<JSONPretty data={event.args} />
 													</div>
 												)}
-											</td>
+											</TableLayout.Data>
 
-											<td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
-												{event.phase}
-											</td>
+											<TableLayout.Data>{event.phase}</TableLayout.Data>
 
-											<td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
+											<TableLayout.Data>
 												<button
 													onClick={() => toggleArgs(key)}
 													className={clsx(
@@ -196,12 +175,12 @@ const Events = ({ events }) => {
 												>
 													{viewArgs.includes(key) ? "Hide" : "View"}
 												</button>
-											</td>
+											</TableLayout.Data>
 										</tr>
 									</>
 								))}
 							</tbody>
-						</table>
+						</TableLayout.Table>
 					</div>
 				</div>
 			</div>
