@@ -103,7 +103,7 @@ export default function Extrinsic({ extrinsicId }) {
 											<DetailsLayout.Wrapper>
 												<DetailsLayout.Title title="Args" />
 												<DetailsLayout.Data dataClassName="max-w-fit">
-													<div className="h-64 overflow-scroll">
+													<div className="h-64 overflow-scroll rounded bg-black p-2">
 														<JSONPretty id="json-pretty" data={tx} />
 													</div>
 												</DetailsLayout.Data>
@@ -176,7 +176,7 @@ const Events = ({ events }) => {
 												{event.name}
 
 												{viewArgs.includes(key) && (
-													<div className="max-h-32 max-w-xl overflow-scroll text-xs">
+													<div className="max-h-32 max-w-xl overflow-scroll rounded bg-black p-2 text-xs">
 														<JSONPretty data={event.args} />
 													</div>
 												)}

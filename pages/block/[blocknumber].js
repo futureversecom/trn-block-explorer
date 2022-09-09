@@ -109,7 +109,7 @@ export default function Block() {
 								<DetailsLayout.Wrapper>
 									<DetailsLayout.Title title="Events" />
 									<DetailsLayout.Data>
-										<div className="h-64 overflow-scroll">
+										<div className="h-64 overflow-scroll rounded bg-black p-2">
 											<JSONPretty id="json-pretty" data={query.data.events} />
 										</div>
 									</DetailsLayout.Data>
@@ -118,7 +118,7 @@ export default function Block() {
 								<DetailsLayout.Wrapper>
 									<DetailsLayout.Title title="Extrinsics" />
 									<DetailsLayout.Data>
-										<div className="h-64 overflow-scroll">
+										<div className="h-64 overflow-scroll rounded bg-black p-2">
 											<JSONPretty
 												id="json-pretty"
 												data={query.data.extrinsics}
