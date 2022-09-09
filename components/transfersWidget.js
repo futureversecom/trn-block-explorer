@@ -1,5 +1,5 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import { formatAddress } from "@/libs/utils";
+import { formatAddress, formatExtrinsicId } from "@/libs/utils";
 import TimeAgo from "react-timeago";
 import Link from "next/link";
 import { TransferStatusIcon } from "@/components/icons";
@@ -129,20 +129,14 @@ const useExtrinsicId = (extrinsicHash) => {
 		extrinsicHash,
 	});
 
-	const stripLeadingZeros = (str) => str.replaceAll(/0+(?!$)/g, "");
-
 	return useMemo(() => {
 		if (!data) return;
 
 		const raw = data?.archive?.extrinsic[0]?.id;
 
-		let [blockNumber, indexInBlock] = raw?.split("-");
-		blockNumber = stripLeadingZeros(blockNumber);
-		indexInBlock = stripLeadingZeros(indexInBlock);
-
 		return {
 			raw,
-			formatted: `${blockNumber}-${indexInBlock}`,
+			formatted: formatExtrinsicId(raw),
 		};
 	}, [data]);
 };

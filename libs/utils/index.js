@@ -1,3 +1,5 @@
+export * from "./formatExtrinsicId";
+
 export const sleep = () => {
 	return new Promise((resolve) => {
 		setTimeout(() => {
