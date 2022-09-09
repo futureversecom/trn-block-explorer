@@ -13,6 +13,8 @@ import TimeAgo from "react-timeago";
 import JSONPretty from "react-json-pretty";
 import moment from "moment";
 import "react-json-pretty/themes/adventure_time.css";
+import { useState } from "react";
+import clsx from "clsx";
 
 export const getServerSideProps = (context) => ({
 	props: { extrinsicId: context?.params?.id },
@@ -117,8 +119,108 @@ export default function Extrinsic({ extrinsicId }) {
 							</dl>
 						</div>
 					</div>
+
+					<Events events={data.events} />
 				</>
 			)}
 		</ContainerLayout>
 	);
 }
+
+const Events = ({ events }) => {
+	const [viewArgs, toggleArgs] = useToggleArgs();
+
+	return (
+		<div className="mt-8 flex flex-col">
+			<div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+				<div className="inline-transfer min-w-full py-2 align-middle md:px-6 lg:px-8">
+					<div className="overflow-hidden rounded-md border border-gray-100 shadow-md ">
+						<table className="min-w-full divide-y divide-gray-300">
+							<thead className="bg-gray-50">
+								<tr>
+									<th
+										scope="col"
+										className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+									>
+										Event ID
+									</th>
+									<th
+										scope="col"
+										className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+									>
+										Action
+									</th>
+									<th
+										scope="col"
+										className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+									>
+										Phase
+									</th>
+									<th
+										scope="col"
+										className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+									>
+										Args
+									</th>
+								</tr>
+							</thead>
+							<tbody className="divide-y divide-gray-200 bg-white">
+								{events.map((event, key) => (
+									<>
+										<tr key={key}>
+											<td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
+												{formatExtrinsicId(event.id)}
+											</td>
+
+											<td className="space-y-4 whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
+												{event.name}
+
+												{viewArgs.includes(key) && (
+													<div className="max-h-32 max-w-xl overflow-scroll text-xs">
+														<JSONPretty data={event.args} />
+													</div>
+												)}
+											</td>
+
+											<td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
+												{event.phase}
+											</td>
+
+											<td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
+												<button
+													onClick={() => toggleArgs(key)}
+													className={clsx(
+														"-ml-1 rounded border py-1 px-2 text-xs text-gray-600 shadow duration-300",
+														viewArgs.includes(key) && "bg-gray-50"
+													)}
+												>
+													{viewArgs.includes(key) ? "Hide" : "View"}
+												</button>
+											</td>
+										</tr>
+									</>
+								))}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+};
+
+const useToggleArgs = () => {
+	const [viewArgs, setViewArgs] = useState([]);
+
+	const toggleArgs = (key) => {
+		setViewArgs((prev) => {
+			const indexOfKey = prev.indexOf(key);
+
+			if (indexOfKey !== -1) return prev.filter((item) => item !== key);
+
+			return prev.concat(key);
+		});
+	};
+
+	return [viewArgs, toggleArgs];
+};
