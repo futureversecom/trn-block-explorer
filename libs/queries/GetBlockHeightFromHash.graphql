@@ -1,0 +1,7 @@
+query GetBlockHeightFromHash($blockHash: archive_bpchar) {
+	archive {
+		block(where: { hash: { _eq: $blockHash } }, limit: 1) {
+			height
+		}
+	}
+}

@@ -7357,6 +7357,18 @@ export type GetBlockQuery = {
 	} | null;
 };
 
+export type GetBlockHeightFromHashQueryVariables = Exact<{
+	blockHash?: InputMaybe<Scalars["archive_bpchar"]>;
+}>;
+
+export type GetBlockHeightFromHashQuery = {
+	__typename?: "query_root";
+	archive?: {
+		__typename?: "archivequery_root";
+		block: Array<{ __typename?: "archive_block"; height: number }>;
+	} | null;
+};
+
 export type GetBlocksQueryVariables = Exact<{
 	limit: Scalars["Int"];
 }>;
@@ -7677,6 +7689,36 @@ export const useGetBlockQuery = <TData = GetBlockQuery, TError = unknown>(
 		fetcher<GetBlockQuery, GetBlockQueryVariables>(
 			client,
 			GetBlockDocument,
+			variables,
+			headers
+		),
+		options
+	);
+export const GetBlockHeightFromHashDocument = `
+    query GetBlockHeightFromHash($blockHash: archive_bpchar) {
+  archive {
+    block(where: {hash: {_eq: $blockHash}}, limit: 1) {
+      height
+    }
+  }
+}
+    `;
+export const useGetBlockHeightFromHashQuery = <
+	TData = GetBlockHeightFromHashQuery,
+	TError = unknown
+>(
+	client: GraphQLClient,
+	variables?: GetBlockHeightFromHashQueryVariables,
+	options?: UseQueryOptions<GetBlockHeightFromHashQuery, TError, TData>,
+	headers?: RequestInit["headers"]
+) =>
+	useQuery<GetBlockHeightFromHashQuery, TError, TData>(
+		variables === undefined
+			? ["GetBlockHeightFromHash"]
+			: ["GetBlockHeightFromHash", variables],
+		fetcher<GetBlockHeightFromHashQuery, GetBlockHeightFromHashQueryVariables>(
+			client,
+			GetBlockHeightFromHashDocument,
 			variables,
 			headers
 		),

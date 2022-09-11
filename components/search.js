@@ -1,42 +1,23 @@
-import { useRouter } from "next/router";
+import {
+	GetBlockHeightFromHashDocument,
+	GetTransferByHashDocument,
+	GetBlockDocument,
+} from "@/libs/api/generated";
 import { ethers } from "ethers";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useState, useCallback } from "react";
+import { graphQLClient } from "@/libs/client";
 
 export default function Search() {
-	const [search, setSearch] = useState("");
-	const [error, setError] = useState(undefined);
-	const router = useRouter();
-	const doSearch = () => {
-		let to = undefined;
-		// if its an address
-		if (ethers.utils.isAddress(search)) {
-			to = `/account/${search}`;
-		}
-		// if its an tx hash
-		if (search.length === 66) {
-			to = `/transfer/${search}`;
-		}
-		// if its a block
-		if (Number(search) || search >= 0) {
-			to = `/block/${search}`;
-		}
-
-		if (search && to) {
-			if (error) {
-				setSearch("");
-				setError(undefined);
-			}
-			return router.push(to);
-		} else {
-			setSearch("");
-			setError("Invalid search parameter");
-		}
-	};
+	const { search, setSearch, error, onFormSubmit } = useSearch();
 
 	return (
 		<div className="border-b border-b-gray-200 bg-white">
-			<div className="mx-auto max-w-7xl py-3 px-4 sm:px-6 lg:px-8">
-				<div className="flex flex-row justify-between rounded-md border border-gray-300">
+			<form
+				onSubmit={onFormSubmit}
+				className="mx-auto max-w-7xl py-3 px-4 sm:px-6 lg:px-8"
+			>
+				<fieldset className="flex flex-row justify-between rounded-md border border-gray-300">
 					<div className="w-full">
 						<input
 							value={search}
@@ -48,18 +29,73 @@ export default function Search() {
 					</div>
 					<div>
 						<button
-							onClick={() => {
-								doSearch();
-							}}
-							type="button"
+							type="submit"
 							className="inline-flex h-12 items-center rounded-r border border-transparent bg-indigo-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 						>
 							Search
 						</button>
 					</div>
-				</div>
+				</fieldset>
 				<div className="select-none py-3 text-sm text-red-400">{error}</div>
-			</div>
+			</form>
 		</div>
 	);
 }
+
+const useSearch = () => {
+	const router = useRouter();
+
+	const [search, setSearch] = useState("");
+	const [error, setError] = useState(undefined);
+
+	const getSearchURL = async (search) => {
+		if (ethers.utils.isAddress(search)) return `/account/${search}`;
+
+		let response;
+		if (search.length === 66) {
+			response = await graphQLClient.request(GetBlockHeightFromHashDocument, {
+				blockHash: search,
+			});
+
+			if (response?.archive?.block?.length)
+				return `/block/${response.archive.block[0].height}`;
+
+			response = await graphQLClient.request(GetTransferByHashDocument, {
+				hash: search,
+			});
+
+			if (!response?.transfers?.transfers?.length) return;
+			return `/transfer/${search}`;
+		}
+
+		if (Number(search) && search >= 0) {
+			response = await graphQLClient.request(GetBlockDocument, {
+				height: search,
+			});
+
+			if (!response?.archive?.block?.length) return;
+			return `/block/${search}`;
+		}
+	};
+
+	const onFormSubmit = useCallback(
+		async (e) => {
+			e.preventDefault();
+
+			if (!search) return;
+			setError("");
+
+			const to = await getSearchURL(search.trim());
+
+			if (!to) {
+				setError("Invalid search parameter");
+				return setSearch("");
+			}
+
+			return router.push(to);
+		},
+		[search, router]
+	);
+
+	return { search, setSearch, error, onFormSubmit };
+};
