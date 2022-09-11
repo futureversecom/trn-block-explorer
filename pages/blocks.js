@@ -10,7 +10,7 @@ import { BlockFinalizedIcon } from "@/components/icons";
 import TimeAgo from "react-timeago";
 import { formatAddress } from "@/libs/utils";
 import { useGetBlocksQuery } from "@/libs/api/generated.ts";
-import { usePolling } from "@/libs/hooks/usePolling";
+import { usePolling } from "@/libs/hooks";
 
 export default function Blocks() {
 	let query = usePolling({}, useGetBlocksQuery, {

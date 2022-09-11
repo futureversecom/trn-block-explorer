@@ -3,7 +3,7 @@ import { formatAddress } from "@/libs/utils";
 import TimeAgo from "react-timeago";
 import Link from "next/link";
 import { useGetEvmTransactionsForAddressQuery } from "@/libs/api/generated.ts";
-import { usePolling } from "@/libs/hooks/usePolling";
+import { usePolling } from "@/libs/hooks";
 import { LoadingBlock, RefetchIndicator, TableLayout } from "@/components";
 import clsx from "clsx";
 

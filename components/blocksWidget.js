@@ -4,7 +4,7 @@ import TimeAgo from "react-timeago";
 import { RefetchIndicator, LoadingBlock } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetBlocksQuery } from "@/libs/api/generated.ts";
-import { usePolling } from "@/libs/hooks/usePolling";
+import { usePolling } from "@/libs/hooks";
 
 export default function BlocksWidget() {
 	const query = usePolling({}, useGetBlocksQuery, {

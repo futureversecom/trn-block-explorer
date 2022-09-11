@@ -1,17 +1,12 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import { formatAddress, formatExtrinsicId } from "@/libs/utils";
+import { formatAddress } from "@/libs/utils";
 import TimeAgo from "react-timeago";
 import Link from "next/link";
 import { TransferStatusIcon } from "@/components/icons";
 import { ethers } from "ethers";
-import {
-	useGetTransfersQuery,
-	useGetExtrinsicIdFromHashQuery,
-} from "@/libs/api/generated.ts";
-import { usePolling } from "@/libs/hooks/usePolling";
+import { useGetTransfersQuery } from "@/libs/api/generated.ts";
+import { usePolling, useExtrinsicId } from "@/libs/hooks";
 import { LoadingBlock, RefetchIndicator } from "@/components";
-import { useMemo } from "react";
-import { graphQLClient } from "@/libs/client";
 
 export default function TransfersWidget() {
 	const query = usePolling({}, useGetTransfersQuery, { limit: 10 });
@@ -122,21 +117,4 @@ const TransferItem = ({
 			</div>
 		</div>
 	);
-};
-
-const useExtrinsicId = (extrinsicHash) => {
-	const { data } = useGetExtrinsicIdFromHashQuery(graphQLClient, {
-		extrinsicHash,
-	});
-
-	return useMemo(() => {
-		if (!data) return;
-
-		const raw = data?.archive?.extrinsic[0]?.id;
-
-		return {
-			raw,
-			formatted: formatExtrinsicId(raw),
-		};
-	}, [data]);
 };

@@ -8,7 +8,7 @@ import {
 } from "@/components";
 import { formatAddress } from "@/libs/utils";
 import { useGetAccountsQuery } from "@/libs/api/generated.ts";
-import { usePolling } from "@/libs/hooks/usePolling";
+import { usePolling } from "@/libs/hooks";
 import { ethers } from "ethers";
 
 export default function Accounts() {

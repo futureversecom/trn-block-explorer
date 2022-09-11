@@ -1,5 +1,18 @@
 import clsx from "clsx";
 
+const Container = ({ children, containerClassName }) => (
+	<div
+		className={clsx(
+			"mt-5 overflow-hidden rounded-md border border-gray-100 bg-white shadow-md",
+			containerClassName
+		)}
+	>
+		<div className="px-4 py-5 sm:p-0">
+			<dl className="sm:divide-y sm:divide-gray-200">{children}</dl>
+		</div>
+	</div>
+);
+
 const Wrapper = ({ children, wrapperClassName }) => (
 	<div
 		className={clsx(
@@ -29,6 +42,7 @@ const Data = ({ children, dataClassName }) => (
 );
 
 export const DetailsLayout = {
+	Container,
 	Wrapper,
 	Title,
 	Data,

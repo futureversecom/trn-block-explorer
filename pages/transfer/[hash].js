@@ -5,10 +5,15 @@ import { formatAddress } from "@/libs/utils";
 import { BlockFinalizedIcon, CopyToClipboard } from "@/components/icons";
 import TimeAgo from "react-timeago";
 import { useGetTransferByHashQuery } from "@/libs/api/generated.ts";
-import { usePolling } from "@/libs/hooks/usePolling";
 import { ethers } from "ethers";
 import Link from "next/link";
-import { PageHeader, LoadingBlock, ContainerLayout } from "@/components";
+import {
+	PageHeader,
+	LoadingBlock,
+	ContainerLayout,
+	DetailsLayout,
+} from "@/components";
+import { usePolling, useExtrinsicId } from "@/libs/hooks";
 
 export default function Transfer() {
 	const router = useRouter();
@@ -20,6 +25,8 @@ export default function Transfer() {
 
 	query.data = query?.data?.transfers?.transfers[0];
 
+	const id = useExtrinsicId(query.data?.extrinsicHash);
+
 	return (
 		<ContainerLayout>
 			<PageHeader
@@ -29,84 +36,94 @@ export default function Transfer() {
 			{query.isLoading || query.isError ? (
 				<LoadingBlock title={`Transfer ${hash}`} />
 			) : (
-				<>
-					<div className="mt-5 overflow-hidden rounded-md border border-gray-100 bg-white shadow-md">
-						<div className=" px-4 py-5 sm:p-0">
-							<dl className="sm:divide-y sm:divide-gray-200">
-								<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-									<dt className="text-sm font-medium text-gray-900">
-										Transaction Hash
-									</dt>
-									<dd className="mt-1 flex flex-row space-x-3 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
-										<div>{hash}</div>
-										<div>
-											<CopyToClipboard value={hash} />
-										</div>
-									</dd>
-								</div>
-								<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-									<dt className="text-sm font-medium text-gray-900">
-										Block Height
-									</dt>
-									<Link href={`/block/${query.data.blockNumber}`}>
-										<dd className="mt-1 cursor-pointer text-sm text-indigo-500 sm:col-span-2 sm:mt-0">
-											{query.data.blockNumber}
-										</dd>
-									</Link>
-								</div>
+				<DetailsLayout.Container>
+					<DetailsLayout.Wrapper>
+						<DetailsLayout.Title title="Transaction Hash" />
+						<DetailsLayout.Data dataClassName="flex flex-row">
+							<div>{hash}</div>
+							<div>
+								<CopyToClipboard value={hash} />
+							</div>
+						</DetailsLayout.Data>
+					</DetailsLayout.Wrapper>
 
-								<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-									<dt className="text-sm font-medium text-gray-900">
-										Timestamp
-									</dt>
-									<dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
-										{moment(query.data.timestamp).format("LLL")}{" "}
-										<span className="ml-3 text-xs">
-											<TimeAgo date={query.data.timestamp} />
-										</span>
-									</dd>
-								</div>
+					<DetailsLayout.Wrapper>
+						<DetailsLayout.Title title="Block Height" />
+						<DetailsLayout.Data>
+							<Link href={`/block/${query.data.blockNumber}`}>
+								<span className="cursor-pointer text-indigo-500">
+									{query.data.blockNumber}
+								</span>
+							</Link>
+						</DetailsLayout.Data>
+					</DetailsLayout.Wrapper>
 
-								<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-									<dt className="text-sm font-medium text-gray-900">Status</dt>
-									<dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
-										<div className="flex flex-row space-x-3">
-											<BlockFinalizedIcon status={true} />
-											<span className="ml-2 text-sm">{query.data.status}</span>
-										</div>
-									</dd>
-								</div>
+					<DetailsLayout.Wrapper>
+						<DetailsLayout.Title title="Extrinsic ID" />
+						<DetailsLayout.Data>
+							{id ? (
+								<Link href={`/extrinsic/${id.raw}`}>
+									<span className="cursor-pointer text-sm text-indigo-500">
+										{id.formatted}
+									</span>
+								</Link>
+							) : (
+								<span className="text-sm">{query.data.blockNumber}-</span>
+							)}
+						</DetailsLayout.Data>
+					</DetailsLayout.Wrapper>
 
-								<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-									<dt className="text-sm font-medium text-gray-900">From</dt>
-									<dd className="mt-1 flex cursor-pointer flex-row space-x-3 text-sm text-indigo-500 sm:col-span-2 sm:mt-0">
-										<Link href={`/account/${query.data.from?.id}`}>
-											{query.data.from?.id}
-										</Link>
-										<CopyToClipboard value={query.data.from?.id} />
-									</dd>
-								</div>
+					<DetailsLayout.Wrapper>
+						<DetailsLayout.Title title="Timestamp" />
+						<DetailsLayout.Data>
+							{moment(query.data.timestamp).format("LLL")}{" "}
+							<span className="ml-3 text-xs">
+								<TimeAgo date={query.data.timestamp} />
+							</span>
+						</DetailsLayout.Data>
+					</DetailsLayout.Wrapper>
 
-								<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-									<dt className="text-sm font-medium text-gray-900">To</dt>
+					<DetailsLayout.Wrapper>
+						<DetailsLayout.Title title="Status" />
+						<DetailsLayout.Data>
+							<div className="flex flex-row space-x-3">
+								<BlockFinalizedIcon status={true} />
+								<span className="ml-2 text-sm">{query.data.status}</span>
+							</div>
+						</DetailsLayout.Data>
+					</DetailsLayout.Wrapper>
 
-									<dd className="mt-1 flex cursor-pointer flex-row space-x-3 text-sm text-indigo-500 sm:col-span-2 sm:mt-0">
-										<Link href={`/account/${query.data.to?.id}`}>
-											{query.data.to?.id}
-										</Link>
-										<CopyToClipboard value={query.data.to?.id} />
-									</dd>
-								</div>
-								<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-									<dt className="text-sm font-medium text-gray-900">Amount</dt>
-									<dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
-										{ethers.utils.formatEther(query.data.amount)} Root
-									</dd>
-								</div>
-							</dl>
-						</div>
-					</div>
-				</>
+					<DetailsLayout.Wrapper>
+						<DetailsLayout.Title title="From" />
+						<DetailsLayout.Data dataClassName="flex flex-row">
+							<Link href={`/account/${query.data.from?.id}`}>
+								<span className="cursor-pointer text-sm text-indigo-500">
+									{query.data.from?.id}
+								</span>
+							</Link>
+							<CopyToClipboard value={query.data.from?.id} />
+						</DetailsLayout.Data>
+					</DetailsLayout.Wrapper>
+
+					<DetailsLayout.Wrapper>
+						<DetailsLayout.Title title="To" />
+						<DetailsLayout.Data dataClassName="flex flex-row">
+							<Link href={`/account/${query.data.to?.id}`}>
+								<span className="cursor-pointer text-sm text-indigo-500">
+									{query.data.to?.id}
+								</span>
+							</Link>
+							<CopyToClipboard value={query.data.to?.id} />
+						</DetailsLayout.Data>
+					</DetailsLayout.Wrapper>
+
+					<DetailsLayout.Wrapper>
+						<DetailsLayout.Title title="Amount" />
+						<DetailsLayout.Data>
+							{ethers.utils.formatEther(query.data.amount)} Root
+						</DetailsLayout.Data>
+					</DetailsLayout.Wrapper>
+				</DetailsLayout.Container>
 			)}
 		</ContainerLayout>
 	);

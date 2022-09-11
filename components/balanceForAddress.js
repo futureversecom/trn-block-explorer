@@ -1,6 +1,6 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { useGetBalanceQuery } from "@/libs/api/generated.ts";
-import { usePolling } from "@/libs/hooks/usePolling";
+import { usePolling } from "@/libs/hooks";
 import { ethers } from "ethers";
 import QRCode from "react-qr-code";
 import { RefetchIndicator, LoadingBlock } from "@/components";
