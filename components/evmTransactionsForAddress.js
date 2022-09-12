@@ -1,16 +1,11 @@
-import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import { formatAddress } from "@/libs/utils";
-import TimeAgo from "react-timeago";
-import Link from "next/link";
-import { useGetEvmTransactionsForAddressQuery } from "@/libs/api/generated.ts";
-import { usePolling } from "@/libs/hooks";
-import {
-	LoadingBlock,
-	RefetchIndicator,
-	TableLayout,
-	AddressLink,
-} from "@/components";
 import clsx from "clsx";
+import Link from "next/link";
+import TimeAgo from "react-timeago";
+import { usePolling } from "@/libs/hooks";
+import { formatAddress } from "@/libs/utils";
+import { useAccountRefetchStatus } from "@/libs/stores";
+import { LoadingBlock, TableLayout, AddressLink } from "@/components";
+import { useGetEvmTransactionsForAddressQuery } from "@/libs/api/generated.ts";
 
 export default function EVMTransactionsForAddress({ walletAddress }) {
 	const query = usePolling(
@@ -21,20 +16,11 @@ export default function EVMTransactionsForAddress({ walletAddress }) {
 		},
 		12000
 	);
-
 	query.data = query?.data?.evm?.transactions;
+	useAccountRefetchStatus("evmTransactions", query.isRefetching);
 
 	return (
 		<div>
-			<div className="flex flex-row justify-between py-3">
-				<div className="flex">
-					<ArrowsRightLeftIcon className="my-auto h-5 pr-3" />
-					<h3 className="text-md font-medium leading-6 text-gray-900">
-						EVM Transactions
-					</h3>
-				</div>
-				<div>{query.isRefetching && <RefetchIndicator />}</div>
-			</div>
 			{query.isLoading ? (
 				<LoadingBlock title="EVM Transactions" height="h-20" />
 			) : (
@@ -105,7 +91,9 @@ export default function EVMTransactionsForAddress({ walletAddress }) {
 							</tbody>
 						</TableLayout.Table>
 					) : (
-						<div className="space-x-3 text-center">😥 No EVM Transactions</div>
+						<div className="py-2 text-center">
+							😥 No EVM Transactions
+						</div>
 					)}
 				</div>
 			)}

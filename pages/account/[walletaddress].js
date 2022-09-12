@@ -1,9 +1,8 @@
 import {
 	PageHeader,
 	BalanceForAddress,
-	TransfersForAddress,
-	EVMTransactionsForAddress,
 	ContainerLayout,
+	AccountTables,
 } from "@/components";
 import { ethers } from "ethers";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
@@ -28,8 +27,7 @@ export default function Account({ walletAddress }) {
 				}
 			/>
 			<BalanceForAddress walletAddress={walletAddress} />
-			<EVMTransactionsForAddress walletAddress={walletAddress} />
-			<TransfersForAddress walletAddress={walletAddress} />
+			<AccountTables walletAddress={walletAddress} />
 		</ContainerLayout>
 	);
 }

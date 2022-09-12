@@ -14,3 +14,4 @@ export { default as ContainerLayout } from "./containerLayout";
 export * from "./detailsLayout";
 export * from "./tableLayout";
 export * from "./addressLink";
+export * from "./accountTables";

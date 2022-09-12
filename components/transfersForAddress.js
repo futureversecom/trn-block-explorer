@@ -1,35 +1,22 @@
-import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import TimeAgo from "react-timeago";
+import clsx from "clsx";
 import Link from "next/link";
+import { useMemo } from "react";
 import {
 	useGetTransfersFromAddressQuery,
 	useGetTransfersToAddressQuery,
 } from "@/libs/api/generated.ts";
-import { usePolling } from "@/libs/hooks";
-import { useMemo } from "react";
-import {
-	LoadingBlock,
-	RefetchIndicator,
-	TableLayout,
-	AddressLink,
-} from "@/components";
+import TimeAgo from "react-timeago";
 import { utils as ethers } from "ethers";
-import clsx from "clsx";
+import { usePolling } from "@/libs/hooks";
+import { useAccountRefetchStatus } from "@/libs/stores";
+import { LoadingBlock, TableLayout, AddressLink } from "@/components";
 
 export default function TransfersForAddress({ walletAddress }) {
 	const query = useTransfers(walletAddress);
+	useAccountRefetchStatus("ercTransfers", query.isRefetching);
 
 	return (
 		<div>
-			<div className="flex flex-row justify-between py-3">
-				<div className="flex">
-					<ArrowsRightLeftIcon className="my-auto h-5 pr-3" />
-					<h3 className="text-md font-medium leading-6 text-gray-900">
-						Transfers
-					</h3>
-				</div>
-				<div>{query.isRefetching && <RefetchIndicator />}</div>
-			</div>
 			{query.isLoading ? (
 				<LoadingBlock title="Transfers" height="h-20" />
 			) : (
@@ -117,7 +104,9 @@ export default function TransfersForAddress({ walletAddress }) {
 							</tbody>
 						</TableLayout.Table>
 					) : (
-						<div className="space-x-3 text-center">😥 No Transfers</div>
+						<div className="py-2 text-center">
+							😥 No ERC Transfers
+						</div>
 					)}
 				</div>
 			)}
