@@ -1,7 +1,12 @@
-export default function RefetchIndicator() {
+import clsx from "clsx";
+
+export default function RefetchIndicator({ iconClassName }) {
 	return (
 		<svg
-			className="my-auto mr-2 inline h-4 w-4 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600"
+			className={clsx(
+				"my-auto mr-2 inline h-4 w-4 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600",
+				iconClassName
+			)}
 			viewBox="0 0 100 101"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"

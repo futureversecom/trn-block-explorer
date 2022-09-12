@@ -2,14 +2,17 @@ import {
 	GetBlockHeightFromHashDocument,
 	GetTransferByHashDocument,
 	GetBlockDocument,
+	GetExtrinsicByRegexDocument,
 } from "@/libs/api/generated";
 import { ethers } from "ethers";
 import { useRouter } from "next/router";
 import { useState, useCallback } from "react";
 import { graphQLClient } from "@/libs/client";
+import { RefetchIndicator } from "@/components";
+import clsx from "clsx";
 
 export default function Search() {
-	const { search, setSearch, error, onFormSubmit } = useSearch();
+	const { search, setSearch, isSearching, error, onFormSubmit } = useSearch();
 
 	return (
 		<div className="border-b border-b-gray-200 bg-white">
@@ -24,15 +27,23 @@ export default function Search() {
 							type="text"
 							onChange={(e) => setSearch(e.target.value)}
 							className="block h-12 w-full rounded-l border-gray-300 p-3 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-							placeholder="Search by Block / Account / Transaction Hash"
+							placeholder="Search by Block / Account / Extrinsic ID / Transaction Hash"
 						/>
 					</div>
 					<div>
 						<button
 							type="submit"
-							className="inline-flex h-12 items-center rounded-r border border-transparent bg-indigo-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+							className={clsx(
+								"inline-flex h-12 items-center rounded-r border border-transparent bg-indigo-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2",
+								isSearching &&
+									"cursor-not-allowed bg-transparent hover:bg-transparent"
+							)}
 						>
-							Search
+							{isSearching ? (
+								<RefetchIndicator iconClassName="mx-3" />
+							) : (
+								"Search"
+							)}
 						</button>
 					</div>
 				</fieldset>
@@ -46,6 +57,7 @@ const useSearch = () => {
 	const router = useRouter();
 
 	const [search, setSearch] = useState("");
+	const [isSearching, setIsSearching] = useState(false);
 	const [error, setError] = useState(undefined);
 
 	const getSearchURL = async (search) => {
@@ -76,26 +88,38 @@ const useSearch = () => {
 			if (!response?.archive?.block?.length) return;
 			return `/block/${search}`;
 		}
+
+		if (search.includes("-")) {
+			const [blockNumber, extrinsicId] = search.split("-");
+			response = await graphQLClient.request(GetExtrinsicByRegexDocument, {
+				regex: `0+${blockNumber}-0+${extrinsicId}`,
+			});
+
+			if (!response?.archive?.extrinsic?.length) return;
+			return `/extrinsic/${response.archive.extrinsic[0].id}`;
+		}
 	};
 
 	const onFormSubmit = useCallback(
 		async (e) => {
 			e.preventDefault();
 
-			if (!search) return;
+			if (!search || isSearching) return;
 			setError("");
+			setIsSearching(true);
 
 			const to = await getSearchURL(search.trim());
+			setIsSearching(false);
 
 			if (!to) {
 				setError("Invalid search parameter");
 				return setSearch("");
 			}
 
-			return router.push(to);
+			return router.replace(to);
 		},
-		[search, router]
+		[search, isSearching, router]
 	);
 
-	return { search, setSearch, error, onFormSubmit };
+	return { search, setSearch, isSearching, error, onFormSubmit };
 };

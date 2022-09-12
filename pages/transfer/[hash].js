@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { CubeIcon } from "@heroicons/react/24/outline";
 import moment from "moment";
 import { formatAddress } from "@/libs/utils";
@@ -15,10 +14,11 @@ import {
 } from "@/components";
 import { usePolling, useExtrinsicId } from "@/libs/hooks";
 
-export default function Transfer() {
-	const router = useRouter();
-	const { hash } = router.query;
+export const getServerSideProps = (context) => ({
+	props: { hash: context?.params?.hash },
+});
 
+export default function Transfer({ hash }) {
 	let query = usePolling({}, useGetTransferByHashQuery, {
 		hash,
 	});

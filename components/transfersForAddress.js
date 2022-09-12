@@ -117,7 +117,7 @@ export default function TransfersForAddress({ walletAddress }) {
 							</tbody>
 						</TableLayout.Table>
 					) : (
-						<div className="space-x-3 text-center">😥 No EVM Transfers</div>
+						<div className="space-x-3 text-center">😥 No Transfers</div>
 					)}
 				</div>
 			)}

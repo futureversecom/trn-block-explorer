@@ -7495,6 +7495,18 @@ export type GetExtrinsicQuery = {
 	} | null;
 };
 
+export type GetExtrinsicByRegexQueryVariables = Exact<{
+	regex: Scalars["archive_bpchar"];
+}>;
+
+export type GetExtrinsicByRegexQuery = {
+	__typename?: "query_root";
+	archive?: {
+		__typename?: "archivequery_root";
+		extrinsic: Array<{ __typename?: "archive_extrinsic"; id: any }>;
+	} | null;
+};
+
 export type GetExtrinsicIdFromHashQueryVariables = Exact<{
 	extrinsicHash: Scalars["archive_bpchar"];
 }>;
@@ -7975,6 +7987,34 @@ export const useGetExtrinsicQuery = <
 		fetcher<GetExtrinsicQuery, GetExtrinsicQueryVariables>(
 			client,
 			GetExtrinsicDocument,
+			variables,
+			headers
+		),
+		options
+	);
+export const GetExtrinsicByRegexDocument = `
+    query GetExtrinsicByRegex($regex: archive_bpchar!) {
+  archive {
+    extrinsic(where: {id: {_regex: $regex}}) {
+      id
+    }
+  }
+}
+    `;
+export const useGetExtrinsicByRegexQuery = <
+	TData = GetExtrinsicByRegexQuery,
+	TError = unknown
+>(
+	client: GraphQLClient,
+	variables: GetExtrinsicByRegexQueryVariables,
+	options?: UseQueryOptions<GetExtrinsicByRegexQuery, TError, TData>,
+	headers?: RequestInit["headers"]
+) =>
+	useQuery<GetExtrinsicByRegexQuery, TError, TData>(
+		["GetExtrinsicByRegex", variables],
+		fetcher<GetExtrinsicByRegexQuery, GetExtrinsicByRegexQueryVariables>(
+			client,
+			GetExtrinsicByRegexDocument,
 			variables,
 			headers
 		),
