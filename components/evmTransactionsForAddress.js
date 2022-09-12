@@ -4,7 +4,12 @@ import TimeAgo from "react-timeago";
 import Link from "next/link";
 import { useGetEvmTransactionsForAddressQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
-import { LoadingBlock, RefetchIndicator, TableLayout } from "@/components";
+import {
+	LoadingBlock,
+	RefetchIndicator,
+	TableLayout,
+	AddressLink,
+} from "@/components";
 import clsx from "clsx";
 
 export default function EVMTransactionsForAddress({ walletAddress }) {
@@ -50,29 +55,18 @@ export default function EVMTransactionsForAddress({ walletAddress }) {
 							<tbody className="divide-y divide-gray-200 bg-white">
 								{query.data.map((block, key) => (
 									<tr key={key}>
-										<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500">
-											<Link href={`/block/${block.height}`}>
-												{block?.txHash ? formatAddress(block.txHash, 12) : "?"}
-											</Link>
+										<TableLayout.Data>
+											{block?.txHash ? formatAddress(block.txHash, 12) : "?"}
 										</TableLayout.Data>
 
-										<TableLayout.Data>{block?.block}</TableLayout.Data>
+										<TableLayout.Data dataClassName="!text-indigo-500">
+											<Link href={`/block/${block.block}`}>{block?.block}</Link>
+										</TableLayout.Data>
 
 										<TableLayout.Data>
-											<span
-												className={clsx(
-													"rounded-md p-2 text-gray-50",
-													block?.from.toLowerCase() ===
-														walletAddress.toLowerCase()
-														? "bg-green-800"
-														: "bg-red-600"
-												)}
-											>
-												{block?.from.toLowerCase() ==
-												walletAddress.toLowerCase()
-													? "Out"
-													: "In"}
-											</span>
+											{block?.from.toLowerCase() == walletAddress.toLowerCase()
+												? "Out"
+												: "In"}
 										</TableLayout.Data>
 
 										<TableLayout.Data>
@@ -85,16 +79,26 @@ export default function EVMTransactionsForAddress({ walletAddress }) {
 											</span>
 										</TableLayout.Data>
 
-										<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500">
-											<Link href={`/account/${block.from}`}>
-												{block?.from ? formatAddress(block.from) : "? "}
-											</Link>
+										<TableLayout.Data
+											dataClassName={clsx(
+												block.from !== walletAddress && "!text-indigo-500"
+											)}
+										>
+											<AddressLink
+												address={block.from}
+												isAccount={block.from === walletAddress}
+											/>
 										</TableLayout.Data>
 
-										<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500">
-											<Link href={`/account/${block.to}`}>
-												{block?.to ? formatAddress(block.to) : "? "}
-											</Link>
+										<TableLayout.Data
+											dataClassName={clsx(
+												block.to !== walletAddress && "!text-indigo-500"
+											)}
+										>
+											<AddressLink
+												address={block.to}
+												isAccount={block.to === walletAddress}
+											/>
 										</TableLayout.Data>
 									</tr>
 								))}

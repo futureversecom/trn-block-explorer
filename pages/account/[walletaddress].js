@@ -1,33 +1,35 @@
-import { useRouter } from "next/router";
 import {
 	PageHeader,
 	BalanceForAddress,
+	TransfersForAddress,
 	EVMTransactionsForAddress,
 	ContainerLayout,
 } from "@/components";
 import { ethers } from "ethers";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 
-export default function Account() {
-	const router = useRouter();
-	const { walletaddress } = router.query;
+export const getServerSideProps = (context) => ({
+	props: { walletAddress: context?.params?.walletaddress },
+});
 
-	if (!ethers.utils.isAddress(walletaddress)) {
+export default function Account({ walletAddress }) {
+	if (!ethers.utils.isAddress(walletAddress)) {
 		return "Invalid address";
 	}
 
 	return (
 		<ContainerLayout>
 			<PageHeader
-				title={`Wallet # ${walletaddress}`}
+				title={`Wallet # ${walletAddress}`}
 				icon={
 					<div className="my-auto h-5 pr-3">
-						<Jazzicon diameter={20} seed={jsNumberForAddress(walletaddress)} />
+						<Jazzicon diameter={20} seed={jsNumberForAddress(walletAddress)} />
 					</div>
 				}
 			/>
-			<BalanceForAddress walletAddress={walletaddress} />
-			<EVMTransactionsForAddress walletAddress={walletaddress} />
+			<BalanceForAddress walletAddress={walletAddress} />
+			<EVMTransactionsForAddress walletAddress={walletAddress} />
+			<TransfersForAddress walletAddress={walletAddress} />
 		</ContainerLayout>
 	);
 }

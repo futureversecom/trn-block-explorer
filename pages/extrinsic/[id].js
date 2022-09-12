@@ -16,6 +16,7 @@ import moment from "moment";
 import "react-json-pretty/themes/adventure_time.css";
 import { useState } from "react";
 import clsx from "clsx";
+import Link from "next/link";
 
 export const getServerSideProps = (context) => ({
 	props: { extrinsicId: context?.params?.id },
@@ -48,7 +49,12 @@ export default function Extrinsic({ extrinsicId }) {
 
 						<DetailsLayout.Wrapper>
 							<DetailsLayout.Title title="Block" />
-							<DetailsLayout.Data>{data.block.height}</DetailsLayout.Data>
+
+							<DetailsLayout.Data dataClassName="!text-indigo-500">
+								<Link href={`/block/${data.block.height}`}>
+									{data.block.height}
+								</Link>
+							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 
 						<DetailsLayout.Wrapper>

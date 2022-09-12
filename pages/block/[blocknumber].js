@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { CubeIcon } from "@heroicons/react/24/outline";
 import {
 	PageHeader,
@@ -15,26 +14,28 @@ import { usePolling } from "@/libs/hooks";
 import JSONPretty from "react-json-pretty";
 import "react-json-pretty/themes/adventure_time.css";
 
-export default function Block() {
-	const router = useRouter();
-	const { blocknumber } = router.query;
+export const getServerSideProps = (context) => ({
+	props: { blockNumber: context?.params?.blocknumber },
+});
+
+export default function Block({ blockNumber }) {
 	let query = usePolling({}, useGetBlockQuery, {
-		height: parseInt(blocknumber),
+		height: parseInt(blockNumber),
 	});
 
 	query.data = query?.data?.archive?.block[0];
 
 	const getPrevBlock = () => {
-		if (parseInt(blocknumber) == 0) {
+		if (parseInt(blockNumber) == 0) {
 			return 0;
 		} else {
-			return parseInt(blocknumber) - 1;
+			return parseInt(blockNumber) - 1;
 		}
 	};
 
 	if (
 		(!query.isLoading && !query.data) ||
-		Number(blocknumber) >= Number.MAX_SAFE_INTEGER
+		Number(blockNumber) >= Number.MAX_SAFE_INTEGER
 	) {
 		return "No data found";
 	}
@@ -42,16 +43,16 @@ export default function Block() {
 	return (
 		<ContainerLayout>
 			<PageHeader
-				title={`Block # ${blocknumber}`}
+				title={`Block # ${blockNumber}`}
 				icon={<CubeIcon className="my-auto h-5 pr-3" />}
 			/>
 			{query.isLoading || query.isError ? (
-				<LoadingBlock title={`Block ${blocknumber}`} />
+				<LoadingBlock title={`Block ${blockNumber}`} />
 			) : (
 				<DetailsLayout.Container>
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Height" />
-						<DetailsLayout.Data>{blocknumber}</DetailsLayout.Data>
+						<DetailsLayout.Data>{blockNumber}</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
 					<DetailsLayout.Wrapper>

@@ -7553,6 +7553,88 @@ export type GetTransfersQuery = {
 	} | null;
 };
 
+export type GetTransfersFromAddressQueryVariables = Exact<{
+	address?: InputMaybe<Scalars["ID"]>;
+}>;
+
+export type GetTransfersFromAddressQuery = {
+	__typename?: "query_root";
+	tokens?: {
+		__typename?: "tokensQuery";
+		ftTransfers: Array<{
+			__typename?: "tokens_FtTransfer";
+			amount?: any | null;
+			blockNumber: any;
+			timestamp: any;
+			transferType?: Tokens_TransferType | null;
+			txnHash: string;
+			from: { __typename?: "tokens_Account"; id: string };
+			to: { __typename?: "tokens_Account"; id: string };
+			token: {
+				__typename?: "tokens_FToken";
+				decimals?: number | null;
+				symbol?: string | null;
+			};
+		}>;
+		nftTransfers: Array<{
+			__typename?: "tokens_NftTransfer";
+			amount: any;
+			blockNumber: any;
+			timestamp: any;
+			transferType?: Tokens_TransferType | null;
+			txnHash: string;
+			from: { __typename?: "tokens_Account"; id: string };
+			to: { __typename?: "tokens_Account"; id: string };
+			token: {
+				__typename?: "tokens_NfToken";
+				symbol?: string | null;
+				uri?: string | null;
+			};
+		}>;
+	} | null;
+};
+
+export type GetTransfersToAddressQueryVariables = Exact<{
+	address?: InputMaybe<Scalars["ID"]>;
+}>;
+
+export type GetTransfersToAddressQuery = {
+	__typename?: "query_root";
+	tokens?: {
+		__typename?: "tokensQuery";
+		ftTransfers: Array<{
+			__typename?: "tokens_FtTransfer";
+			amount?: any | null;
+			blockNumber: any;
+			timestamp: any;
+			transferType?: Tokens_TransferType | null;
+			txnHash: string;
+			from: { __typename?: "tokens_Account"; id: string };
+			to: { __typename?: "tokens_Account"; id: string };
+			token: {
+				__typename?: "tokens_FToken";
+				decimals?: number | null;
+				symbol?: string | null;
+			};
+		}>;
+		nftTransfers: Array<{
+			__typename?: "tokens_NftTransfer";
+			amount: any;
+			blockNumber: any;
+			timestamp: any;
+			transferType?: Tokens_TransferType | null;
+			txnHash: string;
+			from: { __typename?: "tokens_Account"; id: string };
+			to: { __typename?: "tokens_Account"; id: string };
+			token: {
+				__typename?: "tokens_NfToken";
+				symbol?: string | null;
+				uri?: string | null;
+			};
+		}>;
+	} | null;
+};
+
 export const GetAccountsDocument = `
     query GetAccounts($limit: Int!) {
   balances {
@@ -8001,6 +8083,138 @@ export const useGetTransfersQuery = <
 		fetcher<GetTransfersQuery, GetTransfersQueryVariables>(
 			client,
 			GetTransfersDocument,
+			variables,
+			headers
+		),
+		options
+	);
+export const GetTransfersFromAddressDocument = `
+    query GetTransfersFromAddress($address: ID) {
+  tokens {
+    ftTransfers(
+      where: {from: {id_eq: $address}}
+      limit: 5
+      orderBy: blockNumber_DESC
+    ) {
+      amount
+      blockNumber
+      timestamp
+      transferType
+      txnHash
+      from {
+        id
+      }
+      to {
+        id
+      }
+      token {
+        decimals
+        symbol
+      }
+    }
+    nftTransfers(
+      where: {from: {id_eq: $address}}
+      limit: 5
+      orderBy: blockNumber_DESC
+    ) {
+      amount
+      blockNumber
+      timestamp
+      transferType
+      txnHash
+      from {
+        id
+      }
+      to {
+        id
+      }
+      token {
+        symbol
+        uri
+      }
+    }
+  }
+}
+    `;
+export const useGetTransfersFromAddressQuery = <
+	TData = GetTransfersFromAddressQuery,
+	TError = unknown
+>(
+	client: GraphQLClient,
+	variables?: GetTransfersFromAddressQueryVariables,
+	options?: UseQueryOptions<GetTransfersFromAddressQuery, TError, TData>,
+	headers?: RequestInit["headers"]
+) =>
+	useQuery<GetTransfersFromAddressQuery, TError, TData>(
+		variables === undefined
+			? ["GetTransfersFromAddress"]
+			: ["GetTransfersFromAddress", variables],
+		fetcher<
+			GetTransfersFromAddressQuery,
+			GetTransfersFromAddressQueryVariables
+		>(client, GetTransfersFromAddressDocument, variables, headers),
+		options
+	);
+export const GetTransfersToAddressDocument = `
+    query GetTransfersToAddress($address: ID) {
+  tokens {
+    ftTransfers(where: {to: {id_eq: $address}}, limit: 5, orderBy: blockNumber_DESC) {
+      amount
+      blockNumber
+      timestamp
+      transferType
+      txnHash
+      from {
+        id
+      }
+      to {
+        id
+      }
+      token {
+        decimals
+        symbol
+      }
+    }
+    nftTransfers(
+      where: {to: {id_eq: $address}}
+      limit: 5
+      orderBy: blockNumber_DESC
+    ) {
+      amount
+      blockNumber
+      timestamp
+      transferType
+      txnHash
+      from {
+        id
+      }
+      to {
+        id
+      }
+      token {
+        symbol
+        uri
+      }
+    }
+  }
+}
+    `;
+export const useGetTransfersToAddressQuery = <
+	TData = GetTransfersToAddressQuery,
+	TError = unknown
+>(
+	client: GraphQLClient,
+	variables?: GetTransfersToAddressQueryVariables,
+	options?: UseQueryOptions<GetTransfersToAddressQuery, TError, TData>,
+	headers?: RequestInit["headers"]
+) =>
+	useQuery<GetTransfersToAddressQuery, TError, TData>(
+		variables === undefined
+			? ["GetTransfersToAddress"]
+			: ["GetTransfersToAddress", variables],
+		fetcher<GetTransfersToAddressQuery, GetTransfersToAddressQueryVariables>(
+			client,
+			GetTransfersToAddressDocument,
 			variables,
 			headers
 		),

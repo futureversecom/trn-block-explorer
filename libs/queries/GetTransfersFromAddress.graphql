@@ -1,0 +1,46 @@
+query GetTransfersFromAddress($address: ID) {
+	tokens {
+		ftTransfers(
+			where: { from: { id_eq: $address } }
+			limit: 5
+			orderBy: blockNumber_DESC
+		) {
+			amount
+			blockNumber
+			timestamp
+			transferType
+			txnHash
+			from {
+				id
+			}
+			to {
+				id
+			}
+			token {
+				decimals
+				symbol
+			}
+		}
+		nftTransfers(
+			where: { from: { id_eq: $address } }
+			limit: 5
+			orderBy: blockNumber_DESC
+		) {
+			amount
+			blockNumber
+			timestamp
+			transferType
+			txnHash
+			from {
+				id
+			}
+			to {
+				id
+			}
+			token {
+				symbol
+				uri
+			}
+		}
+	}
+}

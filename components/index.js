@@ -1,7 +1,8 @@
 export { default as BalanceForAddress } from "./balanceForAddress";
 export { default as BlocksWidget } from "./blocksWidget";
 export { default as ChaindataWidget } from "./chaindataWidget";
-export { default as EVMTransactionsForAddress } from "./evmTransactionsForAddressTable";
+export { default as EVMTransactionsForAddress } from "./evmTransactionsForAddress";
+export { default as TransfersForAddress } from "./transfersForAddress";
 export { default as Footer } from "./footer";
 export { default as Header } from "./header";
 export { default as LoadingBlock } from "./loadingBlock";
@@ -12,3 +13,4 @@ export { default as TransfersWidget } from "./transfersWidget";
 export { default as ContainerLayout } from "./containerLayout";
 export * from "./detailsLayout";
 export * from "./tableLayout";
+export * from "./addressLink";
