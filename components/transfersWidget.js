@@ -71,7 +71,7 @@ const TransferItem = ({
 			<div className="flex flex-row justify-between">
 				<div className="text-sm font-bold">
 					Extrinsic#{" "}
-					{id ? (
+					{id?.formatted ? (
 						<Link href={`/extrinsic/${id.raw}`}>
 							<span className="cursor-pointer text-lg text-indigo-500">
 								{id.formatted}

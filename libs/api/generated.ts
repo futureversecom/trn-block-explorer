@@ -7572,6 +7572,7 @@ export type GetTransfersQuery = {
 
 export type GetTransfersFromAddressQueryVariables = Exact<{
 	address?: InputMaybe<Scalars["ID"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
 }>;
 
 export type GetTransfersFromAddressQuery = {
@@ -7608,11 +7609,20 @@ export type GetTransfersFromAddressQuery = {
 				uri?: string | null;
 			};
 		}>;
+		ftTransfersConnection: {
+			__typename?: "tokens_FtTransfersConnection";
+			totalCount: number;
+		};
+		nftTransfersConnection: {
+			__typename?: "tokens_NftTransfersConnection";
+			totalCount: number;
+		};
 	} | null;
 };
 
 export type GetTransfersToAddressQueryVariables = Exact<{
 	address?: InputMaybe<Scalars["ID"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
 }>;
 
 export type GetTransfersToAddressQuery = {
@@ -7649,6 +7659,14 @@ export type GetTransfersToAddressQuery = {
 				uri?: string | null;
 			};
 		}>;
+		ftTransfersConnection: {
+			__typename?: "tokens_FtTransfersConnection";
+			totalCount: number;
+		};
+		nftTransfersConnection: {
+			__typename?: "tokens_NftTransfersConnection";
+			totalCount: number;
+		};
 	} | null;
 };
 
@@ -8141,12 +8159,13 @@ export const useGetTransfersQuery = <
 		options
 	);
 export const GetTransfersFromAddressDocument = `
-    query GetTransfersFromAddress($address: ID) {
+    query GetTransfersFromAddress($address: ID, $offset: Int) {
   tokens {
     ftTransfers(
-      where: {from: {id_eq: $address}}
       limit: 5
+      offset: $offset
       orderBy: blockNumber_DESC
+      where: {from: {id_eq: $address}}
     ) {
       amount
       blockNumber
@@ -8165,9 +8184,10 @@ export const GetTransfersFromAddressDocument = `
       }
     }
     nftTransfers(
-      where: {from: {id_eq: $address}}
       limit: 5
+      offset: $offset
       orderBy: blockNumber_DESC
+      where: {from: {id_eq: $address}}
     ) {
       amount
       blockNumber
@@ -8184,6 +8204,18 @@ export const GetTransfersFromAddressDocument = `
         symbol
         uri
       }
+    }
+    ftTransfersConnection(
+      orderBy: blockNumber_DESC
+      where: {from: {id_eq: $address}}
+    ) {
+      totalCount
+    }
+    nftTransfersConnection(
+      orderBy: blockNumber_DESC
+      where: {from: {id_eq: $address}}
+    ) {
+      totalCount
     }
   }
 }
@@ -8208,9 +8240,14 @@ export const useGetTransfersFromAddressQuery = <
 		options
 	);
 export const GetTransfersToAddressDocument = `
-    query GetTransfersToAddress($address: ID) {
+    query GetTransfersToAddress($address: ID, $offset: Int) {
   tokens {
-    ftTransfers(where: {to: {id_eq: $address}}, limit: 5, orderBy: blockNumber_DESC) {
+    ftTransfers(
+      limit: 5
+      offset: $offset
+      orderBy: blockNumber_DESC
+      where: {to: {id_eq: $address}}
+    ) {
       amount
       blockNumber
       timestamp
@@ -8228,9 +8265,10 @@ export const GetTransfersToAddressDocument = `
       }
     }
     nftTransfers(
-      where: {to: {id_eq: $address}}
       limit: 5
+      offset: $offset
       orderBy: blockNumber_DESC
+      where: {to: {id_eq: $address}}
     ) {
       amount
       blockNumber
@@ -8247,6 +8285,15 @@ export const GetTransfersToAddressDocument = `
         symbol
         uri
       }
+    }
+    ftTransfersConnection(orderBy: blockNumber_DESC, where: {to: {id_eq: $address}}) {
+      totalCount
+    }
+    nftTransfersConnection(
+      orderBy: blockNumber_DESC
+      where: {to: {id_eq: $address}}
+    ) {
+      totalCount
     }
   }
 }

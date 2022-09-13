@@ -1,9 +1,10 @@
-query GetTransfersToAddress($address: ID) {
+query GetTransfersToAddress($address: ID, $offset: Int) {
 	tokens {
 		ftTransfers(
-			where: { to: { id_eq: $address } }
 			limit: 5
+			offset: $offset
 			orderBy: blockNumber_DESC
+			where: { to: { id_eq: $address } }
 		) {
 			amount
 			blockNumber
@@ -22,9 +23,10 @@ query GetTransfersToAddress($address: ID) {
 			}
 		}
 		nftTransfers(
-			where: { to: { id_eq: $address } }
 			limit: 5
+			offset: $offset
 			orderBy: blockNumber_DESC
+			where: { to: { id_eq: $address } }
 		) {
 			amount
 			blockNumber
@@ -41,6 +43,18 @@ query GetTransfersToAddress($address: ID) {
 				symbol
 				uri
 			}
+		}
+		ftTransfersConnection(
+			orderBy: blockNumber_DESC
+			where: { to: { id_eq: $address } }
+		) {
+			totalCount
+		}
+		nftTransfersConnection(
+			orderBy: blockNumber_DESC
+			where: { to: { id_eq: $address } }
+		) {
+			totalCount
 		}
 	}
 }

@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import Link from "next/link";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import {
 	useGetTransfersFromAddressQuery,
 	useGetTransfersToAddressQuery,
@@ -8,11 +8,18 @@ import {
 import TimeAgo from "react-timeago";
 import { utils as ethers } from "ethers";
 import { usePolling } from "@/libs/hooks";
-import { useAccountRefetchStatus } from "@/libs/stores";
-import { LoadingBlock, TableLayout, AddressLink } from "@/components";
+import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
+import {
+	LoadingBlock,
+	TableLayout,
+	AddressLink,
+	Pagination,
+} from "@/components";
 
 export default function TransfersForAddress({ walletAddress }) {
-	const query = useTransfers(walletAddress);
+	const { pages, currentPage } = usePagination("ercTransfers");
+
+	const query = useTransfers(walletAddress, (currentPage - 1) * 5);
 	useAccountRefetchStatus("ercTransfers", query.isRefetching);
 
 	return (
@@ -108,6 +115,8 @@ export default function TransfersForAddress({ walletAddress }) {
 					)}
 				</div>
 			)}
+
+			{pages?.length > 1 && <Pagination table="ercTransfers" />}
 		</div>
 	);
 }
@@ -128,7 +137,7 @@ const Token = ({ tokenUri, children }) => {
 	return <span>{children}</span>;
 };
 
-const useTransfers = (address) => {
+const useTransfers = (address, offset) => {
 	const {
 		data: toData,
 		isError: isToError,
@@ -137,6 +146,7 @@ const useTransfers = (address) => {
 		{},
 		useGetTransfersToAddressQuery,
 		{
+			offset,
 			address,
 		},
 		12000
@@ -150,10 +160,13 @@ const useTransfers = (address) => {
 		{},
 		useGetTransfersFromAddressQuery,
 		{
+			offset,
 			address,
 		},
 		12000
 	);
+
+	usePages(toData, fromData);
 
 	const toTransfers = useFormatTransfers(toData);
 	const fromTransfers = useFormatTransfers(fromData);
@@ -174,6 +187,36 @@ const useTransfers = (address) => {
 		isError: isToError || isFromError,
 		isLoading: isToLoading || isFromLoading,
 	};
+};
+
+const usePages = (toData, fromData) => {
+	const { setPages } = usePagination("ercTransfers");
+
+	const getCount = (data) => {
+		return (
+			data?.tokens?.ftTransfersConnection?.totalCount +
+			data?.tokens?.nftTransfersConnection?.totalCount
+		);
+	};
+
+	const toCount = useMemo(() => {
+		if (!toData) return;
+
+		return getCount(toData);
+	}, [toData]);
+
+	const fromCount = useMemo(() => {
+		if (!fromData) return;
+
+		return getCount(fromData);
+	}, [fromData]);
+
+	useEffect(() => {
+		if (!toCount || !fromCount) return;
+
+		setPages(Array.from(Array(Math.floor((toCount + fromCount) / 5))));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [toCount, fromCount]);
 };
 
 const useFormatTransfers = (data) =>

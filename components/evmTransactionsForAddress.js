@@ -112,21 +112,22 @@ export default function EVMTransactionsForAddress({ walletAddress }) {
 				</div>
 			)}
 
-			{pages && <Pagination table="evmTransactions" />}
+			{pages?.length > 1 && <Pagination table="evmTransactions" />}
 		</div>
 	);
 }
 
 const usePages = (data) => {
-	const { pages, setPages } = usePagination("evmTransactions");
+	const { setPages } = usePagination("evmTransactions");
 
 	useEffect(() => {
-		if (!data?.evm?.transactionsConnection || pages) return;
+		if (!data?.evm?.transactionsConnection) return;
 
 		setPages(
 			Array.from(
 				Array(Math.floor(data?.evm?.transactionsConnection?.totalCount / 10))
 			)
 		);
-	}, [pages, setPages, data]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [data?.evm?.transactionsConnection]);
 };
