@@ -104,9 +104,7 @@ export default function TransfersForAddress({ walletAddress }) {
 							</tbody>
 						</TableLayout.Table>
 					) : (
-						<div className="py-2 text-center">
-							😥 No ERC Transfers
-						</div>
+						<div className="py-2 text-center">😥 No ERC Transfers</div>
 					)}
 				</div>
 			)}

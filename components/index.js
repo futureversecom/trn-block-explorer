@@ -15,3 +15,4 @@ export * from "./detailsLayout";
 export * from "./tableLayout";
 export * from "./addressLink";
 export * from "./accountTables";
+export * from "./pagination";

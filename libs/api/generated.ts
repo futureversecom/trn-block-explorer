@@ -7429,12 +7429,17 @@ export type GetChainDataQuery = {
 
 export type GetEvmTransactionsForAddressQueryVariables = Exact<{
 	address: Scalars["String"];
+	offset?: InputMaybe<Scalars["Int"]>;
 }>;
 
 export type GetEvmTransactionsForAddressQuery = {
 	__typename?: "query_root";
 	evm?: {
 		__typename?: "evmQuery";
+		transactionsConnection: {
+			__typename?: "evm_TransactionsConnection";
+			totalCount: number;
+		};
 		transactions: Array<{
 			__typename?: "evm_Transaction";
 			id: string;
@@ -7896,12 +7901,19 @@ export const useGetChainDataQuery = <
 		options
 	);
 export const GetEvmTransactionsForAddressDocument = `
-    query GetEVMTransactionsForAddress($address: String!) {
+    query GetEVMTransactionsForAddress($address: String!, $offset: Int) {
   evm {
+    transactionsConnection(
+      orderBy: block_DESC
+      where: {OR: {from_eq: $address}, to_eq: $address}
+    ) {
+      totalCount
+    }
     transactions(
       orderBy: block_DESC
       limit: 10
       where: {OR: {from_eq: $address}, to_eq: $address}
+      offset: $offset
     ) {
       id
       type
