@@ -13,12 +13,14 @@ export default function ChaindataWidget() {
 	const query = usePolling({}, useGetChainDataQuery);
 
 	const chainData = useMemo(() => {
-		const currentChainState = query?.data?.balances?.currentChainState;
+		if (!query?.data?.balances?.chain_state) return;
+
+		const [chainState] = query?.data?.balances?.chain_state;
 
 		return {
-			blocks: currentChainState?.blockNumber,
-			holders: currentChainState?.tokenHolders,
-			transfers: query?.data?.transfers?.transfersConnection?.totalCount,
+			blocks: chainState?.block_number,
+			holders: chainState?.token_holders,
+			transfers: query?.data?.transfer_aggregate?.aggregate?.count,
 		};
 	}, [query?.data]);
 

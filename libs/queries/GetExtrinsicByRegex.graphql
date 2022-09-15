@@ -1,4 +1,4 @@
-query GetExtrinsicByRegex($regex: archive_bpchar!) {
+query GetExtrinsicByRegex($regex: bpchar!) {
 	archive {
 		extrinsic(where: { id: { _regex: $regex } }) {
 			id

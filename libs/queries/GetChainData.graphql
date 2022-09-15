@@ -1,13 +1,13 @@
 query GetChainData {
 	balances {
-		currentChainState {
-			blockNumber
-			tokenHolders
+		chain_state(order_by: { block_number: desc }, limit: 1) {
+			block_number
+			token_holders
 		}
-	}
-	transfers {
-		transfersConnection(orderBy: blockNumber_DESC) {
-			totalCount
+		transfer_aggregate {
+			aggregate {
+				count
+			}
 		}
 	}
 }

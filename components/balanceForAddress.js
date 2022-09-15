@@ -16,7 +16,7 @@ export default function BalanceForAddress({ walletAddress }) {
 		12000
 	);
 
-	const balance = query?.data?.balances?.accounts[0];
+	const balance = query?.data?.balances?.account_by_pk;
 
 	return (
 		<div>
@@ -68,7 +68,7 @@ export default function BalanceForAddress({ walletAddress }) {
 											Total
 										</div>
 										<div className="text-sm font-medium text-gray-900">
-											{ethers.utils.formatEther(balance?.total || "0")} Root
+											{ethers.utils.formatUnits(balance?.total || "0", 6)} XRP
 										</div>
 									</div>
 									<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
@@ -76,7 +76,7 @@ export default function BalanceForAddress({ walletAddress }) {
 											Reserved
 										</div>
 										<div className="text-sm font-medium text-gray-900">
-											{ethers.utils.formatEther(balance?.reserved || "0")} Root
+											{ethers.utils.formatUnits(balance?.reserved || "0", 6)} XRP
 										</div>
 									</div>
 									<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
@@ -84,7 +84,7 @@ export default function BalanceForAddress({ walletAddress }) {
 											Free
 										</div>
 										<div className="text-sm font-medium text-gray-900">
-											{ethers.utils.formatEther(balance?.free || "0")} Root
+											{ethers.utils.formatUnits(balance?.free || "0", 6)} XRP
 										</div>
 									</div>
 									<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">

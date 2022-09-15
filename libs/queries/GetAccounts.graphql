@@ -1,11 +1,11 @@
 query GetAccounts($limit: Int!) {
 	balances {
-		accounts(orderBy: total_DESC, limit: $limit) {
+		account(limit: $limit, order_by: { total: desc }) {
 			free
 			id
 			reserved
 			total
-			updatedAt
+			updated_at
 		}
 	}
 }

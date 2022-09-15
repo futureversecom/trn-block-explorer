@@ -1,4 +1,4 @@
-query GetExtrinsic($extrinsicId: archive_bpchar!) {
+query GetExtrinsic($extrinsicId: bpchar!) {
 	archive {
 		extrinsic_by_pk(id: $extrinsicId) {
 			id

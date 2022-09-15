@@ -15,7 +15,7 @@ export default function Accounts() {
 	let query = usePolling({}, useGetAccountsQuery, {
 		limit: 20,
 	});
-	query.data = query?.data?.balances?.accounts;
+	query.data = query?.data?.balances?.account;
 
 	return (
 		<ContainerLayout>
@@ -57,15 +57,15 @@ export default function Accounts() {
 												</TableLayout.Data>
 
 												<TableLayout.Data>
-													{ethers.utils.formatEther(account.free)} Root
+													{ethers.utils.formatEther(account.free)} XRP
 												</TableLayout.Data>
 
 												<TableLayout.Data>
-													{ethers.utils.formatEther(account.reserved)} Root
+													{ethers.utils.formatEther(account.reserved)} XRP
 												</TableLayout.Data>
 
 												<TableLayout.Data>
-													{ethers.utils.formatEther(account.total)} Root
+													{ethers.utils.formatEther(account.total)} XRP
 												</TableLayout.Data>
 											</tr>
 										))}
