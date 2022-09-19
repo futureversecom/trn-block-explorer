@@ -76,7 +76,8 @@ export default function BalanceForAddress({ walletAddress }) {
 											Reserved
 										</div>
 										<div className="text-sm font-medium text-gray-900">
-											{ethers.utils.formatUnits(balance?.reserved || "0", 6)} XRP
+											{ethers.utils.formatUnits(balance?.reserved || "0", 6)}{" "}
+											XRP
 										</div>
 									</div>
 									<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
