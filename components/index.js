@@ -10,6 +10,7 @@ export { default as PageHeader } from "./pageHeader";
 export { default as RefetchIndicator } from "./refetchIndicator";
 export { default as Search } from "./search";
 export { default as TransfersWidget } from "./transfersWidget";
+export { default as ExtrinsicsWidget } from "./extrinsicsWidget";
 export { default as ContainerLayout } from "./containerLayout";
 export * from "./detailsLayout";
 export * from "./tableLayout";
