@@ -16,7 +16,7 @@ export default function BlocksWidget() {
 	return (
 		<div>
 			<div className="flex flex-row justify-between py-3">
-				<div className="flex">
+				<div className="flex items-center">
 					<CubeIcon className="my-auto h-5 pr-3" />
 					<h3 className="text-md font-medium leading-6 text-gray-900">
 						Blocks
