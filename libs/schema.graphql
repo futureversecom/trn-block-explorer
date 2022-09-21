@@ -8399,1306 +8399,7399 @@ input bpchar_comparison_exp {
 	_similar: bpchar
 }
 
-type ercQuery {
-	accountById(id: ID!): erc_Account
-	accountByUniqueInput(where: erc_AccountWhereUniqueInput!): erc_Account
-	accountFTokenBalanceById(id: ID!): erc_AccountFTokenBalance
-	accountFTokenBalanceByUniqueInput(
-		where: erc_AccountFTokenBalanceWhereUniqueInput!
-	): erc_AccountFTokenBalance
-	accountFTokenBalances(
+"""
+columns and relationships of "squid_erc.account"
+"""
+type erc_account {
+	"""
+	An array relationship
+	"""
+	account_f_token_balances(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_account_f_token_balance_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
 		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
 		offset: Int
-		orderBy: [erc_AccountFTokenBalanceOrderByInput]
-		where: erc_AccountFTokenBalanceWhereInput
-	): [erc_AccountFTokenBalance!]!
-	accountFTokenBalancesConnection(
-		after: String
-		first: Int
-		orderBy: [erc_AccountFTokenBalanceOrderByInput!]!
-		where: erc_AccountFTokenBalanceWhereInput
-	): erc_AccountFTokenBalancesConnection!
-	accountFtTransferById(id: ID!): erc_AccountFtTransfer
-	accountFtTransferByUniqueInput(
-		where: erc_AccountFtTransferWhereUniqueInput!
-	): erc_AccountFtTransfer
-	accountFtTransfers(
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_account_f_token_balance_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_f_token_balance_bool_exp
+	): [erc_account_f_token_balance!]!
+
+	"""
+	An aggregate relationship
+	"""
+	account_f_token_balances_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_account_f_token_balance_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
 		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
 		offset: Int
-		orderBy: [erc_AccountFtTransferOrderByInput]
-		where: erc_AccountFtTransferWhereInput
-	): [erc_AccountFtTransfer!]!
-	accountFtTransfersConnection(
-		after: String
-		first: Int
-		orderBy: [erc_AccountFtTransferOrderByInput!]!
-		where: erc_AccountFtTransferWhereInput
-	): erc_AccountFtTransfersConnection!
-	accountNftTransferById(id: ID!): erc_AccountNftTransfer
-	accountNftTransferByUniqueInput(
-		where: erc_AccountNftTransferWhereUniqueInput!
-	): erc_AccountNftTransfer
-	accountNftTransfers(
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_account_f_token_balance_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_f_token_balance_bool_exp
+	): erc_account_f_token_balance_aggregate!
+
+	"""
+	An array relationship
+	"""
+	account_ft_transfers(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_account_ft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
 		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
 		offset: Int
-		orderBy: [erc_AccountNftTransferOrderByInput]
-		where: erc_AccountNftTransferWhereInput
-	): [erc_AccountNftTransfer!]!
-	accountNftTransfersConnection(
-		after: String
-		first: Int
-		orderBy: [erc_AccountNftTransferOrderByInput!]!
-		where: erc_AccountNftTransferWhereInput
-	): erc_AccountNftTransfersConnection!
-	accounts(
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_account_ft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_ft_transfer_bool_exp
+	): [erc_account_ft_transfer!]!
+
+	"""
+	An aggregate relationship
+	"""
+	account_ft_transfers_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_account_ft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
 		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
 		offset: Int
-		orderBy: [erc_AccountOrderByInput]
-		where: erc_AccountWhereInput
-	): [erc_Account!]!
-	accountsConnection(
-		after: String
-		first: Int
-		orderBy: [erc_AccountOrderByInput!]!
-		where: erc_AccountWhereInput
-	): erc_AccountsConnection!
-	collectionById(id: ID!): erc_Collection
-	collectionByUniqueInput(
-		where: erc_CollectionWhereUniqueInput!
-	): erc_Collection
-	collections(
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_account_ft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_ft_transfer_bool_exp
+	): erc_account_ft_transfer_aggregate!
+
+	"""
+	An array relationship
+	"""
+	account_nft_transfers(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_account_nft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
 		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
 		offset: Int
-		orderBy: [erc_CollectionOrderByInput]
-		where: erc_CollectionWhereInput
-	): [erc_Collection!]!
-	collectionsConnection(
-		after: String
-		first: Int
-		orderBy: [erc_CollectionOrderByInput!]!
-		where: erc_CollectionWhereInput
-	): erc_CollectionsConnection!
-	fTokenById(id: ID!): erc_FToken
-	fTokenByUniqueInput(where: erc_FTokenWhereUniqueInput!): erc_FToken
-	fTokens(
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_account_nft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_nft_transfer_bool_exp
+	): [erc_account_nft_transfer!]!
+
+	"""
+	An aggregate relationship
+	"""
+	account_nft_transfers_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_account_nft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
 		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
 		offset: Int
-		orderBy: [erc_FTokenOrderByInput]
-		where: erc_FTokenWhereInput
-	): [erc_FToken!]!
-	fTokensConnection(
-		after: String
-		first: Int
-		orderBy: [erc_FTokenOrderByInput!]!
-		where: erc_FTokenWhereInput
-	): erc_FTokensConnection!
-	ftTransferById(id: ID!): erc_FtTransfer
-	ftTransferByUniqueInput(
-		where: erc_FtTransferWhereUniqueInput!
-	): erc_FtTransfer
-	ftTransfers(
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_account_nft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_nft_transfer_bool_exp
+	): erc_account_nft_transfer_aggregate!
+
+	"""
+	An array relationship
+	"""
+	ftTransfersByToId(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_ft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
 		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
 		offset: Int
-		orderBy: [erc_FtTransferOrderByInput]
-		where: erc_FtTransferWhereInput
-	): [erc_FtTransfer!]!
-	ftTransfersConnection(
-		after: String
-		first: Int
-		orderBy: [erc_FtTransferOrderByInput!]!
-		where: erc_FtTransferWhereInput
-	): erc_FtTransfersConnection!
-	nfTokenById(id: ID!): erc_NfToken
-	nfTokenByUniqueInput(where: erc_NfTokenWhereUniqueInput!): erc_NfToken
-	nfTokens(
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_ft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_ft_transfer_bool_exp
+	): [erc_ft_transfer!]!
+
+	"""
+	An aggregate relationship
+	"""
+	ftTransfersByToId_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_ft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
 		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
 		offset: Int
-		orderBy: [erc_NfTokenOrderByInput]
-		where: erc_NfTokenWhereInput
-	): [erc_NfToken!]!
-	nfTokensConnection(
-		after: String
-		first: Int
-		orderBy: [erc_NfTokenOrderByInput!]!
-		where: erc_NfTokenWhereInput
-	): erc_NfTokensConnection!
-	nftTransferById(id: ID!): erc_NftTransfer
-	nftTransferByUniqueInput(
-		where: erc_NftTransferWhereUniqueInput!
-	): erc_NftTransfer
-	nftTransfers(
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_ft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_ft_transfer_bool_exp
+	): erc_ft_transfer_aggregate!
+
+	"""
+	An array relationship
+	"""
+	ft_transfers(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_ft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
 		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
 		offset: Int
-		orderBy: [erc_NftTransferOrderByInput]
-		where: erc_NftTransferWhereInput
-	): [erc_NftTransfer!]!
-	nftTransfersConnection(
-		after: String
-		first: Int
-		orderBy: [erc_NftTransferOrderByInput!]!
-		where: erc_NftTransferWhereInput
-	): erc_NftTransfersConnection!
-	uriUpdateActionById(id: ID!): erc_UriUpdateAction
-	uriUpdateActionByUniqueInput(
-		where: erc_UriUpdateActionWhereUniqueInput!
-	): erc_UriUpdateAction
-	uriUpdateActions(
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_ft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_ft_transfer_bool_exp
+	): [erc_ft_transfer!]!
+
+	"""
+	An aggregate relationship
+	"""
+	ft_transfers_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_ft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
 		limit: Int
-		offset: Int
-		orderBy: [erc_UriUpdateActionOrderByInput]
-		where: erc_UriUpdateActionWhereInput
-	): [erc_UriUpdateAction!]!
-	uriUpdateActionsConnection(
-		after: String
-		first: Int
-		orderBy: [erc_UriUpdateActionOrderByInput!]!
-		where: erc_UriUpdateActionWhereInput
-	): erc_UriUpdateActionsConnection!
-}
 
-type erc_Account {
-	balancesFToken(
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_ft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_ft_transfer_bool_exp
+	): erc_ft_transfer_aggregate!
+	id: String!
+
+	"""
+	An array relationship
+	"""
+	nf_tokens(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_nf_token_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
 		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
 		offset: Int
-		orderBy: [erc_AccountFTokenBalanceOrderByInput]
-		where: erc_AccountFTokenBalanceWhereInput
-	): [erc_AccountFTokenBalance!]!
-	ftTransfers(
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_nf_token_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_nf_token_bool_exp
+	): [erc_nf_token!]!
+
+	"""
+	An aggregate relationship
+	"""
+	nf_tokens_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_nf_token_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
 		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
 		offset: Int
-		orderBy: [erc_AccountFtTransferOrderByInput]
-		where: erc_AccountFtTransferWhereInput
-	): [erc_AccountFtTransfer!]!
-	id: ID!
-	nftTransfers(
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_nf_token_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_nf_token_bool_exp
+	): erc_nf_token_aggregate!
+
+	"""
+	An array relationship
+	"""
+	nftTransfersByFromId(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_nft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
 		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
 		offset: Int
-		orderBy: [erc_AccountNftTransferOrderByInput]
-		where: erc_AccountNftTransferWhereInput
-	): [erc_AccountNftTransfer!]!
-	ownedTokens(
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_nft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_nft_transfer_bool_exp
+	): [erc_nft_transfer!]!
+
+	"""
+	An aggregate relationship
+	"""
+	nftTransfersByFromId_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_nft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
 		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
 		offset: Int
-		orderBy: [erc_NfTokenOrderByInput]
-		where: erc_NfTokenWhereInput
-	): [erc_NfToken!]!
-}
 
-type erc_AccountEdge {
-	cursor: String!
-	node: erc_Account!
-}
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_nft_transfer_order_by!]
 
-type erc_AccountFTokenBalance {
-	account: erc_Account!
-	amount: erc_BigInt!
-	id: ID!
-	token: erc_FToken!
-	updatedAt: erc_DateTime!
-	updatedAtBlock: erc_BigInt!
-}
+		"""
+		filter the rows returned
+		"""
+		where: erc_nft_transfer_bool_exp
+	): erc_nft_transfer_aggregate!
 
-type erc_AccountFTokenBalanceEdge {
-	cursor: String!
-	node: erc_AccountFTokenBalance!
-}
+	"""
+	An array relationship
+	"""
+	nftTransfersByToId(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_nft_transfer_select_column!]
 
-enum erc_AccountFTokenBalanceOrderByInput {
-	account_id_ASC
-	account_id_DESC
-	amount_ASC
-	amount_DESC
-	id_ASC
-	id_DESC
-	token_decimals_ASC
-	token_decimals_DESC
-	token_id_ASC
-	token_id_DESC
-	token_name_ASC
-	token_name_DESC
-	token_symbol_ASC
-	token_symbol_DESC
-	updatedAtBlock_ASC
-	updatedAtBlock_DESC
-	updatedAt_ASC
-	updatedAt_DESC
-}
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
 
-input erc_AccountFTokenBalanceWhereInput {
-	AND: [erc_AccountFTokenBalanceWhereInput!]
-	OR: [erc_AccountFTokenBalanceWhereInput!]
-	account: erc_AccountWhereInput
-	amount_eq: erc_BigInt
-	amount_gt: erc_BigInt
-	amount_gte: erc_BigInt
-	amount_in: [erc_BigInt!]
-	amount_lt: erc_BigInt
-	amount_lte: erc_BigInt
-	amount_not_eq: erc_BigInt
-	amount_not_in: [erc_BigInt!]
-	id_contains: ID
-	id_containsInsensitive: ID
-	id_endsWith: ID
-	id_eq: ID
-	id_gt: ID
-	id_gte: ID
-	id_in: [ID!]
-	id_lt: ID
-	id_lte: ID
-	id_not_contains: ID
-	id_not_containsInsensitive: ID
-	id_not_endsWith: ID
-	id_not_eq: ID
-	id_not_in: [ID!]
-	id_not_startsWith: ID
-	id_startsWith: ID
-	token: erc_FTokenWhereInput
-	updatedAtBlock_eq: erc_BigInt
-	updatedAtBlock_gt: erc_BigInt
-	updatedAtBlock_gte: erc_BigInt
-	updatedAtBlock_in: [erc_BigInt!]
-	updatedAtBlock_lt: erc_BigInt
-	updatedAtBlock_lte: erc_BigInt
-	updatedAtBlock_not_eq: erc_BigInt
-	updatedAtBlock_not_in: [erc_BigInt!]
-	updatedAt_eq: erc_DateTime
-	updatedAt_gt: erc_DateTime
-	updatedAt_gte: erc_DateTime
-	updatedAt_in: [erc_DateTime!]
-	updatedAt_lt: erc_DateTime
-	updatedAt_lte: erc_DateTime
-	updatedAt_not_eq: erc_DateTime
-	updatedAt_not_in: [erc_DateTime!]
-}
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
 
-input erc_AccountFTokenBalanceWhereUniqueInput {
-	id: ID!
-}
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_nft_transfer_order_by!]
 
-type erc_AccountFTokenBalancesConnection {
-	edges: [erc_AccountFTokenBalanceEdge!]!
-	pageInfo: erc_PageInfo!
-	totalCount: Int!
-}
+		"""
+		filter the rows returned
+		"""
+		where: erc_nft_transfer_bool_exp
+	): [erc_nft_transfer!]!
 
-type erc_AccountFtTransfer {
-	account: erc_Account!
-	direction: erc_TransferDirection
-	id: ID!
-	transfer: erc_FtTransfer
-}
+	"""
+	An aggregate relationship
+	"""
+	nftTransfersByToId_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_nft_transfer_select_column!]
 
-type erc_AccountFtTransferEdge {
-	cursor: String!
-	node: erc_AccountFtTransfer!
-}
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
 
-enum erc_AccountFtTransferOrderByInput {
-	account_id_ASC
-	account_id_DESC
-	direction_ASC
-	direction_DESC
-	id_ASC
-	id_DESC
-	transfer_amount_ASC
-	transfer_amount_DESC
-	transfer_blockNumber_ASC
-	transfer_blockNumber_DESC
-	transfer_eventIndex_ASC
-	transfer_eventIndex_DESC
-	transfer_id_ASC
-	transfer_id_DESC
-	transfer_timestamp_ASC
-	transfer_timestamp_DESC
-	transfer_transferType_ASC
-	transfer_transferType_DESC
-	transfer_txnHash_ASC
-	transfer_txnHash_DESC
-}
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
 
-input erc_AccountFtTransferWhereInput {
-	AND: [erc_AccountFtTransferWhereInput!]
-	OR: [erc_AccountFtTransferWhereInput!]
-	account: erc_AccountWhereInput
-	direction_eq: erc_TransferDirection
-	direction_in: [erc_TransferDirection!]
-	direction_isNull: Boolean
-	direction_not_eq: erc_TransferDirection
-	direction_not_in: [erc_TransferDirection!]
-	id_contains: ID
-	id_containsInsensitive: ID
-	id_endsWith: ID
-	id_eq: ID
-	id_gt: ID
-	id_gte: ID
-	id_in: [ID!]
-	id_lt: ID
-	id_lte: ID
-	id_not_contains: ID
-	id_not_containsInsensitive: ID
-	id_not_endsWith: ID
-	id_not_eq: ID
-	id_not_in: [ID!]
-	id_not_startsWith: ID
-	id_startsWith: ID
-	transfer: erc_FtTransferWhereInput
-	transfer_isNull: Boolean
-}
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_nft_transfer_order_by!]
 
-input erc_AccountFtTransferWhereUniqueInput {
-	id: ID!
-}
+		"""
+		filter the rows returned
+		"""
+		where: erc_nft_transfer_bool_exp
+	): erc_nft_transfer_aggregate!
 
-type erc_AccountFtTransfersConnection {
-	edges: [erc_AccountFtTransferEdge!]!
-	pageInfo: erc_PageInfo!
-	totalCount: Int!
-}
+	"""
+	An array relationship
+	"""
+	nft_transfers(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_nft_transfer_select_column!]
 
-type erc_AccountNftTransfer {
-	account: erc_Account!
-	direction: erc_TransferDirection
-	id: ID!
-	transfer: erc_NftTransfer
-}
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
 
-type erc_AccountNftTransferEdge {
-	cursor: String!
-	node: erc_AccountNftTransfer!
-}
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
 
-enum erc_AccountNftTransferOrderByInput {
-	account_id_ASC
-	account_id_DESC
-	direction_ASC
-	direction_DESC
-	id_ASC
-	id_DESC
-	transfer_amount_ASC
-	transfer_amount_DESC
-	transfer_blockNumber_ASC
-	transfer_blockNumber_DESC
-	transfer_eventIndex_ASC
-	transfer_eventIndex_DESC
-	transfer_id_ASC
-	transfer_id_DESC
-	transfer_isBatch_ASC
-	transfer_isBatch_DESC
-	transfer_timestamp_ASC
-	transfer_timestamp_DESC
-	transfer_transferType_ASC
-	transfer_transferType_DESC
-	transfer_txnHash_ASC
-	transfer_txnHash_DESC
-}
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_nft_transfer_order_by!]
 
-input erc_AccountNftTransferWhereInput {
-	AND: [erc_AccountNftTransferWhereInput!]
-	OR: [erc_AccountNftTransferWhereInput!]
-	account: erc_AccountWhereInput
-	direction_eq: erc_TransferDirection
-	direction_in: [erc_TransferDirection!]
-	direction_isNull: Boolean
-	direction_not_eq: erc_TransferDirection
-	direction_not_in: [erc_TransferDirection!]
-	id_contains: ID
-	id_containsInsensitive: ID
-	id_endsWith: ID
-	id_eq: ID
-	id_gt: ID
-	id_gte: ID
-	id_in: [ID!]
-	id_lt: ID
-	id_lte: ID
-	id_not_contains: ID
-	id_not_containsInsensitive: ID
-	id_not_endsWith: ID
-	id_not_eq: ID
-	id_not_in: [ID!]
-	id_not_startsWith: ID
-	id_startsWith: ID
-	transfer: erc_NftTransferWhereInput
-	transfer_isNull: Boolean
-}
+		"""
+		filter the rows returned
+		"""
+		where: erc_nft_transfer_bool_exp
+	): [erc_nft_transfer!]!
 
-input erc_AccountNftTransferWhereUniqueInput {
-	id: ID!
-}
+	"""
+	An aggregate relationship
+	"""
+	nft_transfers_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_nft_transfer_select_column!]
 
-type erc_AccountNftTransfersConnection {
-	edges: [erc_AccountNftTransferEdge!]!
-	pageInfo: erc_PageInfo!
-	totalCount: Int!
-}
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
 
-enum erc_AccountOrderByInput {
-	id_ASC
-	id_DESC
-}
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
 
-input erc_AccountWhereInput {
-	AND: [erc_AccountWhereInput!]
-	OR: [erc_AccountWhereInput!]
-	balancesFToken_every: erc_AccountFTokenBalanceWhereInput
-	balancesFToken_none: erc_AccountFTokenBalanceWhereInput
-	balancesFToken_some: erc_AccountFTokenBalanceWhereInput
-	ftTransfers_every: erc_AccountFtTransferWhereInput
-	ftTransfers_none: erc_AccountFtTransferWhereInput
-	ftTransfers_some: erc_AccountFtTransferWhereInput
-	id_contains: ID
-	id_containsInsensitive: ID
-	id_endsWith: ID
-	id_eq: ID
-	id_gt: ID
-	id_gte: ID
-	id_in: [ID!]
-	id_lt: ID
-	id_lte: ID
-	id_not_contains: ID
-	id_not_containsInsensitive: ID
-	id_not_endsWith: ID
-	id_not_eq: ID
-	id_not_in: [ID!]
-	id_not_startsWith: ID
-	id_startsWith: ID
-	nftTransfers_every: erc_AccountNftTransferWhereInput
-	nftTransfers_none: erc_AccountNftTransferWhereInput
-	nftTransfers_some: erc_AccountNftTransferWhereInput
-	ownedTokens_every: erc_NfTokenWhereInput
-	ownedTokens_none: erc_NfTokenWhereInput
-	ownedTokens_some: erc_NfTokenWhereInput
-}
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_nft_transfer_order_by!]
 
-input erc_AccountWhereUniqueInput {
-	id: ID!
-}
-
-type erc_AccountsConnection {
-	edges: [erc_AccountEdge!]!
-	pageInfo: erc_PageInfo!
-	totalCount: Int!
+		"""
+		filter the rows returned
+		"""
+		where: erc_nft_transfer_bool_exp
+	): erc_nft_transfer_aggregate!
 }
 
 """
-Big number integer
+aggregated selection of "squid_erc.account"
 """
-scalar erc_BigInt
+type erc_account_aggregate {
+	aggregate: erc_account_aggregate_fields
+	nodes: [erc_account!]!
+}
 
-type erc_Collection {
-	collectionType: erc_ContractStandard!
-	createdAt: erc_DateTime!
-	createdAtBlock: erc_BigInt!
-	id: ID!
-	nfts(
+"""
+aggregate fields of "squid_erc.account"
+"""
+type erc_account_aggregate_fields {
+	count(columns: [erc_account_select_column!], distinct: Boolean): Int!
+	max: erc_account_max_fields
+	min: erc_account_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "squid_erc.account". All fields are combined with a logical 'AND'.
+"""
+input erc_account_bool_exp {
+	_and: [erc_account_bool_exp!]
+	_not: erc_account_bool_exp
+	_or: [erc_account_bool_exp!]
+	account_f_token_balances: erc_account_f_token_balance_bool_exp
+	account_ft_transfers: erc_account_ft_transfer_bool_exp
+	account_nft_transfers: erc_account_nft_transfer_bool_exp
+	ftTransfersByToId: erc_ft_transfer_bool_exp
+	ft_transfers: erc_ft_transfer_bool_exp
+	id: String_comparison_exp
+	nf_tokens: erc_nf_token_bool_exp
+	nftTransfersByFromId: erc_nft_transfer_bool_exp
+	nftTransfersByToId: erc_nft_transfer_bool_exp
+	nft_transfers: erc_nft_transfer_bool_exp
+}
+
+"""
+unique or primary key constraints on table "squid_erc.account"
+"""
+enum erc_account_constraint {
+	"""
+	unique or primary key constraint on columns "id"
+	"""
+	PK_54115ee388cdb6d86bb4bf5b2ea
+}
+
+"""
+columns and relationships of "squid_erc.account_f_token_balance"
+"""
+type erc_account_f_token_balance {
+	"""
+	An object relationship
+	"""
+	account: erc_account!
+	account_id: String!
+	amount: numeric!
+
+	"""
+	An object relationship
+	"""
+	f_token: erc_f_token!
+	id: String!
+	token_id: String!
+	updated_at: timestamptz!
+	updated_at_block: numeric!
+}
+
+"""
+aggregated selection of "squid_erc.account_f_token_balance"
+"""
+type erc_account_f_token_balance_aggregate {
+	aggregate: erc_account_f_token_balance_aggregate_fields
+	nodes: [erc_account_f_token_balance!]!
+}
+
+"""
+aggregate fields of "squid_erc.account_f_token_balance"
+"""
+type erc_account_f_token_balance_aggregate_fields {
+	avg: erc_account_f_token_balance_avg_fields
+	count(
+		columns: [erc_account_f_token_balance_select_column!]
+		distinct: Boolean
+	): Int!
+	max: erc_account_f_token_balance_max_fields
+	min: erc_account_f_token_balance_min_fields
+	stddev: erc_account_f_token_balance_stddev_fields
+	stddev_pop: erc_account_f_token_balance_stddev_pop_fields
+	stddev_samp: erc_account_f_token_balance_stddev_samp_fields
+	sum: erc_account_f_token_balance_sum_fields
+	var_pop: erc_account_f_token_balance_var_pop_fields
+	var_samp: erc_account_f_token_balance_var_samp_fields
+	variance: erc_account_f_token_balance_variance_fields
+}
+
+"""
+order by aggregate values of table "squid_erc.account_f_token_balance"
+"""
+input erc_account_f_token_balance_aggregate_order_by {
+	avg: erc_account_f_token_balance_avg_order_by
+	count: order_by
+	max: erc_account_f_token_balance_max_order_by
+	min: erc_account_f_token_balance_min_order_by
+	stddev: erc_account_f_token_balance_stddev_order_by
+	stddev_pop: erc_account_f_token_balance_stddev_pop_order_by
+	stddev_samp: erc_account_f_token_balance_stddev_samp_order_by
+	sum: erc_account_f_token_balance_sum_order_by
+	var_pop: erc_account_f_token_balance_var_pop_order_by
+	var_samp: erc_account_f_token_balance_var_samp_order_by
+	variance: erc_account_f_token_balance_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "squid_erc.account_f_token_balance"
+"""
+input erc_account_f_token_balance_arr_rel_insert_input {
+	data: [erc_account_f_token_balance_insert_input!]!
+
+	"""
+	upsert condition
+	"""
+	on_conflict: erc_account_f_token_balance_on_conflict
+}
+
+"""
+aggregate avg on columns
+"""
+type erc_account_f_token_balance_avg_fields {
+	amount: Float
+	updated_at_block: Float
+}
+
+"""
+order by avg() on columns of table "squid_erc.account_f_token_balance"
+"""
+input erc_account_f_token_balance_avg_order_by {
+	amount: order_by
+	updated_at_block: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "squid_erc.account_f_token_balance". All fields are combined with a logical 'AND'.
+"""
+input erc_account_f_token_balance_bool_exp {
+	_and: [erc_account_f_token_balance_bool_exp!]
+	_not: erc_account_f_token_balance_bool_exp
+	_or: [erc_account_f_token_balance_bool_exp!]
+	account: erc_account_bool_exp
+	account_id: String_comparison_exp
+	amount: numeric_comparison_exp
+	f_token: erc_f_token_bool_exp
+	id: String_comparison_exp
+	token_id: String_comparison_exp
+	updated_at: timestamptz_comparison_exp
+	updated_at_block: numeric_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "squid_erc.account_f_token_balance"
+"""
+enum erc_account_f_token_balance_constraint {
+	"""
+	unique or primary key constraint on columns "id"
+	"""
+	PK_c5ff211ac7ea9f25010a8ceab68
+}
+
+"""
+input type for incrementing numeric columns in table "squid_erc.account_f_token_balance"
+"""
+input erc_account_f_token_balance_inc_input {
+	amount: numeric
+	updated_at_block: numeric
+}
+
+"""
+input type for inserting data into table "squid_erc.account_f_token_balance"
+"""
+input erc_account_f_token_balance_insert_input {
+	account: erc_account_obj_rel_insert_input
+	account_id: String
+	amount: numeric
+	f_token: erc_f_token_obj_rel_insert_input
+	id: String
+	token_id: String
+	updated_at: timestamptz
+	updated_at_block: numeric
+}
+
+"""
+aggregate max on columns
+"""
+type erc_account_f_token_balance_max_fields {
+	account_id: String
+	amount: numeric
+	id: String
+	token_id: String
+	updated_at: timestamptz
+	updated_at_block: numeric
+}
+
+"""
+order by max() on columns of table "squid_erc.account_f_token_balance"
+"""
+input erc_account_f_token_balance_max_order_by {
+	account_id: order_by
+	amount: order_by
+	id: order_by
+	token_id: order_by
+	updated_at: order_by
+	updated_at_block: order_by
+}
+
+"""
+aggregate min on columns
+"""
+type erc_account_f_token_balance_min_fields {
+	account_id: String
+	amount: numeric
+	id: String
+	token_id: String
+	updated_at: timestamptz
+	updated_at_block: numeric
+}
+
+"""
+order by min() on columns of table "squid_erc.account_f_token_balance"
+"""
+input erc_account_f_token_balance_min_order_by {
+	account_id: order_by
+	amount: order_by
+	id: order_by
+	token_id: order_by
+	updated_at: order_by
+	updated_at_block: order_by
+}
+
+"""
+response of any mutation on the table "squid_erc.account_f_token_balance"
+"""
+type erc_account_f_token_balance_mutation_response {
+	"""
+	number of rows affected by the mutation
+	"""
+	affected_rows: Int!
+
+	"""
+	data from the rows affected by the mutation
+	"""
+	returning: [erc_account_f_token_balance!]!
+}
+
+"""
+on_conflict condition type for table "squid_erc.account_f_token_balance"
+"""
+input erc_account_f_token_balance_on_conflict {
+	constraint: erc_account_f_token_balance_constraint!
+	update_columns: [erc_account_f_token_balance_update_column!]! = []
+	where: erc_account_f_token_balance_bool_exp
+}
+
+"""
+Ordering options when selecting data from "squid_erc.account_f_token_balance".
+"""
+input erc_account_f_token_balance_order_by {
+	account: erc_account_order_by
+	account_id: order_by
+	amount: order_by
+	f_token: erc_f_token_order_by
+	id: order_by
+	token_id: order_by
+	updated_at: order_by
+	updated_at_block: order_by
+}
+
+"""
+primary key columns input for table: account_f_token_balance
+"""
+input erc_account_f_token_balance_pk_columns_input {
+	id: String!
+}
+
+"""
+select columns of table "squid_erc.account_f_token_balance"
+"""
+enum erc_account_f_token_balance_select_column {
+	"""
+	column name
+	"""
+	account_id
+
+	"""
+	column name
+	"""
+	amount
+
+	"""
+	column name
+	"""
+	id
+
+	"""
+	column name
+	"""
+	token_id
+
+	"""
+	column name
+	"""
+	updated_at
+
+	"""
+	column name
+	"""
+	updated_at_block
+}
+
+"""
+input type for updating data in table "squid_erc.account_f_token_balance"
+"""
+input erc_account_f_token_balance_set_input {
+	account_id: String
+	amount: numeric
+	id: String
+	token_id: String
+	updated_at: timestamptz
+	updated_at_block: numeric
+}
+
+"""
+aggregate stddev on columns
+"""
+type erc_account_f_token_balance_stddev_fields {
+	amount: Float
+	updated_at_block: Float
+}
+
+"""
+order by stddev() on columns of table "squid_erc.account_f_token_balance"
+"""
+input erc_account_f_token_balance_stddev_order_by {
+	amount: order_by
+	updated_at_block: order_by
+}
+
+"""
+aggregate stddev_pop on columns
+"""
+type erc_account_f_token_balance_stddev_pop_fields {
+	amount: Float
+	updated_at_block: Float
+}
+
+"""
+order by stddev_pop() on columns of table "squid_erc.account_f_token_balance"
+"""
+input erc_account_f_token_balance_stddev_pop_order_by {
+	amount: order_by
+	updated_at_block: order_by
+}
+
+"""
+aggregate stddev_samp on columns
+"""
+type erc_account_f_token_balance_stddev_samp_fields {
+	amount: Float
+	updated_at_block: Float
+}
+
+"""
+order by stddev_samp() on columns of table "squid_erc.account_f_token_balance"
+"""
+input erc_account_f_token_balance_stddev_samp_order_by {
+	amount: order_by
+	updated_at_block: order_by
+}
+
+"""
+Streaming cursor of the table "account_f_token_balance"
+"""
+input erc_account_f_token_balance_stream_cursor_input {
+	"""
+	Stream column input with initial value
+	"""
+	initial_value: erc_account_f_token_balance_stream_cursor_value_input!
+
+	"""
+	cursor ordering
+	"""
+	ordering: erc_cursor_ordering
+}
+
+"""
+Initial value of the column from where the streaming should start
+"""
+input erc_account_f_token_balance_stream_cursor_value_input {
+	account_id: String
+	amount: numeric
+	id: String
+	token_id: String
+	updated_at: timestamptz
+	updated_at_block: numeric
+}
+
+"""
+aggregate sum on columns
+"""
+type erc_account_f_token_balance_sum_fields {
+	amount: numeric
+	updated_at_block: numeric
+}
+
+"""
+order by sum() on columns of table "squid_erc.account_f_token_balance"
+"""
+input erc_account_f_token_balance_sum_order_by {
+	amount: order_by
+	updated_at_block: order_by
+}
+
+"""
+update columns of table "squid_erc.account_f_token_balance"
+"""
+enum erc_account_f_token_balance_update_column {
+	"""
+	column name
+	"""
+	account_id
+
+	"""
+	column name
+	"""
+	amount
+
+	"""
+	column name
+	"""
+	id
+
+	"""
+	column name
+	"""
+	token_id
+
+	"""
+	column name
+	"""
+	updated_at
+
+	"""
+	column name
+	"""
+	updated_at_block
+}
+
+input erc_account_f_token_balance_updates {
+	"""
+	increments the numeric columns with given value of the filtered values
+	"""
+	_inc: erc_account_f_token_balance_inc_input
+
+	"""
+	sets the columns of the filtered rows to the given values
+	"""
+	_set: erc_account_f_token_balance_set_input
+	where: erc_account_f_token_balance_bool_exp!
+}
+
+"""
+aggregate var_pop on columns
+"""
+type erc_account_f_token_balance_var_pop_fields {
+	amount: Float
+	updated_at_block: Float
+}
+
+"""
+order by var_pop() on columns of table "squid_erc.account_f_token_balance"
+"""
+input erc_account_f_token_balance_var_pop_order_by {
+	amount: order_by
+	updated_at_block: order_by
+}
+
+"""
+aggregate var_samp on columns
+"""
+type erc_account_f_token_balance_var_samp_fields {
+	amount: Float
+	updated_at_block: Float
+}
+
+"""
+order by var_samp() on columns of table "squid_erc.account_f_token_balance"
+"""
+input erc_account_f_token_balance_var_samp_order_by {
+	amount: order_by
+	updated_at_block: order_by
+}
+
+"""
+aggregate variance on columns
+"""
+type erc_account_f_token_balance_variance_fields {
+	amount: Float
+	updated_at_block: Float
+}
+
+"""
+order by variance() on columns of table "squid_erc.account_f_token_balance"
+"""
+input erc_account_f_token_balance_variance_order_by {
+	amount: order_by
+	updated_at_block: order_by
+}
+
+"""
+columns and relationships of "squid_erc.account_ft_transfer"
+"""
+type erc_account_ft_transfer {
+	"""
+	An object relationship
+	"""
+	account: erc_account!
+	account_id: String!
+	direction: String
+
+	"""
+	An object relationship
+	"""
+	ft_transfer: erc_ft_transfer
+	id: String!
+	transfer_id: String
+}
+
+"""
+aggregated selection of "squid_erc.account_ft_transfer"
+"""
+type erc_account_ft_transfer_aggregate {
+	aggregate: erc_account_ft_transfer_aggregate_fields
+	nodes: [erc_account_ft_transfer!]!
+}
+
+"""
+aggregate fields of "squid_erc.account_ft_transfer"
+"""
+type erc_account_ft_transfer_aggregate_fields {
+	count(
+		columns: [erc_account_ft_transfer_select_column!]
+		distinct: Boolean
+	): Int!
+	max: erc_account_ft_transfer_max_fields
+	min: erc_account_ft_transfer_min_fields
+}
+
+"""
+order by aggregate values of table "squid_erc.account_ft_transfer"
+"""
+input erc_account_ft_transfer_aggregate_order_by {
+	count: order_by
+	max: erc_account_ft_transfer_max_order_by
+	min: erc_account_ft_transfer_min_order_by
+}
+
+"""
+input type for inserting array relation for remote table "squid_erc.account_ft_transfer"
+"""
+input erc_account_ft_transfer_arr_rel_insert_input {
+	data: [erc_account_ft_transfer_insert_input!]!
+
+	"""
+	upsert condition
+	"""
+	on_conflict: erc_account_ft_transfer_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "squid_erc.account_ft_transfer". All fields are combined with a logical 'AND'.
+"""
+input erc_account_ft_transfer_bool_exp {
+	_and: [erc_account_ft_transfer_bool_exp!]
+	_not: erc_account_ft_transfer_bool_exp
+	_or: [erc_account_ft_transfer_bool_exp!]
+	account: erc_account_bool_exp
+	account_id: String_comparison_exp
+	direction: String_comparison_exp
+	ft_transfer: erc_ft_transfer_bool_exp
+	id: String_comparison_exp
+	transfer_id: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "squid_erc.account_ft_transfer"
+"""
+enum erc_account_ft_transfer_constraint {
+	"""
+	unique or primary key constraint on columns "id"
+	"""
+	PK_c806d331df157e95bfc5c97dc77
+}
+
+"""
+input type for inserting data into table "squid_erc.account_ft_transfer"
+"""
+input erc_account_ft_transfer_insert_input {
+	account: erc_account_obj_rel_insert_input
+	account_id: String
+	direction: String
+	ft_transfer: erc_ft_transfer_obj_rel_insert_input
+	id: String
+	transfer_id: String
+}
+
+"""
+aggregate max on columns
+"""
+type erc_account_ft_transfer_max_fields {
+	account_id: String
+	direction: String
+	id: String
+	transfer_id: String
+}
+
+"""
+order by max() on columns of table "squid_erc.account_ft_transfer"
+"""
+input erc_account_ft_transfer_max_order_by {
+	account_id: order_by
+	direction: order_by
+	id: order_by
+	transfer_id: order_by
+}
+
+"""
+aggregate min on columns
+"""
+type erc_account_ft_transfer_min_fields {
+	account_id: String
+	direction: String
+	id: String
+	transfer_id: String
+}
+
+"""
+order by min() on columns of table "squid_erc.account_ft_transfer"
+"""
+input erc_account_ft_transfer_min_order_by {
+	account_id: order_by
+	direction: order_by
+	id: order_by
+	transfer_id: order_by
+}
+
+"""
+response of any mutation on the table "squid_erc.account_ft_transfer"
+"""
+type erc_account_ft_transfer_mutation_response {
+	"""
+	number of rows affected by the mutation
+	"""
+	affected_rows: Int!
+
+	"""
+	data from the rows affected by the mutation
+	"""
+	returning: [erc_account_ft_transfer!]!
+}
+
+"""
+on_conflict condition type for table "squid_erc.account_ft_transfer"
+"""
+input erc_account_ft_transfer_on_conflict {
+	constraint: erc_account_ft_transfer_constraint!
+	update_columns: [erc_account_ft_transfer_update_column!]! = []
+	where: erc_account_ft_transfer_bool_exp
+}
+
+"""
+Ordering options when selecting data from "squid_erc.account_ft_transfer".
+"""
+input erc_account_ft_transfer_order_by {
+	account: erc_account_order_by
+	account_id: order_by
+	direction: order_by
+	ft_transfer: erc_ft_transfer_order_by
+	id: order_by
+	transfer_id: order_by
+}
+
+"""
+primary key columns input for table: account_ft_transfer
+"""
+input erc_account_ft_transfer_pk_columns_input {
+	id: String!
+}
+
+"""
+select columns of table "squid_erc.account_ft_transfer"
+"""
+enum erc_account_ft_transfer_select_column {
+	"""
+	column name
+	"""
+	account_id
+
+	"""
+	column name
+	"""
+	direction
+
+	"""
+	column name
+	"""
+	id
+
+	"""
+	column name
+	"""
+	transfer_id
+}
+
+"""
+input type for updating data in table "squid_erc.account_ft_transfer"
+"""
+input erc_account_ft_transfer_set_input {
+	account_id: String
+	direction: String
+	id: String
+	transfer_id: String
+}
+
+"""
+Streaming cursor of the table "account_ft_transfer"
+"""
+input erc_account_ft_transfer_stream_cursor_input {
+	"""
+	Stream column input with initial value
+	"""
+	initial_value: erc_account_ft_transfer_stream_cursor_value_input!
+
+	"""
+	cursor ordering
+	"""
+	ordering: erc_cursor_ordering
+}
+
+"""
+Initial value of the column from where the streaming should start
+"""
+input erc_account_ft_transfer_stream_cursor_value_input {
+	account_id: String
+	direction: String
+	id: String
+	transfer_id: String
+}
+
+"""
+update columns of table "squid_erc.account_ft_transfer"
+"""
+enum erc_account_ft_transfer_update_column {
+	"""
+	column name
+	"""
+	account_id
+
+	"""
+	column name
+	"""
+	direction
+
+	"""
+	column name
+	"""
+	id
+
+	"""
+	column name
+	"""
+	transfer_id
+}
+
+input erc_account_ft_transfer_updates {
+	"""
+	sets the columns of the filtered rows to the given values
+	"""
+	_set: erc_account_ft_transfer_set_input
+	where: erc_account_ft_transfer_bool_exp!
+}
+
+"""
+input type for inserting data into table "squid_erc.account"
+"""
+input erc_account_insert_input {
+	account_f_token_balances: erc_account_f_token_balance_arr_rel_insert_input
+	account_ft_transfers: erc_account_ft_transfer_arr_rel_insert_input
+	account_nft_transfers: erc_account_nft_transfer_arr_rel_insert_input
+	ftTransfersByToId: erc_ft_transfer_arr_rel_insert_input
+	ft_transfers: erc_ft_transfer_arr_rel_insert_input
+	id: String
+	nf_tokens: erc_nf_token_arr_rel_insert_input
+	nftTransfersByFromId: erc_nft_transfer_arr_rel_insert_input
+	nftTransfersByToId: erc_nft_transfer_arr_rel_insert_input
+	nft_transfers: erc_nft_transfer_arr_rel_insert_input
+}
+
+"""
+aggregate max on columns
+"""
+type erc_account_max_fields {
+	id: String
+}
+
+"""
+aggregate min on columns
+"""
+type erc_account_min_fields {
+	id: String
+}
+
+"""
+response of any mutation on the table "squid_erc.account"
+"""
+type erc_account_mutation_response {
+	"""
+	number of rows affected by the mutation
+	"""
+	affected_rows: Int!
+
+	"""
+	data from the rows affected by the mutation
+	"""
+	returning: [erc_account!]!
+}
+
+"""
+columns and relationships of "squid_erc.account_nft_transfer"
+"""
+type erc_account_nft_transfer {
+	"""
+	An object relationship
+	"""
+	account: erc_account!
+	account_id: String!
+	direction: String
+	id: String!
+
+	"""
+	An object relationship
+	"""
+	nft_transfer: erc_nft_transfer
+	transfer_id: String
+}
+
+"""
+aggregated selection of "squid_erc.account_nft_transfer"
+"""
+type erc_account_nft_transfer_aggregate {
+	aggregate: erc_account_nft_transfer_aggregate_fields
+	nodes: [erc_account_nft_transfer!]!
+}
+
+"""
+aggregate fields of "squid_erc.account_nft_transfer"
+"""
+type erc_account_nft_transfer_aggregate_fields {
+	count(
+		columns: [erc_account_nft_transfer_select_column!]
+		distinct: Boolean
+	): Int!
+	max: erc_account_nft_transfer_max_fields
+	min: erc_account_nft_transfer_min_fields
+}
+
+"""
+order by aggregate values of table "squid_erc.account_nft_transfer"
+"""
+input erc_account_nft_transfer_aggregate_order_by {
+	count: order_by
+	max: erc_account_nft_transfer_max_order_by
+	min: erc_account_nft_transfer_min_order_by
+}
+
+"""
+input type for inserting array relation for remote table "squid_erc.account_nft_transfer"
+"""
+input erc_account_nft_transfer_arr_rel_insert_input {
+	data: [erc_account_nft_transfer_insert_input!]!
+
+	"""
+	upsert condition
+	"""
+	on_conflict: erc_account_nft_transfer_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "squid_erc.account_nft_transfer". All fields are combined with a logical 'AND'.
+"""
+input erc_account_nft_transfer_bool_exp {
+	_and: [erc_account_nft_transfer_bool_exp!]
+	_not: erc_account_nft_transfer_bool_exp
+	_or: [erc_account_nft_transfer_bool_exp!]
+	account: erc_account_bool_exp
+	account_id: String_comparison_exp
+	direction: String_comparison_exp
+	id: String_comparison_exp
+	nft_transfer: erc_nft_transfer_bool_exp
+	transfer_id: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "squid_erc.account_nft_transfer"
+"""
+enum erc_account_nft_transfer_constraint {
+	"""
+	unique or primary key constraint on columns "id"
+	"""
+	PK_63cecb44d101ea1a54908c34a24
+}
+
+"""
+input type for inserting data into table "squid_erc.account_nft_transfer"
+"""
+input erc_account_nft_transfer_insert_input {
+	account: erc_account_obj_rel_insert_input
+	account_id: String
+	direction: String
+	id: String
+	nft_transfer: erc_nft_transfer_obj_rel_insert_input
+	transfer_id: String
+}
+
+"""
+aggregate max on columns
+"""
+type erc_account_nft_transfer_max_fields {
+	account_id: String
+	direction: String
+	id: String
+	transfer_id: String
+}
+
+"""
+order by max() on columns of table "squid_erc.account_nft_transfer"
+"""
+input erc_account_nft_transfer_max_order_by {
+	account_id: order_by
+	direction: order_by
+	id: order_by
+	transfer_id: order_by
+}
+
+"""
+aggregate min on columns
+"""
+type erc_account_nft_transfer_min_fields {
+	account_id: String
+	direction: String
+	id: String
+	transfer_id: String
+}
+
+"""
+order by min() on columns of table "squid_erc.account_nft_transfer"
+"""
+input erc_account_nft_transfer_min_order_by {
+	account_id: order_by
+	direction: order_by
+	id: order_by
+	transfer_id: order_by
+}
+
+"""
+response of any mutation on the table "squid_erc.account_nft_transfer"
+"""
+type erc_account_nft_transfer_mutation_response {
+	"""
+	number of rows affected by the mutation
+	"""
+	affected_rows: Int!
+
+	"""
+	data from the rows affected by the mutation
+	"""
+	returning: [erc_account_nft_transfer!]!
+}
+
+"""
+on_conflict condition type for table "squid_erc.account_nft_transfer"
+"""
+input erc_account_nft_transfer_on_conflict {
+	constraint: erc_account_nft_transfer_constraint!
+	update_columns: [erc_account_nft_transfer_update_column!]! = []
+	where: erc_account_nft_transfer_bool_exp
+}
+
+"""
+Ordering options when selecting data from "squid_erc.account_nft_transfer".
+"""
+input erc_account_nft_transfer_order_by {
+	account: erc_account_order_by
+	account_id: order_by
+	direction: order_by
+	id: order_by
+	nft_transfer: erc_nft_transfer_order_by
+	transfer_id: order_by
+}
+
+"""
+primary key columns input for table: account_nft_transfer
+"""
+input erc_account_nft_transfer_pk_columns_input {
+	id: String!
+}
+
+"""
+select columns of table "squid_erc.account_nft_transfer"
+"""
+enum erc_account_nft_transfer_select_column {
+	"""
+	column name
+	"""
+	account_id
+
+	"""
+	column name
+	"""
+	direction
+
+	"""
+	column name
+	"""
+	id
+
+	"""
+	column name
+	"""
+	transfer_id
+}
+
+"""
+input type for updating data in table "squid_erc.account_nft_transfer"
+"""
+input erc_account_nft_transfer_set_input {
+	account_id: String
+	direction: String
+	id: String
+	transfer_id: String
+}
+
+"""
+Streaming cursor of the table "account_nft_transfer"
+"""
+input erc_account_nft_transfer_stream_cursor_input {
+	"""
+	Stream column input with initial value
+	"""
+	initial_value: erc_account_nft_transfer_stream_cursor_value_input!
+
+	"""
+	cursor ordering
+	"""
+	ordering: erc_cursor_ordering
+}
+
+"""
+Initial value of the column from where the streaming should start
+"""
+input erc_account_nft_transfer_stream_cursor_value_input {
+	account_id: String
+	direction: String
+	id: String
+	transfer_id: String
+}
+
+"""
+update columns of table "squid_erc.account_nft_transfer"
+"""
+enum erc_account_nft_transfer_update_column {
+	"""
+	column name
+	"""
+	account_id
+
+	"""
+	column name
+	"""
+	direction
+
+	"""
+	column name
+	"""
+	id
+
+	"""
+	column name
+	"""
+	transfer_id
+}
+
+input erc_account_nft_transfer_updates {
+	"""
+	sets the columns of the filtered rows to the given values
+	"""
+	_set: erc_account_nft_transfer_set_input
+	where: erc_account_nft_transfer_bool_exp!
+}
+
+"""
+input type for inserting object relation for remote table "squid_erc.account"
+"""
+input erc_account_obj_rel_insert_input {
+	data: erc_account_insert_input!
+
+	"""
+	upsert condition
+	"""
+	on_conflict: erc_account_on_conflict
+}
+
+"""
+on_conflict condition type for table "squid_erc.account"
+"""
+input erc_account_on_conflict {
+	constraint: erc_account_constraint!
+	update_columns: [erc_account_update_column!]! = []
+	where: erc_account_bool_exp
+}
+
+"""
+Ordering options when selecting data from "squid_erc.account".
+"""
+input erc_account_order_by {
+	account_f_token_balances_aggregate: erc_account_f_token_balance_aggregate_order_by
+	account_ft_transfers_aggregate: erc_account_ft_transfer_aggregate_order_by
+	account_nft_transfers_aggregate: erc_account_nft_transfer_aggregate_order_by
+	ftTransfersByToId_aggregate: erc_ft_transfer_aggregate_order_by
+	ft_transfers_aggregate: erc_ft_transfer_aggregate_order_by
+	id: order_by
+	nf_tokens_aggregate: erc_nf_token_aggregate_order_by
+	nftTransfersByFromId_aggregate: erc_nft_transfer_aggregate_order_by
+	nftTransfersByToId_aggregate: erc_nft_transfer_aggregate_order_by
+	nft_transfers_aggregate: erc_nft_transfer_aggregate_order_by
+}
+
+"""
+primary key columns input for table: account
+"""
+input erc_account_pk_columns_input {
+	id: String!
+}
+
+"""
+select columns of table "squid_erc.account"
+"""
+enum erc_account_select_column {
+	"""
+	column name
+	"""
+	id
+}
+
+"""
+input type for updating data in table "squid_erc.account"
+"""
+input erc_account_set_input {
+	id: String
+}
+
+"""
+Streaming cursor of the table "account"
+"""
+input erc_account_stream_cursor_input {
+	"""
+	Stream column input with initial value
+	"""
+	initial_value: erc_account_stream_cursor_value_input!
+
+	"""
+	cursor ordering
+	"""
+	ordering: erc_cursor_ordering
+}
+
+"""
+Initial value of the column from where the streaming should start
+"""
+input erc_account_stream_cursor_value_input {
+	id: String
+}
+
+"""
+update columns of table "squid_erc.account"
+"""
+enum erc_account_update_column {
+	"""
+	column name
+	"""
+	id
+}
+
+input erc_account_updates {
+	"""
+	sets the columns of the filtered rows to the given values
+	"""
+	_set: erc_account_set_input
+	where: erc_account_bool_exp!
+}
+
+"""
+columns and relationships of "squid_erc.collection"
+"""
+type erc_collection {
+	collection_type: String!
+	created_at: timestamptz!
+	created_at_block: numeric!
+	id: String!
+
+	"""
+	An array relationship
+	"""
+	nf_tokens(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_nf_token_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
 		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
 		offset: Int
-		orderBy: [erc_NfTokenOrderByInput]
-		where: erc_NfTokenWhereInput
-	): [erc_NfToken!]!
-}
 
-type erc_CollectionEdge {
-	cursor: String!
-	node: erc_Collection!
-}
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_nf_token_order_by!]
 
-enum erc_CollectionOrderByInput {
-	collectionType_ASC
-	collectionType_DESC
-	createdAtBlock_ASC
-	createdAtBlock_DESC
-	createdAt_ASC
-	createdAt_DESC
-	id_ASC
-	id_DESC
-}
+		"""
+		filter the rows returned
+		"""
+		where: erc_nf_token_bool_exp
+	): [erc_nf_token!]!
 
-input erc_CollectionWhereInput {
-	AND: [erc_CollectionWhereInput!]
-	OR: [erc_CollectionWhereInput!]
-	collectionType_eq: erc_ContractStandard
-	collectionType_in: [erc_ContractStandard!]
-	collectionType_not_eq: erc_ContractStandard
-	collectionType_not_in: [erc_ContractStandard!]
-	createdAtBlock_eq: erc_BigInt
-	createdAtBlock_gt: erc_BigInt
-	createdAtBlock_gte: erc_BigInt
-	createdAtBlock_in: [erc_BigInt!]
-	createdAtBlock_lt: erc_BigInt
-	createdAtBlock_lte: erc_BigInt
-	createdAtBlock_not_eq: erc_BigInt
-	createdAtBlock_not_in: [erc_BigInt!]
-	createdAt_eq: erc_DateTime
-	createdAt_gt: erc_DateTime
-	createdAt_gte: erc_DateTime
-	createdAt_in: [erc_DateTime!]
-	createdAt_lt: erc_DateTime
-	createdAt_lte: erc_DateTime
-	createdAt_not_eq: erc_DateTime
-	createdAt_not_in: [erc_DateTime!]
-	id_contains: ID
-	id_containsInsensitive: ID
-	id_endsWith: ID
-	id_eq: ID
-	id_gt: ID
-	id_gte: ID
-	id_in: [ID!]
-	id_lt: ID
-	id_lte: ID
-	id_not_contains: ID
-	id_not_containsInsensitive: ID
-	id_not_endsWith: ID
-	id_not_eq: ID
-	id_not_in: [ID!]
-	id_not_startsWith: ID
-	id_startsWith: ID
-	nfts_every: erc_NfTokenWhereInput
-	nfts_none: erc_NfTokenWhereInput
-	nfts_some: erc_NfTokenWhereInput
-}
+	"""
+	An aggregate relationship
+	"""
+	nf_tokens_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_nf_token_select_column!]
 
-input erc_CollectionWhereUniqueInput {
-	id: ID!
-}
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
 
-type erc_CollectionsConnection {
-	edges: [erc_CollectionEdge!]!
-	pageInfo: erc_PageInfo!
-	totalCount: Int!
-}
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
 
-enum erc_ContractStandard {
-	ERC1155
-	ERC20
-	ERC721
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_nf_token_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_nf_token_bool_exp
+	): erc_nf_token_aggregate!
 }
 
 """
-A date-time string in simplified extended ISO 8601 format (YYYY-MM-DDTHH:mm:ss.sssZ)
+aggregated selection of "squid_erc.collection"
 """
-scalar erc_DateTime
+type erc_collection_aggregate {
+	aggregate: erc_collection_aggregate_fields
+	nodes: [erc_collection!]!
+}
 
-type erc_FToken implements erc_Token {
+"""
+aggregate fields of "squid_erc.collection"
+"""
+type erc_collection_aggregate_fields {
+	avg: erc_collection_avg_fields
+	count(columns: [erc_collection_select_column!], distinct: Boolean): Int!
+	max: erc_collection_max_fields
+	min: erc_collection_min_fields
+	stddev: erc_collection_stddev_fields
+	stddev_pop: erc_collection_stddev_pop_fields
+	stddev_samp: erc_collection_stddev_samp_fields
+	sum: erc_collection_sum_fields
+	var_pop: erc_collection_var_pop_fields
+	var_samp: erc_collection_var_samp_fields
+	variance: erc_collection_variance_fields
+}
+
+"""
+aggregate avg on columns
+"""
+type erc_collection_avg_fields {
+	created_at_block: Float
+}
+
+"""
+Boolean expression to filter rows from the table "squid_erc.collection". All fields are combined with a logical 'AND'.
+"""
+input erc_collection_bool_exp {
+	_and: [erc_collection_bool_exp!]
+	_not: erc_collection_bool_exp
+	_or: [erc_collection_bool_exp!]
+	collection_type: String_comparison_exp
+	created_at: timestamptz_comparison_exp
+	created_at_block: numeric_comparison_exp
+	id: String_comparison_exp
+	nf_tokens: erc_nf_token_bool_exp
+}
+
+"""
+unique or primary key constraints on table "squid_erc.collection"
+"""
+enum erc_collection_constraint {
+	"""
+	unique or primary key constraint on columns "id"
+	"""
+	PK_ad3f485bbc99d875491f44d7c85
+}
+
+"""
+input type for incrementing numeric columns in table "squid_erc.collection"
+"""
+input erc_collection_inc_input {
+	created_at_block: numeric
+}
+
+"""
+input type for inserting data into table "squid_erc.collection"
+"""
+input erc_collection_insert_input {
+	collection_type: String
+	created_at: timestamptz
+	created_at_block: numeric
+	id: String
+	nf_tokens: erc_nf_token_arr_rel_insert_input
+}
+
+"""
+aggregate max on columns
+"""
+type erc_collection_max_fields {
+	collection_type: String
+	created_at: timestamptz
+	created_at_block: numeric
+	id: String
+}
+
+"""
+aggregate min on columns
+"""
+type erc_collection_min_fields {
+	collection_type: String
+	created_at: timestamptz
+	created_at_block: numeric
+	id: String
+}
+
+"""
+response of any mutation on the table "squid_erc.collection"
+"""
+type erc_collection_mutation_response {
+	"""
+	number of rows affected by the mutation
+	"""
+	affected_rows: Int!
+
+	"""
+	data from the rows affected by the mutation
+	"""
+	returning: [erc_collection!]!
+}
+
+"""
+input type for inserting object relation for remote table "squid_erc.collection"
+"""
+input erc_collection_obj_rel_insert_input {
+	data: erc_collection_insert_input!
+
+	"""
+	upsert condition
+	"""
+	on_conflict: erc_collection_on_conflict
+}
+
+"""
+on_conflict condition type for table "squid_erc.collection"
+"""
+input erc_collection_on_conflict {
+	constraint: erc_collection_constraint!
+	update_columns: [erc_collection_update_column!]! = []
+	where: erc_collection_bool_exp
+}
+
+"""
+Ordering options when selecting data from "squid_erc.collection".
+"""
+input erc_collection_order_by {
+	collection_type: order_by
+	created_at: order_by
+	created_at_block: order_by
+	id: order_by
+	nf_tokens_aggregate: erc_nf_token_aggregate_order_by
+}
+
+"""
+primary key columns input for table: collection
+"""
+input erc_collection_pk_columns_input {
+	id: String!
+}
+
+"""
+select columns of table "squid_erc.collection"
+"""
+enum erc_collection_select_column {
+	"""
+	column name
+	"""
+	collection_type
+
+	"""
+	column name
+	"""
+	created_at
+
+	"""
+	column name
+	"""
+	created_at_block
+
+	"""
+	column name
+	"""
+	id
+}
+
+"""
+input type for updating data in table "squid_erc.collection"
+"""
+input erc_collection_set_input {
+	collection_type: String
+	created_at: timestamptz
+	created_at_block: numeric
+	id: String
+}
+
+"""
+aggregate stddev on columns
+"""
+type erc_collection_stddev_fields {
+	created_at_block: Float
+}
+
+"""
+aggregate stddev_pop on columns
+"""
+type erc_collection_stddev_pop_fields {
+	created_at_block: Float
+}
+
+"""
+aggregate stddev_samp on columns
+"""
+type erc_collection_stddev_samp_fields {
+	created_at_block: Float
+}
+
+"""
+Streaming cursor of the table "collection"
+"""
+input erc_collection_stream_cursor_input {
+	"""
+	Stream column input with initial value
+	"""
+	initial_value: erc_collection_stream_cursor_value_input!
+
+	"""
+	cursor ordering
+	"""
+	ordering: erc_cursor_ordering
+}
+
+"""
+Initial value of the column from where the streaming should start
+"""
+input erc_collection_stream_cursor_value_input {
+	collection_type: String
+	created_at: timestamptz
+	created_at_block: numeric
+	id: String
+}
+
+"""
+aggregate sum on columns
+"""
+type erc_collection_sum_fields {
+	created_at_block: numeric
+}
+
+"""
+update columns of table "squid_erc.collection"
+"""
+enum erc_collection_update_column {
+	"""
+	column name
+	"""
+	collection_type
+
+	"""
+	column name
+	"""
+	created_at
+
+	"""
+	column name
+	"""
+	created_at_block
+
+	"""
+	column name
+	"""
+	id
+}
+
+input erc_collection_updates {
+	"""
+	increments the numeric columns with given value of the filtered values
+	"""
+	_inc: erc_collection_inc_input
+
+	"""
+	sets the columns of the filtered rows to the given values
+	"""
+	_set: erc_collection_set_input
+	where: erc_collection_bool_exp!
+}
+
+"""
+aggregate var_pop on columns
+"""
+type erc_collection_var_pop_fields {
+	created_at_block: Float
+}
+
+"""
+aggregate var_samp on columns
+"""
+type erc_collection_var_samp_fields {
+	created_at_block: Float
+}
+
+"""
+aggregate variance on columns
+"""
+type erc_collection_variance_fields {
+	created_at_block: Float
+}
+
+"""
+ordering argument of a cursor
+"""
+enum erc_cursor_ordering {
+	"""
+	ascending ordering of the cursor
+	"""
+	ASC
+
+	"""
+	descending ordering of the cursor
+	"""
+	DESC
+}
+
+type erc_erc_mutation_frontend {
+	"""
+	delete data from the table: "squid_erc.account"
+	"""
+	delete_account(
+		"""
+		filter the rows which have to be deleted
+		"""
+		where: erc_account_bool_exp!
+	): erc_account_mutation_response
+
+	"""
+	delete single row from the table: "squid_erc.account"
+	"""
+	delete_account_by_pk(id: String!): erc_account
+
+	"""
+	delete data from the table: "squid_erc.account_f_token_balance"
+	"""
+	delete_account_f_token_balance(
+		"""
+		filter the rows which have to be deleted
+		"""
+		where: erc_account_f_token_balance_bool_exp!
+	): erc_account_f_token_balance_mutation_response
+
+	"""
+	delete single row from the table: "squid_erc.account_f_token_balance"
+	"""
+	delete_account_f_token_balance_by_pk(id: String!): erc_account_f_token_balance
+
+	"""
+	delete data from the table: "squid_erc.account_ft_transfer"
+	"""
+	delete_account_ft_transfer(
+		"""
+		filter the rows which have to be deleted
+		"""
+		where: erc_account_ft_transfer_bool_exp!
+	): erc_account_ft_transfer_mutation_response
+
+	"""
+	delete single row from the table: "squid_erc.account_ft_transfer"
+	"""
+	delete_account_ft_transfer_by_pk(id: String!): erc_account_ft_transfer
+
+	"""
+	delete data from the table: "squid_erc.account_nft_transfer"
+	"""
+	delete_account_nft_transfer(
+		"""
+		filter the rows which have to be deleted
+		"""
+		where: erc_account_nft_transfer_bool_exp!
+	): erc_account_nft_transfer_mutation_response
+
+	"""
+	delete single row from the table: "squid_erc.account_nft_transfer"
+	"""
+	delete_account_nft_transfer_by_pk(id: String!): erc_account_nft_transfer
+
+	"""
+	delete data from the table: "squid_erc.collection"
+	"""
+	delete_collection(
+		"""
+		filter the rows which have to be deleted
+		"""
+		where: erc_collection_bool_exp!
+	): erc_collection_mutation_response
+
+	"""
+	delete single row from the table: "squid_erc.collection"
+	"""
+	delete_collection_by_pk(id: String!): erc_collection
+
+	"""
+	delete data from the table: "squid_erc.f_token"
+	"""
+	delete_f_token(
+		"""
+		filter the rows which have to be deleted
+		"""
+		where: erc_f_token_bool_exp!
+	): erc_f_token_mutation_response
+
+	"""
+	delete single row from the table: "squid_erc.f_token"
+	"""
+	delete_f_token_by_pk(id: String!): erc_f_token
+
+	"""
+	delete data from the table: "squid_erc.ft_transfer"
+	"""
+	delete_ft_transfer(
+		"""
+		filter the rows which have to be deleted
+		"""
+		where: erc_ft_transfer_bool_exp!
+	): erc_ft_transfer_mutation_response
+
+	"""
+	delete single row from the table: "squid_erc.ft_transfer"
+	"""
+	delete_ft_transfer_by_pk(id: String!): erc_ft_transfer
+
+	"""
+	delete data from the table: "squid_erc.nf_token"
+	"""
+	delete_nf_token(
+		"""
+		filter the rows which have to be deleted
+		"""
+		where: erc_nf_token_bool_exp!
+	): erc_nf_token_mutation_response
+
+	"""
+	delete single row from the table: "squid_erc.nf_token"
+	"""
+	delete_nf_token_by_pk(id: String!): erc_nf_token
+
+	"""
+	delete data from the table: "squid_erc.nft_transfer"
+	"""
+	delete_nft_transfer(
+		"""
+		filter the rows which have to be deleted
+		"""
+		where: erc_nft_transfer_bool_exp!
+	): erc_nft_transfer_mutation_response
+
+	"""
+	delete single row from the table: "squid_erc.nft_transfer"
+	"""
+	delete_nft_transfer_by_pk(id: String!): erc_nft_transfer
+
+	"""
+	delete data from the table: "squid_erc.uri_update_action"
+	"""
+	delete_uri_update_action(
+		"""
+		filter the rows which have to be deleted
+		"""
+		where: erc_uri_update_action_bool_exp!
+	): erc_uri_update_action_mutation_response
+
+	"""
+	delete single row from the table: "squid_erc.uri_update_action"
+	"""
+	delete_uri_update_action_by_pk(id: String!): erc_uri_update_action
+
+	"""
+	insert data into the table: "squid_erc.account"
+	"""
+	insert_account(
+		"""
+		the rows to be inserted
+		"""
+		objects: [erc_account_insert_input!]!
+
+		"""
+		upsert condition
+		"""
+		on_conflict: erc_account_on_conflict
+	): erc_account_mutation_response
+
+	"""
+	insert data into the table: "squid_erc.account_f_token_balance"
+	"""
+	insert_account_f_token_balance(
+		"""
+		the rows to be inserted
+		"""
+		objects: [erc_account_f_token_balance_insert_input!]!
+
+		"""
+		upsert condition
+		"""
+		on_conflict: erc_account_f_token_balance_on_conflict
+	): erc_account_f_token_balance_mutation_response
+
+	"""
+	insert a single row into the table: "squid_erc.account_f_token_balance"
+	"""
+	insert_account_f_token_balance_one(
+		"""
+		the row to be inserted
+		"""
+		object: erc_account_f_token_balance_insert_input!
+
+		"""
+		upsert condition
+		"""
+		on_conflict: erc_account_f_token_balance_on_conflict
+	): erc_account_f_token_balance
+
+	"""
+	insert data into the table: "squid_erc.account_ft_transfer"
+	"""
+	insert_account_ft_transfer(
+		"""
+		the rows to be inserted
+		"""
+		objects: [erc_account_ft_transfer_insert_input!]!
+
+		"""
+		upsert condition
+		"""
+		on_conflict: erc_account_ft_transfer_on_conflict
+	): erc_account_ft_transfer_mutation_response
+
+	"""
+	insert a single row into the table: "squid_erc.account_ft_transfer"
+	"""
+	insert_account_ft_transfer_one(
+		"""
+		the row to be inserted
+		"""
+		object: erc_account_ft_transfer_insert_input!
+
+		"""
+		upsert condition
+		"""
+		on_conflict: erc_account_ft_transfer_on_conflict
+	): erc_account_ft_transfer
+
+	"""
+	insert data into the table: "squid_erc.account_nft_transfer"
+	"""
+	insert_account_nft_transfer(
+		"""
+		the rows to be inserted
+		"""
+		objects: [erc_account_nft_transfer_insert_input!]!
+
+		"""
+		upsert condition
+		"""
+		on_conflict: erc_account_nft_transfer_on_conflict
+	): erc_account_nft_transfer_mutation_response
+
+	"""
+	insert a single row into the table: "squid_erc.account_nft_transfer"
+	"""
+	insert_account_nft_transfer_one(
+		"""
+		the row to be inserted
+		"""
+		object: erc_account_nft_transfer_insert_input!
+
+		"""
+		upsert condition
+		"""
+		on_conflict: erc_account_nft_transfer_on_conflict
+	): erc_account_nft_transfer
+
+	"""
+	insert a single row into the table: "squid_erc.account"
+	"""
+	insert_account_one(
+		"""
+		the row to be inserted
+		"""
+		object: erc_account_insert_input!
+
+		"""
+		upsert condition
+		"""
+		on_conflict: erc_account_on_conflict
+	): erc_account
+
+	"""
+	insert data into the table: "squid_erc.collection"
+	"""
+	insert_collection(
+		"""
+		the rows to be inserted
+		"""
+		objects: [erc_collection_insert_input!]!
+
+		"""
+		upsert condition
+		"""
+		on_conflict: erc_collection_on_conflict
+	): erc_collection_mutation_response
+
+	"""
+	insert a single row into the table: "squid_erc.collection"
+	"""
+	insert_collection_one(
+		"""
+		the row to be inserted
+		"""
+		object: erc_collection_insert_input!
+
+		"""
+		upsert condition
+		"""
+		on_conflict: erc_collection_on_conflict
+	): erc_collection
+
+	"""
+	insert data into the table: "squid_erc.f_token"
+	"""
+	insert_f_token(
+		"""
+		the rows to be inserted
+		"""
+		objects: [erc_f_token_insert_input!]!
+
+		"""
+		upsert condition
+		"""
+		on_conflict: erc_f_token_on_conflict
+	): erc_f_token_mutation_response
+
+	"""
+	insert a single row into the table: "squid_erc.f_token"
+	"""
+	insert_f_token_one(
+		"""
+		the row to be inserted
+		"""
+		object: erc_f_token_insert_input!
+
+		"""
+		upsert condition
+		"""
+		on_conflict: erc_f_token_on_conflict
+	): erc_f_token
+
+	"""
+	insert data into the table: "squid_erc.ft_transfer"
+	"""
+	insert_ft_transfer(
+		"""
+		the rows to be inserted
+		"""
+		objects: [erc_ft_transfer_insert_input!]!
+
+		"""
+		upsert condition
+		"""
+		on_conflict: erc_ft_transfer_on_conflict
+	): erc_ft_transfer_mutation_response
+
+	"""
+	insert a single row into the table: "squid_erc.ft_transfer"
+	"""
+	insert_ft_transfer_one(
+		"""
+		the row to be inserted
+		"""
+		object: erc_ft_transfer_insert_input!
+
+		"""
+		upsert condition
+		"""
+		on_conflict: erc_ft_transfer_on_conflict
+	): erc_ft_transfer
+
+	"""
+	insert data into the table: "squid_erc.nf_token"
+	"""
+	insert_nf_token(
+		"""
+		the rows to be inserted
+		"""
+		objects: [erc_nf_token_insert_input!]!
+
+		"""
+		upsert condition
+		"""
+		on_conflict: erc_nf_token_on_conflict
+	): erc_nf_token_mutation_response
+
+	"""
+	insert a single row into the table: "squid_erc.nf_token"
+	"""
+	insert_nf_token_one(
+		"""
+		the row to be inserted
+		"""
+		object: erc_nf_token_insert_input!
+
+		"""
+		upsert condition
+		"""
+		on_conflict: erc_nf_token_on_conflict
+	): erc_nf_token
+
+	"""
+	insert data into the table: "squid_erc.nft_transfer"
+	"""
+	insert_nft_transfer(
+		"""
+		the rows to be inserted
+		"""
+		objects: [erc_nft_transfer_insert_input!]!
+
+		"""
+		upsert condition
+		"""
+		on_conflict: erc_nft_transfer_on_conflict
+	): erc_nft_transfer_mutation_response
+
+	"""
+	insert a single row into the table: "squid_erc.nft_transfer"
+	"""
+	insert_nft_transfer_one(
+		"""
+		the row to be inserted
+		"""
+		object: erc_nft_transfer_insert_input!
+
+		"""
+		upsert condition
+		"""
+		on_conflict: erc_nft_transfer_on_conflict
+	): erc_nft_transfer
+
+	"""
+	insert data into the table: "squid_erc.uri_update_action"
+	"""
+	insert_uri_update_action(
+		"""
+		the rows to be inserted
+		"""
+		objects: [erc_uri_update_action_insert_input!]!
+
+		"""
+		upsert condition
+		"""
+		on_conflict: erc_uri_update_action_on_conflict
+	): erc_uri_update_action_mutation_response
+
+	"""
+	insert a single row into the table: "squid_erc.uri_update_action"
+	"""
+	insert_uri_update_action_one(
+		"""
+		the row to be inserted
+		"""
+		object: erc_uri_update_action_insert_input!
+
+		"""
+		upsert condition
+		"""
+		on_conflict: erc_uri_update_action_on_conflict
+	): erc_uri_update_action
+
+	"""
+	update data of the table: "squid_erc.account"
+	"""
+	update_account(
+		"""
+		sets the columns of the filtered rows to the given values
+		"""
+		_set: erc_account_set_input
+
+		"""
+		filter the rows which have to be updated
+		"""
+		where: erc_account_bool_exp!
+	): erc_account_mutation_response
+
+	"""
+	update single row of the table: "squid_erc.account"
+	"""
+	update_account_by_pk(
+		"""
+		sets the columns of the filtered rows to the given values
+		"""
+		_set: erc_account_set_input
+		pk_columns: erc_account_pk_columns_input!
+	): erc_account
+
+	"""
+	update data of the table: "squid_erc.account_f_token_balance"
+	"""
+	update_account_f_token_balance(
+		"""
+		increments the numeric columns with given value of the filtered values
+		"""
+		_inc: erc_account_f_token_balance_inc_input
+
+		"""
+		sets the columns of the filtered rows to the given values
+		"""
+		_set: erc_account_f_token_balance_set_input
+
+		"""
+		filter the rows which have to be updated
+		"""
+		where: erc_account_f_token_balance_bool_exp!
+	): erc_account_f_token_balance_mutation_response
+
+	"""
+	update single row of the table: "squid_erc.account_f_token_balance"
+	"""
+	update_account_f_token_balance_by_pk(
+		"""
+		increments the numeric columns with given value of the filtered values
+		"""
+		_inc: erc_account_f_token_balance_inc_input
+
+		"""
+		sets the columns of the filtered rows to the given values
+		"""
+		_set: erc_account_f_token_balance_set_input
+		pk_columns: erc_account_f_token_balance_pk_columns_input!
+	): erc_account_f_token_balance
+
+	"""
+	update multiples rows of table: "squid_erc.account_f_token_balance"
+	"""
+	update_account_f_token_balance_many(
+		"""
+		updates to execute, in order
+		"""
+		updates: [erc_account_f_token_balance_updates!]!
+	): [erc_account_f_token_balance_mutation_response]
+
+	"""
+	update data of the table: "squid_erc.account_ft_transfer"
+	"""
+	update_account_ft_transfer(
+		"""
+		sets the columns of the filtered rows to the given values
+		"""
+		_set: erc_account_ft_transfer_set_input
+
+		"""
+		filter the rows which have to be updated
+		"""
+		where: erc_account_ft_transfer_bool_exp!
+	): erc_account_ft_transfer_mutation_response
+
+	"""
+	update single row of the table: "squid_erc.account_ft_transfer"
+	"""
+	update_account_ft_transfer_by_pk(
+		"""
+		sets the columns of the filtered rows to the given values
+		"""
+		_set: erc_account_ft_transfer_set_input
+		pk_columns: erc_account_ft_transfer_pk_columns_input!
+	): erc_account_ft_transfer
+
+	"""
+	update multiples rows of table: "squid_erc.account_ft_transfer"
+	"""
+	update_account_ft_transfer_many(
+		"""
+		updates to execute, in order
+		"""
+		updates: [erc_account_ft_transfer_updates!]!
+	): [erc_account_ft_transfer_mutation_response]
+
+	"""
+	update multiples rows of table: "squid_erc.account"
+	"""
+	update_account_many(
+		"""
+		updates to execute, in order
+		"""
+		updates: [erc_account_updates!]!
+	): [erc_account_mutation_response]
+
+	"""
+	update data of the table: "squid_erc.account_nft_transfer"
+	"""
+	update_account_nft_transfer(
+		"""
+		sets the columns of the filtered rows to the given values
+		"""
+		_set: erc_account_nft_transfer_set_input
+
+		"""
+		filter the rows which have to be updated
+		"""
+		where: erc_account_nft_transfer_bool_exp!
+	): erc_account_nft_transfer_mutation_response
+
+	"""
+	update single row of the table: "squid_erc.account_nft_transfer"
+	"""
+	update_account_nft_transfer_by_pk(
+		"""
+		sets the columns of the filtered rows to the given values
+		"""
+		_set: erc_account_nft_transfer_set_input
+		pk_columns: erc_account_nft_transfer_pk_columns_input!
+	): erc_account_nft_transfer
+
+	"""
+	update multiples rows of table: "squid_erc.account_nft_transfer"
+	"""
+	update_account_nft_transfer_many(
+		"""
+		updates to execute, in order
+		"""
+		updates: [erc_account_nft_transfer_updates!]!
+	): [erc_account_nft_transfer_mutation_response]
+
+	"""
+	update data of the table: "squid_erc.collection"
+	"""
+	update_collection(
+		"""
+		increments the numeric columns with given value of the filtered values
+		"""
+		_inc: erc_collection_inc_input
+
+		"""
+		sets the columns of the filtered rows to the given values
+		"""
+		_set: erc_collection_set_input
+
+		"""
+		filter the rows which have to be updated
+		"""
+		where: erc_collection_bool_exp!
+	): erc_collection_mutation_response
+
+	"""
+	update single row of the table: "squid_erc.collection"
+	"""
+	update_collection_by_pk(
+		"""
+		increments the numeric columns with given value of the filtered values
+		"""
+		_inc: erc_collection_inc_input
+
+		"""
+		sets the columns of the filtered rows to the given values
+		"""
+		_set: erc_collection_set_input
+		pk_columns: erc_collection_pk_columns_input!
+	): erc_collection
+
+	"""
+	update multiples rows of table: "squid_erc.collection"
+	"""
+	update_collection_many(
+		"""
+		updates to execute, in order
+		"""
+		updates: [erc_collection_updates!]!
+	): [erc_collection_mutation_response]
+
+	"""
+	update data of the table: "squid_erc.f_token"
+	"""
+	update_f_token(
+		"""
+		increments the numeric columns with given value of the filtered values
+		"""
+		_inc: erc_f_token_inc_input
+
+		"""
+		sets the columns of the filtered rows to the given values
+		"""
+		_set: erc_f_token_set_input
+
+		"""
+		filter the rows which have to be updated
+		"""
+		where: erc_f_token_bool_exp!
+	): erc_f_token_mutation_response
+
+	"""
+	update single row of the table: "squid_erc.f_token"
+	"""
+	update_f_token_by_pk(
+		"""
+		increments the numeric columns with given value of the filtered values
+		"""
+		_inc: erc_f_token_inc_input
+
+		"""
+		sets the columns of the filtered rows to the given values
+		"""
+		_set: erc_f_token_set_input
+		pk_columns: erc_f_token_pk_columns_input!
+	): erc_f_token
+
+	"""
+	update multiples rows of table: "squid_erc.f_token"
+	"""
+	update_f_token_many(
+		"""
+		updates to execute, in order
+		"""
+		updates: [erc_f_token_updates!]!
+	): [erc_f_token_mutation_response]
+
+	"""
+	update data of the table: "squid_erc.ft_transfer"
+	"""
+	update_ft_transfer(
+		"""
+		increments the numeric columns with given value of the filtered values
+		"""
+		_inc: erc_ft_transfer_inc_input
+
+		"""
+		sets the columns of the filtered rows to the given values
+		"""
+		_set: erc_ft_transfer_set_input
+
+		"""
+		filter the rows which have to be updated
+		"""
+		where: erc_ft_transfer_bool_exp!
+	): erc_ft_transfer_mutation_response
+
+	"""
+	update single row of the table: "squid_erc.ft_transfer"
+	"""
+	update_ft_transfer_by_pk(
+		"""
+		increments the numeric columns with given value of the filtered values
+		"""
+		_inc: erc_ft_transfer_inc_input
+
+		"""
+		sets the columns of the filtered rows to the given values
+		"""
+		_set: erc_ft_transfer_set_input
+		pk_columns: erc_ft_transfer_pk_columns_input!
+	): erc_ft_transfer
+
+	"""
+	update multiples rows of table: "squid_erc.ft_transfer"
+	"""
+	update_ft_transfer_many(
+		"""
+		updates to execute, in order
+		"""
+		updates: [erc_ft_transfer_updates!]!
+	): [erc_ft_transfer_mutation_response]
+
+	"""
+	update data of the table: "squid_erc.nf_token"
+	"""
+	update_nf_token(
+		"""
+		increments the numeric columns with given value of the filtered values
+		"""
+		_inc: erc_nf_token_inc_input
+
+		"""
+		sets the columns of the filtered rows to the given values
+		"""
+		_set: erc_nf_token_set_input
+
+		"""
+		filter the rows which have to be updated
+		"""
+		where: erc_nf_token_bool_exp!
+	): erc_nf_token_mutation_response
+
+	"""
+	update single row of the table: "squid_erc.nf_token"
+	"""
+	update_nf_token_by_pk(
+		"""
+		increments the numeric columns with given value of the filtered values
+		"""
+		_inc: erc_nf_token_inc_input
+
+		"""
+		sets the columns of the filtered rows to the given values
+		"""
+		_set: erc_nf_token_set_input
+		pk_columns: erc_nf_token_pk_columns_input!
+	): erc_nf_token
+
+	"""
+	update multiples rows of table: "squid_erc.nf_token"
+	"""
+	update_nf_token_many(
+		"""
+		updates to execute, in order
+		"""
+		updates: [erc_nf_token_updates!]!
+	): [erc_nf_token_mutation_response]
+
+	"""
+	update data of the table: "squid_erc.nft_transfer"
+	"""
+	update_nft_transfer(
+		"""
+		increments the numeric columns with given value of the filtered values
+		"""
+		_inc: erc_nft_transfer_inc_input
+
+		"""
+		sets the columns of the filtered rows to the given values
+		"""
+		_set: erc_nft_transfer_set_input
+
+		"""
+		filter the rows which have to be updated
+		"""
+		where: erc_nft_transfer_bool_exp!
+	): erc_nft_transfer_mutation_response
+
+	"""
+	update single row of the table: "squid_erc.nft_transfer"
+	"""
+	update_nft_transfer_by_pk(
+		"""
+		increments the numeric columns with given value of the filtered values
+		"""
+		_inc: erc_nft_transfer_inc_input
+
+		"""
+		sets the columns of the filtered rows to the given values
+		"""
+		_set: erc_nft_transfer_set_input
+		pk_columns: erc_nft_transfer_pk_columns_input!
+	): erc_nft_transfer
+
+	"""
+	update multiples rows of table: "squid_erc.nft_transfer"
+	"""
+	update_nft_transfer_many(
+		"""
+		updates to execute, in order
+		"""
+		updates: [erc_nft_transfer_updates!]!
+	): [erc_nft_transfer_mutation_response]
+
+	"""
+	update data of the table: "squid_erc.uri_update_action"
+	"""
+	update_uri_update_action(
+		"""
+		increments the numeric columns with given value of the filtered values
+		"""
+		_inc: erc_uri_update_action_inc_input
+
+		"""
+		sets the columns of the filtered rows to the given values
+		"""
+		_set: erc_uri_update_action_set_input
+
+		"""
+		filter the rows which have to be updated
+		"""
+		where: erc_uri_update_action_bool_exp!
+	): erc_uri_update_action_mutation_response
+
+	"""
+	update single row of the table: "squid_erc.uri_update_action"
+	"""
+	update_uri_update_action_by_pk(
+		"""
+		increments the numeric columns with given value of the filtered values
+		"""
+		_inc: erc_uri_update_action_inc_input
+
+		"""
+		sets the columns of the filtered rows to the given values
+		"""
+		_set: erc_uri_update_action_set_input
+		pk_columns: erc_uri_update_action_pk_columns_input!
+	): erc_uri_update_action
+
+	"""
+	update multiples rows of table: "squid_erc.uri_update_action"
+	"""
+	update_uri_update_action_many(
+		"""
+		updates to execute, in order
+		"""
+		updates: [erc_uri_update_action_updates!]!
+	): [erc_uri_update_action_mutation_response]
+}
+
+type erc_erc_query {
+	"""
+	fetch data from the table: "squid_erc.account"
+	"""
+	account(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_account_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_account_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_bool_exp
+	): [erc_account!]!
+
+	"""
+	fetch aggregated fields from the table: "squid_erc.account"
+	"""
+	account_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_account_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_account_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_bool_exp
+	): erc_account_aggregate!
+
+	"""
+	fetch data from the table: "squid_erc.account" using primary key columns
+	"""
+	account_by_pk(id: String!): erc_account
+
+	"""
+	fetch data from the table: "squid_erc.account_f_token_balance"
+	"""
+	account_f_token_balance(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_account_f_token_balance_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_account_f_token_balance_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_f_token_balance_bool_exp
+	): [erc_account_f_token_balance!]!
+
+	"""
+	fetch aggregated fields from the table: "squid_erc.account_f_token_balance"
+	"""
+	account_f_token_balance_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_account_f_token_balance_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_account_f_token_balance_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_f_token_balance_bool_exp
+	): erc_account_f_token_balance_aggregate!
+
+	"""
+	fetch data from the table: "squid_erc.account_f_token_balance" using primary key columns
+	"""
+	account_f_token_balance_by_pk(id: String!): erc_account_f_token_balance
+
+	"""
+	fetch data from the table: "squid_erc.account_ft_transfer"
+	"""
+	account_ft_transfer(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_account_ft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_account_ft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_ft_transfer_bool_exp
+	): [erc_account_ft_transfer!]!
+
+	"""
+	fetch aggregated fields from the table: "squid_erc.account_ft_transfer"
+	"""
+	account_ft_transfer_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_account_ft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_account_ft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_ft_transfer_bool_exp
+	): erc_account_ft_transfer_aggregate!
+
+	"""
+	fetch data from the table: "squid_erc.account_ft_transfer" using primary key columns
+	"""
+	account_ft_transfer_by_pk(id: String!): erc_account_ft_transfer
+
+	"""
+	fetch data from the table: "squid_erc.account_nft_transfer"
+	"""
+	account_nft_transfer(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_account_nft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_account_nft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_nft_transfer_bool_exp
+	): [erc_account_nft_transfer!]!
+
+	"""
+	fetch aggregated fields from the table: "squid_erc.account_nft_transfer"
+	"""
+	account_nft_transfer_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_account_nft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_account_nft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_nft_transfer_bool_exp
+	): erc_account_nft_transfer_aggregate!
+
+	"""
+	fetch data from the table: "squid_erc.account_nft_transfer" using primary key columns
+	"""
+	account_nft_transfer_by_pk(id: String!): erc_account_nft_transfer
+
+	"""
+	fetch data from the table: "squid_erc.collection"
+	"""
+	collection(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_collection_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_collection_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_collection_bool_exp
+	): [erc_collection!]!
+
+	"""
+	fetch aggregated fields from the table: "squid_erc.collection"
+	"""
+	collection_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_collection_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_collection_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_collection_bool_exp
+	): erc_collection_aggregate!
+
+	"""
+	fetch data from the table: "squid_erc.collection" using primary key columns
+	"""
+	collection_by_pk(id: String!): erc_collection
+
+	"""
+	fetch data from the table: "squid_erc.f_token"
+	"""
+	f_token(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_f_token_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_f_token_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_f_token_bool_exp
+	): [erc_f_token!]!
+
+	"""
+	fetch aggregated fields from the table: "squid_erc.f_token"
+	"""
+	f_token_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_f_token_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_f_token_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_f_token_bool_exp
+	): erc_f_token_aggregate!
+
+	"""
+	fetch data from the table: "squid_erc.f_token" using primary key columns
+	"""
+	f_token_by_pk(id: String!): erc_f_token
+
+	"""
+	fetch data from the table: "squid_erc.ft_transfer"
+	"""
+	ft_transfer(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_ft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_ft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_ft_transfer_bool_exp
+	): [erc_ft_transfer!]!
+
+	"""
+	fetch aggregated fields from the table: "squid_erc.ft_transfer"
+	"""
+	ft_transfer_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_ft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_ft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_ft_transfer_bool_exp
+	): erc_ft_transfer_aggregate!
+
+	"""
+	fetch data from the table: "squid_erc.ft_transfer" using primary key columns
+	"""
+	ft_transfer_by_pk(id: String!): erc_ft_transfer
+
+	"""
+	fetch data from the table: "squid_erc.nf_token"
+	"""
+	nf_token(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_nf_token_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_nf_token_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_nf_token_bool_exp
+	): [erc_nf_token!]!
+
+	"""
+	fetch aggregated fields from the table: "squid_erc.nf_token"
+	"""
+	nf_token_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_nf_token_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_nf_token_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_nf_token_bool_exp
+	): erc_nf_token_aggregate!
+
+	"""
+	fetch data from the table: "squid_erc.nf_token" using primary key columns
+	"""
+	nf_token_by_pk(id: String!): erc_nf_token
+
+	"""
+	fetch data from the table: "squid_erc.nft_transfer"
+	"""
+	nft_transfer(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_nft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_nft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_nft_transfer_bool_exp
+	): [erc_nft_transfer!]!
+
+	"""
+	fetch aggregated fields from the table: "squid_erc.nft_transfer"
+	"""
+	nft_transfer_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_nft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_nft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_nft_transfer_bool_exp
+	): erc_nft_transfer_aggregate!
+
+	"""
+	fetch data from the table: "squid_erc.nft_transfer" using primary key columns
+	"""
+	nft_transfer_by_pk(id: String!): erc_nft_transfer
+
+	"""
+	fetch data from the table: "squid_erc.uri_update_action"
+	"""
+	uri_update_action(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_uri_update_action_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_uri_update_action_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_uri_update_action_bool_exp
+	): [erc_uri_update_action!]!
+
+	"""
+	fetch aggregated fields from the table: "squid_erc.uri_update_action"
+	"""
+	uri_update_action_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_uri_update_action_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_uri_update_action_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_uri_update_action_bool_exp
+	): erc_uri_update_action_aggregate!
+
+	"""
+	fetch data from the table: "squid_erc.uri_update_action" using primary key columns
+	"""
+	uri_update_action_by_pk(id: String!): erc_uri_update_action
+}
+
+type erc_erc_subscription {
+	"""
+	fetch data from the table: "squid_erc.account"
+	"""
+	account(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_account_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_account_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_bool_exp
+	): [erc_account!]!
+
+	"""
+	fetch aggregated fields from the table: "squid_erc.account"
+	"""
+	account_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_account_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_account_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_bool_exp
+	): erc_account_aggregate!
+
+	"""
+	fetch data from the table: "squid_erc.account" using primary key columns
+	"""
+	account_by_pk(id: String!): erc_account
+
+	"""
+	fetch data from the table: "squid_erc.account_f_token_balance"
+	"""
+	account_f_token_balance(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_account_f_token_balance_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_account_f_token_balance_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_f_token_balance_bool_exp
+	): [erc_account_f_token_balance!]!
+
+	"""
+	fetch aggregated fields from the table: "squid_erc.account_f_token_balance"
+	"""
+	account_f_token_balance_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_account_f_token_balance_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_account_f_token_balance_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_f_token_balance_bool_exp
+	): erc_account_f_token_balance_aggregate!
+
+	"""
+	fetch data from the table: "squid_erc.account_f_token_balance" using primary key columns
+	"""
+	account_f_token_balance_by_pk(id: String!): erc_account_f_token_balance
+
+	"""
+	fetch data from the table in a streaming manner : "squid_erc.account_f_token_balance"
+	"""
+	account_f_token_balance_stream(
+		"""
+		maximum number of rows returned in a single batch
+		"""
+		batch_size: Int!
+
+		"""
+		cursor to stream the results returned by the query
+		"""
+		cursor: [erc_account_f_token_balance_stream_cursor_input]!
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_f_token_balance_bool_exp
+	): [erc_account_f_token_balance!]!
+
+	"""
+	fetch data from the table: "squid_erc.account_ft_transfer"
+	"""
+	account_ft_transfer(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_account_ft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_account_ft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_ft_transfer_bool_exp
+	): [erc_account_ft_transfer!]!
+
+	"""
+	fetch aggregated fields from the table: "squid_erc.account_ft_transfer"
+	"""
+	account_ft_transfer_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_account_ft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_account_ft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_ft_transfer_bool_exp
+	): erc_account_ft_transfer_aggregate!
+
+	"""
+	fetch data from the table: "squid_erc.account_ft_transfer" using primary key columns
+	"""
+	account_ft_transfer_by_pk(id: String!): erc_account_ft_transfer
+
+	"""
+	fetch data from the table in a streaming manner : "squid_erc.account_ft_transfer"
+	"""
+	account_ft_transfer_stream(
+		"""
+		maximum number of rows returned in a single batch
+		"""
+		batch_size: Int!
+
+		"""
+		cursor to stream the results returned by the query
+		"""
+		cursor: [erc_account_ft_transfer_stream_cursor_input]!
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_ft_transfer_bool_exp
+	): [erc_account_ft_transfer!]!
+
+	"""
+	fetch data from the table: "squid_erc.account_nft_transfer"
+	"""
+	account_nft_transfer(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_account_nft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_account_nft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_nft_transfer_bool_exp
+	): [erc_account_nft_transfer!]!
+
+	"""
+	fetch aggregated fields from the table: "squid_erc.account_nft_transfer"
+	"""
+	account_nft_transfer_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_account_nft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_account_nft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_nft_transfer_bool_exp
+	): erc_account_nft_transfer_aggregate!
+
+	"""
+	fetch data from the table: "squid_erc.account_nft_transfer" using primary key columns
+	"""
+	account_nft_transfer_by_pk(id: String!): erc_account_nft_transfer
+
+	"""
+	fetch data from the table in a streaming manner : "squid_erc.account_nft_transfer"
+	"""
+	account_nft_transfer_stream(
+		"""
+		maximum number of rows returned in a single batch
+		"""
+		batch_size: Int!
+
+		"""
+		cursor to stream the results returned by the query
+		"""
+		cursor: [erc_account_nft_transfer_stream_cursor_input]!
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_nft_transfer_bool_exp
+	): [erc_account_nft_transfer!]!
+
+	"""
+	fetch data from the table in a streaming manner : "squid_erc.account"
+	"""
+	account_stream(
+		"""
+		maximum number of rows returned in a single batch
+		"""
+		batch_size: Int!
+
+		"""
+		cursor to stream the results returned by the query
+		"""
+		cursor: [erc_account_stream_cursor_input]!
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_bool_exp
+	): [erc_account!]!
+
+	"""
+	fetch data from the table: "squid_erc.collection"
+	"""
+	collection(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_collection_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_collection_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_collection_bool_exp
+	): [erc_collection!]!
+
+	"""
+	fetch aggregated fields from the table: "squid_erc.collection"
+	"""
+	collection_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_collection_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_collection_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_collection_bool_exp
+	): erc_collection_aggregate!
+
+	"""
+	fetch data from the table: "squid_erc.collection" using primary key columns
+	"""
+	collection_by_pk(id: String!): erc_collection
+
+	"""
+	fetch data from the table in a streaming manner : "squid_erc.collection"
+	"""
+	collection_stream(
+		"""
+		maximum number of rows returned in a single batch
+		"""
+		batch_size: Int!
+
+		"""
+		cursor to stream the results returned by the query
+		"""
+		cursor: [erc_collection_stream_cursor_input]!
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_collection_bool_exp
+	): [erc_collection!]!
+
+	"""
+	fetch data from the table: "squid_erc.f_token"
+	"""
+	f_token(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_f_token_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_f_token_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_f_token_bool_exp
+	): [erc_f_token!]!
+
+	"""
+	fetch aggregated fields from the table: "squid_erc.f_token"
+	"""
+	f_token_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_f_token_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_f_token_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_f_token_bool_exp
+	): erc_f_token_aggregate!
+
+	"""
+	fetch data from the table: "squid_erc.f_token" using primary key columns
+	"""
+	f_token_by_pk(id: String!): erc_f_token
+
+	"""
+	fetch data from the table in a streaming manner : "squid_erc.f_token"
+	"""
+	f_token_stream(
+		"""
+		maximum number of rows returned in a single batch
+		"""
+		batch_size: Int!
+
+		"""
+		cursor to stream the results returned by the query
+		"""
+		cursor: [erc_f_token_stream_cursor_input]!
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_f_token_bool_exp
+	): [erc_f_token!]!
+
+	"""
+	fetch data from the table: "squid_erc.ft_transfer"
+	"""
+	ft_transfer(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_ft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_ft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_ft_transfer_bool_exp
+	): [erc_ft_transfer!]!
+
+	"""
+	fetch aggregated fields from the table: "squid_erc.ft_transfer"
+	"""
+	ft_transfer_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_ft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_ft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_ft_transfer_bool_exp
+	): erc_ft_transfer_aggregate!
+
+	"""
+	fetch data from the table: "squid_erc.ft_transfer" using primary key columns
+	"""
+	ft_transfer_by_pk(id: String!): erc_ft_transfer
+
+	"""
+	fetch data from the table in a streaming manner : "squid_erc.ft_transfer"
+	"""
+	ft_transfer_stream(
+		"""
+		maximum number of rows returned in a single batch
+		"""
+		batch_size: Int!
+
+		"""
+		cursor to stream the results returned by the query
+		"""
+		cursor: [erc_ft_transfer_stream_cursor_input]!
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_ft_transfer_bool_exp
+	): [erc_ft_transfer!]!
+
+	"""
+	fetch data from the table: "squid_erc.nf_token"
+	"""
+	nf_token(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_nf_token_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_nf_token_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_nf_token_bool_exp
+	): [erc_nf_token!]!
+
+	"""
+	fetch aggregated fields from the table: "squid_erc.nf_token"
+	"""
+	nf_token_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_nf_token_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_nf_token_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_nf_token_bool_exp
+	): erc_nf_token_aggregate!
+
+	"""
+	fetch data from the table: "squid_erc.nf_token" using primary key columns
+	"""
+	nf_token_by_pk(id: String!): erc_nf_token
+
+	"""
+	fetch data from the table in a streaming manner : "squid_erc.nf_token"
+	"""
+	nf_token_stream(
+		"""
+		maximum number of rows returned in a single batch
+		"""
+		batch_size: Int!
+
+		"""
+		cursor to stream the results returned by the query
+		"""
+		cursor: [erc_nf_token_stream_cursor_input]!
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_nf_token_bool_exp
+	): [erc_nf_token!]!
+
+	"""
+	fetch data from the table: "squid_erc.nft_transfer"
+	"""
+	nft_transfer(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_nft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_nft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_nft_transfer_bool_exp
+	): [erc_nft_transfer!]!
+
+	"""
+	fetch aggregated fields from the table: "squid_erc.nft_transfer"
+	"""
+	nft_transfer_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_nft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_nft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_nft_transfer_bool_exp
+	): erc_nft_transfer_aggregate!
+
+	"""
+	fetch data from the table: "squid_erc.nft_transfer" using primary key columns
+	"""
+	nft_transfer_by_pk(id: String!): erc_nft_transfer
+
+	"""
+	fetch data from the table in a streaming manner : "squid_erc.nft_transfer"
+	"""
+	nft_transfer_stream(
+		"""
+		maximum number of rows returned in a single batch
+		"""
+		batch_size: Int!
+
+		"""
+		cursor to stream the results returned by the query
+		"""
+		cursor: [erc_nft_transfer_stream_cursor_input]!
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_nft_transfer_bool_exp
+	): [erc_nft_transfer!]!
+
+	"""
+	fetch data from the table: "squid_erc.uri_update_action"
+	"""
+	uri_update_action(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_uri_update_action_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_uri_update_action_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_uri_update_action_bool_exp
+	): [erc_uri_update_action!]!
+
+	"""
+	fetch aggregated fields from the table: "squid_erc.uri_update_action"
+	"""
+	uri_update_action_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_uri_update_action_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_uri_update_action_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_uri_update_action_bool_exp
+	): erc_uri_update_action_aggregate!
+
+	"""
+	fetch data from the table: "squid_erc.uri_update_action" using primary key columns
+	"""
+	uri_update_action_by_pk(id: String!): erc_uri_update_action
+
+	"""
+	fetch data from the table in a streaming manner : "squid_erc.uri_update_action"
+	"""
+	uri_update_action_stream(
+		"""
+		maximum number of rows returned in a single batch
+		"""
+		batch_size: Int!
+
+		"""
+		cursor to stream the results returned by the query
+		"""
+		cursor: [erc_uri_update_action_stream_cursor_input]!
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_uri_update_action_bool_exp
+	): [erc_uri_update_action!]!
+}
+
+"""
+columns and relationships of "squid_erc.f_token"
+"""
+type erc_f_token {
+	"""
+	An array relationship
+	"""
+	account_f_token_balances(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_account_f_token_balance_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_account_f_token_balance_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_f_token_balance_bool_exp
+	): [erc_account_f_token_balance!]!
+
+	"""
+	An aggregate relationship
+	"""
+	account_f_token_balances_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_account_f_token_balance_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_account_f_token_balance_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_f_token_balance_bool_exp
+	): erc_account_f_token_balance_aggregate!
 	decimals: Int
-	id: ID!
+
+	"""
+	An array relationship
+	"""
+	ft_transfers(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_ft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_ft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_ft_transfer_bool_exp
+	): [erc_ft_transfer!]!
+
+	"""
+	An aggregate relationship
+	"""
+	ft_transfers_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_ft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_ft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_ft_transfer_bool_exp
+	): erc_ft_transfer_aggregate!
+	id: String!
 	name: String
 	symbol: String
 }
 
-type erc_FTokenEdge {
-	cursor: String!
-	node: erc_FToken!
+"""
+aggregated selection of "squid_erc.f_token"
+"""
+type erc_f_token_aggregate {
+	aggregate: erc_f_token_aggregate_fields
+	nodes: [erc_f_token!]!
 }
 
-enum erc_FTokenOrderByInput {
-	decimals_ASC
-	decimals_DESC
-	id_ASC
-	id_DESC
-	name_ASC
-	name_DESC
-	symbol_ASC
-	symbol_DESC
+"""
+aggregate fields of "squid_erc.f_token"
+"""
+type erc_f_token_aggregate_fields {
+	avg: erc_f_token_avg_fields
+	count(columns: [erc_f_token_select_column!], distinct: Boolean): Int!
+	max: erc_f_token_max_fields
+	min: erc_f_token_min_fields
+	stddev: erc_f_token_stddev_fields
+	stddev_pop: erc_f_token_stddev_pop_fields
+	stddev_samp: erc_f_token_stddev_samp_fields
+	sum: erc_f_token_sum_fields
+	var_pop: erc_f_token_var_pop_fields
+	var_samp: erc_f_token_var_samp_fields
+	variance: erc_f_token_variance_fields
 }
 
-input erc_FTokenWhereInput {
-	AND: [erc_FTokenWhereInput!]
-	OR: [erc_FTokenWhereInput!]
-	decimals_eq: Int
-	decimals_gt: Int
-	decimals_gte: Int
-	decimals_in: [Int!]
-	decimals_isNull: Boolean
-	decimals_lt: Int
-	decimals_lte: Int
-	decimals_not_eq: Int
-	decimals_not_in: [Int!]
-	id_contains: ID
-	id_containsInsensitive: ID
-	id_endsWith: ID
-	id_eq: ID
-	id_gt: ID
-	id_gte: ID
-	id_in: [ID!]
-	id_lt: ID
-	id_lte: ID
-	id_not_contains: ID
-	id_not_containsInsensitive: ID
-	id_not_endsWith: ID
-	id_not_eq: ID
-	id_not_in: [ID!]
-	id_not_startsWith: ID
-	id_startsWith: ID
-	name_contains: String
-	name_containsInsensitive: String
-	name_endsWith: String
-	name_eq: String
-	name_gt: String
-	name_gte: String
-	name_in: [String!]
-	name_isNull: Boolean
-	name_lt: String
-	name_lte: String
-	name_not_contains: String
-	name_not_containsInsensitive: String
-	name_not_endsWith: String
-	name_not_eq: String
-	name_not_in: [String!]
-	name_not_startsWith: String
-	name_startsWith: String
-	symbol_contains: String
-	symbol_containsInsensitive: String
-	symbol_endsWith: String
-	symbol_eq: String
-	symbol_gt: String
-	symbol_gte: String
-	symbol_in: [String!]
-	symbol_isNull: Boolean
-	symbol_lt: String
-	symbol_lte: String
-	symbol_not_contains: String
-	symbol_not_containsInsensitive: String
-	symbol_not_endsWith: String
-	symbol_not_eq: String
-	symbol_not_in: [String!]
-	symbol_not_startsWith: String
-	symbol_startsWith: String
+"""
+aggregate avg on columns
+"""
+type erc_f_token_avg_fields {
+	decimals: Float
 }
 
-input erc_FTokenWhereUniqueInput {
-	id: ID!
+"""
+Boolean expression to filter rows from the table "squid_erc.f_token". All fields are combined with a logical 'AND'.
+"""
+input erc_f_token_bool_exp {
+	_and: [erc_f_token_bool_exp!]
+	_not: erc_f_token_bool_exp
+	_or: [erc_f_token_bool_exp!]
+	account_f_token_balances: erc_account_f_token_balance_bool_exp
+	decimals: Int_comparison_exp
+	ft_transfers: erc_ft_transfer_bool_exp
+	id: String_comparison_exp
+	name: String_comparison_exp
+	symbol: String_comparison_exp
 }
 
-type erc_FTokensConnection {
-	edges: [erc_FTokenEdge!]!
-	pageInfo: erc_PageInfo!
-	totalCount: Int!
+"""
+unique or primary key constraints on table "squid_erc.f_token"
+"""
+enum erc_f_token_constraint {
+	"""
+	unique or primary key constraint on columns "id"
+	"""
+	PK_da896c08df3022e579355d781b9
 }
 
-type erc_FtTransfer implements erc_Transfer {
-	amount: erc_BigInt
-	blockNumber: erc_BigInt!
-	eventIndex: Int!
-	from: erc_Account!
-	id: ID!
-	timestamp: erc_DateTime!
-	to: erc_Account!
-	token: erc_FToken!
-	transferType: erc_TransferType
-	txnHash: String!
+"""
+input type for incrementing numeric columns in table "squid_erc.f_token"
+"""
+input erc_f_token_inc_input {
+	decimals: Int
 }
 
-type erc_FtTransferEdge {
-	cursor: String!
-	node: erc_FtTransfer!
-}
-
-enum erc_FtTransferOrderByInput {
-	amount_ASC
-	amount_DESC
-	blockNumber_ASC
-	blockNumber_DESC
-	eventIndex_ASC
-	eventIndex_DESC
-	from_id_ASC
-	from_id_DESC
-	id_ASC
-	id_DESC
-	timestamp_ASC
-	timestamp_DESC
-	to_id_ASC
-	to_id_DESC
-	token_decimals_ASC
-	token_decimals_DESC
-	token_id_ASC
-	token_id_DESC
-	token_name_ASC
-	token_name_DESC
-	token_symbol_ASC
-	token_symbol_DESC
-	transferType_ASC
-	transferType_DESC
-	txnHash_ASC
-	txnHash_DESC
-}
-
-input erc_FtTransferWhereInput {
-	AND: [erc_FtTransferWhereInput!]
-	OR: [erc_FtTransferWhereInput!]
-	amount_eq: erc_BigInt
-	amount_gt: erc_BigInt
-	amount_gte: erc_BigInt
-	amount_in: [erc_BigInt!]
-	amount_isNull: Boolean
-	amount_lt: erc_BigInt
-	amount_lte: erc_BigInt
-	amount_not_eq: erc_BigInt
-	amount_not_in: [erc_BigInt!]
-	blockNumber_eq: erc_BigInt
-	blockNumber_gt: erc_BigInt
-	blockNumber_gte: erc_BigInt
-	blockNumber_in: [erc_BigInt!]
-	blockNumber_lt: erc_BigInt
-	blockNumber_lte: erc_BigInt
-	blockNumber_not_eq: erc_BigInt
-	blockNumber_not_in: [erc_BigInt!]
-	eventIndex_eq: Int
-	eventIndex_gt: Int
-	eventIndex_gte: Int
-	eventIndex_in: [Int!]
-	eventIndex_lt: Int
-	eventIndex_lte: Int
-	eventIndex_not_eq: Int
-	eventIndex_not_in: [Int!]
-	from: erc_AccountWhereInput
-	id_contains: ID
-	id_containsInsensitive: ID
-	id_endsWith: ID
-	id_eq: ID
-	id_gt: ID
-	id_gte: ID
-	id_in: [ID!]
-	id_lt: ID
-	id_lte: ID
-	id_not_contains: ID
-	id_not_containsInsensitive: ID
-	id_not_endsWith: ID
-	id_not_eq: ID
-	id_not_in: [ID!]
-	id_not_startsWith: ID
-	id_startsWith: ID
-	timestamp_eq: erc_DateTime
-	timestamp_gt: erc_DateTime
-	timestamp_gte: erc_DateTime
-	timestamp_in: [erc_DateTime!]
-	timestamp_lt: erc_DateTime
-	timestamp_lte: erc_DateTime
-	timestamp_not_eq: erc_DateTime
-	timestamp_not_in: [erc_DateTime!]
-	to: erc_AccountWhereInput
-	token: erc_FTokenWhereInput
-	transferType_eq: erc_TransferType
-	transferType_in: [erc_TransferType!]
-	transferType_isNull: Boolean
-	transferType_not_eq: erc_TransferType
-	transferType_not_in: [erc_TransferType!]
-	txnHash_contains: String
-	txnHash_containsInsensitive: String
-	txnHash_endsWith: String
-	txnHash_eq: String
-	txnHash_gt: String
-	txnHash_gte: String
-	txnHash_in: [String!]
-	txnHash_lt: String
-	txnHash_lte: String
-	txnHash_not_contains: String
-	txnHash_not_containsInsensitive: String
-	txnHash_not_endsWith: String
-	txnHash_not_eq: String
-	txnHash_not_in: [String!]
-	txnHash_not_startsWith: String
-	txnHash_startsWith: String
-}
-
-input erc_FtTransferWhereUniqueInput {
-	id: ID!
-}
-
-type erc_FtTransfersConnection {
-	edges: [erc_FtTransferEdge!]!
-	pageInfo: erc_PageInfo!
-	totalCount: Int!
-}
-
-type erc_NfToken implements erc_Token {
-	amount: erc_BigInt!
-	collection: erc_Collection!
-	currentOwner: erc_Account!
-	id: ID!
-	isBurned: Boolean!
+"""
+input type for inserting data into table "squid_erc.f_token"
+"""
+input erc_f_token_insert_input {
+	account_f_token_balances: erc_account_f_token_balance_arr_rel_insert_input
+	decimals: Int
+	ft_transfers: erc_ft_transfer_arr_rel_insert_input
+	id: String
 	name: String
-	nativeId: String!
+	symbol: String
+}
+
+"""
+aggregate max on columns
+"""
+type erc_f_token_max_fields {
+	decimals: Int
+	id: String
+	name: String
+	symbol: String
+}
+
+"""
+aggregate min on columns
+"""
+type erc_f_token_min_fields {
+	decimals: Int
+	id: String
+	name: String
+	symbol: String
+}
+
+"""
+response of any mutation on the table "squid_erc.f_token"
+"""
+type erc_f_token_mutation_response {
+	"""
+	number of rows affected by the mutation
+	"""
+	affected_rows: Int!
+
+	"""
+	data from the rows affected by the mutation
+	"""
+	returning: [erc_f_token!]!
+}
+
+"""
+input type for inserting object relation for remote table "squid_erc.f_token"
+"""
+input erc_f_token_obj_rel_insert_input {
+	data: erc_f_token_insert_input!
+
+	"""
+	upsert condition
+	"""
+	on_conflict: erc_f_token_on_conflict
+}
+
+"""
+on_conflict condition type for table "squid_erc.f_token"
+"""
+input erc_f_token_on_conflict {
+	constraint: erc_f_token_constraint!
+	update_columns: [erc_f_token_update_column!]! = []
+	where: erc_f_token_bool_exp
+}
+
+"""
+Ordering options when selecting data from "squid_erc.f_token".
+"""
+input erc_f_token_order_by {
+	account_f_token_balances_aggregate: erc_account_f_token_balance_aggregate_order_by
+	decimals: order_by
+	ft_transfers_aggregate: erc_ft_transfer_aggregate_order_by
+	id: order_by
+	name: order_by
+	symbol: order_by
+}
+
+"""
+primary key columns input for table: f_token
+"""
+input erc_f_token_pk_columns_input {
+	id: String!
+}
+
+"""
+select columns of table "squid_erc.f_token"
+"""
+enum erc_f_token_select_column {
+	"""
+	column name
+	"""
+	decimals
+
+	"""
+	column name
+	"""
+	id
+
+	"""
+	column name
+	"""
+	name
+
+	"""
+	column name
+	"""
+	symbol
+}
+
+"""
+input type for updating data in table "squid_erc.f_token"
+"""
+input erc_f_token_set_input {
+	decimals: Int
+	id: String
+	name: String
+	symbol: String
+}
+
+"""
+aggregate stddev on columns
+"""
+type erc_f_token_stddev_fields {
+	decimals: Float
+}
+
+"""
+aggregate stddev_pop on columns
+"""
+type erc_f_token_stddev_pop_fields {
+	decimals: Float
+}
+
+"""
+aggregate stddev_samp on columns
+"""
+type erc_f_token_stddev_samp_fields {
+	decimals: Float
+}
+
+"""
+Streaming cursor of the table "f_token"
+"""
+input erc_f_token_stream_cursor_input {
+	"""
+	Stream column input with initial value
+	"""
+	initial_value: erc_f_token_stream_cursor_value_input!
+
+	"""
+	cursor ordering
+	"""
+	ordering: erc_cursor_ordering
+}
+
+"""
+Initial value of the column from where the streaming should start
+"""
+input erc_f_token_stream_cursor_value_input {
+	decimals: Int
+	id: String
+	name: String
+	symbol: String
+}
+
+"""
+aggregate sum on columns
+"""
+type erc_f_token_sum_fields {
+	decimals: Int
+}
+
+"""
+update columns of table "squid_erc.f_token"
+"""
+enum erc_f_token_update_column {
+	"""
+	column name
+	"""
+	decimals
+
+	"""
+	column name
+	"""
+	id
+
+	"""
+	column name
+	"""
+	name
+
+	"""
+	column name
+	"""
+	symbol
+}
+
+input erc_f_token_updates {
+	"""
+	increments the numeric columns with given value of the filtered values
+	"""
+	_inc: erc_f_token_inc_input
+
+	"""
+	sets the columns of the filtered rows to the given values
+	"""
+	_set: erc_f_token_set_input
+	where: erc_f_token_bool_exp!
+}
+
+"""
+aggregate var_pop on columns
+"""
+type erc_f_token_var_pop_fields {
+	decimals: Float
+}
+
+"""
+aggregate var_samp on columns
+"""
+type erc_f_token_var_samp_fields {
+	decimals: Float
+}
+
+"""
+aggregate variance on columns
+"""
+type erc_f_token_variance_fields {
+	decimals: Float
+}
+
+"""
+columns and relationships of "squid_erc.ft_transfer"
+"""
+type erc_ft_transfer {
+	"""
+	An object relationship
+	"""
+	account: erc_account!
+
+	"""
+	An object relationship
+	"""
+	accountByToId: erc_account!
+
+	"""
+	An array relationship
+	"""
+	account_ft_transfers(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_account_ft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_account_ft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_ft_transfer_bool_exp
+	): [erc_account_ft_transfer!]!
+
+	"""
+	An aggregate relationship
+	"""
+	account_ft_transfers_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_account_ft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_account_ft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_ft_transfer_bool_exp
+	): erc_account_ft_transfer_aggregate!
+	amount: numeric
+	block_number: numeric!
+	event_index: Int!
+
+	"""
+	An object relationship
+	"""
+	f_token: erc_f_token!
+	from_id: String!
+	id: String!
+	timestamp: timestamptz!
+	to_id: String!
+	token_id: String!
+	transfer_type: String
+	txn_hash: String!
+}
+
+"""
+aggregated selection of "squid_erc.ft_transfer"
+"""
+type erc_ft_transfer_aggregate {
+	aggregate: erc_ft_transfer_aggregate_fields
+	nodes: [erc_ft_transfer!]!
+}
+
+"""
+aggregate fields of "squid_erc.ft_transfer"
+"""
+type erc_ft_transfer_aggregate_fields {
+	avg: erc_ft_transfer_avg_fields
+	count(columns: [erc_ft_transfer_select_column!], distinct: Boolean): Int!
+	max: erc_ft_transfer_max_fields
+	min: erc_ft_transfer_min_fields
+	stddev: erc_ft_transfer_stddev_fields
+	stddev_pop: erc_ft_transfer_stddev_pop_fields
+	stddev_samp: erc_ft_transfer_stddev_samp_fields
+	sum: erc_ft_transfer_sum_fields
+	var_pop: erc_ft_transfer_var_pop_fields
+	var_samp: erc_ft_transfer_var_samp_fields
+	variance: erc_ft_transfer_variance_fields
+}
+
+"""
+order by aggregate values of table "squid_erc.ft_transfer"
+"""
+input erc_ft_transfer_aggregate_order_by {
+	avg: erc_ft_transfer_avg_order_by
+	count: order_by
+	max: erc_ft_transfer_max_order_by
+	min: erc_ft_transfer_min_order_by
+	stddev: erc_ft_transfer_stddev_order_by
+	stddev_pop: erc_ft_transfer_stddev_pop_order_by
+	stddev_samp: erc_ft_transfer_stddev_samp_order_by
+	sum: erc_ft_transfer_sum_order_by
+	var_pop: erc_ft_transfer_var_pop_order_by
+	var_samp: erc_ft_transfer_var_samp_order_by
+	variance: erc_ft_transfer_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "squid_erc.ft_transfer"
+"""
+input erc_ft_transfer_arr_rel_insert_input {
+	data: [erc_ft_transfer_insert_input!]!
+
+	"""
+	upsert condition
+	"""
+	on_conflict: erc_ft_transfer_on_conflict
+}
+
+"""
+aggregate avg on columns
+"""
+type erc_ft_transfer_avg_fields {
+	amount: Float
+	block_number: Float
+	event_index: Float
+}
+
+"""
+order by avg() on columns of table "squid_erc.ft_transfer"
+"""
+input erc_ft_transfer_avg_order_by {
+	amount: order_by
+	block_number: order_by
+	event_index: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "squid_erc.ft_transfer". All fields are combined with a logical 'AND'.
+"""
+input erc_ft_transfer_bool_exp {
+	_and: [erc_ft_transfer_bool_exp!]
+	_not: erc_ft_transfer_bool_exp
+	_or: [erc_ft_transfer_bool_exp!]
+	account: erc_account_bool_exp
+	accountByToId: erc_account_bool_exp
+	account_ft_transfers: erc_account_ft_transfer_bool_exp
+	amount: numeric_comparison_exp
+	block_number: numeric_comparison_exp
+	event_index: Int_comparison_exp
+	f_token: erc_f_token_bool_exp
+	from_id: String_comparison_exp
+	id: String_comparison_exp
+	timestamp: timestamptz_comparison_exp
+	to_id: String_comparison_exp
+	token_id: String_comparison_exp
+	transfer_type: String_comparison_exp
+	txn_hash: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "squid_erc.ft_transfer"
+"""
+enum erc_ft_transfer_constraint {
+	"""
+	unique or primary key constraint on columns "id"
+	"""
+	PK_9197e98e6e5fc3ead382a4b80a3
+}
+
+"""
+input type for incrementing numeric columns in table "squid_erc.ft_transfer"
+"""
+input erc_ft_transfer_inc_input {
+	amount: numeric
+	block_number: numeric
+	event_index: Int
+}
+
+"""
+input type for inserting data into table "squid_erc.ft_transfer"
+"""
+input erc_ft_transfer_insert_input {
+	account: erc_account_obj_rel_insert_input
+	accountByToId: erc_account_obj_rel_insert_input
+	account_ft_transfers: erc_account_ft_transfer_arr_rel_insert_input
+	amount: numeric
+	block_number: numeric
+	event_index: Int
+	f_token: erc_f_token_obj_rel_insert_input
+	from_id: String
+	id: String
+	timestamp: timestamptz
+	to_id: String
+	token_id: String
+	transfer_type: String
+	txn_hash: String
+}
+
+"""
+aggregate max on columns
+"""
+type erc_ft_transfer_max_fields {
+	amount: numeric
+	block_number: numeric
+	event_index: Int
+	from_id: String
+	id: String
+	timestamp: timestamptz
+	to_id: String
+	token_id: String
+	transfer_type: String
+	txn_hash: String
+}
+
+"""
+order by max() on columns of table "squid_erc.ft_transfer"
+"""
+input erc_ft_transfer_max_order_by {
+	amount: order_by
+	block_number: order_by
+	event_index: order_by
+	from_id: order_by
+	id: order_by
+	timestamp: order_by
+	to_id: order_by
+	token_id: order_by
+	transfer_type: order_by
+	txn_hash: order_by
+}
+
+"""
+aggregate min on columns
+"""
+type erc_ft_transfer_min_fields {
+	amount: numeric
+	block_number: numeric
+	event_index: Int
+	from_id: String
+	id: String
+	timestamp: timestamptz
+	to_id: String
+	token_id: String
+	transfer_type: String
+	txn_hash: String
+}
+
+"""
+order by min() on columns of table "squid_erc.ft_transfer"
+"""
+input erc_ft_transfer_min_order_by {
+	amount: order_by
+	block_number: order_by
+	event_index: order_by
+	from_id: order_by
+	id: order_by
+	timestamp: order_by
+	to_id: order_by
+	token_id: order_by
+	transfer_type: order_by
+	txn_hash: order_by
+}
+
+"""
+response of any mutation on the table "squid_erc.ft_transfer"
+"""
+type erc_ft_transfer_mutation_response {
+	"""
+	number of rows affected by the mutation
+	"""
+	affected_rows: Int!
+
+	"""
+	data from the rows affected by the mutation
+	"""
+	returning: [erc_ft_transfer!]!
+}
+
+"""
+input type for inserting object relation for remote table "squid_erc.ft_transfer"
+"""
+input erc_ft_transfer_obj_rel_insert_input {
+	data: erc_ft_transfer_insert_input!
+
+	"""
+	upsert condition
+	"""
+	on_conflict: erc_ft_transfer_on_conflict
+}
+
+"""
+on_conflict condition type for table "squid_erc.ft_transfer"
+"""
+input erc_ft_transfer_on_conflict {
+	constraint: erc_ft_transfer_constraint!
+	update_columns: [erc_ft_transfer_update_column!]! = []
+	where: erc_ft_transfer_bool_exp
+}
+
+"""
+Ordering options when selecting data from "squid_erc.ft_transfer".
+"""
+input erc_ft_transfer_order_by {
+	account: erc_account_order_by
+	accountByToId: erc_account_order_by
+	account_ft_transfers_aggregate: erc_account_ft_transfer_aggregate_order_by
+	amount: order_by
+	block_number: order_by
+	event_index: order_by
+	f_token: erc_f_token_order_by
+	from_id: order_by
+	id: order_by
+	timestamp: order_by
+	to_id: order_by
+	token_id: order_by
+	transfer_type: order_by
+	txn_hash: order_by
+}
+
+"""
+primary key columns input for table: ft_transfer
+"""
+input erc_ft_transfer_pk_columns_input {
+	id: String!
+}
+
+"""
+select columns of table "squid_erc.ft_transfer"
+"""
+enum erc_ft_transfer_select_column {
+	"""
+	column name
+	"""
+	amount
+
+	"""
+	column name
+	"""
+	block_number
+
+	"""
+	column name
+	"""
+	event_index
+
+	"""
+	column name
+	"""
+	from_id
+
+	"""
+	column name
+	"""
+	id
+
+	"""
+	column name
+	"""
+	timestamp
+
+	"""
+	column name
+	"""
+	to_id
+
+	"""
+	column name
+	"""
+	token_id
+
+	"""
+	column name
+	"""
+	transfer_type
+
+	"""
+	column name
+	"""
+	txn_hash
+}
+
+"""
+input type for updating data in table "squid_erc.ft_transfer"
+"""
+input erc_ft_transfer_set_input {
+	amount: numeric
+	block_number: numeric
+	event_index: Int
+	from_id: String
+	id: String
+	timestamp: timestamptz
+	to_id: String
+	token_id: String
+	transfer_type: String
+	txn_hash: String
+}
+
+"""
+aggregate stddev on columns
+"""
+type erc_ft_transfer_stddev_fields {
+	amount: Float
+	block_number: Float
+	event_index: Float
+}
+
+"""
+order by stddev() on columns of table "squid_erc.ft_transfer"
+"""
+input erc_ft_transfer_stddev_order_by {
+	amount: order_by
+	block_number: order_by
+	event_index: order_by
+}
+
+"""
+aggregate stddev_pop on columns
+"""
+type erc_ft_transfer_stddev_pop_fields {
+	amount: Float
+	block_number: Float
+	event_index: Float
+}
+
+"""
+order by stddev_pop() on columns of table "squid_erc.ft_transfer"
+"""
+input erc_ft_transfer_stddev_pop_order_by {
+	amount: order_by
+	block_number: order_by
+	event_index: order_by
+}
+
+"""
+aggregate stddev_samp on columns
+"""
+type erc_ft_transfer_stddev_samp_fields {
+	amount: Float
+	block_number: Float
+	event_index: Float
+}
+
+"""
+order by stddev_samp() on columns of table "squid_erc.ft_transfer"
+"""
+input erc_ft_transfer_stddev_samp_order_by {
+	amount: order_by
+	block_number: order_by
+	event_index: order_by
+}
+
+"""
+Streaming cursor of the table "ft_transfer"
+"""
+input erc_ft_transfer_stream_cursor_input {
+	"""
+	Stream column input with initial value
+	"""
+	initial_value: erc_ft_transfer_stream_cursor_value_input!
+
+	"""
+	cursor ordering
+	"""
+	ordering: erc_cursor_ordering
+}
+
+"""
+Initial value of the column from where the streaming should start
+"""
+input erc_ft_transfer_stream_cursor_value_input {
+	amount: numeric
+	block_number: numeric
+	event_index: Int
+	from_id: String
+	id: String
+	timestamp: timestamptz
+	to_id: String
+	token_id: String
+	transfer_type: String
+	txn_hash: String
+}
+
+"""
+aggregate sum on columns
+"""
+type erc_ft_transfer_sum_fields {
+	amount: numeric
+	block_number: numeric
+	event_index: Int
+}
+
+"""
+order by sum() on columns of table "squid_erc.ft_transfer"
+"""
+input erc_ft_transfer_sum_order_by {
+	amount: order_by
+	block_number: order_by
+	event_index: order_by
+}
+
+"""
+update columns of table "squid_erc.ft_transfer"
+"""
+enum erc_ft_transfer_update_column {
+	"""
+	column name
+	"""
+	amount
+
+	"""
+	column name
+	"""
+	block_number
+
+	"""
+	column name
+	"""
+	event_index
+
+	"""
+	column name
+	"""
+	from_id
+
+	"""
+	column name
+	"""
+	id
+
+	"""
+	column name
+	"""
+	timestamp
+
+	"""
+	column name
+	"""
+	to_id
+
+	"""
+	column name
+	"""
+	token_id
+
+	"""
+	column name
+	"""
+	transfer_type
+
+	"""
+	column name
+	"""
+	txn_hash
+}
+
+input erc_ft_transfer_updates {
+	"""
+	increments the numeric columns with given value of the filtered values
+	"""
+	_inc: erc_ft_transfer_inc_input
+
+	"""
+	sets the columns of the filtered rows to the given values
+	"""
+	_set: erc_ft_transfer_set_input
+	where: erc_ft_transfer_bool_exp!
+}
+
+"""
+aggregate var_pop on columns
+"""
+type erc_ft_transfer_var_pop_fields {
+	amount: Float
+	block_number: Float
+	event_index: Float
+}
+
+"""
+order by var_pop() on columns of table "squid_erc.ft_transfer"
+"""
+input erc_ft_transfer_var_pop_order_by {
+	amount: order_by
+	block_number: order_by
+	event_index: order_by
+}
+
+"""
+aggregate var_samp on columns
+"""
+type erc_ft_transfer_var_samp_fields {
+	amount: Float
+	block_number: Float
+	event_index: Float
+}
+
+"""
+order by var_samp() on columns of table "squid_erc.ft_transfer"
+"""
+input erc_ft_transfer_var_samp_order_by {
+	amount: order_by
+	block_number: order_by
+	event_index: order_by
+}
+
+"""
+aggregate variance on columns
+"""
+type erc_ft_transfer_variance_fields {
+	amount: Float
+	block_number: Float
+	event_index: Float
+}
+
+"""
+order by variance() on columns of table "squid_erc.ft_transfer"
+"""
+input erc_ft_transfer_variance_order_by {
+	amount: order_by
+	block_number: order_by
+	event_index: order_by
+}
+
+"""
+columns and relationships of "squid_erc.nf_token"
+"""
+type erc_nf_token {
+	"""
+	An object relationship
+	"""
+	account: erc_account!
+	amount: numeric!
+
+	"""
+	An object relationship
+	"""
+	collection: erc_collection!
+	collection_id: String!
+	current_owner_id: String!
+	id: String!
+	is_burned: Boolean!
+	name: String
+	native_id: String!
+
+	"""
+	An array relationship
+	"""
+	nft_transfers(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_nft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_nft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_nft_transfer_bool_exp
+	): [erc_nft_transfer!]!
+
+	"""
+	An aggregate relationship
+	"""
+	nft_transfers_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_nft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_nft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_nft_transfer_bool_exp
+	): erc_nft_transfer_aggregate!
 	symbol: String
 	uri: String
-	uriUpdateActions(
+
+	"""
+	An array relationship
+	"""
+	uri_update_actions(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_uri_update_action_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
 		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
 		offset: Int
-		orderBy: [erc_UriUpdateActionOrderByInput]
-		where: erc_UriUpdateActionWhereInput
-	): [erc_UriUpdateAction!]!
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_uri_update_action_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_uri_update_action_bool_exp
+	): [erc_uri_update_action!]!
+
+	"""
+	An aggregate relationship
+	"""
+	uri_update_actions_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_uri_update_action_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_uri_update_action_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_uri_update_action_bool_exp
+	): erc_uri_update_action_aggregate!
 }
 
-type erc_NfTokenEdge {
-	cursor: String!
-	node: erc_NfToken!
+"""
+aggregated selection of "squid_erc.nf_token"
+"""
+type erc_nf_token_aggregate {
+	aggregate: erc_nf_token_aggregate_fields
+	nodes: [erc_nf_token!]!
 }
 
-enum erc_NfTokenOrderByInput {
-	amount_ASC
-	amount_DESC
-	collection_collectionType_ASC
-	collection_collectionType_DESC
-	collection_createdAtBlock_ASC
-	collection_createdAtBlock_DESC
-	collection_createdAt_ASC
-	collection_createdAt_DESC
-	collection_id_ASC
-	collection_id_DESC
-	currentOwner_id_ASC
-	currentOwner_id_DESC
-	id_ASC
-	id_DESC
-	isBurned_ASC
-	isBurned_DESC
-	name_ASC
-	name_DESC
-	nativeId_ASC
-	nativeId_DESC
-	symbol_ASC
-	symbol_DESC
-	uri_ASC
-	uri_DESC
+"""
+aggregate fields of "squid_erc.nf_token"
+"""
+type erc_nf_token_aggregate_fields {
+	avg: erc_nf_token_avg_fields
+	count(columns: [erc_nf_token_select_column!], distinct: Boolean): Int!
+	max: erc_nf_token_max_fields
+	min: erc_nf_token_min_fields
+	stddev: erc_nf_token_stddev_fields
+	stddev_pop: erc_nf_token_stddev_pop_fields
+	stddev_samp: erc_nf_token_stddev_samp_fields
+	sum: erc_nf_token_sum_fields
+	var_pop: erc_nf_token_var_pop_fields
+	var_samp: erc_nf_token_var_samp_fields
+	variance: erc_nf_token_variance_fields
 }
 
-input erc_NfTokenWhereInput {
-	AND: [erc_NfTokenWhereInput!]
-	OR: [erc_NfTokenWhereInput!]
-	amount_eq: erc_BigInt
-	amount_gt: erc_BigInt
-	amount_gte: erc_BigInt
-	amount_in: [erc_BigInt!]
-	amount_lt: erc_BigInt
-	amount_lte: erc_BigInt
-	amount_not_eq: erc_BigInt
-	amount_not_in: [erc_BigInt!]
-	collection: erc_CollectionWhereInput
-	currentOwner: erc_AccountWhereInput
-	id_contains: ID
-	id_containsInsensitive: ID
-	id_endsWith: ID
-	id_eq: ID
-	id_gt: ID
-	id_gte: ID
-	id_in: [ID!]
-	id_lt: ID
-	id_lte: ID
-	id_not_contains: ID
-	id_not_containsInsensitive: ID
-	id_not_endsWith: ID
-	id_not_eq: ID
-	id_not_in: [ID!]
-	id_not_startsWith: ID
-	id_startsWith: ID
-	isBurned_eq: Boolean
-	isBurned_not_eq: Boolean
-	name_contains: String
-	name_containsInsensitive: String
-	name_endsWith: String
-	name_eq: String
-	name_gt: String
-	name_gte: String
-	name_in: [String!]
-	name_isNull: Boolean
-	name_lt: String
-	name_lte: String
-	name_not_contains: String
-	name_not_containsInsensitive: String
-	name_not_endsWith: String
-	name_not_eq: String
-	name_not_in: [String!]
-	name_not_startsWith: String
-	name_startsWith: String
-	nativeId_contains: String
-	nativeId_containsInsensitive: String
-	nativeId_endsWith: String
-	nativeId_eq: String
-	nativeId_gt: String
-	nativeId_gte: String
-	nativeId_in: [String!]
-	nativeId_lt: String
-	nativeId_lte: String
-	nativeId_not_contains: String
-	nativeId_not_containsInsensitive: String
-	nativeId_not_endsWith: String
-	nativeId_not_eq: String
-	nativeId_not_in: [String!]
-	nativeId_not_startsWith: String
-	nativeId_startsWith: String
-	symbol_contains: String
-	symbol_containsInsensitive: String
-	symbol_endsWith: String
-	symbol_eq: String
-	symbol_gt: String
-	symbol_gte: String
-	symbol_in: [String!]
-	symbol_isNull: Boolean
-	symbol_lt: String
-	symbol_lte: String
-	symbol_not_contains: String
-	symbol_not_containsInsensitive: String
-	symbol_not_endsWith: String
-	symbol_not_eq: String
-	symbol_not_in: [String!]
-	symbol_not_startsWith: String
-	symbol_startsWith: String
-	uriUpdateActions_every: erc_UriUpdateActionWhereInput
-	uriUpdateActions_none: erc_UriUpdateActionWhereInput
-	uriUpdateActions_some: erc_UriUpdateActionWhereInput
-	uri_contains: String
-	uri_containsInsensitive: String
-	uri_endsWith: String
-	uri_eq: String
-	uri_gt: String
-	uri_gte: String
-	uri_in: [String!]
-	uri_isNull: Boolean
-	uri_lt: String
-	uri_lte: String
-	uri_not_contains: String
-	uri_not_containsInsensitive: String
-	uri_not_endsWith: String
-	uri_not_eq: String
-	uri_not_in: [String!]
-	uri_not_startsWith: String
-	uri_startsWith: String
+"""
+order by aggregate values of table "squid_erc.nf_token"
+"""
+input erc_nf_token_aggregate_order_by {
+	avg: erc_nf_token_avg_order_by
+	count: order_by
+	max: erc_nf_token_max_order_by
+	min: erc_nf_token_min_order_by
+	stddev: erc_nf_token_stddev_order_by
+	stddev_pop: erc_nf_token_stddev_pop_order_by
+	stddev_samp: erc_nf_token_stddev_samp_order_by
+	sum: erc_nf_token_sum_order_by
+	var_pop: erc_nf_token_var_pop_order_by
+	var_samp: erc_nf_token_var_samp_order_by
+	variance: erc_nf_token_variance_order_by
 }
 
-input erc_NfTokenWhereUniqueInput {
-	id: ID!
+"""
+input type for inserting array relation for remote table "squid_erc.nf_token"
+"""
+input erc_nf_token_arr_rel_insert_input {
+	data: [erc_nf_token_insert_input!]!
+
+	"""
+	upsert condition
+	"""
+	on_conflict: erc_nf_token_on_conflict
 }
 
-type erc_NfTokensConnection {
-	edges: [erc_NfTokenEdge!]!
-	pageInfo: erc_PageInfo!
-	totalCount: Int!
+"""
+aggregate avg on columns
+"""
+type erc_nf_token_avg_fields {
+	amount: Float
 }
 
-type erc_NftTransfer implements erc_Transfer {
-	amount: erc_BigInt!
-	blockNumber: erc_BigInt!
-	eventIndex: Int!
-	from: erc_Account!
-	id: ID!
-	isBatch: Boolean!
-	operator: erc_Account
-	timestamp: erc_DateTime!
-	to: erc_Account!
-	token: erc_NfToken!
-	transferType: erc_TransferType
-	txnHash: String!
+"""
+order by avg() on columns of table "squid_erc.nf_token"
+"""
+input erc_nf_token_avg_order_by {
+	amount: order_by
 }
 
-type erc_NftTransferEdge {
-	cursor: String!
-	node: erc_NftTransfer!
+"""
+Boolean expression to filter rows from the table "squid_erc.nf_token". All fields are combined with a logical 'AND'.
+"""
+input erc_nf_token_bool_exp {
+	_and: [erc_nf_token_bool_exp!]
+	_not: erc_nf_token_bool_exp
+	_or: [erc_nf_token_bool_exp!]
+	account: erc_account_bool_exp
+	amount: numeric_comparison_exp
+	collection: erc_collection_bool_exp
+	collection_id: String_comparison_exp
+	current_owner_id: String_comparison_exp
+	id: String_comparison_exp
+	is_burned: Boolean_comparison_exp
+	name: String_comparison_exp
+	native_id: String_comparison_exp
+	nft_transfers: erc_nft_transfer_bool_exp
+	symbol: String_comparison_exp
+	uri: String_comparison_exp
+	uri_update_actions: erc_uri_update_action_bool_exp
 }
 
-enum erc_NftTransferOrderByInput {
-	amount_ASC
-	amount_DESC
-	blockNumber_ASC
-	blockNumber_DESC
-	eventIndex_ASC
-	eventIndex_DESC
-	from_id_ASC
-	from_id_DESC
-	id_ASC
-	id_DESC
-	isBatch_ASC
-	isBatch_DESC
-	operator_id_ASC
-	operator_id_DESC
-	timestamp_ASC
-	timestamp_DESC
-	to_id_ASC
-	to_id_DESC
-	token_amount_ASC
-	token_amount_DESC
-	token_id_ASC
-	token_id_DESC
-	token_isBurned_ASC
-	token_isBurned_DESC
-	token_name_ASC
-	token_name_DESC
-	token_nativeId_ASC
-	token_nativeId_DESC
-	token_symbol_ASC
-	token_symbol_DESC
-	token_uri_ASC
-	token_uri_DESC
-	transferType_ASC
-	transferType_DESC
-	txnHash_ASC
-	txnHash_DESC
+"""
+unique or primary key constraints on table "squid_erc.nf_token"
+"""
+enum erc_nf_token_constraint {
+	"""
+	unique or primary key constraint on columns "id"
+	"""
+	PK_4b875f332d287d53286f0120060
 }
 
-input erc_NftTransferWhereInput {
-	AND: [erc_NftTransferWhereInput!]
-	OR: [erc_NftTransferWhereInput!]
-	amount_eq: erc_BigInt
-	amount_gt: erc_BigInt
-	amount_gte: erc_BigInt
-	amount_in: [erc_BigInt!]
-	amount_lt: erc_BigInt
-	amount_lte: erc_BigInt
-	amount_not_eq: erc_BigInt
-	amount_not_in: [erc_BigInt!]
-	blockNumber_eq: erc_BigInt
-	blockNumber_gt: erc_BigInt
-	blockNumber_gte: erc_BigInt
-	blockNumber_in: [erc_BigInt!]
-	blockNumber_lt: erc_BigInt
-	blockNumber_lte: erc_BigInt
-	blockNumber_not_eq: erc_BigInt
-	blockNumber_not_in: [erc_BigInt!]
-	eventIndex_eq: Int
-	eventIndex_gt: Int
-	eventIndex_gte: Int
-	eventIndex_in: [Int!]
-	eventIndex_lt: Int
-	eventIndex_lte: Int
-	eventIndex_not_eq: Int
-	eventIndex_not_in: [Int!]
-	from: erc_AccountWhereInput
-	id_contains: ID
-	id_containsInsensitive: ID
-	id_endsWith: ID
-	id_eq: ID
-	id_gt: ID
-	id_gte: ID
-	id_in: [ID!]
-	id_lt: ID
-	id_lte: ID
-	id_not_contains: ID
-	id_not_containsInsensitive: ID
-	id_not_endsWith: ID
-	id_not_eq: ID
-	id_not_in: [ID!]
-	id_not_startsWith: ID
-	id_startsWith: ID
-	isBatch_eq: Boolean
-	isBatch_not_eq: Boolean
-	operator: erc_AccountWhereInput
-	operator_isNull: Boolean
-	timestamp_eq: erc_DateTime
-	timestamp_gt: erc_DateTime
-	timestamp_gte: erc_DateTime
-	timestamp_in: [erc_DateTime!]
-	timestamp_lt: erc_DateTime
-	timestamp_lte: erc_DateTime
-	timestamp_not_eq: erc_DateTime
-	timestamp_not_in: [erc_DateTime!]
-	to: erc_AccountWhereInput
-	token: erc_NfTokenWhereInput
-	transferType_eq: erc_TransferType
-	transferType_in: [erc_TransferType!]
-	transferType_isNull: Boolean
-	transferType_not_eq: erc_TransferType
-	transferType_not_in: [erc_TransferType!]
-	txnHash_contains: String
-	txnHash_containsInsensitive: String
-	txnHash_endsWith: String
-	txnHash_eq: String
-	txnHash_gt: String
-	txnHash_gte: String
-	txnHash_in: [String!]
-	txnHash_lt: String
-	txnHash_lte: String
-	txnHash_not_contains: String
-	txnHash_not_containsInsensitive: String
-	txnHash_not_endsWith: String
-	txnHash_not_eq: String
-	txnHash_not_in: [String!]
-	txnHash_not_startsWith: String
-	txnHash_startsWith: String
+"""
+input type for incrementing numeric columns in table "squid_erc.nf_token"
+"""
+input erc_nf_token_inc_input {
+	amount: numeric
 }
 
-input erc_NftTransferWhereUniqueInput {
-	id: ID!
-}
-
-type erc_NftTransfersConnection {
-	edges: [erc_NftTransferEdge!]!
-	pageInfo: erc_PageInfo!
-	totalCount: Int!
-}
-
-type erc_PageInfo {
-	endCursor: String!
-	hasNextPage: Boolean!
-	hasPreviousPage: Boolean!
-	startCursor: String!
-}
-
-interface erc_Token {
-	id: ID!
+"""
+input type for inserting data into table "squid_erc.nf_token"
+"""
+input erc_nf_token_insert_input {
+	account: erc_account_obj_rel_insert_input
+	amount: numeric
+	collection: erc_collection_obj_rel_insert_input
+	collection_id: String
+	current_owner_id: String
+	id: String
+	is_burned: Boolean
 	name: String
+	native_id: String
+	nft_transfers: erc_nft_transfer_arr_rel_insert_input
 	symbol: String
+	uri: String
+	uri_update_actions: erc_uri_update_action_arr_rel_insert_input
 }
 
-interface erc_Transfer {
-	amount: erc_BigInt
-	blockNumber: erc_BigInt!
-	eventIndex: Int!
-	from: erc_Account!
-	id: ID!
-	timestamp: erc_DateTime!
-	to: erc_Account!
-	transferType: erc_TransferType
-	txnHash: String!
+"""
+aggregate max on columns
+"""
+type erc_nf_token_max_fields {
+	amount: numeric
+	collection_id: String
+	current_owner_id: String
+	id: String
+	name: String
+	native_id: String
+	symbol: String
+	uri: String
 }
 
-enum erc_TransferDirection {
-	From
-	To
+"""
+order by max() on columns of table "squid_erc.nf_token"
+"""
+input erc_nf_token_max_order_by {
+	amount: order_by
+	collection_id: order_by
+	current_owner_id: order_by
+	id: order_by
+	name: order_by
+	native_id: order_by
+	symbol: order_by
+	uri: order_by
 }
 
-enum erc_TransferType {
-	BURN
-	MINT
-	TRANSFER
+"""
+aggregate min on columns
+"""
+type erc_nf_token_min_fields {
+	amount: numeric
+	collection_id: String
+	current_owner_id: String
+	id: String
+	name: String
+	native_id: String
+	symbol: String
+	uri: String
 }
 
-type erc_UriUpdateAction {
-	blockNumber: erc_BigInt!
-	id: ID!
-	newValue: String
-	oldValue: String
-	timestamp: erc_DateTime!
-	token: erc_NfToken!
-	txnHash: String!
+"""
+order by min() on columns of table "squid_erc.nf_token"
+"""
+input erc_nf_token_min_order_by {
+	amount: order_by
+	collection_id: order_by
+	current_owner_id: order_by
+	id: order_by
+	name: order_by
+	native_id: order_by
+	symbol: order_by
+	uri: order_by
 }
 
-type erc_UriUpdateActionEdge {
-	cursor: String!
-	node: erc_UriUpdateAction!
+"""
+response of any mutation on the table "squid_erc.nf_token"
+"""
+type erc_nf_token_mutation_response {
+	"""
+	number of rows affected by the mutation
+	"""
+	affected_rows: Int!
+
+	"""
+	data from the rows affected by the mutation
+	"""
+	returning: [erc_nf_token!]!
 }
 
-enum erc_UriUpdateActionOrderByInput {
-	blockNumber_ASC
-	blockNumber_DESC
-	id_ASC
-	id_DESC
-	newValue_ASC
-	newValue_DESC
-	oldValue_ASC
-	oldValue_DESC
-	timestamp_ASC
-	timestamp_DESC
-	token_amount_ASC
-	token_amount_DESC
-	token_id_ASC
-	token_id_DESC
-	token_isBurned_ASC
-	token_isBurned_DESC
-	token_name_ASC
-	token_name_DESC
-	token_nativeId_ASC
-	token_nativeId_DESC
-	token_symbol_ASC
-	token_symbol_DESC
-	token_uri_ASC
-	token_uri_DESC
-	txnHash_ASC
-	txnHash_DESC
+"""
+input type for inserting object relation for remote table "squid_erc.nf_token"
+"""
+input erc_nf_token_obj_rel_insert_input {
+	data: erc_nf_token_insert_input!
+
+	"""
+	upsert condition
+	"""
+	on_conflict: erc_nf_token_on_conflict
 }
 
-input erc_UriUpdateActionWhereInput {
-	AND: [erc_UriUpdateActionWhereInput!]
-	OR: [erc_UriUpdateActionWhereInput!]
-	blockNumber_eq: erc_BigInt
-	blockNumber_gt: erc_BigInt
-	blockNumber_gte: erc_BigInt
-	blockNumber_in: [erc_BigInt!]
-	blockNumber_lt: erc_BigInt
-	blockNumber_lte: erc_BigInt
-	blockNumber_not_eq: erc_BigInt
-	blockNumber_not_in: [erc_BigInt!]
-	id_contains: ID
-	id_containsInsensitive: ID
-	id_endsWith: ID
-	id_eq: ID
-	id_gt: ID
-	id_gte: ID
-	id_in: [ID!]
-	id_lt: ID
-	id_lte: ID
-	id_not_contains: ID
-	id_not_containsInsensitive: ID
-	id_not_endsWith: ID
-	id_not_eq: ID
-	id_not_in: [ID!]
-	id_not_startsWith: ID
-	id_startsWith: ID
-	newValue_contains: String
-	newValue_containsInsensitive: String
-	newValue_endsWith: String
-	newValue_eq: String
-	newValue_gt: String
-	newValue_gte: String
-	newValue_in: [String!]
-	newValue_isNull: Boolean
-	newValue_lt: String
-	newValue_lte: String
-	newValue_not_contains: String
-	newValue_not_containsInsensitive: String
-	newValue_not_endsWith: String
-	newValue_not_eq: String
-	newValue_not_in: [String!]
-	newValue_not_startsWith: String
-	newValue_startsWith: String
-	oldValue_contains: String
-	oldValue_containsInsensitive: String
-	oldValue_endsWith: String
-	oldValue_eq: String
-	oldValue_gt: String
-	oldValue_gte: String
-	oldValue_in: [String!]
-	oldValue_isNull: Boolean
-	oldValue_lt: String
-	oldValue_lte: String
-	oldValue_not_contains: String
-	oldValue_not_containsInsensitive: String
-	oldValue_not_endsWith: String
-	oldValue_not_eq: String
-	oldValue_not_in: [String!]
-	oldValue_not_startsWith: String
-	oldValue_startsWith: String
-	timestamp_eq: erc_DateTime
-	timestamp_gt: erc_DateTime
-	timestamp_gte: erc_DateTime
-	timestamp_in: [erc_DateTime!]
-	timestamp_lt: erc_DateTime
-	timestamp_lte: erc_DateTime
-	timestamp_not_eq: erc_DateTime
-	timestamp_not_in: [erc_DateTime!]
-	token: erc_NfTokenWhereInput
-	txnHash_contains: String
-	txnHash_containsInsensitive: String
-	txnHash_endsWith: String
-	txnHash_eq: String
-	txnHash_gt: String
-	txnHash_gte: String
-	txnHash_in: [String!]
-	txnHash_lt: String
-	txnHash_lte: String
-	txnHash_not_contains: String
-	txnHash_not_containsInsensitive: String
-	txnHash_not_endsWith: String
-	txnHash_not_eq: String
-	txnHash_not_in: [String!]
-	txnHash_not_startsWith: String
-	txnHash_startsWith: String
+"""
+on_conflict condition type for table "squid_erc.nf_token"
+"""
+input erc_nf_token_on_conflict {
+	constraint: erc_nf_token_constraint!
+	update_columns: [erc_nf_token_update_column!]! = []
+	where: erc_nf_token_bool_exp
 }
 
-input erc_UriUpdateActionWhereUniqueInput {
-	id: ID!
+"""
+Ordering options when selecting data from "squid_erc.nf_token".
+"""
+input erc_nf_token_order_by {
+	account: erc_account_order_by
+	amount: order_by
+	collection: erc_collection_order_by
+	collection_id: order_by
+	current_owner_id: order_by
+	id: order_by
+	is_burned: order_by
+	name: order_by
+	native_id: order_by
+	nft_transfers_aggregate: erc_nft_transfer_aggregate_order_by
+	symbol: order_by
+	uri: order_by
+	uri_update_actions_aggregate: erc_uri_update_action_aggregate_order_by
 }
 
-type erc_UriUpdateActionsConnection {
-	edges: [erc_UriUpdateActionEdge!]!
-	pageInfo: erc_PageInfo!
-	totalCount: Int!
+"""
+primary key columns input for table: nf_token
+"""
+input erc_nf_token_pk_columns_input {
+	id: String!
+}
+
+"""
+select columns of table "squid_erc.nf_token"
+"""
+enum erc_nf_token_select_column {
+	"""
+	column name
+	"""
+	amount
+
+	"""
+	column name
+	"""
+	collection_id
+
+	"""
+	column name
+	"""
+	current_owner_id
+
+	"""
+	column name
+	"""
+	id
+
+	"""
+	column name
+	"""
+	is_burned
+
+	"""
+	column name
+	"""
+	name
+
+	"""
+	column name
+	"""
+	native_id
+
+	"""
+	column name
+	"""
+	symbol
+
+	"""
+	column name
+	"""
+	uri
+}
+
+"""
+input type for updating data in table "squid_erc.nf_token"
+"""
+input erc_nf_token_set_input {
+	amount: numeric
+	collection_id: String
+	current_owner_id: String
+	id: String
+	is_burned: Boolean
+	name: String
+	native_id: String
+	symbol: String
+	uri: String
+}
+
+"""
+aggregate stddev on columns
+"""
+type erc_nf_token_stddev_fields {
+	amount: Float
+}
+
+"""
+order by stddev() on columns of table "squid_erc.nf_token"
+"""
+input erc_nf_token_stddev_order_by {
+	amount: order_by
+}
+
+"""
+aggregate stddev_pop on columns
+"""
+type erc_nf_token_stddev_pop_fields {
+	amount: Float
+}
+
+"""
+order by stddev_pop() on columns of table "squid_erc.nf_token"
+"""
+input erc_nf_token_stddev_pop_order_by {
+	amount: order_by
+}
+
+"""
+aggregate stddev_samp on columns
+"""
+type erc_nf_token_stddev_samp_fields {
+	amount: Float
+}
+
+"""
+order by stddev_samp() on columns of table "squid_erc.nf_token"
+"""
+input erc_nf_token_stddev_samp_order_by {
+	amount: order_by
+}
+
+"""
+Streaming cursor of the table "nf_token"
+"""
+input erc_nf_token_stream_cursor_input {
+	"""
+	Stream column input with initial value
+	"""
+	initial_value: erc_nf_token_stream_cursor_value_input!
+
+	"""
+	cursor ordering
+	"""
+	ordering: erc_cursor_ordering
+}
+
+"""
+Initial value of the column from where the streaming should start
+"""
+input erc_nf_token_stream_cursor_value_input {
+	amount: numeric
+	collection_id: String
+	current_owner_id: String
+	id: String
+	is_burned: Boolean
+	name: String
+	native_id: String
+	symbol: String
+	uri: String
+}
+
+"""
+aggregate sum on columns
+"""
+type erc_nf_token_sum_fields {
+	amount: numeric
+}
+
+"""
+order by sum() on columns of table "squid_erc.nf_token"
+"""
+input erc_nf_token_sum_order_by {
+	amount: order_by
+}
+
+"""
+update columns of table "squid_erc.nf_token"
+"""
+enum erc_nf_token_update_column {
+	"""
+	column name
+	"""
+	amount
+
+	"""
+	column name
+	"""
+	collection_id
+
+	"""
+	column name
+	"""
+	current_owner_id
+
+	"""
+	column name
+	"""
+	id
+
+	"""
+	column name
+	"""
+	is_burned
+
+	"""
+	column name
+	"""
+	name
+
+	"""
+	column name
+	"""
+	native_id
+
+	"""
+	column name
+	"""
+	symbol
+
+	"""
+	column name
+	"""
+	uri
+}
+
+input erc_nf_token_updates {
+	"""
+	increments the numeric columns with given value of the filtered values
+	"""
+	_inc: erc_nf_token_inc_input
+
+	"""
+	sets the columns of the filtered rows to the given values
+	"""
+	_set: erc_nf_token_set_input
+	where: erc_nf_token_bool_exp!
+}
+
+"""
+aggregate var_pop on columns
+"""
+type erc_nf_token_var_pop_fields {
+	amount: Float
+}
+
+"""
+order by var_pop() on columns of table "squid_erc.nf_token"
+"""
+input erc_nf_token_var_pop_order_by {
+	amount: order_by
+}
+
+"""
+aggregate var_samp on columns
+"""
+type erc_nf_token_var_samp_fields {
+	amount: Float
+}
+
+"""
+order by var_samp() on columns of table "squid_erc.nf_token"
+"""
+input erc_nf_token_var_samp_order_by {
+	amount: order_by
+}
+
+"""
+aggregate variance on columns
+"""
+type erc_nf_token_variance_fields {
+	amount: Float
+}
+
+"""
+order by variance() on columns of table "squid_erc.nf_token"
+"""
+input erc_nf_token_variance_order_by {
+	amount: order_by
+}
+
+"""
+columns and relationships of "squid_erc.nft_transfer"
+"""
+type erc_nft_transfer {
+	"""
+	An object relationship
+	"""
+	account: erc_account
+
+	"""
+	An object relationship
+	"""
+	accountByFromId: erc_account!
+
+	"""
+	An object relationship
+	"""
+	accountByToId: erc_account!
+
+	"""
+	An array relationship
+	"""
+	account_nft_transfers(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_account_nft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_account_nft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_nft_transfer_bool_exp
+	): [erc_account_nft_transfer!]!
+
+	"""
+	An aggregate relationship
+	"""
+	account_nft_transfers_aggregate(
+		"""
+		distinct select on columns
+		"""
+		distinct_on: [erc_account_nft_transfer_select_column!]
+
+		"""
+		limit the number of rows returned
+		"""
+		limit: Int
+
+		"""
+		skip the first n rows. Use only with order_by
+		"""
+		offset: Int
+
+		"""
+		sort the rows by one or more columns
+		"""
+		order_by: [erc_account_nft_transfer_order_by!]
+
+		"""
+		filter the rows returned
+		"""
+		where: erc_account_nft_transfer_bool_exp
+	): erc_account_nft_transfer_aggregate!
+	amount: numeric!
+	block_number: numeric!
+	event_index: Int!
+	from_id: String!
+	id: String!
+	is_batch: Boolean!
+
+	"""
+	An object relationship
+	"""
+	nf_token: erc_nf_token!
+	operator_id: String
+	timestamp: timestamptz!
+	to_id: String!
+	token_id: String!
+	transfer_type: String
+	txn_hash: String!
+}
+
+"""
+aggregated selection of "squid_erc.nft_transfer"
+"""
+type erc_nft_transfer_aggregate {
+	aggregate: erc_nft_transfer_aggregate_fields
+	nodes: [erc_nft_transfer!]!
+}
+
+"""
+aggregate fields of "squid_erc.nft_transfer"
+"""
+type erc_nft_transfer_aggregate_fields {
+	avg: erc_nft_transfer_avg_fields
+	count(columns: [erc_nft_transfer_select_column!], distinct: Boolean): Int!
+	max: erc_nft_transfer_max_fields
+	min: erc_nft_transfer_min_fields
+	stddev: erc_nft_transfer_stddev_fields
+	stddev_pop: erc_nft_transfer_stddev_pop_fields
+	stddev_samp: erc_nft_transfer_stddev_samp_fields
+	sum: erc_nft_transfer_sum_fields
+	var_pop: erc_nft_transfer_var_pop_fields
+	var_samp: erc_nft_transfer_var_samp_fields
+	variance: erc_nft_transfer_variance_fields
+}
+
+"""
+order by aggregate values of table "squid_erc.nft_transfer"
+"""
+input erc_nft_transfer_aggregate_order_by {
+	avg: erc_nft_transfer_avg_order_by
+	count: order_by
+	max: erc_nft_transfer_max_order_by
+	min: erc_nft_transfer_min_order_by
+	stddev: erc_nft_transfer_stddev_order_by
+	stddev_pop: erc_nft_transfer_stddev_pop_order_by
+	stddev_samp: erc_nft_transfer_stddev_samp_order_by
+	sum: erc_nft_transfer_sum_order_by
+	var_pop: erc_nft_transfer_var_pop_order_by
+	var_samp: erc_nft_transfer_var_samp_order_by
+	variance: erc_nft_transfer_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "squid_erc.nft_transfer"
+"""
+input erc_nft_transfer_arr_rel_insert_input {
+	data: [erc_nft_transfer_insert_input!]!
+
+	"""
+	upsert condition
+	"""
+	on_conflict: erc_nft_transfer_on_conflict
+}
+
+"""
+aggregate avg on columns
+"""
+type erc_nft_transfer_avg_fields {
+	amount: Float
+	block_number: Float
+	event_index: Float
+}
+
+"""
+order by avg() on columns of table "squid_erc.nft_transfer"
+"""
+input erc_nft_transfer_avg_order_by {
+	amount: order_by
+	block_number: order_by
+	event_index: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "squid_erc.nft_transfer". All fields are combined with a logical 'AND'.
+"""
+input erc_nft_transfer_bool_exp {
+	_and: [erc_nft_transfer_bool_exp!]
+	_not: erc_nft_transfer_bool_exp
+	_or: [erc_nft_transfer_bool_exp!]
+	account: erc_account_bool_exp
+	accountByFromId: erc_account_bool_exp
+	accountByToId: erc_account_bool_exp
+	account_nft_transfers: erc_account_nft_transfer_bool_exp
+	amount: numeric_comparison_exp
+	block_number: numeric_comparison_exp
+	event_index: Int_comparison_exp
+	from_id: String_comparison_exp
+	id: String_comparison_exp
+	is_batch: Boolean_comparison_exp
+	nf_token: erc_nf_token_bool_exp
+	operator_id: String_comparison_exp
+	timestamp: timestamptz_comparison_exp
+	to_id: String_comparison_exp
+	token_id: String_comparison_exp
+	transfer_type: String_comparison_exp
+	txn_hash: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "squid_erc.nft_transfer"
+"""
+enum erc_nft_transfer_constraint {
+	"""
+	unique or primary key constraint on columns "id"
+	"""
+	PK_2d9d4b37560ecbcae8bd13026ab
+}
+
+"""
+input type for incrementing numeric columns in table "squid_erc.nft_transfer"
+"""
+input erc_nft_transfer_inc_input {
+	amount: numeric
+	block_number: numeric
+	event_index: Int
+}
+
+"""
+input type for inserting data into table "squid_erc.nft_transfer"
+"""
+input erc_nft_transfer_insert_input {
+	account: erc_account_obj_rel_insert_input
+	accountByFromId: erc_account_obj_rel_insert_input
+	accountByToId: erc_account_obj_rel_insert_input
+	account_nft_transfers: erc_account_nft_transfer_arr_rel_insert_input
+	amount: numeric
+	block_number: numeric
+	event_index: Int
+	from_id: String
+	id: String
+	is_batch: Boolean
+	nf_token: erc_nf_token_obj_rel_insert_input
+	operator_id: String
+	timestamp: timestamptz
+	to_id: String
+	token_id: String
+	transfer_type: String
+	txn_hash: String
+}
+
+"""
+aggregate max on columns
+"""
+type erc_nft_transfer_max_fields {
+	amount: numeric
+	block_number: numeric
+	event_index: Int
+	from_id: String
+	id: String
+	operator_id: String
+	timestamp: timestamptz
+	to_id: String
+	token_id: String
+	transfer_type: String
+	txn_hash: String
+}
+
+"""
+order by max() on columns of table "squid_erc.nft_transfer"
+"""
+input erc_nft_transfer_max_order_by {
+	amount: order_by
+	block_number: order_by
+	event_index: order_by
+	from_id: order_by
+	id: order_by
+	operator_id: order_by
+	timestamp: order_by
+	to_id: order_by
+	token_id: order_by
+	transfer_type: order_by
+	txn_hash: order_by
+}
+
+"""
+aggregate min on columns
+"""
+type erc_nft_transfer_min_fields {
+	amount: numeric
+	block_number: numeric
+	event_index: Int
+	from_id: String
+	id: String
+	operator_id: String
+	timestamp: timestamptz
+	to_id: String
+	token_id: String
+	transfer_type: String
+	txn_hash: String
+}
+
+"""
+order by min() on columns of table "squid_erc.nft_transfer"
+"""
+input erc_nft_transfer_min_order_by {
+	amount: order_by
+	block_number: order_by
+	event_index: order_by
+	from_id: order_by
+	id: order_by
+	operator_id: order_by
+	timestamp: order_by
+	to_id: order_by
+	token_id: order_by
+	transfer_type: order_by
+	txn_hash: order_by
+}
+
+"""
+response of any mutation on the table "squid_erc.nft_transfer"
+"""
+type erc_nft_transfer_mutation_response {
+	"""
+	number of rows affected by the mutation
+	"""
+	affected_rows: Int!
+
+	"""
+	data from the rows affected by the mutation
+	"""
+	returning: [erc_nft_transfer!]!
+}
+
+"""
+input type for inserting object relation for remote table "squid_erc.nft_transfer"
+"""
+input erc_nft_transfer_obj_rel_insert_input {
+	data: erc_nft_transfer_insert_input!
+
+	"""
+	upsert condition
+	"""
+	on_conflict: erc_nft_transfer_on_conflict
+}
+
+"""
+on_conflict condition type for table "squid_erc.nft_transfer"
+"""
+input erc_nft_transfer_on_conflict {
+	constraint: erc_nft_transfer_constraint!
+	update_columns: [erc_nft_transfer_update_column!]! = []
+	where: erc_nft_transfer_bool_exp
+}
+
+"""
+Ordering options when selecting data from "squid_erc.nft_transfer".
+"""
+input erc_nft_transfer_order_by {
+	account: erc_account_order_by
+	accountByFromId: erc_account_order_by
+	accountByToId: erc_account_order_by
+	account_nft_transfers_aggregate: erc_account_nft_transfer_aggregate_order_by
+	amount: order_by
+	block_number: order_by
+	event_index: order_by
+	from_id: order_by
+	id: order_by
+	is_batch: order_by
+	nf_token: erc_nf_token_order_by
+	operator_id: order_by
+	timestamp: order_by
+	to_id: order_by
+	token_id: order_by
+	transfer_type: order_by
+	txn_hash: order_by
+}
+
+"""
+primary key columns input for table: nft_transfer
+"""
+input erc_nft_transfer_pk_columns_input {
+	id: String!
+}
+
+"""
+select columns of table "squid_erc.nft_transfer"
+"""
+enum erc_nft_transfer_select_column {
+	"""
+	column name
+	"""
+	amount
+
+	"""
+	column name
+	"""
+	block_number
+
+	"""
+	column name
+	"""
+	event_index
+
+	"""
+	column name
+	"""
+	from_id
+
+	"""
+	column name
+	"""
+	id
+
+	"""
+	column name
+	"""
+	is_batch
+
+	"""
+	column name
+	"""
+	operator_id
+
+	"""
+	column name
+	"""
+	timestamp
+
+	"""
+	column name
+	"""
+	to_id
+
+	"""
+	column name
+	"""
+	token_id
+
+	"""
+	column name
+	"""
+	transfer_type
+
+	"""
+	column name
+	"""
+	txn_hash
+}
+
+"""
+input type for updating data in table "squid_erc.nft_transfer"
+"""
+input erc_nft_transfer_set_input {
+	amount: numeric
+	block_number: numeric
+	event_index: Int
+	from_id: String
+	id: String
+	is_batch: Boolean
+	operator_id: String
+	timestamp: timestamptz
+	to_id: String
+	token_id: String
+	transfer_type: String
+	txn_hash: String
+}
+
+"""
+aggregate stddev on columns
+"""
+type erc_nft_transfer_stddev_fields {
+	amount: Float
+	block_number: Float
+	event_index: Float
+}
+
+"""
+order by stddev() on columns of table "squid_erc.nft_transfer"
+"""
+input erc_nft_transfer_stddev_order_by {
+	amount: order_by
+	block_number: order_by
+	event_index: order_by
+}
+
+"""
+aggregate stddev_pop on columns
+"""
+type erc_nft_transfer_stddev_pop_fields {
+	amount: Float
+	block_number: Float
+	event_index: Float
+}
+
+"""
+order by stddev_pop() on columns of table "squid_erc.nft_transfer"
+"""
+input erc_nft_transfer_stddev_pop_order_by {
+	amount: order_by
+	block_number: order_by
+	event_index: order_by
+}
+
+"""
+aggregate stddev_samp on columns
+"""
+type erc_nft_transfer_stddev_samp_fields {
+	amount: Float
+	block_number: Float
+	event_index: Float
+}
+
+"""
+order by stddev_samp() on columns of table "squid_erc.nft_transfer"
+"""
+input erc_nft_transfer_stddev_samp_order_by {
+	amount: order_by
+	block_number: order_by
+	event_index: order_by
+}
+
+"""
+Streaming cursor of the table "nft_transfer"
+"""
+input erc_nft_transfer_stream_cursor_input {
+	"""
+	Stream column input with initial value
+	"""
+	initial_value: erc_nft_transfer_stream_cursor_value_input!
+
+	"""
+	cursor ordering
+	"""
+	ordering: erc_cursor_ordering
+}
+
+"""
+Initial value of the column from where the streaming should start
+"""
+input erc_nft_transfer_stream_cursor_value_input {
+	amount: numeric
+	block_number: numeric
+	event_index: Int
+	from_id: String
+	id: String
+	is_batch: Boolean
+	operator_id: String
+	timestamp: timestamptz
+	to_id: String
+	token_id: String
+	transfer_type: String
+	txn_hash: String
+}
+
+"""
+aggregate sum on columns
+"""
+type erc_nft_transfer_sum_fields {
+	amount: numeric
+	block_number: numeric
+	event_index: Int
+}
+
+"""
+order by sum() on columns of table "squid_erc.nft_transfer"
+"""
+input erc_nft_transfer_sum_order_by {
+	amount: order_by
+	block_number: order_by
+	event_index: order_by
+}
+
+"""
+update columns of table "squid_erc.nft_transfer"
+"""
+enum erc_nft_transfer_update_column {
+	"""
+	column name
+	"""
+	amount
+
+	"""
+	column name
+	"""
+	block_number
+
+	"""
+	column name
+	"""
+	event_index
+
+	"""
+	column name
+	"""
+	from_id
+
+	"""
+	column name
+	"""
+	id
+
+	"""
+	column name
+	"""
+	is_batch
+
+	"""
+	column name
+	"""
+	operator_id
+
+	"""
+	column name
+	"""
+	timestamp
+
+	"""
+	column name
+	"""
+	to_id
+
+	"""
+	column name
+	"""
+	token_id
+
+	"""
+	column name
+	"""
+	transfer_type
+
+	"""
+	column name
+	"""
+	txn_hash
+}
+
+input erc_nft_transfer_updates {
+	"""
+	increments the numeric columns with given value of the filtered values
+	"""
+	_inc: erc_nft_transfer_inc_input
+
+	"""
+	sets the columns of the filtered rows to the given values
+	"""
+	_set: erc_nft_transfer_set_input
+	where: erc_nft_transfer_bool_exp!
+}
+
+"""
+aggregate var_pop on columns
+"""
+type erc_nft_transfer_var_pop_fields {
+	amount: Float
+	block_number: Float
+	event_index: Float
+}
+
+"""
+order by var_pop() on columns of table "squid_erc.nft_transfer"
+"""
+input erc_nft_transfer_var_pop_order_by {
+	amount: order_by
+	block_number: order_by
+	event_index: order_by
+}
+
+"""
+aggregate var_samp on columns
+"""
+type erc_nft_transfer_var_samp_fields {
+	amount: Float
+	block_number: Float
+	event_index: Float
+}
+
+"""
+order by var_samp() on columns of table "squid_erc.nft_transfer"
+"""
+input erc_nft_transfer_var_samp_order_by {
+	amount: order_by
+	block_number: order_by
+	event_index: order_by
+}
+
+"""
+aggregate variance on columns
+"""
+type erc_nft_transfer_variance_fields {
+	amount: Float
+	block_number: Float
+	event_index: Float
+}
+
+"""
+order by variance() on columns of table "squid_erc.nft_transfer"
+"""
+input erc_nft_transfer_variance_order_by {
+	amount: order_by
+	block_number: order_by
+	event_index: order_by
+}
+
+"""
+columns and relationships of "squid_erc.uri_update_action"
+"""
+type erc_uri_update_action {
+	block_number: numeric!
+	id: String!
+	new_value: String
+
+	"""
+	An object relationship
+	"""
+	nf_token: erc_nf_token!
+	old_value: String
+	timestamp: timestamptz!
+	token_id: String!
+	txn_hash: String!
+}
+
+"""
+aggregated selection of "squid_erc.uri_update_action"
+"""
+type erc_uri_update_action_aggregate {
+	aggregate: erc_uri_update_action_aggregate_fields
+	nodes: [erc_uri_update_action!]!
+}
+
+"""
+aggregate fields of "squid_erc.uri_update_action"
+"""
+type erc_uri_update_action_aggregate_fields {
+	avg: erc_uri_update_action_avg_fields
+	count(
+		columns: [erc_uri_update_action_select_column!]
+		distinct: Boolean
+	): Int!
+	max: erc_uri_update_action_max_fields
+	min: erc_uri_update_action_min_fields
+	stddev: erc_uri_update_action_stddev_fields
+	stddev_pop: erc_uri_update_action_stddev_pop_fields
+	stddev_samp: erc_uri_update_action_stddev_samp_fields
+	sum: erc_uri_update_action_sum_fields
+	var_pop: erc_uri_update_action_var_pop_fields
+	var_samp: erc_uri_update_action_var_samp_fields
+	variance: erc_uri_update_action_variance_fields
+}
+
+"""
+order by aggregate values of table "squid_erc.uri_update_action"
+"""
+input erc_uri_update_action_aggregate_order_by {
+	avg: erc_uri_update_action_avg_order_by
+	count: order_by
+	max: erc_uri_update_action_max_order_by
+	min: erc_uri_update_action_min_order_by
+	stddev: erc_uri_update_action_stddev_order_by
+	stddev_pop: erc_uri_update_action_stddev_pop_order_by
+	stddev_samp: erc_uri_update_action_stddev_samp_order_by
+	sum: erc_uri_update_action_sum_order_by
+	var_pop: erc_uri_update_action_var_pop_order_by
+	var_samp: erc_uri_update_action_var_samp_order_by
+	variance: erc_uri_update_action_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "squid_erc.uri_update_action"
+"""
+input erc_uri_update_action_arr_rel_insert_input {
+	data: [erc_uri_update_action_insert_input!]!
+
+	"""
+	upsert condition
+	"""
+	on_conflict: erc_uri_update_action_on_conflict
+}
+
+"""
+aggregate avg on columns
+"""
+type erc_uri_update_action_avg_fields {
+	block_number: Float
+}
+
+"""
+order by avg() on columns of table "squid_erc.uri_update_action"
+"""
+input erc_uri_update_action_avg_order_by {
+	block_number: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "squid_erc.uri_update_action". All fields are combined with a logical 'AND'.
+"""
+input erc_uri_update_action_bool_exp {
+	_and: [erc_uri_update_action_bool_exp!]
+	_not: erc_uri_update_action_bool_exp
+	_or: [erc_uri_update_action_bool_exp!]
+	block_number: numeric_comparison_exp
+	id: String_comparison_exp
+	new_value: String_comparison_exp
+	nf_token: erc_nf_token_bool_exp
+	old_value: String_comparison_exp
+	timestamp: timestamptz_comparison_exp
+	token_id: String_comparison_exp
+	txn_hash: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "squid_erc.uri_update_action"
+"""
+enum erc_uri_update_action_constraint {
+	"""
+	unique or primary key constraint on columns "id"
+	"""
+	PK_0de40fe0fe070f895e84d31ecd0
+}
+
+"""
+input type for incrementing numeric columns in table "squid_erc.uri_update_action"
+"""
+input erc_uri_update_action_inc_input {
+	block_number: numeric
+}
+
+"""
+input type for inserting data into table "squid_erc.uri_update_action"
+"""
+input erc_uri_update_action_insert_input {
+	block_number: numeric
+	id: String
+	new_value: String
+	nf_token: erc_nf_token_obj_rel_insert_input
+	old_value: String
+	timestamp: timestamptz
+	token_id: String
+	txn_hash: String
+}
+
+"""
+aggregate max on columns
+"""
+type erc_uri_update_action_max_fields {
+	block_number: numeric
+	id: String
+	new_value: String
+	old_value: String
+	timestamp: timestamptz
+	token_id: String
+	txn_hash: String
+}
+
+"""
+order by max() on columns of table "squid_erc.uri_update_action"
+"""
+input erc_uri_update_action_max_order_by {
+	block_number: order_by
+	id: order_by
+	new_value: order_by
+	old_value: order_by
+	timestamp: order_by
+	token_id: order_by
+	txn_hash: order_by
+}
+
+"""
+aggregate min on columns
+"""
+type erc_uri_update_action_min_fields {
+	block_number: numeric
+	id: String
+	new_value: String
+	old_value: String
+	timestamp: timestamptz
+	token_id: String
+	txn_hash: String
+}
+
+"""
+order by min() on columns of table "squid_erc.uri_update_action"
+"""
+input erc_uri_update_action_min_order_by {
+	block_number: order_by
+	id: order_by
+	new_value: order_by
+	old_value: order_by
+	timestamp: order_by
+	token_id: order_by
+	txn_hash: order_by
+}
+
+"""
+response of any mutation on the table "squid_erc.uri_update_action"
+"""
+type erc_uri_update_action_mutation_response {
+	"""
+	number of rows affected by the mutation
+	"""
+	affected_rows: Int!
+
+	"""
+	data from the rows affected by the mutation
+	"""
+	returning: [erc_uri_update_action!]!
+}
+
+"""
+on_conflict condition type for table "squid_erc.uri_update_action"
+"""
+input erc_uri_update_action_on_conflict {
+	constraint: erc_uri_update_action_constraint!
+	update_columns: [erc_uri_update_action_update_column!]! = []
+	where: erc_uri_update_action_bool_exp
+}
+
+"""
+Ordering options when selecting data from "squid_erc.uri_update_action".
+"""
+input erc_uri_update_action_order_by {
+	block_number: order_by
+	id: order_by
+	new_value: order_by
+	nf_token: erc_nf_token_order_by
+	old_value: order_by
+	timestamp: order_by
+	token_id: order_by
+	txn_hash: order_by
+}
+
+"""
+primary key columns input for table: uri_update_action
+"""
+input erc_uri_update_action_pk_columns_input {
+	id: String!
+}
+
+"""
+select columns of table "squid_erc.uri_update_action"
+"""
+enum erc_uri_update_action_select_column {
+	"""
+	column name
+	"""
+	block_number
+
+	"""
+	column name
+	"""
+	id
+
+	"""
+	column name
+	"""
+	new_value
+
+	"""
+	column name
+	"""
+	old_value
+
+	"""
+	column name
+	"""
+	timestamp
+
+	"""
+	column name
+	"""
+	token_id
+
+	"""
+	column name
+	"""
+	txn_hash
+}
+
+"""
+input type for updating data in table "squid_erc.uri_update_action"
+"""
+input erc_uri_update_action_set_input {
+	block_number: numeric
+	id: String
+	new_value: String
+	old_value: String
+	timestamp: timestamptz
+	token_id: String
+	txn_hash: String
+}
+
+"""
+aggregate stddev on columns
+"""
+type erc_uri_update_action_stddev_fields {
+	block_number: Float
+}
+
+"""
+order by stddev() on columns of table "squid_erc.uri_update_action"
+"""
+input erc_uri_update_action_stddev_order_by {
+	block_number: order_by
+}
+
+"""
+aggregate stddev_pop on columns
+"""
+type erc_uri_update_action_stddev_pop_fields {
+	block_number: Float
+}
+
+"""
+order by stddev_pop() on columns of table "squid_erc.uri_update_action"
+"""
+input erc_uri_update_action_stddev_pop_order_by {
+	block_number: order_by
+}
+
+"""
+aggregate stddev_samp on columns
+"""
+type erc_uri_update_action_stddev_samp_fields {
+	block_number: Float
+}
+
+"""
+order by stddev_samp() on columns of table "squid_erc.uri_update_action"
+"""
+input erc_uri_update_action_stddev_samp_order_by {
+	block_number: order_by
+}
+
+"""
+Streaming cursor of the table "uri_update_action"
+"""
+input erc_uri_update_action_stream_cursor_input {
+	"""
+	Stream column input with initial value
+	"""
+	initial_value: erc_uri_update_action_stream_cursor_value_input!
+
+	"""
+	cursor ordering
+	"""
+	ordering: erc_cursor_ordering
+}
+
+"""
+Initial value of the column from where the streaming should start
+"""
+input erc_uri_update_action_stream_cursor_value_input {
+	block_number: numeric
+	id: String
+	new_value: String
+	old_value: String
+	timestamp: timestamptz
+	token_id: String
+	txn_hash: String
+}
+
+"""
+aggregate sum on columns
+"""
+type erc_uri_update_action_sum_fields {
+	block_number: numeric
+}
+
+"""
+order by sum() on columns of table "squid_erc.uri_update_action"
+"""
+input erc_uri_update_action_sum_order_by {
+	block_number: order_by
+}
+
+"""
+update columns of table "squid_erc.uri_update_action"
+"""
+enum erc_uri_update_action_update_column {
+	"""
+	column name
+	"""
+	block_number
+
+	"""
+	column name
+	"""
+	id
+
+	"""
+	column name
+	"""
+	new_value
+
+	"""
+	column name
+	"""
+	old_value
+
+	"""
+	column name
+	"""
+	timestamp
+
+	"""
+	column name
+	"""
+	token_id
+
+	"""
+	column name
+	"""
+	txn_hash
+}
+
+input erc_uri_update_action_updates {
+	"""
+	increments the numeric columns with given value of the filtered values
+	"""
+	_inc: erc_uri_update_action_inc_input
+
+	"""
+	sets the columns of the filtered rows to the given values
+	"""
+	_set: erc_uri_update_action_set_input
+	where: erc_uri_update_action_bool_exp!
+}
+
+"""
+aggregate var_pop on columns
+"""
+type erc_uri_update_action_var_pop_fields {
+	block_number: Float
+}
+
+"""
+order by var_pop() on columns of table "squid_erc.uri_update_action"
+"""
+input erc_uri_update_action_var_pop_order_by {
+	block_number: order_by
+}
+
+"""
+aggregate var_samp on columns
+"""
+type erc_uri_update_action_var_samp_fields {
+	block_number: Float
+}
+
+"""
+order by var_samp() on columns of table "squid_erc.uri_update_action"
+"""
+input erc_uri_update_action_var_samp_order_by {
+	block_number: order_by
+}
+
+"""
+aggregate variance on columns
+"""
+type erc_uri_update_action_variance_fields {
+	block_number: Float
+}
+
+"""
+order by variance() on columns of table "squid_erc.uri_update_action"
+"""
+input erc_uri_update_action_variance_order_by {
+	block_number: order_by
 }
 
 scalar jsonb
@@ -9754,6 +15847,7 @@ mutation root
 type mutation_root {
 	archive: archive_archive_mutation_frontend
 	balances: balances_balances_mutation_frontend
+	erc: erc_erc_mutation_frontend
 }
 
 scalar numeric
@@ -9811,12 +15905,13 @@ enum order_by {
 type query_root {
 	archive: archive_archive_query
 	balances: balances_balances_query
-	erc: ercQuery
+	erc: erc_erc_query
 }
 
 type subscription_root {
 	archive: archive_archive_subscription
 	balances: balances_balances_subscription
+	erc: erc_erc_subscription
 }
 
 scalar timestamptz

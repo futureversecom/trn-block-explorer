@@ -30,10 +30,6 @@ export type Scalars = {
 	Int: number;
 	Float: number;
 	bpchar: any;
-	/** Big number integer */
-	erc_BigInt: any;
-	/** A date-time string in simplified extended ISO 8601 format (YYYY-MM-DDTHH:mm:ss.sssZ) */
-	erc_DateTime: any;
 	jsonb: any;
 	numeric: any;
 	timestamptz: any;
@@ -5172,1446 +5168,4464 @@ export type Bpchar_Comparison_Exp = {
 	_similar?: InputMaybe<Scalars["bpchar"]>;
 };
 
-export type ErcQuery = {
-	__typename?: "ercQuery";
-	accountById?: Maybe<Erc_Account>;
-	accountByUniqueInput?: Maybe<Erc_Account>;
-	accountFTokenBalanceById?: Maybe<Erc_AccountFTokenBalance>;
-	accountFTokenBalanceByUniqueInput?: Maybe<Erc_AccountFTokenBalance>;
-	accountFTokenBalances: Array<Erc_AccountFTokenBalance>;
-	accountFTokenBalancesConnection: Erc_AccountFTokenBalancesConnection;
-	accountFtTransferById?: Maybe<Erc_AccountFtTransfer>;
-	accountFtTransferByUniqueInput?: Maybe<Erc_AccountFtTransfer>;
-	accountFtTransfers: Array<Erc_AccountFtTransfer>;
-	accountFtTransfersConnection: Erc_AccountFtTransfersConnection;
-	accountNftTransferById?: Maybe<Erc_AccountNftTransfer>;
-	accountNftTransferByUniqueInput?: Maybe<Erc_AccountNftTransfer>;
-	accountNftTransfers: Array<Erc_AccountNftTransfer>;
-	accountNftTransfersConnection: Erc_AccountNftTransfersConnection;
-	accounts: Array<Erc_Account>;
-	accountsConnection: Erc_AccountsConnection;
-	collectionById?: Maybe<Erc_Collection>;
-	collectionByUniqueInput?: Maybe<Erc_Collection>;
-	collections: Array<Erc_Collection>;
-	collectionsConnection: Erc_CollectionsConnection;
-	fTokenById?: Maybe<Erc_FToken>;
-	fTokenByUniqueInput?: Maybe<Erc_FToken>;
-	fTokens: Array<Erc_FToken>;
-	fTokensConnection: Erc_FTokensConnection;
-	ftTransferById?: Maybe<Erc_FtTransfer>;
-	ftTransferByUniqueInput?: Maybe<Erc_FtTransfer>;
-	ftTransfers: Array<Erc_FtTransfer>;
-	ftTransfersConnection: Erc_FtTransfersConnection;
-	nfTokenById?: Maybe<Erc_NfToken>;
-	nfTokenByUniqueInput?: Maybe<Erc_NfToken>;
-	nfTokens: Array<Erc_NfToken>;
-	nfTokensConnection: Erc_NfTokensConnection;
-	nftTransferById?: Maybe<Erc_NftTransfer>;
-	nftTransferByUniqueInput?: Maybe<Erc_NftTransfer>;
-	nftTransfers: Array<Erc_NftTransfer>;
-	nftTransfersConnection: Erc_NftTransfersConnection;
-	uriUpdateActionById?: Maybe<Erc_UriUpdateAction>;
-	uriUpdateActionByUniqueInput?: Maybe<Erc_UriUpdateAction>;
-	uriUpdateActions: Array<Erc_UriUpdateAction>;
-	uriUpdateActionsConnection: Erc_UriUpdateActionsConnection;
-};
-
-export type ErcQueryAccountByIdArgs = {
-	id: Scalars["ID"];
-};
-
-export type ErcQueryAccountByUniqueInputArgs = {
-	where: Erc_AccountWhereUniqueInput;
-};
-
-export type ErcQueryAccountFTokenBalanceByIdArgs = {
-	id: Scalars["ID"];
-};
-
-export type ErcQueryAccountFTokenBalanceByUniqueInputArgs = {
-	where: Erc_AccountFTokenBalanceWhereUniqueInput;
-};
-
-export type ErcQueryAccountFTokenBalancesArgs = {
-	limit?: InputMaybe<Scalars["Int"]>;
-	offset?: InputMaybe<Scalars["Int"]>;
-	orderBy?: InputMaybe<Array<InputMaybe<Erc_AccountFTokenBalanceOrderByInput>>>;
-	where?: InputMaybe<Erc_AccountFTokenBalanceWhereInput>;
-};
-
-export type ErcQueryAccountFTokenBalancesConnectionArgs = {
-	after?: InputMaybe<Scalars["String"]>;
-	first?: InputMaybe<Scalars["Int"]>;
-	orderBy: Array<Erc_AccountFTokenBalanceOrderByInput>;
-	where?: InputMaybe<Erc_AccountFTokenBalanceWhereInput>;
-};
-
-export type ErcQueryAccountFtTransferByIdArgs = {
-	id: Scalars["ID"];
-};
-
-export type ErcQueryAccountFtTransferByUniqueInputArgs = {
-	where: Erc_AccountFtTransferWhereUniqueInput;
-};
-
-export type ErcQueryAccountFtTransfersArgs = {
-	limit?: InputMaybe<Scalars["Int"]>;
-	offset?: InputMaybe<Scalars["Int"]>;
-	orderBy?: InputMaybe<Array<InputMaybe<Erc_AccountFtTransferOrderByInput>>>;
-	where?: InputMaybe<Erc_AccountFtTransferWhereInput>;
-};
-
-export type ErcQueryAccountFtTransfersConnectionArgs = {
-	after?: InputMaybe<Scalars["String"]>;
-	first?: InputMaybe<Scalars["Int"]>;
-	orderBy: Array<Erc_AccountFtTransferOrderByInput>;
-	where?: InputMaybe<Erc_AccountFtTransferWhereInput>;
-};
-
-export type ErcQueryAccountNftTransferByIdArgs = {
-	id: Scalars["ID"];
-};
-
-export type ErcQueryAccountNftTransferByUniqueInputArgs = {
-	where: Erc_AccountNftTransferWhereUniqueInput;
-};
-
-export type ErcQueryAccountNftTransfersArgs = {
-	limit?: InputMaybe<Scalars["Int"]>;
-	offset?: InputMaybe<Scalars["Int"]>;
-	orderBy?: InputMaybe<Array<InputMaybe<Erc_AccountNftTransferOrderByInput>>>;
-	where?: InputMaybe<Erc_AccountNftTransferWhereInput>;
-};
-
-export type ErcQueryAccountNftTransfersConnectionArgs = {
-	after?: InputMaybe<Scalars["String"]>;
-	first?: InputMaybe<Scalars["Int"]>;
-	orderBy: Array<Erc_AccountNftTransferOrderByInput>;
-	where?: InputMaybe<Erc_AccountNftTransferWhereInput>;
-};
-
-export type ErcQueryAccountsArgs = {
-	limit?: InputMaybe<Scalars["Int"]>;
-	offset?: InputMaybe<Scalars["Int"]>;
-	orderBy?: InputMaybe<Array<InputMaybe<Erc_AccountOrderByInput>>>;
-	where?: InputMaybe<Erc_AccountWhereInput>;
-};
-
-export type ErcQueryAccountsConnectionArgs = {
-	after?: InputMaybe<Scalars["String"]>;
-	first?: InputMaybe<Scalars["Int"]>;
-	orderBy: Array<Erc_AccountOrderByInput>;
-	where?: InputMaybe<Erc_AccountWhereInput>;
-};
-
-export type ErcQueryCollectionByIdArgs = {
-	id: Scalars["ID"];
-};
-
-export type ErcQueryCollectionByUniqueInputArgs = {
-	where: Erc_CollectionWhereUniqueInput;
-};
-
-export type ErcQueryCollectionsArgs = {
-	limit?: InputMaybe<Scalars["Int"]>;
-	offset?: InputMaybe<Scalars["Int"]>;
-	orderBy?: InputMaybe<Array<InputMaybe<Erc_CollectionOrderByInput>>>;
-	where?: InputMaybe<Erc_CollectionWhereInput>;
-};
-
-export type ErcQueryCollectionsConnectionArgs = {
-	after?: InputMaybe<Scalars["String"]>;
-	first?: InputMaybe<Scalars["Int"]>;
-	orderBy: Array<Erc_CollectionOrderByInput>;
-	where?: InputMaybe<Erc_CollectionWhereInput>;
-};
-
-export type ErcQueryFTokenByIdArgs = {
-	id: Scalars["ID"];
-};
-
-export type ErcQueryFTokenByUniqueInputArgs = {
-	where: Erc_FTokenWhereUniqueInput;
-};
-
-export type ErcQueryFTokensArgs = {
-	limit?: InputMaybe<Scalars["Int"]>;
-	offset?: InputMaybe<Scalars["Int"]>;
-	orderBy?: InputMaybe<Array<InputMaybe<Erc_FTokenOrderByInput>>>;
-	where?: InputMaybe<Erc_FTokenWhereInput>;
-};
-
-export type ErcQueryFTokensConnectionArgs = {
-	after?: InputMaybe<Scalars["String"]>;
-	first?: InputMaybe<Scalars["Int"]>;
-	orderBy: Array<Erc_FTokenOrderByInput>;
-	where?: InputMaybe<Erc_FTokenWhereInput>;
-};
-
-export type ErcQueryFtTransferByIdArgs = {
-	id: Scalars["ID"];
-};
-
-export type ErcQueryFtTransferByUniqueInputArgs = {
-	where: Erc_FtTransferWhereUniqueInput;
-};
-
-export type ErcQueryFtTransfersArgs = {
-	limit?: InputMaybe<Scalars["Int"]>;
-	offset?: InputMaybe<Scalars["Int"]>;
-	orderBy?: InputMaybe<Array<InputMaybe<Erc_FtTransferOrderByInput>>>;
-	where?: InputMaybe<Erc_FtTransferWhereInput>;
-};
-
-export type ErcQueryFtTransfersConnectionArgs = {
-	after?: InputMaybe<Scalars["String"]>;
-	first?: InputMaybe<Scalars["Int"]>;
-	orderBy: Array<Erc_FtTransferOrderByInput>;
-	where?: InputMaybe<Erc_FtTransferWhereInput>;
-};
-
-export type ErcQueryNfTokenByIdArgs = {
-	id: Scalars["ID"];
-};
-
-export type ErcQueryNfTokenByUniqueInputArgs = {
-	where: Erc_NfTokenWhereUniqueInput;
-};
-
-export type ErcQueryNfTokensArgs = {
-	limit?: InputMaybe<Scalars["Int"]>;
-	offset?: InputMaybe<Scalars["Int"]>;
-	orderBy?: InputMaybe<Array<InputMaybe<Erc_NfTokenOrderByInput>>>;
-	where?: InputMaybe<Erc_NfTokenWhereInput>;
-};
-
-export type ErcQueryNfTokensConnectionArgs = {
-	after?: InputMaybe<Scalars["String"]>;
-	first?: InputMaybe<Scalars["Int"]>;
-	orderBy: Array<Erc_NfTokenOrderByInput>;
-	where?: InputMaybe<Erc_NfTokenWhereInput>;
-};
-
-export type ErcQueryNftTransferByIdArgs = {
-	id: Scalars["ID"];
-};
-
-export type ErcQueryNftTransferByUniqueInputArgs = {
-	where: Erc_NftTransferWhereUniqueInput;
-};
-
-export type ErcQueryNftTransfersArgs = {
-	limit?: InputMaybe<Scalars["Int"]>;
-	offset?: InputMaybe<Scalars["Int"]>;
-	orderBy?: InputMaybe<Array<InputMaybe<Erc_NftTransferOrderByInput>>>;
-	where?: InputMaybe<Erc_NftTransferWhereInput>;
-};
-
-export type ErcQueryNftTransfersConnectionArgs = {
-	after?: InputMaybe<Scalars["String"]>;
-	first?: InputMaybe<Scalars["Int"]>;
-	orderBy: Array<Erc_NftTransferOrderByInput>;
-	where?: InputMaybe<Erc_NftTransferWhereInput>;
-};
-
-export type ErcQueryUriUpdateActionByIdArgs = {
-	id: Scalars["ID"];
-};
-
-export type ErcQueryUriUpdateActionByUniqueInputArgs = {
-	where: Erc_UriUpdateActionWhereUniqueInput;
-};
-
-export type ErcQueryUriUpdateActionsArgs = {
-	limit?: InputMaybe<Scalars["Int"]>;
-	offset?: InputMaybe<Scalars["Int"]>;
-	orderBy?: InputMaybe<Array<InputMaybe<Erc_UriUpdateActionOrderByInput>>>;
-	where?: InputMaybe<Erc_UriUpdateActionWhereInput>;
-};
-
-export type ErcQueryUriUpdateActionsConnectionArgs = {
-	after?: InputMaybe<Scalars["String"]>;
-	first?: InputMaybe<Scalars["Int"]>;
-	orderBy: Array<Erc_UriUpdateActionOrderByInput>;
-	where?: InputMaybe<Erc_UriUpdateActionWhereInput>;
-};
-
+/** columns and relationships of "squid_erc.account" */
 export type Erc_Account = {
-	__typename?: "erc_Account";
-	balancesFToken: Array<Erc_AccountFTokenBalance>;
-	ftTransfers: Array<Erc_AccountFtTransfer>;
-	id: Scalars["ID"];
-	nftTransfers: Array<Erc_AccountNftTransfer>;
-	ownedTokens: Array<Erc_NfToken>;
+	__typename?: "erc_account";
+	/** An array relationship */
+	account_f_token_balances: Array<Erc_Account_F_Token_Balance>;
+	/** An aggregate relationship */
+	account_f_token_balances_aggregate: Erc_Account_F_Token_Balance_Aggregate;
+	/** An array relationship */
+	account_ft_transfers: Array<Erc_Account_Ft_Transfer>;
+	/** An aggregate relationship */
+	account_ft_transfers_aggregate: Erc_Account_Ft_Transfer_Aggregate;
+	/** An array relationship */
+	account_nft_transfers: Array<Erc_Account_Nft_Transfer>;
+	/** An aggregate relationship */
+	account_nft_transfers_aggregate: Erc_Account_Nft_Transfer_Aggregate;
+	/** An array relationship */
+	ftTransfersByToId: Array<Erc_Ft_Transfer>;
+	/** An aggregate relationship */
+	ftTransfersByToId_aggregate: Erc_Ft_Transfer_Aggregate;
+	/** An array relationship */
+	ft_transfers: Array<Erc_Ft_Transfer>;
+	/** An aggregate relationship */
+	ft_transfers_aggregate: Erc_Ft_Transfer_Aggregate;
+	id: Scalars["String"];
+	/** An array relationship */
+	nf_tokens: Array<Erc_Nf_Token>;
+	/** An aggregate relationship */
+	nf_tokens_aggregate: Erc_Nf_Token_Aggregate;
+	/** An array relationship */
+	nftTransfersByFromId: Array<Erc_Nft_Transfer>;
+	/** An aggregate relationship */
+	nftTransfersByFromId_aggregate: Erc_Nft_Transfer_Aggregate;
+	/** An array relationship */
+	nftTransfersByToId: Array<Erc_Nft_Transfer>;
+	/** An aggregate relationship */
+	nftTransfersByToId_aggregate: Erc_Nft_Transfer_Aggregate;
+	/** An array relationship */
+	nft_transfers: Array<Erc_Nft_Transfer>;
+	/** An aggregate relationship */
+	nft_transfers_aggregate: Erc_Nft_Transfer_Aggregate;
 };
 
-export type Erc_AccountBalancesFTokenArgs = {
+/** columns and relationships of "squid_erc.account" */
+export type Erc_AccountAccount_F_Token_BalancesArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Account_F_Token_Balance_Select_Column>>;
 	limit?: InputMaybe<Scalars["Int"]>;
 	offset?: InputMaybe<Scalars["Int"]>;
-	orderBy?: InputMaybe<Array<InputMaybe<Erc_AccountFTokenBalanceOrderByInput>>>;
-	where?: InputMaybe<Erc_AccountFTokenBalanceWhereInput>;
+	order_by?: InputMaybe<Array<Erc_Account_F_Token_Balance_Order_By>>;
+	where?: InputMaybe<Erc_Account_F_Token_Balance_Bool_Exp>;
 };
 
-export type Erc_AccountFtTransfersArgs = {
+/** columns and relationships of "squid_erc.account" */
+export type Erc_AccountAccount_F_Token_Balances_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Account_F_Token_Balance_Select_Column>>;
 	limit?: InputMaybe<Scalars["Int"]>;
 	offset?: InputMaybe<Scalars["Int"]>;
-	orderBy?: InputMaybe<Array<InputMaybe<Erc_AccountFtTransferOrderByInput>>>;
-	where?: InputMaybe<Erc_AccountFtTransferWhereInput>;
+	order_by?: InputMaybe<Array<Erc_Account_F_Token_Balance_Order_By>>;
+	where?: InputMaybe<Erc_Account_F_Token_Balance_Bool_Exp>;
 };
 
-export type Erc_AccountNftTransfersArgs = {
+/** columns and relationships of "squid_erc.account" */
+export type Erc_AccountAccount_Ft_TransfersArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Account_Ft_Transfer_Select_Column>>;
 	limit?: InputMaybe<Scalars["Int"]>;
 	offset?: InputMaybe<Scalars["Int"]>;
-	orderBy?: InputMaybe<Array<InputMaybe<Erc_AccountNftTransferOrderByInput>>>;
-	where?: InputMaybe<Erc_AccountNftTransferWhereInput>;
+	order_by?: InputMaybe<Array<Erc_Account_Ft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Account_Ft_Transfer_Bool_Exp>;
 };
 
-export type Erc_AccountOwnedTokensArgs = {
+/** columns and relationships of "squid_erc.account" */
+export type Erc_AccountAccount_Ft_Transfers_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Account_Ft_Transfer_Select_Column>>;
 	limit?: InputMaybe<Scalars["Int"]>;
 	offset?: InputMaybe<Scalars["Int"]>;
-	orderBy?: InputMaybe<Array<InputMaybe<Erc_NfTokenOrderByInput>>>;
-	where?: InputMaybe<Erc_NfTokenWhereInput>;
+	order_by?: InputMaybe<Array<Erc_Account_Ft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Account_Ft_Transfer_Bool_Exp>;
 };
 
-export type Erc_AccountEdge = {
-	__typename?: "erc_AccountEdge";
-	cursor: Scalars["String"];
-	node: Erc_Account;
+/** columns and relationships of "squid_erc.account" */
+export type Erc_AccountAccount_Nft_TransfersArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Account_Nft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Account_Nft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Account_Nft_Transfer_Bool_Exp>;
 };
 
-export type Erc_AccountFTokenBalance = {
-	__typename?: "erc_AccountFTokenBalance";
+/** columns and relationships of "squid_erc.account" */
+export type Erc_AccountAccount_Nft_Transfers_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Account_Nft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Account_Nft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Account_Nft_Transfer_Bool_Exp>;
+};
+
+/** columns and relationships of "squid_erc.account" */
+export type Erc_AccountFtTransfersByToIdArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Ft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Ft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Ft_Transfer_Bool_Exp>;
+};
+
+/** columns and relationships of "squid_erc.account" */
+export type Erc_AccountFtTransfersByToId_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Ft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Ft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Ft_Transfer_Bool_Exp>;
+};
+
+/** columns and relationships of "squid_erc.account" */
+export type Erc_AccountFt_TransfersArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Ft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Ft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Ft_Transfer_Bool_Exp>;
+};
+
+/** columns and relationships of "squid_erc.account" */
+export type Erc_AccountFt_Transfers_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Ft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Ft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Ft_Transfer_Bool_Exp>;
+};
+
+/** columns and relationships of "squid_erc.account" */
+export type Erc_AccountNf_TokensArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Nf_Token_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Nf_Token_Order_By>>;
+	where?: InputMaybe<Erc_Nf_Token_Bool_Exp>;
+};
+
+/** columns and relationships of "squid_erc.account" */
+export type Erc_AccountNf_Tokens_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Nf_Token_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Nf_Token_Order_By>>;
+	where?: InputMaybe<Erc_Nf_Token_Bool_Exp>;
+};
+
+/** columns and relationships of "squid_erc.account" */
+export type Erc_AccountNftTransfersByFromIdArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Nft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Nft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Nft_Transfer_Bool_Exp>;
+};
+
+/** columns and relationships of "squid_erc.account" */
+export type Erc_AccountNftTransfersByFromId_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Nft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Nft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Nft_Transfer_Bool_Exp>;
+};
+
+/** columns and relationships of "squid_erc.account" */
+export type Erc_AccountNftTransfersByToIdArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Nft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Nft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Nft_Transfer_Bool_Exp>;
+};
+
+/** columns and relationships of "squid_erc.account" */
+export type Erc_AccountNftTransfersByToId_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Nft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Nft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Nft_Transfer_Bool_Exp>;
+};
+
+/** columns and relationships of "squid_erc.account" */
+export type Erc_AccountNft_TransfersArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Nft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Nft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Nft_Transfer_Bool_Exp>;
+};
+
+/** columns and relationships of "squid_erc.account" */
+export type Erc_AccountNft_Transfers_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Nft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Nft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Nft_Transfer_Bool_Exp>;
+};
+
+/** aggregated selection of "squid_erc.account" */
+export type Erc_Account_Aggregate = {
+	__typename?: "erc_account_aggregate";
+	aggregate?: Maybe<Erc_Account_Aggregate_Fields>;
+	nodes: Array<Erc_Account>;
+};
+
+/** aggregate fields of "squid_erc.account" */
+export type Erc_Account_Aggregate_Fields = {
+	__typename?: "erc_account_aggregate_fields";
+	count: Scalars["Int"];
+	max?: Maybe<Erc_Account_Max_Fields>;
+	min?: Maybe<Erc_Account_Min_Fields>;
+};
+
+/** aggregate fields of "squid_erc.account" */
+export type Erc_Account_Aggregate_FieldsCountArgs = {
+	columns?: InputMaybe<Array<Erc_Account_Select_Column>>;
+	distinct?: InputMaybe<Scalars["Boolean"]>;
+};
+
+/** Boolean expression to filter rows from the table "squid_erc.account". All fields are combined with a logical 'AND'. */
+export type Erc_Account_Bool_Exp = {
+	_and?: InputMaybe<Array<Erc_Account_Bool_Exp>>;
+	_not?: InputMaybe<Erc_Account_Bool_Exp>;
+	_or?: InputMaybe<Array<Erc_Account_Bool_Exp>>;
+	account_f_token_balances?: InputMaybe<Erc_Account_F_Token_Balance_Bool_Exp>;
+	account_ft_transfers?: InputMaybe<Erc_Account_Ft_Transfer_Bool_Exp>;
+	account_nft_transfers?: InputMaybe<Erc_Account_Nft_Transfer_Bool_Exp>;
+	ftTransfersByToId?: InputMaybe<Erc_Ft_Transfer_Bool_Exp>;
+	ft_transfers?: InputMaybe<Erc_Ft_Transfer_Bool_Exp>;
+	id?: InputMaybe<String_Comparison_Exp>;
+	nf_tokens?: InputMaybe<Erc_Nf_Token_Bool_Exp>;
+	nftTransfersByFromId?: InputMaybe<Erc_Nft_Transfer_Bool_Exp>;
+	nftTransfersByToId?: InputMaybe<Erc_Nft_Transfer_Bool_Exp>;
+	nft_transfers?: InputMaybe<Erc_Nft_Transfer_Bool_Exp>;
+};
+
+/** unique or primary key constraints on table "squid_erc.account" */
+export enum Erc_Account_Constraint {
+	/** unique or primary key constraint on columns "id" */
+	Pk_54115ee388cdb6d86bb4bf5b2ea = "PK_54115ee388cdb6d86bb4bf5b2ea",
+}
+
+/** columns and relationships of "squid_erc.account_f_token_balance" */
+export type Erc_Account_F_Token_Balance = {
+	__typename?: "erc_account_f_token_balance";
+	/** An object relationship */
 	account: Erc_Account;
-	amount: Scalars["erc_BigInt"];
-	id: Scalars["ID"];
-	token: Erc_FToken;
-	updatedAt: Scalars["erc_DateTime"];
-	updatedAtBlock: Scalars["erc_BigInt"];
+	account_id: Scalars["String"];
+	amount: Scalars["numeric"];
+	/** An object relationship */
+	f_token: Erc_F_Token;
+	id: Scalars["String"];
+	token_id: Scalars["String"];
+	updated_at: Scalars["timestamptz"];
+	updated_at_block: Scalars["numeric"];
 };
 
-export type Erc_AccountFTokenBalanceEdge = {
-	__typename?: "erc_AccountFTokenBalanceEdge";
-	cursor: Scalars["String"];
-	node: Erc_AccountFTokenBalance;
+/** aggregated selection of "squid_erc.account_f_token_balance" */
+export type Erc_Account_F_Token_Balance_Aggregate = {
+	__typename?: "erc_account_f_token_balance_aggregate";
+	aggregate?: Maybe<Erc_Account_F_Token_Balance_Aggregate_Fields>;
+	nodes: Array<Erc_Account_F_Token_Balance>;
 };
 
-export enum Erc_AccountFTokenBalanceOrderByInput {
-	AccountIdAsc = "account_id_ASC",
-	AccountIdDesc = "account_id_DESC",
-	AmountAsc = "amount_ASC",
-	AmountDesc = "amount_DESC",
-	IdAsc = "id_ASC",
-	IdDesc = "id_DESC",
-	TokenDecimalsAsc = "token_decimals_ASC",
-	TokenDecimalsDesc = "token_decimals_DESC",
-	TokenIdAsc = "token_id_ASC",
-	TokenIdDesc = "token_id_DESC",
-	TokenNameAsc = "token_name_ASC",
-	TokenNameDesc = "token_name_DESC",
-	TokenSymbolAsc = "token_symbol_ASC",
-	TokenSymbolDesc = "token_symbol_DESC",
-	UpdatedAtBlockAsc = "updatedAtBlock_ASC",
-	UpdatedAtBlockDesc = "updatedAtBlock_DESC",
-	UpdatedAtAsc = "updatedAt_ASC",
-	UpdatedAtDesc = "updatedAt_DESC",
+/** aggregate fields of "squid_erc.account_f_token_balance" */
+export type Erc_Account_F_Token_Balance_Aggregate_Fields = {
+	__typename?: "erc_account_f_token_balance_aggregate_fields";
+	avg?: Maybe<Erc_Account_F_Token_Balance_Avg_Fields>;
+	count: Scalars["Int"];
+	max?: Maybe<Erc_Account_F_Token_Balance_Max_Fields>;
+	min?: Maybe<Erc_Account_F_Token_Balance_Min_Fields>;
+	stddev?: Maybe<Erc_Account_F_Token_Balance_Stddev_Fields>;
+	stddev_pop?: Maybe<Erc_Account_F_Token_Balance_Stddev_Pop_Fields>;
+	stddev_samp?: Maybe<Erc_Account_F_Token_Balance_Stddev_Samp_Fields>;
+	sum?: Maybe<Erc_Account_F_Token_Balance_Sum_Fields>;
+	var_pop?: Maybe<Erc_Account_F_Token_Balance_Var_Pop_Fields>;
+	var_samp?: Maybe<Erc_Account_F_Token_Balance_Var_Samp_Fields>;
+	variance?: Maybe<Erc_Account_F_Token_Balance_Variance_Fields>;
+};
+
+/** aggregate fields of "squid_erc.account_f_token_balance" */
+export type Erc_Account_F_Token_Balance_Aggregate_FieldsCountArgs = {
+	columns?: InputMaybe<Array<Erc_Account_F_Token_Balance_Select_Column>>;
+	distinct?: InputMaybe<Scalars["Boolean"]>;
+};
+
+/** order by aggregate values of table "squid_erc.account_f_token_balance" */
+export type Erc_Account_F_Token_Balance_Aggregate_Order_By = {
+	avg?: InputMaybe<Erc_Account_F_Token_Balance_Avg_Order_By>;
+	count?: InputMaybe<Order_By>;
+	max?: InputMaybe<Erc_Account_F_Token_Balance_Max_Order_By>;
+	min?: InputMaybe<Erc_Account_F_Token_Balance_Min_Order_By>;
+	stddev?: InputMaybe<Erc_Account_F_Token_Balance_Stddev_Order_By>;
+	stddev_pop?: InputMaybe<Erc_Account_F_Token_Balance_Stddev_Pop_Order_By>;
+	stddev_samp?: InputMaybe<Erc_Account_F_Token_Balance_Stddev_Samp_Order_By>;
+	sum?: InputMaybe<Erc_Account_F_Token_Balance_Sum_Order_By>;
+	var_pop?: InputMaybe<Erc_Account_F_Token_Balance_Var_Pop_Order_By>;
+	var_samp?: InputMaybe<Erc_Account_F_Token_Balance_Var_Samp_Order_By>;
+	variance?: InputMaybe<Erc_Account_F_Token_Balance_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "squid_erc.account_f_token_balance" */
+export type Erc_Account_F_Token_Balance_Arr_Rel_Insert_Input = {
+	data: Array<Erc_Account_F_Token_Balance_Insert_Input>;
+	/** upsert condition */
+	on_conflict?: InputMaybe<Erc_Account_F_Token_Balance_On_Conflict>;
+};
+
+/** aggregate avg on columns */
+export type Erc_Account_F_Token_Balance_Avg_Fields = {
+	__typename?: "erc_account_f_token_balance_avg_fields";
+	amount?: Maybe<Scalars["Float"]>;
+	updated_at_block?: Maybe<Scalars["Float"]>;
+};
+
+/** order by avg() on columns of table "squid_erc.account_f_token_balance" */
+export type Erc_Account_F_Token_Balance_Avg_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	updated_at_block?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "squid_erc.account_f_token_balance". All fields are combined with a logical 'AND'. */
+export type Erc_Account_F_Token_Balance_Bool_Exp = {
+	_and?: InputMaybe<Array<Erc_Account_F_Token_Balance_Bool_Exp>>;
+	_not?: InputMaybe<Erc_Account_F_Token_Balance_Bool_Exp>;
+	_or?: InputMaybe<Array<Erc_Account_F_Token_Balance_Bool_Exp>>;
+	account?: InputMaybe<Erc_Account_Bool_Exp>;
+	account_id?: InputMaybe<String_Comparison_Exp>;
+	amount?: InputMaybe<Numeric_Comparison_Exp>;
+	f_token?: InputMaybe<Erc_F_Token_Bool_Exp>;
+	id?: InputMaybe<String_Comparison_Exp>;
+	token_id?: InputMaybe<String_Comparison_Exp>;
+	updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+	updated_at_block?: InputMaybe<Numeric_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "squid_erc.account_f_token_balance" */
+export enum Erc_Account_F_Token_Balance_Constraint {
+	/** unique or primary key constraint on columns "id" */
+	PkC5ff211ac7ea9f25010a8ceab68 = "PK_c5ff211ac7ea9f25010a8ceab68",
 }
 
-export type Erc_AccountFTokenBalanceWhereInput = {
-	AND?: InputMaybe<Array<Erc_AccountFTokenBalanceWhereInput>>;
-	OR?: InputMaybe<Array<Erc_AccountFTokenBalanceWhereInput>>;
-	account?: InputMaybe<Erc_AccountWhereInput>;
-	amount_eq?: InputMaybe<Scalars["erc_BigInt"]>;
-	amount_gt?: InputMaybe<Scalars["erc_BigInt"]>;
-	amount_gte?: InputMaybe<Scalars["erc_BigInt"]>;
-	amount_in?: InputMaybe<Array<Scalars["erc_BigInt"]>>;
-	amount_lt?: InputMaybe<Scalars["erc_BigInt"]>;
-	amount_lte?: InputMaybe<Scalars["erc_BigInt"]>;
-	amount_not_eq?: InputMaybe<Scalars["erc_BigInt"]>;
-	amount_not_in?: InputMaybe<Array<Scalars["erc_BigInt"]>>;
-	id_contains?: InputMaybe<Scalars["ID"]>;
-	id_containsInsensitive?: InputMaybe<Scalars["ID"]>;
-	id_endsWith?: InputMaybe<Scalars["ID"]>;
-	id_eq?: InputMaybe<Scalars["ID"]>;
-	id_gt?: InputMaybe<Scalars["ID"]>;
-	id_gte?: InputMaybe<Scalars["ID"]>;
-	id_in?: InputMaybe<Array<Scalars["ID"]>>;
-	id_lt?: InputMaybe<Scalars["ID"]>;
-	id_lte?: InputMaybe<Scalars["ID"]>;
-	id_not_contains?: InputMaybe<Scalars["ID"]>;
-	id_not_containsInsensitive?: InputMaybe<Scalars["ID"]>;
-	id_not_endsWith?: InputMaybe<Scalars["ID"]>;
-	id_not_eq?: InputMaybe<Scalars["ID"]>;
-	id_not_in?: InputMaybe<Array<Scalars["ID"]>>;
-	id_not_startsWith?: InputMaybe<Scalars["ID"]>;
-	id_startsWith?: InputMaybe<Scalars["ID"]>;
-	token?: InputMaybe<Erc_FTokenWhereInput>;
-	updatedAtBlock_eq?: InputMaybe<Scalars["erc_BigInt"]>;
-	updatedAtBlock_gt?: InputMaybe<Scalars["erc_BigInt"]>;
-	updatedAtBlock_gte?: InputMaybe<Scalars["erc_BigInt"]>;
-	updatedAtBlock_in?: InputMaybe<Array<Scalars["erc_BigInt"]>>;
-	updatedAtBlock_lt?: InputMaybe<Scalars["erc_BigInt"]>;
-	updatedAtBlock_lte?: InputMaybe<Scalars["erc_BigInt"]>;
-	updatedAtBlock_not_eq?: InputMaybe<Scalars["erc_BigInt"]>;
-	updatedAtBlock_not_in?: InputMaybe<Array<Scalars["erc_BigInt"]>>;
-	updatedAt_eq?: InputMaybe<Scalars["erc_DateTime"]>;
-	updatedAt_gt?: InputMaybe<Scalars["erc_DateTime"]>;
-	updatedAt_gte?: InputMaybe<Scalars["erc_DateTime"]>;
-	updatedAt_in?: InputMaybe<Array<Scalars["erc_DateTime"]>>;
-	updatedAt_lt?: InputMaybe<Scalars["erc_DateTime"]>;
-	updatedAt_lte?: InputMaybe<Scalars["erc_DateTime"]>;
-	updatedAt_not_eq?: InputMaybe<Scalars["erc_DateTime"]>;
-	updatedAt_not_in?: InputMaybe<Array<Scalars["erc_DateTime"]>>;
+/** input type for incrementing numeric columns in table "squid_erc.account_f_token_balance" */
+export type Erc_Account_F_Token_Balance_Inc_Input = {
+	amount?: InputMaybe<Scalars["numeric"]>;
+	updated_at_block?: InputMaybe<Scalars["numeric"]>;
 };
 
-export type Erc_AccountFTokenBalanceWhereUniqueInput = {
-	id: Scalars["ID"];
+/** input type for inserting data into table "squid_erc.account_f_token_balance" */
+export type Erc_Account_F_Token_Balance_Insert_Input = {
+	account?: InputMaybe<Erc_Account_Obj_Rel_Insert_Input>;
+	account_id?: InputMaybe<Scalars["String"]>;
+	amount?: InputMaybe<Scalars["numeric"]>;
+	f_token?: InputMaybe<Erc_F_Token_Obj_Rel_Insert_Input>;
+	id?: InputMaybe<Scalars["String"]>;
+	token_id?: InputMaybe<Scalars["String"]>;
+	updated_at?: InputMaybe<Scalars["timestamptz"]>;
+	updated_at_block?: InputMaybe<Scalars["numeric"]>;
 };
 
-export type Erc_AccountFTokenBalancesConnection = {
-	__typename?: "erc_AccountFTokenBalancesConnection";
-	edges: Array<Erc_AccountFTokenBalanceEdge>;
-	pageInfo: Erc_PageInfo;
-	totalCount: Scalars["Int"];
+/** aggregate max on columns */
+export type Erc_Account_F_Token_Balance_Max_Fields = {
+	__typename?: "erc_account_f_token_balance_max_fields";
+	account_id?: Maybe<Scalars["String"]>;
+	amount?: Maybe<Scalars["numeric"]>;
+	id?: Maybe<Scalars["String"]>;
+	token_id?: Maybe<Scalars["String"]>;
+	updated_at?: Maybe<Scalars["timestamptz"]>;
+	updated_at_block?: Maybe<Scalars["numeric"]>;
 };
 
-export type Erc_AccountFtTransfer = {
-	__typename?: "erc_AccountFtTransfer";
+/** order by max() on columns of table "squid_erc.account_f_token_balance" */
+export type Erc_Account_F_Token_Balance_Max_Order_By = {
+	account_id?: InputMaybe<Order_By>;
+	amount?: InputMaybe<Order_By>;
+	id?: InputMaybe<Order_By>;
+	token_id?: InputMaybe<Order_By>;
+	updated_at?: InputMaybe<Order_By>;
+	updated_at_block?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Erc_Account_F_Token_Balance_Min_Fields = {
+	__typename?: "erc_account_f_token_balance_min_fields";
+	account_id?: Maybe<Scalars["String"]>;
+	amount?: Maybe<Scalars["numeric"]>;
+	id?: Maybe<Scalars["String"]>;
+	token_id?: Maybe<Scalars["String"]>;
+	updated_at?: Maybe<Scalars["timestamptz"]>;
+	updated_at_block?: Maybe<Scalars["numeric"]>;
+};
+
+/** order by min() on columns of table "squid_erc.account_f_token_balance" */
+export type Erc_Account_F_Token_Balance_Min_Order_By = {
+	account_id?: InputMaybe<Order_By>;
+	amount?: InputMaybe<Order_By>;
+	id?: InputMaybe<Order_By>;
+	token_id?: InputMaybe<Order_By>;
+	updated_at?: InputMaybe<Order_By>;
+	updated_at_block?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "squid_erc.account_f_token_balance" */
+export type Erc_Account_F_Token_Balance_Mutation_Response = {
+	__typename?: "erc_account_f_token_balance_mutation_response";
+	/** number of rows affected by the mutation */
+	affected_rows: Scalars["Int"];
+	/** data from the rows affected by the mutation */
+	returning: Array<Erc_Account_F_Token_Balance>;
+};
+
+/** on_conflict condition type for table "squid_erc.account_f_token_balance" */
+export type Erc_Account_F_Token_Balance_On_Conflict = {
+	constraint: Erc_Account_F_Token_Balance_Constraint;
+	update_columns?: Array<Erc_Account_F_Token_Balance_Update_Column>;
+	where?: InputMaybe<Erc_Account_F_Token_Balance_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "squid_erc.account_f_token_balance". */
+export type Erc_Account_F_Token_Balance_Order_By = {
+	account?: InputMaybe<Erc_Account_Order_By>;
+	account_id?: InputMaybe<Order_By>;
+	amount?: InputMaybe<Order_By>;
+	f_token?: InputMaybe<Erc_F_Token_Order_By>;
+	id?: InputMaybe<Order_By>;
+	token_id?: InputMaybe<Order_By>;
+	updated_at?: InputMaybe<Order_By>;
+	updated_at_block?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: account_f_token_balance */
+export type Erc_Account_F_Token_Balance_Pk_Columns_Input = {
+	id: Scalars["String"];
+};
+
+/** select columns of table "squid_erc.account_f_token_balance" */
+export enum Erc_Account_F_Token_Balance_Select_Column {
+	/** column name */
+	AccountId = "account_id",
+	/** column name */
+	Amount = "amount",
+	/** column name */
+	Id = "id",
+	/** column name */
+	TokenId = "token_id",
+	/** column name */
+	UpdatedAt = "updated_at",
+	/** column name */
+	UpdatedAtBlock = "updated_at_block",
+}
+
+/** input type for updating data in table "squid_erc.account_f_token_balance" */
+export type Erc_Account_F_Token_Balance_Set_Input = {
+	account_id?: InputMaybe<Scalars["String"]>;
+	amount?: InputMaybe<Scalars["numeric"]>;
+	id?: InputMaybe<Scalars["String"]>;
+	token_id?: InputMaybe<Scalars["String"]>;
+	updated_at?: InputMaybe<Scalars["timestamptz"]>;
+	updated_at_block?: InputMaybe<Scalars["numeric"]>;
+};
+
+/** aggregate stddev on columns */
+export type Erc_Account_F_Token_Balance_Stddev_Fields = {
+	__typename?: "erc_account_f_token_balance_stddev_fields";
+	amount?: Maybe<Scalars["Float"]>;
+	updated_at_block?: Maybe<Scalars["Float"]>;
+};
+
+/** order by stddev() on columns of table "squid_erc.account_f_token_balance" */
+export type Erc_Account_F_Token_Balance_Stddev_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	updated_at_block?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Erc_Account_F_Token_Balance_Stddev_Pop_Fields = {
+	__typename?: "erc_account_f_token_balance_stddev_pop_fields";
+	amount?: Maybe<Scalars["Float"]>;
+	updated_at_block?: Maybe<Scalars["Float"]>;
+};
+
+/** order by stddev_pop() on columns of table "squid_erc.account_f_token_balance" */
+export type Erc_Account_F_Token_Balance_Stddev_Pop_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	updated_at_block?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Erc_Account_F_Token_Balance_Stddev_Samp_Fields = {
+	__typename?: "erc_account_f_token_balance_stddev_samp_fields";
+	amount?: Maybe<Scalars["Float"]>;
+	updated_at_block?: Maybe<Scalars["Float"]>;
+};
+
+/** order by stddev_samp() on columns of table "squid_erc.account_f_token_balance" */
+export type Erc_Account_F_Token_Balance_Stddev_Samp_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	updated_at_block?: InputMaybe<Order_By>;
+};
+
+/** Streaming cursor of the table "account_f_token_balance" */
+export type Erc_Account_F_Token_Balance_Stream_Cursor_Input = {
+	/** Stream column input with initial value */
+	initial_value: Erc_Account_F_Token_Balance_Stream_Cursor_Value_Input;
+	/** cursor ordering */
+	ordering?: InputMaybe<Erc_Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Erc_Account_F_Token_Balance_Stream_Cursor_Value_Input = {
+	account_id?: InputMaybe<Scalars["String"]>;
+	amount?: InputMaybe<Scalars["numeric"]>;
+	id?: InputMaybe<Scalars["String"]>;
+	token_id?: InputMaybe<Scalars["String"]>;
+	updated_at?: InputMaybe<Scalars["timestamptz"]>;
+	updated_at_block?: InputMaybe<Scalars["numeric"]>;
+};
+
+/** aggregate sum on columns */
+export type Erc_Account_F_Token_Balance_Sum_Fields = {
+	__typename?: "erc_account_f_token_balance_sum_fields";
+	amount?: Maybe<Scalars["numeric"]>;
+	updated_at_block?: Maybe<Scalars["numeric"]>;
+};
+
+/** order by sum() on columns of table "squid_erc.account_f_token_balance" */
+export type Erc_Account_F_Token_Balance_Sum_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	updated_at_block?: InputMaybe<Order_By>;
+};
+
+/** update columns of table "squid_erc.account_f_token_balance" */
+export enum Erc_Account_F_Token_Balance_Update_Column {
+	/** column name */
+	AccountId = "account_id",
+	/** column name */
+	Amount = "amount",
+	/** column name */
+	Id = "id",
+	/** column name */
+	TokenId = "token_id",
+	/** column name */
+	UpdatedAt = "updated_at",
+	/** column name */
+	UpdatedAtBlock = "updated_at_block",
+}
+
+export type Erc_Account_F_Token_Balance_Updates = {
+	/** increments the numeric columns with given value of the filtered values */
+	_inc?: InputMaybe<Erc_Account_F_Token_Balance_Inc_Input>;
+	/** sets the columns of the filtered rows to the given values */
+	_set?: InputMaybe<Erc_Account_F_Token_Balance_Set_Input>;
+	where: Erc_Account_F_Token_Balance_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Erc_Account_F_Token_Balance_Var_Pop_Fields = {
+	__typename?: "erc_account_f_token_balance_var_pop_fields";
+	amount?: Maybe<Scalars["Float"]>;
+	updated_at_block?: Maybe<Scalars["Float"]>;
+};
+
+/** order by var_pop() on columns of table "squid_erc.account_f_token_balance" */
+export type Erc_Account_F_Token_Balance_Var_Pop_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	updated_at_block?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Erc_Account_F_Token_Balance_Var_Samp_Fields = {
+	__typename?: "erc_account_f_token_balance_var_samp_fields";
+	amount?: Maybe<Scalars["Float"]>;
+	updated_at_block?: Maybe<Scalars["Float"]>;
+};
+
+/** order by var_samp() on columns of table "squid_erc.account_f_token_balance" */
+export type Erc_Account_F_Token_Balance_Var_Samp_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	updated_at_block?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Erc_Account_F_Token_Balance_Variance_Fields = {
+	__typename?: "erc_account_f_token_balance_variance_fields";
+	amount?: Maybe<Scalars["Float"]>;
+	updated_at_block?: Maybe<Scalars["Float"]>;
+};
+
+/** order by variance() on columns of table "squid_erc.account_f_token_balance" */
+export type Erc_Account_F_Token_Balance_Variance_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	updated_at_block?: InputMaybe<Order_By>;
+};
+
+/** columns and relationships of "squid_erc.account_ft_transfer" */
+export type Erc_Account_Ft_Transfer = {
+	__typename?: "erc_account_ft_transfer";
+	/** An object relationship */
 	account: Erc_Account;
-	direction?: Maybe<Erc_TransferDirection>;
-	id: Scalars["ID"];
-	transfer?: Maybe<Erc_FtTransfer>;
+	account_id: Scalars["String"];
+	direction?: Maybe<Scalars["String"]>;
+	/** An object relationship */
+	ft_transfer?: Maybe<Erc_Ft_Transfer>;
+	id: Scalars["String"];
+	transfer_id?: Maybe<Scalars["String"]>;
 };
 
-export type Erc_AccountFtTransferEdge = {
-	__typename?: "erc_AccountFtTransferEdge";
-	cursor: Scalars["String"];
-	node: Erc_AccountFtTransfer;
+/** aggregated selection of "squid_erc.account_ft_transfer" */
+export type Erc_Account_Ft_Transfer_Aggregate = {
+	__typename?: "erc_account_ft_transfer_aggregate";
+	aggregate?: Maybe<Erc_Account_Ft_Transfer_Aggregate_Fields>;
+	nodes: Array<Erc_Account_Ft_Transfer>;
 };
 
-export enum Erc_AccountFtTransferOrderByInput {
-	AccountIdAsc = "account_id_ASC",
-	AccountIdDesc = "account_id_DESC",
-	DirectionAsc = "direction_ASC",
-	DirectionDesc = "direction_DESC",
-	IdAsc = "id_ASC",
-	IdDesc = "id_DESC",
-	TransferAmountAsc = "transfer_amount_ASC",
-	TransferAmountDesc = "transfer_amount_DESC",
-	TransferBlockNumberAsc = "transfer_blockNumber_ASC",
-	TransferBlockNumberDesc = "transfer_blockNumber_DESC",
-	TransferEventIndexAsc = "transfer_eventIndex_ASC",
-	TransferEventIndexDesc = "transfer_eventIndex_DESC",
-	TransferIdAsc = "transfer_id_ASC",
-	TransferIdDesc = "transfer_id_DESC",
-	TransferTimestampAsc = "transfer_timestamp_ASC",
-	TransferTimestampDesc = "transfer_timestamp_DESC",
-	TransferTransferTypeAsc = "transfer_transferType_ASC",
-	TransferTransferTypeDesc = "transfer_transferType_DESC",
-	TransferTxnHashAsc = "transfer_txnHash_ASC",
-	TransferTxnHashDesc = "transfer_txnHash_DESC",
+/** aggregate fields of "squid_erc.account_ft_transfer" */
+export type Erc_Account_Ft_Transfer_Aggregate_Fields = {
+	__typename?: "erc_account_ft_transfer_aggregate_fields";
+	count: Scalars["Int"];
+	max?: Maybe<Erc_Account_Ft_Transfer_Max_Fields>;
+	min?: Maybe<Erc_Account_Ft_Transfer_Min_Fields>;
+};
+
+/** aggregate fields of "squid_erc.account_ft_transfer" */
+export type Erc_Account_Ft_Transfer_Aggregate_FieldsCountArgs = {
+	columns?: InputMaybe<Array<Erc_Account_Ft_Transfer_Select_Column>>;
+	distinct?: InputMaybe<Scalars["Boolean"]>;
+};
+
+/** order by aggregate values of table "squid_erc.account_ft_transfer" */
+export type Erc_Account_Ft_Transfer_Aggregate_Order_By = {
+	count?: InputMaybe<Order_By>;
+	max?: InputMaybe<Erc_Account_Ft_Transfer_Max_Order_By>;
+	min?: InputMaybe<Erc_Account_Ft_Transfer_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "squid_erc.account_ft_transfer" */
+export type Erc_Account_Ft_Transfer_Arr_Rel_Insert_Input = {
+	data: Array<Erc_Account_Ft_Transfer_Insert_Input>;
+	/** upsert condition */
+	on_conflict?: InputMaybe<Erc_Account_Ft_Transfer_On_Conflict>;
+};
+
+/** Boolean expression to filter rows from the table "squid_erc.account_ft_transfer". All fields are combined with a logical 'AND'. */
+export type Erc_Account_Ft_Transfer_Bool_Exp = {
+	_and?: InputMaybe<Array<Erc_Account_Ft_Transfer_Bool_Exp>>;
+	_not?: InputMaybe<Erc_Account_Ft_Transfer_Bool_Exp>;
+	_or?: InputMaybe<Array<Erc_Account_Ft_Transfer_Bool_Exp>>;
+	account?: InputMaybe<Erc_Account_Bool_Exp>;
+	account_id?: InputMaybe<String_Comparison_Exp>;
+	direction?: InputMaybe<String_Comparison_Exp>;
+	ft_transfer?: InputMaybe<Erc_Ft_Transfer_Bool_Exp>;
+	id?: InputMaybe<String_Comparison_Exp>;
+	transfer_id?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "squid_erc.account_ft_transfer" */
+export enum Erc_Account_Ft_Transfer_Constraint {
+	/** unique or primary key constraint on columns "id" */
+	PkC806d331df157e95bfc5c97dc77 = "PK_c806d331df157e95bfc5c97dc77",
 }
 
-export type Erc_AccountFtTransferWhereInput = {
-	AND?: InputMaybe<Array<Erc_AccountFtTransferWhereInput>>;
-	OR?: InputMaybe<Array<Erc_AccountFtTransferWhereInput>>;
-	account?: InputMaybe<Erc_AccountWhereInput>;
-	direction_eq?: InputMaybe<Erc_TransferDirection>;
-	direction_in?: InputMaybe<Array<Erc_TransferDirection>>;
-	direction_isNull?: InputMaybe<Scalars["Boolean"]>;
-	direction_not_eq?: InputMaybe<Erc_TransferDirection>;
-	direction_not_in?: InputMaybe<Array<Erc_TransferDirection>>;
-	id_contains?: InputMaybe<Scalars["ID"]>;
-	id_containsInsensitive?: InputMaybe<Scalars["ID"]>;
-	id_endsWith?: InputMaybe<Scalars["ID"]>;
-	id_eq?: InputMaybe<Scalars["ID"]>;
-	id_gt?: InputMaybe<Scalars["ID"]>;
-	id_gte?: InputMaybe<Scalars["ID"]>;
-	id_in?: InputMaybe<Array<Scalars["ID"]>>;
-	id_lt?: InputMaybe<Scalars["ID"]>;
-	id_lte?: InputMaybe<Scalars["ID"]>;
-	id_not_contains?: InputMaybe<Scalars["ID"]>;
-	id_not_containsInsensitive?: InputMaybe<Scalars["ID"]>;
-	id_not_endsWith?: InputMaybe<Scalars["ID"]>;
-	id_not_eq?: InputMaybe<Scalars["ID"]>;
-	id_not_in?: InputMaybe<Array<Scalars["ID"]>>;
-	id_not_startsWith?: InputMaybe<Scalars["ID"]>;
-	id_startsWith?: InputMaybe<Scalars["ID"]>;
-	transfer?: InputMaybe<Erc_FtTransferWhereInput>;
-	transfer_isNull?: InputMaybe<Scalars["Boolean"]>;
+/** input type for inserting data into table "squid_erc.account_ft_transfer" */
+export type Erc_Account_Ft_Transfer_Insert_Input = {
+	account?: InputMaybe<Erc_Account_Obj_Rel_Insert_Input>;
+	account_id?: InputMaybe<Scalars["String"]>;
+	direction?: InputMaybe<Scalars["String"]>;
+	ft_transfer?: InputMaybe<Erc_Ft_Transfer_Obj_Rel_Insert_Input>;
+	id?: InputMaybe<Scalars["String"]>;
+	transfer_id?: InputMaybe<Scalars["String"]>;
 };
 
-export type Erc_AccountFtTransferWhereUniqueInput = {
-	id: Scalars["ID"];
+/** aggregate max on columns */
+export type Erc_Account_Ft_Transfer_Max_Fields = {
+	__typename?: "erc_account_ft_transfer_max_fields";
+	account_id?: Maybe<Scalars["String"]>;
+	direction?: Maybe<Scalars["String"]>;
+	id?: Maybe<Scalars["String"]>;
+	transfer_id?: Maybe<Scalars["String"]>;
 };
 
-export type Erc_AccountFtTransfersConnection = {
-	__typename?: "erc_AccountFtTransfersConnection";
-	edges: Array<Erc_AccountFtTransferEdge>;
-	pageInfo: Erc_PageInfo;
-	totalCount: Scalars["Int"];
+/** order by max() on columns of table "squid_erc.account_ft_transfer" */
+export type Erc_Account_Ft_Transfer_Max_Order_By = {
+	account_id?: InputMaybe<Order_By>;
+	direction?: InputMaybe<Order_By>;
+	id?: InputMaybe<Order_By>;
+	transfer_id?: InputMaybe<Order_By>;
 };
 
-export type Erc_AccountNftTransfer = {
-	__typename?: "erc_AccountNftTransfer";
+/** aggregate min on columns */
+export type Erc_Account_Ft_Transfer_Min_Fields = {
+	__typename?: "erc_account_ft_transfer_min_fields";
+	account_id?: Maybe<Scalars["String"]>;
+	direction?: Maybe<Scalars["String"]>;
+	id?: Maybe<Scalars["String"]>;
+	transfer_id?: Maybe<Scalars["String"]>;
+};
+
+/** order by min() on columns of table "squid_erc.account_ft_transfer" */
+export type Erc_Account_Ft_Transfer_Min_Order_By = {
+	account_id?: InputMaybe<Order_By>;
+	direction?: InputMaybe<Order_By>;
+	id?: InputMaybe<Order_By>;
+	transfer_id?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "squid_erc.account_ft_transfer" */
+export type Erc_Account_Ft_Transfer_Mutation_Response = {
+	__typename?: "erc_account_ft_transfer_mutation_response";
+	/** number of rows affected by the mutation */
+	affected_rows: Scalars["Int"];
+	/** data from the rows affected by the mutation */
+	returning: Array<Erc_Account_Ft_Transfer>;
+};
+
+/** on_conflict condition type for table "squid_erc.account_ft_transfer" */
+export type Erc_Account_Ft_Transfer_On_Conflict = {
+	constraint: Erc_Account_Ft_Transfer_Constraint;
+	update_columns?: Array<Erc_Account_Ft_Transfer_Update_Column>;
+	where?: InputMaybe<Erc_Account_Ft_Transfer_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "squid_erc.account_ft_transfer". */
+export type Erc_Account_Ft_Transfer_Order_By = {
+	account?: InputMaybe<Erc_Account_Order_By>;
+	account_id?: InputMaybe<Order_By>;
+	direction?: InputMaybe<Order_By>;
+	ft_transfer?: InputMaybe<Erc_Ft_Transfer_Order_By>;
+	id?: InputMaybe<Order_By>;
+	transfer_id?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: account_ft_transfer */
+export type Erc_Account_Ft_Transfer_Pk_Columns_Input = {
+	id: Scalars["String"];
+};
+
+/** select columns of table "squid_erc.account_ft_transfer" */
+export enum Erc_Account_Ft_Transfer_Select_Column {
+	/** column name */
+	AccountId = "account_id",
+	/** column name */
+	Direction = "direction",
+	/** column name */
+	Id = "id",
+	/** column name */
+	TransferId = "transfer_id",
+}
+
+/** input type for updating data in table "squid_erc.account_ft_transfer" */
+export type Erc_Account_Ft_Transfer_Set_Input = {
+	account_id?: InputMaybe<Scalars["String"]>;
+	direction?: InputMaybe<Scalars["String"]>;
+	id?: InputMaybe<Scalars["String"]>;
+	transfer_id?: InputMaybe<Scalars["String"]>;
+};
+
+/** Streaming cursor of the table "account_ft_transfer" */
+export type Erc_Account_Ft_Transfer_Stream_Cursor_Input = {
+	/** Stream column input with initial value */
+	initial_value: Erc_Account_Ft_Transfer_Stream_Cursor_Value_Input;
+	/** cursor ordering */
+	ordering?: InputMaybe<Erc_Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Erc_Account_Ft_Transfer_Stream_Cursor_Value_Input = {
+	account_id?: InputMaybe<Scalars["String"]>;
+	direction?: InputMaybe<Scalars["String"]>;
+	id?: InputMaybe<Scalars["String"]>;
+	transfer_id?: InputMaybe<Scalars["String"]>;
+};
+
+/** update columns of table "squid_erc.account_ft_transfer" */
+export enum Erc_Account_Ft_Transfer_Update_Column {
+	/** column name */
+	AccountId = "account_id",
+	/** column name */
+	Direction = "direction",
+	/** column name */
+	Id = "id",
+	/** column name */
+	TransferId = "transfer_id",
+}
+
+export type Erc_Account_Ft_Transfer_Updates = {
+	/** sets the columns of the filtered rows to the given values */
+	_set?: InputMaybe<Erc_Account_Ft_Transfer_Set_Input>;
+	where: Erc_Account_Ft_Transfer_Bool_Exp;
+};
+
+/** input type for inserting data into table "squid_erc.account" */
+export type Erc_Account_Insert_Input = {
+	account_f_token_balances?: InputMaybe<Erc_Account_F_Token_Balance_Arr_Rel_Insert_Input>;
+	account_ft_transfers?: InputMaybe<Erc_Account_Ft_Transfer_Arr_Rel_Insert_Input>;
+	account_nft_transfers?: InputMaybe<Erc_Account_Nft_Transfer_Arr_Rel_Insert_Input>;
+	ftTransfersByToId?: InputMaybe<Erc_Ft_Transfer_Arr_Rel_Insert_Input>;
+	ft_transfers?: InputMaybe<Erc_Ft_Transfer_Arr_Rel_Insert_Input>;
+	id?: InputMaybe<Scalars["String"]>;
+	nf_tokens?: InputMaybe<Erc_Nf_Token_Arr_Rel_Insert_Input>;
+	nftTransfersByFromId?: InputMaybe<Erc_Nft_Transfer_Arr_Rel_Insert_Input>;
+	nftTransfersByToId?: InputMaybe<Erc_Nft_Transfer_Arr_Rel_Insert_Input>;
+	nft_transfers?: InputMaybe<Erc_Nft_Transfer_Arr_Rel_Insert_Input>;
+};
+
+/** aggregate max on columns */
+export type Erc_Account_Max_Fields = {
+	__typename?: "erc_account_max_fields";
+	id?: Maybe<Scalars["String"]>;
+};
+
+/** aggregate min on columns */
+export type Erc_Account_Min_Fields = {
+	__typename?: "erc_account_min_fields";
+	id?: Maybe<Scalars["String"]>;
+};
+
+/** response of any mutation on the table "squid_erc.account" */
+export type Erc_Account_Mutation_Response = {
+	__typename?: "erc_account_mutation_response";
+	/** number of rows affected by the mutation */
+	affected_rows: Scalars["Int"];
+	/** data from the rows affected by the mutation */
+	returning: Array<Erc_Account>;
+};
+
+/** columns and relationships of "squid_erc.account_nft_transfer" */
+export type Erc_Account_Nft_Transfer = {
+	__typename?: "erc_account_nft_transfer";
+	/** An object relationship */
 	account: Erc_Account;
-	direction?: Maybe<Erc_TransferDirection>;
-	id: Scalars["ID"];
-	transfer?: Maybe<Erc_NftTransfer>;
+	account_id: Scalars["String"];
+	direction?: Maybe<Scalars["String"]>;
+	id: Scalars["String"];
+	/** An object relationship */
+	nft_transfer?: Maybe<Erc_Nft_Transfer>;
+	transfer_id?: Maybe<Scalars["String"]>;
 };
 
-export type Erc_AccountNftTransferEdge = {
-	__typename?: "erc_AccountNftTransferEdge";
-	cursor: Scalars["String"];
-	node: Erc_AccountNftTransfer;
+/** aggregated selection of "squid_erc.account_nft_transfer" */
+export type Erc_Account_Nft_Transfer_Aggregate = {
+	__typename?: "erc_account_nft_transfer_aggregate";
+	aggregate?: Maybe<Erc_Account_Nft_Transfer_Aggregate_Fields>;
+	nodes: Array<Erc_Account_Nft_Transfer>;
 };
 
-export enum Erc_AccountNftTransferOrderByInput {
-	AccountIdAsc = "account_id_ASC",
-	AccountIdDesc = "account_id_DESC",
-	DirectionAsc = "direction_ASC",
-	DirectionDesc = "direction_DESC",
-	IdAsc = "id_ASC",
-	IdDesc = "id_DESC",
-	TransferAmountAsc = "transfer_amount_ASC",
-	TransferAmountDesc = "transfer_amount_DESC",
-	TransferBlockNumberAsc = "transfer_blockNumber_ASC",
-	TransferBlockNumberDesc = "transfer_blockNumber_DESC",
-	TransferEventIndexAsc = "transfer_eventIndex_ASC",
-	TransferEventIndexDesc = "transfer_eventIndex_DESC",
-	TransferIdAsc = "transfer_id_ASC",
-	TransferIdDesc = "transfer_id_DESC",
-	TransferIsBatchAsc = "transfer_isBatch_ASC",
-	TransferIsBatchDesc = "transfer_isBatch_DESC",
-	TransferTimestampAsc = "transfer_timestamp_ASC",
-	TransferTimestampDesc = "transfer_timestamp_DESC",
-	TransferTransferTypeAsc = "transfer_transferType_ASC",
-	TransferTransferTypeDesc = "transfer_transferType_DESC",
-	TransferTxnHashAsc = "transfer_txnHash_ASC",
-	TransferTxnHashDesc = "transfer_txnHash_DESC",
+/** aggregate fields of "squid_erc.account_nft_transfer" */
+export type Erc_Account_Nft_Transfer_Aggregate_Fields = {
+	__typename?: "erc_account_nft_transfer_aggregate_fields";
+	count: Scalars["Int"];
+	max?: Maybe<Erc_Account_Nft_Transfer_Max_Fields>;
+	min?: Maybe<Erc_Account_Nft_Transfer_Min_Fields>;
+};
+
+/** aggregate fields of "squid_erc.account_nft_transfer" */
+export type Erc_Account_Nft_Transfer_Aggregate_FieldsCountArgs = {
+	columns?: InputMaybe<Array<Erc_Account_Nft_Transfer_Select_Column>>;
+	distinct?: InputMaybe<Scalars["Boolean"]>;
+};
+
+/** order by aggregate values of table "squid_erc.account_nft_transfer" */
+export type Erc_Account_Nft_Transfer_Aggregate_Order_By = {
+	count?: InputMaybe<Order_By>;
+	max?: InputMaybe<Erc_Account_Nft_Transfer_Max_Order_By>;
+	min?: InputMaybe<Erc_Account_Nft_Transfer_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "squid_erc.account_nft_transfer" */
+export type Erc_Account_Nft_Transfer_Arr_Rel_Insert_Input = {
+	data: Array<Erc_Account_Nft_Transfer_Insert_Input>;
+	/** upsert condition */
+	on_conflict?: InputMaybe<Erc_Account_Nft_Transfer_On_Conflict>;
+};
+
+/** Boolean expression to filter rows from the table "squid_erc.account_nft_transfer". All fields are combined with a logical 'AND'. */
+export type Erc_Account_Nft_Transfer_Bool_Exp = {
+	_and?: InputMaybe<Array<Erc_Account_Nft_Transfer_Bool_Exp>>;
+	_not?: InputMaybe<Erc_Account_Nft_Transfer_Bool_Exp>;
+	_or?: InputMaybe<Array<Erc_Account_Nft_Transfer_Bool_Exp>>;
+	account?: InputMaybe<Erc_Account_Bool_Exp>;
+	account_id?: InputMaybe<String_Comparison_Exp>;
+	direction?: InputMaybe<String_Comparison_Exp>;
+	id?: InputMaybe<String_Comparison_Exp>;
+	nft_transfer?: InputMaybe<Erc_Nft_Transfer_Bool_Exp>;
+	transfer_id?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "squid_erc.account_nft_transfer" */
+export enum Erc_Account_Nft_Transfer_Constraint {
+	/** unique or primary key constraint on columns "id" */
+	Pk_63cecb44d101ea1a54908c34a24 = "PK_63cecb44d101ea1a54908c34a24",
 }
 
-export type Erc_AccountNftTransferWhereInput = {
-	AND?: InputMaybe<Array<Erc_AccountNftTransferWhereInput>>;
-	OR?: InputMaybe<Array<Erc_AccountNftTransferWhereInput>>;
-	account?: InputMaybe<Erc_AccountWhereInput>;
-	direction_eq?: InputMaybe<Erc_TransferDirection>;
-	direction_in?: InputMaybe<Array<Erc_TransferDirection>>;
-	direction_isNull?: InputMaybe<Scalars["Boolean"]>;
-	direction_not_eq?: InputMaybe<Erc_TransferDirection>;
-	direction_not_in?: InputMaybe<Array<Erc_TransferDirection>>;
-	id_contains?: InputMaybe<Scalars["ID"]>;
-	id_containsInsensitive?: InputMaybe<Scalars["ID"]>;
-	id_endsWith?: InputMaybe<Scalars["ID"]>;
-	id_eq?: InputMaybe<Scalars["ID"]>;
-	id_gt?: InputMaybe<Scalars["ID"]>;
-	id_gte?: InputMaybe<Scalars["ID"]>;
-	id_in?: InputMaybe<Array<Scalars["ID"]>>;
-	id_lt?: InputMaybe<Scalars["ID"]>;
-	id_lte?: InputMaybe<Scalars["ID"]>;
-	id_not_contains?: InputMaybe<Scalars["ID"]>;
-	id_not_containsInsensitive?: InputMaybe<Scalars["ID"]>;
-	id_not_endsWith?: InputMaybe<Scalars["ID"]>;
-	id_not_eq?: InputMaybe<Scalars["ID"]>;
-	id_not_in?: InputMaybe<Array<Scalars["ID"]>>;
-	id_not_startsWith?: InputMaybe<Scalars["ID"]>;
-	id_startsWith?: InputMaybe<Scalars["ID"]>;
-	transfer?: InputMaybe<Erc_NftTransferWhereInput>;
-	transfer_isNull?: InputMaybe<Scalars["Boolean"]>;
+/** input type for inserting data into table "squid_erc.account_nft_transfer" */
+export type Erc_Account_Nft_Transfer_Insert_Input = {
+	account?: InputMaybe<Erc_Account_Obj_Rel_Insert_Input>;
+	account_id?: InputMaybe<Scalars["String"]>;
+	direction?: InputMaybe<Scalars["String"]>;
+	id?: InputMaybe<Scalars["String"]>;
+	nft_transfer?: InputMaybe<Erc_Nft_Transfer_Obj_Rel_Insert_Input>;
+	transfer_id?: InputMaybe<Scalars["String"]>;
 };
 
-export type Erc_AccountNftTransferWhereUniqueInput = {
-	id: Scalars["ID"];
+/** aggregate max on columns */
+export type Erc_Account_Nft_Transfer_Max_Fields = {
+	__typename?: "erc_account_nft_transfer_max_fields";
+	account_id?: Maybe<Scalars["String"]>;
+	direction?: Maybe<Scalars["String"]>;
+	id?: Maybe<Scalars["String"]>;
+	transfer_id?: Maybe<Scalars["String"]>;
 };
 
-export type Erc_AccountNftTransfersConnection = {
-	__typename?: "erc_AccountNftTransfersConnection";
-	edges: Array<Erc_AccountNftTransferEdge>;
-	pageInfo: Erc_PageInfo;
-	totalCount: Scalars["Int"];
+/** order by max() on columns of table "squid_erc.account_nft_transfer" */
+export type Erc_Account_Nft_Transfer_Max_Order_By = {
+	account_id?: InputMaybe<Order_By>;
+	direction?: InputMaybe<Order_By>;
+	id?: InputMaybe<Order_By>;
+	transfer_id?: InputMaybe<Order_By>;
 };
 
-export enum Erc_AccountOrderByInput {
-	IdAsc = "id_ASC",
-	IdDesc = "id_DESC",
+/** aggregate min on columns */
+export type Erc_Account_Nft_Transfer_Min_Fields = {
+	__typename?: "erc_account_nft_transfer_min_fields";
+	account_id?: Maybe<Scalars["String"]>;
+	direction?: Maybe<Scalars["String"]>;
+	id?: Maybe<Scalars["String"]>;
+	transfer_id?: Maybe<Scalars["String"]>;
+};
+
+/** order by min() on columns of table "squid_erc.account_nft_transfer" */
+export type Erc_Account_Nft_Transfer_Min_Order_By = {
+	account_id?: InputMaybe<Order_By>;
+	direction?: InputMaybe<Order_By>;
+	id?: InputMaybe<Order_By>;
+	transfer_id?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "squid_erc.account_nft_transfer" */
+export type Erc_Account_Nft_Transfer_Mutation_Response = {
+	__typename?: "erc_account_nft_transfer_mutation_response";
+	/** number of rows affected by the mutation */
+	affected_rows: Scalars["Int"];
+	/** data from the rows affected by the mutation */
+	returning: Array<Erc_Account_Nft_Transfer>;
+};
+
+/** on_conflict condition type for table "squid_erc.account_nft_transfer" */
+export type Erc_Account_Nft_Transfer_On_Conflict = {
+	constraint: Erc_Account_Nft_Transfer_Constraint;
+	update_columns?: Array<Erc_Account_Nft_Transfer_Update_Column>;
+	where?: InputMaybe<Erc_Account_Nft_Transfer_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "squid_erc.account_nft_transfer". */
+export type Erc_Account_Nft_Transfer_Order_By = {
+	account?: InputMaybe<Erc_Account_Order_By>;
+	account_id?: InputMaybe<Order_By>;
+	direction?: InputMaybe<Order_By>;
+	id?: InputMaybe<Order_By>;
+	nft_transfer?: InputMaybe<Erc_Nft_Transfer_Order_By>;
+	transfer_id?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: account_nft_transfer */
+export type Erc_Account_Nft_Transfer_Pk_Columns_Input = {
+	id: Scalars["String"];
+};
+
+/** select columns of table "squid_erc.account_nft_transfer" */
+export enum Erc_Account_Nft_Transfer_Select_Column {
+	/** column name */
+	AccountId = "account_id",
+	/** column name */
+	Direction = "direction",
+	/** column name */
+	Id = "id",
+	/** column name */
+	TransferId = "transfer_id",
 }
 
-export type Erc_AccountWhereInput = {
-	AND?: InputMaybe<Array<Erc_AccountWhereInput>>;
-	OR?: InputMaybe<Array<Erc_AccountWhereInput>>;
-	balancesFToken_every?: InputMaybe<Erc_AccountFTokenBalanceWhereInput>;
-	balancesFToken_none?: InputMaybe<Erc_AccountFTokenBalanceWhereInput>;
-	balancesFToken_some?: InputMaybe<Erc_AccountFTokenBalanceWhereInput>;
-	ftTransfers_every?: InputMaybe<Erc_AccountFtTransferWhereInput>;
-	ftTransfers_none?: InputMaybe<Erc_AccountFtTransferWhereInput>;
-	ftTransfers_some?: InputMaybe<Erc_AccountFtTransferWhereInput>;
-	id_contains?: InputMaybe<Scalars["ID"]>;
-	id_containsInsensitive?: InputMaybe<Scalars["ID"]>;
-	id_endsWith?: InputMaybe<Scalars["ID"]>;
-	id_eq?: InputMaybe<Scalars["ID"]>;
-	id_gt?: InputMaybe<Scalars["ID"]>;
-	id_gte?: InputMaybe<Scalars["ID"]>;
-	id_in?: InputMaybe<Array<Scalars["ID"]>>;
-	id_lt?: InputMaybe<Scalars["ID"]>;
-	id_lte?: InputMaybe<Scalars["ID"]>;
-	id_not_contains?: InputMaybe<Scalars["ID"]>;
-	id_not_containsInsensitive?: InputMaybe<Scalars["ID"]>;
-	id_not_endsWith?: InputMaybe<Scalars["ID"]>;
-	id_not_eq?: InputMaybe<Scalars["ID"]>;
-	id_not_in?: InputMaybe<Array<Scalars["ID"]>>;
-	id_not_startsWith?: InputMaybe<Scalars["ID"]>;
-	id_startsWith?: InputMaybe<Scalars["ID"]>;
-	nftTransfers_every?: InputMaybe<Erc_AccountNftTransferWhereInput>;
-	nftTransfers_none?: InputMaybe<Erc_AccountNftTransferWhereInput>;
-	nftTransfers_some?: InputMaybe<Erc_AccountNftTransferWhereInput>;
-	ownedTokens_every?: InputMaybe<Erc_NfTokenWhereInput>;
-	ownedTokens_none?: InputMaybe<Erc_NfTokenWhereInput>;
-	ownedTokens_some?: InputMaybe<Erc_NfTokenWhereInput>;
+/** input type for updating data in table "squid_erc.account_nft_transfer" */
+export type Erc_Account_Nft_Transfer_Set_Input = {
+	account_id?: InputMaybe<Scalars["String"]>;
+	direction?: InputMaybe<Scalars["String"]>;
+	id?: InputMaybe<Scalars["String"]>;
+	transfer_id?: InputMaybe<Scalars["String"]>;
 };
 
-export type Erc_AccountWhereUniqueInput = {
-	id: Scalars["ID"];
+/** Streaming cursor of the table "account_nft_transfer" */
+export type Erc_Account_Nft_Transfer_Stream_Cursor_Input = {
+	/** Stream column input with initial value */
+	initial_value: Erc_Account_Nft_Transfer_Stream_Cursor_Value_Input;
+	/** cursor ordering */
+	ordering?: InputMaybe<Erc_Cursor_Ordering>;
 };
 
-export type Erc_AccountsConnection = {
-	__typename?: "erc_AccountsConnection";
-	edges: Array<Erc_AccountEdge>;
-	pageInfo: Erc_PageInfo;
-	totalCount: Scalars["Int"];
+/** Initial value of the column from where the streaming should start */
+export type Erc_Account_Nft_Transfer_Stream_Cursor_Value_Input = {
+	account_id?: InputMaybe<Scalars["String"]>;
+	direction?: InputMaybe<Scalars["String"]>;
+	id?: InputMaybe<Scalars["String"]>;
+	transfer_id?: InputMaybe<Scalars["String"]>;
 };
 
+/** update columns of table "squid_erc.account_nft_transfer" */
+export enum Erc_Account_Nft_Transfer_Update_Column {
+	/** column name */
+	AccountId = "account_id",
+	/** column name */
+	Direction = "direction",
+	/** column name */
+	Id = "id",
+	/** column name */
+	TransferId = "transfer_id",
+}
+
+export type Erc_Account_Nft_Transfer_Updates = {
+	/** sets the columns of the filtered rows to the given values */
+	_set?: InputMaybe<Erc_Account_Nft_Transfer_Set_Input>;
+	where: Erc_Account_Nft_Transfer_Bool_Exp;
+};
+
+/** input type for inserting object relation for remote table "squid_erc.account" */
+export type Erc_Account_Obj_Rel_Insert_Input = {
+	data: Erc_Account_Insert_Input;
+	/** upsert condition */
+	on_conflict?: InputMaybe<Erc_Account_On_Conflict>;
+};
+
+/** on_conflict condition type for table "squid_erc.account" */
+export type Erc_Account_On_Conflict = {
+	constraint: Erc_Account_Constraint;
+	update_columns?: Array<Erc_Account_Update_Column>;
+	where?: InputMaybe<Erc_Account_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "squid_erc.account". */
+export type Erc_Account_Order_By = {
+	account_f_token_balances_aggregate?: InputMaybe<Erc_Account_F_Token_Balance_Aggregate_Order_By>;
+	account_ft_transfers_aggregate?: InputMaybe<Erc_Account_Ft_Transfer_Aggregate_Order_By>;
+	account_nft_transfers_aggregate?: InputMaybe<Erc_Account_Nft_Transfer_Aggregate_Order_By>;
+	ftTransfersByToId_aggregate?: InputMaybe<Erc_Ft_Transfer_Aggregate_Order_By>;
+	ft_transfers_aggregate?: InputMaybe<Erc_Ft_Transfer_Aggregate_Order_By>;
+	id?: InputMaybe<Order_By>;
+	nf_tokens_aggregate?: InputMaybe<Erc_Nf_Token_Aggregate_Order_By>;
+	nftTransfersByFromId_aggregate?: InputMaybe<Erc_Nft_Transfer_Aggregate_Order_By>;
+	nftTransfersByToId_aggregate?: InputMaybe<Erc_Nft_Transfer_Aggregate_Order_By>;
+	nft_transfers_aggregate?: InputMaybe<Erc_Nft_Transfer_Aggregate_Order_By>;
+};
+
+/** primary key columns input for table: account */
+export type Erc_Account_Pk_Columns_Input = {
+	id: Scalars["String"];
+};
+
+/** select columns of table "squid_erc.account" */
+export enum Erc_Account_Select_Column {
+	/** column name */
+	Id = "id",
+}
+
+/** input type for updating data in table "squid_erc.account" */
+export type Erc_Account_Set_Input = {
+	id?: InputMaybe<Scalars["String"]>;
+};
+
+/** Streaming cursor of the table "account" */
+export type Erc_Account_Stream_Cursor_Input = {
+	/** Stream column input with initial value */
+	initial_value: Erc_Account_Stream_Cursor_Value_Input;
+	/** cursor ordering */
+	ordering?: InputMaybe<Erc_Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Erc_Account_Stream_Cursor_Value_Input = {
+	id?: InputMaybe<Scalars["String"]>;
+};
+
+/** update columns of table "squid_erc.account" */
+export enum Erc_Account_Update_Column {
+	/** column name */
+	Id = "id",
+}
+
+export type Erc_Account_Updates = {
+	/** sets the columns of the filtered rows to the given values */
+	_set?: InputMaybe<Erc_Account_Set_Input>;
+	where: Erc_Account_Bool_Exp;
+};
+
+/** columns and relationships of "squid_erc.collection" */
 export type Erc_Collection = {
-	__typename?: "erc_Collection";
-	collectionType: Erc_ContractStandard;
-	createdAt: Scalars["erc_DateTime"];
-	createdAtBlock: Scalars["erc_BigInt"];
-	id: Scalars["ID"];
-	nfts: Array<Erc_NfToken>;
+	__typename?: "erc_collection";
+	collection_type: Scalars["String"];
+	created_at: Scalars["timestamptz"];
+	created_at_block: Scalars["numeric"];
+	id: Scalars["String"];
+	/** An array relationship */
+	nf_tokens: Array<Erc_Nf_Token>;
+	/** An aggregate relationship */
+	nf_tokens_aggregate: Erc_Nf_Token_Aggregate;
 };
 
-export type Erc_CollectionNftsArgs = {
+/** columns and relationships of "squid_erc.collection" */
+export type Erc_CollectionNf_TokensArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Nf_Token_Select_Column>>;
 	limit?: InputMaybe<Scalars["Int"]>;
 	offset?: InputMaybe<Scalars["Int"]>;
-	orderBy?: InputMaybe<Array<InputMaybe<Erc_NfTokenOrderByInput>>>;
-	where?: InputMaybe<Erc_NfTokenWhereInput>;
+	order_by?: InputMaybe<Array<Erc_Nf_Token_Order_By>>;
+	where?: InputMaybe<Erc_Nf_Token_Bool_Exp>;
 };
 
-export type Erc_CollectionEdge = {
-	__typename?: "erc_CollectionEdge";
-	cursor: Scalars["String"];
-	node: Erc_Collection;
+/** columns and relationships of "squid_erc.collection" */
+export type Erc_CollectionNf_Tokens_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Nf_Token_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Nf_Token_Order_By>>;
+	where?: InputMaybe<Erc_Nf_Token_Bool_Exp>;
 };
 
-export enum Erc_CollectionOrderByInput {
-	CollectionTypeAsc = "collectionType_ASC",
-	CollectionTypeDesc = "collectionType_DESC",
-	CreatedAtBlockAsc = "createdAtBlock_ASC",
-	CreatedAtBlockDesc = "createdAtBlock_DESC",
-	CreatedAtAsc = "createdAt_ASC",
-	CreatedAtDesc = "createdAt_DESC",
-	IdAsc = "id_ASC",
-	IdDesc = "id_DESC",
+/** aggregated selection of "squid_erc.collection" */
+export type Erc_Collection_Aggregate = {
+	__typename?: "erc_collection_aggregate";
+	aggregate?: Maybe<Erc_Collection_Aggregate_Fields>;
+	nodes: Array<Erc_Collection>;
+};
+
+/** aggregate fields of "squid_erc.collection" */
+export type Erc_Collection_Aggregate_Fields = {
+	__typename?: "erc_collection_aggregate_fields";
+	avg?: Maybe<Erc_Collection_Avg_Fields>;
+	count: Scalars["Int"];
+	max?: Maybe<Erc_Collection_Max_Fields>;
+	min?: Maybe<Erc_Collection_Min_Fields>;
+	stddev?: Maybe<Erc_Collection_Stddev_Fields>;
+	stddev_pop?: Maybe<Erc_Collection_Stddev_Pop_Fields>;
+	stddev_samp?: Maybe<Erc_Collection_Stddev_Samp_Fields>;
+	sum?: Maybe<Erc_Collection_Sum_Fields>;
+	var_pop?: Maybe<Erc_Collection_Var_Pop_Fields>;
+	var_samp?: Maybe<Erc_Collection_Var_Samp_Fields>;
+	variance?: Maybe<Erc_Collection_Variance_Fields>;
+};
+
+/** aggregate fields of "squid_erc.collection" */
+export type Erc_Collection_Aggregate_FieldsCountArgs = {
+	columns?: InputMaybe<Array<Erc_Collection_Select_Column>>;
+	distinct?: InputMaybe<Scalars["Boolean"]>;
+};
+
+/** aggregate avg on columns */
+export type Erc_Collection_Avg_Fields = {
+	__typename?: "erc_collection_avg_fields";
+	created_at_block?: Maybe<Scalars["Float"]>;
+};
+
+/** Boolean expression to filter rows from the table "squid_erc.collection". All fields are combined with a logical 'AND'. */
+export type Erc_Collection_Bool_Exp = {
+	_and?: InputMaybe<Array<Erc_Collection_Bool_Exp>>;
+	_not?: InputMaybe<Erc_Collection_Bool_Exp>;
+	_or?: InputMaybe<Array<Erc_Collection_Bool_Exp>>;
+	collection_type?: InputMaybe<String_Comparison_Exp>;
+	created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+	created_at_block?: InputMaybe<Numeric_Comparison_Exp>;
+	id?: InputMaybe<String_Comparison_Exp>;
+	nf_tokens?: InputMaybe<Erc_Nf_Token_Bool_Exp>;
+};
+
+/** unique or primary key constraints on table "squid_erc.collection" */
+export enum Erc_Collection_Constraint {
+	/** unique or primary key constraint on columns "id" */
+	PkAd3f485bbc99d875491f44d7c85 = "PK_ad3f485bbc99d875491f44d7c85",
 }
 
-export type Erc_CollectionWhereInput = {
-	AND?: InputMaybe<Array<Erc_CollectionWhereInput>>;
-	OR?: InputMaybe<Array<Erc_CollectionWhereInput>>;
-	collectionType_eq?: InputMaybe<Erc_ContractStandard>;
-	collectionType_in?: InputMaybe<Array<Erc_ContractStandard>>;
-	collectionType_not_eq?: InputMaybe<Erc_ContractStandard>;
-	collectionType_not_in?: InputMaybe<Array<Erc_ContractStandard>>;
-	createdAtBlock_eq?: InputMaybe<Scalars["erc_BigInt"]>;
-	createdAtBlock_gt?: InputMaybe<Scalars["erc_BigInt"]>;
-	createdAtBlock_gte?: InputMaybe<Scalars["erc_BigInt"]>;
-	createdAtBlock_in?: InputMaybe<Array<Scalars["erc_BigInt"]>>;
-	createdAtBlock_lt?: InputMaybe<Scalars["erc_BigInt"]>;
-	createdAtBlock_lte?: InputMaybe<Scalars["erc_BigInt"]>;
-	createdAtBlock_not_eq?: InputMaybe<Scalars["erc_BigInt"]>;
-	createdAtBlock_not_in?: InputMaybe<Array<Scalars["erc_BigInt"]>>;
-	createdAt_eq?: InputMaybe<Scalars["erc_DateTime"]>;
-	createdAt_gt?: InputMaybe<Scalars["erc_DateTime"]>;
-	createdAt_gte?: InputMaybe<Scalars["erc_DateTime"]>;
-	createdAt_in?: InputMaybe<Array<Scalars["erc_DateTime"]>>;
-	createdAt_lt?: InputMaybe<Scalars["erc_DateTime"]>;
-	createdAt_lte?: InputMaybe<Scalars["erc_DateTime"]>;
-	createdAt_not_eq?: InputMaybe<Scalars["erc_DateTime"]>;
-	createdAt_not_in?: InputMaybe<Array<Scalars["erc_DateTime"]>>;
-	id_contains?: InputMaybe<Scalars["ID"]>;
-	id_containsInsensitive?: InputMaybe<Scalars["ID"]>;
-	id_endsWith?: InputMaybe<Scalars["ID"]>;
-	id_eq?: InputMaybe<Scalars["ID"]>;
-	id_gt?: InputMaybe<Scalars["ID"]>;
-	id_gte?: InputMaybe<Scalars["ID"]>;
-	id_in?: InputMaybe<Array<Scalars["ID"]>>;
-	id_lt?: InputMaybe<Scalars["ID"]>;
-	id_lte?: InputMaybe<Scalars["ID"]>;
-	id_not_contains?: InputMaybe<Scalars["ID"]>;
-	id_not_containsInsensitive?: InputMaybe<Scalars["ID"]>;
-	id_not_endsWith?: InputMaybe<Scalars["ID"]>;
-	id_not_eq?: InputMaybe<Scalars["ID"]>;
-	id_not_in?: InputMaybe<Array<Scalars["ID"]>>;
-	id_not_startsWith?: InputMaybe<Scalars["ID"]>;
-	id_startsWith?: InputMaybe<Scalars["ID"]>;
-	nfts_every?: InputMaybe<Erc_NfTokenWhereInput>;
-	nfts_none?: InputMaybe<Erc_NfTokenWhereInput>;
-	nfts_some?: InputMaybe<Erc_NfTokenWhereInput>;
+/** input type for incrementing numeric columns in table "squid_erc.collection" */
+export type Erc_Collection_Inc_Input = {
+	created_at_block?: InputMaybe<Scalars["numeric"]>;
 };
 
-export type Erc_CollectionWhereUniqueInput = {
-	id: Scalars["ID"];
+/** input type for inserting data into table "squid_erc.collection" */
+export type Erc_Collection_Insert_Input = {
+	collection_type?: InputMaybe<Scalars["String"]>;
+	created_at?: InputMaybe<Scalars["timestamptz"]>;
+	created_at_block?: InputMaybe<Scalars["numeric"]>;
+	id?: InputMaybe<Scalars["String"]>;
+	nf_tokens?: InputMaybe<Erc_Nf_Token_Arr_Rel_Insert_Input>;
 };
 
-export type Erc_CollectionsConnection = {
-	__typename?: "erc_CollectionsConnection";
-	edges: Array<Erc_CollectionEdge>;
-	pageInfo: Erc_PageInfo;
-	totalCount: Scalars["Int"];
+/** aggregate max on columns */
+export type Erc_Collection_Max_Fields = {
+	__typename?: "erc_collection_max_fields";
+	collection_type?: Maybe<Scalars["String"]>;
+	created_at?: Maybe<Scalars["timestamptz"]>;
+	created_at_block?: Maybe<Scalars["numeric"]>;
+	id?: Maybe<Scalars["String"]>;
 };
 
-export enum Erc_ContractStandard {
-	Erc20 = "ERC20",
-	Erc721 = "ERC721",
-	Erc1155 = "ERC1155",
+/** aggregate min on columns */
+export type Erc_Collection_Min_Fields = {
+	__typename?: "erc_collection_min_fields";
+	collection_type?: Maybe<Scalars["String"]>;
+	created_at?: Maybe<Scalars["timestamptz"]>;
+	created_at_block?: Maybe<Scalars["numeric"]>;
+	id?: Maybe<Scalars["String"]>;
+};
+
+/** response of any mutation on the table "squid_erc.collection" */
+export type Erc_Collection_Mutation_Response = {
+	__typename?: "erc_collection_mutation_response";
+	/** number of rows affected by the mutation */
+	affected_rows: Scalars["Int"];
+	/** data from the rows affected by the mutation */
+	returning: Array<Erc_Collection>;
+};
+
+/** input type for inserting object relation for remote table "squid_erc.collection" */
+export type Erc_Collection_Obj_Rel_Insert_Input = {
+	data: Erc_Collection_Insert_Input;
+	/** upsert condition */
+	on_conflict?: InputMaybe<Erc_Collection_On_Conflict>;
+};
+
+/** on_conflict condition type for table "squid_erc.collection" */
+export type Erc_Collection_On_Conflict = {
+	constraint: Erc_Collection_Constraint;
+	update_columns?: Array<Erc_Collection_Update_Column>;
+	where?: InputMaybe<Erc_Collection_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "squid_erc.collection". */
+export type Erc_Collection_Order_By = {
+	collection_type?: InputMaybe<Order_By>;
+	created_at?: InputMaybe<Order_By>;
+	created_at_block?: InputMaybe<Order_By>;
+	id?: InputMaybe<Order_By>;
+	nf_tokens_aggregate?: InputMaybe<Erc_Nf_Token_Aggregate_Order_By>;
+};
+
+/** primary key columns input for table: collection */
+export type Erc_Collection_Pk_Columns_Input = {
+	id: Scalars["String"];
+};
+
+/** select columns of table "squid_erc.collection" */
+export enum Erc_Collection_Select_Column {
+	/** column name */
+	CollectionType = "collection_type",
+	/** column name */
+	CreatedAt = "created_at",
+	/** column name */
+	CreatedAtBlock = "created_at_block",
+	/** column name */
+	Id = "id",
 }
 
-export type Erc_FToken = Erc_Token & {
-	__typename?: "erc_FToken";
+/** input type for updating data in table "squid_erc.collection" */
+export type Erc_Collection_Set_Input = {
+	collection_type?: InputMaybe<Scalars["String"]>;
+	created_at?: InputMaybe<Scalars["timestamptz"]>;
+	created_at_block?: InputMaybe<Scalars["numeric"]>;
+	id?: InputMaybe<Scalars["String"]>;
+};
+
+/** aggregate stddev on columns */
+export type Erc_Collection_Stddev_Fields = {
+	__typename?: "erc_collection_stddev_fields";
+	created_at_block?: Maybe<Scalars["Float"]>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Erc_Collection_Stddev_Pop_Fields = {
+	__typename?: "erc_collection_stddev_pop_fields";
+	created_at_block?: Maybe<Scalars["Float"]>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Erc_Collection_Stddev_Samp_Fields = {
+	__typename?: "erc_collection_stddev_samp_fields";
+	created_at_block?: Maybe<Scalars["Float"]>;
+};
+
+/** Streaming cursor of the table "collection" */
+export type Erc_Collection_Stream_Cursor_Input = {
+	/** Stream column input with initial value */
+	initial_value: Erc_Collection_Stream_Cursor_Value_Input;
+	/** cursor ordering */
+	ordering?: InputMaybe<Erc_Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Erc_Collection_Stream_Cursor_Value_Input = {
+	collection_type?: InputMaybe<Scalars["String"]>;
+	created_at?: InputMaybe<Scalars["timestamptz"]>;
+	created_at_block?: InputMaybe<Scalars["numeric"]>;
+	id?: InputMaybe<Scalars["String"]>;
+};
+
+/** aggregate sum on columns */
+export type Erc_Collection_Sum_Fields = {
+	__typename?: "erc_collection_sum_fields";
+	created_at_block?: Maybe<Scalars["numeric"]>;
+};
+
+/** update columns of table "squid_erc.collection" */
+export enum Erc_Collection_Update_Column {
+	/** column name */
+	CollectionType = "collection_type",
+	/** column name */
+	CreatedAt = "created_at",
+	/** column name */
+	CreatedAtBlock = "created_at_block",
+	/** column name */
+	Id = "id",
+}
+
+export type Erc_Collection_Updates = {
+	/** increments the numeric columns with given value of the filtered values */
+	_inc?: InputMaybe<Erc_Collection_Inc_Input>;
+	/** sets the columns of the filtered rows to the given values */
+	_set?: InputMaybe<Erc_Collection_Set_Input>;
+	where: Erc_Collection_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Erc_Collection_Var_Pop_Fields = {
+	__typename?: "erc_collection_var_pop_fields";
+	created_at_block?: Maybe<Scalars["Float"]>;
+};
+
+/** aggregate var_samp on columns */
+export type Erc_Collection_Var_Samp_Fields = {
+	__typename?: "erc_collection_var_samp_fields";
+	created_at_block?: Maybe<Scalars["Float"]>;
+};
+
+/** aggregate variance on columns */
+export type Erc_Collection_Variance_Fields = {
+	__typename?: "erc_collection_variance_fields";
+	created_at_block?: Maybe<Scalars["Float"]>;
+};
+
+/** ordering argument of a cursor */
+export enum Erc_Cursor_Ordering {
+	/** ascending ordering of the cursor */
+	Asc = "ASC",
+	/** descending ordering of the cursor */
+	Desc = "DESC",
+}
+
+export type Erc_Erc_Mutation_Frontend = {
+	__typename?: "erc_erc_mutation_frontend";
+	/** delete data from the table: "squid_erc.account" */
+	delete_account?: Maybe<Erc_Account_Mutation_Response>;
+	/** delete single row from the table: "squid_erc.account" */
+	delete_account_by_pk?: Maybe<Erc_Account>;
+	/** delete data from the table: "squid_erc.account_f_token_balance" */
+	delete_account_f_token_balance?: Maybe<Erc_Account_F_Token_Balance_Mutation_Response>;
+	/** delete single row from the table: "squid_erc.account_f_token_balance" */
+	delete_account_f_token_balance_by_pk?: Maybe<Erc_Account_F_Token_Balance>;
+	/** delete data from the table: "squid_erc.account_ft_transfer" */
+	delete_account_ft_transfer?: Maybe<Erc_Account_Ft_Transfer_Mutation_Response>;
+	/** delete single row from the table: "squid_erc.account_ft_transfer" */
+	delete_account_ft_transfer_by_pk?: Maybe<Erc_Account_Ft_Transfer>;
+	/** delete data from the table: "squid_erc.account_nft_transfer" */
+	delete_account_nft_transfer?: Maybe<Erc_Account_Nft_Transfer_Mutation_Response>;
+	/** delete single row from the table: "squid_erc.account_nft_transfer" */
+	delete_account_nft_transfer_by_pk?: Maybe<Erc_Account_Nft_Transfer>;
+	/** delete data from the table: "squid_erc.collection" */
+	delete_collection?: Maybe<Erc_Collection_Mutation_Response>;
+	/** delete single row from the table: "squid_erc.collection" */
+	delete_collection_by_pk?: Maybe<Erc_Collection>;
+	/** delete data from the table: "squid_erc.f_token" */
+	delete_f_token?: Maybe<Erc_F_Token_Mutation_Response>;
+	/** delete single row from the table: "squid_erc.f_token" */
+	delete_f_token_by_pk?: Maybe<Erc_F_Token>;
+	/** delete data from the table: "squid_erc.ft_transfer" */
+	delete_ft_transfer?: Maybe<Erc_Ft_Transfer_Mutation_Response>;
+	/** delete single row from the table: "squid_erc.ft_transfer" */
+	delete_ft_transfer_by_pk?: Maybe<Erc_Ft_Transfer>;
+	/** delete data from the table: "squid_erc.nf_token" */
+	delete_nf_token?: Maybe<Erc_Nf_Token_Mutation_Response>;
+	/** delete single row from the table: "squid_erc.nf_token" */
+	delete_nf_token_by_pk?: Maybe<Erc_Nf_Token>;
+	/** delete data from the table: "squid_erc.nft_transfer" */
+	delete_nft_transfer?: Maybe<Erc_Nft_Transfer_Mutation_Response>;
+	/** delete single row from the table: "squid_erc.nft_transfer" */
+	delete_nft_transfer_by_pk?: Maybe<Erc_Nft_Transfer>;
+	/** delete data from the table: "squid_erc.uri_update_action" */
+	delete_uri_update_action?: Maybe<Erc_Uri_Update_Action_Mutation_Response>;
+	/** delete single row from the table: "squid_erc.uri_update_action" */
+	delete_uri_update_action_by_pk?: Maybe<Erc_Uri_Update_Action>;
+	/** insert data into the table: "squid_erc.account" */
+	insert_account?: Maybe<Erc_Account_Mutation_Response>;
+	/** insert data into the table: "squid_erc.account_f_token_balance" */
+	insert_account_f_token_balance?: Maybe<Erc_Account_F_Token_Balance_Mutation_Response>;
+	/** insert a single row into the table: "squid_erc.account_f_token_balance" */
+	insert_account_f_token_balance_one?: Maybe<Erc_Account_F_Token_Balance>;
+	/** insert data into the table: "squid_erc.account_ft_transfer" */
+	insert_account_ft_transfer?: Maybe<Erc_Account_Ft_Transfer_Mutation_Response>;
+	/** insert a single row into the table: "squid_erc.account_ft_transfer" */
+	insert_account_ft_transfer_one?: Maybe<Erc_Account_Ft_Transfer>;
+	/** insert data into the table: "squid_erc.account_nft_transfer" */
+	insert_account_nft_transfer?: Maybe<Erc_Account_Nft_Transfer_Mutation_Response>;
+	/** insert a single row into the table: "squid_erc.account_nft_transfer" */
+	insert_account_nft_transfer_one?: Maybe<Erc_Account_Nft_Transfer>;
+	/** insert a single row into the table: "squid_erc.account" */
+	insert_account_one?: Maybe<Erc_Account>;
+	/** insert data into the table: "squid_erc.collection" */
+	insert_collection?: Maybe<Erc_Collection_Mutation_Response>;
+	/** insert a single row into the table: "squid_erc.collection" */
+	insert_collection_one?: Maybe<Erc_Collection>;
+	/** insert data into the table: "squid_erc.f_token" */
+	insert_f_token?: Maybe<Erc_F_Token_Mutation_Response>;
+	/** insert a single row into the table: "squid_erc.f_token" */
+	insert_f_token_one?: Maybe<Erc_F_Token>;
+	/** insert data into the table: "squid_erc.ft_transfer" */
+	insert_ft_transfer?: Maybe<Erc_Ft_Transfer_Mutation_Response>;
+	/** insert a single row into the table: "squid_erc.ft_transfer" */
+	insert_ft_transfer_one?: Maybe<Erc_Ft_Transfer>;
+	/** insert data into the table: "squid_erc.nf_token" */
+	insert_nf_token?: Maybe<Erc_Nf_Token_Mutation_Response>;
+	/** insert a single row into the table: "squid_erc.nf_token" */
+	insert_nf_token_one?: Maybe<Erc_Nf_Token>;
+	/** insert data into the table: "squid_erc.nft_transfer" */
+	insert_nft_transfer?: Maybe<Erc_Nft_Transfer_Mutation_Response>;
+	/** insert a single row into the table: "squid_erc.nft_transfer" */
+	insert_nft_transfer_one?: Maybe<Erc_Nft_Transfer>;
+	/** insert data into the table: "squid_erc.uri_update_action" */
+	insert_uri_update_action?: Maybe<Erc_Uri_Update_Action_Mutation_Response>;
+	/** insert a single row into the table: "squid_erc.uri_update_action" */
+	insert_uri_update_action_one?: Maybe<Erc_Uri_Update_Action>;
+	/** update data of the table: "squid_erc.account" */
+	update_account?: Maybe<Erc_Account_Mutation_Response>;
+	/** update single row of the table: "squid_erc.account" */
+	update_account_by_pk?: Maybe<Erc_Account>;
+	/** update data of the table: "squid_erc.account_f_token_balance" */
+	update_account_f_token_balance?: Maybe<Erc_Account_F_Token_Balance_Mutation_Response>;
+	/** update single row of the table: "squid_erc.account_f_token_balance" */
+	update_account_f_token_balance_by_pk?: Maybe<Erc_Account_F_Token_Balance>;
+	/** update multiples rows of table: "squid_erc.account_f_token_balance" */
+	update_account_f_token_balance_many?: Maybe<
+		Array<Maybe<Erc_Account_F_Token_Balance_Mutation_Response>>
+	>;
+	/** update data of the table: "squid_erc.account_ft_transfer" */
+	update_account_ft_transfer?: Maybe<Erc_Account_Ft_Transfer_Mutation_Response>;
+	/** update single row of the table: "squid_erc.account_ft_transfer" */
+	update_account_ft_transfer_by_pk?: Maybe<Erc_Account_Ft_Transfer>;
+	/** update multiples rows of table: "squid_erc.account_ft_transfer" */
+	update_account_ft_transfer_many?: Maybe<
+		Array<Maybe<Erc_Account_Ft_Transfer_Mutation_Response>>
+	>;
+	/** update multiples rows of table: "squid_erc.account" */
+	update_account_many?: Maybe<Array<Maybe<Erc_Account_Mutation_Response>>>;
+	/** update data of the table: "squid_erc.account_nft_transfer" */
+	update_account_nft_transfer?: Maybe<Erc_Account_Nft_Transfer_Mutation_Response>;
+	/** update single row of the table: "squid_erc.account_nft_transfer" */
+	update_account_nft_transfer_by_pk?: Maybe<Erc_Account_Nft_Transfer>;
+	/** update multiples rows of table: "squid_erc.account_nft_transfer" */
+	update_account_nft_transfer_many?: Maybe<
+		Array<Maybe<Erc_Account_Nft_Transfer_Mutation_Response>>
+	>;
+	/** update data of the table: "squid_erc.collection" */
+	update_collection?: Maybe<Erc_Collection_Mutation_Response>;
+	/** update single row of the table: "squid_erc.collection" */
+	update_collection_by_pk?: Maybe<Erc_Collection>;
+	/** update multiples rows of table: "squid_erc.collection" */
+	update_collection_many?: Maybe<
+		Array<Maybe<Erc_Collection_Mutation_Response>>
+	>;
+	/** update data of the table: "squid_erc.f_token" */
+	update_f_token?: Maybe<Erc_F_Token_Mutation_Response>;
+	/** update single row of the table: "squid_erc.f_token" */
+	update_f_token_by_pk?: Maybe<Erc_F_Token>;
+	/** update multiples rows of table: "squid_erc.f_token" */
+	update_f_token_many?: Maybe<Array<Maybe<Erc_F_Token_Mutation_Response>>>;
+	/** update data of the table: "squid_erc.ft_transfer" */
+	update_ft_transfer?: Maybe<Erc_Ft_Transfer_Mutation_Response>;
+	/** update single row of the table: "squid_erc.ft_transfer" */
+	update_ft_transfer_by_pk?: Maybe<Erc_Ft_Transfer>;
+	/** update multiples rows of table: "squid_erc.ft_transfer" */
+	update_ft_transfer_many?: Maybe<
+		Array<Maybe<Erc_Ft_Transfer_Mutation_Response>>
+	>;
+	/** update data of the table: "squid_erc.nf_token" */
+	update_nf_token?: Maybe<Erc_Nf_Token_Mutation_Response>;
+	/** update single row of the table: "squid_erc.nf_token" */
+	update_nf_token_by_pk?: Maybe<Erc_Nf_Token>;
+	/** update multiples rows of table: "squid_erc.nf_token" */
+	update_nf_token_many?: Maybe<Array<Maybe<Erc_Nf_Token_Mutation_Response>>>;
+	/** update data of the table: "squid_erc.nft_transfer" */
+	update_nft_transfer?: Maybe<Erc_Nft_Transfer_Mutation_Response>;
+	/** update single row of the table: "squid_erc.nft_transfer" */
+	update_nft_transfer_by_pk?: Maybe<Erc_Nft_Transfer>;
+	/** update multiples rows of table: "squid_erc.nft_transfer" */
+	update_nft_transfer_many?: Maybe<
+		Array<Maybe<Erc_Nft_Transfer_Mutation_Response>>
+	>;
+	/** update data of the table: "squid_erc.uri_update_action" */
+	update_uri_update_action?: Maybe<Erc_Uri_Update_Action_Mutation_Response>;
+	/** update single row of the table: "squid_erc.uri_update_action" */
+	update_uri_update_action_by_pk?: Maybe<Erc_Uri_Update_Action>;
+	/** update multiples rows of table: "squid_erc.uri_update_action" */
+	update_uri_update_action_many?: Maybe<
+		Array<Maybe<Erc_Uri_Update_Action_Mutation_Response>>
+	>;
+};
+
+export type Erc_Erc_Mutation_FrontendDelete_AccountArgs = {
+	where: Erc_Account_Bool_Exp;
+};
+
+export type Erc_Erc_Mutation_FrontendDelete_Account_By_PkArgs = {
+	id: Scalars["String"];
+};
+
+export type Erc_Erc_Mutation_FrontendDelete_Account_F_Token_BalanceArgs = {
+	where: Erc_Account_F_Token_Balance_Bool_Exp;
+};
+
+export type Erc_Erc_Mutation_FrontendDelete_Account_F_Token_Balance_By_PkArgs =
+	{
+		id: Scalars["String"];
+	};
+
+export type Erc_Erc_Mutation_FrontendDelete_Account_Ft_TransferArgs = {
+	where: Erc_Account_Ft_Transfer_Bool_Exp;
+};
+
+export type Erc_Erc_Mutation_FrontendDelete_Account_Ft_Transfer_By_PkArgs = {
+	id: Scalars["String"];
+};
+
+export type Erc_Erc_Mutation_FrontendDelete_Account_Nft_TransferArgs = {
+	where: Erc_Account_Nft_Transfer_Bool_Exp;
+};
+
+export type Erc_Erc_Mutation_FrontendDelete_Account_Nft_Transfer_By_PkArgs = {
+	id: Scalars["String"];
+};
+
+export type Erc_Erc_Mutation_FrontendDelete_CollectionArgs = {
+	where: Erc_Collection_Bool_Exp;
+};
+
+export type Erc_Erc_Mutation_FrontendDelete_Collection_By_PkArgs = {
+	id: Scalars["String"];
+};
+
+export type Erc_Erc_Mutation_FrontendDelete_F_TokenArgs = {
+	where: Erc_F_Token_Bool_Exp;
+};
+
+export type Erc_Erc_Mutation_FrontendDelete_F_Token_By_PkArgs = {
+	id: Scalars["String"];
+};
+
+export type Erc_Erc_Mutation_FrontendDelete_Ft_TransferArgs = {
+	where: Erc_Ft_Transfer_Bool_Exp;
+};
+
+export type Erc_Erc_Mutation_FrontendDelete_Ft_Transfer_By_PkArgs = {
+	id: Scalars["String"];
+};
+
+export type Erc_Erc_Mutation_FrontendDelete_Nf_TokenArgs = {
+	where: Erc_Nf_Token_Bool_Exp;
+};
+
+export type Erc_Erc_Mutation_FrontendDelete_Nf_Token_By_PkArgs = {
+	id: Scalars["String"];
+};
+
+export type Erc_Erc_Mutation_FrontendDelete_Nft_TransferArgs = {
+	where: Erc_Nft_Transfer_Bool_Exp;
+};
+
+export type Erc_Erc_Mutation_FrontendDelete_Nft_Transfer_By_PkArgs = {
+	id: Scalars["String"];
+};
+
+export type Erc_Erc_Mutation_FrontendDelete_Uri_Update_ActionArgs = {
+	where: Erc_Uri_Update_Action_Bool_Exp;
+};
+
+export type Erc_Erc_Mutation_FrontendDelete_Uri_Update_Action_By_PkArgs = {
+	id: Scalars["String"];
+};
+
+export type Erc_Erc_Mutation_FrontendInsert_AccountArgs = {
+	objects: Array<Erc_Account_Insert_Input>;
+	on_conflict?: InputMaybe<Erc_Account_On_Conflict>;
+};
+
+export type Erc_Erc_Mutation_FrontendInsert_Account_F_Token_BalanceArgs = {
+	objects: Array<Erc_Account_F_Token_Balance_Insert_Input>;
+	on_conflict?: InputMaybe<Erc_Account_F_Token_Balance_On_Conflict>;
+};
+
+export type Erc_Erc_Mutation_FrontendInsert_Account_F_Token_Balance_OneArgs = {
+	object: Erc_Account_F_Token_Balance_Insert_Input;
+	on_conflict?: InputMaybe<Erc_Account_F_Token_Balance_On_Conflict>;
+};
+
+export type Erc_Erc_Mutation_FrontendInsert_Account_Ft_TransferArgs = {
+	objects: Array<Erc_Account_Ft_Transfer_Insert_Input>;
+	on_conflict?: InputMaybe<Erc_Account_Ft_Transfer_On_Conflict>;
+};
+
+export type Erc_Erc_Mutation_FrontendInsert_Account_Ft_Transfer_OneArgs = {
+	object: Erc_Account_Ft_Transfer_Insert_Input;
+	on_conflict?: InputMaybe<Erc_Account_Ft_Transfer_On_Conflict>;
+};
+
+export type Erc_Erc_Mutation_FrontendInsert_Account_Nft_TransferArgs = {
+	objects: Array<Erc_Account_Nft_Transfer_Insert_Input>;
+	on_conflict?: InputMaybe<Erc_Account_Nft_Transfer_On_Conflict>;
+};
+
+export type Erc_Erc_Mutation_FrontendInsert_Account_Nft_Transfer_OneArgs = {
+	object: Erc_Account_Nft_Transfer_Insert_Input;
+	on_conflict?: InputMaybe<Erc_Account_Nft_Transfer_On_Conflict>;
+};
+
+export type Erc_Erc_Mutation_FrontendInsert_Account_OneArgs = {
+	object: Erc_Account_Insert_Input;
+	on_conflict?: InputMaybe<Erc_Account_On_Conflict>;
+};
+
+export type Erc_Erc_Mutation_FrontendInsert_CollectionArgs = {
+	objects: Array<Erc_Collection_Insert_Input>;
+	on_conflict?: InputMaybe<Erc_Collection_On_Conflict>;
+};
+
+export type Erc_Erc_Mutation_FrontendInsert_Collection_OneArgs = {
+	object: Erc_Collection_Insert_Input;
+	on_conflict?: InputMaybe<Erc_Collection_On_Conflict>;
+};
+
+export type Erc_Erc_Mutation_FrontendInsert_F_TokenArgs = {
+	objects: Array<Erc_F_Token_Insert_Input>;
+	on_conflict?: InputMaybe<Erc_F_Token_On_Conflict>;
+};
+
+export type Erc_Erc_Mutation_FrontendInsert_F_Token_OneArgs = {
+	object: Erc_F_Token_Insert_Input;
+	on_conflict?: InputMaybe<Erc_F_Token_On_Conflict>;
+};
+
+export type Erc_Erc_Mutation_FrontendInsert_Ft_TransferArgs = {
+	objects: Array<Erc_Ft_Transfer_Insert_Input>;
+	on_conflict?: InputMaybe<Erc_Ft_Transfer_On_Conflict>;
+};
+
+export type Erc_Erc_Mutation_FrontendInsert_Ft_Transfer_OneArgs = {
+	object: Erc_Ft_Transfer_Insert_Input;
+	on_conflict?: InputMaybe<Erc_Ft_Transfer_On_Conflict>;
+};
+
+export type Erc_Erc_Mutation_FrontendInsert_Nf_TokenArgs = {
+	objects: Array<Erc_Nf_Token_Insert_Input>;
+	on_conflict?: InputMaybe<Erc_Nf_Token_On_Conflict>;
+};
+
+export type Erc_Erc_Mutation_FrontendInsert_Nf_Token_OneArgs = {
+	object: Erc_Nf_Token_Insert_Input;
+	on_conflict?: InputMaybe<Erc_Nf_Token_On_Conflict>;
+};
+
+export type Erc_Erc_Mutation_FrontendInsert_Nft_TransferArgs = {
+	objects: Array<Erc_Nft_Transfer_Insert_Input>;
+	on_conflict?: InputMaybe<Erc_Nft_Transfer_On_Conflict>;
+};
+
+export type Erc_Erc_Mutation_FrontendInsert_Nft_Transfer_OneArgs = {
+	object: Erc_Nft_Transfer_Insert_Input;
+	on_conflict?: InputMaybe<Erc_Nft_Transfer_On_Conflict>;
+};
+
+export type Erc_Erc_Mutation_FrontendInsert_Uri_Update_ActionArgs = {
+	objects: Array<Erc_Uri_Update_Action_Insert_Input>;
+	on_conflict?: InputMaybe<Erc_Uri_Update_Action_On_Conflict>;
+};
+
+export type Erc_Erc_Mutation_FrontendInsert_Uri_Update_Action_OneArgs = {
+	object: Erc_Uri_Update_Action_Insert_Input;
+	on_conflict?: InputMaybe<Erc_Uri_Update_Action_On_Conflict>;
+};
+
+export type Erc_Erc_Mutation_FrontendUpdate_AccountArgs = {
+	_set?: InputMaybe<Erc_Account_Set_Input>;
+	where: Erc_Account_Bool_Exp;
+};
+
+export type Erc_Erc_Mutation_FrontendUpdate_Account_By_PkArgs = {
+	_set?: InputMaybe<Erc_Account_Set_Input>;
+	pk_columns: Erc_Account_Pk_Columns_Input;
+};
+
+export type Erc_Erc_Mutation_FrontendUpdate_Account_F_Token_BalanceArgs = {
+	_inc?: InputMaybe<Erc_Account_F_Token_Balance_Inc_Input>;
+	_set?: InputMaybe<Erc_Account_F_Token_Balance_Set_Input>;
+	where: Erc_Account_F_Token_Balance_Bool_Exp;
+};
+
+export type Erc_Erc_Mutation_FrontendUpdate_Account_F_Token_Balance_By_PkArgs =
+	{
+		_inc?: InputMaybe<Erc_Account_F_Token_Balance_Inc_Input>;
+		_set?: InputMaybe<Erc_Account_F_Token_Balance_Set_Input>;
+		pk_columns: Erc_Account_F_Token_Balance_Pk_Columns_Input;
+	};
+
+export type Erc_Erc_Mutation_FrontendUpdate_Account_F_Token_Balance_ManyArgs = {
+	updates: Array<Erc_Account_F_Token_Balance_Updates>;
+};
+
+export type Erc_Erc_Mutation_FrontendUpdate_Account_Ft_TransferArgs = {
+	_set?: InputMaybe<Erc_Account_Ft_Transfer_Set_Input>;
+	where: Erc_Account_Ft_Transfer_Bool_Exp;
+};
+
+export type Erc_Erc_Mutation_FrontendUpdate_Account_Ft_Transfer_By_PkArgs = {
+	_set?: InputMaybe<Erc_Account_Ft_Transfer_Set_Input>;
+	pk_columns: Erc_Account_Ft_Transfer_Pk_Columns_Input;
+};
+
+export type Erc_Erc_Mutation_FrontendUpdate_Account_Ft_Transfer_ManyArgs = {
+	updates: Array<Erc_Account_Ft_Transfer_Updates>;
+};
+
+export type Erc_Erc_Mutation_FrontendUpdate_Account_ManyArgs = {
+	updates: Array<Erc_Account_Updates>;
+};
+
+export type Erc_Erc_Mutation_FrontendUpdate_Account_Nft_TransferArgs = {
+	_set?: InputMaybe<Erc_Account_Nft_Transfer_Set_Input>;
+	where: Erc_Account_Nft_Transfer_Bool_Exp;
+};
+
+export type Erc_Erc_Mutation_FrontendUpdate_Account_Nft_Transfer_By_PkArgs = {
+	_set?: InputMaybe<Erc_Account_Nft_Transfer_Set_Input>;
+	pk_columns: Erc_Account_Nft_Transfer_Pk_Columns_Input;
+};
+
+export type Erc_Erc_Mutation_FrontendUpdate_Account_Nft_Transfer_ManyArgs = {
+	updates: Array<Erc_Account_Nft_Transfer_Updates>;
+};
+
+export type Erc_Erc_Mutation_FrontendUpdate_CollectionArgs = {
+	_inc?: InputMaybe<Erc_Collection_Inc_Input>;
+	_set?: InputMaybe<Erc_Collection_Set_Input>;
+	where: Erc_Collection_Bool_Exp;
+};
+
+export type Erc_Erc_Mutation_FrontendUpdate_Collection_By_PkArgs = {
+	_inc?: InputMaybe<Erc_Collection_Inc_Input>;
+	_set?: InputMaybe<Erc_Collection_Set_Input>;
+	pk_columns: Erc_Collection_Pk_Columns_Input;
+};
+
+export type Erc_Erc_Mutation_FrontendUpdate_Collection_ManyArgs = {
+	updates: Array<Erc_Collection_Updates>;
+};
+
+export type Erc_Erc_Mutation_FrontendUpdate_F_TokenArgs = {
+	_inc?: InputMaybe<Erc_F_Token_Inc_Input>;
+	_set?: InputMaybe<Erc_F_Token_Set_Input>;
+	where: Erc_F_Token_Bool_Exp;
+};
+
+export type Erc_Erc_Mutation_FrontendUpdate_F_Token_By_PkArgs = {
+	_inc?: InputMaybe<Erc_F_Token_Inc_Input>;
+	_set?: InputMaybe<Erc_F_Token_Set_Input>;
+	pk_columns: Erc_F_Token_Pk_Columns_Input;
+};
+
+export type Erc_Erc_Mutation_FrontendUpdate_F_Token_ManyArgs = {
+	updates: Array<Erc_F_Token_Updates>;
+};
+
+export type Erc_Erc_Mutation_FrontendUpdate_Ft_TransferArgs = {
+	_inc?: InputMaybe<Erc_Ft_Transfer_Inc_Input>;
+	_set?: InputMaybe<Erc_Ft_Transfer_Set_Input>;
+	where: Erc_Ft_Transfer_Bool_Exp;
+};
+
+export type Erc_Erc_Mutation_FrontendUpdate_Ft_Transfer_By_PkArgs = {
+	_inc?: InputMaybe<Erc_Ft_Transfer_Inc_Input>;
+	_set?: InputMaybe<Erc_Ft_Transfer_Set_Input>;
+	pk_columns: Erc_Ft_Transfer_Pk_Columns_Input;
+};
+
+export type Erc_Erc_Mutation_FrontendUpdate_Ft_Transfer_ManyArgs = {
+	updates: Array<Erc_Ft_Transfer_Updates>;
+};
+
+export type Erc_Erc_Mutation_FrontendUpdate_Nf_TokenArgs = {
+	_inc?: InputMaybe<Erc_Nf_Token_Inc_Input>;
+	_set?: InputMaybe<Erc_Nf_Token_Set_Input>;
+	where: Erc_Nf_Token_Bool_Exp;
+};
+
+export type Erc_Erc_Mutation_FrontendUpdate_Nf_Token_By_PkArgs = {
+	_inc?: InputMaybe<Erc_Nf_Token_Inc_Input>;
+	_set?: InputMaybe<Erc_Nf_Token_Set_Input>;
+	pk_columns: Erc_Nf_Token_Pk_Columns_Input;
+};
+
+export type Erc_Erc_Mutation_FrontendUpdate_Nf_Token_ManyArgs = {
+	updates: Array<Erc_Nf_Token_Updates>;
+};
+
+export type Erc_Erc_Mutation_FrontendUpdate_Nft_TransferArgs = {
+	_inc?: InputMaybe<Erc_Nft_Transfer_Inc_Input>;
+	_set?: InputMaybe<Erc_Nft_Transfer_Set_Input>;
+	where: Erc_Nft_Transfer_Bool_Exp;
+};
+
+export type Erc_Erc_Mutation_FrontendUpdate_Nft_Transfer_By_PkArgs = {
+	_inc?: InputMaybe<Erc_Nft_Transfer_Inc_Input>;
+	_set?: InputMaybe<Erc_Nft_Transfer_Set_Input>;
+	pk_columns: Erc_Nft_Transfer_Pk_Columns_Input;
+};
+
+export type Erc_Erc_Mutation_FrontendUpdate_Nft_Transfer_ManyArgs = {
+	updates: Array<Erc_Nft_Transfer_Updates>;
+};
+
+export type Erc_Erc_Mutation_FrontendUpdate_Uri_Update_ActionArgs = {
+	_inc?: InputMaybe<Erc_Uri_Update_Action_Inc_Input>;
+	_set?: InputMaybe<Erc_Uri_Update_Action_Set_Input>;
+	where: Erc_Uri_Update_Action_Bool_Exp;
+};
+
+export type Erc_Erc_Mutation_FrontendUpdate_Uri_Update_Action_By_PkArgs = {
+	_inc?: InputMaybe<Erc_Uri_Update_Action_Inc_Input>;
+	_set?: InputMaybe<Erc_Uri_Update_Action_Set_Input>;
+	pk_columns: Erc_Uri_Update_Action_Pk_Columns_Input;
+};
+
+export type Erc_Erc_Mutation_FrontendUpdate_Uri_Update_Action_ManyArgs = {
+	updates: Array<Erc_Uri_Update_Action_Updates>;
+};
+
+export type Erc_Erc_Query = {
+	__typename?: "erc_erc_query";
+	/** fetch data from the table: "squid_erc.account" */
+	account: Array<Erc_Account>;
+	/** fetch aggregated fields from the table: "squid_erc.account" */
+	account_aggregate: Erc_Account_Aggregate;
+	/** fetch data from the table: "squid_erc.account" using primary key columns */
+	account_by_pk?: Maybe<Erc_Account>;
+	/** fetch data from the table: "squid_erc.account_f_token_balance" */
+	account_f_token_balance: Array<Erc_Account_F_Token_Balance>;
+	/** fetch aggregated fields from the table: "squid_erc.account_f_token_balance" */
+	account_f_token_balance_aggregate: Erc_Account_F_Token_Balance_Aggregate;
+	/** fetch data from the table: "squid_erc.account_f_token_balance" using primary key columns */
+	account_f_token_balance_by_pk?: Maybe<Erc_Account_F_Token_Balance>;
+	/** fetch data from the table: "squid_erc.account_ft_transfer" */
+	account_ft_transfer: Array<Erc_Account_Ft_Transfer>;
+	/** fetch aggregated fields from the table: "squid_erc.account_ft_transfer" */
+	account_ft_transfer_aggregate: Erc_Account_Ft_Transfer_Aggregate;
+	/** fetch data from the table: "squid_erc.account_ft_transfer" using primary key columns */
+	account_ft_transfer_by_pk?: Maybe<Erc_Account_Ft_Transfer>;
+	/** fetch data from the table: "squid_erc.account_nft_transfer" */
+	account_nft_transfer: Array<Erc_Account_Nft_Transfer>;
+	/** fetch aggregated fields from the table: "squid_erc.account_nft_transfer" */
+	account_nft_transfer_aggregate: Erc_Account_Nft_Transfer_Aggregate;
+	/** fetch data from the table: "squid_erc.account_nft_transfer" using primary key columns */
+	account_nft_transfer_by_pk?: Maybe<Erc_Account_Nft_Transfer>;
+	/** fetch data from the table: "squid_erc.collection" */
+	collection: Array<Erc_Collection>;
+	/** fetch aggregated fields from the table: "squid_erc.collection" */
+	collection_aggregate: Erc_Collection_Aggregate;
+	/** fetch data from the table: "squid_erc.collection" using primary key columns */
+	collection_by_pk?: Maybe<Erc_Collection>;
+	/** fetch data from the table: "squid_erc.f_token" */
+	f_token: Array<Erc_F_Token>;
+	/** fetch aggregated fields from the table: "squid_erc.f_token" */
+	f_token_aggregate: Erc_F_Token_Aggregate;
+	/** fetch data from the table: "squid_erc.f_token" using primary key columns */
+	f_token_by_pk?: Maybe<Erc_F_Token>;
+	/** fetch data from the table: "squid_erc.ft_transfer" */
+	ft_transfer: Array<Erc_Ft_Transfer>;
+	/** fetch aggregated fields from the table: "squid_erc.ft_transfer" */
+	ft_transfer_aggregate: Erc_Ft_Transfer_Aggregate;
+	/** fetch data from the table: "squid_erc.ft_transfer" using primary key columns */
+	ft_transfer_by_pk?: Maybe<Erc_Ft_Transfer>;
+	/** fetch data from the table: "squid_erc.nf_token" */
+	nf_token: Array<Erc_Nf_Token>;
+	/** fetch aggregated fields from the table: "squid_erc.nf_token" */
+	nf_token_aggregate: Erc_Nf_Token_Aggregate;
+	/** fetch data from the table: "squid_erc.nf_token" using primary key columns */
+	nf_token_by_pk?: Maybe<Erc_Nf_Token>;
+	/** fetch data from the table: "squid_erc.nft_transfer" */
+	nft_transfer: Array<Erc_Nft_Transfer>;
+	/** fetch aggregated fields from the table: "squid_erc.nft_transfer" */
+	nft_transfer_aggregate: Erc_Nft_Transfer_Aggregate;
+	/** fetch data from the table: "squid_erc.nft_transfer" using primary key columns */
+	nft_transfer_by_pk?: Maybe<Erc_Nft_Transfer>;
+	/** fetch data from the table: "squid_erc.uri_update_action" */
+	uri_update_action: Array<Erc_Uri_Update_Action>;
+	/** fetch aggregated fields from the table: "squid_erc.uri_update_action" */
+	uri_update_action_aggregate: Erc_Uri_Update_Action_Aggregate;
+	/** fetch data from the table: "squid_erc.uri_update_action" using primary key columns */
+	uri_update_action_by_pk?: Maybe<Erc_Uri_Update_Action>;
+};
+
+export type Erc_Erc_QueryAccountArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Account_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Account_Order_By>>;
+	where?: InputMaybe<Erc_Account_Bool_Exp>;
+};
+
+export type Erc_Erc_QueryAccount_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Account_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Account_Order_By>>;
+	where?: InputMaybe<Erc_Account_Bool_Exp>;
+};
+
+export type Erc_Erc_QueryAccount_By_PkArgs = {
+	id: Scalars["String"];
+};
+
+export type Erc_Erc_QueryAccount_F_Token_BalanceArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Account_F_Token_Balance_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Account_F_Token_Balance_Order_By>>;
+	where?: InputMaybe<Erc_Account_F_Token_Balance_Bool_Exp>;
+};
+
+export type Erc_Erc_QueryAccount_F_Token_Balance_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Account_F_Token_Balance_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Account_F_Token_Balance_Order_By>>;
+	where?: InputMaybe<Erc_Account_F_Token_Balance_Bool_Exp>;
+};
+
+export type Erc_Erc_QueryAccount_F_Token_Balance_By_PkArgs = {
+	id: Scalars["String"];
+};
+
+export type Erc_Erc_QueryAccount_Ft_TransferArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Account_Ft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Account_Ft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Account_Ft_Transfer_Bool_Exp>;
+};
+
+export type Erc_Erc_QueryAccount_Ft_Transfer_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Account_Ft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Account_Ft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Account_Ft_Transfer_Bool_Exp>;
+};
+
+export type Erc_Erc_QueryAccount_Ft_Transfer_By_PkArgs = {
+	id: Scalars["String"];
+};
+
+export type Erc_Erc_QueryAccount_Nft_TransferArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Account_Nft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Account_Nft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Account_Nft_Transfer_Bool_Exp>;
+};
+
+export type Erc_Erc_QueryAccount_Nft_Transfer_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Account_Nft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Account_Nft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Account_Nft_Transfer_Bool_Exp>;
+};
+
+export type Erc_Erc_QueryAccount_Nft_Transfer_By_PkArgs = {
+	id: Scalars["String"];
+};
+
+export type Erc_Erc_QueryCollectionArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Collection_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Collection_Order_By>>;
+	where?: InputMaybe<Erc_Collection_Bool_Exp>;
+};
+
+export type Erc_Erc_QueryCollection_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Collection_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Collection_Order_By>>;
+	where?: InputMaybe<Erc_Collection_Bool_Exp>;
+};
+
+export type Erc_Erc_QueryCollection_By_PkArgs = {
+	id: Scalars["String"];
+};
+
+export type Erc_Erc_QueryF_TokenArgs = {
+	distinct_on?: InputMaybe<Array<Erc_F_Token_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_F_Token_Order_By>>;
+	where?: InputMaybe<Erc_F_Token_Bool_Exp>;
+};
+
+export type Erc_Erc_QueryF_Token_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_F_Token_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_F_Token_Order_By>>;
+	where?: InputMaybe<Erc_F_Token_Bool_Exp>;
+};
+
+export type Erc_Erc_QueryF_Token_By_PkArgs = {
+	id: Scalars["String"];
+};
+
+export type Erc_Erc_QueryFt_TransferArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Ft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Ft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Ft_Transfer_Bool_Exp>;
+};
+
+export type Erc_Erc_QueryFt_Transfer_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Ft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Ft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Ft_Transfer_Bool_Exp>;
+};
+
+export type Erc_Erc_QueryFt_Transfer_By_PkArgs = {
+	id: Scalars["String"];
+};
+
+export type Erc_Erc_QueryNf_TokenArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Nf_Token_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Nf_Token_Order_By>>;
+	where?: InputMaybe<Erc_Nf_Token_Bool_Exp>;
+};
+
+export type Erc_Erc_QueryNf_Token_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Nf_Token_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Nf_Token_Order_By>>;
+	where?: InputMaybe<Erc_Nf_Token_Bool_Exp>;
+};
+
+export type Erc_Erc_QueryNf_Token_By_PkArgs = {
+	id: Scalars["String"];
+};
+
+export type Erc_Erc_QueryNft_TransferArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Nft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Nft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Nft_Transfer_Bool_Exp>;
+};
+
+export type Erc_Erc_QueryNft_Transfer_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Nft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Nft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Nft_Transfer_Bool_Exp>;
+};
+
+export type Erc_Erc_QueryNft_Transfer_By_PkArgs = {
+	id: Scalars["String"];
+};
+
+export type Erc_Erc_QueryUri_Update_ActionArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Uri_Update_Action_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Uri_Update_Action_Order_By>>;
+	where?: InputMaybe<Erc_Uri_Update_Action_Bool_Exp>;
+};
+
+export type Erc_Erc_QueryUri_Update_Action_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Uri_Update_Action_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Uri_Update_Action_Order_By>>;
+	where?: InputMaybe<Erc_Uri_Update_Action_Bool_Exp>;
+};
+
+export type Erc_Erc_QueryUri_Update_Action_By_PkArgs = {
+	id: Scalars["String"];
+};
+
+export type Erc_Erc_Subscription = {
+	__typename?: "erc_erc_subscription";
+	/** fetch data from the table: "squid_erc.account" */
+	account: Array<Erc_Account>;
+	/** fetch aggregated fields from the table: "squid_erc.account" */
+	account_aggregate: Erc_Account_Aggregate;
+	/** fetch data from the table: "squid_erc.account" using primary key columns */
+	account_by_pk?: Maybe<Erc_Account>;
+	/** fetch data from the table: "squid_erc.account_f_token_balance" */
+	account_f_token_balance: Array<Erc_Account_F_Token_Balance>;
+	/** fetch aggregated fields from the table: "squid_erc.account_f_token_balance" */
+	account_f_token_balance_aggregate: Erc_Account_F_Token_Balance_Aggregate;
+	/** fetch data from the table: "squid_erc.account_f_token_balance" using primary key columns */
+	account_f_token_balance_by_pk?: Maybe<Erc_Account_F_Token_Balance>;
+	/** fetch data from the table in a streaming manner : "squid_erc.account_f_token_balance" */
+	account_f_token_balance_stream: Array<Erc_Account_F_Token_Balance>;
+	/** fetch data from the table: "squid_erc.account_ft_transfer" */
+	account_ft_transfer: Array<Erc_Account_Ft_Transfer>;
+	/** fetch aggregated fields from the table: "squid_erc.account_ft_transfer" */
+	account_ft_transfer_aggregate: Erc_Account_Ft_Transfer_Aggregate;
+	/** fetch data from the table: "squid_erc.account_ft_transfer" using primary key columns */
+	account_ft_transfer_by_pk?: Maybe<Erc_Account_Ft_Transfer>;
+	/** fetch data from the table in a streaming manner : "squid_erc.account_ft_transfer" */
+	account_ft_transfer_stream: Array<Erc_Account_Ft_Transfer>;
+	/** fetch data from the table: "squid_erc.account_nft_transfer" */
+	account_nft_transfer: Array<Erc_Account_Nft_Transfer>;
+	/** fetch aggregated fields from the table: "squid_erc.account_nft_transfer" */
+	account_nft_transfer_aggregate: Erc_Account_Nft_Transfer_Aggregate;
+	/** fetch data from the table: "squid_erc.account_nft_transfer" using primary key columns */
+	account_nft_transfer_by_pk?: Maybe<Erc_Account_Nft_Transfer>;
+	/** fetch data from the table in a streaming manner : "squid_erc.account_nft_transfer" */
+	account_nft_transfer_stream: Array<Erc_Account_Nft_Transfer>;
+	/** fetch data from the table in a streaming manner : "squid_erc.account" */
+	account_stream: Array<Erc_Account>;
+	/** fetch data from the table: "squid_erc.collection" */
+	collection: Array<Erc_Collection>;
+	/** fetch aggregated fields from the table: "squid_erc.collection" */
+	collection_aggregate: Erc_Collection_Aggregate;
+	/** fetch data from the table: "squid_erc.collection" using primary key columns */
+	collection_by_pk?: Maybe<Erc_Collection>;
+	/** fetch data from the table in a streaming manner : "squid_erc.collection" */
+	collection_stream: Array<Erc_Collection>;
+	/** fetch data from the table: "squid_erc.f_token" */
+	f_token: Array<Erc_F_Token>;
+	/** fetch aggregated fields from the table: "squid_erc.f_token" */
+	f_token_aggregate: Erc_F_Token_Aggregate;
+	/** fetch data from the table: "squid_erc.f_token" using primary key columns */
+	f_token_by_pk?: Maybe<Erc_F_Token>;
+	/** fetch data from the table in a streaming manner : "squid_erc.f_token" */
+	f_token_stream: Array<Erc_F_Token>;
+	/** fetch data from the table: "squid_erc.ft_transfer" */
+	ft_transfer: Array<Erc_Ft_Transfer>;
+	/** fetch aggregated fields from the table: "squid_erc.ft_transfer" */
+	ft_transfer_aggregate: Erc_Ft_Transfer_Aggregate;
+	/** fetch data from the table: "squid_erc.ft_transfer" using primary key columns */
+	ft_transfer_by_pk?: Maybe<Erc_Ft_Transfer>;
+	/** fetch data from the table in a streaming manner : "squid_erc.ft_transfer" */
+	ft_transfer_stream: Array<Erc_Ft_Transfer>;
+	/** fetch data from the table: "squid_erc.nf_token" */
+	nf_token: Array<Erc_Nf_Token>;
+	/** fetch aggregated fields from the table: "squid_erc.nf_token" */
+	nf_token_aggregate: Erc_Nf_Token_Aggregate;
+	/** fetch data from the table: "squid_erc.nf_token" using primary key columns */
+	nf_token_by_pk?: Maybe<Erc_Nf_Token>;
+	/** fetch data from the table in a streaming manner : "squid_erc.nf_token" */
+	nf_token_stream: Array<Erc_Nf_Token>;
+	/** fetch data from the table: "squid_erc.nft_transfer" */
+	nft_transfer: Array<Erc_Nft_Transfer>;
+	/** fetch aggregated fields from the table: "squid_erc.nft_transfer" */
+	nft_transfer_aggregate: Erc_Nft_Transfer_Aggregate;
+	/** fetch data from the table: "squid_erc.nft_transfer" using primary key columns */
+	nft_transfer_by_pk?: Maybe<Erc_Nft_Transfer>;
+	/** fetch data from the table in a streaming manner : "squid_erc.nft_transfer" */
+	nft_transfer_stream: Array<Erc_Nft_Transfer>;
+	/** fetch data from the table: "squid_erc.uri_update_action" */
+	uri_update_action: Array<Erc_Uri_Update_Action>;
+	/** fetch aggregated fields from the table: "squid_erc.uri_update_action" */
+	uri_update_action_aggregate: Erc_Uri_Update_Action_Aggregate;
+	/** fetch data from the table: "squid_erc.uri_update_action" using primary key columns */
+	uri_update_action_by_pk?: Maybe<Erc_Uri_Update_Action>;
+	/** fetch data from the table in a streaming manner : "squid_erc.uri_update_action" */
+	uri_update_action_stream: Array<Erc_Uri_Update_Action>;
+};
+
+export type Erc_Erc_SubscriptionAccountArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Account_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Account_Order_By>>;
+	where?: InputMaybe<Erc_Account_Bool_Exp>;
+};
+
+export type Erc_Erc_SubscriptionAccount_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Account_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Account_Order_By>>;
+	where?: InputMaybe<Erc_Account_Bool_Exp>;
+};
+
+export type Erc_Erc_SubscriptionAccount_By_PkArgs = {
+	id: Scalars["String"];
+};
+
+export type Erc_Erc_SubscriptionAccount_F_Token_BalanceArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Account_F_Token_Balance_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Account_F_Token_Balance_Order_By>>;
+	where?: InputMaybe<Erc_Account_F_Token_Balance_Bool_Exp>;
+};
+
+export type Erc_Erc_SubscriptionAccount_F_Token_Balance_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Account_F_Token_Balance_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Account_F_Token_Balance_Order_By>>;
+	where?: InputMaybe<Erc_Account_F_Token_Balance_Bool_Exp>;
+};
+
+export type Erc_Erc_SubscriptionAccount_F_Token_Balance_By_PkArgs = {
+	id: Scalars["String"];
+};
+
+export type Erc_Erc_SubscriptionAccount_F_Token_Balance_StreamArgs = {
+	batch_size: Scalars["Int"];
+	cursor: Array<InputMaybe<Erc_Account_F_Token_Balance_Stream_Cursor_Input>>;
+	where?: InputMaybe<Erc_Account_F_Token_Balance_Bool_Exp>;
+};
+
+export type Erc_Erc_SubscriptionAccount_Ft_TransferArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Account_Ft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Account_Ft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Account_Ft_Transfer_Bool_Exp>;
+};
+
+export type Erc_Erc_SubscriptionAccount_Ft_Transfer_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Account_Ft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Account_Ft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Account_Ft_Transfer_Bool_Exp>;
+};
+
+export type Erc_Erc_SubscriptionAccount_Ft_Transfer_By_PkArgs = {
+	id: Scalars["String"];
+};
+
+export type Erc_Erc_SubscriptionAccount_Ft_Transfer_StreamArgs = {
+	batch_size: Scalars["Int"];
+	cursor: Array<InputMaybe<Erc_Account_Ft_Transfer_Stream_Cursor_Input>>;
+	where?: InputMaybe<Erc_Account_Ft_Transfer_Bool_Exp>;
+};
+
+export type Erc_Erc_SubscriptionAccount_Nft_TransferArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Account_Nft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Account_Nft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Account_Nft_Transfer_Bool_Exp>;
+};
+
+export type Erc_Erc_SubscriptionAccount_Nft_Transfer_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Account_Nft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Account_Nft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Account_Nft_Transfer_Bool_Exp>;
+};
+
+export type Erc_Erc_SubscriptionAccount_Nft_Transfer_By_PkArgs = {
+	id: Scalars["String"];
+};
+
+export type Erc_Erc_SubscriptionAccount_Nft_Transfer_StreamArgs = {
+	batch_size: Scalars["Int"];
+	cursor: Array<InputMaybe<Erc_Account_Nft_Transfer_Stream_Cursor_Input>>;
+	where?: InputMaybe<Erc_Account_Nft_Transfer_Bool_Exp>;
+};
+
+export type Erc_Erc_SubscriptionAccount_StreamArgs = {
+	batch_size: Scalars["Int"];
+	cursor: Array<InputMaybe<Erc_Account_Stream_Cursor_Input>>;
+	where?: InputMaybe<Erc_Account_Bool_Exp>;
+};
+
+export type Erc_Erc_SubscriptionCollectionArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Collection_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Collection_Order_By>>;
+	where?: InputMaybe<Erc_Collection_Bool_Exp>;
+};
+
+export type Erc_Erc_SubscriptionCollection_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Collection_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Collection_Order_By>>;
+	where?: InputMaybe<Erc_Collection_Bool_Exp>;
+};
+
+export type Erc_Erc_SubscriptionCollection_By_PkArgs = {
+	id: Scalars["String"];
+};
+
+export type Erc_Erc_SubscriptionCollection_StreamArgs = {
+	batch_size: Scalars["Int"];
+	cursor: Array<InputMaybe<Erc_Collection_Stream_Cursor_Input>>;
+	where?: InputMaybe<Erc_Collection_Bool_Exp>;
+};
+
+export type Erc_Erc_SubscriptionF_TokenArgs = {
+	distinct_on?: InputMaybe<Array<Erc_F_Token_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_F_Token_Order_By>>;
+	where?: InputMaybe<Erc_F_Token_Bool_Exp>;
+};
+
+export type Erc_Erc_SubscriptionF_Token_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_F_Token_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_F_Token_Order_By>>;
+	where?: InputMaybe<Erc_F_Token_Bool_Exp>;
+};
+
+export type Erc_Erc_SubscriptionF_Token_By_PkArgs = {
+	id: Scalars["String"];
+};
+
+export type Erc_Erc_SubscriptionF_Token_StreamArgs = {
+	batch_size: Scalars["Int"];
+	cursor: Array<InputMaybe<Erc_F_Token_Stream_Cursor_Input>>;
+	where?: InputMaybe<Erc_F_Token_Bool_Exp>;
+};
+
+export type Erc_Erc_SubscriptionFt_TransferArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Ft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Ft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Ft_Transfer_Bool_Exp>;
+};
+
+export type Erc_Erc_SubscriptionFt_Transfer_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Ft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Ft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Ft_Transfer_Bool_Exp>;
+};
+
+export type Erc_Erc_SubscriptionFt_Transfer_By_PkArgs = {
+	id: Scalars["String"];
+};
+
+export type Erc_Erc_SubscriptionFt_Transfer_StreamArgs = {
+	batch_size: Scalars["Int"];
+	cursor: Array<InputMaybe<Erc_Ft_Transfer_Stream_Cursor_Input>>;
+	where?: InputMaybe<Erc_Ft_Transfer_Bool_Exp>;
+};
+
+export type Erc_Erc_SubscriptionNf_TokenArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Nf_Token_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Nf_Token_Order_By>>;
+	where?: InputMaybe<Erc_Nf_Token_Bool_Exp>;
+};
+
+export type Erc_Erc_SubscriptionNf_Token_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Nf_Token_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Nf_Token_Order_By>>;
+	where?: InputMaybe<Erc_Nf_Token_Bool_Exp>;
+};
+
+export type Erc_Erc_SubscriptionNf_Token_By_PkArgs = {
+	id: Scalars["String"];
+};
+
+export type Erc_Erc_SubscriptionNf_Token_StreamArgs = {
+	batch_size: Scalars["Int"];
+	cursor: Array<InputMaybe<Erc_Nf_Token_Stream_Cursor_Input>>;
+	where?: InputMaybe<Erc_Nf_Token_Bool_Exp>;
+};
+
+export type Erc_Erc_SubscriptionNft_TransferArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Nft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Nft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Nft_Transfer_Bool_Exp>;
+};
+
+export type Erc_Erc_SubscriptionNft_Transfer_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Nft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Nft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Nft_Transfer_Bool_Exp>;
+};
+
+export type Erc_Erc_SubscriptionNft_Transfer_By_PkArgs = {
+	id: Scalars["String"];
+};
+
+export type Erc_Erc_SubscriptionNft_Transfer_StreamArgs = {
+	batch_size: Scalars["Int"];
+	cursor: Array<InputMaybe<Erc_Nft_Transfer_Stream_Cursor_Input>>;
+	where?: InputMaybe<Erc_Nft_Transfer_Bool_Exp>;
+};
+
+export type Erc_Erc_SubscriptionUri_Update_ActionArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Uri_Update_Action_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Uri_Update_Action_Order_By>>;
+	where?: InputMaybe<Erc_Uri_Update_Action_Bool_Exp>;
+};
+
+export type Erc_Erc_SubscriptionUri_Update_Action_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Uri_Update_Action_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Uri_Update_Action_Order_By>>;
+	where?: InputMaybe<Erc_Uri_Update_Action_Bool_Exp>;
+};
+
+export type Erc_Erc_SubscriptionUri_Update_Action_By_PkArgs = {
+	id: Scalars["String"];
+};
+
+export type Erc_Erc_SubscriptionUri_Update_Action_StreamArgs = {
+	batch_size: Scalars["Int"];
+	cursor: Array<InputMaybe<Erc_Uri_Update_Action_Stream_Cursor_Input>>;
+	where?: InputMaybe<Erc_Uri_Update_Action_Bool_Exp>;
+};
+
+/** columns and relationships of "squid_erc.f_token" */
+export type Erc_F_Token = {
+	__typename?: "erc_f_token";
+	/** An array relationship */
+	account_f_token_balances: Array<Erc_Account_F_Token_Balance>;
+	/** An aggregate relationship */
+	account_f_token_balances_aggregate: Erc_Account_F_Token_Balance_Aggregate;
 	decimals?: Maybe<Scalars["Int"]>;
-	id: Scalars["ID"];
+	/** An array relationship */
+	ft_transfers: Array<Erc_Ft_Transfer>;
+	/** An aggregate relationship */
+	ft_transfers_aggregate: Erc_Ft_Transfer_Aggregate;
+	id: Scalars["String"];
 	name?: Maybe<Scalars["String"]>;
 	symbol?: Maybe<Scalars["String"]>;
 };
 
-export type Erc_FTokenEdge = {
-	__typename?: "erc_FTokenEdge";
-	cursor: Scalars["String"];
-	node: Erc_FToken;
+/** columns and relationships of "squid_erc.f_token" */
+export type Erc_F_TokenAccount_F_Token_BalancesArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Account_F_Token_Balance_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Account_F_Token_Balance_Order_By>>;
+	where?: InputMaybe<Erc_Account_F_Token_Balance_Bool_Exp>;
 };
 
-export enum Erc_FTokenOrderByInput {
-	DecimalsAsc = "decimals_ASC",
-	DecimalsDesc = "decimals_DESC",
-	IdAsc = "id_ASC",
-	IdDesc = "id_DESC",
-	NameAsc = "name_ASC",
-	NameDesc = "name_DESC",
-	SymbolAsc = "symbol_ASC",
-	SymbolDesc = "symbol_DESC",
+/** columns and relationships of "squid_erc.f_token" */
+export type Erc_F_TokenAccount_F_Token_Balances_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Account_F_Token_Balance_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Account_F_Token_Balance_Order_By>>;
+	where?: InputMaybe<Erc_Account_F_Token_Balance_Bool_Exp>;
+};
+
+/** columns and relationships of "squid_erc.f_token" */
+export type Erc_F_TokenFt_TransfersArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Ft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Ft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Ft_Transfer_Bool_Exp>;
+};
+
+/** columns and relationships of "squid_erc.f_token" */
+export type Erc_F_TokenFt_Transfers_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Ft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Ft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Ft_Transfer_Bool_Exp>;
+};
+
+/** aggregated selection of "squid_erc.f_token" */
+export type Erc_F_Token_Aggregate = {
+	__typename?: "erc_f_token_aggregate";
+	aggregate?: Maybe<Erc_F_Token_Aggregate_Fields>;
+	nodes: Array<Erc_F_Token>;
+};
+
+/** aggregate fields of "squid_erc.f_token" */
+export type Erc_F_Token_Aggregate_Fields = {
+	__typename?: "erc_f_token_aggregate_fields";
+	avg?: Maybe<Erc_F_Token_Avg_Fields>;
+	count: Scalars["Int"];
+	max?: Maybe<Erc_F_Token_Max_Fields>;
+	min?: Maybe<Erc_F_Token_Min_Fields>;
+	stddev?: Maybe<Erc_F_Token_Stddev_Fields>;
+	stddev_pop?: Maybe<Erc_F_Token_Stddev_Pop_Fields>;
+	stddev_samp?: Maybe<Erc_F_Token_Stddev_Samp_Fields>;
+	sum?: Maybe<Erc_F_Token_Sum_Fields>;
+	var_pop?: Maybe<Erc_F_Token_Var_Pop_Fields>;
+	var_samp?: Maybe<Erc_F_Token_Var_Samp_Fields>;
+	variance?: Maybe<Erc_F_Token_Variance_Fields>;
+};
+
+/** aggregate fields of "squid_erc.f_token" */
+export type Erc_F_Token_Aggregate_FieldsCountArgs = {
+	columns?: InputMaybe<Array<Erc_F_Token_Select_Column>>;
+	distinct?: InputMaybe<Scalars["Boolean"]>;
+};
+
+/** aggregate avg on columns */
+export type Erc_F_Token_Avg_Fields = {
+	__typename?: "erc_f_token_avg_fields";
+	decimals?: Maybe<Scalars["Float"]>;
+};
+
+/** Boolean expression to filter rows from the table "squid_erc.f_token". All fields are combined with a logical 'AND'. */
+export type Erc_F_Token_Bool_Exp = {
+	_and?: InputMaybe<Array<Erc_F_Token_Bool_Exp>>;
+	_not?: InputMaybe<Erc_F_Token_Bool_Exp>;
+	_or?: InputMaybe<Array<Erc_F_Token_Bool_Exp>>;
+	account_f_token_balances?: InputMaybe<Erc_Account_F_Token_Balance_Bool_Exp>;
+	decimals?: InputMaybe<Int_Comparison_Exp>;
+	ft_transfers?: InputMaybe<Erc_Ft_Transfer_Bool_Exp>;
+	id?: InputMaybe<String_Comparison_Exp>;
+	name?: InputMaybe<String_Comparison_Exp>;
+	symbol?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "squid_erc.f_token" */
+export enum Erc_F_Token_Constraint {
+	/** unique or primary key constraint on columns "id" */
+	PkDa896c08df3022e579355d781b9 = "PK_da896c08df3022e579355d781b9",
 }
 
-export type Erc_FTokenWhereInput = {
-	AND?: InputMaybe<Array<Erc_FTokenWhereInput>>;
-	OR?: InputMaybe<Array<Erc_FTokenWhereInput>>;
-	decimals_eq?: InputMaybe<Scalars["Int"]>;
-	decimals_gt?: InputMaybe<Scalars["Int"]>;
-	decimals_gte?: InputMaybe<Scalars["Int"]>;
-	decimals_in?: InputMaybe<Array<Scalars["Int"]>>;
-	decimals_isNull?: InputMaybe<Scalars["Boolean"]>;
-	decimals_lt?: InputMaybe<Scalars["Int"]>;
-	decimals_lte?: InputMaybe<Scalars["Int"]>;
-	decimals_not_eq?: InputMaybe<Scalars["Int"]>;
-	decimals_not_in?: InputMaybe<Array<Scalars["Int"]>>;
-	id_contains?: InputMaybe<Scalars["ID"]>;
-	id_containsInsensitive?: InputMaybe<Scalars["ID"]>;
-	id_endsWith?: InputMaybe<Scalars["ID"]>;
-	id_eq?: InputMaybe<Scalars["ID"]>;
-	id_gt?: InputMaybe<Scalars["ID"]>;
-	id_gte?: InputMaybe<Scalars["ID"]>;
-	id_in?: InputMaybe<Array<Scalars["ID"]>>;
-	id_lt?: InputMaybe<Scalars["ID"]>;
-	id_lte?: InputMaybe<Scalars["ID"]>;
-	id_not_contains?: InputMaybe<Scalars["ID"]>;
-	id_not_containsInsensitive?: InputMaybe<Scalars["ID"]>;
-	id_not_endsWith?: InputMaybe<Scalars["ID"]>;
-	id_not_eq?: InputMaybe<Scalars["ID"]>;
-	id_not_in?: InputMaybe<Array<Scalars["ID"]>>;
-	id_not_startsWith?: InputMaybe<Scalars["ID"]>;
-	id_startsWith?: InputMaybe<Scalars["ID"]>;
-	name_contains?: InputMaybe<Scalars["String"]>;
-	name_containsInsensitive?: InputMaybe<Scalars["String"]>;
-	name_endsWith?: InputMaybe<Scalars["String"]>;
-	name_eq?: InputMaybe<Scalars["String"]>;
-	name_gt?: InputMaybe<Scalars["String"]>;
-	name_gte?: InputMaybe<Scalars["String"]>;
-	name_in?: InputMaybe<Array<Scalars["String"]>>;
-	name_isNull?: InputMaybe<Scalars["Boolean"]>;
-	name_lt?: InputMaybe<Scalars["String"]>;
-	name_lte?: InputMaybe<Scalars["String"]>;
-	name_not_contains?: InputMaybe<Scalars["String"]>;
-	name_not_containsInsensitive?: InputMaybe<Scalars["String"]>;
-	name_not_endsWith?: InputMaybe<Scalars["String"]>;
-	name_not_eq?: InputMaybe<Scalars["String"]>;
-	name_not_in?: InputMaybe<Array<Scalars["String"]>>;
-	name_not_startsWith?: InputMaybe<Scalars["String"]>;
-	name_startsWith?: InputMaybe<Scalars["String"]>;
-	symbol_contains?: InputMaybe<Scalars["String"]>;
-	symbol_containsInsensitive?: InputMaybe<Scalars["String"]>;
-	symbol_endsWith?: InputMaybe<Scalars["String"]>;
-	symbol_eq?: InputMaybe<Scalars["String"]>;
-	symbol_gt?: InputMaybe<Scalars["String"]>;
-	symbol_gte?: InputMaybe<Scalars["String"]>;
-	symbol_in?: InputMaybe<Array<Scalars["String"]>>;
-	symbol_isNull?: InputMaybe<Scalars["Boolean"]>;
-	symbol_lt?: InputMaybe<Scalars["String"]>;
-	symbol_lte?: InputMaybe<Scalars["String"]>;
-	symbol_not_contains?: InputMaybe<Scalars["String"]>;
-	symbol_not_containsInsensitive?: InputMaybe<Scalars["String"]>;
-	symbol_not_endsWith?: InputMaybe<Scalars["String"]>;
-	symbol_not_eq?: InputMaybe<Scalars["String"]>;
-	symbol_not_in?: InputMaybe<Array<Scalars["String"]>>;
-	symbol_not_startsWith?: InputMaybe<Scalars["String"]>;
-	symbol_startsWith?: InputMaybe<Scalars["String"]>;
+/** input type for incrementing numeric columns in table "squid_erc.f_token" */
+export type Erc_F_Token_Inc_Input = {
+	decimals?: InputMaybe<Scalars["Int"]>;
 };
 
-export type Erc_FTokenWhereUniqueInput = {
-	id: Scalars["ID"];
+/** input type for inserting data into table "squid_erc.f_token" */
+export type Erc_F_Token_Insert_Input = {
+	account_f_token_balances?: InputMaybe<Erc_Account_F_Token_Balance_Arr_Rel_Insert_Input>;
+	decimals?: InputMaybe<Scalars["Int"]>;
+	ft_transfers?: InputMaybe<Erc_Ft_Transfer_Arr_Rel_Insert_Input>;
+	id?: InputMaybe<Scalars["String"]>;
+	name?: InputMaybe<Scalars["String"]>;
+	symbol?: InputMaybe<Scalars["String"]>;
 };
 
-export type Erc_FTokensConnection = {
-	__typename?: "erc_FTokensConnection";
-	edges: Array<Erc_FTokenEdge>;
-	pageInfo: Erc_PageInfo;
-	totalCount: Scalars["Int"];
-};
-
-export type Erc_FtTransfer = Erc_Transfer & {
-	__typename?: "erc_FtTransfer";
-	amount?: Maybe<Scalars["erc_BigInt"]>;
-	blockNumber: Scalars["erc_BigInt"];
-	eventIndex: Scalars["Int"];
-	from: Erc_Account;
-	id: Scalars["ID"];
-	timestamp: Scalars["erc_DateTime"];
-	to: Erc_Account;
-	token: Erc_FToken;
-	transferType?: Maybe<Erc_TransferType>;
-	txnHash: Scalars["String"];
-};
-
-export type Erc_FtTransferEdge = {
-	__typename?: "erc_FtTransferEdge";
-	cursor: Scalars["String"];
-	node: Erc_FtTransfer;
-};
-
-export enum Erc_FtTransferOrderByInput {
-	AmountAsc = "amount_ASC",
-	AmountDesc = "amount_DESC",
-	BlockNumberAsc = "blockNumber_ASC",
-	BlockNumberDesc = "blockNumber_DESC",
-	EventIndexAsc = "eventIndex_ASC",
-	EventIndexDesc = "eventIndex_DESC",
-	FromIdAsc = "from_id_ASC",
-	FromIdDesc = "from_id_DESC",
-	IdAsc = "id_ASC",
-	IdDesc = "id_DESC",
-	TimestampAsc = "timestamp_ASC",
-	TimestampDesc = "timestamp_DESC",
-	ToIdAsc = "to_id_ASC",
-	ToIdDesc = "to_id_DESC",
-	TokenDecimalsAsc = "token_decimals_ASC",
-	TokenDecimalsDesc = "token_decimals_DESC",
-	TokenIdAsc = "token_id_ASC",
-	TokenIdDesc = "token_id_DESC",
-	TokenNameAsc = "token_name_ASC",
-	TokenNameDesc = "token_name_DESC",
-	TokenSymbolAsc = "token_symbol_ASC",
-	TokenSymbolDesc = "token_symbol_DESC",
-	TransferTypeAsc = "transferType_ASC",
-	TransferTypeDesc = "transferType_DESC",
-	TxnHashAsc = "txnHash_ASC",
-	TxnHashDesc = "txnHash_DESC",
-}
-
-export type Erc_FtTransferWhereInput = {
-	AND?: InputMaybe<Array<Erc_FtTransferWhereInput>>;
-	OR?: InputMaybe<Array<Erc_FtTransferWhereInput>>;
-	amount_eq?: InputMaybe<Scalars["erc_BigInt"]>;
-	amount_gt?: InputMaybe<Scalars["erc_BigInt"]>;
-	amount_gte?: InputMaybe<Scalars["erc_BigInt"]>;
-	amount_in?: InputMaybe<Array<Scalars["erc_BigInt"]>>;
-	amount_isNull?: InputMaybe<Scalars["Boolean"]>;
-	amount_lt?: InputMaybe<Scalars["erc_BigInt"]>;
-	amount_lte?: InputMaybe<Scalars["erc_BigInt"]>;
-	amount_not_eq?: InputMaybe<Scalars["erc_BigInt"]>;
-	amount_not_in?: InputMaybe<Array<Scalars["erc_BigInt"]>>;
-	blockNumber_eq?: InputMaybe<Scalars["erc_BigInt"]>;
-	blockNumber_gt?: InputMaybe<Scalars["erc_BigInt"]>;
-	blockNumber_gte?: InputMaybe<Scalars["erc_BigInt"]>;
-	blockNumber_in?: InputMaybe<Array<Scalars["erc_BigInt"]>>;
-	blockNumber_lt?: InputMaybe<Scalars["erc_BigInt"]>;
-	blockNumber_lte?: InputMaybe<Scalars["erc_BigInt"]>;
-	blockNumber_not_eq?: InputMaybe<Scalars["erc_BigInt"]>;
-	blockNumber_not_in?: InputMaybe<Array<Scalars["erc_BigInt"]>>;
-	eventIndex_eq?: InputMaybe<Scalars["Int"]>;
-	eventIndex_gt?: InputMaybe<Scalars["Int"]>;
-	eventIndex_gte?: InputMaybe<Scalars["Int"]>;
-	eventIndex_in?: InputMaybe<Array<Scalars["Int"]>>;
-	eventIndex_lt?: InputMaybe<Scalars["Int"]>;
-	eventIndex_lte?: InputMaybe<Scalars["Int"]>;
-	eventIndex_not_eq?: InputMaybe<Scalars["Int"]>;
-	eventIndex_not_in?: InputMaybe<Array<Scalars["Int"]>>;
-	from?: InputMaybe<Erc_AccountWhereInput>;
-	id_contains?: InputMaybe<Scalars["ID"]>;
-	id_containsInsensitive?: InputMaybe<Scalars["ID"]>;
-	id_endsWith?: InputMaybe<Scalars["ID"]>;
-	id_eq?: InputMaybe<Scalars["ID"]>;
-	id_gt?: InputMaybe<Scalars["ID"]>;
-	id_gte?: InputMaybe<Scalars["ID"]>;
-	id_in?: InputMaybe<Array<Scalars["ID"]>>;
-	id_lt?: InputMaybe<Scalars["ID"]>;
-	id_lte?: InputMaybe<Scalars["ID"]>;
-	id_not_contains?: InputMaybe<Scalars["ID"]>;
-	id_not_containsInsensitive?: InputMaybe<Scalars["ID"]>;
-	id_not_endsWith?: InputMaybe<Scalars["ID"]>;
-	id_not_eq?: InputMaybe<Scalars["ID"]>;
-	id_not_in?: InputMaybe<Array<Scalars["ID"]>>;
-	id_not_startsWith?: InputMaybe<Scalars["ID"]>;
-	id_startsWith?: InputMaybe<Scalars["ID"]>;
-	timestamp_eq?: InputMaybe<Scalars["erc_DateTime"]>;
-	timestamp_gt?: InputMaybe<Scalars["erc_DateTime"]>;
-	timestamp_gte?: InputMaybe<Scalars["erc_DateTime"]>;
-	timestamp_in?: InputMaybe<Array<Scalars["erc_DateTime"]>>;
-	timestamp_lt?: InputMaybe<Scalars["erc_DateTime"]>;
-	timestamp_lte?: InputMaybe<Scalars["erc_DateTime"]>;
-	timestamp_not_eq?: InputMaybe<Scalars["erc_DateTime"]>;
-	timestamp_not_in?: InputMaybe<Array<Scalars["erc_DateTime"]>>;
-	to?: InputMaybe<Erc_AccountWhereInput>;
-	token?: InputMaybe<Erc_FTokenWhereInput>;
-	transferType_eq?: InputMaybe<Erc_TransferType>;
-	transferType_in?: InputMaybe<Array<Erc_TransferType>>;
-	transferType_isNull?: InputMaybe<Scalars["Boolean"]>;
-	transferType_not_eq?: InputMaybe<Erc_TransferType>;
-	transferType_not_in?: InputMaybe<Array<Erc_TransferType>>;
-	txnHash_contains?: InputMaybe<Scalars["String"]>;
-	txnHash_containsInsensitive?: InputMaybe<Scalars["String"]>;
-	txnHash_endsWith?: InputMaybe<Scalars["String"]>;
-	txnHash_eq?: InputMaybe<Scalars["String"]>;
-	txnHash_gt?: InputMaybe<Scalars["String"]>;
-	txnHash_gte?: InputMaybe<Scalars["String"]>;
-	txnHash_in?: InputMaybe<Array<Scalars["String"]>>;
-	txnHash_lt?: InputMaybe<Scalars["String"]>;
-	txnHash_lte?: InputMaybe<Scalars["String"]>;
-	txnHash_not_contains?: InputMaybe<Scalars["String"]>;
-	txnHash_not_containsInsensitive?: InputMaybe<Scalars["String"]>;
-	txnHash_not_endsWith?: InputMaybe<Scalars["String"]>;
-	txnHash_not_eq?: InputMaybe<Scalars["String"]>;
-	txnHash_not_in?: InputMaybe<Array<Scalars["String"]>>;
-	txnHash_not_startsWith?: InputMaybe<Scalars["String"]>;
-	txnHash_startsWith?: InputMaybe<Scalars["String"]>;
-};
-
-export type Erc_FtTransferWhereUniqueInput = {
-	id: Scalars["ID"];
-};
-
-export type Erc_FtTransfersConnection = {
-	__typename?: "erc_FtTransfersConnection";
-	edges: Array<Erc_FtTransferEdge>;
-	pageInfo: Erc_PageInfo;
-	totalCount: Scalars["Int"];
-};
-
-export type Erc_NfToken = Erc_Token & {
-	__typename?: "erc_NfToken";
-	amount: Scalars["erc_BigInt"];
-	collection: Erc_Collection;
-	currentOwner: Erc_Account;
-	id: Scalars["ID"];
-	isBurned: Scalars["Boolean"];
+/** aggregate max on columns */
+export type Erc_F_Token_Max_Fields = {
+	__typename?: "erc_f_token_max_fields";
+	decimals?: Maybe<Scalars["Int"]>;
+	id?: Maybe<Scalars["String"]>;
 	name?: Maybe<Scalars["String"]>;
-	nativeId: Scalars["String"];
+	symbol?: Maybe<Scalars["String"]>;
+};
+
+/** aggregate min on columns */
+export type Erc_F_Token_Min_Fields = {
+	__typename?: "erc_f_token_min_fields";
+	decimals?: Maybe<Scalars["Int"]>;
+	id?: Maybe<Scalars["String"]>;
+	name?: Maybe<Scalars["String"]>;
+	symbol?: Maybe<Scalars["String"]>;
+};
+
+/** response of any mutation on the table "squid_erc.f_token" */
+export type Erc_F_Token_Mutation_Response = {
+	__typename?: "erc_f_token_mutation_response";
+	/** number of rows affected by the mutation */
+	affected_rows: Scalars["Int"];
+	/** data from the rows affected by the mutation */
+	returning: Array<Erc_F_Token>;
+};
+
+/** input type for inserting object relation for remote table "squid_erc.f_token" */
+export type Erc_F_Token_Obj_Rel_Insert_Input = {
+	data: Erc_F_Token_Insert_Input;
+	/** upsert condition */
+	on_conflict?: InputMaybe<Erc_F_Token_On_Conflict>;
+};
+
+/** on_conflict condition type for table "squid_erc.f_token" */
+export type Erc_F_Token_On_Conflict = {
+	constraint: Erc_F_Token_Constraint;
+	update_columns?: Array<Erc_F_Token_Update_Column>;
+	where?: InputMaybe<Erc_F_Token_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "squid_erc.f_token". */
+export type Erc_F_Token_Order_By = {
+	account_f_token_balances_aggregate?: InputMaybe<Erc_Account_F_Token_Balance_Aggregate_Order_By>;
+	decimals?: InputMaybe<Order_By>;
+	ft_transfers_aggregate?: InputMaybe<Erc_Ft_Transfer_Aggregate_Order_By>;
+	id?: InputMaybe<Order_By>;
+	name?: InputMaybe<Order_By>;
+	symbol?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: f_token */
+export type Erc_F_Token_Pk_Columns_Input = {
+	id: Scalars["String"];
+};
+
+/** select columns of table "squid_erc.f_token" */
+export enum Erc_F_Token_Select_Column {
+	/** column name */
+	Decimals = "decimals",
+	/** column name */
+	Id = "id",
+	/** column name */
+	Name = "name",
+	/** column name */
+	Symbol = "symbol",
+}
+
+/** input type for updating data in table "squid_erc.f_token" */
+export type Erc_F_Token_Set_Input = {
+	decimals?: InputMaybe<Scalars["Int"]>;
+	id?: InputMaybe<Scalars["String"]>;
+	name?: InputMaybe<Scalars["String"]>;
+	symbol?: InputMaybe<Scalars["String"]>;
+};
+
+/** aggregate stddev on columns */
+export type Erc_F_Token_Stddev_Fields = {
+	__typename?: "erc_f_token_stddev_fields";
+	decimals?: Maybe<Scalars["Float"]>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Erc_F_Token_Stddev_Pop_Fields = {
+	__typename?: "erc_f_token_stddev_pop_fields";
+	decimals?: Maybe<Scalars["Float"]>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Erc_F_Token_Stddev_Samp_Fields = {
+	__typename?: "erc_f_token_stddev_samp_fields";
+	decimals?: Maybe<Scalars["Float"]>;
+};
+
+/** Streaming cursor of the table "f_token" */
+export type Erc_F_Token_Stream_Cursor_Input = {
+	/** Stream column input with initial value */
+	initial_value: Erc_F_Token_Stream_Cursor_Value_Input;
+	/** cursor ordering */
+	ordering?: InputMaybe<Erc_Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Erc_F_Token_Stream_Cursor_Value_Input = {
+	decimals?: InputMaybe<Scalars["Int"]>;
+	id?: InputMaybe<Scalars["String"]>;
+	name?: InputMaybe<Scalars["String"]>;
+	symbol?: InputMaybe<Scalars["String"]>;
+};
+
+/** aggregate sum on columns */
+export type Erc_F_Token_Sum_Fields = {
+	__typename?: "erc_f_token_sum_fields";
+	decimals?: Maybe<Scalars["Int"]>;
+};
+
+/** update columns of table "squid_erc.f_token" */
+export enum Erc_F_Token_Update_Column {
+	/** column name */
+	Decimals = "decimals",
+	/** column name */
+	Id = "id",
+	/** column name */
+	Name = "name",
+	/** column name */
+	Symbol = "symbol",
+}
+
+export type Erc_F_Token_Updates = {
+	/** increments the numeric columns with given value of the filtered values */
+	_inc?: InputMaybe<Erc_F_Token_Inc_Input>;
+	/** sets the columns of the filtered rows to the given values */
+	_set?: InputMaybe<Erc_F_Token_Set_Input>;
+	where: Erc_F_Token_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Erc_F_Token_Var_Pop_Fields = {
+	__typename?: "erc_f_token_var_pop_fields";
+	decimals?: Maybe<Scalars["Float"]>;
+};
+
+/** aggregate var_samp on columns */
+export type Erc_F_Token_Var_Samp_Fields = {
+	__typename?: "erc_f_token_var_samp_fields";
+	decimals?: Maybe<Scalars["Float"]>;
+};
+
+/** aggregate variance on columns */
+export type Erc_F_Token_Variance_Fields = {
+	__typename?: "erc_f_token_variance_fields";
+	decimals?: Maybe<Scalars["Float"]>;
+};
+
+/** columns and relationships of "squid_erc.ft_transfer" */
+export type Erc_Ft_Transfer = {
+	__typename?: "erc_ft_transfer";
+	/** An object relationship */
+	account: Erc_Account;
+	/** An object relationship */
+	accountByToId: Erc_Account;
+	/** An array relationship */
+	account_ft_transfers: Array<Erc_Account_Ft_Transfer>;
+	/** An aggregate relationship */
+	account_ft_transfers_aggregate: Erc_Account_Ft_Transfer_Aggregate;
+	amount?: Maybe<Scalars["numeric"]>;
+	block_number: Scalars["numeric"];
+	event_index: Scalars["Int"];
+	/** An object relationship */
+	f_token: Erc_F_Token;
+	from_id: Scalars["String"];
+	id: Scalars["String"];
+	timestamp: Scalars["timestamptz"];
+	to_id: Scalars["String"];
+	token_id: Scalars["String"];
+	transfer_type?: Maybe<Scalars["String"]>;
+	txn_hash: Scalars["String"];
+};
+
+/** columns and relationships of "squid_erc.ft_transfer" */
+export type Erc_Ft_TransferAccount_Ft_TransfersArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Account_Ft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Account_Ft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Account_Ft_Transfer_Bool_Exp>;
+};
+
+/** columns and relationships of "squid_erc.ft_transfer" */
+export type Erc_Ft_TransferAccount_Ft_Transfers_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Account_Ft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Account_Ft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Account_Ft_Transfer_Bool_Exp>;
+};
+
+/** aggregated selection of "squid_erc.ft_transfer" */
+export type Erc_Ft_Transfer_Aggregate = {
+	__typename?: "erc_ft_transfer_aggregate";
+	aggregate?: Maybe<Erc_Ft_Transfer_Aggregate_Fields>;
+	nodes: Array<Erc_Ft_Transfer>;
+};
+
+/** aggregate fields of "squid_erc.ft_transfer" */
+export type Erc_Ft_Transfer_Aggregate_Fields = {
+	__typename?: "erc_ft_transfer_aggregate_fields";
+	avg?: Maybe<Erc_Ft_Transfer_Avg_Fields>;
+	count: Scalars["Int"];
+	max?: Maybe<Erc_Ft_Transfer_Max_Fields>;
+	min?: Maybe<Erc_Ft_Transfer_Min_Fields>;
+	stddev?: Maybe<Erc_Ft_Transfer_Stddev_Fields>;
+	stddev_pop?: Maybe<Erc_Ft_Transfer_Stddev_Pop_Fields>;
+	stddev_samp?: Maybe<Erc_Ft_Transfer_Stddev_Samp_Fields>;
+	sum?: Maybe<Erc_Ft_Transfer_Sum_Fields>;
+	var_pop?: Maybe<Erc_Ft_Transfer_Var_Pop_Fields>;
+	var_samp?: Maybe<Erc_Ft_Transfer_Var_Samp_Fields>;
+	variance?: Maybe<Erc_Ft_Transfer_Variance_Fields>;
+};
+
+/** aggregate fields of "squid_erc.ft_transfer" */
+export type Erc_Ft_Transfer_Aggregate_FieldsCountArgs = {
+	columns?: InputMaybe<Array<Erc_Ft_Transfer_Select_Column>>;
+	distinct?: InputMaybe<Scalars["Boolean"]>;
+};
+
+/** order by aggregate values of table "squid_erc.ft_transfer" */
+export type Erc_Ft_Transfer_Aggregate_Order_By = {
+	avg?: InputMaybe<Erc_Ft_Transfer_Avg_Order_By>;
+	count?: InputMaybe<Order_By>;
+	max?: InputMaybe<Erc_Ft_Transfer_Max_Order_By>;
+	min?: InputMaybe<Erc_Ft_Transfer_Min_Order_By>;
+	stddev?: InputMaybe<Erc_Ft_Transfer_Stddev_Order_By>;
+	stddev_pop?: InputMaybe<Erc_Ft_Transfer_Stddev_Pop_Order_By>;
+	stddev_samp?: InputMaybe<Erc_Ft_Transfer_Stddev_Samp_Order_By>;
+	sum?: InputMaybe<Erc_Ft_Transfer_Sum_Order_By>;
+	var_pop?: InputMaybe<Erc_Ft_Transfer_Var_Pop_Order_By>;
+	var_samp?: InputMaybe<Erc_Ft_Transfer_Var_Samp_Order_By>;
+	variance?: InputMaybe<Erc_Ft_Transfer_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "squid_erc.ft_transfer" */
+export type Erc_Ft_Transfer_Arr_Rel_Insert_Input = {
+	data: Array<Erc_Ft_Transfer_Insert_Input>;
+	/** upsert condition */
+	on_conflict?: InputMaybe<Erc_Ft_Transfer_On_Conflict>;
+};
+
+/** aggregate avg on columns */
+export type Erc_Ft_Transfer_Avg_Fields = {
+	__typename?: "erc_ft_transfer_avg_fields";
+	amount?: Maybe<Scalars["Float"]>;
+	block_number?: Maybe<Scalars["Float"]>;
+	event_index?: Maybe<Scalars["Float"]>;
+};
+
+/** order by avg() on columns of table "squid_erc.ft_transfer" */
+export type Erc_Ft_Transfer_Avg_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	block_number?: InputMaybe<Order_By>;
+	event_index?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "squid_erc.ft_transfer". All fields are combined with a logical 'AND'. */
+export type Erc_Ft_Transfer_Bool_Exp = {
+	_and?: InputMaybe<Array<Erc_Ft_Transfer_Bool_Exp>>;
+	_not?: InputMaybe<Erc_Ft_Transfer_Bool_Exp>;
+	_or?: InputMaybe<Array<Erc_Ft_Transfer_Bool_Exp>>;
+	account?: InputMaybe<Erc_Account_Bool_Exp>;
+	accountByToId?: InputMaybe<Erc_Account_Bool_Exp>;
+	account_ft_transfers?: InputMaybe<Erc_Account_Ft_Transfer_Bool_Exp>;
+	amount?: InputMaybe<Numeric_Comparison_Exp>;
+	block_number?: InputMaybe<Numeric_Comparison_Exp>;
+	event_index?: InputMaybe<Int_Comparison_Exp>;
+	f_token?: InputMaybe<Erc_F_Token_Bool_Exp>;
+	from_id?: InputMaybe<String_Comparison_Exp>;
+	id?: InputMaybe<String_Comparison_Exp>;
+	timestamp?: InputMaybe<Timestamptz_Comparison_Exp>;
+	to_id?: InputMaybe<String_Comparison_Exp>;
+	token_id?: InputMaybe<String_Comparison_Exp>;
+	transfer_type?: InputMaybe<String_Comparison_Exp>;
+	txn_hash?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "squid_erc.ft_transfer" */
+export enum Erc_Ft_Transfer_Constraint {
+	/** unique or primary key constraint on columns "id" */
+	Pk_9197e98e6e5fc3ead382a4b80a3 = "PK_9197e98e6e5fc3ead382a4b80a3",
+}
+
+/** input type for incrementing numeric columns in table "squid_erc.ft_transfer" */
+export type Erc_Ft_Transfer_Inc_Input = {
+	amount?: InputMaybe<Scalars["numeric"]>;
+	block_number?: InputMaybe<Scalars["numeric"]>;
+	event_index?: InputMaybe<Scalars["Int"]>;
+};
+
+/** input type for inserting data into table "squid_erc.ft_transfer" */
+export type Erc_Ft_Transfer_Insert_Input = {
+	account?: InputMaybe<Erc_Account_Obj_Rel_Insert_Input>;
+	accountByToId?: InputMaybe<Erc_Account_Obj_Rel_Insert_Input>;
+	account_ft_transfers?: InputMaybe<Erc_Account_Ft_Transfer_Arr_Rel_Insert_Input>;
+	amount?: InputMaybe<Scalars["numeric"]>;
+	block_number?: InputMaybe<Scalars["numeric"]>;
+	event_index?: InputMaybe<Scalars["Int"]>;
+	f_token?: InputMaybe<Erc_F_Token_Obj_Rel_Insert_Input>;
+	from_id?: InputMaybe<Scalars["String"]>;
+	id?: InputMaybe<Scalars["String"]>;
+	timestamp?: InputMaybe<Scalars["timestamptz"]>;
+	to_id?: InputMaybe<Scalars["String"]>;
+	token_id?: InputMaybe<Scalars["String"]>;
+	transfer_type?: InputMaybe<Scalars["String"]>;
+	txn_hash?: InputMaybe<Scalars["String"]>;
+};
+
+/** aggregate max on columns */
+export type Erc_Ft_Transfer_Max_Fields = {
+	__typename?: "erc_ft_transfer_max_fields";
+	amount?: Maybe<Scalars["numeric"]>;
+	block_number?: Maybe<Scalars["numeric"]>;
+	event_index?: Maybe<Scalars["Int"]>;
+	from_id?: Maybe<Scalars["String"]>;
+	id?: Maybe<Scalars["String"]>;
+	timestamp?: Maybe<Scalars["timestamptz"]>;
+	to_id?: Maybe<Scalars["String"]>;
+	token_id?: Maybe<Scalars["String"]>;
+	transfer_type?: Maybe<Scalars["String"]>;
+	txn_hash?: Maybe<Scalars["String"]>;
+};
+
+/** order by max() on columns of table "squid_erc.ft_transfer" */
+export type Erc_Ft_Transfer_Max_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	block_number?: InputMaybe<Order_By>;
+	event_index?: InputMaybe<Order_By>;
+	from_id?: InputMaybe<Order_By>;
+	id?: InputMaybe<Order_By>;
+	timestamp?: InputMaybe<Order_By>;
+	to_id?: InputMaybe<Order_By>;
+	token_id?: InputMaybe<Order_By>;
+	transfer_type?: InputMaybe<Order_By>;
+	txn_hash?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Erc_Ft_Transfer_Min_Fields = {
+	__typename?: "erc_ft_transfer_min_fields";
+	amount?: Maybe<Scalars["numeric"]>;
+	block_number?: Maybe<Scalars["numeric"]>;
+	event_index?: Maybe<Scalars["Int"]>;
+	from_id?: Maybe<Scalars["String"]>;
+	id?: Maybe<Scalars["String"]>;
+	timestamp?: Maybe<Scalars["timestamptz"]>;
+	to_id?: Maybe<Scalars["String"]>;
+	token_id?: Maybe<Scalars["String"]>;
+	transfer_type?: Maybe<Scalars["String"]>;
+	txn_hash?: Maybe<Scalars["String"]>;
+};
+
+/** order by min() on columns of table "squid_erc.ft_transfer" */
+export type Erc_Ft_Transfer_Min_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	block_number?: InputMaybe<Order_By>;
+	event_index?: InputMaybe<Order_By>;
+	from_id?: InputMaybe<Order_By>;
+	id?: InputMaybe<Order_By>;
+	timestamp?: InputMaybe<Order_By>;
+	to_id?: InputMaybe<Order_By>;
+	token_id?: InputMaybe<Order_By>;
+	transfer_type?: InputMaybe<Order_By>;
+	txn_hash?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "squid_erc.ft_transfer" */
+export type Erc_Ft_Transfer_Mutation_Response = {
+	__typename?: "erc_ft_transfer_mutation_response";
+	/** number of rows affected by the mutation */
+	affected_rows: Scalars["Int"];
+	/** data from the rows affected by the mutation */
+	returning: Array<Erc_Ft_Transfer>;
+};
+
+/** input type for inserting object relation for remote table "squid_erc.ft_transfer" */
+export type Erc_Ft_Transfer_Obj_Rel_Insert_Input = {
+	data: Erc_Ft_Transfer_Insert_Input;
+	/** upsert condition */
+	on_conflict?: InputMaybe<Erc_Ft_Transfer_On_Conflict>;
+};
+
+/** on_conflict condition type for table "squid_erc.ft_transfer" */
+export type Erc_Ft_Transfer_On_Conflict = {
+	constraint: Erc_Ft_Transfer_Constraint;
+	update_columns?: Array<Erc_Ft_Transfer_Update_Column>;
+	where?: InputMaybe<Erc_Ft_Transfer_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "squid_erc.ft_transfer". */
+export type Erc_Ft_Transfer_Order_By = {
+	account?: InputMaybe<Erc_Account_Order_By>;
+	accountByToId?: InputMaybe<Erc_Account_Order_By>;
+	account_ft_transfers_aggregate?: InputMaybe<Erc_Account_Ft_Transfer_Aggregate_Order_By>;
+	amount?: InputMaybe<Order_By>;
+	block_number?: InputMaybe<Order_By>;
+	event_index?: InputMaybe<Order_By>;
+	f_token?: InputMaybe<Erc_F_Token_Order_By>;
+	from_id?: InputMaybe<Order_By>;
+	id?: InputMaybe<Order_By>;
+	timestamp?: InputMaybe<Order_By>;
+	to_id?: InputMaybe<Order_By>;
+	token_id?: InputMaybe<Order_By>;
+	transfer_type?: InputMaybe<Order_By>;
+	txn_hash?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: ft_transfer */
+export type Erc_Ft_Transfer_Pk_Columns_Input = {
+	id: Scalars["String"];
+};
+
+/** select columns of table "squid_erc.ft_transfer" */
+export enum Erc_Ft_Transfer_Select_Column {
+	/** column name */
+	Amount = "amount",
+	/** column name */
+	BlockNumber = "block_number",
+	/** column name */
+	EventIndex = "event_index",
+	/** column name */
+	FromId = "from_id",
+	/** column name */
+	Id = "id",
+	/** column name */
+	Timestamp = "timestamp",
+	/** column name */
+	ToId = "to_id",
+	/** column name */
+	TokenId = "token_id",
+	/** column name */
+	TransferType = "transfer_type",
+	/** column name */
+	TxnHash = "txn_hash",
+}
+
+/** input type for updating data in table "squid_erc.ft_transfer" */
+export type Erc_Ft_Transfer_Set_Input = {
+	amount?: InputMaybe<Scalars["numeric"]>;
+	block_number?: InputMaybe<Scalars["numeric"]>;
+	event_index?: InputMaybe<Scalars["Int"]>;
+	from_id?: InputMaybe<Scalars["String"]>;
+	id?: InputMaybe<Scalars["String"]>;
+	timestamp?: InputMaybe<Scalars["timestamptz"]>;
+	to_id?: InputMaybe<Scalars["String"]>;
+	token_id?: InputMaybe<Scalars["String"]>;
+	transfer_type?: InputMaybe<Scalars["String"]>;
+	txn_hash?: InputMaybe<Scalars["String"]>;
+};
+
+/** aggregate stddev on columns */
+export type Erc_Ft_Transfer_Stddev_Fields = {
+	__typename?: "erc_ft_transfer_stddev_fields";
+	amount?: Maybe<Scalars["Float"]>;
+	block_number?: Maybe<Scalars["Float"]>;
+	event_index?: Maybe<Scalars["Float"]>;
+};
+
+/** order by stddev() on columns of table "squid_erc.ft_transfer" */
+export type Erc_Ft_Transfer_Stddev_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	block_number?: InputMaybe<Order_By>;
+	event_index?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Erc_Ft_Transfer_Stddev_Pop_Fields = {
+	__typename?: "erc_ft_transfer_stddev_pop_fields";
+	amount?: Maybe<Scalars["Float"]>;
+	block_number?: Maybe<Scalars["Float"]>;
+	event_index?: Maybe<Scalars["Float"]>;
+};
+
+/** order by stddev_pop() on columns of table "squid_erc.ft_transfer" */
+export type Erc_Ft_Transfer_Stddev_Pop_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	block_number?: InputMaybe<Order_By>;
+	event_index?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Erc_Ft_Transfer_Stddev_Samp_Fields = {
+	__typename?: "erc_ft_transfer_stddev_samp_fields";
+	amount?: Maybe<Scalars["Float"]>;
+	block_number?: Maybe<Scalars["Float"]>;
+	event_index?: Maybe<Scalars["Float"]>;
+};
+
+/** order by stddev_samp() on columns of table "squid_erc.ft_transfer" */
+export type Erc_Ft_Transfer_Stddev_Samp_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	block_number?: InputMaybe<Order_By>;
+	event_index?: InputMaybe<Order_By>;
+};
+
+/** Streaming cursor of the table "ft_transfer" */
+export type Erc_Ft_Transfer_Stream_Cursor_Input = {
+	/** Stream column input with initial value */
+	initial_value: Erc_Ft_Transfer_Stream_Cursor_Value_Input;
+	/** cursor ordering */
+	ordering?: InputMaybe<Erc_Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Erc_Ft_Transfer_Stream_Cursor_Value_Input = {
+	amount?: InputMaybe<Scalars["numeric"]>;
+	block_number?: InputMaybe<Scalars["numeric"]>;
+	event_index?: InputMaybe<Scalars["Int"]>;
+	from_id?: InputMaybe<Scalars["String"]>;
+	id?: InputMaybe<Scalars["String"]>;
+	timestamp?: InputMaybe<Scalars["timestamptz"]>;
+	to_id?: InputMaybe<Scalars["String"]>;
+	token_id?: InputMaybe<Scalars["String"]>;
+	transfer_type?: InputMaybe<Scalars["String"]>;
+	txn_hash?: InputMaybe<Scalars["String"]>;
+};
+
+/** aggregate sum on columns */
+export type Erc_Ft_Transfer_Sum_Fields = {
+	__typename?: "erc_ft_transfer_sum_fields";
+	amount?: Maybe<Scalars["numeric"]>;
+	block_number?: Maybe<Scalars["numeric"]>;
+	event_index?: Maybe<Scalars["Int"]>;
+};
+
+/** order by sum() on columns of table "squid_erc.ft_transfer" */
+export type Erc_Ft_Transfer_Sum_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	block_number?: InputMaybe<Order_By>;
+	event_index?: InputMaybe<Order_By>;
+};
+
+/** update columns of table "squid_erc.ft_transfer" */
+export enum Erc_Ft_Transfer_Update_Column {
+	/** column name */
+	Amount = "amount",
+	/** column name */
+	BlockNumber = "block_number",
+	/** column name */
+	EventIndex = "event_index",
+	/** column name */
+	FromId = "from_id",
+	/** column name */
+	Id = "id",
+	/** column name */
+	Timestamp = "timestamp",
+	/** column name */
+	ToId = "to_id",
+	/** column name */
+	TokenId = "token_id",
+	/** column name */
+	TransferType = "transfer_type",
+	/** column name */
+	TxnHash = "txn_hash",
+}
+
+export type Erc_Ft_Transfer_Updates = {
+	/** increments the numeric columns with given value of the filtered values */
+	_inc?: InputMaybe<Erc_Ft_Transfer_Inc_Input>;
+	/** sets the columns of the filtered rows to the given values */
+	_set?: InputMaybe<Erc_Ft_Transfer_Set_Input>;
+	where: Erc_Ft_Transfer_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Erc_Ft_Transfer_Var_Pop_Fields = {
+	__typename?: "erc_ft_transfer_var_pop_fields";
+	amount?: Maybe<Scalars["Float"]>;
+	block_number?: Maybe<Scalars["Float"]>;
+	event_index?: Maybe<Scalars["Float"]>;
+};
+
+/** order by var_pop() on columns of table "squid_erc.ft_transfer" */
+export type Erc_Ft_Transfer_Var_Pop_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	block_number?: InputMaybe<Order_By>;
+	event_index?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Erc_Ft_Transfer_Var_Samp_Fields = {
+	__typename?: "erc_ft_transfer_var_samp_fields";
+	amount?: Maybe<Scalars["Float"]>;
+	block_number?: Maybe<Scalars["Float"]>;
+	event_index?: Maybe<Scalars["Float"]>;
+};
+
+/** order by var_samp() on columns of table "squid_erc.ft_transfer" */
+export type Erc_Ft_Transfer_Var_Samp_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	block_number?: InputMaybe<Order_By>;
+	event_index?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Erc_Ft_Transfer_Variance_Fields = {
+	__typename?: "erc_ft_transfer_variance_fields";
+	amount?: Maybe<Scalars["Float"]>;
+	block_number?: Maybe<Scalars["Float"]>;
+	event_index?: Maybe<Scalars["Float"]>;
+};
+
+/** order by variance() on columns of table "squid_erc.ft_transfer" */
+export type Erc_Ft_Transfer_Variance_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	block_number?: InputMaybe<Order_By>;
+	event_index?: InputMaybe<Order_By>;
+};
+
+/** columns and relationships of "squid_erc.nf_token" */
+export type Erc_Nf_Token = {
+	__typename?: "erc_nf_token";
+	/** An object relationship */
+	account: Erc_Account;
+	amount: Scalars["numeric"];
+	/** An object relationship */
+	collection: Erc_Collection;
+	collection_id: Scalars["String"];
+	current_owner_id: Scalars["String"];
+	id: Scalars["String"];
+	is_burned: Scalars["Boolean"];
+	name?: Maybe<Scalars["String"]>;
+	native_id: Scalars["String"];
+	/** An array relationship */
+	nft_transfers: Array<Erc_Nft_Transfer>;
+	/** An aggregate relationship */
+	nft_transfers_aggregate: Erc_Nft_Transfer_Aggregate;
 	symbol?: Maybe<Scalars["String"]>;
 	uri?: Maybe<Scalars["String"]>;
-	uriUpdateActions: Array<Erc_UriUpdateAction>;
+	/** An array relationship */
+	uri_update_actions: Array<Erc_Uri_Update_Action>;
+	/** An aggregate relationship */
+	uri_update_actions_aggregate: Erc_Uri_Update_Action_Aggregate;
 };
 
-export type Erc_NfTokenUriUpdateActionsArgs = {
+/** columns and relationships of "squid_erc.nf_token" */
+export type Erc_Nf_TokenNft_TransfersArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Nft_Transfer_Select_Column>>;
 	limit?: InputMaybe<Scalars["Int"]>;
 	offset?: InputMaybe<Scalars["Int"]>;
-	orderBy?: InputMaybe<Array<InputMaybe<Erc_UriUpdateActionOrderByInput>>>;
-	where?: InputMaybe<Erc_UriUpdateActionWhereInput>;
+	order_by?: InputMaybe<Array<Erc_Nft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Nft_Transfer_Bool_Exp>;
 };
 
-export type Erc_NfTokenEdge = {
-	__typename?: "erc_NfTokenEdge";
-	cursor: Scalars["String"];
-	node: Erc_NfToken;
+/** columns and relationships of "squid_erc.nf_token" */
+export type Erc_Nf_TokenNft_Transfers_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Nft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Nft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Nft_Transfer_Bool_Exp>;
 };
 
-export enum Erc_NfTokenOrderByInput {
-	AmountAsc = "amount_ASC",
-	AmountDesc = "amount_DESC",
-	CollectionCollectionTypeAsc = "collection_collectionType_ASC",
-	CollectionCollectionTypeDesc = "collection_collectionType_DESC",
-	CollectionCreatedAtBlockAsc = "collection_createdAtBlock_ASC",
-	CollectionCreatedAtBlockDesc = "collection_createdAtBlock_DESC",
-	CollectionCreatedAtAsc = "collection_createdAt_ASC",
-	CollectionCreatedAtDesc = "collection_createdAt_DESC",
-	CollectionIdAsc = "collection_id_ASC",
-	CollectionIdDesc = "collection_id_DESC",
-	CurrentOwnerIdAsc = "currentOwner_id_ASC",
-	CurrentOwnerIdDesc = "currentOwner_id_DESC",
-	IdAsc = "id_ASC",
-	IdDesc = "id_DESC",
-	IsBurnedAsc = "isBurned_ASC",
-	IsBurnedDesc = "isBurned_DESC",
-	NameAsc = "name_ASC",
-	NameDesc = "name_DESC",
-	NativeIdAsc = "nativeId_ASC",
-	NativeIdDesc = "nativeId_DESC",
-	SymbolAsc = "symbol_ASC",
-	SymbolDesc = "symbol_DESC",
-	UriAsc = "uri_ASC",
-	UriDesc = "uri_DESC",
+/** columns and relationships of "squid_erc.nf_token" */
+export type Erc_Nf_TokenUri_Update_ActionsArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Uri_Update_Action_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Uri_Update_Action_Order_By>>;
+	where?: InputMaybe<Erc_Uri_Update_Action_Bool_Exp>;
+};
+
+/** columns and relationships of "squid_erc.nf_token" */
+export type Erc_Nf_TokenUri_Update_Actions_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Uri_Update_Action_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Uri_Update_Action_Order_By>>;
+	where?: InputMaybe<Erc_Uri_Update_Action_Bool_Exp>;
+};
+
+/** aggregated selection of "squid_erc.nf_token" */
+export type Erc_Nf_Token_Aggregate = {
+	__typename?: "erc_nf_token_aggregate";
+	aggregate?: Maybe<Erc_Nf_Token_Aggregate_Fields>;
+	nodes: Array<Erc_Nf_Token>;
+};
+
+/** aggregate fields of "squid_erc.nf_token" */
+export type Erc_Nf_Token_Aggregate_Fields = {
+	__typename?: "erc_nf_token_aggregate_fields";
+	avg?: Maybe<Erc_Nf_Token_Avg_Fields>;
+	count: Scalars["Int"];
+	max?: Maybe<Erc_Nf_Token_Max_Fields>;
+	min?: Maybe<Erc_Nf_Token_Min_Fields>;
+	stddev?: Maybe<Erc_Nf_Token_Stddev_Fields>;
+	stddev_pop?: Maybe<Erc_Nf_Token_Stddev_Pop_Fields>;
+	stddev_samp?: Maybe<Erc_Nf_Token_Stddev_Samp_Fields>;
+	sum?: Maybe<Erc_Nf_Token_Sum_Fields>;
+	var_pop?: Maybe<Erc_Nf_Token_Var_Pop_Fields>;
+	var_samp?: Maybe<Erc_Nf_Token_Var_Samp_Fields>;
+	variance?: Maybe<Erc_Nf_Token_Variance_Fields>;
+};
+
+/** aggregate fields of "squid_erc.nf_token" */
+export type Erc_Nf_Token_Aggregate_FieldsCountArgs = {
+	columns?: InputMaybe<Array<Erc_Nf_Token_Select_Column>>;
+	distinct?: InputMaybe<Scalars["Boolean"]>;
+};
+
+/** order by aggregate values of table "squid_erc.nf_token" */
+export type Erc_Nf_Token_Aggregate_Order_By = {
+	avg?: InputMaybe<Erc_Nf_Token_Avg_Order_By>;
+	count?: InputMaybe<Order_By>;
+	max?: InputMaybe<Erc_Nf_Token_Max_Order_By>;
+	min?: InputMaybe<Erc_Nf_Token_Min_Order_By>;
+	stddev?: InputMaybe<Erc_Nf_Token_Stddev_Order_By>;
+	stddev_pop?: InputMaybe<Erc_Nf_Token_Stddev_Pop_Order_By>;
+	stddev_samp?: InputMaybe<Erc_Nf_Token_Stddev_Samp_Order_By>;
+	sum?: InputMaybe<Erc_Nf_Token_Sum_Order_By>;
+	var_pop?: InputMaybe<Erc_Nf_Token_Var_Pop_Order_By>;
+	var_samp?: InputMaybe<Erc_Nf_Token_Var_Samp_Order_By>;
+	variance?: InputMaybe<Erc_Nf_Token_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "squid_erc.nf_token" */
+export type Erc_Nf_Token_Arr_Rel_Insert_Input = {
+	data: Array<Erc_Nf_Token_Insert_Input>;
+	/** upsert condition */
+	on_conflict?: InputMaybe<Erc_Nf_Token_On_Conflict>;
+};
+
+/** aggregate avg on columns */
+export type Erc_Nf_Token_Avg_Fields = {
+	__typename?: "erc_nf_token_avg_fields";
+	amount?: Maybe<Scalars["Float"]>;
+};
+
+/** order by avg() on columns of table "squid_erc.nf_token" */
+export type Erc_Nf_Token_Avg_Order_By = {
+	amount?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "squid_erc.nf_token". All fields are combined with a logical 'AND'. */
+export type Erc_Nf_Token_Bool_Exp = {
+	_and?: InputMaybe<Array<Erc_Nf_Token_Bool_Exp>>;
+	_not?: InputMaybe<Erc_Nf_Token_Bool_Exp>;
+	_or?: InputMaybe<Array<Erc_Nf_Token_Bool_Exp>>;
+	account?: InputMaybe<Erc_Account_Bool_Exp>;
+	amount?: InputMaybe<Numeric_Comparison_Exp>;
+	collection?: InputMaybe<Erc_Collection_Bool_Exp>;
+	collection_id?: InputMaybe<String_Comparison_Exp>;
+	current_owner_id?: InputMaybe<String_Comparison_Exp>;
+	id?: InputMaybe<String_Comparison_Exp>;
+	is_burned?: InputMaybe<Boolean_Comparison_Exp>;
+	name?: InputMaybe<String_Comparison_Exp>;
+	native_id?: InputMaybe<String_Comparison_Exp>;
+	nft_transfers?: InputMaybe<Erc_Nft_Transfer_Bool_Exp>;
+	symbol?: InputMaybe<String_Comparison_Exp>;
+	uri?: InputMaybe<String_Comparison_Exp>;
+	uri_update_actions?: InputMaybe<Erc_Uri_Update_Action_Bool_Exp>;
+};
+
+/** unique or primary key constraints on table "squid_erc.nf_token" */
+export enum Erc_Nf_Token_Constraint {
+	/** unique or primary key constraint on columns "id" */
+	Pk_4b875f332d287d53286f0120060 = "PK_4b875f332d287d53286f0120060",
 }
 
-export type Erc_NfTokenWhereInput = {
-	AND?: InputMaybe<Array<Erc_NfTokenWhereInput>>;
-	OR?: InputMaybe<Array<Erc_NfTokenWhereInput>>;
-	amount_eq?: InputMaybe<Scalars["erc_BigInt"]>;
-	amount_gt?: InputMaybe<Scalars["erc_BigInt"]>;
-	amount_gte?: InputMaybe<Scalars["erc_BigInt"]>;
-	amount_in?: InputMaybe<Array<Scalars["erc_BigInt"]>>;
-	amount_lt?: InputMaybe<Scalars["erc_BigInt"]>;
-	amount_lte?: InputMaybe<Scalars["erc_BigInt"]>;
-	amount_not_eq?: InputMaybe<Scalars["erc_BigInt"]>;
-	amount_not_in?: InputMaybe<Array<Scalars["erc_BigInt"]>>;
-	collection?: InputMaybe<Erc_CollectionWhereInput>;
-	currentOwner?: InputMaybe<Erc_AccountWhereInput>;
-	id_contains?: InputMaybe<Scalars["ID"]>;
-	id_containsInsensitive?: InputMaybe<Scalars["ID"]>;
-	id_endsWith?: InputMaybe<Scalars["ID"]>;
-	id_eq?: InputMaybe<Scalars["ID"]>;
-	id_gt?: InputMaybe<Scalars["ID"]>;
-	id_gte?: InputMaybe<Scalars["ID"]>;
-	id_in?: InputMaybe<Array<Scalars["ID"]>>;
-	id_lt?: InputMaybe<Scalars["ID"]>;
-	id_lte?: InputMaybe<Scalars["ID"]>;
-	id_not_contains?: InputMaybe<Scalars["ID"]>;
-	id_not_containsInsensitive?: InputMaybe<Scalars["ID"]>;
-	id_not_endsWith?: InputMaybe<Scalars["ID"]>;
-	id_not_eq?: InputMaybe<Scalars["ID"]>;
-	id_not_in?: InputMaybe<Array<Scalars["ID"]>>;
-	id_not_startsWith?: InputMaybe<Scalars["ID"]>;
-	id_startsWith?: InputMaybe<Scalars["ID"]>;
-	isBurned_eq?: InputMaybe<Scalars["Boolean"]>;
-	isBurned_not_eq?: InputMaybe<Scalars["Boolean"]>;
-	name_contains?: InputMaybe<Scalars["String"]>;
-	name_containsInsensitive?: InputMaybe<Scalars["String"]>;
-	name_endsWith?: InputMaybe<Scalars["String"]>;
-	name_eq?: InputMaybe<Scalars["String"]>;
-	name_gt?: InputMaybe<Scalars["String"]>;
-	name_gte?: InputMaybe<Scalars["String"]>;
-	name_in?: InputMaybe<Array<Scalars["String"]>>;
-	name_isNull?: InputMaybe<Scalars["Boolean"]>;
-	name_lt?: InputMaybe<Scalars["String"]>;
-	name_lte?: InputMaybe<Scalars["String"]>;
-	name_not_contains?: InputMaybe<Scalars["String"]>;
-	name_not_containsInsensitive?: InputMaybe<Scalars["String"]>;
-	name_not_endsWith?: InputMaybe<Scalars["String"]>;
-	name_not_eq?: InputMaybe<Scalars["String"]>;
-	name_not_in?: InputMaybe<Array<Scalars["String"]>>;
-	name_not_startsWith?: InputMaybe<Scalars["String"]>;
-	name_startsWith?: InputMaybe<Scalars["String"]>;
-	nativeId_contains?: InputMaybe<Scalars["String"]>;
-	nativeId_containsInsensitive?: InputMaybe<Scalars["String"]>;
-	nativeId_endsWith?: InputMaybe<Scalars["String"]>;
-	nativeId_eq?: InputMaybe<Scalars["String"]>;
-	nativeId_gt?: InputMaybe<Scalars["String"]>;
-	nativeId_gte?: InputMaybe<Scalars["String"]>;
-	nativeId_in?: InputMaybe<Array<Scalars["String"]>>;
-	nativeId_lt?: InputMaybe<Scalars["String"]>;
-	nativeId_lte?: InputMaybe<Scalars["String"]>;
-	nativeId_not_contains?: InputMaybe<Scalars["String"]>;
-	nativeId_not_containsInsensitive?: InputMaybe<Scalars["String"]>;
-	nativeId_not_endsWith?: InputMaybe<Scalars["String"]>;
-	nativeId_not_eq?: InputMaybe<Scalars["String"]>;
-	nativeId_not_in?: InputMaybe<Array<Scalars["String"]>>;
-	nativeId_not_startsWith?: InputMaybe<Scalars["String"]>;
-	nativeId_startsWith?: InputMaybe<Scalars["String"]>;
-	symbol_contains?: InputMaybe<Scalars["String"]>;
-	symbol_containsInsensitive?: InputMaybe<Scalars["String"]>;
-	symbol_endsWith?: InputMaybe<Scalars["String"]>;
-	symbol_eq?: InputMaybe<Scalars["String"]>;
-	symbol_gt?: InputMaybe<Scalars["String"]>;
-	symbol_gte?: InputMaybe<Scalars["String"]>;
-	symbol_in?: InputMaybe<Array<Scalars["String"]>>;
-	symbol_isNull?: InputMaybe<Scalars["Boolean"]>;
-	symbol_lt?: InputMaybe<Scalars["String"]>;
-	symbol_lte?: InputMaybe<Scalars["String"]>;
-	symbol_not_contains?: InputMaybe<Scalars["String"]>;
-	symbol_not_containsInsensitive?: InputMaybe<Scalars["String"]>;
-	symbol_not_endsWith?: InputMaybe<Scalars["String"]>;
-	symbol_not_eq?: InputMaybe<Scalars["String"]>;
-	symbol_not_in?: InputMaybe<Array<Scalars["String"]>>;
-	symbol_not_startsWith?: InputMaybe<Scalars["String"]>;
-	symbol_startsWith?: InputMaybe<Scalars["String"]>;
-	uriUpdateActions_every?: InputMaybe<Erc_UriUpdateActionWhereInput>;
-	uriUpdateActions_none?: InputMaybe<Erc_UriUpdateActionWhereInput>;
-	uriUpdateActions_some?: InputMaybe<Erc_UriUpdateActionWhereInput>;
-	uri_contains?: InputMaybe<Scalars["String"]>;
-	uri_containsInsensitive?: InputMaybe<Scalars["String"]>;
-	uri_endsWith?: InputMaybe<Scalars["String"]>;
-	uri_eq?: InputMaybe<Scalars["String"]>;
-	uri_gt?: InputMaybe<Scalars["String"]>;
-	uri_gte?: InputMaybe<Scalars["String"]>;
-	uri_in?: InputMaybe<Array<Scalars["String"]>>;
-	uri_isNull?: InputMaybe<Scalars["Boolean"]>;
-	uri_lt?: InputMaybe<Scalars["String"]>;
-	uri_lte?: InputMaybe<Scalars["String"]>;
-	uri_not_contains?: InputMaybe<Scalars["String"]>;
-	uri_not_containsInsensitive?: InputMaybe<Scalars["String"]>;
-	uri_not_endsWith?: InputMaybe<Scalars["String"]>;
-	uri_not_eq?: InputMaybe<Scalars["String"]>;
-	uri_not_in?: InputMaybe<Array<Scalars["String"]>>;
-	uri_not_startsWith?: InputMaybe<Scalars["String"]>;
-	uri_startsWith?: InputMaybe<Scalars["String"]>;
+/** input type for incrementing numeric columns in table "squid_erc.nf_token" */
+export type Erc_Nf_Token_Inc_Input = {
+	amount?: InputMaybe<Scalars["numeric"]>;
 };
 
-export type Erc_NfTokenWhereUniqueInput = {
-	id: Scalars["ID"];
+/** input type for inserting data into table "squid_erc.nf_token" */
+export type Erc_Nf_Token_Insert_Input = {
+	account?: InputMaybe<Erc_Account_Obj_Rel_Insert_Input>;
+	amount?: InputMaybe<Scalars["numeric"]>;
+	collection?: InputMaybe<Erc_Collection_Obj_Rel_Insert_Input>;
+	collection_id?: InputMaybe<Scalars["String"]>;
+	current_owner_id?: InputMaybe<Scalars["String"]>;
+	id?: InputMaybe<Scalars["String"]>;
+	is_burned?: InputMaybe<Scalars["Boolean"]>;
+	name?: InputMaybe<Scalars["String"]>;
+	native_id?: InputMaybe<Scalars["String"]>;
+	nft_transfers?: InputMaybe<Erc_Nft_Transfer_Arr_Rel_Insert_Input>;
+	symbol?: InputMaybe<Scalars["String"]>;
+	uri?: InputMaybe<Scalars["String"]>;
+	uri_update_actions?: InputMaybe<Erc_Uri_Update_Action_Arr_Rel_Insert_Input>;
 };
 
-export type Erc_NfTokensConnection = {
-	__typename?: "erc_NfTokensConnection";
-	edges: Array<Erc_NfTokenEdge>;
-	pageInfo: Erc_PageInfo;
-	totalCount: Scalars["Int"];
-};
-
-export type Erc_NftTransfer = Erc_Transfer & {
-	__typename?: "erc_NftTransfer";
-	amount: Scalars["erc_BigInt"];
-	blockNumber: Scalars["erc_BigInt"];
-	eventIndex: Scalars["Int"];
-	from: Erc_Account;
-	id: Scalars["ID"];
-	isBatch: Scalars["Boolean"];
-	operator?: Maybe<Erc_Account>;
-	timestamp: Scalars["erc_DateTime"];
-	to: Erc_Account;
-	token: Erc_NfToken;
-	transferType?: Maybe<Erc_TransferType>;
-	txnHash: Scalars["String"];
-};
-
-export type Erc_NftTransferEdge = {
-	__typename?: "erc_NftTransferEdge";
-	cursor: Scalars["String"];
-	node: Erc_NftTransfer;
-};
-
-export enum Erc_NftTransferOrderByInput {
-	AmountAsc = "amount_ASC",
-	AmountDesc = "amount_DESC",
-	BlockNumberAsc = "blockNumber_ASC",
-	BlockNumberDesc = "blockNumber_DESC",
-	EventIndexAsc = "eventIndex_ASC",
-	EventIndexDesc = "eventIndex_DESC",
-	FromIdAsc = "from_id_ASC",
-	FromIdDesc = "from_id_DESC",
-	IdAsc = "id_ASC",
-	IdDesc = "id_DESC",
-	IsBatchAsc = "isBatch_ASC",
-	IsBatchDesc = "isBatch_DESC",
-	OperatorIdAsc = "operator_id_ASC",
-	OperatorIdDesc = "operator_id_DESC",
-	TimestampAsc = "timestamp_ASC",
-	TimestampDesc = "timestamp_DESC",
-	ToIdAsc = "to_id_ASC",
-	ToIdDesc = "to_id_DESC",
-	TokenAmountAsc = "token_amount_ASC",
-	TokenAmountDesc = "token_amount_DESC",
-	TokenIdAsc = "token_id_ASC",
-	TokenIdDesc = "token_id_DESC",
-	TokenIsBurnedAsc = "token_isBurned_ASC",
-	TokenIsBurnedDesc = "token_isBurned_DESC",
-	TokenNameAsc = "token_name_ASC",
-	TokenNameDesc = "token_name_DESC",
-	TokenNativeIdAsc = "token_nativeId_ASC",
-	TokenNativeIdDesc = "token_nativeId_DESC",
-	TokenSymbolAsc = "token_symbol_ASC",
-	TokenSymbolDesc = "token_symbol_DESC",
-	TokenUriAsc = "token_uri_ASC",
-	TokenUriDesc = "token_uri_DESC",
-	TransferTypeAsc = "transferType_ASC",
-	TransferTypeDesc = "transferType_DESC",
-	TxnHashAsc = "txnHash_ASC",
-	TxnHashDesc = "txnHash_DESC",
-}
-
-export type Erc_NftTransferWhereInput = {
-	AND?: InputMaybe<Array<Erc_NftTransferWhereInput>>;
-	OR?: InputMaybe<Array<Erc_NftTransferWhereInput>>;
-	amount_eq?: InputMaybe<Scalars["erc_BigInt"]>;
-	amount_gt?: InputMaybe<Scalars["erc_BigInt"]>;
-	amount_gte?: InputMaybe<Scalars["erc_BigInt"]>;
-	amount_in?: InputMaybe<Array<Scalars["erc_BigInt"]>>;
-	amount_lt?: InputMaybe<Scalars["erc_BigInt"]>;
-	amount_lte?: InputMaybe<Scalars["erc_BigInt"]>;
-	amount_not_eq?: InputMaybe<Scalars["erc_BigInt"]>;
-	amount_not_in?: InputMaybe<Array<Scalars["erc_BigInt"]>>;
-	blockNumber_eq?: InputMaybe<Scalars["erc_BigInt"]>;
-	blockNumber_gt?: InputMaybe<Scalars["erc_BigInt"]>;
-	blockNumber_gte?: InputMaybe<Scalars["erc_BigInt"]>;
-	blockNumber_in?: InputMaybe<Array<Scalars["erc_BigInt"]>>;
-	blockNumber_lt?: InputMaybe<Scalars["erc_BigInt"]>;
-	blockNumber_lte?: InputMaybe<Scalars["erc_BigInt"]>;
-	blockNumber_not_eq?: InputMaybe<Scalars["erc_BigInt"]>;
-	blockNumber_not_in?: InputMaybe<Array<Scalars["erc_BigInt"]>>;
-	eventIndex_eq?: InputMaybe<Scalars["Int"]>;
-	eventIndex_gt?: InputMaybe<Scalars["Int"]>;
-	eventIndex_gte?: InputMaybe<Scalars["Int"]>;
-	eventIndex_in?: InputMaybe<Array<Scalars["Int"]>>;
-	eventIndex_lt?: InputMaybe<Scalars["Int"]>;
-	eventIndex_lte?: InputMaybe<Scalars["Int"]>;
-	eventIndex_not_eq?: InputMaybe<Scalars["Int"]>;
-	eventIndex_not_in?: InputMaybe<Array<Scalars["Int"]>>;
-	from?: InputMaybe<Erc_AccountWhereInput>;
-	id_contains?: InputMaybe<Scalars["ID"]>;
-	id_containsInsensitive?: InputMaybe<Scalars["ID"]>;
-	id_endsWith?: InputMaybe<Scalars["ID"]>;
-	id_eq?: InputMaybe<Scalars["ID"]>;
-	id_gt?: InputMaybe<Scalars["ID"]>;
-	id_gte?: InputMaybe<Scalars["ID"]>;
-	id_in?: InputMaybe<Array<Scalars["ID"]>>;
-	id_lt?: InputMaybe<Scalars["ID"]>;
-	id_lte?: InputMaybe<Scalars["ID"]>;
-	id_not_contains?: InputMaybe<Scalars["ID"]>;
-	id_not_containsInsensitive?: InputMaybe<Scalars["ID"]>;
-	id_not_endsWith?: InputMaybe<Scalars["ID"]>;
-	id_not_eq?: InputMaybe<Scalars["ID"]>;
-	id_not_in?: InputMaybe<Array<Scalars["ID"]>>;
-	id_not_startsWith?: InputMaybe<Scalars["ID"]>;
-	id_startsWith?: InputMaybe<Scalars["ID"]>;
-	isBatch_eq?: InputMaybe<Scalars["Boolean"]>;
-	isBatch_not_eq?: InputMaybe<Scalars["Boolean"]>;
-	operator?: InputMaybe<Erc_AccountWhereInput>;
-	operator_isNull?: InputMaybe<Scalars["Boolean"]>;
-	timestamp_eq?: InputMaybe<Scalars["erc_DateTime"]>;
-	timestamp_gt?: InputMaybe<Scalars["erc_DateTime"]>;
-	timestamp_gte?: InputMaybe<Scalars["erc_DateTime"]>;
-	timestamp_in?: InputMaybe<Array<Scalars["erc_DateTime"]>>;
-	timestamp_lt?: InputMaybe<Scalars["erc_DateTime"]>;
-	timestamp_lte?: InputMaybe<Scalars["erc_DateTime"]>;
-	timestamp_not_eq?: InputMaybe<Scalars["erc_DateTime"]>;
-	timestamp_not_in?: InputMaybe<Array<Scalars["erc_DateTime"]>>;
-	to?: InputMaybe<Erc_AccountWhereInput>;
-	token?: InputMaybe<Erc_NfTokenWhereInput>;
-	transferType_eq?: InputMaybe<Erc_TransferType>;
-	transferType_in?: InputMaybe<Array<Erc_TransferType>>;
-	transferType_isNull?: InputMaybe<Scalars["Boolean"]>;
-	transferType_not_eq?: InputMaybe<Erc_TransferType>;
-	transferType_not_in?: InputMaybe<Array<Erc_TransferType>>;
-	txnHash_contains?: InputMaybe<Scalars["String"]>;
-	txnHash_containsInsensitive?: InputMaybe<Scalars["String"]>;
-	txnHash_endsWith?: InputMaybe<Scalars["String"]>;
-	txnHash_eq?: InputMaybe<Scalars["String"]>;
-	txnHash_gt?: InputMaybe<Scalars["String"]>;
-	txnHash_gte?: InputMaybe<Scalars["String"]>;
-	txnHash_in?: InputMaybe<Array<Scalars["String"]>>;
-	txnHash_lt?: InputMaybe<Scalars["String"]>;
-	txnHash_lte?: InputMaybe<Scalars["String"]>;
-	txnHash_not_contains?: InputMaybe<Scalars["String"]>;
-	txnHash_not_containsInsensitive?: InputMaybe<Scalars["String"]>;
-	txnHash_not_endsWith?: InputMaybe<Scalars["String"]>;
-	txnHash_not_eq?: InputMaybe<Scalars["String"]>;
-	txnHash_not_in?: InputMaybe<Array<Scalars["String"]>>;
-	txnHash_not_startsWith?: InputMaybe<Scalars["String"]>;
-	txnHash_startsWith?: InputMaybe<Scalars["String"]>;
-};
-
-export type Erc_NftTransferWhereUniqueInput = {
-	id: Scalars["ID"];
-};
-
-export type Erc_NftTransfersConnection = {
-	__typename?: "erc_NftTransfersConnection";
-	edges: Array<Erc_NftTransferEdge>;
-	pageInfo: Erc_PageInfo;
-	totalCount: Scalars["Int"];
-};
-
-export type Erc_PageInfo = {
-	__typename?: "erc_PageInfo";
-	endCursor: Scalars["String"];
-	hasNextPage: Scalars["Boolean"];
-	hasPreviousPage: Scalars["Boolean"];
-	startCursor: Scalars["String"];
-};
-
-export type Erc_Token = {
-	id: Scalars["ID"];
+/** aggregate max on columns */
+export type Erc_Nf_Token_Max_Fields = {
+	__typename?: "erc_nf_token_max_fields";
+	amount?: Maybe<Scalars["numeric"]>;
+	collection_id?: Maybe<Scalars["String"]>;
+	current_owner_id?: Maybe<Scalars["String"]>;
+	id?: Maybe<Scalars["String"]>;
 	name?: Maybe<Scalars["String"]>;
+	native_id?: Maybe<Scalars["String"]>;
 	symbol?: Maybe<Scalars["String"]>;
+	uri?: Maybe<Scalars["String"]>;
 };
 
-export type Erc_Transfer = {
-	amount?: Maybe<Scalars["erc_BigInt"]>;
-	blockNumber: Scalars["erc_BigInt"];
-	eventIndex: Scalars["Int"];
-	from: Erc_Account;
-	id: Scalars["ID"];
-	timestamp: Scalars["erc_DateTime"];
-	to: Erc_Account;
-	transferType?: Maybe<Erc_TransferType>;
-	txnHash: Scalars["String"];
+/** order by max() on columns of table "squid_erc.nf_token" */
+export type Erc_Nf_Token_Max_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	collection_id?: InputMaybe<Order_By>;
+	current_owner_id?: InputMaybe<Order_By>;
+	id?: InputMaybe<Order_By>;
+	name?: InputMaybe<Order_By>;
+	native_id?: InputMaybe<Order_By>;
+	symbol?: InputMaybe<Order_By>;
+	uri?: InputMaybe<Order_By>;
 };
 
-export enum Erc_TransferDirection {
-	From = "From",
-	To = "To",
+/** aggregate min on columns */
+export type Erc_Nf_Token_Min_Fields = {
+	__typename?: "erc_nf_token_min_fields";
+	amount?: Maybe<Scalars["numeric"]>;
+	collection_id?: Maybe<Scalars["String"]>;
+	current_owner_id?: Maybe<Scalars["String"]>;
+	id?: Maybe<Scalars["String"]>;
+	name?: Maybe<Scalars["String"]>;
+	native_id?: Maybe<Scalars["String"]>;
+	symbol?: Maybe<Scalars["String"]>;
+	uri?: Maybe<Scalars["String"]>;
+};
+
+/** order by min() on columns of table "squid_erc.nf_token" */
+export type Erc_Nf_Token_Min_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	collection_id?: InputMaybe<Order_By>;
+	current_owner_id?: InputMaybe<Order_By>;
+	id?: InputMaybe<Order_By>;
+	name?: InputMaybe<Order_By>;
+	native_id?: InputMaybe<Order_By>;
+	symbol?: InputMaybe<Order_By>;
+	uri?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "squid_erc.nf_token" */
+export type Erc_Nf_Token_Mutation_Response = {
+	__typename?: "erc_nf_token_mutation_response";
+	/** number of rows affected by the mutation */
+	affected_rows: Scalars["Int"];
+	/** data from the rows affected by the mutation */
+	returning: Array<Erc_Nf_Token>;
+};
+
+/** input type for inserting object relation for remote table "squid_erc.nf_token" */
+export type Erc_Nf_Token_Obj_Rel_Insert_Input = {
+	data: Erc_Nf_Token_Insert_Input;
+	/** upsert condition */
+	on_conflict?: InputMaybe<Erc_Nf_Token_On_Conflict>;
+};
+
+/** on_conflict condition type for table "squid_erc.nf_token" */
+export type Erc_Nf_Token_On_Conflict = {
+	constraint: Erc_Nf_Token_Constraint;
+	update_columns?: Array<Erc_Nf_Token_Update_Column>;
+	where?: InputMaybe<Erc_Nf_Token_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "squid_erc.nf_token". */
+export type Erc_Nf_Token_Order_By = {
+	account?: InputMaybe<Erc_Account_Order_By>;
+	amount?: InputMaybe<Order_By>;
+	collection?: InputMaybe<Erc_Collection_Order_By>;
+	collection_id?: InputMaybe<Order_By>;
+	current_owner_id?: InputMaybe<Order_By>;
+	id?: InputMaybe<Order_By>;
+	is_burned?: InputMaybe<Order_By>;
+	name?: InputMaybe<Order_By>;
+	native_id?: InputMaybe<Order_By>;
+	nft_transfers_aggregate?: InputMaybe<Erc_Nft_Transfer_Aggregate_Order_By>;
+	symbol?: InputMaybe<Order_By>;
+	uri?: InputMaybe<Order_By>;
+	uri_update_actions_aggregate?: InputMaybe<Erc_Uri_Update_Action_Aggregate_Order_By>;
+};
+
+/** primary key columns input for table: nf_token */
+export type Erc_Nf_Token_Pk_Columns_Input = {
+	id: Scalars["String"];
+};
+
+/** select columns of table "squid_erc.nf_token" */
+export enum Erc_Nf_Token_Select_Column {
+	/** column name */
+	Amount = "amount",
+	/** column name */
+	CollectionId = "collection_id",
+	/** column name */
+	CurrentOwnerId = "current_owner_id",
+	/** column name */
+	Id = "id",
+	/** column name */
+	IsBurned = "is_burned",
+	/** column name */
+	Name = "name",
+	/** column name */
+	NativeId = "native_id",
+	/** column name */
+	Symbol = "symbol",
+	/** column name */
+	Uri = "uri",
 }
 
-export enum Erc_TransferType {
-	Burn = "BURN",
-	Mint = "MINT",
-	Transfer = "TRANSFER",
+/** input type for updating data in table "squid_erc.nf_token" */
+export type Erc_Nf_Token_Set_Input = {
+	amount?: InputMaybe<Scalars["numeric"]>;
+	collection_id?: InputMaybe<Scalars["String"]>;
+	current_owner_id?: InputMaybe<Scalars["String"]>;
+	id?: InputMaybe<Scalars["String"]>;
+	is_burned?: InputMaybe<Scalars["Boolean"]>;
+	name?: InputMaybe<Scalars["String"]>;
+	native_id?: InputMaybe<Scalars["String"]>;
+	symbol?: InputMaybe<Scalars["String"]>;
+	uri?: InputMaybe<Scalars["String"]>;
+};
+
+/** aggregate stddev on columns */
+export type Erc_Nf_Token_Stddev_Fields = {
+	__typename?: "erc_nf_token_stddev_fields";
+	amount?: Maybe<Scalars["Float"]>;
+};
+
+/** order by stddev() on columns of table "squid_erc.nf_token" */
+export type Erc_Nf_Token_Stddev_Order_By = {
+	amount?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Erc_Nf_Token_Stddev_Pop_Fields = {
+	__typename?: "erc_nf_token_stddev_pop_fields";
+	amount?: Maybe<Scalars["Float"]>;
+};
+
+/** order by stddev_pop() on columns of table "squid_erc.nf_token" */
+export type Erc_Nf_Token_Stddev_Pop_Order_By = {
+	amount?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Erc_Nf_Token_Stddev_Samp_Fields = {
+	__typename?: "erc_nf_token_stddev_samp_fields";
+	amount?: Maybe<Scalars["Float"]>;
+};
+
+/** order by stddev_samp() on columns of table "squid_erc.nf_token" */
+export type Erc_Nf_Token_Stddev_Samp_Order_By = {
+	amount?: InputMaybe<Order_By>;
+};
+
+/** Streaming cursor of the table "nf_token" */
+export type Erc_Nf_Token_Stream_Cursor_Input = {
+	/** Stream column input with initial value */
+	initial_value: Erc_Nf_Token_Stream_Cursor_Value_Input;
+	/** cursor ordering */
+	ordering?: InputMaybe<Erc_Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Erc_Nf_Token_Stream_Cursor_Value_Input = {
+	amount?: InputMaybe<Scalars["numeric"]>;
+	collection_id?: InputMaybe<Scalars["String"]>;
+	current_owner_id?: InputMaybe<Scalars["String"]>;
+	id?: InputMaybe<Scalars["String"]>;
+	is_burned?: InputMaybe<Scalars["Boolean"]>;
+	name?: InputMaybe<Scalars["String"]>;
+	native_id?: InputMaybe<Scalars["String"]>;
+	symbol?: InputMaybe<Scalars["String"]>;
+	uri?: InputMaybe<Scalars["String"]>;
+};
+
+/** aggregate sum on columns */
+export type Erc_Nf_Token_Sum_Fields = {
+	__typename?: "erc_nf_token_sum_fields";
+	amount?: Maybe<Scalars["numeric"]>;
+};
+
+/** order by sum() on columns of table "squid_erc.nf_token" */
+export type Erc_Nf_Token_Sum_Order_By = {
+	amount?: InputMaybe<Order_By>;
+};
+
+/** update columns of table "squid_erc.nf_token" */
+export enum Erc_Nf_Token_Update_Column {
+	/** column name */
+	Amount = "amount",
+	/** column name */
+	CollectionId = "collection_id",
+	/** column name */
+	CurrentOwnerId = "current_owner_id",
+	/** column name */
+	Id = "id",
+	/** column name */
+	IsBurned = "is_burned",
+	/** column name */
+	Name = "name",
+	/** column name */
+	NativeId = "native_id",
+	/** column name */
+	Symbol = "symbol",
+	/** column name */
+	Uri = "uri",
 }
 
-export type Erc_UriUpdateAction = {
-	__typename?: "erc_UriUpdateAction";
-	blockNumber: Scalars["erc_BigInt"];
-	id: Scalars["ID"];
-	newValue?: Maybe<Scalars["String"]>;
-	oldValue?: Maybe<Scalars["String"]>;
-	timestamp: Scalars["erc_DateTime"];
-	token: Erc_NfToken;
-	txnHash: Scalars["String"];
+export type Erc_Nf_Token_Updates = {
+	/** increments the numeric columns with given value of the filtered values */
+	_inc?: InputMaybe<Erc_Nf_Token_Inc_Input>;
+	/** sets the columns of the filtered rows to the given values */
+	_set?: InputMaybe<Erc_Nf_Token_Set_Input>;
+	where: Erc_Nf_Token_Bool_Exp;
 };
 
-export type Erc_UriUpdateActionEdge = {
-	__typename?: "erc_UriUpdateActionEdge";
-	cursor: Scalars["String"];
-	node: Erc_UriUpdateAction;
+/** aggregate var_pop on columns */
+export type Erc_Nf_Token_Var_Pop_Fields = {
+	__typename?: "erc_nf_token_var_pop_fields";
+	amount?: Maybe<Scalars["Float"]>;
 };
 
-export enum Erc_UriUpdateActionOrderByInput {
-	BlockNumberAsc = "blockNumber_ASC",
-	BlockNumberDesc = "blockNumber_DESC",
-	IdAsc = "id_ASC",
-	IdDesc = "id_DESC",
-	NewValueAsc = "newValue_ASC",
-	NewValueDesc = "newValue_DESC",
-	OldValueAsc = "oldValue_ASC",
-	OldValueDesc = "oldValue_DESC",
-	TimestampAsc = "timestamp_ASC",
-	TimestampDesc = "timestamp_DESC",
-	TokenAmountAsc = "token_amount_ASC",
-	TokenAmountDesc = "token_amount_DESC",
-	TokenIdAsc = "token_id_ASC",
-	TokenIdDesc = "token_id_DESC",
-	TokenIsBurnedAsc = "token_isBurned_ASC",
-	TokenIsBurnedDesc = "token_isBurned_DESC",
-	TokenNameAsc = "token_name_ASC",
-	TokenNameDesc = "token_name_DESC",
-	TokenNativeIdAsc = "token_nativeId_ASC",
-	TokenNativeIdDesc = "token_nativeId_DESC",
-	TokenSymbolAsc = "token_symbol_ASC",
-	TokenSymbolDesc = "token_symbol_DESC",
-	TokenUriAsc = "token_uri_ASC",
-	TokenUriDesc = "token_uri_DESC",
-	TxnHashAsc = "txnHash_ASC",
-	TxnHashDesc = "txnHash_DESC",
+/** order by var_pop() on columns of table "squid_erc.nf_token" */
+export type Erc_Nf_Token_Var_Pop_Order_By = {
+	amount?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Erc_Nf_Token_Var_Samp_Fields = {
+	__typename?: "erc_nf_token_var_samp_fields";
+	amount?: Maybe<Scalars["Float"]>;
+};
+
+/** order by var_samp() on columns of table "squid_erc.nf_token" */
+export type Erc_Nf_Token_Var_Samp_Order_By = {
+	amount?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Erc_Nf_Token_Variance_Fields = {
+	__typename?: "erc_nf_token_variance_fields";
+	amount?: Maybe<Scalars["Float"]>;
+};
+
+/** order by variance() on columns of table "squid_erc.nf_token" */
+export type Erc_Nf_Token_Variance_Order_By = {
+	amount?: InputMaybe<Order_By>;
+};
+
+/** columns and relationships of "squid_erc.nft_transfer" */
+export type Erc_Nft_Transfer = {
+	__typename?: "erc_nft_transfer";
+	/** An object relationship */
+	account?: Maybe<Erc_Account>;
+	/** An object relationship */
+	accountByFromId: Erc_Account;
+	/** An object relationship */
+	accountByToId: Erc_Account;
+	/** An array relationship */
+	account_nft_transfers: Array<Erc_Account_Nft_Transfer>;
+	/** An aggregate relationship */
+	account_nft_transfers_aggregate: Erc_Account_Nft_Transfer_Aggregate;
+	amount: Scalars["numeric"];
+	block_number: Scalars["numeric"];
+	event_index: Scalars["Int"];
+	from_id: Scalars["String"];
+	id: Scalars["String"];
+	is_batch: Scalars["Boolean"];
+	/** An object relationship */
+	nf_token: Erc_Nf_Token;
+	operator_id?: Maybe<Scalars["String"]>;
+	timestamp: Scalars["timestamptz"];
+	to_id: Scalars["String"];
+	token_id: Scalars["String"];
+	transfer_type?: Maybe<Scalars["String"]>;
+	txn_hash: Scalars["String"];
+};
+
+/** columns and relationships of "squid_erc.nft_transfer" */
+export type Erc_Nft_TransferAccount_Nft_TransfersArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Account_Nft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Account_Nft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Account_Nft_Transfer_Bool_Exp>;
+};
+
+/** columns and relationships of "squid_erc.nft_transfer" */
+export type Erc_Nft_TransferAccount_Nft_Transfers_AggregateArgs = {
+	distinct_on?: InputMaybe<Array<Erc_Account_Nft_Transfer_Select_Column>>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	offset?: InputMaybe<Scalars["Int"]>;
+	order_by?: InputMaybe<Array<Erc_Account_Nft_Transfer_Order_By>>;
+	where?: InputMaybe<Erc_Account_Nft_Transfer_Bool_Exp>;
+};
+
+/** aggregated selection of "squid_erc.nft_transfer" */
+export type Erc_Nft_Transfer_Aggregate = {
+	__typename?: "erc_nft_transfer_aggregate";
+	aggregate?: Maybe<Erc_Nft_Transfer_Aggregate_Fields>;
+	nodes: Array<Erc_Nft_Transfer>;
+};
+
+/** aggregate fields of "squid_erc.nft_transfer" */
+export type Erc_Nft_Transfer_Aggregate_Fields = {
+	__typename?: "erc_nft_transfer_aggregate_fields";
+	avg?: Maybe<Erc_Nft_Transfer_Avg_Fields>;
+	count: Scalars["Int"];
+	max?: Maybe<Erc_Nft_Transfer_Max_Fields>;
+	min?: Maybe<Erc_Nft_Transfer_Min_Fields>;
+	stddev?: Maybe<Erc_Nft_Transfer_Stddev_Fields>;
+	stddev_pop?: Maybe<Erc_Nft_Transfer_Stddev_Pop_Fields>;
+	stddev_samp?: Maybe<Erc_Nft_Transfer_Stddev_Samp_Fields>;
+	sum?: Maybe<Erc_Nft_Transfer_Sum_Fields>;
+	var_pop?: Maybe<Erc_Nft_Transfer_Var_Pop_Fields>;
+	var_samp?: Maybe<Erc_Nft_Transfer_Var_Samp_Fields>;
+	variance?: Maybe<Erc_Nft_Transfer_Variance_Fields>;
+};
+
+/** aggregate fields of "squid_erc.nft_transfer" */
+export type Erc_Nft_Transfer_Aggregate_FieldsCountArgs = {
+	columns?: InputMaybe<Array<Erc_Nft_Transfer_Select_Column>>;
+	distinct?: InputMaybe<Scalars["Boolean"]>;
+};
+
+/** order by aggregate values of table "squid_erc.nft_transfer" */
+export type Erc_Nft_Transfer_Aggregate_Order_By = {
+	avg?: InputMaybe<Erc_Nft_Transfer_Avg_Order_By>;
+	count?: InputMaybe<Order_By>;
+	max?: InputMaybe<Erc_Nft_Transfer_Max_Order_By>;
+	min?: InputMaybe<Erc_Nft_Transfer_Min_Order_By>;
+	stddev?: InputMaybe<Erc_Nft_Transfer_Stddev_Order_By>;
+	stddev_pop?: InputMaybe<Erc_Nft_Transfer_Stddev_Pop_Order_By>;
+	stddev_samp?: InputMaybe<Erc_Nft_Transfer_Stddev_Samp_Order_By>;
+	sum?: InputMaybe<Erc_Nft_Transfer_Sum_Order_By>;
+	var_pop?: InputMaybe<Erc_Nft_Transfer_Var_Pop_Order_By>;
+	var_samp?: InputMaybe<Erc_Nft_Transfer_Var_Samp_Order_By>;
+	variance?: InputMaybe<Erc_Nft_Transfer_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "squid_erc.nft_transfer" */
+export type Erc_Nft_Transfer_Arr_Rel_Insert_Input = {
+	data: Array<Erc_Nft_Transfer_Insert_Input>;
+	/** upsert condition */
+	on_conflict?: InputMaybe<Erc_Nft_Transfer_On_Conflict>;
+};
+
+/** aggregate avg on columns */
+export type Erc_Nft_Transfer_Avg_Fields = {
+	__typename?: "erc_nft_transfer_avg_fields";
+	amount?: Maybe<Scalars["Float"]>;
+	block_number?: Maybe<Scalars["Float"]>;
+	event_index?: Maybe<Scalars["Float"]>;
+};
+
+/** order by avg() on columns of table "squid_erc.nft_transfer" */
+export type Erc_Nft_Transfer_Avg_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	block_number?: InputMaybe<Order_By>;
+	event_index?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "squid_erc.nft_transfer". All fields are combined with a logical 'AND'. */
+export type Erc_Nft_Transfer_Bool_Exp = {
+	_and?: InputMaybe<Array<Erc_Nft_Transfer_Bool_Exp>>;
+	_not?: InputMaybe<Erc_Nft_Transfer_Bool_Exp>;
+	_or?: InputMaybe<Array<Erc_Nft_Transfer_Bool_Exp>>;
+	account?: InputMaybe<Erc_Account_Bool_Exp>;
+	accountByFromId?: InputMaybe<Erc_Account_Bool_Exp>;
+	accountByToId?: InputMaybe<Erc_Account_Bool_Exp>;
+	account_nft_transfers?: InputMaybe<Erc_Account_Nft_Transfer_Bool_Exp>;
+	amount?: InputMaybe<Numeric_Comparison_Exp>;
+	block_number?: InputMaybe<Numeric_Comparison_Exp>;
+	event_index?: InputMaybe<Int_Comparison_Exp>;
+	from_id?: InputMaybe<String_Comparison_Exp>;
+	id?: InputMaybe<String_Comparison_Exp>;
+	is_batch?: InputMaybe<Boolean_Comparison_Exp>;
+	nf_token?: InputMaybe<Erc_Nf_Token_Bool_Exp>;
+	operator_id?: InputMaybe<String_Comparison_Exp>;
+	timestamp?: InputMaybe<Timestamptz_Comparison_Exp>;
+	to_id?: InputMaybe<String_Comparison_Exp>;
+	token_id?: InputMaybe<String_Comparison_Exp>;
+	transfer_type?: InputMaybe<String_Comparison_Exp>;
+	txn_hash?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "squid_erc.nft_transfer" */
+export enum Erc_Nft_Transfer_Constraint {
+	/** unique or primary key constraint on columns "id" */
+	Pk_2d9d4b37560ecbcae8bd13026ab = "PK_2d9d4b37560ecbcae8bd13026ab",
 }
 
-export type Erc_UriUpdateActionWhereInput = {
-	AND?: InputMaybe<Array<Erc_UriUpdateActionWhereInput>>;
-	OR?: InputMaybe<Array<Erc_UriUpdateActionWhereInput>>;
-	blockNumber_eq?: InputMaybe<Scalars["erc_BigInt"]>;
-	blockNumber_gt?: InputMaybe<Scalars["erc_BigInt"]>;
-	blockNumber_gte?: InputMaybe<Scalars["erc_BigInt"]>;
-	blockNumber_in?: InputMaybe<Array<Scalars["erc_BigInt"]>>;
-	blockNumber_lt?: InputMaybe<Scalars["erc_BigInt"]>;
-	blockNumber_lte?: InputMaybe<Scalars["erc_BigInt"]>;
-	blockNumber_not_eq?: InputMaybe<Scalars["erc_BigInt"]>;
-	blockNumber_not_in?: InputMaybe<Array<Scalars["erc_BigInt"]>>;
-	id_contains?: InputMaybe<Scalars["ID"]>;
-	id_containsInsensitive?: InputMaybe<Scalars["ID"]>;
-	id_endsWith?: InputMaybe<Scalars["ID"]>;
-	id_eq?: InputMaybe<Scalars["ID"]>;
-	id_gt?: InputMaybe<Scalars["ID"]>;
-	id_gte?: InputMaybe<Scalars["ID"]>;
-	id_in?: InputMaybe<Array<Scalars["ID"]>>;
-	id_lt?: InputMaybe<Scalars["ID"]>;
-	id_lte?: InputMaybe<Scalars["ID"]>;
-	id_not_contains?: InputMaybe<Scalars["ID"]>;
-	id_not_containsInsensitive?: InputMaybe<Scalars["ID"]>;
-	id_not_endsWith?: InputMaybe<Scalars["ID"]>;
-	id_not_eq?: InputMaybe<Scalars["ID"]>;
-	id_not_in?: InputMaybe<Array<Scalars["ID"]>>;
-	id_not_startsWith?: InputMaybe<Scalars["ID"]>;
-	id_startsWith?: InputMaybe<Scalars["ID"]>;
-	newValue_contains?: InputMaybe<Scalars["String"]>;
-	newValue_containsInsensitive?: InputMaybe<Scalars["String"]>;
-	newValue_endsWith?: InputMaybe<Scalars["String"]>;
-	newValue_eq?: InputMaybe<Scalars["String"]>;
-	newValue_gt?: InputMaybe<Scalars["String"]>;
-	newValue_gte?: InputMaybe<Scalars["String"]>;
-	newValue_in?: InputMaybe<Array<Scalars["String"]>>;
-	newValue_isNull?: InputMaybe<Scalars["Boolean"]>;
-	newValue_lt?: InputMaybe<Scalars["String"]>;
-	newValue_lte?: InputMaybe<Scalars["String"]>;
-	newValue_not_contains?: InputMaybe<Scalars["String"]>;
-	newValue_not_containsInsensitive?: InputMaybe<Scalars["String"]>;
-	newValue_not_endsWith?: InputMaybe<Scalars["String"]>;
-	newValue_not_eq?: InputMaybe<Scalars["String"]>;
-	newValue_not_in?: InputMaybe<Array<Scalars["String"]>>;
-	newValue_not_startsWith?: InputMaybe<Scalars["String"]>;
-	newValue_startsWith?: InputMaybe<Scalars["String"]>;
-	oldValue_contains?: InputMaybe<Scalars["String"]>;
-	oldValue_containsInsensitive?: InputMaybe<Scalars["String"]>;
-	oldValue_endsWith?: InputMaybe<Scalars["String"]>;
-	oldValue_eq?: InputMaybe<Scalars["String"]>;
-	oldValue_gt?: InputMaybe<Scalars["String"]>;
-	oldValue_gte?: InputMaybe<Scalars["String"]>;
-	oldValue_in?: InputMaybe<Array<Scalars["String"]>>;
-	oldValue_isNull?: InputMaybe<Scalars["Boolean"]>;
-	oldValue_lt?: InputMaybe<Scalars["String"]>;
-	oldValue_lte?: InputMaybe<Scalars["String"]>;
-	oldValue_not_contains?: InputMaybe<Scalars["String"]>;
-	oldValue_not_containsInsensitive?: InputMaybe<Scalars["String"]>;
-	oldValue_not_endsWith?: InputMaybe<Scalars["String"]>;
-	oldValue_not_eq?: InputMaybe<Scalars["String"]>;
-	oldValue_not_in?: InputMaybe<Array<Scalars["String"]>>;
-	oldValue_not_startsWith?: InputMaybe<Scalars["String"]>;
-	oldValue_startsWith?: InputMaybe<Scalars["String"]>;
-	timestamp_eq?: InputMaybe<Scalars["erc_DateTime"]>;
-	timestamp_gt?: InputMaybe<Scalars["erc_DateTime"]>;
-	timestamp_gte?: InputMaybe<Scalars["erc_DateTime"]>;
-	timestamp_in?: InputMaybe<Array<Scalars["erc_DateTime"]>>;
-	timestamp_lt?: InputMaybe<Scalars["erc_DateTime"]>;
-	timestamp_lte?: InputMaybe<Scalars["erc_DateTime"]>;
-	timestamp_not_eq?: InputMaybe<Scalars["erc_DateTime"]>;
-	timestamp_not_in?: InputMaybe<Array<Scalars["erc_DateTime"]>>;
-	token?: InputMaybe<Erc_NfTokenWhereInput>;
-	txnHash_contains?: InputMaybe<Scalars["String"]>;
-	txnHash_containsInsensitive?: InputMaybe<Scalars["String"]>;
-	txnHash_endsWith?: InputMaybe<Scalars["String"]>;
-	txnHash_eq?: InputMaybe<Scalars["String"]>;
-	txnHash_gt?: InputMaybe<Scalars["String"]>;
-	txnHash_gte?: InputMaybe<Scalars["String"]>;
-	txnHash_in?: InputMaybe<Array<Scalars["String"]>>;
-	txnHash_lt?: InputMaybe<Scalars["String"]>;
-	txnHash_lte?: InputMaybe<Scalars["String"]>;
-	txnHash_not_contains?: InputMaybe<Scalars["String"]>;
-	txnHash_not_containsInsensitive?: InputMaybe<Scalars["String"]>;
-	txnHash_not_endsWith?: InputMaybe<Scalars["String"]>;
-	txnHash_not_eq?: InputMaybe<Scalars["String"]>;
-	txnHash_not_in?: InputMaybe<Array<Scalars["String"]>>;
-	txnHash_not_startsWith?: InputMaybe<Scalars["String"]>;
-	txnHash_startsWith?: InputMaybe<Scalars["String"]>;
+/** input type for incrementing numeric columns in table "squid_erc.nft_transfer" */
+export type Erc_Nft_Transfer_Inc_Input = {
+	amount?: InputMaybe<Scalars["numeric"]>;
+	block_number?: InputMaybe<Scalars["numeric"]>;
+	event_index?: InputMaybe<Scalars["Int"]>;
 };
 
-export type Erc_UriUpdateActionWhereUniqueInput = {
-	id: Scalars["ID"];
+/** input type for inserting data into table "squid_erc.nft_transfer" */
+export type Erc_Nft_Transfer_Insert_Input = {
+	account?: InputMaybe<Erc_Account_Obj_Rel_Insert_Input>;
+	accountByFromId?: InputMaybe<Erc_Account_Obj_Rel_Insert_Input>;
+	accountByToId?: InputMaybe<Erc_Account_Obj_Rel_Insert_Input>;
+	account_nft_transfers?: InputMaybe<Erc_Account_Nft_Transfer_Arr_Rel_Insert_Input>;
+	amount?: InputMaybe<Scalars["numeric"]>;
+	block_number?: InputMaybe<Scalars["numeric"]>;
+	event_index?: InputMaybe<Scalars["Int"]>;
+	from_id?: InputMaybe<Scalars["String"]>;
+	id?: InputMaybe<Scalars["String"]>;
+	is_batch?: InputMaybe<Scalars["Boolean"]>;
+	nf_token?: InputMaybe<Erc_Nf_Token_Obj_Rel_Insert_Input>;
+	operator_id?: InputMaybe<Scalars["String"]>;
+	timestamp?: InputMaybe<Scalars["timestamptz"]>;
+	to_id?: InputMaybe<Scalars["String"]>;
+	token_id?: InputMaybe<Scalars["String"]>;
+	transfer_type?: InputMaybe<Scalars["String"]>;
+	txn_hash?: InputMaybe<Scalars["String"]>;
 };
 
-export type Erc_UriUpdateActionsConnection = {
-	__typename?: "erc_UriUpdateActionsConnection";
-	edges: Array<Erc_UriUpdateActionEdge>;
-	pageInfo: Erc_PageInfo;
-	totalCount: Scalars["Int"];
+/** aggregate max on columns */
+export type Erc_Nft_Transfer_Max_Fields = {
+	__typename?: "erc_nft_transfer_max_fields";
+	amount?: Maybe<Scalars["numeric"]>;
+	block_number?: Maybe<Scalars["numeric"]>;
+	event_index?: Maybe<Scalars["Int"]>;
+	from_id?: Maybe<Scalars["String"]>;
+	id?: Maybe<Scalars["String"]>;
+	operator_id?: Maybe<Scalars["String"]>;
+	timestamp?: Maybe<Scalars["timestamptz"]>;
+	to_id?: Maybe<Scalars["String"]>;
+	token_id?: Maybe<Scalars["String"]>;
+	transfer_type?: Maybe<Scalars["String"]>;
+	txn_hash?: Maybe<Scalars["String"]>;
+};
+
+/** order by max() on columns of table "squid_erc.nft_transfer" */
+export type Erc_Nft_Transfer_Max_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	block_number?: InputMaybe<Order_By>;
+	event_index?: InputMaybe<Order_By>;
+	from_id?: InputMaybe<Order_By>;
+	id?: InputMaybe<Order_By>;
+	operator_id?: InputMaybe<Order_By>;
+	timestamp?: InputMaybe<Order_By>;
+	to_id?: InputMaybe<Order_By>;
+	token_id?: InputMaybe<Order_By>;
+	transfer_type?: InputMaybe<Order_By>;
+	txn_hash?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Erc_Nft_Transfer_Min_Fields = {
+	__typename?: "erc_nft_transfer_min_fields";
+	amount?: Maybe<Scalars["numeric"]>;
+	block_number?: Maybe<Scalars["numeric"]>;
+	event_index?: Maybe<Scalars["Int"]>;
+	from_id?: Maybe<Scalars["String"]>;
+	id?: Maybe<Scalars["String"]>;
+	operator_id?: Maybe<Scalars["String"]>;
+	timestamp?: Maybe<Scalars["timestamptz"]>;
+	to_id?: Maybe<Scalars["String"]>;
+	token_id?: Maybe<Scalars["String"]>;
+	transfer_type?: Maybe<Scalars["String"]>;
+	txn_hash?: Maybe<Scalars["String"]>;
+};
+
+/** order by min() on columns of table "squid_erc.nft_transfer" */
+export type Erc_Nft_Transfer_Min_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	block_number?: InputMaybe<Order_By>;
+	event_index?: InputMaybe<Order_By>;
+	from_id?: InputMaybe<Order_By>;
+	id?: InputMaybe<Order_By>;
+	operator_id?: InputMaybe<Order_By>;
+	timestamp?: InputMaybe<Order_By>;
+	to_id?: InputMaybe<Order_By>;
+	token_id?: InputMaybe<Order_By>;
+	transfer_type?: InputMaybe<Order_By>;
+	txn_hash?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "squid_erc.nft_transfer" */
+export type Erc_Nft_Transfer_Mutation_Response = {
+	__typename?: "erc_nft_transfer_mutation_response";
+	/** number of rows affected by the mutation */
+	affected_rows: Scalars["Int"];
+	/** data from the rows affected by the mutation */
+	returning: Array<Erc_Nft_Transfer>;
+};
+
+/** input type for inserting object relation for remote table "squid_erc.nft_transfer" */
+export type Erc_Nft_Transfer_Obj_Rel_Insert_Input = {
+	data: Erc_Nft_Transfer_Insert_Input;
+	/** upsert condition */
+	on_conflict?: InputMaybe<Erc_Nft_Transfer_On_Conflict>;
+};
+
+/** on_conflict condition type for table "squid_erc.nft_transfer" */
+export type Erc_Nft_Transfer_On_Conflict = {
+	constraint: Erc_Nft_Transfer_Constraint;
+	update_columns?: Array<Erc_Nft_Transfer_Update_Column>;
+	where?: InputMaybe<Erc_Nft_Transfer_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "squid_erc.nft_transfer". */
+export type Erc_Nft_Transfer_Order_By = {
+	account?: InputMaybe<Erc_Account_Order_By>;
+	accountByFromId?: InputMaybe<Erc_Account_Order_By>;
+	accountByToId?: InputMaybe<Erc_Account_Order_By>;
+	account_nft_transfers_aggregate?: InputMaybe<Erc_Account_Nft_Transfer_Aggregate_Order_By>;
+	amount?: InputMaybe<Order_By>;
+	block_number?: InputMaybe<Order_By>;
+	event_index?: InputMaybe<Order_By>;
+	from_id?: InputMaybe<Order_By>;
+	id?: InputMaybe<Order_By>;
+	is_batch?: InputMaybe<Order_By>;
+	nf_token?: InputMaybe<Erc_Nf_Token_Order_By>;
+	operator_id?: InputMaybe<Order_By>;
+	timestamp?: InputMaybe<Order_By>;
+	to_id?: InputMaybe<Order_By>;
+	token_id?: InputMaybe<Order_By>;
+	transfer_type?: InputMaybe<Order_By>;
+	txn_hash?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: nft_transfer */
+export type Erc_Nft_Transfer_Pk_Columns_Input = {
+	id: Scalars["String"];
+};
+
+/** select columns of table "squid_erc.nft_transfer" */
+export enum Erc_Nft_Transfer_Select_Column {
+	/** column name */
+	Amount = "amount",
+	/** column name */
+	BlockNumber = "block_number",
+	/** column name */
+	EventIndex = "event_index",
+	/** column name */
+	FromId = "from_id",
+	/** column name */
+	Id = "id",
+	/** column name */
+	IsBatch = "is_batch",
+	/** column name */
+	OperatorId = "operator_id",
+	/** column name */
+	Timestamp = "timestamp",
+	/** column name */
+	ToId = "to_id",
+	/** column name */
+	TokenId = "token_id",
+	/** column name */
+	TransferType = "transfer_type",
+	/** column name */
+	TxnHash = "txn_hash",
+}
+
+/** input type for updating data in table "squid_erc.nft_transfer" */
+export type Erc_Nft_Transfer_Set_Input = {
+	amount?: InputMaybe<Scalars["numeric"]>;
+	block_number?: InputMaybe<Scalars["numeric"]>;
+	event_index?: InputMaybe<Scalars["Int"]>;
+	from_id?: InputMaybe<Scalars["String"]>;
+	id?: InputMaybe<Scalars["String"]>;
+	is_batch?: InputMaybe<Scalars["Boolean"]>;
+	operator_id?: InputMaybe<Scalars["String"]>;
+	timestamp?: InputMaybe<Scalars["timestamptz"]>;
+	to_id?: InputMaybe<Scalars["String"]>;
+	token_id?: InputMaybe<Scalars["String"]>;
+	transfer_type?: InputMaybe<Scalars["String"]>;
+	txn_hash?: InputMaybe<Scalars["String"]>;
+};
+
+/** aggregate stddev on columns */
+export type Erc_Nft_Transfer_Stddev_Fields = {
+	__typename?: "erc_nft_transfer_stddev_fields";
+	amount?: Maybe<Scalars["Float"]>;
+	block_number?: Maybe<Scalars["Float"]>;
+	event_index?: Maybe<Scalars["Float"]>;
+};
+
+/** order by stddev() on columns of table "squid_erc.nft_transfer" */
+export type Erc_Nft_Transfer_Stddev_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	block_number?: InputMaybe<Order_By>;
+	event_index?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Erc_Nft_Transfer_Stddev_Pop_Fields = {
+	__typename?: "erc_nft_transfer_stddev_pop_fields";
+	amount?: Maybe<Scalars["Float"]>;
+	block_number?: Maybe<Scalars["Float"]>;
+	event_index?: Maybe<Scalars["Float"]>;
+};
+
+/** order by stddev_pop() on columns of table "squid_erc.nft_transfer" */
+export type Erc_Nft_Transfer_Stddev_Pop_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	block_number?: InputMaybe<Order_By>;
+	event_index?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Erc_Nft_Transfer_Stddev_Samp_Fields = {
+	__typename?: "erc_nft_transfer_stddev_samp_fields";
+	amount?: Maybe<Scalars["Float"]>;
+	block_number?: Maybe<Scalars["Float"]>;
+	event_index?: Maybe<Scalars["Float"]>;
+};
+
+/** order by stddev_samp() on columns of table "squid_erc.nft_transfer" */
+export type Erc_Nft_Transfer_Stddev_Samp_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	block_number?: InputMaybe<Order_By>;
+	event_index?: InputMaybe<Order_By>;
+};
+
+/** Streaming cursor of the table "nft_transfer" */
+export type Erc_Nft_Transfer_Stream_Cursor_Input = {
+	/** Stream column input with initial value */
+	initial_value: Erc_Nft_Transfer_Stream_Cursor_Value_Input;
+	/** cursor ordering */
+	ordering?: InputMaybe<Erc_Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Erc_Nft_Transfer_Stream_Cursor_Value_Input = {
+	amount?: InputMaybe<Scalars["numeric"]>;
+	block_number?: InputMaybe<Scalars["numeric"]>;
+	event_index?: InputMaybe<Scalars["Int"]>;
+	from_id?: InputMaybe<Scalars["String"]>;
+	id?: InputMaybe<Scalars["String"]>;
+	is_batch?: InputMaybe<Scalars["Boolean"]>;
+	operator_id?: InputMaybe<Scalars["String"]>;
+	timestamp?: InputMaybe<Scalars["timestamptz"]>;
+	to_id?: InputMaybe<Scalars["String"]>;
+	token_id?: InputMaybe<Scalars["String"]>;
+	transfer_type?: InputMaybe<Scalars["String"]>;
+	txn_hash?: InputMaybe<Scalars["String"]>;
+};
+
+/** aggregate sum on columns */
+export type Erc_Nft_Transfer_Sum_Fields = {
+	__typename?: "erc_nft_transfer_sum_fields";
+	amount?: Maybe<Scalars["numeric"]>;
+	block_number?: Maybe<Scalars["numeric"]>;
+	event_index?: Maybe<Scalars["Int"]>;
+};
+
+/** order by sum() on columns of table "squid_erc.nft_transfer" */
+export type Erc_Nft_Transfer_Sum_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	block_number?: InputMaybe<Order_By>;
+	event_index?: InputMaybe<Order_By>;
+};
+
+/** update columns of table "squid_erc.nft_transfer" */
+export enum Erc_Nft_Transfer_Update_Column {
+	/** column name */
+	Amount = "amount",
+	/** column name */
+	BlockNumber = "block_number",
+	/** column name */
+	EventIndex = "event_index",
+	/** column name */
+	FromId = "from_id",
+	/** column name */
+	Id = "id",
+	/** column name */
+	IsBatch = "is_batch",
+	/** column name */
+	OperatorId = "operator_id",
+	/** column name */
+	Timestamp = "timestamp",
+	/** column name */
+	ToId = "to_id",
+	/** column name */
+	TokenId = "token_id",
+	/** column name */
+	TransferType = "transfer_type",
+	/** column name */
+	TxnHash = "txn_hash",
+}
+
+export type Erc_Nft_Transfer_Updates = {
+	/** increments the numeric columns with given value of the filtered values */
+	_inc?: InputMaybe<Erc_Nft_Transfer_Inc_Input>;
+	/** sets the columns of the filtered rows to the given values */
+	_set?: InputMaybe<Erc_Nft_Transfer_Set_Input>;
+	where: Erc_Nft_Transfer_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Erc_Nft_Transfer_Var_Pop_Fields = {
+	__typename?: "erc_nft_transfer_var_pop_fields";
+	amount?: Maybe<Scalars["Float"]>;
+	block_number?: Maybe<Scalars["Float"]>;
+	event_index?: Maybe<Scalars["Float"]>;
+};
+
+/** order by var_pop() on columns of table "squid_erc.nft_transfer" */
+export type Erc_Nft_Transfer_Var_Pop_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	block_number?: InputMaybe<Order_By>;
+	event_index?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Erc_Nft_Transfer_Var_Samp_Fields = {
+	__typename?: "erc_nft_transfer_var_samp_fields";
+	amount?: Maybe<Scalars["Float"]>;
+	block_number?: Maybe<Scalars["Float"]>;
+	event_index?: Maybe<Scalars["Float"]>;
+};
+
+/** order by var_samp() on columns of table "squid_erc.nft_transfer" */
+export type Erc_Nft_Transfer_Var_Samp_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	block_number?: InputMaybe<Order_By>;
+	event_index?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Erc_Nft_Transfer_Variance_Fields = {
+	__typename?: "erc_nft_transfer_variance_fields";
+	amount?: Maybe<Scalars["Float"]>;
+	block_number?: Maybe<Scalars["Float"]>;
+	event_index?: Maybe<Scalars["Float"]>;
+};
+
+/** order by variance() on columns of table "squid_erc.nft_transfer" */
+export type Erc_Nft_Transfer_Variance_Order_By = {
+	amount?: InputMaybe<Order_By>;
+	block_number?: InputMaybe<Order_By>;
+	event_index?: InputMaybe<Order_By>;
+};
+
+/** columns and relationships of "squid_erc.uri_update_action" */
+export type Erc_Uri_Update_Action = {
+	__typename?: "erc_uri_update_action";
+	block_number: Scalars["numeric"];
+	id: Scalars["String"];
+	new_value?: Maybe<Scalars["String"]>;
+	/** An object relationship */
+	nf_token: Erc_Nf_Token;
+	old_value?: Maybe<Scalars["String"]>;
+	timestamp: Scalars["timestamptz"];
+	token_id: Scalars["String"];
+	txn_hash: Scalars["String"];
+};
+
+/** aggregated selection of "squid_erc.uri_update_action" */
+export type Erc_Uri_Update_Action_Aggregate = {
+	__typename?: "erc_uri_update_action_aggregate";
+	aggregate?: Maybe<Erc_Uri_Update_Action_Aggregate_Fields>;
+	nodes: Array<Erc_Uri_Update_Action>;
+};
+
+/** aggregate fields of "squid_erc.uri_update_action" */
+export type Erc_Uri_Update_Action_Aggregate_Fields = {
+	__typename?: "erc_uri_update_action_aggregate_fields";
+	avg?: Maybe<Erc_Uri_Update_Action_Avg_Fields>;
+	count: Scalars["Int"];
+	max?: Maybe<Erc_Uri_Update_Action_Max_Fields>;
+	min?: Maybe<Erc_Uri_Update_Action_Min_Fields>;
+	stddev?: Maybe<Erc_Uri_Update_Action_Stddev_Fields>;
+	stddev_pop?: Maybe<Erc_Uri_Update_Action_Stddev_Pop_Fields>;
+	stddev_samp?: Maybe<Erc_Uri_Update_Action_Stddev_Samp_Fields>;
+	sum?: Maybe<Erc_Uri_Update_Action_Sum_Fields>;
+	var_pop?: Maybe<Erc_Uri_Update_Action_Var_Pop_Fields>;
+	var_samp?: Maybe<Erc_Uri_Update_Action_Var_Samp_Fields>;
+	variance?: Maybe<Erc_Uri_Update_Action_Variance_Fields>;
+};
+
+/** aggregate fields of "squid_erc.uri_update_action" */
+export type Erc_Uri_Update_Action_Aggregate_FieldsCountArgs = {
+	columns?: InputMaybe<Array<Erc_Uri_Update_Action_Select_Column>>;
+	distinct?: InputMaybe<Scalars["Boolean"]>;
+};
+
+/** order by aggregate values of table "squid_erc.uri_update_action" */
+export type Erc_Uri_Update_Action_Aggregate_Order_By = {
+	avg?: InputMaybe<Erc_Uri_Update_Action_Avg_Order_By>;
+	count?: InputMaybe<Order_By>;
+	max?: InputMaybe<Erc_Uri_Update_Action_Max_Order_By>;
+	min?: InputMaybe<Erc_Uri_Update_Action_Min_Order_By>;
+	stddev?: InputMaybe<Erc_Uri_Update_Action_Stddev_Order_By>;
+	stddev_pop?: InputMaybe<Erc_Uri_Update_Action_Stddev_Pop_Order_By>;
+	stddev_samp?: InputMaybe<Erc_Uri_Update_Action_Stddev_Samp_Order_By>;
+	sum?: InputMaybe<Erc_Uri_Update_Action_Sum_Order_By>;
+	var_pop?: InputMaybe<Erc_Uri_Update_Action_Var_Pop_Order_By>;
+	var_samp?: InputMaybe<Erc_Uri_Update_Action_Var_Samp_Order_By>;
+	variance?: InputMaybe<Erc_Uri_Update_Action_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "squid_erc.uri_update_action" */
+export type Erc_Uri_Update_Action_Arr_Rel_Insert_Input = {
+	data: Array<Erc_Uri_Update_Action_Insert_Input>;
+	/** upsert condition */
+	on_conflict?: InputMaybe<Erc_Uri_Update_Action_On_Conflict>;
+};
+
+/** aggregate avg on columns */
+export type Erc_Uri_Update_Action_Avg_Fields = {
+	__typename?: "erc_uri_update_action_avg_fields";
+	block_number?: Maybe<Scalars["Float"]>;
+};
+
+/** order by avg() on columns of table "squid_erc.uri_update_action" */
+export type Erc_Uri_Update_Action_Avg_Order_By = {
+	block_number?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "squid_erc.uri_update_action". All fields are combined with a logical 'AND'. */
+export type Erc_Uri_Update_Action_Bool_Exp = {
+	_and?: InputMaybe<Array<Erc_Uri_Update_Action_Bool_Exp>>;
+	_not?: InputMaybe<Erc_Uri_Update_Action_Bool_Exp>;
+	_or?: InputMaybe<Array<Erc_Uri_Update_Action_Bool_Exp>>;
+	block_number?: InputMaybe<Numeric_Comparison_Exp>;
+	id?: InputMaybe<String_Comparison_Exp>;
+	new_value?: InputMaybe<String_Comparison_Exp>;
+	nf_token?: InputMaybe<Erc_Nf_Token_Bool_Exp>;
+	old_value?: InputMaybe<String_Comparison_Exp>;
+	timestamp?: InputMaybe<Timestamptz_Comparison_Exp>;
+	token_id?: InputMaybe<String_Comparison_Exp>;
+	txn_hash?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "squid_erc.uri_update_action" */
+export enum Erc_Uri_Update_Action_Constraint {
+	/** unique or primary key constraint on columns "id" */
+	Pk_0de40fe0fe070f895e84d31ecd0 = "PK_0de40fe0fe070f895e84d31ecd0",
+}
+
+/** input type for incrementing numeric columns in table "squid_erc.uri_update_action" */
+export type Erc_Uri_Update_Action_Inc_Input = {
+	block_number?: InputMaybe<Scalars["numeric"]>;
+};
+
+/** input type for inserting data into table "squid_erc.uri_update_action" */
+export type Erc_Uri_Update_Action_Insert_Input = {
+	block_number?: InputMaybe<Scalars["numeric"]>;
+	id?: InputMaybe<Scalars["String"]>;
+	new_value?: InputMaybe<Scalars["String"]>;
+	nf_token?: InputMaybe<Erc_Nf_Token_Obj_Rel_Insert_Input>;
+	old_value?: InputMaybe<Scalars["String"]>;
+	timestamp?: InputMaybe<Scalars["timestamptz"]>;
+	token_id?: InputMaybe<Scalars["String"]>;
+	txn_hash?: InputMaybe<Scalars["String"]>;
+};
+
+/** aggregate max on columns */
+export type Erc_Uri_Update_Action_Max_Fields = {
+	__typename?: "erc_uri_update_action_max_fields";
+	block_number?: Maybe<Scalars["numeric"]>;
+	id?: Maybe<Scalars["String"]>;
+	new_value?: Maybe<Scalars["String"]>;
+	old_value?: Maybe<Scalars["String"]>;
+	timestamp?: Maybe<Scalars["timestamptz"]>;
+	token_id?: Maybe<Scalars["String"]>;
+	txn_hash?: Maybe<Scalars["String"]>;
+};
+
+/** order by max() on columns of table "squid_erc.uri_update_action" */
+export type Erc_Uri_Update_Action_Max_Order_By = {
+	block_number?: InputMaybe<Order_By>;
+	id?: InputMaybe<Order_By>;
+	new_value?: InputMaybe<Order_By>;
+	old_value?: InputMaybe<Order_By>;
+	timestamp?: InputMaybe<Order_By>;
+	token_id?: InputMaybe<Order_By>;
+	txn_hash?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Erc_Uri_Update_Action_Min_Fields = {
+	__typename?: "erc_uri_update_action_min_fields";
+	block_number?: Maybe<Scalars["numeric"]>;
+	id?: Maybe<Scalars["String"]>;
+	new_value?: Maybe<Scalars["String"]>;
+	old_value?: Maybe<Scalars["String"]>;
+	timestamp?: Maybe<Scalars["timestamptz"]>;
+	token_id?: Maybe<Scalars["String"]>;
+	txn_hash?: Maybe<Scalars["String"]>;
+};
+
+/** order by min() on columns of table "squid_erc.uri_update_action" */
+export type Erc_Uri_Update_Action_Min_Order_By = {
+	block_number?: InputMaybe<Order_By>;
+	id?: InputMaybe<Order_By>;
+	new_value?: InputMaybe<Order_By>;
+	old_value?: InputMaybe<Order_By>;
+	timestamp?: InputMaybe<Order_By>;
+	token_id?: InputMaybe<Order_By>;
+	txn_hash?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "squid_erc.uri_update_action" */
+export type Erc_Uri_Update_Action_Mutation_Response = {
+	__typename?: "erc_uri_update_action_mutation_response";
+	/** number of rows affected by the mutation */
+	affected_rows: Scalars["Int"];
+	/** data from the rows affected by the mutation */
+	returning: Array<Erc_Uri_Update_Action>;
+};
+
+/** on_conflict condition type for table "squid_erc.uri_update_action" */
+export type Erc_Uri_Update_Action_On_Conflict = {
+	constraint: Erc_Uri_Update_Action_Constraint;
+	update_columns?: Array<Erc_Uri_Update_Action_Update_Column>;
+	where?: InputMaybe<Erc_Uri_Update_Action_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "squid_erc.uri_update_action". */
+export type Erc_Uri_Update_Action_Order_By = {
+	block_number?: InputMaybe<Order_By>;
+	id?: InputMaybe<Order_By>;
+	new_value?: InputMaybe<Order_By>;
+	nf_token?: InputMaybe<Erc_Nf_Token_Order_By>;
+	old_value?: InputMaybe<Order_By>;
+	timestamp?: InputMaybe<Order_By>;
+	token_id?: InputMaybe<Order_By>;
+	txn_hash?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: uri_update_action */
+export type Erc_Uri_Update_Action_Pk_Columns_Input = {
+	id: Scalars["String"];
+};
+
+/** select columns of table "squid_erc.uri_update_action" */
+export enum Erc_Uri_Update_Action_Select_Column {
+	/** column name */
+	BlockNumber = "block_number",
+	/** column name */
+	Id = "id",
+	/** column name */
+	NewValue = "new_value",
+	/** column name */
+	OldValue = "old_value",
+	/** column name */
+	Timestamp = "timestamp",
+	/** column name */
+	TokenId = "token_id",
+	/** column name */
+	TxnHash = "txn_hash",
+}
+
+/** input type for updating data in table "squid_erc.uri_update_action" */
+export type Erc_Uri_Update_Action_Set_Input = {
+	block_number?: InputMaybe<Scalars["numeric"]>;
+	id?: InputMaybe<Scalars["String"]>;
+	new_value?: InputMaybe<Scalars["String"]>;
+	old_value?: InputMaybe<Scalars["String"]>;
+	timestamp?: InputMaybe<Scalars["timestamptz"]>;
+	token_id?: InputMaybe<Scalars["String"]>;
+	txn_hash?: InputMaybe<Scalars["String"]>;
+};
+
+/** aggregate stddev on columns */
+export type Erc_Uri_Update_Action_Stddev_Fields = {
+	__typename?: "erc_uri_update_action_stddev_fields";
+	block_number?: Maybe<Scalars["Float"]>;
+};
+
+/** order by stddev() on columns of table "squid_erc.uri_update_action" */
+export type Erc_Uri_Update_Action_Stddev_Order_By = {
+	block_number?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Erc_Uri_Update_Action_Stddev_Pop_Fields = {
+	__typename?: "erc_uri_update_action_stddev_pop_fields";
+	block_number?: Maybe<Scalars["Float"]>;
+};
+
+/** order by stddev_pop() on columns of table "squid_erc.uri_update_action" */
+export type Erc_Uri_Update_Action_Stddev_Pop_Order_By = {
+	block_number?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Erc_Uri_Update_Action_Stddev_Samp_Fields = {
+	__typename?: "erc_uri_update_action_stddev_samp_fields";
+	block_number?: Maybe<Scalars["Float"]>;
+};
+
+/** order by stddev_samp() on columns of table "squid_erc.uri_update_action" */
+export type Erc_Uri_Update_Action_Stddev_Samp_Order_By = {
+	block_number?: InputMaybe<Order_By>;
+};
+
+/** Streaming cursor of the table "uri_update_action" */
+export type Erc_Uri_Update_Action_Stream_Cursor_Input = {
+	/** Stream column input with initial value */
+	initial_value: Erc_Uri_Update_Action_Stream_Cursor_Value_Input;
+	/** cursor ordering */
+	ordering?: InputMaybe<Erc_Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Erc_Uri_Update_Action_Stream_Cursor_Value_Input = {
+	block_number?: InputMaybe<Scalars["numeric"]>;
+	id?: InputMaybe<Scalars["String"]>;
+	new_value?: InputMaybe<Scalars["String"]>;
+	old_value?: InputMaybe<Scalars["String"]>;
+	timestamp?: InputMaybe<Scalars["timestamptz"]>;
+	token_id?: InputMaybe<Scalars["String"]>;
+	txn_hash?: InputMaybe<Scalars["String"]>;
+};
+
+/** aggregate sum on columns */
+export type Erc_Uri_Update_Action_Sum_Fields = {
+	__typename?: "erc_uri_update_action_sum_fields";
+	block_number?: Maybe<Scalars["numeric"]>;
+};
+
+/** order by sum() on columns of table "squid_erc.uri_update_action" */
+export type Erc_Uri_Update_Action_Sum_Order_By = {
+	block_number?: InputMaybe<Order_By>;
+};
+
+/** update columns of table "squid_erc.uri_update_action" */
+export enum Erc_Uri_Update_Action_Update_Column {
+	/** column name */
+	BlockNumber = "block_number",
+	/** column name */
+	Id = "id",
+	/** column name */
+	NewValue = "new_value",
+	/** column name */
+	OldValue = "old_value",
+	/** column name */
+	Timestamp = "timestamp",
+	/** column name */
+	TokenId = "token_id",
+	/** column name */
+	TxnHash = "txn_hash",
+}
+
+export type Erc_Uri_Update_Action_Updates = {
+	/** increments the numeric columns with given value of the filtered values */
+	_inc?: InputMaybe<Erc_Uri_Update_Action_Inc_Input>;
+	/** sets the columns of the filtered rows to the given values */
+	_set?: InputMaybe<Erc_Uri_Update_Action_Set_Input>;
+	where: Erc_Uri_Update_Action_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Erc_Uri_Update_Action_Var_Pop_Fields = {
+	__typename?: "erc_uri_update_action_var_pop_fields";
+	block_number?: Maybe<Scalars["Float"]>;
+};
+
+/** order by var_pop() on columns of table "squid_erc.uri_update_action" */
+export type Erc_Uri_Update_Action_Var_Pop_Order_By = {
+	block_number?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Erc_Uri_Update_Action_Var_Samp_Fields = {
+	__typename?: "erc_uri_update_action_var_samp_fields";
+	block_number?: Maybe<Scalars["Float"]>;
+};
+
+/** order by var_samp() on columns of table "squid_erc.uri_update_action" */
+export type Erc_Uri_Update_Action_Var_Samp_Order_By = {
+	block_number?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Erc_Uri_Update_Action_Variance_Fields = {
+	__typename?: "erc_uri_update_action_variance_fields";
+	block_number?: Maybe<Scalars["Float"]>;
+};
+
+/** order by variance() on columns of table "squid_erc.uri_update_action" */
+export type Erc_Uri_Update_Action_Variance_Order_By = {
+	block_number?: InputMaybe<Order_By>;
 };
 
 export type Jsonb_Cast_Exp = {
@@ -6647,6 +9661,7 @@ export type Mutation_Root = {
 	__typename?: "mutation_root";
 	archive?: Maybe<Archive_Archive_Mutation_Frontend>;
 	balances?: Maybe<Balances_Balances_Mutation_Frontend>;
+	erc?: Maybe<Erc_Erc_Mutation_Frontend>;
 };
 
 /** Boolean expression to compare columns of type "numeric". All fields are combined with logical 'AND'. */
@@ -6682,13 +9697,14 @@ export type Query_Root = {
 	__typename?: "query_root";
 	archive?: Maybe<Archive_Archive_Query>;
 	balances?: Maybe<Balances_Balances_Query>;
-	erc?: Maybe<ErcQuery>;
+	erc?: Maybe<Erc_Erc_Query>;
 };
 
 export type Subscription_Root = {
 	__typename?: "subscription_root";
 	archive?: Maybe<Archive_Archive_Subscription>;
 	balances?: Maybe<Balances_Balances_Subscription>;
+	erc?: Maybe<Erc_Erc_Subscription>;
 };
 
 /** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
@@ -6872,6 +9888,58 @@ export type GetChainDataQuery = {
 			__typename?: "balances_transfer_aggregate";
 			aggregate?: {
 				__typename?: "balances_transfer_aggregate_fields";
+				count: number;
+			} | null;
+		};
+	} | null;
+};
+
+export type GetErcTransfersForAddressQueryVariables = Exact<{
+	address: Scalars["String"];
+	offset?: InputMaybe<Scalars["Int"]>;
+}>;
+
+export type GetErcTransfersForAddressQuery = {
+	__typename?: "query_root";
+	erc?: {
+		__typename?: "erc_erc_query";
+		ft_transfer: Array<{
+			__typename?: "erc_ft_transfer";
+			id: string;
+			amount?: any | null;
+			block_number: any;
+			timestamp: any;
+			to_id: string;
+			from_id: string;
+			event_index: number;
+			token_id: string;
+			transfer_type?: string | null;
+			txn_hash: string;
+		}>;
+		nft_transfer: Array<{
+			__typename?: "erc_nft_transfer";
+			id: string;
+			amount: any;
+			block_number: any;
+			timestamp: any;
+			to_id: string;
+			from_id: string;
+			event_index: number;
+			token_id: string;
+			transfer_type?: string | null;
+			txn_hash: string;
+		}>;
+		ft_transfer_aggregate: {
+			__typename?: "erc_ft_transfer_aggregate";
+			aggregate?: {
+				__typename?: "erc_ft_transfer_aggregate_fields";
+				count: number;
+			} | null;
+		};
+		nft_transfer_aggregate: {
+			__typename?: "erc_nft_transfer_aggregate";
+			aggregate?: {
+				__typename?: "erc_nft_transfer_aggregate_fields";
 				count: number;
 			} | null;
 		};
@@ -7259,6 +10327,73 @@ export const useGetChainDataQuery = <
 			variables,
 			headers
 		),
+		options
+	);
+export const GetErcTransfersForAddressDocument = `
+    query GetErcTransfersForAddress($address: String!, $offset: Int) {
+  erc {
+    ft_transfer(
+      limit: $offset
+      where: {_or: {from_id: {_eq: $address}, id: {_eq: $address}}}
+    ) {
+      id
+      amount
+      block_number
+      timestamp
+      to_id
+      from_id
+      event_index
+      token_id
+      transfer_type
+      txn_hash
+    }
+    nft_transfer(
+      limit: $offset
+      where: {_or: {from_id: {_eq: $address}, id: {_eq: $address}}}
+    ) {
+      id
+      amount
+      block_number
+      timestamp
+      to_id
+      from_id
+      event_index
+      token_id
+      transfer_type
+      txn_hash
+    }
+    ft_transfer_aggregate(
+      where: {_or: {from_id: {_eq: $address}, id: {_eq: $address}}}
+    ) {
+      aggregate {
+        count
+      }
+    }
+    nft_transfer_aggregate(
+      where: {_or: {from_id: {_eq: $address}, id: {_eq: $address}}}
+    ) {
+      aggregate {
+        count
+      }
+    }
+  }
+}
+    `;
+export const useGetErcTransfersForAddressQuery = <
+	TData = GetErcTransfersForAddressQuery,
+	TError = unknown
+>(
+	client: GraphQLClient,
+	variables: GetErcTransfersForAddressQueryVariables,
+	options?: UseQueryOptions<GetErcTransfersForAddressQuery, TError, TData>,
+	headers?: RequestInit["headers"]
+) =>
+	useQuery<GetErcTransfersForAddressQuery, TError, TData>(
+		["GetErcTransfersForAddress", variables],
+		fetcher<
+			GetErcTransfersForAddressQuery,
+			GetErcTransfersForAddressQueryVariables
+		>(client, GetErcTransfersForAddressDocument, variables, headers),
 		options
 	);
 export const GetExtrinsicDocument = `

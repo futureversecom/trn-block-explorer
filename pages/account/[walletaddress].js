@@ -1,4 +1,9 @@
-import { PageHeader, BalanceForAddress, ContainerLayout } from "@/components";
+import {
+	PageHeader,
+	BalanceForAddress,
+	ContainerLayout,
+	AccountTables,
+} from "@/components";
 import { ethers } from "ethers";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 
@@ -22,6 +27,7 @@ export default function Account({ walletAddress }) {
 				}
 			/>
 			<BalanceForAddress walletAddress={walletAddress} />
+			<AccountTables walletAddress={walletAddress} />
 		</ContainerLayout>
 	);
 }
