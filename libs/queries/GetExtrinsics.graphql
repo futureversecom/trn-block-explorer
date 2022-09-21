@@ -1,15 +1,21 @@
 query GetExtrinsics($limit: Int!) {
 	archive {
 		extrinsic(limit: $limit, order_by: { block: { height: desc } }) {
+			id
+			hash
+			success
+			index_in_block
 			block {
 				height
 				timestamp
 			}
-			hash
-			id
-			success
 			calls {
 				name
+			}
+			events_aggregate {
+				aggregate {
+					count
+				}
 			}
 		}
 	}

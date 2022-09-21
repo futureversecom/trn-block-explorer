@@ -10025,11 +10025,19 @@ export type GetExtrinsicsQuery = {
 		__typename?: "archive_archive_query";
 		extrinsic: Array<{
 			__typename?: "archive_extrinsic";
-			hash: any;
 			id: any;
+			hash: any;
 			success: boolean;
+			index_in_block: number;
 			block: { __typename?: "archive_block"; height: number; timestamp: any };
 			calls: Array<{ __typename?: "archive_call"; name: string }>;
+			events_aggregate: {
+				__typename?: "archive_event_aggregate";
+				aggregate?: {
+					__typename?: "archive_event_aggregate_fields";
+					count: number;
+				} | null;
+			};
 		}>;
 	} | null;
 };
@@ -10515,15 +10523,21 @@ export const GetExtrinsicsDocument = `
     query GetExtrinsics($limit: Int!) {
   archive {
     extrinsic(limit: $limit, order_by: {block: {height: desc}}) {
+      id
+      hash
+      success
+      index_in_block
       block {
         height
         timestamp
       }
-      hash
-      id
-      success
       calls {
         name
+      }
+      events_aggregate {
+        aggregate {
+          count
+        }
       }
     }
   }
