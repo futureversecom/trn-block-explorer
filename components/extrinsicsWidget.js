@@ -43,7 +43,7 @@ export default function ExtrinsicsWidget() {
 							success={item.success}
 							call={item.calls[0].name}
 							timestamp={item.block.timestamp}
-							extrinsicId={formatExtrinsicId(item.id)}
+							extrinsicId={item.id}
 						/>
 					))}
 				</div>
@@ -58,11 +58,11 @@ const Extrinsic = ({ success, call, timestamp, extrinsicId }) => {
 			<div className="flex flex-row justify-between">
 				<div className="text-sm font-bold">
 					Extrinsic#{" "}
-					<Link href={`/extrinsic/${extrinsicId}`}>
-						<span className="cursor-pointer text-lg text-indigo-500">
-							{extrinsicId}
-						</span>
-					</Link>
+					<span className="cursor-pointer text-lg text-indigo-500">
+						<Link href={`/extrinsic/${extrinsicId}`}>
+							{formatExtrinsicId(extrinsicId)}
+						</Link>
+					</span>
 				</div>
 			</div>
 			<div className="flex flex-row justify-between">
