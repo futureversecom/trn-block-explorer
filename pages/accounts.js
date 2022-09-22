@@ -64,15 +64,17 @@ export default function Accounts() {
 												</TableLayout.Data>
 
 												<TableLayout.Data>
-													{ethers.utils.formatEther(account.free)} XRP
+													{ethers.utils.formatUnits(account.free || "0", 6)} XRP
 												</TableLayout.Data>
 
 												<TableLayout.Data>
-													{ethers.utils.formatEther(account.reserved)} XRP
+													{ethers.utils.formatUnits(account.reserved || "0", 6)}{" "}
+													XRP
 												</TableLayout.Data>
 
 												<TableLayout.Data>
-													{ethers.utils.formatEther(account.total)} XRP
+													{ethers.utils.formatUnits(account.total || "0", 6)}{" "}
+													XRP
 												</TableLayout.Data>
 											</tr>
 										))}
