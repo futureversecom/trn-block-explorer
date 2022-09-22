@@ -9838,6 +9838,7 @@ export type GetBlockHeightFromHashQuery = {
 
 export type GetBlocksQueryVariables = Exact<{
 	limit: Scalars["Int"];
+	offset?: InputMaybe<Scalars["Int"]>;
 }>;
 
 export type GetBlocksQuery = {
@@ -9870,6 +9871,13 @@ export type GetBlocksQuery = {
 				} | null;
 			};
 		}>;
+		block_aggregate: {
+			__typename?: "archive_block_aggregate";
+			aggregate?: {
+				__typename?: "archive_block_aggregate_fields";
+				count: number;
+			} | null;
+		};
 	} | null;
 };
 
@@ -10269,14 +10277,18 @@ export const useGetBlockHeightFromHashQuery = <
 		options
 	);
 export const GetBlocksDocument = `
-    query GetBlocks($limit: Int!) {
+    query GetBlocks($limit: Int!, $offset: Int) {
   archive {
-    block(order_by: {height: desc}, limit: $limit) {
+    block(limit: $limit, offset: $offset, order_by: {height: desc}) {
       hash
       height
       id
       timestamp
       validator
+      state_root
+      spec_id
+      parent_hash
+      extrinsics_root
       events_aggregate {
         aggregate {
           count
@@ -10287,10 +10299,11 @@ export const GetBlocksDocument = `
           count
         }
       }
-      state_root
-      spec_id
-      parent_hash
-      extrinsics_root
+    }
+    block_aggregate {
+      aggregate {
+        count
+      }
     }
   }
 }

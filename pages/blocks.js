@@ -5,17 +5,24 @@ import {
 	LoadingBlock,
 	ContainerLayout,
 	TableLayout,
+	Pagination,
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import TimeAgo from "react-timeago";
 import { formatAddress } from "@/libs/utils";
 import { useGetBlocksQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
+import { usePagination } from "@/libs/stores";
+import { useEffect } from "react";
 
 export default function Blocks() {
+	const { pages, currentPage } = usePagination("blocks");
+
 	let query = usePolling({}, useGetBlocksQuery, {
 		limit: 20,
+		offset: (currentPage - 1) * 20,
 	});
+	usePages(query.data);
 	query.data = query?.data?.archive?.block;
 
 	return (
@@ -80,6 +87,23 @@ export default function Blocks() {
 					</div>
 				</div>
 			)}
+
+			{pages?.length > 1 && <Pagination table="blocks" />}
 		</ContainerLayout>
 	);
 }
+
+const usePages = (data) => {
+	const { setPages } = usePagination("blocks");
+
+	useEffect(() => {
+		if (!data?.archive?.block_aggregate) return;
+
+		setPages(
+			Array.from(
+				Array(Math.floor(data?.archive?.block_aggregate?.aggregate?.count / 20))
+			)
+		);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [data?.archive?.block_aggregate]);
+};

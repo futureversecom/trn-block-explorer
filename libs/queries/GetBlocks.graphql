@@ -1,11 +1,15 @@
-query GetBlocks($limit: Int!) {
+query GetBlocks($limit: Int!, $offset: Int) {
 	archive {
-		block(order_by: { height: desc }, limit: $limit) {
+		block(limit: $limit, offset: $offset, order_by: { height: desc }) {
 			hash
 			height
 			id
 			timestamp
 			validator
+			state_root
+			spec_id
+			parent_hash
+			extrinsics_root
 			events_aggregate {
 				aggregate {
 					count
@@ -16,10 +20,11 @@ query GetBlocks($limit: Int!) {
 					count
 				}
 			}
-			state_root
-			spec_id
-			parent_hash
-			extrinsics_root
+		}
+		block_aggregate {
+			aggregate {
+				count
+			}
 		}
 	}
 }
