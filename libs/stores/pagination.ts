@@ -5,7 +5,7 @@ interface Pagination {
 	pages?: Array<undefined>;
 }
 
-type Table = "ercTransfers" | "evmTransactions";
+type Table = "ercTransfers" | "evmTransactions" | "extrinsics";
 
 type PaginationState = Record<Table, Pagination>;
 
@@ -14,6 +14,9 @@ const pagination = atom<PaginationState>({
 		currentPage: 1,
 	},
 	evmTransactions: {
+		currentPage: 1,
+	},
+	extrinsics: {
 		currentPage: 1,
 	},
 });

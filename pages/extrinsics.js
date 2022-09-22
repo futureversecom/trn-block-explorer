@@ -5,18 +5,24 @@ import {
 	LoadingBlock,
 	ContainerLayout,
 	TableLayout,
+	Pagination,
 } from "@/components";
 import TimeAgo from "react-timeago";
 import { formatAddress, formatExtrinsicId } from "@/libs/utils";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetExtrinsicsQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
+import { usePagination } from "@/libs/stores";
+import { useEffect } from "react";
 
 export default function Extrinsics() {
+	const { pages, currentPage } = usePagination("extrinsics");
+
 	let query = usePolling({}, useGetExtrinsicsQuery, {
 		limit: 20,
+		offset: (currentPage - 1) * 20,
 	});
-
+	usePages(query.data);
 	query.data = query?.data?.archive?.extrinsic;
 
 	return (
@@ -84,6 +90,25 @@ export default function Extrinsics() {
 					</div>
 				</div>
 			)}
+
+			{pages?.length > 1 && <Pagination table="extrinsics" />}
 		</ContainerLayout>
 	);
 }
+
+const usePages = (data) => {
+	const { setPages } = usePagination("extrinsics");
+
+	useEffect(() => {
+		if (!data?.archive?.extrinsic_aggregate) return;
+
+		setPages(
+			Array.from(
+				Array(
+					Math.floor(data?.archive?.extrinsic_aggregate?.aggregate?.count / 20)
+				)
+			)
+		);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [data?.archive?.extrinsic_aggregate]);
+};

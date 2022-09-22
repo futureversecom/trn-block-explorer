@@ -10017,6 +10017,7 @@ export type GetExtrinsicIdFromHashQuery = {
 
 export type GetExtrinsicsQueryVariables = Exact<{
 	limit: Scalars["Int"];
+	offset?: InputMaybe<Scalars["Int"]>;
 }>;
 
 export type GetExtrinsicsQuery = {
@@ -10039,6 +10040,13 @@ export type GetExtrinsicsQuery = {
 				} | null;
 			};
 		}>;
+		extrinsic_aggregate: {
+			__typename?: "archive_extrinsic_aggregate";
+			aggregate?: {
+				__typename?: "archive_extrinsic_aggregate_fields";
+				count: number;
+			} | null;
+		};
 	} | null;
 };
 
@@ -10520,9 +10528,9 @@ export const useGetExtrinsicIdFromHashQuery = <
 		options
 	);
 export const GetExtrinsicsDocument = `
-    query GetExtrinsics($limit: Int!) {
+    query GetExtrinsics($limit: Int!, $offset: Int) {
   archive {
-    extrinsic(limit: $limit, order_by: {block: {height: desc}}) {
+    extrinsic(limit: $limit, offset: $offset, order_by: {block: {height: desc}}) {
       id
       hash
       success
@@ -10538,6 +10546,11 @@ export const GetExtrinsicsDocument = `
         aggregate {
           count
         }
+      }
+    }
+    extrinsic_aggregate {
+      aggregate {
+        count
       }
     }
   }
