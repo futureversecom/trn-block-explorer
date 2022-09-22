@@ -1,13 +1,14 @@
-import { useMemo } from "react";
 import {
 	ChartPieIcon,
-	UserGroupIcon,
 	CubeIcon,
+	UserGroupIcon,
 } from "@heroicons/react/24/outline";
+import { useMemo } from "react";
 import CountUp from "react-countup";
+
 import { LoadingBlock, RefetchIndicator } from "@/components";
-import { usePolling } from "@/libs/hooks";
 import { useGetChainDataQuery } from "@/libs/api/generated";
+import { usePolling } from "@/libs/hooks";
 
 export default function ChaindataWidget() {
 	const query = usePolling({}, useGetChainDataQuery);

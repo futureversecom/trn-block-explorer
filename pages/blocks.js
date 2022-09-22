@@ -1,19 +1,20 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { useEffect } from "react";
+import TimeAgo from "react-timeago";
+
 import {
-	PageHeader,
-	LoadingBlock,
 	ContainerLayout,
-	TableLayout,
+	LoadingBlock,
+	PageHeader,
 	Pagination,
+	TableLayout,
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
-import TimeAgo from "react-timeago";
-import { formatAddress } from "@/libs/utils";
 import { useGetBlocksQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
 import { usePagination } from "@/libs/stores";
-import { useEffect } from "react";
+import { formatAddress } from "@/libs/utils";
 
 export default function Blocks() {
 	const { pages, currentPage } = usePagination("blocks");

@@ -1,17 +1,18 @@
 import clsx from "clsx";
 import Link from "next/link";
+import { useEffect } from "react";
 import TimeAgo from "react-timeago";
-import { usePolling } from "@/libs/hooks";
-import { formatAddress } from "@/libs/utils";
-import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
+
 import {
-	LoadingBlock,
-	TableLayout,
 	AddressLink,
+	LoadingBlock,
 	Pagination,
+	TableLayout,
 } from "@/components";
 import { useGetEvmTransactionsForAddressQuery } from "@/libs/api/generated.ts";
-import { useEffect } from "react";
+import { usePolling } from "@/libs/hooks";
+import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
+import { formatAddress } from "@/libs/utils";
 
 export default function EVMTransactionsForAddress({ walletAddress }) {
 	const { pages, currentPage } = usePagination("evmTransactions");

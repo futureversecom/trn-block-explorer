@@ -1,18 +1,19 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
+import { ethers } from "ethers";
 import Link from "next/link";
+import { useEffect } from "react";
+
 import {
-	PageHeader,
-	LoadingBlock,
 	ContainerLayout,
-	TableLayout,
+	LoadingBlock,
+	PageHeader,
 	Pagination,
+	TableLayout,
 } from "@/components";
-import { formatAddress } from "@/libs/utils";
 import { useGetAccountsQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
-import { ethers } from "ethers";
 import { usePagination } from "@/libs/stores";
-import { useEffect } from "react";
+import { formatAddress } from "@/libs/utils";
 
 export default function Accounts() {
 	const { pages, currentPage } = usePagination("accounts");

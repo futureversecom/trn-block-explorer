@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+
 import { graphQLClient } from "@/libs/client";
 
 export const usePolling = <T>(

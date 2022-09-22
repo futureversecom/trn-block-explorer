@@ -1,7 +1,8 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import TimeAgo from "react-timeago";
-import { RefetchIndicator, LoadingBlock } from "@/components";
+
+import { LoadingBlock, RefetchIndicator } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetBlocksQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";

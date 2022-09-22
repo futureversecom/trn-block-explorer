@@ -1,19 +1,20 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import {
-	PageHeader,
-	LoadingBlock,
-	ContainerLayout,
-	TableLayout,
-	Pagination,
-} from "@/components";
+import { useEffect } from "react";
 import TimeAgo from "react-timeago";
-import { formatAddress, formatExtrinsicId } from "@/libs/utils";
+
+import {
+	ContainerLayout,
+	LoadingBlock,
+	PageHeader,
+	Pagination,
+	TableLayout,
+} from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetExtrinsicsQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
 import { usePagination } from "@/libs/stores";
-import { useEffect } from "react";
+import { formatAddress, formatExtrinsicId } from "@/libs/utils";
 
 export default function Extrinsics() {
 	const { pages, currentPage } = usePagination("extrinsics");

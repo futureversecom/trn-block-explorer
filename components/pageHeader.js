@@ -1,5 +1,5 @@
-import { Fragment } from "react";
 import Head from "next/head";
+import { Fragment } from "react";
 
 export default function PageHeader({ title, icon }) {
 	return (

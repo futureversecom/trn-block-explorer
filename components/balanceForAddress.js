@@ -1,10 +1,11 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import { useGetBalanceQuery } from "@/libs/api/generated.ts";
-import { usePolling } from "@/libs/hooks";
 import { ethers } from "ethers";
 import QRCode from "react-qr-code";
-import { RefetchIndicator, LoadingBlock } from "@/components";
+
+import { LoadingBlock, RefetchIndicator } from "@/components";
 import { CopyToClipboard } from "@/components/icons";
+import { useGetBalanceQuery } from "@/libs/api/generated.ts";
+import { usePolling } from "@/libs/hooks";
 
 export default function BalanceForAddress({ walletAddress }) {
 	const query = usePolling(

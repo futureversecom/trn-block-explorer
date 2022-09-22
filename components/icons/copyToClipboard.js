@@ -1,5 +1,5 @@
-import { ClipboardIcon, CheckIcon } from "@heroicons/react/24/outline";
-import { useState, useEffect } from "react";
+import { CheckIcon, ClipboardIcon } from "@heroicons/react/24/outline";
+import { useEffect, useState } from "react";
 
 export default function CopyToClipBoard({ value }) {
 	const [copied, setCopied] = useState(false);

@@ -1,5 +1,5 @@
-import { useEffect } from "react";
 import { atom, useAtom } from "jotai";
+import { useEffect } from "react";
 
 interface RefetchStatus {
 	ercTransfers: boolean;

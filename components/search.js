@@ -1,15 +1,16 @@
-import {
-	GetBlockHeightFromHashDocument,
-	GetTransferByHashDocument,
-	GetBlockDocument,
-	GetExtrinsicByRegexDocument,
-} from "@/libs/api/generated";
+import clsx from "clsx";
 import { ethers } from "ethers";
 import { useRouter } from "next/router";
-import { useState, useCallback } from "react";
-import { graphQLClient } from "@/libs/client";
+import { useCallback, useState } from "react";
+
 import { RefetchIndicator } from "@/components";
-import clsx from "clsx";
+import {
+	GetBlockDocument,
+	GetBlockHeightFromHashDocument,
+	GetExtrinsicByRegexDocument,
+	GetTransferByHashDocument,
+} from "@/libs/api/generated";
+import { graphQLClient } from "@/libs/client";
 
 export default function Search() {
 	const { search, setSearch, isSearching, error, onFormSubmit } = useSearch();
