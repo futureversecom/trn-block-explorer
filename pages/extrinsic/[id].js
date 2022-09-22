@@ -13,7 +13,6 @@ import { BlockFinalizedIcon } from "@/components/icons";
 import TimeAgo from "react-timeago";
 import JSONPretty from "react-json-pretty";
 import moment from "moment";
-import "react-json-pretty/themes/adventure_time.css";
 import { useState } from "react";
 import clsx from "clsx";
 import Link from "next/link";
@@ -113,7 +112,7 @@ export default function Extrinsic({ extrinsicId }) {
 										<DetailsLayout.Wrapper>
 											<DetailsLayout.Title title="Args" />
 											<DetailsLayout.Data dataClassName="max-w-fit">
-												<div className="h-64 overflow-scroll rounded bg-black p-2">
+												<div className="h-64 overflow-scroll rounded bg-gray-100 p-2">
 													<JSONPretty id="json-pretty" data={tx} />
 												</div>
 											</DetailsLayout.Data>
@@ -165,7 +164,7 @@ const Events = ({ events }) => {
 												{event.name}
 
 												{viewArgs.includes(key) && (
-													<div className="max-h-32 max-w-xl overflow-scroll rounded bg-black p-2 text-xs">
+													<div className="max-h-32 max-w-xl overflow-scroll rounded bg-gray-100 p-2 text-xs">
 														<JSONPretty data={event.args} />
 													</div>
 												)}

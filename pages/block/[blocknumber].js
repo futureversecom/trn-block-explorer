@@ -12,7 +12,6 @@ import TimeAgo from "react-timeago";
 import { useGetBlockQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
 import JSONPretty from "react-json-pretty";
-import "react-json-pretty/themes/adventure_time.css";
 
 export const getServerSideProps = (context) => ({
 	props: { blockNumber: context?.params?.blocknumber },
@@ -105,7 +104,7 @@ export default function Block({ blockNumber }) {
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Events" />
 						<DetailsLayout.Data>
-							<div className="h-64 overflow-scroll rounded bg-black p-2">
+							<div className="h-64 overflow-scroll rounded bg-gray-100 p-2">
 								<JSONPretty id="json-pretty" data={query.data.events} />
 							</div>
 						</DetailsLayout.Data>
@@ -114,7 +113,7 @@ export default function Block({ blockNumber }) {
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Extrinsics" />
 						<DetailsLayout.Data>
-							<div className="h-64 overflow-scroll rounded bg-black p-2">
+							<div className="h-64 overflow-scroll rounded bg-gray-100 p-2">
 								<JSONPretty id="json-pretty" data={query.data.extrinsics} />
 							</div>
 						</DetailsLayout.Data>
