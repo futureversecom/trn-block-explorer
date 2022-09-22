@@ -1,7 +1,8 @@
-import "@/styles/globals.css";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { Search, Header, Footer } from "@/components";
+
+import { Footer, Header, Search } from "@/components";
 import { queryClient } from "@/libs/client";
+import "@/styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
 	return (

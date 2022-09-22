@@ -1,17 +1,18 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
+import { ethers } from "ethers";
 import Link from "next/link";
+import TimeAgo from "react-timeago";
+
 import {
-	PageHeader,
-	LoadingBlock,
 	ContainerLayout,
+	LoadingBlock,
+	PageHeader,
 	TableLayout,
 } from "@/components";
-import TimeAgo from "react-timeago";
-import { formatAddress } from "@/libs/utils";
 import { TransferStatusIcon } from "@/components/icons";
 import { useGetTransfersQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
-import { ethers } from "ethers";
+import { formatAddress } from "@/libs/utils";
 
 export default function Transfers() {
 	let query = usePolling({}, useGetTransfersQuery, {

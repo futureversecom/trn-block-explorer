@@ -1,11 +1,12 @@
-import clsx from "clsx";
-import { usePagination } from "@/libs/stores";
 import {
-	ChevronLeftIcon,
-	ChevronRightIcon,
 	ChevronDoubleLeftIcon,
 	ChevronDoubleRightIcon,
+	ChevronLeftIcon,
+	ChevronRightIcon,
 } from "@heroicons/react/24/outline";
+import clsx from "clsx";
+
+import { usePagination } from "@/libs/stores";
 
 export const Pagination = ({ table }) => {
 	const { pages, currentPage, onPageClick } = usePagination(table);

@@ -1,18 +1,19 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
-import moment from "moment";
-import { formatAddress } from "@/libs/utils";
-import { BlockFinalizedIcon, CopyToClipboard } from "@/components/icons";
-import TimeAgo from "react-timeago";
-import { useGetTransferByHashQuery } from "@/libs/api/generated.ts";
 import { ethers } from "ethers";
+import moment from "moment";
 import Link from "next/link";
+import TimeAgo from "react-timeago";
+
 import {
-	PageHeader,
-	LoadingBlock,
 	ContainerLayout,
 	DetailsLayout,
+	LoadingBlock,
+	PageHeader,
 } from "@/components";
-import { usePolling, useExtrinsicId } from "@/libs/hooks";
+import { BlockFinalizedIcon, CopyToClipboard } from "@/components/icons";
+import { useGetTransferByHashQuery } from "@/libs/api/generated.ts";
+import { useExtrinsicId, usePolling } from "@/libs/hooks";
+import { formatAddress } from "@/libs/utils";
 
 export const getServerSideProps = (context) => ({
 	props: { hash: context?.params?.hash },

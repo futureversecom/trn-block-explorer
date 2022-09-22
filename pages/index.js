@@ -1,4 +1,4 @@
-import { BlocksWidget, ExtrinsicsWidget, ChaindataWidget } from "@/components";
+import { BlocksWidget, ChaindataWidget, ExtrinsicsWidget } from "@/components";
 
 export default function Home() {
 	return (

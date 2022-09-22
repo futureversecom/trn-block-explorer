@@ -1,10 +1,10 @@
 /* eslint-disable react/jsx-key */
-
+import { Tab } from "@headlessui/react";
 import clsx from "clsx";
 import { Fragment } from "react";
-import { Tab } from "@headlessui/react";
-import { useAccountRefetchStatus } from "@/libs/stores";
+
 import { ErcTransfersForAddress, RefetchIndicator } from "@/components";
+import { useAccountRefetchStatus } from "@/libs/stores";
 
 export const AccountTables = ({ walletAddress }) => {
 	const isRefetching = useAccountRefetchStatus();

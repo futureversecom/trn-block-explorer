@@ -1,11 +1,12 @@
-import {
-	PageHeader,
-	BalanceForAddress,
-	ContainerLayout,
-	AccountTables,
-} from "@/components";
 import { ethers } from "ethers";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
+
+import {
+	AccountTables,
+	BalanceForAddress,
+	ContainerLayout,
+	PageHeader,
+} from "@/components";
 
 export const getServerSideProps = (context) => ({
 	props: { walletAddress: context?.params?.walletaddress },

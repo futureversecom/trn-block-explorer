@@ -1,17 +1,18 @@
 import clsx from "clsx";
+import { utils as ethers } from "ethers";
 import Link from "next/link";
 import { useEffect, useMemo } from "react";
-import { useGetErcTransfersForAddressQuery } from "@/libs/api/generated.ts";
 import TimeAgo from "react-timeago";
-import { utils as ethers } from "ethers";
+
+import {
+	AddressLink,
+	LoadingBlock,
+	Pagination,
+	TableLayout,
+} from "@/components";
+import { useGetErcTransfersForAddressQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
 import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
-import {
-	LoadingBlock,
-	TableLayout,
-	AddressLink,
-	Pagination,
-} from "@/components";
 
 export default function TransfersForAddress({ walletAddress }) {
 	const { pages, currentPage } = usePagination("ercTransfers");

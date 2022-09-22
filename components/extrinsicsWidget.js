@@ -1,10 +1,11 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import TimeAgo from "react-timeago";
 import Link from "next/link";
+import TimeAgo from "react-timeago";
+
+import { LoadingBlock, RefetchIndicator } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetExtrinsicsQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
-import { LoadingBlock, RefetchIndicator } from "@/components";
 import { formatExtrinsicId } from "@/libs/utils";
 
 export default function ExtrinsicsWidget() {

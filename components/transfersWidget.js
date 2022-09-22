@@ -1,12 +1,13 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import { formatAddress } from "@/libs/utils";
-import TimeAgo from "react-timeago";
-import Link from "next/link";
-import { TransferStatusIcon } from "@/components/icons";
 import { ethers } from "ethers";
-import { useGetTransfersQuery } from "@/libs/api/generated.ts";
-import { usePolling, useExtrinsicId } from "@/libs/hooks";
+import Link from "next/link";
+import TimeAgo from "react-timeago";
+
 import { LoadingBlock, RefetchIndicator } from "@/components";
+import { TransferStatusIcon } from "@/components/icons";
+import { useGetTransfersQuery } from "@/libs/api/generated.ts";
+import { useExtrinsicId, usePolling } from "@/libs/hooks";
+import { formatAddress } from "@/libs/utils";
 
 export default function TransfersWidget() {
 	const query = usePolling({}, useGetTransfersQuery, { limit: 10 });

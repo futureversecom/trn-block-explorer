@@ -1,17 +1,18 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
-import {
-	PageHeader,
-	LoadingBlock,
-	ContainerLayout,
-	DetailsLayout,
-} from "@/components";
 import moment from "moment";
 import Link from "next/link";
-import { BlockFinalizedIcon } from "@/components/icons";
+import JSONPretty from "react-json-pretty";
 import TimeAgo from "react-timeago";
+
+import {
+	ContainerLayout,
+	DetailsLayout,
+	LoadingBlock,
+	PageHeader,
+} from "@/components";
+import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetBlockQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
-import JSONPretty from "react-json-pretty";
 
 export const getServerSideProps = (context) => ({
 	props: { blockNumber: context?.params?.blocknumber },

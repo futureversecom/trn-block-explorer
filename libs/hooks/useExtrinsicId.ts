@@ -1,7 +1,8 @@
 import { useMemo } from "react";
+
+import { useGetExtrinsicIdFromHashQuery } from "@/libs/api/generated";
 import { graphQLClient } from "@/libs/client";
 import { formatExtrinsicId } from "@/libs/utils";
-import { useGetExtrinsicIdFromHashQuery } from "@/libs/api/generated";
 
 export const useExtrinsicId = (extrinsicHash: string) => {
 	const { data } = useGetExtrinsicIdFromHashQuery(graphQLClient, {

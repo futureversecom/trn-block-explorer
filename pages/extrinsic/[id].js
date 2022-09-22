@@ -1,21 +1,22 @@
+import { CubeIcon } from "@heroicons/react/24/outline";
+import clsx from "clsx";
+import moment from "moment";
+import Link from "next/link";
+import { useState } from "react";
+import JSONPretty from "react-json-pretty";
+import TimeAgo from "react-timeago";
+
 import {
-	PageHeader,
-	LoadingBlock,
 	ContainerLayout,
 	DetailsLayout,
+	LoadingBlock,
+	PageHeader,
 	TableLayout,
 } from "@/components";
+import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetExtrinsicQuery } from "@/libs/api/generated";
 import { graphQLClient } from "@/libs/client";
-import { CubeIcon } from "@heroicons/react/24/outline";
 import { formatExtrinsicId } from "@/libs/utils";
-import { BlockFinalizedIcon } from "@/components/icons";
-import TimeAgo from "react-timeago";
-import JSONPretty from "react-json-pretty";
-import moment from "moment";
-import { useState } from "react";
-import clsx from "clsx";
-import Link from "next/link";
 
 export const getServerSideProps = (context) => ({
 	props: { extrinsicId: context?.params?.id },

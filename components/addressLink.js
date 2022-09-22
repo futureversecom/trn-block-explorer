@@ -1,4 +1,5 @@
 import Link from "next/link";
+
 import { formatAddress } from "@/libs/utils";
 
 export const AddressLink = ({ isAccount, address }) => {
