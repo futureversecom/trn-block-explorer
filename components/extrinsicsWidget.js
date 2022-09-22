@@ -1,30 +1,28 @@
-import { CubeIcon } from "@heroicons/react/24/outline";
-import Link from "next/link";
+import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import TimeAgo from "react-timeago";
-import { RefetchIndicator, LoadingBlock } from "@/components";
+import Link from "next/link";
 import { BlockFinalizedIcon } from "@/components/icons";
-import { useGetBlocksQuery } from "@/libs/api/generated.ts";
+import { useGetExtrinsicsQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
+import { LoadingBlock, RefetchIndicator } from "@/components";
+import { formatExtrinsicId } from "@/libs/utils";
 
-export default function BlocksWidget() {
-	const query = usePolling({}, useGetBlocksQuery, {
-		limit: 10,
-	});
-
-	const blocks = query?.data?.archive?.block;
+export default function ExtrinsicsWidget() {
+	const query = usePolling({}, useGetExtrinsicsQuery, { limit: 10 });
+	query.data = query?.data?.archive?.extrinsic;
 
 	return (
 		<div>
 			<div className="flex flex-row justify-between py-3">
 				<div className="flex items-center">
-					<CubeIcon className="my-auto h-5 pr-3" />
+					<ArrowsRightLeftIcon className="my-auto h-5 pr-3" />
 					<h3 className="text-md font-medium leading-6 text-gray-900">
-						Blocks
+						Extrinsics
 					</h3>
 				</div>
 				<div>
 					{query.isRefetching && <RefetchIndicator />}
-					<Link href={"/blocks"}>
+					<Link href={"/transfers"}>
 						<button
 							type="button"
 							className="inline-flex items-center rounded border border-gray-300 bg-white px-2.5 py-1.5 text-xs font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
@@ -35,17 +33,16 @@ export default function BlocksWidget() {
 				</div>
 			</div>
 			{query.isLoading ? (
-				<LoadingBlock title="Blocks" height="h-80" />
+				<LoadingBlock title="Extrinsics" height="h-80" />
 			) : (
 				<div className="divide-y rounded-md border border-gray-100 bg-white px-4 py-3 shadow-md sm:px-6">
-					{blocks?.map((item, key) => (
-						<BlockItem
+					{query.data?.map((item, key) => (
+						<Extrinsic
 							key={key}
-							height={item.height}
-							extrinsics={item?.extrinsics_aggregate?.aggregate?.count || "?"}
-							events={item?.events_aggregate?.aggregate?.count || "?"}
-							timestamp={item.timestamp}
-							status={true}
+							success={item.success}
+							call={item.calls[0].name}
+							timestamp={item.block.timestamp}
+							extrinsicId={formatExtrinsicId(item.id)}
 						/>
 					))}
 				</div>
@@ -54,31 +51,27 @@ export default function BlocksWidget() {
 	);
 }
 
-const BlockItem = ({ height, extrinsics, events, timestamp, status }) => {
+const Extrinsic = ({ success, call, timestamp, extrinsicId }) => {
 	return (
 		<div className="block py-3">
 			<div className="flex flex-row justify-between">
 				<div className="text-sm font-bold">
-					Block#{" "}
-					<Link href={`/block/${height}`}>
+					Extrinsic#{" "}
+					<Link href={`/extrinsic/${extrinsicId}`}>
 						<span className="cursor-pointer text-lg text-indigo-500">
-							{height}
+							{extrinsicId}
 						</span>
 					</Link>
 				</div>
 			</div>
 			<div className="flex flex-row justify-between">
-				<div className="text-teal-800">
-					<span className="text-sm text-gray-500">Includes</span>{" "}
-					<span className="text-indigo-500">{extrinsics} Extrinsics</span>{" "}
-					<span className="text-indigo-500">{events} Events</span>{" "}
-				</div>
+				<div>{call}</div>
 				<div className="flex space-x-3">
 					<div className="text-sm text-gray-600">
 						<TimeAgo date={timestamp} />
 					</div>
 					<div>
-						<BlockFinalizedIcon status={status} />
+						<BlockFinalizedIcon status={success} />
 					</div>
 				</div>
 			</div>

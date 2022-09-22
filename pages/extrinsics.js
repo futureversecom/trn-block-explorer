@@ -7,76 +7,79 @@ import {
 	TableLayout,
 	Pagination,
 } from "@/components";
-import { BlockFinalizedIcon } from "@/components/icons";
 import TimeAgo from "react-timeago";
-import { formatAddress } from "@/libs/utils";
-import { useGetBlocksQuery } from "@/libs/api/generated.ts";
+import { formatAddress, formatExtrinsicId } from "@/libs/utils";
+import { BlockFinalizedIcon } from "@/components/icons";
+import { useGetExtrinsicsQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
 import { usePagination } from "@/libs/stores";
 import { useEffect } from "react";
 
-export default function Blocks() {
-	const { pages, currentPage } = usePagination("blocks");
+export default function Extrinsics() {
+	const { pages, currentPage } = usePagination("extrinsics");
 
-	let query = usePolling({}, useGetBlocksQuery, {
+	let query = usePolling({}, useGetExtrinsicsQuery, {
 		limit: 20,
 		offset: (currentPage - 1) * 20,
 	});
 	usePages(query.data);
-	query.data = query?.data?.archive?.block;
+	query.data = query?.data?.archive?.extrinsic;
 
 	return (
 		<ContainerLayout>
 			<PageHeader
-				title={`Blocks`}
+				title={`Extrinsics`}
 				icon={<CubeIcon className="my-auto h-5 pr-3" />}
 			/>
 			{query.isLoading || query.isError ? (
-				<LoadingBlock title={"blocks"} />
+				<LoadingBlock title={"extrinsics"} />
 			) : (
 				<div className="mt-8 flex flex-col">
 					<div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-						<div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+						<div className="inline-transfer min-w-full py-2 align-middle md:px-6 lg:px-8">
 							<div className="overflow-hidden rounded-md border border-gray-100 shadow-md ">
 								<TableLayout.Table>
 									<thead className="bg-gray-50">
 										<tr>
-											<TableLayout.HeadItem text="Block" />
+											<TableLayout.HeadItem text="Id" />
 											<TableLayout.HeadItem text="Status" />
+											<TableLayout.HeadItem text="Hash" />
 											<TableLayout.HeadItem text="Time" />
-											<TableLayout.HeadItem text="Extrinsics" />
+											<TableLayout.HeadItem text="Block" />
+											<TableLayout.HeadItem text="Call" />
 											<TableLayout.HeadItem text="Events" />
-											<TableLayout.HeadItem text="Validator" />
-											<TableLayout.HeadItem text="Block hash" />
 										</tr>
 									</thead>
 									<tbody className="divide-y divide-gray-200 bg-white">
-										{query.data.map((block, key) => (
+										{query.data.map((extrinsic, key) => (
 											<tr key={key}>
-												<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500">
-													<Link href={`/block/${block.height}`}>
-														{block.height}
+												<TableLayout.Data dataClassName="!text-indigo-500">
+													<Link href={`/extrinsic/${extrinsic.id}`}>
+														{formatExtrinsicId(extrinsic.id)}
 													</Link>
 												</TableLayout.Data>
 												<TableLayout.Data>
-													<BlockFinalizedIcon status={true} />
+													<BlockFinalizedIcon
+														status={extrinsic?.success}
+														iconClassName="h-5"
+													/>
 												</TableLayout.Data>
 												<TableLayout.Data>
-													<TimeAgo date={block.timestamp} />
+													{formatAddress(extrinsic.hash, 12)}
 												</TableLayout.Data>
 												<TableLayout.Data>
-													{block.extrinsics_aggregate.aggregate.count || "?"}
+													<TimeAgo date={extrinsic.block.timestamp} />
+												</TableLayout.Data>
+												<TableLayout.Data dataClassName="!text-indigo-500">
+													<Link href={`/block/${extrinsic.block.height}`}>
+														{extrinsic.block.height}
+													</Link>
 												</TableLayout.Data>
 												<TableLayout.Data>
-													{block.events_aggregate.aggregate.count || "? "}
+													{extrinsic.calls[0].name}
 												</TableLayout.Data>
 												<TableLayout.Data>
-													{block.validator
-														? formatAddress(block.validator)
-														: "?"}
-												</TableLayout.Data>
-												<TableLayout.Data>
-													{block.hash ? formatAddress(block.hash, 12) : "?"}
+													{extrinsic.events_aggregate.aggregate.count}
 												</TableLayout.Data>
 											</tr>
 										))}
@@ -88,22 +91,24 @@ export default function Blocks() {
 				</div>
 			)}
 
-			{pages?.length > 1 && <Pagination table="blocks" />}
+			{pages?.length > 1 && <Pagination table="extrinsics" />}
 		</ContainerLayout>
 	);
 }
 
 const usePages = (data) => {
-	const { setPages } = usePagination("blocks");
+	const { setPages } = usePagination("extrinsics");
 
 	useEffect(() => {
-		if (!data?.archive?.block_aggregate) return;
+		if (!data?.archive?.extrinsic_aggregate) return;
 
 		setPages(
 			Array.from(
-				Array(Math.floor(data?.archive?.block_aggregate?.aggregate?.count / 20))
+				Array(
+					Math.floor(data?.archive?.extrinsic_aggregate?.aggregate?.count / 20)
+				)
 			)
 		);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [data?.archive?.block_aggregate]);
+	}, [data?.archive?.extrinsic_aggregate]);
 };

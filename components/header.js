@@ -1,10 +1,5 @@
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Fragment } from "react";
-import {
-	Bars3Icon,
-	XMarkIcon,
-	ChevronDownIcon,
-} from "@heroicons/react/24/outline";
+import { Disclosure } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -18,18 +13,14 @@ const links = [
 		href: "/blocks",
 	},
 	{
-		title: "Transfers",
-		href: "/transfers",
+		title: "Extrinsics",
+		href: "/extrinsics",
 	},
 	{
 		title: "Accounts",
 		href: "/accounts",
 	},
 ];
-
-function classNames(...classes) {
-	return classes.filter(Boolean).join(" ");
-}
 
 export default function Header() {
 	const router = useRouter();

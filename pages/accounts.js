@@ -5,17 +5,24 @@ import {
 	LoadingBlock,
 	ContainerLayout,
 	TableLayout,
+	Pagination,
 } from "@/components";
 import { formatAddress } from "@/libs/utils";
 import { useGetAccountsQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
 import { ethers } from "ethers";
+import { usePagination } from "@/libs/stores";
+import { useEffect } from "react";
 
 export default function Accounts() {
+	const { pages, currentPage } = usePagination("accounts");
+
 	let query = usePolling({}, useGetAccountsQuery, {
 		limit: 20,
+		offset: (currentPage - 1) * 20,
 	});
-	query.data = query?.data?.balances?.accounts;
+	usePages(query.data);
+	query.data = query?.data?.balances?.account;
 
 	return (
 		<ContainerLayout>
@@ -57,15 +64,17 @@ export default function Accounts() {
 												</TableLayout.Data>
 
 												<TableLayout.Data>
-													{ethers.utils.formatEther(account.free)} Root
+													{ethers.utils.formatUnits(account.free || "0", 6)} XRP
 												</TableLayout.Data>
 
 												<TableLayout.Data>
-													{ethers.utils.formatEther(account.reserved)} Root
+													{ethers.utils.formatUnits(account.reserved || "0", 6)}{" "}
+													XRP
 												</TableLayout.Data>
 
 												<TableLayout.Data>
-													{ethers.utils.formatEther(account.total)} Root
+													{ethers.utils.formatUnits(account.total || "0", 6)}{" "}
+													XRP
 												</TableLayout.Data>
 											</tr>
 										))}
@@ -76,6 +85,25 @@ export default function Accounts() {
 					</div>
 				</div>
 			)}
+
+			{pages?.length > 1 && <Pagination table="accounts" />}
 		</ContainerLayout>
 	);
 }
+
+const usePages = (data) => {
+	const { setPages } = usePagination("accounts");
+
+	useEffect(() => {
+		if (!data?.balances?.account_aggregate) return;
+
+		setPages(
+			Array.from(
+				Array(
+					Math.floor(data?.balances?.account_aggregate?.aggregate?.count / 20)
+				)
+			)
+		);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [data?.balances?.account_aggregate]);
+};

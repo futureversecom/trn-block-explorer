@@ -1,11 +1,16 @@
-query GetAccounts($limit: Int!) {
+query GetAccounts($limit: Int!, $offset: Int) {
 	balances {
-		accounts(orderBy: total_DESC, limit: $limit) {
+		account(limit: $limit, offset: $offset, order_by: { total: desc }) {
 			free
 			id
 			reserved
 			total
-			updatedAt
+			updated_at
+		}
+		account_aggregate {
+			aggregate {
+				count
+			}
 		}
 	}
 }

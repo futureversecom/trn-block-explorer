@@ -1,10 +1,7 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { useEffect, useMemo } from "react";
-import {
-	useGetTransfersFromAddressQuery,
-	useGetTransfersToAddressQuery,
-} from "@/libs/api/generated.ts";
+import { useGetErcTransfersForAddressQuery } from "@/libs/api/generated.ts";
 import TimeAgo from "react-timeago";
 import { utils as ethers } from "ethers";
 import { usePolling } from "@/libs/hooks";
@@ -20,6 +17,7 @@ export default function TransfersForAddress({ walletAddress }) {
 	const { pages, currentPage } = usePagination("ercTransfers");
 
 	const query = useTransfers(walletAddress, (currentPage - 1) * 5);
+
 	useAccountRefetchStatus("ercTransfers", query.isRefetching);
 
 	return (
@@ -35,7 +33,6 @@ export default function TransfersForAddress({ walletAddress }) {
 									<TableLayout.HeadItem text="Height" />
 									<TableLayout.HeadItem text="Type" />
 									<TableLayout.HeadItem text="Timestamp" />
-									<TableLayout.HeadItem text="Method" />
 									<TableLayout.HeadItem text="Token" />
 									<TableLayout.HeadItem text="Amount" />
 									<TableLayout.HeadItem text="From" />
@@ -46,13 +43,13 @@ export default function TransfersForAddress({ walletAddress }) {
 								{query.data.map((transfer, key) => (
 									<tr key={key}>
 										<TableLayout.Data dataClassName="!text-indigo-500">
-											<Link href={`/block/${transfer.blockNumber}`}>
-												{transfer.blockNumber}
+											<Link href={`/block/${transfer.block_number}`}>
+												{transfer.block_number}
 											</Link>
 										</TableLayout.Data>
 
 										<TableLayout.Data>
-											{transfer.from.id.toLowerCase() ==
+											{transfer.from_id.toLowerCase() ==
 											walletAddress.toLowerCase()
 												? "Out"
 												: "In"}
@@ -60,10 +57,6 @@ export default function TransfersForAddress({ walletAddress }) {
 
 										<TableLayout.Data>
 											<TimeAgo date={transfer.timestamp} />
-										</TableLayout.Data>
-
-										<TableLayout.Data>
-											{transfer.transferType || "?"}
 										</TableLayout.Data>
 
 										<TableLayout.Data
@@ -138,93 +131,43 @@ const Token = ({ tokenUri, children }) => {
 };
 
 const useTransfers = (address, offset) => {
-	const {
-		data: toData,
-		isError: isToError,
-		isLoading: isToLoading,
-	} = usePolling(
+	const query = usePolling(
 		{},
-		useGetTransfersToAddressQuery,
+		useGetErcTransfersForAddressQuery,
 		{
-			offset,
 			address,
+			offset,
 		},
 		12000
 	);
 
-	const {
-		data: fromData,
-		isError: isFromError,
-		isLoading: isFromLoading,
-	} = usePolling(
-		{},
-		useGetTransfersFromAddressQuery,
-		{
-			offset,
-			address,
-		},
-		12000
-	);
-
-	usePages(toData, fromData);
-
-	const toTransfers = useFormatTransfers(toData);
-	const fromTransfers = useFormatTransfers(fromData);
-
-	let txnHashes = [];
+	usePages(query.data);
 
 	return {
-		data: [...(toTransfers ?? []), ...(fromTransfers ?? [])]
-			.reduce((acc, curr) => {
-				if (!txnHashes.includes(curr.txnHash)) {
-					acc.push(curr);
-					txnHashes.push(curr.txnHash);
-				}
-
-				return acc;
-			}, [])
-			.sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1)),
-		isError: isToError || isFromError,
-		isLoading: isToLoading || isFromLoading,
+		data: [
+			...(query?.data?.erc?.ft_transfer ?? []),
+			...(query?.data?.erc?.nft_transfer ?? []),
+		].sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1)),
+		...query,
 	};
 };
 
-const usePages = (toData, fromData) => {
+const usePages = (data) => {
 	const { setPages } = usePagination("ercTransfers");
 
-	const getCount = (data) => {
+	const ercTransferCount = useMemo(() => {
+		if (!data) return;
+
 		return (
-			data?.tokens?.ftTransfersConnection?.totalCount +
-			data?.tokens?.nftTransfersConnection?.totalCount
+			data?.erc?.ft_transfer_aggregate?.aggregate?.count +
+			data?.erc?.nft_transfer_aggregate?.aggregate?.count
 		);
-	};
-
-	const toCount = useMemo(() => {
-		if (!toData) return;
-
-		return getCount(toData);
-	}, [toData]);
-
-	const fromCount = useMemo(() => {
-		if (!fromData) return;
-
-		return getCount(fromData);
-	}, [fromData]);
+	}, [data]);
 
 	useEffect(() => {
-		if (!toCount || !fromCount) return;
+		if (!data?.erc) return;
 
-		setPages(Array.from(Array(Math.floor((toCount + fromCount) / 5))));
+		setPages(Array.from(Array(Math.floor(ercTransferCount / 10))));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [toCount, fromCount]);
+	}, [data?.erc]);
 };
-
-const useFormatTransfers = (data) =>
-	useMemo(() => {
-		if (!data) return [];
-
-		return [
-			...(data?.tokens?.ftTransfers ?? []),
-			...(data?.tokens?.nftTransfers ?? []),
-		].sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1));
-	}, [data]);

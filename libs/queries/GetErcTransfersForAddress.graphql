@@ -1,0 +1,48 @@
+query GetErcTransfersForAddress($address: String!, $offset: Int) {
+	erc {
+		ft_transfer(
+			limit: $offset
+			where: { _or: { from_id: { _eq: $address }, id: { _eq: $address } } }
+		) {
+			id
+			amount
+			block_number
+			timestamp
+			to_id
+			from_id
+			event_index
+			token_id
+			transfer_type
+			txn_hash
+		}
+		nft_transfer(
+			limit: $offset
+			where: { _or: { from_id: { _eq: $address }, id: { _eq: $address } } }
+		) {
+			id
+			amount
+			block_number
+			timestamp
+			to_id
+			from_id
+			event_index
+			token_id
+			transfer_type
+			txn_hash
+		}
+		ft_transfer_aggregate(
+			where: { _or: { from_id: { _eq: $address }, id: { _eq: $address } } }
+		) {
+			aggregate {
+				count
+			}
+		}
+		nft_transfer_aggregate(
+			where: { _or: { from_id: { _eq: $address }, id: { _eq: $address } } }
+		) {
+			aggregate {
+				count
+			}
+		}
+	}
+}

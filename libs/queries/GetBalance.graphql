@@ -1,10 +1,11 @@
 query GetBalance($address: String!) {
 	balances {
-		accounts(limit: 1, where: { id_eq: $address }) {
-			total
-			reserved
+		account_by_pk(id: $address) {
 			id
 			free
+			total
+			reserved
+			updated_at
 		}
 	}
 }

@@ -18,7 +18,7 @@ export default function Transfers() {
 		limit: 20,
 	});
 
-	query.data = query?.data?.transfers?.transfers;
+	query.data = query?.data?.balances?.transfer;
 
 	return (
 		<ContainerLayout>

@@ -1,14 +1,10 @@
 /* eslint-disable react/jsx-key */
 
-import {
-	TransfersForAddress,
-	EVMTransactionsForAddress,
-	RefetchIndicator,
-} from "@/components";
 import clsx from "clsx";
 import { Fragment } from "react";
 import { Tab } from "@headlessui/react";
 import { useAccountRefetchStatus } from "@/libs/stores";
+import { ErcTransfersForAddress, RefetchIndicator } from "@/components";
 
 export const AccountTables = ({ walletAddress }) => {
 	const isRefetching = useAccountRefetchStatus();
@@ -16,7 +12,7 @@ export const AccountTables = ({ walletAddress }) => {
 	return (
 		<div className="mt-6">
 			<Tab.Group>
-				<TabList titles={["EVM Transactions", "ERC Transfers"]}>
+				<TabList titles={["ERC Transfers"]}>
 					{isRefetching && (
 						<div className="absolute right-2 top-5 flex">
 							<RefetchIndicator />
@@ -24,10 +20,7 @@ export const AccountTables = ({ walletAddress }) => {
 					)}
 				</TabList>
 				<TabPanels
-					panels={[
-						<EVMTransactionsForAddress walletAddress={walletAddress} />,
-						<TransfersForAddress walletAddress={walletAddress} />,
-					]}
+					panels={[<ErcTransfersForAddress walletAddress={walletAddress} />]}
 				/>
 			</Tab.Group>
 		</div>
