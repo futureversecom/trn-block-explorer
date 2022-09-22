@@ -9722,6 +9722,7 @@ export type Timestamptz_Comparison_Exp = {
 
 export type GetAccountsQueryVariables = Exact<{
 	limit: Scalars["Int"];
+	offset?: InputMaybe<Scalars["Int"]>;
 }>;
 
 export type GetAccountsQuery = {
@@ -9736,6 +9737,13 @@ export type GetAccountsQuery = {
 			total: any;
 			updated_at?: number | null;
 		}>;
+		account_aggregate: {
+			__typename?: "balances_account_aggregate";
+			aggregate?: {
+				__typename?: "balances_account_aggregate_fields";
+				count: number;
+			} | null;
+		};
 	} | null;
 };
 
@@ -10105,14 +10113,19 @@ export type GetTransfersQuery = {
 };
 
 export const GetAccountsDocument = `
-    query GetAccounts($limit: Int!) {
+    query GetAccounts($limit: Int!, $offset: Int) {
   balances {
-    account(limit: $limit, order_by: {total: desc}) {
+    account(limit: $limit, offset: $offset, order_by: {total: desc}) {
       free
       id
       reserved
       total
       updated_at
+    }
+    account_aggregate {
+      aggregate {
+        count
+      }
     }
   }
 }

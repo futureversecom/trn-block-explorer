@@ -5,16 +5,23 @@ import {
 	LoadingBlock,
 	ContainerLayout,
 	TableLayout,
+	Pagination,
 } from "@/components";
 import { formatAddress } from "@/libs/utils";
 import { useGetAccountsQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
 import { ethers } from "ethers";
+import { usePagination } from "@/libs/stores";
+import { useEffect } from "react";
 
 export default function Accounts() {
+	const { pages, currentPage } = usePagination("accounts");
+
 	let query = usePolling({}, useGetAccountsQuery, {
 		limit: 20,
+		offset: (currentPage - 1) * 20,
 	});
+	usePages(query.data);
 	query.data = query?.data?.balances?.account;
 
 	return (
@@ -76,6 +83,25 @@ export default function Accounts() {
 					</div>
 				</div>
 			)}
+
+			{pages?.length > 1 && <Pagination table="accounts" />}
 		</ContainerLayout>
 	);
 }
+
+const usePages = (data) => {
+	const { setPages } = usePagination("accounts");
+
+	useEffect(() => {
+		if (!data?.balances?.account_aggregate) return;
+
+		setPages(
+			Array.from(
+				Array(
+					Math.floor(data?.balances?.account_aggregate?.aggregate?.count / 20)
+				)
+			)
+		);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [data?.balances?.account_aggregate]);
+};
