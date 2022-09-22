@@ -71,61 +71,17 @@ export default function Extrinsic({ extrinsicId }) {
 							<DetailsLayout.Data>{data.hash}</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 
-						{[data.calls[0]].map((call) => {
-							const tx = call?.args?.transaction?.value;
-
-							return (
-								<>
-									<DetailsLayout.Wrapper>
-										<DetailsLayout.Title title="Method" />
-										<DetailsLayout.Data>{call.name}</DetailsLayout.Data>
-									</DetailsLayout.Wrapper>
-
-									<DetailsLayout.Wrapper>
-										<DetailsLayout.Title title="Nonce" />
-										<DetailsLayout.Data>
-											{tx?.nonce[0] ?? "?"}
-										</DetailsLayout.Data>
-									</DetailsLayout.Wrapper>
-
-									<DetailsLayout.Wrapper>
-										<DetailsLayout.Title title="Gas Limit" />
-										<DetailsLayout.Data>
-											{tx?.gasLimit[0] ?? "?"}
-										</DetailsLayout.Data>
-									</DetailsLayout.Wrapper>
-
-									<DetailsLayout.Wrapper>
-										<DetailsLayout.Title title="Input Data" />
-										<DetailsLayout.Data dataClassName="break-all">
-											{tx?.input ?? "?"}
-										</DetailsLayout.Data>
-									</DetailsLayout.Wrapper>
-
-									<DetailsLayout.Wrapper>
-										<DetailsLayout.Title title="Value" />
-										<DetailsLayout.Data>
-											{tx?.value[0] ?? "?"}
-										</DetailsLayout.Data>
-									</DetailsLayout.Wrapper>
-
-									{tx && (
-										<DetailsLayout.Wrapper>
-											<DetailsLayout.Title title="Args" />
-											<DetailsLayout.Data dataClassName="max-w-fit">
-												<div className="h-64 overflow-scroll rounded bg-gray-100 p-2">
-													<JSONPretty id="json-pretty" data={tx} />
-												</div>
-											</DetailsLayout.Data>
-										</DetailsLayout.Wrapper>
-									)}
-								</>
-							);
-						})}
+						<DetailsLayout.Wrapper>
+							<DetailsLayout.Title title="Method" />
+							<DetailsLayout.Data>{data.calls[0].name}</DetailsLayout.Data>
+						</DetailsLayout.Wrapper>
 
 						<DetailsLayout.Wrapper>
 							<DetailsLayout.Title title="Signature" />
-							<DetailsLayout.Data>{data?.signature ?? "?"}</DetailsLayout.Data>
+							<DetailsLayout.Data dataClassName="break-all">
+								{" "}
+								{data?.signature?.signature ?? "?"}
+							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 					</DetailsLayout.Container>
 
