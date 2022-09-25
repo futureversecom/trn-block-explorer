@@ -21,7 +21,7 @@ export default function ChaindataWidget() {
 		return {
 			blocks: chainState?.block_number,
 			holders: chainState?.token_holders,
-			transfers: query?.data?.transfer_aggregate?.aggregate?.count,
+			transfers: query?.data?.balances?.transfer_aggregate?.aggregate?.count,
 		};
 	}, [query?.data]);
 
