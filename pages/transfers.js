@@ -31,9 +31,9 @@ export default function Transfers() {
 				<LoadingBlock title={"transfers"} />
 			) : (
 				<div className="mt-8 flex flex-col">
-					<div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+					<div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
 						<div className="inline-transfer min-w-full py-2 align-middle md:px-6 lg:px-8">
-							<div className="overflow-hidden rounded-md border border-gray-100">
+							<div className="overflow-scroll border border-gray-100">
 								<TableLayout.Table>
 									<thead className="bg-gray-50">
 										<tr>
