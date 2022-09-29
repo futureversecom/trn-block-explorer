@@ -1,9 +1,9 @@
 import { Disclosure } from "@headlessui/react";
-import { Fragment } from 'react';
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { Fragment } from "react";
 
 import { IS_MAINNET } from "@/libs/constants";
 

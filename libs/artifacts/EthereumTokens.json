@@ -1,0 +1,14 @@
+{
+  "chain": {
+    "5": "Goerli"
+  },
+  "tokens": [
+    {
+      "symbol": "ETH",
+      "address": "0x0000000000000000000000000000000000000000",
+      "decimals": 18,
+      "chainId": 5,
+      "assetId": 1124
+    }
+  ]
+}

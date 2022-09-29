@@ -35,7 +35,7 @@ export default function Search() {
 						<button
 							type="submit"
 							className={clsx(
-								"inline-flex h-10 items-center bg-transparent px-6 py-1.5 text-xs text-indigo-300 border font-bold border-indigo-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2",
+								"inline-flex h-10 items-center border border-indigo-500 bg-transparent px-6 py-1.5 text-xs font-bold text-indigo-300 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2",
 								isSearching &&
 									"cursor-not-allowed bg-transparent hover:bg-transparent"
 							)}

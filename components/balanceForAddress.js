@@ -6,6 +6,7 @@ import { LoadingBlock, RefetchIndicator } from "@/components";
 import { CopyToClipboard } from "@/components/icons";
 import { useGetBalanceQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
+import { getAssetMetadata } from "@/libs/utils";
 
 export default function BalanceForAddress({ walletAddress }) {
 	const query = usePolling(
@@ -50,7 +51,9 @@ export default function BalanceForAddress({ walletAddress }) {
 									</div>
 									<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
 										<div className="flex flex-row space-x-3 text-sm font-medium text-white">
-											<p className="truncate md:whitespace-normal">{walletAddress}</p>
+											<p className="truncate md:whitespace-normal">
+												{walletAddress}
+											</p>
 											<div className="my-auto">
 												<CopyToClipboard value={walletAddress} />
 											</div>
@@ -60,32 +63,23 @@ export default function BalanceForAddress({ walletAddress }) {
 							</div>
 						</div>
 						<div>
-							<div className=" px-4 py-5 sm:p-0">
+							<div className="px-4 py-5 sm:p-0">
 								<dl className="sm:divide-y sm:divide-gray-200">
-									<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-										<div className="text-sm font-medium text-white">Total</div>
-										<div className="text-sm font-medium text-white">
-											{ethers.utils.formatUnits(balance?.total || "0", 6)} XRP
-										</div>
-									</div>
-									<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-										<div className="text-sm font-medium text-white">
-											Reserved
-										</div>
-										<div className="text-sm font-medium text-white">
-											{ethers.utils.formatUnits(balance?.reserved || "0", 6)}{" "}
-											XRP
-										</div>
-									</div>
-									<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-										<div className="text-sm font-medium text-white">Free</div>
-										<div className="text-sm font-medium text-white">
-											{ethers.utils.formatUnits(balance?.free || "0", 6)} XRP
-										</div>
-									</div>
-									<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-										<div className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0"></div>
-									</div>
+									<Balance title="Total">
+										{ethers.utils.formatUnits(balance?.total || "0", 6)} ROOT
+									</Balance>
+									<Balance title="Free">
+										{ethers.utils.formatUnits(balance?.free || "0", 6)} ROOT
+									</Balance>
+									{balance?.assets?.map(({ assetId, balance }) => {
+										const { symbol, decimals } = getAssetMetadata(assetId);
+										return (
+											<Balance key={assetId} title={symbol}>
+												{ethers.utils.formatUnits(balance || "0", decimals)}
+											</Balance>
+										);
+									})}
+									<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6" />
 								</dl>
 							</div>
 						</div>
@@ -95,3 +89,12 @@ export default function BalanceForAddress({ walletAddress }) {
 		</div>
 	);
 }
+
+const Balance = ({ title, children }) => {
+	return (
+		<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+			<div className="text-sm font-medium text-white">{title}</div>
+			<div className="text-sm font-medium text-white">{children}</div>
+		</div>
+	);
+};
