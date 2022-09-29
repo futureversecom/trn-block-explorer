@@ -2,7 +2,7 @@ import clsx from "clsx";
 
 const Table = ({ children, wrapperClassName }) => (
 	<table
-		className={clsx("min-w-full divide-y divide-gray-200", wrapperClassName)}
+		className={clsx("min-w-full divide-y divide-gray-400", wrapperClassName)}
 	>
 		{children}
 	</table>

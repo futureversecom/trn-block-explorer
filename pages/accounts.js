@@ -37,7 +37,7 @@ export default function Accounts() {
 				<div className="mt-0 flex flex-col">
 					<div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
 						<div className="inline-transfer min-w-full py-2 align-middle md:px-6 lg:px-8">
-							<div className="overflow-hidden border border-gray-200">
+							<div className="overflow-hidden border border-gray-400">
 								<TableLayout.Table>
 									<thead className="bg-transparent text-white">
 										<tr>

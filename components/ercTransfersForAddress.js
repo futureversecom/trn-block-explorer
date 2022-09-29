@@ -19,6 +19,27 @@ export default function TransfersForAddress({ walletAddress }) {
 
 	const query = useTransfers(walletAddress, (currentPage - 1) * 5);
 
+	// FAKE DATA, HANDY FOR DEBUG, CLEANUP
+	// TODO: CLEANUP
+	// const query = {
+	// 	data: [
+	// 		{
+	// 			block_number: 1,
+	// 			from_id: "123",
+	// 			from: {
+	// 				id: "1234"
+	// 			},
+	// 			to: {
+	// 				id: "1234"
+	// 			},
+	// 			amount: "1234",
+	// 			token: {
+	// 				symbol:"abc"
+	// 			}
+	// 		},
+	// 	],
+	// };
+
 	useAccountRefetchStatus("ercTransfers", query.isRefetching);
 
 	return (
@@ -29,7 +50,7 @@ export default function TransfersForAddress({ walletAddress }) {
 				<div className="divide-y border border-gray-400 text-white">
 					{query?.data?.length > 0 ? (
 						<TableLayout.Table>
-							<thead className="bg-gray-50">
+							<thead className="bg-transparent">
 								<tr>
 									<TableLayout.HeadItem text="Height" />
 									<TableLayout.HeadItem text="Type" />
