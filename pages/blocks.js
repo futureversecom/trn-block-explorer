@@ -38,7 +38,7 @@ export default function Blocks() {
 				<div className="mt-0 flex flex-col">
 					<div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
 						<div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-							<div className="overflow-scroll border border-gray-400 ">
+							<div className="overflow-auto border border-gray-400 ">
 								<TableLayout.Table>
 									<thead className="bg-transparent">
 										<tr>
