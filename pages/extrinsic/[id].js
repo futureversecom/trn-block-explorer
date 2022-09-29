@@ -121,7 +121,7 @@ const Events = ({ events }) => {
 												{event.name}
 
 												{viewArgs.includes(key) && (
-													<div className="max-h-32 max-w-xl overflow-scroll rounded bg-gray-900 bg-opacity-30 text-white p-2 text-xs">
+													<div className="max-h-32 max-w-xl overflow-scroll rounded bg-gray-900 bg-opacity-30 p-2 text-xs text-white">
 														<JSONPretty data={event.args} />
 													</div>
 												)}
@@ -132,10 +132,9 @@ const Events = ({ events }) => {
 											<TableLayout.Data>
 												<button
 													onClick={() => toggleArgs(key)}
-													className={clsx(
-														"-ml-1 rounded border py-1 px-2 text-xs text-white duration-300",
-														viewArgs.includes(key) && "bg-gray-50 text-gray-800"
-													)}
+													className={
+														"inline-flex items-center border border-indigo-500 px-4 py-1.5 text-xs font-bold text-indigo-300 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+													}
 												>
 													{viewArgs.includes(key) ? "Hide" : "View"}
 												</button>
