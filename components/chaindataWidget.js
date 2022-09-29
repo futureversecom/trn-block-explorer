@@ -30,9 +30,7 @@ export default function ChaindataWidget() {
 			<div className="flex flex-row justify-between py-3">
 				<div className="flex flex-row">
 					<ChartPieIcon className="my-auto h-5 pr-3 text-white" />
-					<h3 className="text-md font-bold leading-6 text-white">
-						Chain Data
-					</h3>
+					<h3 className="text-md font-bold leading-6 text-white">Chain Data</h3>
 				</div>
 				{query.isRefetching && (
 					<div>
@@ -44,7 +42,7 @@ export default function ChaindataWidget() {
 				<LoadingBlock title="Chaindata" height="h-28" />
 			) : (
 				<div className="space-y-3">
-					<dl className="grid grid-cols-1 divide-y-4 divide-gray-400 overflow-hidden text-[#111] border border-gray-400 md:grid-cols-3 md:divide-y-0 md:divide-x-2 bg-transparent">
+					<dl className="grid grid-cols-1 divide-y-4 divide-gray-400 overflow-hidden border border-gray-400 bg-transparent text-[#111] md:grid-cols-3 md:divide-y-0 md:divide-x-2">
 						{[
 							{
 								name: "Transfers",
@@ -80,7 +78,11 @@ export default function ChaindataWidget() {
 									</dt>
 									<dd className="flex items-baseline justify-between md:block lg:flex">
 										<div className="flex items-baseline text-2xl font-bold text-white">
-											<CountUp end={item.stat} separator={","} className="font-number" />
+											<CountUp
+												end={item.stat}
+												separator={","}
+												className="font-number"
+											/>
 										</div>
 									</dd>
 								</div>

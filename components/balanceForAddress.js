@@ -50,7 +50,9 @@ export default function BalanceForAddress({ walletAddress }) {
 									</div>
 									<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
 										<div className="flex flex-row space-x-3 text-sm font-medium text-white">
-											<p className="truncate md:whitespace-normal">{walletAddress}</p>
+											<p className="truncate md:whitespace-normal">
+												{walletAddress}
+											</p>
 											<div className="my-auto">
 												<CopyToClipboard value={walletAddress} />
 											</div>

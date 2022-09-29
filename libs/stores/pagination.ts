@@ -6,7 +6,7 @@ interface Pagination {
 }
 
 type Table =
-	| "ercTransfers"
+	| "accountTransfers"
 	| "evmTransactions"
 	| "extrinsics"
 	| "blocks"
@@ -15,7 +15,7 @@ type Table =
 type PaginationState = Record<Table, Pagination>;
 
 const pagination = atom<PaginationState>({
-	ercTransfers: {
+	accountTransfers: {
 		currentPage: 1,
 	},
 	evmTransactions: {

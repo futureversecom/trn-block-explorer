@@ -10113,6 +10113,68 @@ export type GetTransfersQuery = {
 	} | null;
 };
 
+export type GetTransfersFromAddressQueryVariables = Exact<{
+	offset?: InputMaybe<Scalars["Int"]>;
+	address: Scalars["String"];
+}>;
+
+export type GetTransfersFromAddressQuery = {
+	__typename?: "query_root";
+	balances?: {
+		__typename?: "balances_balances_query";
+		transfer: Array<{
+			__typename?: "balances_transfer";
+			timestamp: any;
+			status: string;
+			id: string;
+			extrinsic_hash?: string | null;
+			block_number: number;
+			asset_id: string;
+			amount: any;
+			from_id?: string | null;
+			to_id?: string | null;
+		}>;
+		transfer_aggregate: {
+			__typename?: "balances_transfer_aggregate";
+			aggregate?: {
+				__typename?: "balances_transfer_aggregate_fields";
+				count: number;
+			} | null;
+		};
+	} | null;
+};
+
+export type GetTransfersToAddressQueryVariables = Exact<{
+	offset?: InputMaybe<Scalars["Int"]>;
+	address: Scalars["String"];
+}>;
+
+export type GetTransfersToAddressQuery = {
+	__typename?: "query_root";
+	balances?: {
+		__typename?: "balances_balances_query";
+		transfer: Array<{
+			__typename?: "balances_transfer";
+			timestamp: any;
+			status: string;
+			id: string;
+			extrinsic_hash?: string | null;
+			block_number: number;
+			asset_id: string;
+			amount: any;
+			from_id?: string | null;
+			to_id?: string | null;
+		}>;
+		transfer_aggregate: {
+			__typename?: "balances_transfer_aggregate";
+			aggregate?: {
+				__typename?: "balances_transfer_aggregate_fields";
+				count: number;
+			} | null;
+		};
+	} | null;
+};
+
 export const GetAccountsDocument = `
     query GetAccounts($limit: Int!, $offset: Int) {
   balances {
@@ -10669,6 +10731,94 @@ export const useGetTransfersQuery = <
 		fetcher<GetTransfersQuery, GetTransfersQueryVariables>(
 			client,
 			GetTransfersDocument,
+			variables,
+			headers
+		),
+		options
+	);
+export const GetTransfersFromAddressDocument = `
+    query GetTransfersFromAddress($offset: Int, $address: String!) {
+  balances {
+    transfer(
+      offset: $offset
+      order_by: {block_number: desc}
+      where: {from_id: {_eq: $address}}
+    ) {
+      timestamp
+      status
+      id
+      extrinsic_hash
+      block_number
+      asset_id
+      amount
+      from_id
+      to_id
+    }
+    transfer_aggregate(where: {from_id: {_eq: $address}}) {
+      aggregate {
+        count
+      }
+    }
+  }
+}
+    `;
+export const useGetTransfersFromAddressQuery = <
+	TData = GetTransfersFromAddressQuery,
+	TError = unknown
+>(
+	client: GraphQLClient,
+	variables: GetTransfersFromAddressQueryVariables,
+	options?: UseQueryOptions<GetTransfersFromAddressQuery, TError, TData>,
+	headers?: RequestInit["headers"]
+) =>
+	useQuery<GetTransfersFromAddressQuery, TError, TData>(
+		["GetTransfersFromAddress", variables],
+		fetcher<
+			GetTransfersFromAddressQuery,
+			GetTransfersFromAddressQueryVariables
+		>(client, GetTransfersFromAddressDocument, variables, headers),
+		options
+	);
+export const GetTransfersToAddressDocument = `
+    query GetTransfersToAddress($offset: Int, $address: String!) {
+  balances {
+    transfer(
+      offset: $offset
+      order_by: {block_number: desc}
+      where: {to_id: {_eq: $address}}
+    ) {
+      timestamp
+      status
+      id
+      extrinsic_hash
+      block_number
+      asset_id
+      amount
+      from_id
+      to_id
+    }
+    transfer_aggregate(where: {to_id: {_eq: $address}}) {
+      aggregate {
+        count
+      }
+    }
+  }
+}
+    `;
+export const useGetTransfersToAddressQuery = <
+	TData = GetTransfersToAddressQuery,
+	TError = unknown
+>(
+	client: GraphQLClient,
+	variables: GetTransfersToAddressQueryVariables,
+	options?: UseQueryOptions<GetTransfersToAddressQuery, TError, TData>,
+	headers?: RequestInit["headers"]
+) =>
+	useQuery<GetTransfersToAddressQuery, TError, TData>(
+		["GetTransfersToAddress", variables],
+		fetcher<GetTransfersToAddressQuery, GetTransfersToAddressQueryVariables>(
+			client,
+			GetTransfersToAddressDocument,
 			variables,
 			headers
 		),

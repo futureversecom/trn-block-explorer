@@ -3,7 +3,7 @@ import { Tab } from "@headlessui/react";
 import clsx from "clsx";
 import { Fragment } from "react";
 
-import { ErcTransfersForAddress, RefetchIndicator } from "@/components";
+import { RefetchIndicator, TransfersForAddress } from "@/components";
 import { useAccountRefetchStatus } from "@/libs/stores";
 
 export const AccountTables = ({ walletAddress }) => {
@@ -12,7 +12,7 @@ export const AccountTables = ({ walletAddress }) => {
 	return (
 		<div className="mt-6">
 			<Tab.Group>
-				<TabList titles={["ERC Transfers"]}>
+				<TabList titles={["Transfers"]}>
 					{isRefetching && (
 						<div className="absolute right-2 top-5 flex">
 							<RefetchIndicator />
@@ -20,7 +20,7 @@ export const AccountTables = ({ walletAddress }) => {
 					)}
 				</TabList>
 				<TabPanels
-					panels={[<ErcTransfersForAddress walletAddress={walletAddress} />]}
+					panels={[<TransfersForAddress walletAddress={walletAddress} />]}
 				/>
 			</Tab.Group>
 		</div>
@@ -31,13 +31,12 @@ const TabList = ({ titles, children }) => (
 	<Tab.List className="relative mb-2 flex">
 		{titles.map((title, key) => (
 			<Fragment key={key}>
-				<Tab className="outline-none text-white">
+				<Tab className="text-white outline-none">
 					{({ selected }) => (
 						<span
 							className={clsx(
 								"inline-block bg-transparent p-4",
-								selected &&
-									"border-b-2 border-gray-500 text-white duration-300"
+								selected && "border-b-2 border-gray-500 text-white duration-300"
 							)}
 						>
 							{title}
