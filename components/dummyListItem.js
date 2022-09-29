@@ -6,10 +6,10 @@ export default function DummyListItem(numOfItems = 0) {
                 <div className="flex flex-row justify-between my-1.5">
                     <div className="space-y-3 w-full">
                         <div className="grid grid-cols-8 gap-x-10 gap-y-2">
-                            <div className="h-3 bg-gray-300 rounded col-span-2"></div>
+                            <div className="h-3 bg-gray-400 rounded col-span-2"></div>
                         </div>
                         <div className="grid grid-cols-8 gap-x-10 gap-y-2">
-                            <div className="h-2 bg-gray-300 rounded col-span-4"></div>
+                            <div className="h-2 bg-gray-400 rounded col-span-4"></div>
                         </div>
                     </div>
                 </div>
