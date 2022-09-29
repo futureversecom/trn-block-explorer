@@ -99,9 +99,9 @@ const Events = ({ events }) => {
 		<div className="mt-8 flex flex-col">
 			<div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
 				<div className="inline-transfer min-w-full py-2 align-middle md:px-6 lg:px-8">
-					<div className="overflow-hidden rounded-md border border-gray-100">
+					<div className="overflow-hidden border border-gray-400">
 						<TableLayout.Table>
-							<thead className="bg-gray-50">
+							<thead className="bg-transparent">
 								<tr>
 									<TableLayout.HeadItem text="Event ID" />
 									<TableLayout.HeadItem text="Action" />
@@ -109,7 +109,7 @@ const Events = ({ events }) => {
 									<TableLayout.HeadItem text="Args" />
 								</tr>
 							</thead>
-							<tbody className="divide-y divide-gray-200 bg-white">
+							<tbody className="divide-y divide-gray-800 bg-transparent">
 								{events.map((event, key) => (
 									<>
 										<tr key={key}>
@@ -121,7 +121,7 @@ const Events = ({ events }) => {
 												{event.name}
 
 												{viewArgs.includes(key) && (
-													<div className="max-h-32 max-w-xl overflow-scroll rounded bg-gray-100 p-2 text-xs">
+													<div className="max-h-32 max-w-xl overflow-scroll rounded bg-transparent text-white p-2 text-xs">
 														<JSONPretty data={event.args} />
 													</div>
 												)}
@@ -133,8 +133,8 @@ const Events = ({ events }) => {
 												<button
 													onClick={() => toggleArgs(key)}
 													className={clsx(
-														"-ml-1 rounded border py-1 px-2 text-xs text-gray-600 duration-300",
-														viewArgs.includes(key) && "bg-gray-50"
+														"-ml-1 rounded border py-1 px-2 text-xs text-white duration-300",
+														viewArgs.includes(key) && "bg-gray-50 text-gray-800"
 													)}
 												>
 													{viewArgs.includes(key) ? "Hide" : "View"}

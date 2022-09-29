@@ -33,13 +33,13 @@ export default function BalanceForAddress({ walletAddress }) {
 			{query.isLoading ? (
 				<LoadingBlock title="Balance" height="h-20" />
 			) : (
-				<div className=" h- divide-y rounded-md border border-gray-100 bg-white px-4 py-3 sm:px-6">
+				<div className=" h- divide-y border border-gray-400 bg-transparent px-4 py-3 sm:px-6">
 					<div className="grid grid-cols-1 md:grid-cols-2">
 						<div>
 							<div className=" px-4 py-5 sm:p-0">
 								<dl>
 									<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-										<div className="flex flex-row space-x-3 text-sm font-medium text-gray-900">
+										<div className="flex flex-row space-x-3 text-sm font-medium text-white">
 											<div>
 												<QRCode
 													value={walletAddress}
@@ -51,7 +51,7 @@ export default function BalanceForAddress({ walletAddress }) {
 										</div>
 									</div>
 									<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-										<div className="flex flex-row space-x-3 text-sm font-medium text-gray-900">
+										<div className="flex flex-row space-x-3 text-sm font-medium text-white">
 											<div>{walletAddress}</div>
 											<div className="my-auto">
 												<CopyToClipboard value={walletAddress} />
@@ -65,27 +65,27 @@ export default function BalanceForAddress({ walletAddress }) {
 							<div className=" px-4 py-5 sm:p-0">
 								<dl className="sm:divide-y sm:divide-gray-200">
 									<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-										<div className="text-sm font-medium text-gray-900">
+										<div className="text-sm font-medium text-white">
 											Total
 										</div>
-										<div className="text-sm font-medium text-gray-900">
+										<div className="text-sm font-medium text-white">
 											{ethers.utils.formatUnits(balance?.total || "0", 6)} XRP
 										</div>
 									</div>
 									<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-										<div className="text-sm font-medium text-gray-900">
+										<div className="text-sm font-medium text-white">
 											Reserved
 										</div>
-										<div className="text-sm font-medium text-gray-900">
+										<div className="text-sm font-medium text-white">
 											{ethers.utils.formatUnits(balance?.reserved || "0", 6)}{" "}
 											XRP
 										</div>
 									</div>
 									<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-										<div className="text-sm font-medium text-gray-900">
+										<div className="text-sm font-medium text-white">
 											Free
 										</div>
-										<div className="text-sm font-medium text-gray-900">
+										<div className="text-sm font-medium text-white">
 											{ethers.utils.formatUnits(balance?.free || "0", 6)} XRP
 										</div>
 									</div>
