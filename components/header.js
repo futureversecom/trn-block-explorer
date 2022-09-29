@@ -6,10 +6,10 @@ import clsx from "clsx";
 import { IS_MAINNET } from "@/libs/constants";
 
 const links = [
-	{
-		title: "Dashboard",
-		href: "/",
-	},
+	// {
+	// 	title: "Dashboard",
+	// 	href: "/",
+	// },
 	{
 		title: "Blocks",
 		href: "/blocks",
@@ -28,7 +28,7 @@ export default function Header() {
 	const router = useRouter();
 	
 	return (
-		<Disclosure as="nav" className="sm:pt-4">
+		<Disclosure as="nav" className="sm:pt-[23px]">
 			{({ open }) => (
 				<>
 					<div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -47,30 +47,33 @@ export default function Header() {
 							<div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
 								<div className="flex flex-shrink-0 items-center text-white">
 									<Link href="/">
-										<span className="my-auto cursor-pointer font-gilroy-extrabold text-logo pt-[3px]">
+										<span className={clsx(`my-auto cursor-pointer font-gilroy-medium text-nav tracking-[1.1px] leading-[23px]`, router.pathname === '/' && "font-gilroy-extrabold" )}>
 											THE ROOT NETWORK<sup>&nbsp;&#945;</sup>
 										</span>
 									</Link>
 								</div>
-								<div className="hidden sm:ml-10 sm:flex sm:space-x-8 uppercase font-gilroy-bold">
+								<div className="hidden sm:ml-[1rem] sm:flex sm:space-x-[1rem]">
 									{links.map((link, key) => (
-										<Link href={link.href} key={key}>
-											<a
-												key={key}
-												className={clsx(`inline-flex items-center px-1 pt-1 text-sm text-white`, 
-												router.pathname === link.href && "border-b-2 border-indigo-500" )}
-											>
+										<>
+											<span className={clsx(`inline-flex items-center text-white uppercase text-nav font-gilroy-medium tracking-[1.1px] leading-[23px]`)}>//</span>
+											<Link href={link.href} key={key}>
+												<a
+													key={key}
+													className={clsx(`inline-flex items-center text-white uppercase text-nav font-gilroy-medium tracking-[1.1px] leading-[23px]`, 
+													router.pathname === link.href && "font-gilroy-extrabold" )}
+												>
 												{link.title}
-											</a>
-										</Link>
+												</a>
+											</Link>
+										</>
 									))}
 
 									{/* border-indigo-500 to set active state */}
 								</div>
 							</div>
 							<div className="flex flex-shrink-0 items-center text-white">
-								<span className={clsx("h-5 text-xs inline-block py-1 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold text-white rounded",
-								IS_MAINNET ? 'bg-lime-700' : 'bg-indigo-700')}>{IS_MAINNET ? 'Mainnet' : 'Testnet'}</span>
+								<span className={clsx("h-5 text-xs inline-block py-1 px-2 leading-none uppercase text-center whitespace-nowrap align-baseline font-gilroy-extrabold text-black rounded",
+								IS_MAINNET ? 'bg-lime-700' : 'bg-white')}>{IS_MAINNET ? 'Mainnet' : 'Testnet'}</span>
 							</div>
 						</div>
 					</div>
