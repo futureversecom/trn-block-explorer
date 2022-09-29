@@ -40,7 +40,7 @@ export default function Blocks() {
 						<div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
 							<div className="overflow-hidden border border-gray-100 ">
 								<TableLayout.Table>
-									<thead className="bg-gray-50">
+									<thead className="bg-transparent">
 										<tr>
 											<TableLayout.HeadItem text="Block" />
 											<TableLayout.HeadItem text="Status" />
@@ -51,10 +51,10 @@ export default function Blocks() {
 											<TableLayout.HeadItem text="Block hash" />
 										</tr>
 									</thead>
-									<tbody className="divide-y divide-gray-200 bg-white">
+									<tbody className="divide-y divide-gray-800 bg-transparent">
 										{query.data.map((block, key) => (
 											<tr key={key}>
-												<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500">
+												<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500 font-bold">
 													<Link href={`/block/${block.height}`}>
 														{block.height}
 													</Link>
