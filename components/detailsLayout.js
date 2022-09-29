@@ -3,7 +3,7 @@ import clsx from "clsx";
 const Container = ({ children, containerClassName }) => (
 	<div
 		className={clsx(
-			"mt-5 overflow-hidden rounded-md border border-gray-100 bg-white shadow-md",
+			"mt-0 overflow-hidden rounded-md border border-gray-100 bg-white",
 			containerClassName
 		)}
 	>

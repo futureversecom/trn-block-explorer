@@ -16,3 +16,7 @@ export const formatAddress = (address, len = 6) => {
 		address.substring(address.length - len, address.length)
 	);
 };
+
+export const numberWithCommas = (num) => {
+	return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};

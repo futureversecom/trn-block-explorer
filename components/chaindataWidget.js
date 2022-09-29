@@ -29,9 +29,9 @@ export default function ChaindataWidget() {
 		<div>
 			<div className="flex flex-row justify-between py-3">
 				<div className="flex flex-row">
-					<ChartPieIcon className="my-auto h-5 pr-3" />
-					<h3 className="text-md font-medium leading-6 text-gray-900">
-						Chaindata
+					<ChartPieIcon className="my-auto h-5 pr-3 text-white" />
+					<h3 className="text-md font-medium leading-6 text-white">
+						Chain Data
 					</h3>
 				</div>
 				{query.isRefetching && (
@@ -44,7 +44,7 @@ export default function ChaindataWidget() {
 				<LoadingBlock title="Chaindata" height="h-28" />
 			) : (
 				<div className="space-y-3">
-					<dl className="grid grid-cols-1 divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow md:grid-cols-3 md:divide-y-0 md:divide-x">
+					<dl className="grid grid-cols-1 divide-y-4 divide-gray-300 overflow-hidden rounded text-[#111] border border-gray-300 md:grid-cols-3 md:divide-y-0 md:divide-x-2 bg-gray-100">
 						{[
 							{
 								name: "Transfers",
@@ -61,26 +61,26 @@ export default function ChaindataWidget() {
 						].map((item) => (
 							<div
 								key={item.name}
-								className="my-auto flex flex-row px-4 py-5 sm:p-6"
+								className="my-auto flex flex-row px-4 py-5 sm:p-4"
 							>
 								<div className="my-auto pr-3">
 									{item.name === "Transfers" && (
-										<ChartPieIcon className="h-12 text-gray-800" />
+										<ChartPieIcon className="h-12 text-[#111]" />
 									)}
 									{item.name === "Finalized Blocks" && (
-										<CubeIcon className="h-12 text-gray-800" />
+										<CubeIcon className="h-12 text-[#111]" />
 									)}
 									{item.name === "Holders" && (
-										<UserGroupIcon className="h-12 text-gray-800" />
+										<UserGroupIcon className="h-12 text-[#111]" />
 									)}
 								</div>
 								<div>
-									<dt className="text-base font-semibold text-gray-900">
+									<dt className="text-base font-semibold text-[#111]">
 										{item.name}
 									</dt>
-									<dd className="mt-1 flex items-baseline justify-between md:block lg:flex">
-										<div className="flex items-baseline text-2xl font-semibold text-indigo-600">
-											<CountUp end={item.stat} separator={","} />
+									<dd className="flex items-baseline justify-between md:block lg:flex">
+										<div className="flex items-baseline text-2xl font-bold text-indigo-600">
+											<CountUp end={item.stat} separator={","} className="font-number" />
 										</div>
 									</dd>
 								</div>

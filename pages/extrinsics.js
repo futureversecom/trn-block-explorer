@@ -1,4 +1,4 @@
-import { CubeIcon } from "@heroicons/react/24/outline";
+import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useEffect } from "react";
 import TimeAgo from "react-timeago";
@@ -30,15 +30,15 @@ export default function Extrinsics() {
 		<ContainerLayout>
 			<PageHeader
 				title={`Extrinsics`}
-				icon={<CubeIcon className="my-auto h-5 pr-3" />}
+				icon={<ArrowsRightLeftIcon className="my-auto h-5 pr-3 text-white" />}
 			/>
 			{query.isLoading || query.isError ? (
 				<LoadingBlock title={"extrinsics"} />
 			) : (
-				<div className="mt-8 flex flex-col">
+				<div className="mt-0 flex flex-col">
 					<div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
 						<div className="inline-transfer min-w-full py-2 align-middle md:px-6 lg:px-8">
-							<div className="overflow-hidden rounded-md border border-gray-100 shadow-md ">
+							<div className="overflow-hidden rounded-md border border-gray-100">
 								<TableLayout.Table>
 									<thead className="bg-gray-50">
 										<tr>

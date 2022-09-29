@@ -2,9 +2,10 @@ import { CubeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import TimeAgo from "react-timeago";
 
-import { LoadingBlock, RefetchIndicator } from "@/components";
+import { DummyListItem, RefetchIndicator } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetBlocksQuery } from "@/libs/api/generated.ts";
+import { numberWithCommas } from "@/libs/utils";
 import { usePolling } from "@/libs/hooks";
 
 export default function BlocksWidget() {
@@ -18,9 +19,9 @@ export default function BlocksWidget() {
 		<div>
 			<div className="flex flex-row justify-between py-3">
 				<div className="flex items-center">
-					<CubeIcon className="my-auto h-5 pr-3" />
-					<h3 className="text-md font-medium leading-6 text-gray-900">
-						Blocks
+					<CubeIcon className="my-auto h-5 pr-3 text-white" />
+					<h3 className="text-md font-medium leading-6 text-white">
+						Latest Blocks
 					</h3>
 				</div>
 				<div>
@@ -28,29 +29,29 @@ export default function BlocksWidget() {
 					<Link href={"/blocks"}>
 						<button
 							type="button"
-							className="inline-flex items-center rounded border border-gray-300 bg-white px-2.5 py-1.5 text-xs font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+							className="inline-flex items-center rounded border border-indigo-500 px-4 py-1.5 text-xs font-medium text-indigo-300 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 "
 						>
-							view all
+							View All
 						</button>
 					</Link>
 				</div>
 			</div>
+			<div className="divide-y rounded border border-gray-200 px-4 py-3 sm:px-6 bg-gray-100 min-h-[760px]">
 			{query.isLoading ? (
-				<LoadingBlock title="Blocks" height="h-80" />
+				DummyListItem(10)
 			) : (
-				<div className="divide-y rounded-md border border-gray-100 bg-white px-4 py-3 shadow-md sm:px-6">
-					{blocks?.map((item, key) => (
-						<BlockItem
-							key={key}
-							height={item.height}
-							extrinsics={item?.extrinsics_aggregate?.aggregate?.count || "?"}
-							events={item?.events_aggregate?.aggregate?.count || "?"}
-							timestamp={item.timestamp}
-							status={true}
-						/>
-					))}
-				</div>
+				blocks?.map((item, key) => (
+					<BlockItem
+						key={key}
+						height={item.height}
+						extrinsics={item?.extrinsics_aggregate?.aggregate?.count || "?"}
+						events={item?.events_aggregate?.aggregate?.count || "?"}
+						timestamp={item.timestamp}
+						status={true}
+					/>
+				))
 			)}
+			</div>
 		</div>
 	);
 }
@@ -60,17 +61,17 @@ const BlockItem = ({ height, extrinsics, events, timestamp, status }) => {
 		<div className="block py-3">
 			<div className="flex flex-row justify-between">
 				<div className="text-sm font-bold">
-					Block#{" "}
+					<span className="mr-2 text-[#111]">Block#</span>
 					<Link href={`/block/${height}`}>
-						<span className="cursor-pointer text-lg text-indigo-500">
-							{height}
+						<span className="cursor-pointer text-lg text-indigo-500 font-number">
+							{numberWithCommas(height)}
 						</span>
 					</Link>
 				</div>
 			</div>
 			<div className="flex flex-row justify-between">
-				<div className="text-teal-800">
-					<span className="text-sm text-gray-500">Includes</span>{" "}
+				<div className="text-sm text-teal-800">
+					<span className="text-gray-500">Includes</span>{" "}
 					<span className="text-indigo-500">{extrinsics} Extrinsics</span>{" "}
 					<span className="text-indigo-500">{events} Events</span>{" "}
 				</div>

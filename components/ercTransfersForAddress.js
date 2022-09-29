@@ -26,7 +26,7 @@ export default function TransfersForAddress({ walletAddress }) {
 			{query.isLoading ? (
 				<LoadingBlock title="Transfers" height="h-20" />
 			) : (
-				<div className="divide-y rounded-md border border-gray-100 bg-white shadow-md">
+				<div className="divide-y rounded-md border border-gray-100 bg-white">
 					{query?.data?.length > 0 ? (
 						<TableLayout.Table>
 							<thead className="bg-gray-50">

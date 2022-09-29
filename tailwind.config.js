@@ -9,7 +9,13 @@ module.exports = {
 	theme: {
 		extend: {
 			fontFamily: {
-				sans: ["Roboto Condensed", "sans-serif"],
+				sans: ["Gilroy Light", "sans-serif"],
+				'gilroy-bold': ["Gilroy Bold", "sans-serif"],
+				'gilroy-extrabold': ["Gilroy ExtraBold", "sans-serif"],
+				number: ["Gilroy Medium", "sans-serif"],
+			},
+			fontSize: {
+				logo: '14pt'
 			},
 		},
 	},

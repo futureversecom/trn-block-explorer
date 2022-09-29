@@ -28,7 +28,7 @@ export const AccountTables = ({ walletAddress }) => {
 };
 
 const TabList = ({ titles, children }) => (
-	<Tab.List className="relative mb-2 flex rounded border-b bg-white shadow-sm">
+	<Tab.List className="relative mb-2 flex rounded border-b bg-white">
 		{titles.map((title, key) => (
 			<Fragment key={key}>
 				<Tab className="outline-none">

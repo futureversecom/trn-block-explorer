@@ -134,7 +134,7 @@ const PaginationButton = ({ children, buttonClassName, ...props }) => (
 		{...props}
 		type="button"
 		className={clsx(
-			"cursor-pointer rounded border bg-white px-2 py-1 shadow-sm",
+			"cursor-pointer rounded border bg-white px-2 py-1",
 			buttonClassName
 		)}
 	>

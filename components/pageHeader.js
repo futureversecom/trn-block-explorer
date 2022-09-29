@@ -11,7 +11,7 @@ export default function PageHeader({ title, icon }) {
 			</Head>
 			<div className="flex py-3">
 				{icon}
-				<h3 className="text-md font-medium leading-6 text-gray-900">{title}</h3>
+				<h3 className="text-md font-medium leading-6 text-white">{title}</h3>
 			</div>
 		</Fragment>
 	);

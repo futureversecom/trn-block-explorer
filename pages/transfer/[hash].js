@@ -32,7 +32,7 @@ export default function Transfer({ hash }) {
 		<ContainerLayout>
 			<PageHeader
 				title={`Transfer # ${formatAddress(hash, 12)}`}
-				icon={<CubeIcon className="my-auto h-5 pr-3" />}
+				icon={<CubeIcon className="my-auto h-5 pr-3 text-white" />}
 			/>
 			{query.isLoading || query.isError ? (
 				<LoadingBlock title={`Transfer ${hash}`} />

@@ -2,7 +2,7 @@ import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import TimeAgo from "react-timeago";
 
-import { LoadingBlock, RefetchIndicator } from "@/components";
+import { DummyListItem, RefetchIndicator } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetExtrinsicsQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
@@ -16,8 +16,8 @@ export default function ExtrinsicsWidget() {
 		<div>
 			<div className="flex flex-row justify-between py-3">
 				<div className="flex items-center">
-					<ArrowsRightLeftIcon className="my-auto h-5 pr-3" />
-					<h3 className="text-md font-medium leading-6 text-gray-900">
+					<ArrowsRightLeftIcon className="my-auto h-5 pr-3 text-white" />
+					<h3 className="text-md font-medium leading-6 text-white">
 						Extrinsics
 					</h3>
 				</div>
@@ -26,28 +26,28 @@ export default function ExtrinsicsWidget() {
 					<Link href={"/transfers"}>
 						<button
 							type="button"
-							className="inline-flex items-center rounded border border-gray-300 bg-white px-2.5 py-1.5 text-xs font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+							className="inline-flex items-center rounded border border-indigo-500 px-4 py-1.5 text-xs font-medium text-indigo-300 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 						>
-							view all
+							View All
 						</button>
 					</Link>
 				</div>
 			</div>
+			<div className="divide-y rounded border border-gray-100 px-4 py-3 sm:px-6 bg-gray-100 min-h-[760px]">
 			{query.isLoading ? (
-				<LoadingBlock title="Extrinsics" height="h-80" />
+				DummyListItem(10)
 			) : (
-				<div className="divide-y rounded-md border border-gray-100 bg-white px-4 py-3 shadow-md sm:px-6">
-					{query.data?.map((item, key) => (
-						<Extrinsic
-							key={key}
-							success={item.success}
-							call={item.calls[0].name}
-							timestamp={item.block.timestamp}
-							extrinsicId={item.id}
-						/>
-					))}
-				</div>
+				query.data?.map((item, key) => (
+					<Extrinsic
+						key={key}
+						success={item.success}
+						call={item.calls[0].name}
+						timestamp={item.block.timestamp}
+						extrinsicId={item.id}
+					/>
+				))
 			)}
+			</div>
 		</div>
 	);
 }
@@ -57,15 +57,15 @@ const Extrinsic = ({ success, call, timestamp, extrinsicId }) => {
 		<div className="block py-3">
 			<div className="flex flex-row justify-between">
 				<div className="text-sm font-bold">
-					Extrinsic#{" "}
-					<span className="cursor-pointer text-lg text-indigo-500">
+					<span className="mr-2 text-[#111]">Extrinsic#</span>
+					<span className="cursor-pointer text-lg text-indigo-500 font-number">
 						<Link href={`/extrinsic/${extrinsicId}`}>
 							{formatExtrinsicId(extrinsicId)}
 						</Link>
 					</span>
 				</div>
 			</div>
-			<div className="flex flex-row justify-between">
+			<div className="flex flex-row justify-between text-sm text-gray-500">
 				<div>{call}</div>
 				<div className="flex space-x-3">
 					<div className="text-sm text-gray-600">
