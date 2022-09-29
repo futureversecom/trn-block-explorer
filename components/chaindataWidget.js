@@ -44,7 +44,7 @@ export default function ChaindataWidget() {
 				<LoadingBlock title="Chaindata" height="h-28" />
 			) : (
 				<div className="space-y-3">
-					<dl className="grid grid-cols-1 divide-y-4 divide-gray-300 overflow-hidden rounded text-[#111] border border-gray-300 md:grid-cols-3 md:divide-y-0 md:divide-x-2 bg-transparent">
+					<dl className="grid grid-cols-1 divide-y-4 divide-gray-400 overflow-hidden rounded text-[#111] border border-gray-400 md:grid-cols-3 md:divide-y-0 md:divide-x-2 bg-transparent">
 						{[
 							{
 								name: "Transfers",

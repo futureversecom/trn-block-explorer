@@ -33,7 +33,7 @@ export default function ExtrinsicsWidget() {
 					</Link>
 				</div>
 			</div>
-			<div className="divide-y rounded border border-gray-100 px-4 py-3 sm:px-6 bg-gray-100 min-h-[760px]">
+			<div className="divide-y rounded border border-gray-400 divide-gray-400 px-4 py-3 sm:px-6 bg-transparent min-h-[760px]">
 			{query.isLoading ? (
 				DummyListItem(10)
 			) : (
@@ -57,7 +57,7 @@ const Extrinsic = ({ success, call, timestamp, extrinsicId }) => {
 		<div className="block py-3">
 			<div className="flex flex-row justify-between">
 				<div className="text-sm font-bold">
-					<span className="mr-2 text-[#111]">Extrinsic#</span>
+					<span className="mr-2 text-white">Extrinsic#</span>
 					<span className="cursor-pointer text-lg text-indigo-500 font-number">
 						<Link href={`/extrinsic/${extrinsicId}`}>
 							{formatExtrinsicId(extrinsicId)}
@@ -66,9 +66,9 @@ const Extrinsic = ({ success, call, timestamp, extrinsicId }) => {
 				</div>
 			</div>
 			<div className="flex flex-row justify-between text-sm text-gray-500">
-				<div>{call}</div>
+				<div className="text-gray-200">{call}</div>
 				<div className="flex space-x-3">
-					<div className="text-sm text-gray-600">
+					<div className="text-sm text-gray-200">
 						<TimeAgo date={timestamp} />
 					</div>
 					<div>

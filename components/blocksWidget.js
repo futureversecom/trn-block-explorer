@@ -5,8 +5,8 @@ import TimeAgo from "react-timeago";
 import { DummyListItem, RefetchIndicator } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetBlocksQuery } from "@/libs/api/generated.ts";
-import { numberWithCommas } from "@/libs/utils";
 import { usePolling } from "@/libs/hooks";
+import { numberWithCommas } from "@/libs/utils";
 
 export default function BlocksWidget() {
 	const query = usePolling({}, useGetBlocksQuery, {
@@ -36,21 +36,19 @@ export default function BlocksWidget() {
 					</Link>
 				</div>
 			</div>
-			<div className="divide-y divide-gray-400 rounded border border-gray-400 px-4 py-3 sm:px-6 bg-transparent min-h-[760px]">
-			{query.isLoading ? (
-				DummyListItem(10)
-			) : (
-				blocks?.map((item, key) => (
-					<BlockItem
-						key={key}
-						height={item.height}
-						extrinsics={item?.extrinsics_aggregate?.aggregate?.count || "?"}
-						events={item?.events_aggregate?.aggregate?.count || "?"}
-						timestamp={item.timestamp}
-						status={true}
-					/>
-				))
-			)}
+			<div className="min-h-[760px] divide-y divide-gray-400 rounded border border-gray-400 bg-transparent px-4 py-3 sm:px-6">
+				{query.isLoading
+					? DummyListItem(10)
+					: blocks?.map((item, key) => (
+							<BlockItem
+								key={key}
+								height={item.height}
+								extrinsics={item?.extrinsics_aggregate?.aggregate?.count || "?"}
+								events={item?.events_aggregate?.aggregate?.count || "?"}
+								timestamp={item.timestamp}
+								status={true}
+							/>
+					  ))}
 			</div>
 		</div>
 	);
@@ -63,17 +61,16 @@ const BlockItem = ({ height, extrinsics, events, timestamp, status }) => {
 				<div className="text-sm font-bold">
 					<span className="mr-2 text-white">Block#</span>
 					<Link href={`/block/${height}`}>
-						<span className="cursor-pointer text-lg text-indigo-500 font-number">
+						<span className="cursor-pointer font-number text-lg text-indigo-500">
 							{numberWithCommas(height)}
 						</span>
 					</Link>
 				</div>
 			</div>
 			<div className="flex flex-row justify-between">
-				<div className="text-sm text-teal-800">
-					<span className="text-gray-200">Includes</span>{" "}
-					<span className="text-indigo-500">{extrinsics} Extrinsics</span>{" "}
-					<span className="text-indigo-500">{events} Events</span>{" "}
+				<div className="text-sm text-gray-200">
+					<span>Includes</span> <span>{extrinsics} Extrinsics</span>{" "}
+					<span>{events} Events</span>{" "}
 				</div>
 				<div className="flex space-x-3">
 					<div className="text-sm text-gray-200">
