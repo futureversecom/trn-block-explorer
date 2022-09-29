@@ -38,9 +38,9 @@ export default function Extrinsics() {
 				<div className="mt-0 flex flex-col">
 					<div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
 						<div className="inline-transfer min-w-full py-2 align-middle md:px-6 lg:px-8">
-							<div className="overflow-hidden rounded-md border border-gray-100">
+							<div className="overflow-hidden border border-gray-200">
 								<TableLayout.Table>
-									<thead className="bg-gray-50">
+									<thead className="bg-transparent text-white">
 										<tr>
 											<TableLayout.HeadItem text="Id" />
 											<TableLayout.HeadItem text="Status" />
@@ -51,10 +51,10 @@ export default function Extrinsics() {
 											<TableLayout.HeadItem text="Events" />
 										</tr>
 									</thead>
-									<tbody className="divide-y divide-gray-200 bg-white">
+									<tbody className="divide-y divide-gray-800 bg-transparent">
 										{query.data.map((extrinsic, key) => (
 											<tr key={key}>
-												<TableLayout.Data dataClassName="!text-indigo-500">
+												<TableLayout.Data dataClassName="!text-indigo-500 font-bold">
 													<Link href={`/extrinsic/${extrinsic.id}`}>
 														{formatExtrinsicId(extrinsic.id)}
 													</Link>
@@ -71,7 +71,7 @@ export default function Extrinsics() {
 												<TableLayout.Data>
 													<TimeAgo date={extrinsic.block.timestamp} />
 												</TableLayout.Data>
-												<TableLayout.Data dataClassName="!text-indigo-500">
+												<TableLayout.Data dataClassName="!text-indigo-500 font-bold">
 													<Link href={`/block/${extrinsic.block.height}`}>
 														{extrinsic.block.height}
 													</Link>
