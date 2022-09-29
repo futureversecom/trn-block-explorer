@@ -36,7 +36,7 @@ export default function EVMTransactionsForAddress({ walletAddress }) {
 			{query.isLoading ? (
 				<LoadingBlock title="EVM Transactions" height="h-20" />
 			) : (
-				<div className="divide-y rounded-md border border-gray-100 bg-white shadow-md">
+				<div className="divide-y rounded-md border border-gray-100 bg-white">
 					{query.data?.length > 0 ? (
 						<>
 							<TableLayout.Table>
@@ -51,7 +51,7 @@ export default function EVMTransactionsForAddress({ walletAddress }) {
 										<TableLayout.HeadItem text="To" />
 									</tr>
 								</thead>
-								<tbody className="divide-y divide-gray-200 bg-white">
+								<tbody className="divide-y divide-gray-800 bg-white">
 									{query.data.map((block, key) => (
 										<tr key={key}>
 											<TableLayout.Data>

@@ -16,18 +16,18 @@ export default function Search() {
 	const { search, setSearch, isSearching, error, onFormSubmit } = useSearch();
 
 	return (
-		<div className="border-b border-b-gray-200 bg-white">
+		<div className="">
 			<form
 				onSubmit={onFormSubmit}
-				className="mx-auto max-w-7xl py-3 px-4 sm:px-6 lg:px-8"
+				className="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8"
 			>
-				<fieldset className="flex flex-row justify-between rounded-md border border-gray-300">
+				<fieldset className="flex flex-row justify-between rounded-md ">
 					<div className="w-full">
 						<input
 							value={search}
 							type="text"
 							onChange={(e) => setSearch(e.target.value)}
-							className="block h-12 w-full rounded-l border-gray-300 p-3 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+							className="block h-10 w-full border-l border-t border-b border-gray-400 bg-transparent p-3 text-white focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 							placeholder="Search by Block / Account / Extrinsic ID / Transaction Hash"
 						/>
 					</div>
@@ -35,7 +35,7 @@ export default function Search() {
 						<button
 							type="submit"
 							className={clsx(
-								"inline-flex h-12 items-center rounded-r border border-transparent bg-indigo-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2",
+								"inline-flex h-10 items-center bg-transparent px-6 py-1.5 text-xs text-indigo-300 border font-bold border-indigo-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2",
 								isSearching &&
 									"cursor-not-allowed bg-transparent hover:bg-transparent"
 							)}
@@ -48,7 +48,9 @@ export default function Search() {
 						</button>
 					</div>
 				</fieldset>
-				<div className="select-none py-3 text-sm text-red-400">{error}</div>
+				{error && (
+					<div className="select-none text-sm text-red-400">{error}</div>
+				)}
 			</form>
 		</div>
 	);

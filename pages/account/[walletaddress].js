@@ -22,7 +22,7 @@ export default function Account({ walletAddress }) {
 			<PageHeader
 				title={`Wallet # ${walletAddress}`}
 				icon={
-					<div className="my-auto h-5 pr-3">
+					<div className="my-auto h-5 pr-3 text-white">
 						<Jazzicon diameter={20} seed={jsNumberForAddress(walletAddress)} />
 					</div>
 				}

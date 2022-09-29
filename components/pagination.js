@@ -48,8 +48,8 @@ export const Pagination = ({ table }) => {
 					onClick={() => onPageClick(1)}
 					buttonClassName={clsx(
 						currentPage === 1
-							? "cursor-not-allowed text-gray-300"
-							: "hover:text-indigo-500"
+							? "cursor-not-allowed text-white"
+							: "text-indigo-300 hover:bg-indigo-500 border-indigo-500"
 					)}
 				>
 					<ChevronDoubleLeftIcon className="h-4 w-4" />
@@ -59,8 +59,8 @@ export const Pagination = ({ table }) => {
 					onClick={() => onPageClick(currentPage - 1)}
 					buttonClassName={clsx(
 						currentPage === 1
-							? "cursor-not-allowed text-gray-300"
-							: "hover:text-indigo-500"
+							? "cursor-not-allowed text-white"
+							: "text-indigo-300 hover:bg-indigo-500 border-indigo-500"
 					)}
 				>
 					<ChevronLeftIcon className="h-4 w-4" />
@@ -73,9 +73,10 @@ export const Pagination = ({ table }) => {
 								key={i}
 								onClick={() => onPageClick(page)}
 								buttonClassName={clsx(
-									"font-mono text-sm hover:text-indigo-500",
-									currentPage === page &&
-										"cursor-default !border-indigo-500 text-indigo-500"
+									"font-mono text-sm text-indigo-500",
+									currentPage === page
+										? "cursor-default !border-white !text-white hover:text-white text-white"
+										: "text-indigo-300 !border-indigo-500 hover:text-indigo-500 hover:bg-indigo-700"
 								)}
 							>
 								{page}
@@ -94,9 +95,10 @@ export const Pagination = ({ table }) => {
 							key={i}
 							onClick={() => onPageClick(page)}
 							buttonClassName={clsx(
-								"font-mono text-sm hover:text-indigo-500",
-								currentPage === page &&
-									"cursor-default !border-indigo-500 text-indigo-500"
+								"font-mono text-sm",
+								currentPage === page
+									? "cursor-default !border-white hover:text-white text-white"
+									: "text-indigo-300 !border-indigo-500 hover:text-indigo-500 hover:bg-indigo-700"
 							)}
 						>
 							{page}
@@ -108,8 +110,8 @@ export const Pagination = ({ table }) => {
 					onClick={() => onPageClick(currentPage + 1)}
 					buttonClassName={clsx(
 						currentPage === pages.length
-							? "cursor-not-allowed text-gray-300"
-							: "hover:text-indigo-500"
+							? "cursor-not-allowed text-white"
+							: "text-indigo-300 hover:bg-indigo-500 border-indigo-500"
 					)}
 				>
 					<ChevronRightIcon className="h-4 w-4" />
@@ -118,8 +120,8 @@ export const Pagination = ({ table }) => {
 					onClick={() => onPageClick(pages.length)}
 					buttonClassName={clsx(
 						currentPage === pages.length
-							? "cursor-not-allowed text-gray-300"
-							: "hover:text-indigo-500"
+							? "cursor-not-allowed text-white"
+							: "text-indigo-300 hover:bg-indigo-500 border-indigo-500"
 					)}
 				>
 					<ChevronDoubleRightIcon className="h-4 w-4" />
@@ -134,7 +136,7 @@ const PaginationButton = ({ children, buttonClassName, ...props }) => (
 		{...props}
 		type="button"
 		className={clsx(
-			"cursor-pointer rounded border bg-white px-2 py-1 shadow-sm",
+			"cursor-pointer border bg-transparent px-2 py-1",
 			buttonClassName
 		)}
 	>

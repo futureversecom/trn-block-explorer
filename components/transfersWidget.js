@@ -27,9 +27,9 @@ export default function TransfersWidget() {
 					<Link href={"/transfers"}>
 						<button
 							type="button"
-							className="inline-flex items-center rounded border border-gray-300 bg-white px-2.5 py-1.5 text-xs font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+							className="inline-flex items-center border border-gray-300 bg-white px-2.5 py-1.5 text-xs font-bold text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 						>
-							view all
+							View All
 						</button>
 					</Link>
 				</div>
@@ -37,7 +37,7 @@ export default function TransfersWidget() {
 			{query.isLoading ? (
 				<LoadingBlock title="Transactions" height="h-80" />
 			) : (
-				<div className="divide-y rounded-md border border-gray-100 bg-white px-4 py-3 shadow-md sm:px-6">
+				<div className="divide-y border border-gray-100 bg-white px-4 py-3 sm:px-6">
 					{transfers?.map((item, key) => (
 						<TransferItem
 							key={key}

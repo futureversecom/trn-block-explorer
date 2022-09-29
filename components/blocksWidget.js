@@ -2,10 +2,11 @@ import { CubeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import TimeAgo from "react-timeago";
 
-import { LoadingBlock, RefetchIndicator } from "@/components";
+import { DummyListItem, RefetchIndicator } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetBlocksQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
+import { numberWithCommas } from "@/libs/utils";
 
 export default function BlocksWidget() {
 	const query = usePolling({}, useGetBlocksQuery, {
@@ -18,9 +19,9 @@ export default function BlocksWidget() {
 		<div>
 			<div className="flex flex-row justify-between py-3">
 				<div className="flex items-center">
-					<CubeIcon className="my-auto h-5 pr-3" />
-					<h3 className="text-md font-medium leading-6 text-gray-900">
-						Blocks
+					<CubeIcon className="my-auto h-5 pr-3 text-white" />
+					<h3 className="text-md font-bold leading-6 text-white">
+						Latest Blocks
 					</h3>
 				</div>
 				<div>
@@ -28,29 +29,27 @@ export default function BlocksWidget() {
 					<Link href={"/blocks"}>
 						<button
 							type="button"
-							className="inline-flex items-center rounded border border-gray-300 bg-white px-2.5 py-1.5 text-xs font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+							className="inline-flex items-center border border-indigo-500 px-4 py-1.5 text-xs font-bold text-indigo-300 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 "
 						>
-							view all
+							View All
 						</button>
 					</Link>
 				</div>
 			</div>
-			{query.isLoading ? (
-				<LoadingBlock title="Blocks" height="h-80" />
-			) : (
-				<div className="divide-y rounded-md border border-gray-100 bg-white px-4 py-3 shadow-md sm:px-6">
-					{blocks?.map((item, key) => (
-						<BlockItem
-							key={key}
-							height={item.height}
-							extrinsics={item?.extrinsics_aggregate?.aggregate?.count || "?"}
-							events={item?.events_aggregate?.aggregate?.count || "?"}
-							timestamp={item.timestamp}
-							status={true}
-						/>
-					))}
-				</div>
-			)}
+			<div className="min-h-[760px] divide-y divide-gray-400 border border-gray-400 bg-transparent px-4 py-3 sm:px-6">
+				{query.isLoading
+					? DummyListItem(10)
+					: blocks?.map((item, key) => (
+							<BlockItem
+								key={key}
+								height={item.height}
+								extrinsics={item?.extrinsics_aggregate?.aggregate?.count || "?"}
+								events={item?.events_aggregate?.aggregate?.count || "?"}
+								timestamp={item.timestamp}
+								status={true}
+							/>
+					  ))}
+			</div>
 		</div>
 	);
 }
@@ -60,22 +59,21 @@ const BlockItem = ({ height, extrinsics, events, timestamp, status }) => {
 		<div className="block py-3">
 			<div className="flex flex-row justify-between">
 				<div className="text-sm font-bold">
-					Block#{" "}
+					<span className="mr-2 text-white">Block#</span>
 					<Link href={`/block/${height}`}>
-						<span className="cursor-pointer text-lg text-indigo-500">
-							{height}
+						<span className="cursor-pointer font-number text-lg text-indigo-500">
+							{numberWithCommas(height)}
 						</span>
 					</Link>
 				</div>
 			</div>
 			<div className="flex flex-row justify-between">
-				<div className="text-teal-800">
-					<span className="text-sm text-gray-500">Includes</span>{" "}
-					<span className="text-indigo-500">{extrinsics} Extrinsics</span>{" "}
-					<span className="text-indigo-500">{events} Events</span>{" "}
+				<div className="text-sm text-gray-200">
+					<span>Includes</span> <span>{extrinsics} Extrinsics</span>{" "}
+					<span>{events} Events</span>{" "}
 				</div>
 				<div className="flex space-x-3">
-					<div className="text-sm text-gray-600">
+					<div className="text-sm text-gray-200">
 						<TimeAgo date={timestamp} />
 					</div>
 					<div>

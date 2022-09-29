@@ -44,7 +44,7 @@ export default function Block({ blockNumber }) {
 		<ContainerLayout>
 			<PageHeader
 				title={`Block # ${blockNumber}`}
-				icon={<CubeIcon className="my-auto h-5 pr-3" />}
+				icon={<CubeIcon className="my-auto h-5 pr-3 text-white" />}
 			/>
 			{query.isLoading || query.isError ? (
 				<LoadingBlock title={`Block ${blockNumber}`} />
@@ -105,7 +105,7 @@ export default function Block({ blockNumber }) {
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Events" />
 						<DetailsLayout.Data>
-							<div className="h-64 overflow-scroll rounded bg-gray-100 p-2">
+							<div className="h-64 overflow-scroll rounded bg-gray-900 bg-opacity-30 p-2">
 								<JSONPretty id="json-pretty" data={query.data.events} />
 							</div>
 						</DetailsLayout.Data>
@@ -114,7 +114,7 @@ export default function Block({ blockNumber }) {
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Extrinsics" />
 						<DetailsLayout.Data>
-							<div className="h-64 overflow-scroll rounded bg-gray-100 p-2">
+							<div className="h-64 overflow-scroll rounded bg-gray-900 bg-opacity-30 p-2">
 								<JSONPretty id="json-pretty" data={query.data.extrinsics} />
 							</div>
 						</DetailsLayout.Data>

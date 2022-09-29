@@ -9,7 +9,15 @@ module.exports = {
 	theme: {
 		extend: {
 			fontFamily: {
-				sans: ["Roboto Condensed", "sans-serif"],
+				sans: ["Gilroy Light", "sans-serif"],
+				'gilroy': ["Gilroy Regular", "sans-serif"],
+				'gilroy-bold': ["Gilroy Bold", "sans-serif"],
+				'gilroy-medium': ["Gilroy Medium", "sans-serif"],
+				'gilroy-extrabold': ["Gilroy ExtraBold", "sans-serif"],
+				number: ["Gilroy Medium", "sans-serif"],
+			},
+			fontSize: {
+				nav: '11.6px'
 			},
 		},
 	},

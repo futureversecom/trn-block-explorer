@@ -28,16 +28,16 @@ export const AccountTables = ({ walletAddress }) => {
 };
 
 const TabList = ({ titles, children }) => (
-	<Tab.List className="relative mb-2 flex rounded border-b bg-white shadow-sm">
+	<Tab.List className="relative mb-2 flex">
 		{titles.map((title, key) => (
 			<Fragment key={key}>
-				<Tab className="outline-none">
+				<Tab className="outline-none text-white">
 					{({ selected }) => (
 						<span
 							className={clsx(
-								"inline-block rounded-t-lg bg-white p-4",
+								"inline-block bg-transparent p-4",
 								selected &&
-									"border-b-2 border-indigo-500 text-indigo-500 duration-300"
+									"border-b-2 border-gray-500 text-white duration-300"
 							)}
 						>
 							{title}
