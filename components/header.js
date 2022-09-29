@@ -47,7 +47,7 @@ export default function Header() {
 								<div className="flex flex-shrink-0 items-center text-white">
 									<Link href="/">
 										<span className="my-auto cursor-pointer font-gilroy-extrabold text-logo pt-[3px]">
-											THE ROOT NETWORK<sup>&nbsp;BETA</sup>
+											THE ROOT NETWORK<sup>&nbsp;&#945;</sup>
 										</span>
 									</Link>
 								</div>
