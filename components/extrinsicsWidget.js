@@ -23,7 +23,7 @@ export default function ExtrinsicsWidget() {
 				</div>
 				<div>
 					{query.isRefetching && <RefetchIndicator />}
-					<Link href={"/transfers"}>
+					<Link href={"/extrinsics"}>
 						<button
 							type="button"
 							className="inline-flex items-center border font-bold border-indigo-500 px-4 py-1.5 text-xs text-indigo-300 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
