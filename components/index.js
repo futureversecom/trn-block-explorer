@@ -1,7 +1,6 @@
 export { default as BalanceForAddress } from "./balanceForAddress";
 export { default as BlocksWidget } from "./blocksWidget";
 export { default as ChaindataWidget } from "./chaindataWidget";
-export { default as EVMTransactionsForAddress } from "./evmTransactionsForAddress";
 export { default as TransfersForAddress } from "./transfersForAddress";
 export { default as Footer } from "./footer";
 export { default as Header } from "./header";
