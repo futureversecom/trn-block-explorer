@@ -1,8 +1,10 @@
 import { Disclosure } from "@headlessui/react";
+import { Fragment } from 'react';
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import clsx from "clsx";
+
 import { IS_MAINNET } from "@/libs/constants";
 
 const links = [
@@ -26,7 +28,7 @@ const links = [
 
 export default function Header() {
 	const router = useRouter();
-	
+
 	return (
 		<Disclosure as="nav" className="sm:pt-[23px]">
 			{({ open }) => (
@@ -47,33 +49,52 @@ export default function Header() {
 							<div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
 								<div className="flex flex-shrink-0 items-center text-white">
 									<Link href="/">
-										<span className={clsx(`my-auto cursor-pointer font-gilroy-medium text-nav tracking-[1.1px] leading-[23px]`, router.pathname === '/' && "font-gilroy-extrabold" )}>
+										<span
+											className={clsx(
+												`my-auto cursor-pointer font-gilroy-medium text-nav leading-[23px] tracking-[1.1px]`,
+												router.pathname === "/" && "font-gilroy-extrabold"
+											)}
+										>
 											THE ROOT NETWORK <sup className="text-red-500">alpha</sup>
 										</span>
 									</Link>
 								</div>
 								<div className="hidden sm:ml-[1rem] sm:flex sm:space-x-[1rem]">
 									{links.map((link, key) => (
-										<>
-											<span className={clsx(`inline-flex items-center text-white uppercase text-nav font-gilroy-medium tracking-[1.1px] leading-[23px]`)}>{"//"}</span>
+										<Fragment key={key}>
+											<span
+												className={clsx(
+													`inline-flex items-center font-gilroy-medium text-nav uppercase leading-[23px] tracking-[1.1px] text-white`
+												)}
+											>
+												{"//"}
+											</span>
 											<Link href={link.href} key={key}>
 												<a
-													key={key}
-													className={clsx(`inline-flex items-center text-white uppercase text-nav font-gilroy-medium tracking-[1.1px] leading-[23px]`, 
-													router.pathname === link.href && "font-gilroy-extrabold" )}
+													className={clsx(
+														`inline-flex items-center font-gilroy-medium text-nav uppercase leading-[23px] tracking-[1.1px] text-white`,
+														router.pathname === link.href &&
+															"font-gilroy-extrabold"
+													)}
 												>
-												{link.title}
+													{link.title}
 												</a>
 											</Link>
-										</>
+										</Fragment>
 									))}
 
 									{/* border-indigo-500 to set active state */}
 								</div>
 							</div>
 							<div className="flex flex-shrink-0 items-center text-white">
-								<span className={clsx("h-5 text-xs inline-block py-1 px-2 leading-none uppercase text-center whitespace-nowrap align-baseline font-gilroy-extrabold text-black",
-								IS_MAINNET ? 'bg-lime-700' : 'bg-white')}>{IS_MAINNET ? 'Mainnet' : 'Testnet'}</span>
+								<span
+									className={clsx(
+										"inline-block h-5 whitespace-nowrap py-1 px-2 text-center align-baseline font-gilroy-extrabold text-xs uppercase leading-none text-black",
+										IS_MAINNET ? "bg-lime-700" : "bg-white"
+									)}
+								>
+									{IS_MAINNET ? "Mainnet" : "Testnet"}
+								</span>
 							</div>
 						</div>
 					</div>
