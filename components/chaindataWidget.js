@@ -79,7 +79,7 @@ export default function ChaindataWidget() {
 										{item.name}
 									</dt>
 									<dd className="flex items-baseline justify-between md:block lg:flex">
-										<div className="flex items-baseline text-2xl font-bold text-indigo-600">
+										<div className="flex items-baseline text-2xl font-bold text-white">
 											<CountUp end={item.stat} separator={","} className="font-number" />
 										</div>
 									</dd>
