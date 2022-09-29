@@ -1,4 +1,5 @@
 export * from "./formatExtrinsicId";
+export * from "./getAssetMetadata";
 
 export const sleep = () => {
 	return new Promise((resolve) => {

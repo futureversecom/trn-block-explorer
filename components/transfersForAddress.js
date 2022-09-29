@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { utils as ethers } from "ethers";
 import Link from "next/link";
 import { useEffect, useMemo } from "react";
 import TimeAgo from "react-timeago";
@@ -15,6 +16,7 @@ import {
 } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
 import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
+import { getAssetMetadata } from "@/libs/utils";
 
 export default function TransfersForAddress({ walletAddress }) {
 	const { pages, currentPage } = usePagination("accountTransfers");
@@ -43,66 +45,75 @@ export default function TransfersForAddress({ walletAddress }) {
 								</tr>
 							</thead>
 							<tbody className="divide-y divide-gray-800 bg-transparent">
-								{query.data.map((transfer, key) => (
-									<tr key={key}>
-										<TableLayout.Data dataClassName="!text-indigo-500">
-											<Link href={`/block/${transfer.block_number}`}>
-												{transfer.block_number}
-											</Link>
-										</TableLayout.Data>
+								{query.data.map((transfer, key) => {
+									const asset = getAssetMetadata(transfer.asset_id);
 
-										<TableLayout.Data>
-											{transfer.from_id?.toLowerCase() ===
-											walletAddress.toLowerCase()
-												? "Out"
-												: "In"}
-										</TableLayout.Data>
+									return (
+										<tr key={key}>
+											<TableLayout.Data dataClassName="!text-indigo-500">
+												<Link href={`/block/${transfer.block_number}`}>
+													{transfer.block_number}
+												</Link>
+											</TableLayout.Data>
 
-										<TableLayout.Data>
-											<TimeAgo date={transfer.timestamp} />
-										</TableLayout.Data>
+											<TableLayout.Data>
+												{transfer.from_id?.toLowerCase() ===
+												walletAddress.toLowerCase()
+													? "Out"
+													: "In"}
+											</TableLayout.Data>
 
-										<TableLayout.Data>
-											{transfer.asset_id || "?"}
-										</TableLayout.Data>
+											<TableLayout.Data>
+												<TimeAgo date={transfer.timestamp} />
+											</TableLayout.Data>
 
-										<TableLayout.Data>{transfer.amount}</TableLayout.Data>
+											<TableLayout.Data>
+												{asset?.symbol ?? transfer.asset_id}
+											</TableLayout.Data>
 
-										<TableLayout.Data
-											dataClassName={clsx(
-												transfer.from_id !== walletAddress &&
-													transfer.status !== "ISSUED" &&
-													"!text-indigo-500"
-											)}
-										>
-											{transfer.status !== "ISSUED" ? (
-												<AddressLink
-													address={transfer.from_id}
-													isAccount={transfer.from_id === walletAddress}
-												/>
-											) : (
-												<span>{transfer.status}</span>
-											)}
-										</TableLayout.Data>
+											<TableLayout.Data>
+												{ethers.formatUnits(
+													String(transfer.amount),
+													asset?.decimals ?? 6
+												)}
+											</TableLayout.Data>
 
-										<TableLayout.Data
-											dataClassName={clsx(
-												transfer.to_id !== walletAddress &&
-													transfer.status !== "BURNED" &&
-													"!text-indigo-500"
-											)}
-										>
-											{transfer.status !== "BURNED" ? (
-												<AddressLink
-													address={transfer.to_id}
-													isAccount={transfer.to_id === walletAddress}
-												/>
-											) : (
-												<span>{transfer.status}</span>
-											)}
-										</TableLayout.Data>
-									</tr>
-								))}
+											<TableLayout.Data
+												dataClassName={clsx(
+													transfer.from_id !== walletAddress &&
+														transfer.status !== "ISSUED" &&
+														"!text-indigo-500"
+												)}
+											>
+												{transfer.status !== "ISSUED" ? (
+													<AddressLink
+														address={transfer.from_id}
+														isAccount={transfer.from_id === walletAddress}
+													/>
+												) : (
+													<span>{transfer.status}</span>
+												)}
+											</TableLayout.Data>
+
+											<TableLayout.Data
+												dataClassName={clsx(
+													transfer.to_id !== walletAddress &&
+														transfer.status !== "BURNED" &&
+														"!text-indigo-500"
+												)}
+											>
+												{transfer.status !== "BURNED" ? (
+													<AddressLink
+														address={transfer.to_id}
+														isAccount={transfer.to_id === walletAddress}
+													/>
+												) : (
+													<span>{transfer.status}</span>
+												)}
+											</TableLayout.Data>
+										</tr>
+									);
+								})}
 							</tbody>
 						</TableLayout.Table>
 					) : (
