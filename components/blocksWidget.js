@@ -36,7 +36,7 @@ export default function BlocksWidget() {
 					</Link>
 				</div>
 			</div>
-			<div className="divide-y rounded border border-gray-200 px-4 py-3 sm:px-6 bg-gray-100 min-h-[760px]">
+			<div className="divide-y divide-gray-400 rounded border border-gray-400 px-4 py-3 sm:px-6 bg-transparent min-h-[760px]">
 			{query.isLoading ? (
 				DummyListItem(10)
 			) : (
@@ -61,7 +61,7 @@ const BlockItem = ({ height, extrinsics, events, timestamp, status }) => {
 		<div className="block py-3">
 			<div className="flex flex-row justify-between">
 				<div className="text-sm font-bold">
-					<span className="mr-2 text-[#111]">Block#</span>
+					<span className="mr-2 text-white">Block#</span>
 					<Link href={`/block/${height}`}>
 						<span className="cursor-pointer text-lg text-indigo-500 font-number">
 							{numberWithCommas(height)}
@@ -71,12 +71,12 @@ const BlockItem = ({ height, extrinsics, events, timestamp, status }) => {
 			</div>
 			<div className="flex flex-row justify-between">
 				<div className="text-sm text-teal-800">
-					<span className="text-gray-500">Includes</span>{" "}
+					<span className="text-gray-200">Includes</span>{" "}
 					<span className="text-indigo-500">{extrinsics} Extrinsics</span>{" "}
 					<span className="text-indigo-500">{events} Events</span>{" "}
 				</div>
 				<div className="flex space-x-3">
-					<div className="text-sm text-gray-600">
+					<div className="text-sm text-gray-200">
 						<TimeAgo date={timestamp} />
 					</div>
 					<div>
