@@ -9,7 +9,7 @@
     "lint": "next lint",
     "format": "prettier --config .prettierrc.js --write .",
     "gen": "graphql-codegen --config codegen.yml",
-    "schema": "gq $GRAPHQL_ENDPOINT -H \"X-Hasura-Admin-Secret: $HASURA_SECRET\" --introspect > libs/schema.graphql"
+    "schema": "gq $GRAPHQL_ENDPOINT --introspect > libs/schema.graphql"
   },
   "dependencies": {
     "@headlessui/react": "^1.6.6",

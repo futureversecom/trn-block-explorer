@@ -17,7 +17,9 @@ export default function ExtrinsicsWidget() {
 			<div className="flex flex-row justify-between py-3">
 				<div className="flex items-center">
 					<ArrowsRightLeftIcon className="my-auto h-5 pr-3 text-white" />
-					<h3 className="text-md font-bold leading-6 text-white">Latest Extrinsics</h3>
+					<h3 className="text-md font-bold leading-6 text-white">
+						Latest Extrinsics
+					</h3>
 				</div>
 				<div>
 					{query.isRefetching && <RefetchIndicator />}
