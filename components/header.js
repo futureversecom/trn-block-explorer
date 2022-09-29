@@ -55,7 +55,7 @@ export default function Header() {
 								<div className="hidden sm:ml-[1rem] sm:flex sm:space-x-[1rem]">
 									{links.map((link, key) => (
 										<>
-											<span className={clsx(`inline-flex items-center text-white uppercase text-nav font-gilroy-medium tracking-[1.1px] leading-[23px]`)}>//</span>
+											<span className={clsx(`inline-flex items-center text-white uppercase text-nav font-gilroy-medium tracking-[1.1px] leading-[23px]`)}>{"//"}</span>
 											<Link href={link.href} key={key}>
 												<a
 													key={key}
