@@ -72,7 +72,7 @@ export default function Header() {
 								</div>
 							</div>
 							<div className="flex flex-shrink-0 items-center text-white">
-								<span className={clsx("h-5 text-xs inline-block py-1 px-2 leading-none uppercase text-center whitespace-nowrap align-baseline font-gilroy-extrabold text-black rounded",
+								<span className={clsx("h-5 text-xs inline-block py-1 px-2 leading-none uppercase text-center whitespace-nowrap align-baseline font-gilroy-extrabold text-black",
 								IS_MAINNET ? 'bg-lime-700' : 'bg-white')}>{IS_MAINNET ? 'Mainnet' : 'Testnet'}</span>
 							</div>
 						</div>
