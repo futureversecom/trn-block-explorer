@@ -24,9 +24,7 @@ export default function BalanceForAddress({ walletAddress }) {
 			<div className="flex flex-row justify-between py-3">
 				<div className="flex">
 					<ArrowsRightLeftIcon className="my-auto h-5 pr-3 text-white" />
-					<h3 className="text-md font-medium leading-6 text-white">
-						Balance
-					</h3>
+					<h3 className="text-md font-medium leading-6 text-white">Balance</h3>
 				</div>
 				<div>{query.isRefetching && <RefetchIndicator />}</div>
 			</div>
@@ -52,7 +50,7 @@ export default function BalanceForAddress({ walletAddress }) {
 									</div>
 									<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
 										<div className="flex flex-row space-x-3 text-sm font-medium text-white">
-											<div>{walletAddress}</div>
+											<p className="truncate md:whitespace-normal">{walletAddress}</p>
 											<div className="my-auto">
 												<CopyToClipboard value={walletAddress} />
 											</div>
@@ -65,9 +63,7 @@ export default function BalanceForAddress({ walletAddress }) {
 							<div className=" px-4 py-5 sm:p-0">
 								<dl className="sm:divide-y sm:divide-gray-200">
 									<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-										<div className="text-sm font-medium text-white">
-											Total
-										</div>
+										<div className="text-sm font-medium text-white">Total</div>
 										<div className="text-sm font-medium text-white">
 											{ethers.utils.formatUnits(balance?.total || "0", 6)} XRP
 										</div>
@@ -82,9 +78,7 @@ export default function BalanceForAddress({ walletAddress }) {
 										</div>
 									</div>
 									<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-										<div className="text-sm font-medium text-white">
-											Free
-										</div>
+										<div className="text-sm font-medium text-white">Free</div>
 										<div className="text-sm font-medium text-white">
 											{ethers.utils.formatUnits(balance?.free || "0", 6)} XRP
 										</div>
