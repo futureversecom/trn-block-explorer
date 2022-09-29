@@ -30,7 +30,7 @@ export default function ChaindataWidget() {
 			<div className="flex flex-row justify-between py-3">
 				<div className="flex flex-row">
 					<ChartPieIcon className="my-auto h-5 pr-3 text-white" />
-					<h3 className="text-md font-medium leading-6 text-white">
+					<h3 className="text-md font-bold leading-6 text-white">
 						Chain Data
 					</h3>
 				</div>

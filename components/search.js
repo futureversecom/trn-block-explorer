@@ -27,7 +27,7 @@ export default function Search() {
 							value={search}
 							type="text"
 							onChange={(e) => setSearch(e.target.value)}
-							className="block h-10 w-full border-gray-300 p-3 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+							className="block h-10 w-full border-l border-t border-b border-gray-400 bg-transparent p-3 text-white focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 							placeholder="Search by Block / Account / Extrinsic ID / Transaction Hash"
 						/>
 					</div>
@@ -35,7 +35,7 @@ export default function Search() {
 						<button
 							type="submit"
 							className={clsx(
-								"inline-flex h-10 items-center bg-indigo-600 px-6 py-1.5 text-xs font-bold text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2",
+								"inline-flex h-10 items-center bg-transparent px-6 py-1.5 text-xs font-bold text-indigo-300 border font-bold border-indigo-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2",
 								isSearching &&
 									"cursor-not-allowed bg-transparent hover:bg-transparent"
 							)}
@@ -48,7 +48,9 @@ export default function Search() {
 						</button>
 					</div>
 				</fieldset>
-				{error && <div className="select-none text-sm text-red-400">{error}</div>}				
+				{error && (
+					<div className="select-none text-sm text-red-400">{error}</div>
+				)}
 			</form>
 		</div>
 	);

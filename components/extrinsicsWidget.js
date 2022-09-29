@@ -17,7 +17,7 @@ export default function ExtrinsicsWidget() {
 			<div className="flex flex-row justify-between py-3">
 				<div className="flex items-center">
 					<ArrowsRightLeftIcon className="my-auto h-5 pr-3 text-white" />
-					<h3 className="text-md font-medium leading-6 text-white">
+					<h3 className="text-md font-bold leading-6 text-white">
 						Extrinsics
 					</h3>
 				</div>
@@ -26,7 +26,7 @@ export default function ExtrinsicsWidget() {
 					<Link href={"/transfers"}>
 						<button
 							type="button"
-							className="inline-flex items-center border border-indigo-500 px-4 py-1.5 text-xs font-medium text-indigo-300 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+							className="inline-flex items-center border font-bold border-indigo-500 px-4 py-1.5 text-xs text-indigo-300 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 						>
 							View All
 						</button>
