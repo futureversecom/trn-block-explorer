@@ -3,6 +3,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import clsx from "clsx";
+import { IS_MAINNET } from "@/libs/constants";
 
 const links = [
 	{
@@ -25,7 +26,7 @@ const links = [
 
 export default function Header() {
 	const router = useRouter();
-
+	
 	return (
 		<Disclosure as="nav" className="sm:pt-4">
 			{({ open }) => (
@@ -66,6 +67,10 @@ export default function Header() {
 
 									{/* border-indigo-500 to set active state */}
 								</div>
+							</div>
+							<div className="flex flex-shrink-0 items-center text-white">
+								<span className={clsx("h-5 text-xs inline-block py-1 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold text-white rounded",
+								IS_MAINNET ? 'bg-lime-700' : 'bg-indigo-700')}>{IS_MAINNET ? 'Mainnet' : 'Testnet'}</span>
 							</div>
 						</div>
 					</div>
