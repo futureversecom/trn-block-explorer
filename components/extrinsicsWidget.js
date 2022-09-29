@@ -26,14 +26,14 @@ export default function ExtrinsicsWidget() {
 					<Link href={"/transfers"}>
 						<button
 							type="button"
-							className="inline-flex items-center rounded border border-indigo-500 px-4 py-1.5 text-xs font-medium text-indigo-300 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+							className="inline-flex items-center border border-indigo-500 px-4 py-1.5 text-xs font-medium text-indigo-300 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 						>
 							View All
 						</button>
 					</Link>
 				</div>
 			</div>
-			<div className="divide-y rounded border border-gray-400 divide-gray-400 px-4 py-3 sm:px-6 bg-transparent min-h-[760px]">
+			<div className="divide-y border border-gray-400 divide-gray-400 px-4 py-3 sm:px-6 bg-transparent min-h-[760px]">
 			{query.isLoading ? (
 				DummyListItem(10)
 			) : (

@@ -29,14 +29,14 @@ export default function BlocksWidget() {
 					<Link href={"/blocks"}>
 						<button
 							type="button"
-							className="inline-flex items-center rounded border border-indigo-500 px-4 py-1.5 text-xs font-medium text-indigo-300 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 "
+							className="inline-flex items-center border border-indigo-500 px-4 py-1.5 text-xs font-medium text-indigo-300 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 "
 						>
 							View All
 						</button>
 					</Link>
 				</div>
 			</div>
-			<div className="min-h-[760px] divide-y divide-gray-400 rounded border border-gray-400 bg-transparent px-4 py-3 sm:px-6">
+			<div className="min-h-[760px] divide-y divide-gray-400 border border-gray-400 bg-transparent px-4 py-3 sm:px-6">
 				{query.isLoading
 					? DummyListItem(10)
 					: blocks?.map((item, key) => (
