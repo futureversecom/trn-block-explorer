@@ -4100,6 +4100,12 @@ type archive_metadata_variance_fields {
 columns and relationships of "squid_processor.account"
 """
 type balances_account {
+	assets(
+		"""
+		JSON select path
+		"""
+		path: String
+	): jsonb
 	free: numeric!
 	id: String!
 	reserved: numeric!
@@ -4269,6 +4275,7 @@ input balances_account_bool_exp {
 	_and: [balances_account_bool_exp!]
 	_not: balances_account_bool_exp
 	_or: [balances_account_bool_exp!]
+	assets: jsonb_comparison_exp
 	free: numeric_comparison_exp
 	id: String_comparison_exp
 	reserved: numeric_comparison_exp
@@ -4304,6 +4311,7 @@ type balances_account_min_fields {
 Ordering options when selecting data from "squid_processor.account".
 """
 input balances_account_order_by {
+	assets: order_by
 	free: order_by
 	id: order_by
 	reserved: order_by
@@ -4317,6 +4325,11 @@ input balances_account_order_by {
 select columns of table "squid_processor.account"
 """
 enum balances_account_select_column {
+	"""
+	column name
+	"""
+	assets
+
 	"""
 	column name
 	"""
@@ -4392,6 +4405,7 @@ input balances_account_stream_cursor_input {
 Initial value of the column from where the streaming should start
 """
 input balances_account_stream_cursor_value_input {
+	assets: jsonb
 	free: numeric
 	id: String
 	reserved: numeric

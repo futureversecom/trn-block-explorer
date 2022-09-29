@@ -2569,6 +2569,7 @@ export type Archive_Metadata_Variance_Fields = {
 /** columns and relationships of "squid_processor.account" */
 export type Balances_Account = {
 	__typename?: "balances_account";
+	assets?: Maybe<Scalars["jsonb"]>;
 	free: Scalars["numeric"];
 	id: Scalars["String"];
 	reserved: Scalars["numeric"];
@@ -2582,6 +2583,11 @@ export type Balances_Account = {
 	/** An aggregate relationship */
 	transfers_aggregate: Balances_Transfer_Aggregate;
 	updated_at?: Maybe<Scalars["Int"]>;
+};
+
+/** columns and relationships of "squid_processor.account" */
+export type Balances_AccountAssetsArgs = {
+	path?: InputMaybe<Scalars["String"]>;
 };
 
 /** columns and relationships of "squid_processor.account" */
@@ -2663,6 +2669,7 @@ export type Balances_Account_Bool_Exp = {
 	_and?: InputMaybe<Array<Balances_Account_Bool_Exp>>;
 	_not?: InputMaybe<Balances_Account_Bool_Exp>;
 	_or?: InputMaybe<Array<Balances_Account_Bool_Exp>>;
+	assets?: InputMaybe<Jsonb_Comparison_Exp>;
 	free?: InputMaybe<Numeric_Comparison_Exp>;
 	id?: InputMaybe<String_Comparison_Exp>;
 	reserved?: InputMaybe<Numeric_Comparison_Exp>;
@@ -2694,6 +2701,7 @@ export type Balances_Account_Min_Fields = {
 
 /** Ordering options when selecting data from "squid_processor.account". */
 export type Balances_Account_Order_By = {
+	assets?: InputMaybe<Order_By>;
 	free?: InputMaybe<Order_By>;
 	id?: InputMaybe<Order_By>;
 	reserved?: InputMaybe<Order_By>;
@@ -2705,6 +2713,8 @@ export type Balances_Account_Order_By = {
 
 /** select columns of table "squid_processor.account" */
 export enum Balances_Account_Select_Column {
+	/** column name */
+	Assets = "assets",
 	/** column name */
 	Free = "free",
 	/** column name */
@@ -2754,6 +2764,7 @@ export type Balances_Account_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Balances_Account_Stream_Cursor_Value_Input = {
+	assets?: InputMaybe<Scalars["jsonb"]>;
 	free?: InputMaybe<Scalars["numeric"]>;
 	id?: InputMaybe<Scalars["String"]>;
 	reserved?: InputMaybe<Scalars["numeric"]>;
@@ -5128,9 +5139,8 @@ export type GetAccountsQuery = {
 		__typename?: "balances_balances_query";
 		account: Array<{
 			__typename?: "balances_account";
-			free: any;
 			id: string;
-			reserved: any;
+			free: any;
 			total: any;
 			updated_at?: number | null;
 		}>;
@@ -5157,27 +5167,9 @@ export type GetBalanceQuery = {
 			id: string;
 			free: any;
 			total: any;
-			reserved: any;
+			assets?: any | null;
 			updated_at?: number | null;
 		} | null;
-	} | null;
-};
-
-export type GetBalancesQueryVariables = Exact<{
-	limit: Scalars["Int"];
-}>;
-
-export type GetBalancesQuery = {
-	__typename?: "query_root";
-	balances?: {
-		__typename?: "balances_balances_query";
-		account: Array<{
-			__typename?: "balances_account";
-			free: any;
-			id: string;
-			reserved: any;
-			total: any;
-		}>;
 	} | null;
 };
 
@@ -5523,9 +5515,8 @@ export const GetAccountsDocument = `
     query GetAccounts($limit: Int!, $offset: Int) {
   balances {
     account(limit: $limit, offset: $offset, order_by: {total: desc}) {
-      free
       id
-      reserved
+      free
       total
       updated_at
     }
@@ -5560,7 +5551,7 @@ export const GetBalanceDocument = `
       id
       free
       total
-      reserved
+      assets
       updated_at
     }
   }
@@ -5577,34 +5568,6 @@ export const useGetBalanceQuery = <TData = GetBalanceQuery, TError = unknown>(
 		fetcher<GetBalanceQuery, GetBalanceQueryVariables>(
 			client,
 			GetBalanceDocument,
-			variables,
-			headers
-		),
-		options
-	);
-export const GetBalancesDocument = `
-    query GetBalances($limit: Int!) {
-  balances {
-    account(limit: $limit, order_by: {total: desc}) {
-      free
-      id
-      reserved
-      total
-    }
-  }
-}
-    `;
-export const useGetBalancesQuery = <TData = GetBalancesQuery, TError = unknown>(
-	client: GraphQLClient,
-	variables: GetBalancesQueryVariables,
-	options?: UseQueryOptions<GetBalancesQuery, TError, TData>,
-	headers?: RequestInit["headers"]
-) =>
-	useQuery<GetBalancesQuery, TError, TData>(
-		["GetBalances", variables],
-		fetcher<GetBalancesQuery, GetBalancesQueryVariables>(
-			client,
-			GetBalancesDocument,
 			variables,
 			headers
 		),

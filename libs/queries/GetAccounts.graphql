@@ -1,9 +1,8 @@
 query GetAccounts($limit: Int!, $offset: Int) {
 	balances {
 		account(limit: $limit, offset: $offset, order_by: { total: desc }) {
-			free
 			id
-			reserved
+			free
 			total
 			updated_at
 		}
