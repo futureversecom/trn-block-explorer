@@ -121,7 +121,7 @@ const Events = ({ events }) => {
 												{event.name}
 
 												{viewArgs.includes(key) && (
-													<div className="max-h-32 max-w-xl overflow-scroll rounded bg-transparent text-white p-2 text-xs">
+													<div className="max-h-32 max-w-xl overflow-scroll rounded bg-gray-900 bg-opacity-30 text-white p-2 text-xs">
 														<JSONPretty data={event.args} />
 													</div>
 												)}
