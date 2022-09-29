@@ -44,7 +44,7 @@ export default function ChaindataWidget() {
 				<LoadingBlock title="Chaindata" height="h-28" />
 			) : (
 				<div className="space-y-3">
-					<dl className="grid grid-cols-1 divide-y-4 divide-gray-300 overflow-hidden rounded text-[#111] border border-gray-300 md:grid-cols-3 md:divide-y-0 md:divide-x-2 bg-gray-100">
+					<dl className="grid grid-cols-1 divide-y-4 divide-gray-300 overflow-hidden rounded text-[#111] border border-gray-300 md:grid-cols-3 md:divide-y-0 md:divide-x-2 bg-transparent">
 						{[
 							{
 								name: "Transfers",
@@ -65,17 +65,17 @@ export default function ChaindataWidget() {
 							>
 								<div className="my-auto pr-3">
 									{item.name === "Transfers" && (
-										<ChartPieIcon className="h-12 text-[#111]" />
+										<ChartPieIcon className="h-12 text-gray-200" />
 									)}
 									{item.name === "Finalized Blocks" && (
-										<CubeIcon className="h-12 text-[#111]" />
+										<CubeIcon className="h-12 text-gray-200" />
 									)}
 									{item.name === "Holders" && (
-										<UserGroupIcon className="h-12 text-[#111]" />
+										<UserGroupIcon className="h-12 text-gray-200" />
 									)}
 								</div>
 								<div>
-									<dt className="text-base font-semibold text-[#111]">
+									<dt className="text-base font-semibold text-gray-200">
 										{item.name}
 									</dt>
 									<dd className="flex items-baseline justify-between md:block lg:flex">
