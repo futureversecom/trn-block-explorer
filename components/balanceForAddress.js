@@ -5,6 +5,7 @@ import QRCode from "react-qr-code";
 import { LoadingBlock, RefetchIndicator } from "@/components";
 import { CopyToClipboard } from "@/components/icons";
 import { useGetBalanceQuery } from "@/libs/api/generated.ts";
+import { NATIVE_TOKEN } from "@/libs/constants";
 import { usePolling } from "@/libs/hooks";
 import { getAssetMetadata } from "@/libs/utils";
 
@@ -66,10 +67,16 @@ export default function BalanceForAddress({ walletAddress }) {
 							<div className="px-4 py-5 sm:p-0">
 								<dl className="sm:divide-y sm:divide-gray-200">
 									<Balance title="Total">
-										{ethers.utils.formatUnits(balance?.total || "0", 6)} ROOT
+										{ethers.utils.formatUnits(balance?.total || "0", 6)}{" "}
+										{NATIVE_TOKEN}
+									</Balance>
+									<Balance title="Reserved">
+										{ethers.utils.formatUnits(balance?.reserved || "0", 6)}{" "}
+										{NATIVE_TOKEN}
 									</Balance>
 									<Balance title="Free">
-										{ethers.utils.formatUnits(balance?.free || "0", 6)} ROOT
+										{ethers.utils.formatUnits(balance?.free || "0", 6)}{" "}
+										{NATIVE_TOKEN}
 									</Balance>
 									{balance?.assets?.map(({ assetId, balance }) => {
 										const { symbol, decimals } = getAssetMetadata(assetId);

@@ -11,6 +11,7 @@ import {
 	TableLayout,
 } from "@/components";
 import { useGetAccountsQuery } from "@/libs/api/generated.ts";
+import { NATIVE_TOKEN } from "@/libs/constants";
 import { usePolling } from "@/libs/hooks";
 import { usePagination } from "@/libs/stores";
 import { formatAddress } from "@/libs/utils";
@@ -65,17 +66,18 @@ export default function Accounts() {
 												</TableLayout.Data>
 
 												<TableLayout.Data>
-													{ethers.utils.formatUnits(account.free || "0", 6)} XRP
+													{ethers.utils.formatUnits(account.free || "0", 6)}{" "}
+													{NATIVE_TOKEN}
 												</TableLayout.Data>
 
 												<TableLayout.Data>
 													{ethers.utils.formatUnits(account.reserved || "0", 6)}{" "}
-													XRP
+													{NATIVE_TOKEN}
 												</TableLayout.Data>
 
 												<TableLayout.Data>
 													{ethers.utils.formatUnits(account.total || "0", 6)}{" "}
-													XRP
+													{NATIVE_TOKEN}
 												</TableLayout.Data>
 											</tr>
 										))}
