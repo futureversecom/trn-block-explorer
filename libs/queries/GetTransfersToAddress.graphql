@@ -3,7 +3,7 @@ query GetTransfersToAddress($offset: Int, $address: String!) {
 		transfer(
 			offset: $offset
 			order_by: { block_number: desc }
-			where: { to_id: { _eq: $address } }
+			where: { to_id: { _ilike: $address } }
 		) {
 			timestamp
 			status
@@ -15,7 +15,7 @@ query GetTransfersToAddress($offset: Int, $address: String!) {
 			from_id
 			to_id
 		}
-		transfer_aggregate(where: { to_id: { _eq: $address } }) {
+		transfer_aggregate(where: { to_id: { _ilike: $address } }) {
 			aggregate {
 				count
 			}

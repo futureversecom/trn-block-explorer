@@ -18,7 +18,7 @@ export default function BalanceForAddress({ walletAddress }) {
 		12000
 	);
 
-	const balance = query?.data?.balances?.account_by_pk;
+	const balance = query?.data?.balances?.account[0];
 
 	return (
 		<div>

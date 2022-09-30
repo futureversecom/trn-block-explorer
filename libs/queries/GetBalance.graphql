@@ -1,6 +1,6 @@
 query GetBalance($address: String!) {
 	balances {
-		account_by_pk(id: $address) {
+		account(where: { id: { _ilike: $address } }) {
 			id
 			free
 			total

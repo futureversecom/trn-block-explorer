@@ -5162,14 +5162,14 @@ export type GetBalanceQuery = {
 	__typename?: "query_root";
 	balances?: {
 		__typename?: "balances_balances_query";
-		account_by_pk?: {
+		account: Array<{
 			__typename?: "balances_account";
 			id: string;
 			free: any;
 			total: any;
 			assets?: any | null;
 			updated_at?: number | null;
-		} | null;
+		}>;
 	} | null;
 };
 
@@ -5547,7 +5547,7 @@ export const useGetAccountsQuery = <TData = GetAccountsQuery, TError = unknown>(
 export const GetBalanceDocument = `
     query GetBalance($address: String!) {
   balances {
-    account_by_pk(id: $address) {
+    account(where: {id: {_ilike: $address}}) {
       id
       free
       total
@@ -5982,7 +5982,7 @@ export const GetTransfersFromAddressDocument = `
     transfer(
       offset: $offset
       order_by: {block_number: desc}
-      where: {from_id: {_eq: $address}}
+      where: {from_id: {_ilike: $address}}
     ) {
       timestamp
       status
@@ -5994,7 +5994,7 @@ export const GetTransfersFromAddressDocument = `
       from_id
       to_id
     }
-    transfer_aggregate(where: {from_id: {_eq: $address}}) {
+    transfer_aggregate(where: {from_id: {_ilike: $address}}) {
       aggregate {
         count
       }
@@ -6025,7 +6025,7 @@ export const GetTransfersToAddressDocument = `
     transfer(
       offset: $offset
       order_by: {block_number: desc}
-      where: {to_id: {_eq: $address}}
+      where: {to_id: {_ilike: $address}}
     ) {
       timestamp
       status
@@ -6037,7 +6037,7 @@ export const GetTransfersToAddressDocument = `
       from_id
       to_id
     }
-    transfer_aggregate(where: {to_id: {_eq: $address}}) {
+    transfer_aggregate(where: {to_id: {_ilike: $address}}) {
       aggregate {
         count
       }
