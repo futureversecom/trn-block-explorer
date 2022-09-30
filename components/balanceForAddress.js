@@ -33,7 +33,7 @@ export default function BalanceForAddress({ walletAddress }) {
 			{query.isLoading ? (
 				<LoadingBlock title="Balance" height="h-20" />
 			) : (
-				<div className=" h- divide-y border border-gray-400 bg-transparent px-4 py-3 sm:px-6">
+				<div className="divide-y border border-gray-400 bg-transparent px-4 py-3 sm:px-6">
 					<div className="grid grid-cols-1 md:grid-cols-2">
 						<div>
 							<div className=" px-4 py-5 sm:p-0">
@@ -64,7 +64,7 @@ export default function BalanceForAddress({ walletAddress }) {
 							</div>
 						</div>
 						<div>
-							<div className="px-4 py-5 sm:p-0">
+							<div className="max-h-[16em] overflow-y-scroll px-4 py-5 sm:p-0">
 								<dl className="sm:divide-y sm:divide-gray-200">
 									<Balance title="Total">
 										{ethers.utils.formatUnits(balance?.total || "0", 6)}{" "}
