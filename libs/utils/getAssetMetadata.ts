@@ -1,4 +1,4 @@
-import EthereumTokens from "@/libs/artifacts/EthereumTokens.json";
+import Assets from "@/libs/artifacts/Assets.json";
 import { ETH_CHAIN_ID } from "@/libs/constants";
 
 interface EthereumToken {
@@ -12,7 +12,7 @@ interface EthereumToken {
 export const getAssetMetadata = (assetId: string): EthereumToken | string => {
 	try {
 		const assetNumber = parseInt(assetId);
-		const asset = EthereumTokens.tokens.find(
+		const asset = Assets.tokens.find(
 			(token) => token.assetId === assetNumber && token.chainId === ETH_CHAIN_ID
 		);
 

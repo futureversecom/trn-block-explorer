@@ -5,6 +5,22 @@
   },
   "tokens": [
     {
+      "symbol": "XRP",
+      "address": "",
+      "decimals": 6,
+      "chainId": 1,
+      "assetId": 2
+    },
+
+    {
+      "symbol": "XRP",
+      "address": "",
+      "decimals": 6,
+      "chainId": 1,
+      "assetId": 2
+    },
+
+    {
       "symbol": "ETH",
       "address": "0x0000000000000000000000000000000000000000",
       "decimals": 18,
