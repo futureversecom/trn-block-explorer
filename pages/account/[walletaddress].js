@@ -28,7 +28,7 @@ export default function Account({ walletAddress }) {
 				}
 			/>
 			<BalanceForAddress walletAddress={walletAddress} />
-			<AccountTables walletAddress={walletAddress} />
+			{/*<AccountTables walletAddress={walletAddress} />*/}
 		</ContainerLayout>
 	);
 }
