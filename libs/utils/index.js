@@ -1,5 +1,6 @@
 export * from "./formatExtrinsicId";
 export * from "./getAssetMetadata";
+export * from "./formatBalance";
 
 export const sleep = () => {
 	return new Promise((resolve) => {

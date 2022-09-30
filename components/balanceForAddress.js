@@ -1,5 +1,4 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import { ethers } from "ethers";
 import QRCode from "react-qr-code";
 
 import { LoadingBlock, RefetchIndicator } from "@/components";
@@ -7,7 +6,7 @@ import { CopyToClipboard } from "@/components/icons";
 import { useGetBalanceQuery } from "@/libs/api/generated.ts";
 import { NATIVE_TOKEN } from "@/libs/constants";
 import { usePolling } from "@/libs/hooks";
-import { getAssetMetadata } from "@/libs/utils";
+import { formatBalance, getAssetMetadata } from "@/libs/utils";
 
 export default function BalanceForAddress({ walletAddress }) {
 	const query = usePolling(
@@ -66,23 +65,20 @@ export default function BalanceForAddress({ walletAddress }) {
 						<div>
 							<div className="max-h-[16em] overflow-y-scroll px-4 py-5 sm:p-0">
 								<dl className="sm:divide-y sm:divide-gray-200">
-									<Balance title="Total">
-										{ethers.utils.formatUnits(balance?.total || "0", 6)}{" "}
-										{NATIVE_TOKEN}
+									<Balance title="Free">
+										{formatBalance(balance?.free, 6)} {NATIVE_TOKEN}
 									</Balance>
 									<Balance title="Reserved">
-										{ethers.utils.formatUnits(balance?.reserved || "0", 6)}{" "}
-										{NATIVE_TOKEN}
+										{formatBalance(balance?.reserved, 6)} {NATIVE_TOKEN}
 									</Balance>
-									<Balance title="Free">
-										{ethers.utils.formatUnits(balance?.free || "0", 6)}{" "}
-										{NATIVE_TOKEN}
+									<Balance title="Total">
+										{formatBalance(balance?.total, 6)} {NATIVE_TOKEN}
 									</Balance>
 									{balance?.assets?.map(({ assetId, balance }) => {
 										const { symbol, decimals } = getAssetMetadata(assetId);
 										return (
 											<Balance key={assetId} title={symbol}>
-												{ethers.utils.formatUnits(balance || "0", decimals)}
+												{formatBalance(balance, decimals)}
 											</Balance>
 										);
 									})}

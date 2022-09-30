@@ -1,5 +1,4 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
-import { ethers } from "ethers";
 import Link from "next/link";
 import { useEffect } from "react";
 
@@ -14,7 +13,7 @@ import { useGetAccountsQuery } from "@/libs/api/generated.ts";
 import { NATIVE_TOKEN } from "@/libs/constants";
 import { usePolling } from "@/libs/hooks";
 import { usePagination } from "@/libs/stores";
-import { formatAddress } from "@/libs/utils";
+import { formatAddress, formatBalance } from "@/libs/utils";
 
 export default function Accounts() {
 	const { pages, currentPage } = usePagination("accounts");
@@ -66,18 +65,15 @@ export default function Accounts() {
 												</TableLayout.Data>
 
 												<TableLayout.Data>
-													{ethers.utils.formatUnits(account.free || "0", 6)}{" "}
-													{NATIVE_TOKEN}
+													{formatBalance(account?.free, 6)} {NATIVE_TOKEN}
 												</TableLayout.Data>
 
 												<TableLayout.Data>
-													{ethers.utils.formatUnits(account.reserved || "0", 6)}{" "}
-													{NATIVE_TOKEN}
+													{formatBalance(account?.reserved, 6)} {NATIVE_TOKEN}
 												</TableLayout.Data>
 
 												<TableLayout.Data>
-													{ethers.utils.formatUnits(account.total || "0", 6)}{" "}
-													{NATIVE_TOKEN}
+													{formatBalance(account?.total, 6)} {NATIVE_TOKEN}
 												</TableLayout.Data>
 											</tr>
 										))}
