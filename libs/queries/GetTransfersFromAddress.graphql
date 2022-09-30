@@ -1,6 +1,7 @@
-query GetTransfersFromAddress($offset: Int, $address: String!) {
+query GetTransfersFromAddress($offset: Int, $limit: Int!, $address: String!) {
 	balances {
 		transfer(
+			limit: $limit
 			offset: $offset
 			order_by: { block_number: desc }
 			where: { from_id: { _ilike: $address } }

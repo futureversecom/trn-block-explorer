@@ -21,7 +21,7 @@ import { getAssetMetadata } from "@/libs/utils";
 export default function TransfersForAddress({ walletAddress }) {
 	const { pages, currentPage } = usePagination("accountTransfers");
 
-	const query = useTransfers(walletAddress, (currentPage - 1) * 5);
+	const query = useTransfers(walletAddress, (currentPage - 1) * 5, 10);
 
 	useAccountRefetchStatus("accountTransfers", query.isRefetching);
 
@@ -80,35 +80,37 @@ export default function TransfersForAddress({ walletAddress }) {
 
 											<TableLayout.Data
 												dataClassName={clsx(
-													transfer.from_id !== walletAddress &&
+													transfer.from_id &&
+														transfer.from_id !== walletAddress &&
 														transfer.status !== "ISSUED" &&
 														"!text-indigo-500"
 												)}
 											>
-												{transfer.status !== "ISSUED" ? (
+												{transfer.status !== "ISSUED" && transfer?.from_id ? (
 													<AddressLink
 														address={transfer.from_id}
 														isAccount={transfer.from_id === walletAddress}
 													/>
 												) : (
-													<span>{transfer.status}</span>
+													<span>ISSUED</span>
 												)}
 											</TableLayout.Data>
 
 											<TableLayout.Data
 												dataClassName={clsx(
-													transfer.to_id !== walletAddress &&
+													transfer.to_id &&
+														transfer.to_id !== walletAddress &&
 														transfer.status !== "BURNED" &&
 														"!text-indigo-500"
 												)}
 											>
-												{transfer.status !== "BURNED" ? (
+												{transfer.status !== "BURNED" && transfer?.to_id ? (
 													<AddressLink
 														address={transfer.to_id}
 														isAccount={transfer.to_id === walletAddress}
 													/>
 												) : (
-													<span>{transfer.status}</span>
+													<span>BURNED</span>
 												)}
 											</TableLayout.Data>
 										</tr>
@@ -127,13 +129,14 @@ export default function TransfersForAddress({ walletAddress }) {
 	);
 }
 
-const useTransfers = (address, offset) => {
+const useTransfers = (address, offset, limit) => {
 	const toQuery = usePolling(
 		{},
 		useGetTransfersToAddressQuery,
 		{
 			address,
 			offset,
+			limit,
 		},
 		12000
 	);
@@ -144,6 +147,7 @@ const useTransfers = (address, offset) => {
 		{
 			address,
 			offset,
+			limit,
 		},
 		12000
 	);
@@ -174,7 +178,7 @@ const usePages = (toData, fromData) => {
 	useEffect(() => {
 		if (!transferCount) return;
 
-		setPages(Array.from(Array(Math.floor(transferCount / 10))));
+		setPages(Array.from(Array(Math.floor(transferCount / 5))));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [transferCount]);
 };
