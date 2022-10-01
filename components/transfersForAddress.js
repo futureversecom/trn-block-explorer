@@ -16,6 +16,7 @@ import {
 } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
 import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
+import { formatBalance } from "@/libs/utils";
 import { getAssetMetadata } from "@/libs/utils";
 
 export default function TransfersForAddress({ walletAddress }) {
@@ -72,10 +73,7 @@ export default function TransfersForAddress({ walletAddress }) {
 											</TableLayout.Data>
 
 											<TableLayout.Data>
-												{ethers.formatUnits(
-													String(transfer.amount),
-													asset?.decimals ?? 6
-												)}
+												{formatBalance(transfer.amount, asset?.decimals ?? 6)}
 											</TableLayout.Data>
 
 											<TableLayout.Data
