@@ -1,28 +1,28 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 import {
 	ContainerLayout,
 	LoadingBlock,
 	PageHeader,
-	Pagination,
+	// Pagination,
 	TableLayout,
 } from "@/components";
 import { useGetAccountsQuery } from "@/libs/api/generated.ts";
 import { NATIVE_TOKEN } from "@/libs/constants";
 import { usePolling } from "@/libs/hooks";
-import { usePagination } from "@/libs/stores";
+// import { usePagination } from "@/libs/stores";
 import { formatAddress, formatBalance } from "@/libs/utils";
 
 export default function Accounts() {
-	const { pages, currentPage } = usePagination("accounts");
+	// const { pages, currentPage } = usePagination("accounts");
 
 	let query = usePolling({}, useGetAccountsQuery, {
-		limit: 20,
-		offset: (currentPage - 1) * 20,
+		limit: 50,
+		// offset: (currentPage - 1) * 50,
 	});
-	usePages(query.data);
+	// usePages(query.data);
 	query.data = query?.data?.balances?.account;
 
 	return (
@@ -85,24 +85,24 @@ export default function Accounts() {
 				</div>
 			)}
 
-			{pages?.length > 1 && <Pagination table="accounts" />}
+			{/*{pages?.length > 1 && <Pagination table="accounts" />}*/}
 		</ContainerLayout>
 	);
 }
 
-const usePages = (data) => {
-	const { setPages } = usePagination("accounts");
+// const usePages = (data) => {
+// 	const { setPages } = usePagination("accounts");
 
-	useEffect(() => {
-		if (!data?.balances?.account_aggregate) return;
+// 	useEffect(() => {
+// 		if (!data?.balances?.account_aggregate) return;
 
-		setPages(
-			Array.from(
-				Array(
-					Math.floor(data?.balances?.account_aggregate?.aggregate?.count / 20)
-				)
-			)
-		);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [data?.balances?.account_aggregate]);
-};
+// 		setPages(
+// 			Array.from(
+// 				Array(
+// 					Math.floor(data?.balances?.account_aggregate?.aggregate?.count / 50)
+// 				)
+// 			)
+// 		);
+// 		// eslint-disable-next-line react-hooks/exhaustive-deps
+// 	}, [data?.balances?.account_aggregate]);
+// };
