@@ -29,6 +29,7 @@ export const Pagination = ({ table }) => {
 		case pages.length - 2: {
 			let lastPages = [];
 			for (let i = 4; i >= 0; i--) {
+				if (currentPage - i <= 0) continue;
 				lastPages.push(currentPage - i);
 			}
 			prevPages = lastPages;
@@ -85,7 +86,7 @@ export const Pagination = ({ table }) => {
 					</>
 				)}
 
-				{pages.slice(currentPage, pageSlice).map((_, i) => {
+				{pages.slice(currentPage - 1, pageSlice).map((_, i) => {
 					const page = i + currentPage;
 
 					if (page > pages.length) return;

@@ -106,7 +106,7 @@ const usePages = (data) => {
 		setPages(
 			Array.from(
 				Array(
-					Math.floor(data?.archive?.extrinsic_aggregate?.aggregate?.count / 20)
+					Math.ceil(data?.archive?.extrinsic_aggregate?.aggregate?.count / 20)
 				)
 			)
 		);

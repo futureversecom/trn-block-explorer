@@ -55,7 +55,7 @@ export default function Accounts() {
 										{query.data.map((account, key) => (
 											<tr key={key}>
 												<TableLayout.Data dataClassName="text-center">
-													# {key + 1}
+													# {key + 1 + (currentPage - 1) * 20}
 												</TableLayout.Data>
 
 												<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500 font-bold">
@@ -99,7 +99,7 @@ const usePages = (data) => {
 		setPages(
 			Array.from(
 				Array(
-					Math.floor(data?.balances?.account_aggregate?.aggregate?.count / 20)
+					Math.ceil(data?.balances?.account_aggregate?.aggregate?.count / 20)
 				)
 			)
 		);

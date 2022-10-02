@@ -102,7 +102,7 @@ const usePages = (data) => {
 
 		setPages(
 			Array.from(
-				Array(Math.floor(data?.archive?.block_aggregate?.aggregate?.count / 20))
+				Array(Math.ceil(data?.archive?.block_aggregate?.aggregate?.count / 20))
 			)
 		);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
