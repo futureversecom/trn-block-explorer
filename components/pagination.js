@@ -45,6 +45,7 @@ export const Pagination = ({ table }) => {
 	return (
 		<div className="relative mt-2 w-full">
 			<div className="absolute right-0 flex space-x-2">
+				{/* Go to first page */}
 				<PaginationButton
 					onClick={() => onPageClick(1, currentPage === 1)}
 					buttonClassName={clsx(
@@ -56,6 +57,7 @@ export const Pagination = ({ table }) => {
 					<ChevronDoubleLeftIcon className="h-4 w-4" />
 				</PaginationButton>
 
+				{/* Go to previous page */}
 				<PaginationButton
 					onClick={() => onPageClick(currentPage - 1, currentPage === 1)}
 					buttonClassName={clsx(
@@ -67,6 +69,7 @@ export const Pagination = ({ table }) => {
 					<ChevronLeftIcon className="h-4 w-4" />
 				</PaginationButton>
 
+				{/* Pages before current page */}
 				{currentPage > 1 && (
 					<>
 						{prevPages.map((page, i) => (
@@ -86,6 +89,7 @@ export const Pagination = ({ table }) => {
 					</>
 				)}
 
+				{/* Pages after & including current page */}
 				{pages.slice(currentPage, pageSlice).map((_, i) => {
 					const page = i + currentPage;
 
@@ -107,6 +111,7 @@ export const Pagination = ({ table }) => {
 					);
 				})}
 
+				{/* Go to next page */}
 				<PaginationButton
 					onClick={() =>
 						onPageClick(currentPage + 1, currentPage === pages.length)
@@ -119,6 +124,8 @@ export const Pagination = ({ table }) => {
 				>
 					<ChevronRightIcon className="h-4 w-4" />
 				</PaginationButton>
+
+				{/* Go to last page */}
 				<PaginationButton
 					onClick={() =>
 						onPageClick(pages.length, currentPage === pages.length)
