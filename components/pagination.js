@@ -9,7 +9,13 @@ import clsx from "clsx";
 import { usePagination } from "@/libs/stores";
 
 export const Pagination = ({ table }) => {
-	const { pages, currentPage, onPageClick } = usePagination(table);
+	const { pages, currentPage, setCurrentPage } = usePagination(table);
+
+	const onPageClick = (page, condition) => {
+		if (condition) return;
+
+		setCurrentPage(page);
+	};
 
 	let pageSlice = 0,
 		prevPages = [];
