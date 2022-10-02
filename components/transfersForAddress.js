@@ -77,6 +77,30 @@ export default function TransfersForAddress({ walletAddress }) {
 												<TableLayout.Data>
 													{formatBalance(transfer.amount, asset?.decimals ?? 6)}
 												</TableLayout.Data>
+
+												<TableLayout.Data
+													dataClassName={clsx(
+														transfer.from_id !== walletAddress &&
+															"!text-indigo-500"
+													)}
+												>
+													<AddressLink
+														address={transfer.from_id}
+														isAccount={transfer.from_id === walletAddress}
+													/>
+												</TableLayout.Data>
+
+												<TableLayout.Data
+													dataClassName={clsx(
+														transfer.to_id !== walletAddress &&
+															"!text-indigo-500"
+													)}
+												>
+													<AddressLink
+														address={transfer.to_id}
+														isAccount={transfer.to_id === walletAddress}
+													/>
+												</TableLayout.Data>
 											</tr>
 										);
 									})}
@@ -118,15 +142,7 @@ const useTransfers = (address) => {
 				...(toQuery?.data?.balances?.transfer ?? []),
 				...(fromQuery?.data?.balances?.transfer ?? []),
 			]
-				.filter((transfer) => {
-					if (
-						transfer.status === "TRANSFERRED" &&
-						(!transfer?.from_id || !transfer?.to_id)
-					)
-						return;
-
-					return transfer.status !== "ISSUED" && transfer.status !== "BURNED";
-				})
+				.filter((transfer) => transfer?.from_id && transfer?.to_id)
 				.sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1)),
 		[toQuery?.data, fromQuery?.data]
 	);
