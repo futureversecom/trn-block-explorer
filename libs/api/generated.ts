@@ -5451,7 +5451,7 @@ export type GetTransfersQuery = {
 
 export type GetTransfersFromAddressQueryVariables = Exact<{
 	offset?: InputMaybe<Scalars["Int"]>;
-	limit: Scalars["Int"];
+	limit?: InputMaybe<Scalars["Int"]>;
 	address: Scalars["String"];
 }>;
 
@@ -5483,7 +5483,7 @@ export type GetTransfersFromAddressQuery = {
 
 export type GetTransfersToAddressQueryVariables = Exact<{
 	offset?: InputMaybe<Scalars["Int"]>;
-	limit: Scalars["Int"];
+	limit?: InputMaybe<Scalars["Int"]>;
 	address: Scalars["String"];
 }>;
 
@@ -5979,7 +5979,7 @@ export const useGetTransfersQuery = <
 		options
 	);
 export const GetTransfersFromAddressDocument = `
-    query GetTransfersFromAddress($offset: Int, $limit: Int!, $address: String!) {
+    query GetTransfersFromAddress($offset: Int, $limit: Int, $address: String!) {
   balances {
     transfer(
       limit: $limit
@@ -6023,7 +6023,7 @@ export const useGetTransfersFromAddressQuery = <
 		options
 	);
 export const GetTransfersToAddressDocument = `
-    query GetTransfersToAddress($offset: Int, $limit: Int!, $address: String!) {
+    query GetTransfersToAddress($offset: Int, $limit: Int, $address: String!) {
   balances {
     transfer(
       limit: $limit

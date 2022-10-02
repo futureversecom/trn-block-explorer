@@ -1,4 +1,4 @@
-query GetTransfersToAddress($offset: Int, $limit: Int!, $address: String!) {
+query GetTransfersToAddress($offset: Int, $limit: Int, $address: String!) {
 	balances {
 		transfer(
 			limit: $limit
