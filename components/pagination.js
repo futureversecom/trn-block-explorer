@@ -46,7 +46,7 @@ export const Pagination = ({ table }) => {
 		<div className="relative mt-2 w-full">
 			<div className="absolute right-0 flex space-x-2">
 				<PaginationButton
-					onClick={() => onPageClick(1)}
+					onClick={() => onPageClick(1, currentPage === 1)}
 					buttonClassName={clsx(
 						currentPage === 1
 							? "cursor-not-allowed text-white"
@@ -57,7 +57,7 @@ export const Pagination = ({ table }) => {
 				</PaginationButton>
 
 				<PaginationButton
-					onClick={() => onPageClick(currentPage - 1)}
+					onClick={() => onPageClick(currentPage - 1, currentPage === 1)}
 					buttonClassName={clsx(
 						currentPage === 1
 							? "cursor-not-allowed text-white"
@@ -72,7 +72,7 @@ export const Pagination = ({ table }) => {
 						{prevPages.map((page, i) => (
 							<PaginationButton
 								key={i}
-								onClick={() => onPageClick(page)}
+								onClick={() => onPageClick(page, currentPage === page)}
 								buttonClassName={clsx(
 									"font-mono text-sm text-indigo-500",
 									currentPage === page
@@ -86,7 +86,7 @@ export const Pagination = ({ table }) => {
 					</>
 				)}
 
-				{pages.slice(currentPage - 1, pageSlice).map((_, i) => {
+				{pages.slice(currentPage, pageSlice).map((_, i) => {
 					const page = i + currentPage;
 
 					if (page > pages.length) return;
@@ -94,7 +94,7 @@ export const Pagination = ({ table }) => {
 					return (
 						<PaginationButton
 							key={i}
-							onClick={() => onPageClick(page)}
+							onClick={() => onPageClick(page, currentPage === page)}
 							buttonClassName={clsx(
 								"font-mono text-sm",
 								currentPage === page
@@ -108,7 +108,9 @@ export const Pagination = ({ table }) => {
 				})}
 
 				<PaginationButton
-					onClick={() => onPageClick(currentPage + 1)}
+					onClick={() =>
+						onPageClick(currentPage + 1, currentPage === pages.length)
+					}
 					buttonClassName={clsx(
 						currentPage === pages.length
 							? "cursor-not-allowed text-white"
@@ -118,7 +120,9 @@ export const Pagination = ({ table }) => {
 					<ChevronRightIcon className="h-4 w-4" />
 				</PaginationButton>
 				<PaginationButton
-					onClick={() => onPageClick(pages.length)}
+					onClick={() =>
+						onPageClick(pages.length, currentPage === pages.length)
+					}
 					buttonClassName={clsx(
 						currentPage === pages.length
 							? "cursor-not-allowed text-white"

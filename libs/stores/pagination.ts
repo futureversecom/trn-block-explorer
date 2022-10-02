@@ -48,8 +48,10 @@ const paginationAtom = atom(
 export const usePagination = (table: PaginationUpdate["table"]) => {
 	const [pagination, setPagination] = useAtom(paginationAtom);
 
-	const onPageClick = (page: number) =>
+	const onPageClick = (page: number, ignoreCondition?: boolean) => {
+		if (ignoreCondition) return;
 		setPagination({ table, key: "currentPage", value: page });
+	};
 
 	const setPages = (pages: Array<undefined>) =>
 		setPagination({ table, key: "pages", value: pages });
