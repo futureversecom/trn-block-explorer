@@ -16,14 +16,8 @@ import { usePagination } from "@/libs/stores";
 import { formatAddress, formatBalance } from "@/libs/utils";
 
 export default function Accounts() {
+	const query = useQuery(20);
 	const { pages, currentPage } = usePagination("accounts");
-
-	let query = usePolling({}, useGetAccountsQuery, {
-		limit: 20,
-		offset: (currentPage - 1) * 20,
-	});
-	usePages(query.data);
-	query.data = query?.data?.balances?.account;
 
 	return (
 		<ContainerLayout>
@@ -90,7 +84,28 @@ export default function Accounts() {
 	);
 }
 
-const usePages = (data) => {
+const useQuery = (limit) => {
+	const { currentPage } = usePagination("accounts");
+
+	const query = usePolling({}, useGetAccountsQuery, {
+		limit,
+		offset: (currentPage - 1) * limit,
+	});
+	usePages(query.data, limit);
+
+	// Prefetch next page
+	usePolling({}, useGetAccountsQuery, {
+		limit,
+		offset: currentPage * limit,
+	});
+
+	return {
+		...query,
+		data: query?.data?.balances?.account,
+	};
+};
+
+const usePages = (data, limit) => {
 	const { setPages } = usePagination("accounts");
 
 	useEffect(() => {
@@ -99,10 +114,10 @@ const usePages = (data) => {
 		setPages(
 			Array.from(
 				Array(
-					Math.ceil(data?.balances?.account_aggregate?.aggregate?.count / 20)
+					Math.ceil(data?.balances?.account_aggregate?.aggregate?.count / limit)
 				)
 			)
 		);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [data?.balances?.account_aggregate]);
+	}, [data?.balances?.account_aggregate, limit]);
 };

@@ -17,14 +17,8 @@ import { usePagination } from "@/libs/stores";
 import { formatAddress, formatExtrinsicId } from "@/libs/utils";
 
 export default function Extrinsics() {
-	const { pages, currentPage } = usePagination("extrinsics");
-
-	let query = usePolling({}, useGetExtrinsicsQuery, {
-		limit: 20,
-		offset: (currentPage - 1) * 20,
-	});
-	usePages(query.data);
-	query.data = query?.data?.archive?.extrinsic;
+	const query = useQuery(20);
+	const { pages } = usePagination("extrinsics");
 
 	return (
 		<ContainerLayout>
@@ -97,7 +91,28 @@ export default function Extrinsics() {
 	);
 }
 
-const usePages = (data) => {
+const useQuery = (limit) => {
+	const { currentPage } = usePagination("extrinsics");
+
+	const query = usePolling({}, useGetExtrinsicsQuery, {
+		limit,
+		offset: (currentPage - 1) * limit,
+	});
+	usePages(query.data, limit);
+
+	// Prefetch next page
+	usePolling({}, useGetExtrinsicsQuery, {
+		limit,
+		offset: currentPage * limit,
+	});
+
+	return {
+		...query,
+		data: query?.data?.archive?.extrinsic,
+	};
+};
+
+const usePages = (data, limit) => {
 	const { setPages } = usePagination("extrinsics");
 
 	useEffect(() => {
@@ -106,7 +121,9 @@ const usePages = (data) => {
 		setPages(
 			Array.from(
 				Array(
-					Math.ceil(data?.archive?.extrinsic_aggregate?.aggregate?.count / 20)
+					Math.ceil(
+						data?.archive?.extrinsic_aggregate?.aggregate?.count / limit
+					)
 				)
 			)
 		);
