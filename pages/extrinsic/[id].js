@@ -15,7 +15,7 @@ import {
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetExtrinsicQuery } from "@/libs/api/generated";
 import { graphQLClient } from "@/libs/client";
-import { GAS_TOKEN_WAS_ROOT_BLOCK } from "@/libs/constants";
+import { ROOT_GAS_TOKEN_PRE_BLOCK } from "@/libs/constants";
 import { formatBalance, formatExtrinsicId } from "@/libs/utils";
 
 export const getServerSideProps = (context) => ({
@@ -99,9 +99,9 @@ const Fee = ({ events, height }) => {
 	)?.args;
 
 	const getGasToken = () => {
-		if (!GAS_TOKEN_WAS_ROOT_BLOCK) return "XRP";
+		if (!ROOT_GAS_TOKEN_PRE_BLOCK) return "XRP";
 
-		return height <= GAS_TOKEN_WAS_ROOT_BLOCK ? "ROOT" : "XRP";
+		return height <= ROOT_GAS_TOKEN_PRE_BLOCK ? "ROOT" : "XRP";
 	};
 
 	return (
