@@ -1,5 +1,4 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import clsx from "clsx";
 import moment from "moment";
 import Link from "next/link";
 import { useState } from "react";
@@ -16,7 +15,7 @@ import {
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetExtrinsicQuery } from "@/libs/api/generated";
 import { graphQLClient } from "@/libs/client";
-import { formatExtrinsicId } from "@/libs/utils";
+import { formatBalance, formatExtrinsicId } from "@/libs/utils";
 
 export const getServerSideProps = (context) => ({
 	props: { extrinsicId: context?.params?.id },
@@ -76,6 +75,8 @@ export default function Extrinsic({ extrinsicId }) {
 							<DetailsLayout.Data>{data.calls[0].name}</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 
+						<Weight events={data.events} />
+
 						<DetailsLayout.Wrapper>
 							<DetailsLayout.Title title="Signature" />
 							<DetailsLayout.Data dataClassName="break-all">
@@ -91,6 +92,27 @@ export default function Extrinsic({ extrinsicId }) {
 		</ContainerLayout>
 	);
 }
+
+const Weight = ({ events }) => {
+	const dispatchInfo = events?.find((event) =>
+		event.name.includes("ExtrinsicSuccess")
+	).args.dispatchInfo;
+
+	const paysFee = dispatchInfo?.paysFee?.__kind === "Yes";
+
+	return (
+		<>
+			{paysFee && (
+				<DetailsLayout.Wrapper>
+					<DetailsLayout.Title title="Weight" />
+					<DetailsLayout.Data>
+						{formatBalance(dispatchInfo.weight, 6)}
+					</DetailsLayout.Data>
+				</DetailsLayout.Wrapper>
+			)}
+		</>
+	);
+};
 
 const Events = ({ events }) => {
 	const [viewArgs, toggleArgs] = useToggleArgs();
