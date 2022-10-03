@@ -13,6 +13,7 @@ import {
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetBlockQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
+import { formatExtrinsicId } from "@/libs/utils";
 
 export const getServerSideProps = (context) => ({
 	props: { blockNumber: context?.params?.blocknumber },
@@ -82,11 +83,11 @@ export default function Block({ blockNumber }) {
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Parent Hash" />
 						<DetailsLayout.Data>
-							<Link href={`/block/${getPrevBlock()}`}>
-								<span className="cursor-pointer text-indigo-500">
+							<span className="cursor-pointer text-indigo-500">
+								<Link href={`/block/${getPrevBlock()}`}>
 									{query.data.parent_hash}
-								</span>
-							</Link>
+								</Link>
+							</span>
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
@@ -103,19 +104,25 @@ export default function Block({ blockNumber }) {
 					</DetailsLayout.Wrapper>
 
 					<DetailsLayout.Wrapper>
-						<DetailsLayout.Title title="Events" />
+						<DetailsLayout.Title title="Extrinsics" />
 						<DetailsLayout.Data>
-							<div className="h-64 overflow-scroll rounded bg-gray-900 bg-opacity-30 p-2">
-								<JSONPretty id="json-pretty" data={query.data.events} />
-							</div>
+							<ul>
+								{query.data.extrinsics.map((extrinsic, i) => (
+									<li className="cursor-pointer text-indigo-500" key={i}>
+										<Link href={`/extrinsic/${extrinsic.id}`}>
+											{formatExtrinsicId(extrinsic.id)}
+										</Link>
+									</li>
+								))}
+							</ul>
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
 					<DetailsLayout.Wrapper>
-						<DetailsLayout.Title title="Extrinsics" />
+						<DetailsLayout.Title title="Events" />
 						<DetailsLayout.Data>
 							<div className="h-64 overflow-scroll rounded bg-gray-900 bg-opacity-30 p-2">
-								<JSONPretty id="json-pretty" data={query.data.extrinsics} />
+								<JSONPretty id="json-pretty" data={query.data.events} />
 							</div>
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
