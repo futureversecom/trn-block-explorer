@@ -76,12 +76,11 @@ export default function Extrinsic({ extrinsicId }) {
 							<DetailsLayout.Data>{data.calls[0].name}</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 
-						<Weight events={data.events} height={data.block.height} />
+						<Fee events={data.events} height={data.block.height} />
 
 						<DetailsLayout.Wrapper>
 							<DetailsLayout.Title title="Signature" />
 							<DetailsLayout.Data dataClassName="break-all">
-								{" "}
 								{data?.signature?.signature ?? "?"}
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
@@ -94,7 +93,7 @@ export default function Extrinsic({ extrinsicId }) {
 	);
 }
 
-const Weight = ({ events, height }) => {
+const Fee = ({ events, height }) => {
 	const feePaid = events?.find((event) =>
 		event.name.includes("TransactionPayment.TransactionFeePaid")
 	)?.args;
@@ -109,7 +108,7 @@ const Weight = ({ events, height }) => {
 		<>
 			{feePaid && (
 				<DetailsLayout.Wrapper>
-					<DetailsLayout.Title title="Weight" />
+					<DetailsLayout.Title title="Fee" />
 					<DetailsLayout.Data>
 						{formatBalance(feePaid.actualFee, 6)} {getGasToken()}
 					</DetailsLayout.Data>
