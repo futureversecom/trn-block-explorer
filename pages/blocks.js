@@ -89,7 +89,7 @@ export default function Blocks() {
 }
 
 const useQuery = (limit) => {
-	const { currentPage } = usePagination("extrinsics");
+	const { currentPage } = usePagination("blocks");
 
 	const query = usePolling({}, useGetBlocksQuery, {
 		limit,
