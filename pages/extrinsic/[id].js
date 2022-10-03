@@ -15,6 +15,7 @@ import {
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetExtrinsicQuery } from "@/libs/api/generated";
 import { graphQLClient } from "@/libs/client";
+import { GAS_TOKEN_WAS_ROOT_BLOCK } from "@/libs/constants";
 import { formatBalance, formatExtrinsicId } from "@/libs/utils";
 
 export const getServerSideProps = (context) => ({
@@ -75,7 +76,7 @@ export default function Extrinsic({ extrinsicId }) {
 							<DetailsLayout.Data>{data.calls[0].name}</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 
-						<Weight events={data.events} />
+						<Weight events={data.events} height={data.block.height} />
 
 						<DetailsLayout.Wrapper>
 							<DetailsLayout.Title title="Signature" />
@@ -93,20 +94,24 @@ export default function Extrinsic({ extrinsicId }) {
 	);
 }
 
-const Weight = ({ events }) => {
-	const dispatchInfo = events?.find((event) =>
-		event.name.includes("ExtrinsicSuccess")
-	).args.dispatchInfo;
+const Weight = ({ events, height }) => {
+	const feePaid = events?.find((event) =>
+		event.name.includes("TransactionPayment.TransactionFeePaid")
+	)?.args;
 
-	const paysFee = dispatchInfo?.paysFee?.__kind === "Yes";
+	const getGasToken = () => {
+		if (!GAS_TOKEN_WAS_ROOT_BLOCK) return "XRP";
+
+		return height <= GAS_TOKEN_WAS_ROOT_BLOCK ? "ROOT" : "XRP";
+	};
 
 	return (
 		<>
-			{paysFee && (
+			{feePaid && (
 				<DetailsLayout.Wrapper>
 					<DetailsLayout.Title title="Weight" />
 					<DetailsLayout.Data>
-						{formatBalance(dispatchInfo.weight, 6)}
+						{formatBalance(feePaid.actualFee, 6)} {getGasToken()}
 					</DetailsLayout.Data>
 				</DetailsLayout.Wrapper>
 			)}

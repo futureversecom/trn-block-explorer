@@ -1,12 +1,11 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-// import { useEffect } from "react";
 
+// import { useEffect } from "react";
 import {
 	ContainerLayout,
 	LoadingBlock,
-	PageHeader,
-	// Pagination,
+	PageHeader, // Pagination,
 	TableLayout,
 } from "@/components";
 import { useGetAccountsQuery } from "@/libs/api/generated.ts";
