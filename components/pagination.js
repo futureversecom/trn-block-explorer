@@ -146,7 +146,7 @@ const usePages = (table) => {
 				break;
 			}
 			case 2: {
-				prevPages = [1];
+				prevPages = getPrevPages(1);
 				pageSlice = currentPage + 4;
 				break;
 			}
