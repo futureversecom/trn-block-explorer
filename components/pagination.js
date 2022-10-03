@@ -14,8 +14,8 @@ export const Pagination = ({ table }) => {
 	const { prevPages, postPages, onPageClick } = usePages(table);
 
 	return (
-		<div className="relative mt-2 w-full">
-			<div className="absolute right-0 flex space-x-2">
+		<div className="mt-2 w-full overflow-scroll sm:relative sm:overflow-visible">
+			<div className="right-0 flex space-x-2 sm:absolute">
 				{/* Go to first page */}
 				<PaginationButton
 					onClick={() => onPageClick(1, currentPage === 1)}
