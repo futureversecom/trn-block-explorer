@@ -5,48 +5,13 @@ import {
 	ChevronRightIcon,
 } from "@heroicons/react/24/outline";
 import clsx from "clsx";
+import { useCallback, useMemo } from "react";
 
 import { usePagination } from "@/libs/stores";
 
 export const Pagination = ({ table }) => {
-	const { pages, currentPage, setCurrentPage } = usePagination(table);
-
-	const onPageClick = (page, condition) => {
-		if (condition) return;
-
-		setCurrentPage(page);
-	};
-
-	let pageSlice = 0,
-		prevPages = [];
-
-	switch (currentPage) {
-		case 1: {
-			pageSlice = currentPage + 5;
-			break;
-		}
-		case 2: {
-			prevPages = [1];
-			pageSlice = currentPage + 4;
-			break;
-		}
-		case pages.length:
-		case pages.length - 1:
-		case pages.length - 2: {
-			let lastPages = [];
-			for (let i = 4; i >= 0; i--) {
-				if (currentPage - i <= 0) continue;
-				lastPages.push(currentPage - i);
-			}
-			prevPages = lastPages;
-			break;
-		}
-		default: {
-			prevPages = [currentPage - 2, currentPage - 1];
-			pageSlice = currentPage + 3;
-			break;
-		}
-	}
+	const { pages, currentPage } = usePagination(table);
+	const { prevPages, postPages, onPageClick } = usePages(table);
 
 	return (
 		<div className="relative mt-2 w-full">
@@ -96,10 +61,10 @@ export const Pagination = ({ table }) => {
 				)}
 
 				{/* Pages after & including current page */}
-				{pages.slice(currentPage, pageSlice).map((_, i) => {
+				{postPages.map((_, i) => {
 					const page = i + currentPage;
 
-					if (page > pages.length) return;
+					if (page > pages.length + 1) return;
 
 					return (
 						<PaginationButton
@@ -147,6 +112,74 @@ export const Pagination = ({ table }) => {
 			</div>
 		</div>
 	);
+};
+
+const usePages = (table) => {
+	const { pages, currentPage, setCurrentPage } = usePagination(table);
+
+	const onPageClick = (page, condition) => {
+		if (condition) return;
+
+		setCurrentPage(page);
+	};
+
+	const getPrevPages = useCallback(
+		(amount) => {
+			const pages = [];
+			for (let i = amount; i >= 1; i--) {
+				if (currentPage - i <= 0) continue;
+				pages.push(currentPage - i);
+			}
+
+			return pages;
+		},
+		[currentPage]
+	);
+
+	const { pageSlice, prevPages } = useMemo(() => {
+		let pageSlice = 0,
+			prevPages = [];
+
+		switch (currentPage) {
+			case 1: {
+				pageSlice = currentPage + 5;
+				break;
+			}
+			case 2: {
+				prevPages = [1];
+				pageSlice = currentPage + 4;
+				break;
+			}
+			default: {
+				prevPages = getPrevPages(2);
+				pageSlice = currentPage + 3;
+				break;
+			}
+			case pages.length - 1: {
+				prevPages = getPrevPages(3);
+				pageSlice = undefined;
+				break;
+			}
+			case pages.length: {
+				prevPages = getPrevPages(4);
+				pageSlice = undefined;
+				break;
+			}
+		}
+
+		return { pageSlice, prevPages };
+	}, [currentPage, getPrevPages, pages.length]);
+
+	const postPages = useMemo(() => {
+		if (!pages) return;
+
+		if (currentPage < pages.length - 2 || currentPage > pages.length)
+			return pages.slice(currentPage, pageSlice);
+
+		return pages.slice(currentPage, pageSlice).concat(undefined);
+	}, [currentPage, pages, pageSlice]);
+
+	return { prevPages, postPages, onPageClick };
 };
 
 const PaginationButton = ({ children, buttonClassName, ...props }) => (
