@@ -78,12 +78,14 @@ export default function Extrinsic({ extrinsicId }) {
 
 						<Fee events={data.events} height={data.block.height} />
 
-						<DetailsLayout.Wrapper>
-							<DetailsLayout.Title title="Signature" />
-							<DetailsLayout.Data dataClassName="break-all">
-								{data?.signature?.signature ?? "?"}
-							</DetailsLayout.Data>
-						</DetailsLayout.Wrapper>
+						{data?.signature?.signature && (
+							<DetailsLayout.Wrapper>
+								<DetailsLayout.Title title="Signature" />
+								<DetailsLayout.Data dataClassName="break-all">
+									{data.signature.signature}
+								</DetailsLayout.Data>
+							</DetailsLayout.Wrapper>
+						)}
 					</DetailsLayout.Container>
 
 					<Events events={data.events} />
