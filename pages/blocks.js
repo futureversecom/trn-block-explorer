@@ -17,14 +17,8 @@ import { usePagination } from "@/libs/stores";
 import { formatAddress } from "@/libs/utils";
 
 export default function Blocks() {
-	const { pages, currentPage } = usePagination("blocks");
-
-	let query = usePolling({}, useGetBlocksQuery, {
-		limit: 20,
-		offset: (currentPage - 1) * 20,
-	});
-	usePages(query.data);
-	query.data = query?.data?.archive?.block;
+	const query = useQuery(20);
+	const { pages } = usePagination("blocks");
 
 	return (
 		<ContainerLayout>
@@ -94,7 +88,28 @@ export default function Blocks() {
 	);
 }
 
-const usePages = (data) => {
+const useQuery = (limit) => {
+	const { currentPage } = usePagination("blocks");
+
+	const query = usePolling({}, useGetBlocksQuery, {
+		limit,
+		offset: (currentPage - 1) * limit,
+	});
+	usePages(query.data, limit);
+
+	// Prefetch next page
+	usePolling({}, useGetBlocksQuery, {
+		limit,
+		offset: currentPage * limit,
+	});
+
+	return {
+		...query,
+		data: query?.data?.archive?.block,
+	};
+};
+
+const usePages = (data, limit) => {
 	const { setPages } = usePagination("blocks");
 
 	useEffect(() => {
@@ -102,9 +117,11 @@ const usePages = (data) => {
 
 		setPages(
 			Array.from(
-				Array(Math.floor(data?.archive?.block_aggregate?.aggregate?.count / 20))
+				Array(
+					Math.ceil(data?.archive?.block_aggregate?.aggregate?.count / limit)
+				)
 			)
 		);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [data?.archive?.block_aggregate]);
+	}, [data?.archive?.block_aggregate, limit]);
 };
