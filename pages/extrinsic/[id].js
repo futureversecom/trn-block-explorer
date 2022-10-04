@@ -1,5 +1,4 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import clsx from "clsx";
 import moment from "moment";
 import Link from "next/link";
 import { useState } from "react";
@@ -16,7 +15,8 @@ import {
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetExtrinsicQuery } from "@/libs/api/generated";
 import { graphQLClient } from "@/libs/client";
-import { formatExtrinsicId } from "@/libs/utils";
+import { ROOT_GAS_TOKEN_PRE_BLOCK } from "@/libs/constants";
+import { formatBalance, formatExtrinsicId } from "@/libs/utils";
 
 export const getServerSideProps = (context) => ({
 	props: { extrinsicId: context?.params?.id },
@@ -76,13 +76,16 @@ export default function Extrinsic({ extrinsicId }) {
 							<DetailsLayout.Data>{data.calls[0].name}</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 
-						<DetailsLayout.Wrapper>
-							<DetailsLayout.Title title="Signature" />
-							<DetailsLayout.Data dataClassName="break-all">
-								{" "}
-								{data?.signature?.signature ?? "?"}
-							</DetailsLayout.Data>
-						</DetailsLayout.Wrapper>
+						<Fee events={data.events} height={data.block.height} />
+
+						{data?.signature?.signature && (
+							<DetailsLayout.Wrapper>
+								<DetailsLayout.Title title="Signature" />
+								<DetailsLayout.Data dataClassName="break-all">
+									{data.signature.signature}
+								</DetailsLayout.Data>
+							</DetailsLayout.Wrapper>
+						)}
 					</DetailsLayout.Container>
 
 					<Events events={data.events} />
@@ -91,6 +94,31 @@ export default function Extrinsic({ extrinsicId }) {
 		</ContainerLayout>
 	);
 }
+
+const Fee = ({ events, height }) => {
+	const feePaid = events?.find((event) =>
+		event.name.includes("TransactionPayment.TransactionFeePaid")
+	)?.args;
+
+	const getGasToken = () => {
+		if (!ROOT_GAS_TOKEN_PRE_BLOCK) return "XRP";
+
+		return height <= ROOT_GAS_TOKEN_PRE_BLOCK ? "ROOT" : "XRP";
+	};
+
+	return (
+		<>
+			{feePaid && (
+				<DetailsLayout.Wrapper>
+					<DetailsLayout.Title title="Fee" />
+					<DetailsLayout.Data>
+						{formatBalance(feePaid.actualFee, 6)} {getGasToken()}
+					</DetailsLayout.Data>
+				</DetailsLayout.Wrapper>
+			)}
+		</>
+	);
+};
 
 const Events = ({ events }) => {
 	const [viewArgs, toggleArgs] = useToggleArgs();

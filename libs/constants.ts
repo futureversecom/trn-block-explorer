@@ -6,3 +6,7 @@ export const IS_MAINNET =
 export const ETH_CHAIN_ID = IS_MAINNET ? 1 : 5;
 
 export const NATIVE_TOKEN = process.env.NEXT_PUBLIC_NATIVE_TOKEN ?? "ROOT";
+
+export const ROOT_GAS_TOKEN_PRE_BLOCK = Number(
+	process.env.NEXT_PUBLIC_ROOT_GAS_TOKEN_PRE_BLOCK
+);
