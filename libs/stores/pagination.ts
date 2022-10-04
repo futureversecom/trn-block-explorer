@@ -1,4 +1,6 @@
 import { atom, useAtom } from "jotai";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 interface Pagination {
 	currentPage: number;
@@ -45,18 +47,34 @@ const paginationAtom = atom(
 	}
 );
 
-export const usePagination = (table: PaginationUpdate["table"]) => {
+export const usePagination = (table: Table) => {
+	const router = useRouter();
 	const [pagination, setPagination] = useAtom(paginationAtom);
 
-	const onPageClick = (page: number) =>
+	const setCurrentPage = (page: number) =>
 		setPagination({ table, key: "currentPage", value: page });
 
 	const setPages = (pages: Array<undefined>) =>
 		setPagination({ table, key: "pages", value: pages });
 
+	// Reset currentPage to 1 if user navigates away
+	useEffect(() => {
+		if (!router?.asPath) return;
+
+		["extrinsics", "blocks", "accounts", "account"].forEach((path: string) => {
+			if (!path || router?.asPath.includes(path)) return;
+
+			setPagination({
+				table: path === "account" ? "accountTransfers" : (path as Table),
+				key: "currentPage",
+				value: 1,
+			});
+		});
+	}, [router?.asPath]);
+
 	return {
 		setPages,
-		onPageClick,
+		setCurrentPage,
 		pages: pagination[table]?.pages,
 		currentPage: pagination[table].currentPage,
 	};

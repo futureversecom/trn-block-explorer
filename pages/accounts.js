@@ -1,29 +1,23 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-// import { useEffect } from "react";
+import { useEffect } from "react";
 
 import {
 	ContainerLayout,
 	LoadingBlock,
 	PageHeader,
-	// Pagination,
+	Pagination,
 	TableLayout,
 } from "@/components";
 import { useGetAccountsQuery } from "@/libs/api/generated.ts";
 import { NATIVE_TOKEN } from "@/libs/constants";
 import { usePolling } from "@/libs/hooks";
-// import { usePagination } from "@/libs/stores";
+import { usePagination } from "@/libs/stores";
 import { formatAddress, formatBalance } from "@/libs/utils";
 
 export default function Accounts() {
-	// const { pages, currentPage } = usePagination("accounts");
-
-	let query = usePolling({}, useGetAccountsQuery, {
-		limit: 50,
-		// offset: (currentPage - 1) * 50,
-	});
-	// usePages(query.data);
-	query.data = query?.data?.balances?.account;
+	const query = useQuery(20);
+	const { pages, currentPage } = usePagination("accounts");
 
 	return (
 		<ContainerLayout>
@@ -55,7 +49,7 @@ export default function Accounts() {
 										{query.data.map((account, key) => (
 											<tr key={key}>
 												<TableLayout.Data dataClassName="text-center">
-													# {key + 1}
+													# {key + 1 + (currentPage - 1) * 20}
 												</TableLayout.Data>
 
 												<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500 font-bold">
@@ -85,24 +79,45 @@ export default function Accounts() {
 				</div>
 			)}
 
-			{/*{pages?.length > 1 && <Pagination table="accounts" />}*/}
+			{pages?.length > 1 && <Pagination table="accounts" />}
 		</ContainerLayout>
 	);
 }
 
-// const usePages = (data) => {
-// 	const { setPages } = usePagination("accounts");
+const useQuery = (limit) => {
+	const { currentPage } = usePagination("accounts");
 
-// 	useEffect(() => {
-// 		if (!data?.balances?.account_aggregate) return;
+	const query = usePolling({}, useGetAccountsQuery, {
+		limit,
+		offset: (currentPage - 1) * limit,
+	});
+	usePages(query.data, limit);
 
-// 		setPages(
-// 			Array.from(
-// 				Array(
-// 					Math.floor(data?.balances?.account_aggregate?.aggregate?.count / 50)
-// 				)
-// 			)
-// 		);
-// 		// eslint-disable-next-line react-hooks/exhaustive-deps
-// 	}, [data?.balances?.account_aggregate]);
-// };
+	// Prefetch next page
+	usePolling({}, useGetAccountsQuery, {
+		limit,
+		offset: currentPage * limit,
+	});
+
+	return {
+		...query,
+		data: query?.data?.balances?.account,
+	};
+};
+
+const usePages = (data, limit) => {
+	const { setPages } = usePagination("accounts");
+
+	useEffect(() => {
+		if (!data?.balances?.account_aggregate) return;
+
+		setPages(
+			Array.from(
+				Array(
+					Math.ceil(data?.balances?.account_aggregate?.aggregate?.count / limit)
+				)
+			)
+		);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [data?.balances?.account_aggregate, limit]);
+};
