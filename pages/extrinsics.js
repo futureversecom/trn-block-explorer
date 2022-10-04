@@ -46,35 +46,33 @@ export default function Extrinsics() {
 										</tr>
 									</thead>
 									<tbody className="divide-y divide-gray-800 bg-transparent">
-										{query.data.map((extrinsic, key) => (
+										{query.data?.map((call, key) => (
 											<tr key={key}>
 												<TableLayout.Data dataClassName="!text-indigo-500 font-bold">
-													<Link href={`/extrinsic/${extrinsic.id}`}>
-														{formatExtrinsicId(extrinsic.id)}
+													<Link href={`/extrinsic/${call.id}`}>
+														{formatExtrinsicId(call.id)}
 													</Link>
 												</TableLayout.Data>
 												<TableLayout.Data>
 													<BlockFinalizedIcon
-														status={extrinsic?.success}
+														status={call?.success}
 														iconClassName="h-5"
 													/>
 												</TableLayout.Data>
 												<TableLayout.Data>
-													{formatAddress(extrinsic.hash, 12)}
+													{formatAddress(call.extrinsic.hash, 12)}
 												</TableLayout.Data>
 												<TableLayout.Data>
-													<TimeAgo date={extrinsic.block.timestamp} />
+													<TimeAgo date={call.block.timestamp} />
 												</TableLayout.Data>
 												<TableLayout.Data dataClassName="!text-indigo-500 font-bold">
-													<Link href={`/block/${extrinsic.block.height}`}>
-														{extrinsic.block.height}
+													<Link href={`/block/${call.block.height}`}>
+														{call.block.height}
 													</Link>
 												</TableLayout.Data>
+												<TableLayout.Data>{call.name}</TableLayout.Data>
 												<TableLayout.Data>
-													{extrinsic.calls[0].name}
-												</TableLayout.Data>
-												<TableLayout.Data>
-													{extrinsic.events_aggregate.aggregate.count}
+													{call.events_aggregate.aggregate.count}
 												</TableLayout.Data>
 											</tr>
 										))}
@@ -108,7 +106,7 @@ const useQuery = (limit) => {
 
 	return {
 		...query,
-		data: query?.data?.archive?.extrinsic,
+		data: query?.data?.archive?.call,
 	};
 };
 
@@ -116,17 +114,15 @@ const usePages = (data, limit) => {
 	const { setPages } = usePagination("extrinsics");
 
 	useEffect(() => {
-		if (!data?.archive?.extrinsic_aggregate) return;
+		if (!data?.archive?.call_aggregate) return;
 
 		setPages(
 			Array.from(
 				Array(
-					Math.ceil(
-						data?.archive?.extrinsic_aggregate?.aggregate?.count / limit
-					)
+					Math.ceil(data?.archive?.call_aggregate?.aggregate?.count / limit)
 				)
 			)
 		);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [data?.archive?.extrinsic_aggregate]);
+	}, [data?.archive?.call_aggregate]);
 };

@@ -3,7 +3,7 @@ import {
 	CubeIcon,
 	UserGroupIcon,
 } from "@heroicons/react/24/outline";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import CountUp from "react-countup";
 
 import { LoadingBlock, RefetchIndicator } from "@/components";
@@ -11,6 +11,7 @@ import { useGetChainDataQuery } from "@/libs/api/generated";
 import { usePolling } from "@/libs/hooks";
 
 export default function ChaindataWidget() {
+	const [firstCount, setFirstCount] = useState(true);
 	const query = usePolling({}, useGetChainDataQuery);
 
 	const chainData = useMemo(() => {
@@ -24,6 +25,12 @@ export default function ChaindataWidget() {
 			transfers: query?.data?.balances?.transfer_aggregate?.aggregate?.count,
 		};
 	}, [query?.data]);
+
+	useEffect(() => {
+		if (!chainData || !firstCount) return;
+
+		setTimeout(() => setFirstCount(false), 1500);
+	}, [chainData, firstCount]);
 
 	return (
 		<div>
@@ -81,6 +88,7 @@ export default function ChaindataWidget() {
 											<CountUp
 												duration={1}
 												end={item.stat}
+												start={firstCount ? 0 : item.stat - 1}
 												separator={","}
 												className="font-number"
 											/>

@@ -1,39 +1,33 @@
 {
-  "chain": {
-    "1": "Mainnet",
-    "5": "Goerli"
-  },
   "tokens": [
     {
       "symbol": "XRP",
-      "address": "",
       "decimals": 6,
-      "chainId": 1,
-      "assetId": 2
+      "assetId": 2,
+      "mainnet": true
     },
 
     {
       "symbol": "XRP",
-      "address": "",
       "decimals": 6,
-      "chainId": 1,
-      "assetId": 2
+      "assetId": 2,
+      "mainnet": false
     },
 
     {
       "symbol": "ETH",
       "address": "0x0000000000000000000000000000000000000000",
       "decimals": 18,
-      "chainId": 1,
-      "assetId": 1124
+      "assetId": 1124,
+      "mainnet": true
     },
 
     {
       "symbol": "ETH",
       "address": "0x0000000000000000000000000000000000000000",
       "decimals": 18,
-      "chainId": 5,
-      "assetId": 1124
+      "assetId": 1124,
+      "mainnet": false
     }
   ]
 }

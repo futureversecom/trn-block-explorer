@@ -10,7 +10,7 @@ import { formatExtrinsicId } from "@/libs/utils";
 
 export default function ExtrinsicsWidget() {
 	const query = usePolling({}, useGetExtrinsicsQuery, { limit: 10 });
-	query.data = query?.data?.archive?.extrinsic;
+	query.data = query?.data?.archive?.call;
 
 	return (
 		<div>
@@ -36,13 +36,13 @@ export default function ExtrinsicsWidget() {
 			<div className="min-h-[760px] divide-y divide-gray-400 border border-gray-400 bg-transparent px-4 py-3 sm:px-6">
 				{query.isLoading
 					? DummyListItem(10)
-					: query.data?.map((item, key) => (
+					: query.data?.map((call, key) => (
 							<Extrinsic
 								key={key}
-								success={item.success}
-								call={item.calls[0].name}
-								timestamp={item.block.timestamp}
-								extrinsicId={item.id}
+								success={call.success}
+								call={call.name}
+								timestamp={call.block.timestamp}
+								extrinsicId={call.id}
 							/>
 					  ))}
 			</div>
