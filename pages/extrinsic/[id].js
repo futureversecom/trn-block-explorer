@@ -13,14 +13,30 @@ import {
 	TableLayout,
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
-import { useGetExtrinsicQuery } from "@/libs/api/generated";
+import {
+	GetExtrinsicIdFromHashDocument,
+	useGetExtrinsicQuery,
+} from "@/libs/api/generated";
 import { graphQLClient } from "@/libs/client";
 import { ROOT_GAS_TOKEN_PRE_BLOCK } from "@/libs/constants";
 import { formatBalance, formatExtrinsicId } from "@/libs/utils";
 
-export const getServerSideProps = (context) => ({
-	props: { extrinsicId: context?.params?.id },
-});
+export const getServerSideProps = async (context) => {
+	let extrinsicId = context?.params?.id;
+
+	if (!extrinsicId?.startsWith("0x") && extrinsicId.length !== 66)
+		return {
+			props: { extrinsicId },
+		};
+
+	const response = await graphQLClient.request(GetExtrinsicIdFromHashDocument, {
+		extrinsicHash: extrinsicId,
+	});
+
+	return {
+		props: { extrinsicId: response.archive.extrinsic[0].id },
+	};
+};
 
 export default function Extrinsic({ extrinsicId }) {
 	const query = useGetExtrinsicQuery(graphQLClient, { extrinsicId });
