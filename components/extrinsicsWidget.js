@@ -33,7 +33,7 @@ export default function ExtrinsicsWidget() {
 					</Link>
 				</div>
 			</div>
-			<div className="min-h-[760px] divide-y divide-gray-400 border border-gray-400 bg-transparent px-4 py-3 sm:px-6">
+			<div className="h-[747px] max-h-[747px] divide-y divide-gray-400 border border-gray-400 bg-transparent px-4 pb-3 pt-1 sm:px-6 overflow-scroll">
 				{query.isLoading
 					? DummyListItem(10)
 					: query.data?.map((call, key) => (

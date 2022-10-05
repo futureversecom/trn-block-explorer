@@ -1,19 +1,41 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { useContext } from "react";
 import TimeAgo from "react-timeago";
 
 import { DummyListItem, RefetchIndicator } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetBlocksQuery } from "@/libs/api/generated.ts";
-import { usePolling } from "@/libs/hooks";
+import { usePolling, useSubscribeHeader } from "@/libs/hooks";
 import { numberWithCommas } from "@/libs/utils";
+import { PolkadotContext } from "@/libs/client";
+
+function removeDuplicates(a, b) {
+	return Array.from([...a, ...b]
+        .reduce((m, o) => m.set(o.height, o), new Map)
+        .values()
+    );
+};
 
 export default function BlocksWidget() {
 	const query = usePolling({}, useGetBlocksQuery, {
 		limit: 10,
 	});
 
-	const blocks = query?.data?.archive?.block;
+	const polkadotAPI = useContext(PolkadotContext);
+	const unfinalizedBlocks = useSubscribeHeader(polkadotAPI);
+	
+	let dedupedBlocks = [];
+	if (!unfinalizedBlocks || unfinalizedBlocks.length > 0 && query?.data?.archive?.block) {
+		dedupedBlocks = removeDuplicates(unfinalizedBlocks, query?.data?.archive?.block);
+	}
+
+	// @TODO: limit the merged deduped blocks to 10 items
+	// const limit = (10 - (unfinalizedBlocks.length) ?? 0);
+
+	const blocks = (!unfinalizedBlocks || unfinalizedBlocks.length > 0)
+		? dedupedBlocks.slice(0, -3)
+		: query?.data?.archive?.block;
 
 	return (
 		<div>
@@ -36,7 +58,7 @@ export default function BlocksWidget() {
 					</Link>
 				</div>
 			</div>
-			<div className="min-h-[760px] divide-y divide-gray-400 border border-gray-400 bg-transparent px-4 py-3 sm:px-6">
+			<div className="h-[747px] max-h-[747px] divide-y divide-gray-400 border border-gray-400 bg-transparent px-4 pb-3 pt-1 sm:px-6 overflow-scroll">
 				{query.isLoading
 					? DummyListItem(10)
 					: blocks?.map((item, key) => (
@@ -46,7 +68,7 @@ export default function BlocksWidget() {
 								extrinsics={item?.extrinsics_aggregate?.aggregate?.count || "?"}
 								events={item?.events_aggregate?.aggregate?.count || "?"}
 								timestamp={item.timestamp}
-								status={true}
+								status={item.isFinalized ?? true}
 							/>
 					  ))}
 			</div>
