@@ -2,11 +2,12 @@ import {
 	CheckCircleIcon,
 	ExclamationCircleIcon,
 } from "@heroicons/react/24/outline";
+
 import { Tooltip } from "@/components";
 
 export default function BlockFinalizedIcon({ status, isExtrinsic = false }) {
-	const successMessage = (!isExtrinsic) ? 'Finalized' : 'Success',
-		failedMessage = (!isExtrinsic) ? 'Unfinalized' : 'Failed';
+	const successMessage = !isExtrinsic ? "Finalized" : "Success",
+		failedMessage = !isExtrinsic ? "Unfinalized" : "Failed";
 
 	if (status == true) {
 		return (

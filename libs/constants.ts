@@ -23,5 +23,5 @@ export const ROOT_NETWORK = {
 			InWebSocket: "wss://root.au.rootnet.live/ws",
 		},
 		GraphQlEndpoint: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ?? "",
-	}
+	},
 }[IS_MAINNET ? "mainnet" : "porcini"];
