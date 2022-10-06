@@ -14,7 +14,7 @@ export const getRootApi = async () => {
 	return rootApi;
 };
 
-const rootApiAtom = atom(async () => getRootApi());
+const rootApiAtom = atom(async () => await getRootApi());
 
 export const useRootApi = () => {
 	const [rootApi] = useAtom(rootApiAtom);
