@@ -15,13 +15,13 @@ export const ROOT_NETWORK = {
 		ApiUrl: {
 			InWebSocket: "wss://porcini.au.rootnet.app/ws",
 		},
-		GraphQlEndpoint: process.env.NEXT_PUBLIC_PORCINI_GRAPHQL_ENDPOINT ?? "",
+		GraphQlEndpoint: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ?? "",
 	},
 	mainnet: {
 		ChainName: "ROOT",
 		ApiUrl: {
 			InWebSocket: "wss://root.au.rootnet.live/ws",
 		},
-		GraphQlEndpoint: process.env.NEXT_PUBLIC_ROOT_GRAPHQL_ENDPOINT ?? "",
+		GraphQlEndpoint: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ?? "",
 	}
 }[IS_MAINNET ? "mainnet" : "porcini"];
