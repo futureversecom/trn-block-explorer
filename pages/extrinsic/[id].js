@@ -61,7 +61,7 @@ export default function Extrinsic({ extrinsicId }) {
 							<DetailsLayout.Title title="Status" />
 							<DetailsLayout.Data>
 								<div className="flex flex-row space-x-3">
-									<BlockFinalizedIcon status={true} />
+									<BlockFinalizedIcon status={true} isExtrinsic={true} />
 								</div>
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>

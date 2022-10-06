@@ -33,7 +33,7 @@ export default function ExtrinsicsWidget() {
 					</Link>
 				</div>
 			</div>
-			<div className="min-h-[760px] divide-y divide-gray-400 border border-gray-400 bg-transparent px-4 py-3 sm:px-6">
+			<div className="h-[46.688em] max-h-[46.688em] divide-y divide-gray-400 overflow-scroll border border-gray-400 bg-transparent px-4 pb-3 pt-1 sm:px-6">
 				{query.isLoading
 					? DummyListItem(10)
 					: query.data?.map((call, key) => (
@@ -70,7 +70,7 @@ const Extrinsic = ({ success, call, timestamp, extrinsicId }) => {
 						<TimeAgo date={timestamp} />
 					</div>
 					<div>
-						<BlockFinalizedIcon status={success} />
+						<BlockFinalizedIcon status={success} isExtrinsic={true} />
 					</div>
 				</div>
 			</div>

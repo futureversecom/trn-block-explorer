@@ -3,12 +3,14 @@ import Head from "next/head";
 
 import { Footer, Header, Search } from "@/components";
 import { queryClient } from "@/libs/client";
+import { useRootApi } from "@/libs/stores";
 import "@/styles/globals.css";
 
 import { usePageTracking } from "../libs/hooks";
 
 function MyApp({ Component, pageProps }) {
 	usePageTracking();
+	useRootApi(); // connect to the polkadotjs API provider
 
 	return (
 		<QueryClientProvider client={queryClient}>

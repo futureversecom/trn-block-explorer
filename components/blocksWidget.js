@@ -1,19 +1,42 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { useMemo } from "react";
 import TimeAgo from "react-timeago";
 
 import { DummyListItem, RefetchIndicator } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetBlocksQuery } from "@/libs/api/generated.ts";
-import { usePolling } from "@/libs/hooks";
+import { usePolling, useSubscribeHeader } from "@/libs/hooks";
 import { numberWithCommas } from "@/libs/utils";
+
+function removeDuplicates(a, b) {
+	return Array.from(
+		[...a, ...b].reduce((m, o) => m.set(o.height, o), new Map()).values()
+	);
+}
 
 export default function BlocksWidget() {
 	const query = usePolling({}, useGetBlocksQuery, {
 		limit: 10,
 	});
 
-	const blocks = query?.data?.archive?.block;
+	const unfinalizedBlocks = useSubscribeHeader();
+
+	let dedupedBlocks = useMemo(() => {
+		if (
+			unfinalizedBlocks &&
+			unfinalizedBlocks.length > 0 &&
+			query?.data?.archive?.block
+		) {
+			return removeDuplicates(
+				unfinalizedBlocks,
+				query?.data?.archive?.block
+			).slice(0, 10);
+		}
+		return query?.data?.archive?.block;
+	}, [unfinalizedBlocks, query?.data]);
+
+	const blocks = dedupedBlocks;
 
 	return (
 		<div>
@@ -36,7 +59,7 @@ export default function BlocksWidget() {
 					</Link>
 				</div>
 			</div>
-			<div className="min-h-[760px] divide-y divide-gray-400 border border-gray-400 bg-transparent px-4 py-3 sm:px-6">
+			<div className="h-[46.688em] max-h-[46.688em] divide-y divide-gray-400 overflow-scroll border border-gray-400 bg-transparent px-4 pb-3 pt-1 sm:px-6">
 				{query.isLoading
 					? DummyListItem(10)
 					: blocks?.map((item, key) => (
@@ -46,7 +69,7 @@ export default function BlocksWidget() {
 								extrinsics={item?.extrinsics_aggregate?.aggregate?.count || "?"}
 								events={item?.events_aggregate?.aggregate?.count || "?"}
 								timestamp={item.timestamp}
-								status={true}
+								status={item.isFinalized ?? true}
 							/>
 					  ))}
 			</div>
@@ -60,11 +83,18 @@ const BlockItem = ({ height, extrinsics, events, timestamp, status }) => {
 			<div className="flex flex-row justify-between">
 				<div className="text-sm font-bold">
 					<span className="mr-2 text-white">Block#</span>
-					<Link href={`/block/${height}`}>
-						<span className="cursor-pointer font-number text-lg text-indigo-500">
+					{status == true ? (
+						<Link href={`/block/${height}`}>
+							<span className="cursor-pointer font-number text-lg text-indigo-500">
+								{numberWithCommas(height)}
+							</span>
+						</Link>
+					) : (
+						// for unfinalized blocks, the details page will not be available for now so we'll remove the link
+						<span className="font-number text-lg text-indigo-500">
 							{numberWithCommas(height)}
 						</span>
-					</Link>
+					)}
 				</div>
 			</div>
 			<div className="flex flex-row justify-between">
