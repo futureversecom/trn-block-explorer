@@ -1,6 +1,5 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { useContext } from "react";
 import TimeAgo from "react-timeago";
 
 import { DummyListItem, RefetchIndicator } from "@/components";
@@ -8,7 +7,6 @@ import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetBlocksQuery } from "@/libs/api/generated.ts";
 import { usePolling, useSubscribeHeader } from "@/libs/hooks";
 import { numberWithCommas } from "@/libs/utils";
-import { PolkadotContext } from "@/libs/client";
 
 function removeDuplicates(a, b) {
 	return Array.from([...a, ...b]
@@ -22,8 +20,7 @@ export default function BlocksWidget() {
 		limit: 10,
 	});
 
-	const polkadotAPI = useContext(PolkadotContext);
-	const unfinalizedBlocks = useSubscribeHeader(polkadotAPI);
+	const unfinalizedBlocks = useSubscribeHeader();
 	
 	let dedupedBlocks = [];
 	if (!unfinalizedBlocks || unfinalizedBlocks.length > 0 && query?.data?.archive?.block) {
@@ -31,8 +28,9 @@ export default function BlocksWidget() {
 	}
 
 	// @TODO: limit the merged deduped blocks to 10 items
-	// const limit = (10 - (unfinalizedBlocks.length) ?? 0);
-
+	// but slicing away the extra items will be tricky as
+	// the timing to get the unfinalizedBlocks is different
+	// from the timing to get the finalized blocks
 	const blocks = (!unfinalizedBlocks || unfinalizedBlocks.length > 0)
 		? dedupedBlocks.slice(0, -3)
 		: query?.data?.archive?.block;
@@ -58,7 +56,7 @@ export default function BlocksWidget() {
 					</Link>
 				</div>
 			</div>
-			<div className="h-[747px] max-h-[747px] divide-y divide-gray-400 border border-gray-400 bg-transparent px-4 pb-3 pt-1 sm:px-6 overflow-scroll">
+			<div className="h-[46.688em] max-h-[46.688em] divide-y divide-gray-400 border border-gray-400 bg-transparent px-4 pb-3 pt-1 sm:px-6 overflow-scroll">
 				{query.isLoading
 					? DummyListItem(10)
 					: blocks?.map((item, key) => (
@@ -82,11 +80,18 @@ const BlockItem = ({ height, extrinsics, events, timestamp, status }) => {
 			<div className="flex flex-row justify-between">
 				<div className="text-sm font-bold">
 					<span className="mr-2 text-white">Block#</span>
-					<Link href={`/block/${height}`}>
-						<span className="cursor-pointer font-number text-lg text-indigo-500">
+					{(status == true) 
+					?
+						(<Link href={`/block/${height}`}>
+							<span className="cursor-pointer font-number text-lg text-indigo-500">
+								{numberWithCommas(height)}
+							</span>
+						</Link>)
+					: // for unfinalized blocks, the details page will not be available for now so we'll remove the link
+						(<span className="font-number text-lg text-indigo-500">
 							{numberWithCommas(height)}
-						</span>
-					</Link>
+						</span>)
+					}
 				</div>
 			</div>
 			<div className="flex flex-row justify-between">

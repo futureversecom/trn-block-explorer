@@ -57,6 +57,7 @@ export default function Extrinsics() {
 													<BlockFinalizedIcon
 														status={call?.success}
 														iconClassName="h-5"
+														isExtrinsic={true}
 													/>
 												</TableLayout.Data>
 												<TableLayout.Data>

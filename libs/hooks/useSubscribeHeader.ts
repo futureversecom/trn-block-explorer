@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
+import { useRootApi } from "@/libs/stores";
 import { Header } from '@polkadot/types/interfaces';
 
 type tBlock = {
@@ -24,9 +25,11 @@ type tBlock = {
     isFinalized: boolean;
 } | null;
 
-export const useSubscribeHeader = (api: any) => {
+export const useSubscribeHeader = () => {
     const [ block, setBlock ] = useState(0);
     const [ unfinalizedBlocks, setUnfinalizedBlock ] = useState([] as tBlock[]);
+
+    const api = useRootApi();
 
     const fetchData = useCallback(async () => {
         if (!api) return;
@@ -44,7 +47,7 @@ export const useSubscribeHeader = (api: any) => {
                 const blockHash = await api.rpc.chain.getBlockHash(i);
                 const signedBlock = await api.rpc.chain.getBlock(blockHash);
                 const apiAt = await api.at(signedBlock?.block?.header?.hash);
-                const allRecords = await apiAt?.query?.system.events();
+                const allRecords = await apiAt?.query?.system?.events();
 
                 let ts = null;
                 signedBlock?.block?.extrinsics.forEach(({ method: { args, method, section } }: any) => {
