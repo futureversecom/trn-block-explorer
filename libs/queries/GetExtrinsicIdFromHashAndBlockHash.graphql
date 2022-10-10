@@ -1,0 +1,15 @@
+query GetExtrinsicIdFromHashAndBlockHash(
+	$extrinsicHash: bpchar!
+	$blockHash: bpchar!
+) {
+	archive {
+		extrinsic(
+			where: {
+				hash: { _eq: $extrinsicHash }
+				block: { hash: { _eq: $blockHash } }
+			}
+		) {
+			id
+		}
+	}
+}

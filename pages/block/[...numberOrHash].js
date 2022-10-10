@@ -1,6 +1,7 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
 import moment from "moment";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import JSONPretty from "react-json-pretty";
 import TimeAgo from "react-timeago";
 
@@ -11,13 +12,49 @@ import {
 	PageHeader,
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
-import { useGetBlockQuery } from "@/libs/api/generated.ts";
+import {
+	GetExtrinsicIdFromHashAndBlockHashDocument,
+	useGetBlockQuery,
+} from "@/libs/api/generated.ts";
+import { graphQLClient } from "@/libs/client";
 import { usePolling } from "@/libs/hooks";
 import { formatExtrinsicId } from "@/libs/utils";
 
-export const getServerSideProps = (context) => ({
-	props: { blockNumber: context?.params?.blocknumber },
-});
+export const getServerSideProps = async (context) => {
+	const numberOrHash = context?.params?.numberOrHash;
+
+	if (numberOrHash?.length === 2) {
+		const [blockHash, extrinsicHash] = numberOrHash;
+		// if blockHash and extrinsicHash values are hash values
+		if (blockHash.startsWith("0x") && extrinsicHash.startsWith("0x")) {
+			const byHashResponse = await graphQLClient.request(
+				GetExtrinsicIdFromHashAndBlockHashDocument,
+				{
+					extrinsicHash,
+					blockHash,
+				}
+			);
+
+			if (
+				byHashResponse?.archive?.extrinsic.length &&
+				byHashResponse?.archive?.extrinsic[0].id
+			) {
+				return {
+					// then redirect to /extrinsic/{extrinsic-id}
+					redirect: {
+						destination: `/extrinsic/${byHashResponse?.archive?.extrinsic[0].id}`,
+						permanent: false,
+					},
+				};
+			}
+		}
+		return { notFound: true };
+	}
+	// else, numberOrHash[0] value is a block number
+	return {
+		props: { blockNumber: numberOrHash[0] },
+	};
+};
 
 export default function Block({ blockNumber }) {
 	let query = usePolling({}, useGetBlockQuery, {
