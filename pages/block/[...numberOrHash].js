@@ -23,7 +23,12 @@ import { formatExtrinsicId } from "@/libs/utils";
 export const getServerSideProps = async (context) => {
 	const numberOrHash = context?.params?.numberOrHash;
 
-	if (numberOrHash?.length === 2) {
+	if (numberOrHash?.length < 2) {
+		// numberOrHash[0] value is a block number
+		return {
+			props: { blockNumber: numberOrHash[0] },
+		};
+	} else if (numberOrHash?.length === 2) {
 		const [blockHash, extrinsicHash] = numberOrHash;
 		// if blockHash and extrinsicHash values are hash values
 		if (blockHash.startsWith("0x") && extrinsicHash.startsWith("0x")) {
@@ -48,12 +53,8 @@ export const getServerSideProps = async (context) => {
 				};
 			}
 		}
-		return { notFound: true };
 	}
-	// else, numberOrHash[0] value is a block number
-	return {
-		props: { blockNumber: numberOrHash[0] },
-	};
+	return { notFound: true };
 };
 
 export default function Block({ blockNumber }) {
