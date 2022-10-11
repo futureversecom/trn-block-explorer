@@ -52,11 +52,11 @@ export const getServerSideProps = async (context) => {
 			: byRegexResponse?.archive?.extrinsic[0].id;
 	};
 
-	const getExtrinsicIdByHash = async (extrinsicId) => {
+	const getExtrinsicIdByHash = async (extrinsicHash) => {
 		const byHashResponse = await graphQLClient.request(
 			GetExtrinsicIdFromHashDocument,
 			{
-				extrinsicHash: extrinsicId,
+				extrinsicHash,
 			}
 		);
 		return !byHashResponse?.archive?.extrinsic?.length
