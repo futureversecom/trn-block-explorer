@@ -170,6 +170,7 @@ const useTransactions = (address) => {
 	return {
 		data,
 		isLoading: toQuery?.isLoading || fromQuery?.isLoading,
+		isRefetching: toQuery?.isRefetching || fromQuery?.isRefetching,
 	};
 };
 

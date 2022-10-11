@@ -2,17 +2,19 @@ import { atom, useAtom } from "jotai";
 import { useEffect } from "react";
 
 interface RefetchStatus {
-	ercTransfers: boolean;
-	evmTransactions: boolean;
+	accountTransfers: boolean;
+	accountEvmTransactions: boolean;
 }
 
 const refetchingAtom = atom<RefetchStatus>({
-	ercTransfers: false,
-	evmTransactions: false,
+	accountTransfers: false,
+	accountEvmTransactions: false,
 });
 
+type RefetchKey = "accountTransfers" | "accountEvmTransactions";
+
 interface StatusUpdate {
-	key: string;
+	key: RefetchKey;
 	status: boolean;
 }
 
@@ -26,8 +28,8 @@ const refetchStatusAtom = atom(
 	}
 );
 
-export const useAccountRefetchStatus = (key?: string, status?: boolean) => {
-	const [{ evmTransactions, ercTransfers }, setRefetchStatus] =
+export const useAccountRefetchStatus = (key: RefetchKey, status?: boolean) => {
+	const [{ accountEvmTransactions, accountTransfers }, setRefetchStatus] =
 		useAtom(refetchStatusAtom);
 
 	useEffect(() => {
@@ -36,5 +38,5 @@ export const useAccountRefetchStatus = (key?: string, status?: boolean) => {
 		setRefetchStatus({ key, status: status ?? false });
 	}, [status, setRefetchStatus]);
 
-	return evmTransactions || ercTransfers;
+	return accountEvmTransactions || accountTransfers;
 };

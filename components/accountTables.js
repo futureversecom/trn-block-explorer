@@ -19,7 +19,7 @@ export const AccountTables = ({ walletAddress }) => {
 			<Tab.Group>
 				<TabList titles={["Transfers", "EVM Transactions"]}>
 					{isRefetching && (
-						<div className="absolute right-2 top-5 flex">
+						<div className="absolute right-2 top-6 flex">
 							<RefetchIndicator />
 						</div>
 					)}
