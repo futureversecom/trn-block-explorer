@@ -22,13 +22,9 @@ import { formatExtrinsicId } from "@/libs/utils";
 
 export const getServerSideProps = async (context) => {
 	const numberOrHash = context?.params?.numberOrHash;
+	const numberOrHashLen = numberOrHash?.length;
 
-	if (numberOrHash?.length < 2) {
-		// numberOrHash[0] value is a block number
-		return {
-			props: { blockNumber: numberOrHash[0] },
-		};
-	} else if (numberOrHash?.length === 2) {
+	const returnRedirect = async () => {
 		const [blockHash, extrinsicHash] = numberOrHash;
 		// if blockHash and extrinsicHash values are hash values
 		if (blockHash.startsWith("0x") && extrinsicHash.startsWith("0x")) {
@@ -40,21 +36,31 @@ export const getServerSideProps = async (context) => {
 				}
 			);
 
-			if (
+			return (
 				byHashResponse?.archive?.extrinsic.length &&
-				byHashResponse?.archive?.extrinsic[0].id
-			) {
-				return {
+				byHashResponse?.archive?.extrinsic[0].id && {
 					// then redirect to /extrinsic/{extrinsic-id}
 					redirect: {
 						destination: `/extrinsic/${byHashResponse?.archive?.extrinsic[0].id}`,
 						permanent: false,
 					},
-				};
-			}
+				}
+			);
 		}
-	}
-	return { notFound: true };
+	};
+
+	// numberOrHash[0] value is a block number
+	const returnProp = () => ({
+		props: { blockNumber: numberOrHash[0] },
+	});
+
+	const returnNotFound = () => ({ notFound: true });
+
+	if (numberOrHashLen === 2) return returnRedirect();
+
+	if (numberOrHashLen < 2) return returnProp();
+
+	return returnNotFound();
 };
 
 export default function Block({ blockNumber }) {

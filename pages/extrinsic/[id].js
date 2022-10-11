@@ -25,49 +25,68 @@ import { formatBalance, formatExtrinsicId } from "@/libs/utils";
 export const getServerSideProps = async (context) => {
 	let extrinsicId = context?.params?.id;
 
-	if (!extrinsicId?.startsWith("0x") && extrinsicId.length !== 66) {
-		if (extrinsicId.includes("-")) {
-			const extrinsicIdSplit = extrinsicId?.split("-");
+	// redirects to /extrinsic/0000XXXXXX-00000X-XXXXX route
+	const returnRedirect = (extrinsicIdValue) => ({
+		redirect: {
+			destination: `/extrinsic/${extrinsicIdValue}`,
+			permanent: false,
+		},
+	});
 
-			if (extrinsicIdSplit && extrinsicIdSplit.length > 2) {
-				return {
-					props: { extrinsicId }, // returns 0000XXXXXX-00000X-XXXXX extrinsicId
-				};
+	const returnProp = (extrinsicIdValue) => ({
+		props: { extrinsicId: extrinsicIdValue },
+	});
+
+	const returnNotFound = () => ({ notFound: true });
+
+	const getExtrinsicIdByRegex = async (blockNumber, extrinsicIdx) => {
+		// gets the 0000XXXXXX-00000X-XXXXX extrinsicId based from the formatted XXXXXX-X id
+		const byRegexResponse = await graphQLClient.request(
+			GetExtrinsicByRegexDocument,
+			{
+				regex: `0+${blockNumber}-0+${extrinsicIdx}`,
 			}
+		);
+		return !byRegexResponse?.archive?.extrinsic?.length
+			? null
+			: byRegexResponse?.archive?.extrinsic[0].id;
+	};
 
-			// gets the 0000XXXXXX-00000X-XXXXX extrinsicId based from the formatted XXXXXX-X id
-			const byRegexResponse = await graphQLClient.request(
-				GetExtrinsicByRegexDocument,
-				{
-					regex: `0+${extrinsicIdSplit[0]}-0+${extrinsicIdSplit[1]}`,
-				}
-			);
-
-			if (!byRegexResponse?.archive?.extrinsic?.length) {
-				return { notFound: true };
+	const getExtrinsicIdByHash = async (extrinsicId) => {
+		const byHashResponse = await graphQLClient.request(
+			GetExtrinsicIdFromHashDocument,
+			{
+				extrinsicHash: extrinsicId,
 			}
-			// then redirects to /extrinsic/0000XXXXXX-00000X-XXXXX route
-			return {
-				redirect: {
-					destination: `/extrinsic/${byRegexResponse?.archive?.extrinsic[0].id}`,
-					permanent: false,
-				},
-			};
+		);
+		return !byHashResponse?.archive?.extrinsic?.length
+			? null
+			: byHashResponse?.archive?.extrinsic[0].id;
+	};
+
+	if (
+		!extrinsicId?.startsWith("0x") &&
+		extrinsicId.length !== 66 &&
+		extrinsicId.includes("-")
+	) {
+		const extrinsicIdSplit = extrinsicId?.split("-");
+
+		if (extrinsicIdSplit && extrinsicIdSplit.length > 2) {
+			// returns 0000XXXXXX-00000X-XXXXX extrinsicId
+			return returnProp(extrinsicId);
 		}
+
+		const resultFromRegex = await getExtrinsicIdByRegex(
+			extrinsicIdSplit[0],
+			extrinsicIdSplit[1]
+		);
+		return !resultFromRegex
+			? returnNotFound()
+			: returnRedirect(resultFromRegex);
 	}
 
-	const byHashResponse = await graphQLClient.request(
-		GetExtrinsicIdFromHashDocument,
-		{
-			extrinsicHash: extrinsicId,
-		}
-	);
-
-	if (!byHashResponse?.archive?.extrinsic?.length) return { notFound: true };
-
-	return {
-		props: { extrinsicId: byHashResponse.archive.extrinsic[0].id },
-	};
+	const resultFromHash = await getExtrinsicIdByHash(extrinsicId);
+	return !resultFromHash ? returnNotFound() : returnProp(resultFromHash);
 };
 
 export default function Extrinsic({ extrinsicId }) {
