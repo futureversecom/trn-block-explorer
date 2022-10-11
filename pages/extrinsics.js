@@ -53,25 +53,31 @@ export default function Extrinsics() {
 														{formatExtrinsicId(call.id)}
 													</Link>
 												</TableLayout.Data>
-												<TableLayout.Data>
+
+												<TableLayout.Data dataClassName="flex">
 													<BlockFinalizedIcon
 														status={call?.success}
 														iconClassName="h-5"
 														isExtrinsic={true}
 													/>
 												</TableLayout.Data>
+
 												<TableLayout.Data>
 													{formatAddress(call.extrinsic.hash, 12)}
 												</TableLayout.Data>
+
 												<TableLayout.Data>
 													<TimeAgo date={call.block.timestamp} />
 												</TableLayout.Data>
+
 												<TableLayout.Data dataClassName="!text-indigo-500 font-bold">
 													<Link href={`/block/${call.block.height}`}>
 														{call.block.height}
 													</Link>
 												</TableLayout.Data>
+
 												<TableLayout.Data>{call.name}</TableLayout.Data>
+
 												<TableLayout.Data>
 													{call.events_aggregate.aggregate.count}
 												</TableLayout.Data>

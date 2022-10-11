@@ -105,11 +105,10 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 													/>
 												</TableLayout.Data>
 
-												<TableLayout.Data dataClassName="flex justify-left">
+												<TableLayout.Data dataClassName="flex">
 													<BlockFinalizedIcon
 														status={call.success}
 														isExtrinsic={true}
-														iconClassName=""
 													/>
 												</TableLayout.Data>
 											</tr>

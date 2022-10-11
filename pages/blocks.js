@@ -53,7 +53,7 @@ export default function Blocks() {
 														{block.height}
 													</Link>
 												</TableLayout.Data>
-												<TableLayout.Data>
+												<TableLayout.Data dataClassName="flex">
 													<BlockFinalizedIcon status={true} />
 												</TableLayout.Data>
 												<TableLayout.Data>
