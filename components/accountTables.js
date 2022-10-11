@@ -3,8 +3,13 @@ import { Tab } from "@headlessui/react";
 import clsx from "clsx";
 import { Fragment } from "react";
 
-import { RefetchIndicator, TransfersForAddress, EvmTransactionsForAddress } from "./";
 import { useAccountRefetchStatus } from "@/libs/stores";
+
+import {
+	EvmTransactionsForAddress,
+	RefetchIndicator,
+	TransfersForAddress,
+} from "./";
 
 export const AccountTables = ({ walletAddress }) => {
 	const isRefetching = useAccountRefetchStatus();
@@ -20,7 +25,10 @@ export const AccountTables = ({ walletAddress }) => {
 					)}
 				</TabList>
 				<TabPanels
-					panels={[<TransfersForAddress walletAddress={walletAddress} />, <EvmTransactionsForAddress walletAddress={walletAddress} />]}
+					panels={[
+						<TransfersForAddress walletAddress={walletAddress} />,
+						<EvmTransactionsForAddress walletAddress={walletAddress} />,
+					]}
 				/>
 			</Tab.Group>
 		</div>

@@ -1,8 +1,8 @@
-query GetEvmTransactions {
+query GetEvmTransactionsToAddress($address: String!) {
 	archive {
 		frontier_ethereum_transaction(
 			order_by: { call: { block: { height: desc } } }
-			where: { call: { events: { name: { _eq: "Ethereum.Executed" } } } }
+			where: { call: { events: { args: { _contains: { to: $address } } } } }
 		) {
 			contract
 			sighash

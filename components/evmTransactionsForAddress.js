@@ -9,7 +9,14 @@ import {
 	Pagination,
 	TableLayout,
 } from "@/components";
-import { useAccountRefetchStatus, usePagination, useEvmTransactions } from "@/libs/stores";
+import { BlockFinalizedIcon } from "@/components/icons";
+import {
+	useGetEvmTransactionsFromAddressQuery,
+	useGetEvmTransactionsToAddressQuery,
+} from "@/libs/api/generated";
+import { usePolling } from "@/libs/hooks";
+import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
+import { formatExtrinsicId } from "@/libs/utils";
 
 export default function EvmTransactionsForAddress({ walletAddress }) {
 	const { pages, currentPage } = usePagination("accountEvmTransactions");
@@ -31,10 +38,12 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 							<thead className="bg-transparent">
 								<tr>
 									<TableLayout.HeadItem text="Height" />
+									<TableLayout.HeadItem text="Extrinsic" />
 									<TableLayout.HeadItem text="Type" />
 									<TableLayout.HeadItem text="Timestamp" />
 									<TableLayout.HeadItem text="From" />
 									<TableLayout.HeadItem text="To" />
+									<TableLayout.HeadItem text="Status" />
 								</tr>
 							</thead>
 							<tbody className="divide-y divide-gray-800 bg-transparent">
@@ -42,7 +51,6 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 									.slice(pageSlice, pageSlice + 10)
 									.map((transaction, key) => {
 										const call = transaction.call;
-										console.log("transaction.contract", transaction.contract)
 
 										const ethereumExecutedEvent = call.events.find(
 											(event) => event.name === "Ethereum.Executed"
@@ -54,6 +62,12 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 												<TableLayout.Data dataClassName="!text-indigo-500">
 													<Link href={`/block/${call.block.height}`}>
 														{call.block.height}
+													</Link>
+												</TableLayout.Data>
+
+												<TableLayout.Data dataClassName="!text-indigo-500">
+													<Link href={`/extrinsic/${call.id}`}>
+														{formatExtrinsicId(call.id)}
 													</Link>
 												</TableLayout.Data>
 
@@ -69,7 +83,8 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 
 												<TableLayout.Data
 													dataClassName={clsx(
-														from !== walletAddress.toLowerCase() && "!text-indigo-500"
+														from !== walletAddress.toLowerCase() &&
+															"!text-indigo-500"
 													)}
 												>
 													<AddressLink
@@ -80,12 +95,21 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 
 												<TableLayout.Data
 													dataClassName={clsx(
-														to !== walletAddress.toLowerCase() && "!text-indigo-500"
+														to !== walletAddress.toLowerCase() &&
+															"!text-indigo-500"
 													)}
 												>
 													<AddressLink
 														address={to}
 														isAccount={to === walletAddress.toLowerCase()}
+													/>
+												</TableLayout.Data>
+
+												<TableLayout.Data dataClassName="flex justify-left">
+													<BlockFinalizedIcon
+														status={call.success}
+														isExtrinsic={true}
+														iconClassName=""
 													/>
 												</TableLayout.Data>
 											</tr>
@@ -105,13 +129,48 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 }
 
 const useTransactions = (address) => {
-	const { evmTransactions, evmTransactionsForAddress, isLoading } = useEvmTransactions(address);
+	const toQuery = usePolling(
+		{},
+		useGetEvmTransactionsToAddressQuery,
+		{
+			address: address.toLowerCase(),
+		},
+		12000
+	);
 
-	console.log({evmTransactionsForAddress, evmTransactions})
+	const fromQuery = usePolling(
+		{},
+		useGetEvmTransactionsFromAddressQuery,
+		{
+			address: address.toLowerCase(),
+		},
+		12000
+	);
 
-	usePages(evmTransactionsForAddress?.length);
+	const data = useMemo(() => {
+		const allTransactions = [
+			...(toQuery?.data?.archive?.frontier_ethereum_transaction ?? []),
+			...(fromQuery?.data?.archive?.frontier_ethereum_transaction ?? []),
+		].sort((a, b) =>
+			a.call.block.timestamp < b.call.block.timestamp ? 1 : -1
+		);
 
-	return { data: evmTransactionsForAddress, isLoading };
+		return allTransactions.reduce((transactions, curr) => {
+			const duplicateIndex = transactions.findIndex(
+				(transaction) => transaction.call.id === curr.call.id
+			);
+			if (duplicateIndex !== -1) return transactions;
+
+			return transactions.concat(curr);
+		}, []);
+	}, [toQuery?.data, fromQuery?.data]);
+
+	usePages(data?.length);
+
+	return {
+		data,
+		isLoading: toQuery?.isLoading || fromQuery?.isLoading,
+	};
 };
 
 const usePages = (transferCount) => {

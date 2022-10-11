@@ -5299,9 +5299,42 @@ export type GetChainDataQuery = {
 	} | null;
 };
 
-export type GetEvmTransactionsQueryVariables = Exact<{ [key: string]: never }>;
+export type GetEvmTransactionsFromAddressQueryVariables = Exact<{
+	address: Scalars["String"];
+}>;
 
-export type GetEvmTransactionsQuery = {
+export type GetEvmTransactionsFromAddressQuery = {
+	__typename?: "query_root";
+	archive?: {
+		__typename?: "archive_archive_query";
+		frontier_ethereum_transaction: Array<{
+			__typename?: "archive_frontier_ethereum_transaction";
+			contract: any;
+			sighash?: string | null;
+			call: {
+				__typename?: "archive_call";
+				id: string;
+				name: string;
+				origin?: any | null;
+				success: boolean;
+				args?: any | null;
+				block: { __typename?: "archive_block"; height: number; timestamp: any };
+				events: Array<{
+					__typename?: "archive_event";
+					id: any;
+					name: string;
+					args?: any | null;
+				}>;
+			};
+		}>;
+	} | null;
+};
+
+export type GetEvmTransactionsToAddressQueryVariables = Exact<{
+	address: Scalars["String"];
+}>;
+
+export type GetEvmTransactionsToAddressQuery = {
 	__typename?: "query_root";
 	archive?: {
 		__typename?: "archive_archive_query";
@@ -5775,12 +5808,12 @@ export const useGetChainDataQuery = <
 		),
 		options
 	);
-export const GetEvmTransactionsDocument = `
-    query GetEvmTransactions {
+export const GetEvmTransactionsFromAddressDocument = `
+    query GetEvmTransactionsFromAddress($address: String!) {
   archive {
     frontier_ethereum_transaction(
       order_by: {call: {block: {height: desc}}}
-      where: {call: {events: {name: {_eq: "Ethereum.Executed"}}}}
+      where: {call: {events: {args: {_contains: {from: $address}}}}}
     ) {
       contract
       sighash
@@ -5804,25 +5837,67 @@ export const GetEvmTransactionsDocument = `
   }
 }
     `;
-export const useGetEvmTransactionsQuery = <
-	TData = GetEvmTransactionsQuery,
+export const useGetEvmTransactionsFromAddressQuery = <
+	TData = GetEvmTransactionsFromAddressQuery,
 	TError = unknown
 >(
 	client: GraphQLClient,
-	variables?: GetEvmTransactionsQueryVariables,
-	options?: UseQueryOptions<GetEvmTransactionsQuery, TError, TData>,
+	variables: GetEvmTransactionsFromAddressQueryVariables,
+	options?: UseQueryOptions<GetEvmTransactionsFromAddressQuery, TError, TData>,
 	headers?: RequestInit["headers"]
 ) =>
-	useQuery<GetEvmTransactionsQuery, TError, TData>(
-		variables === undefined
-			? ["GetEvmTransactions"]
-			: ["GetEvmTransactions", variables],
-		fetcher<GetEvmTransactionsQuery, GetEvmTransactionsQueryVariables>(
-			client,
-			GetEvmTransactionsDocument,
-			variables,
-			headers
-		),
+	useQuery<GetEvmTransactionsFromAddressQuery, TError, TData>(
+		["GetEvmTransactionsFromAddress", variables],
+		fetcher<
+			GetEvmTransactionsFromAddressQuery,
+			GetEvmTransactionsFromAddressQueryVariables
+		>(client, GetEvmTransactionsFromAddressDocument, variables, headers),
+		options
+	);
+export const GetEvmTransactionsToAddressDocument = `
+    query GetEvmTransactionsToAddress($address: String!) {
+  archive {
+    frontier_ethereum_transaction(
+      order_by: {call: {block: {height: desc}}}
+      where: {call: {events: {args: {_contains: {to: $address}}}}}
+    ) {
+      contract
+      sighash
+      call {
+        id
+        name
+        origin
+        success
+        args
+        block {
+          height
+          timestamp
+        }
+        events {
+          id
+          name
+          args
+        }
+      }
+    }
+  }
+}
+    `;
+export const useGetEvmTransactionsToAddressQuery = <
+	TData = GetEvmTransactionsToAddressQuery,
+	TError = unknown
+>(
+	client: GraphQLClient,
+	variables: GetEvmTransactionsToAddressQueryVariables,
+	options?: UseQueryOptions<GetEvmTransactionsToAddressQuery, TError, TData>,
+	headers?: RequestInit["headers"]
+) =>
+	useQuery<GetEvmTransactionsToAddressQuery, TError, TData>(
+		["GetEvmTransactionsToAddress", variables],
+		fetcher<
+			GetEvmTransactionsToAddressQuery,
+			GetEvmTransactionsToAddressQueryVariables
+		>(client, GetEvmTransactionsToAddressDocument, variables, headers),
 		options
 	);
 export const GetExtrinsicDocument = `
