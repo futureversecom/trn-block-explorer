@@ -3,7 +3,7 @@ import { Tab } from "@headlessui/react";
 import clsx from "clsx";
 import { Fragment } from "react";
 
-import { RefetchIndicator, TransfersForAddress } from "@/components";
+import { RefetchIndicator, TransfersForAddress, EvmTransactionsForAddress } from "./";
 import { useAccountRefetchStatus } from "@/libs/stores";
 
 export const AccountTables = ({ walletAddress }) => {
@@ -12,7 +12,7 @@ export const AccountTables = ({ walletAddress }) => {
 	return (
 		<div className="mt-6">
 			<Tab.Group>
-				<TabList titles={["Transfers"]}>
+				<TabList titles={["Transfers", "EVM Transactions"]}>
 					{isRefetching && (
 						<div className="absolute right-2 top-5 flex">
 							<RefetchIndicator />
@@ -20,7 +20,7 @@ export const AccountTables = ({ walletAddress }) => {
 					)}
 				</TabList>
 				<TabPanels
-					panels={[<TransfersForAddress walletAddress={walletAddress} />]}
+					panels={[<TransfersForAddress walletAddress={walletAddress} />, <EvmTransactionsForAddress walletAddress={walletAddress} />]}
 				/>
 			</Tab.Group>
 		</div>

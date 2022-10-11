@@ -5299,6 +5299,35 @@ export type GetChainDataQuery = {
 	} | null;
 };
 
+export type GetEvmTransactionsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetEvmTransactionsQuery = {
+	__typename?: "query_root";
+	archive?: {
+		__typename?: "archive_archive_query";
+		frontier_ethereum_transaction: Array<{
+			__typename?: "archive_frontier_ethereum_transaction";
+			contract: any;
+			sighash?: string | null;
+			call: {
+				__typename?: "archive_call";
+				id: string;
+				name: string;
+				origin?: any | null;
+				success: boolean;
+				args?: any | null;
+				block: { __typename?: "archive_block"; height: number; timestamp: any };
+				events: Array<{
+					__typename?: "archive_event";
+					id: any;
+					name: string;
+					args?: any | null;
+				}>;
+			};
+		}>;
+	} | null;
+};
+
 export type GetExtrinsicQueryVariables = Exact<{
 	extrinsicId: Scalars["bpchar"];
 }>;
@@ -5741,6 +5770,56 @@ export const useGetChainDataQuery = <
 		fetcher<GetChainDataQuery, GetChainDataQueryVariables>(
 			client,
 			GetChainDataDocument,
+			variables,
+			headers
+		),
+		options
+	);
+export const GetEvmTransactionsDocument = `
+    query GetEvmTransactions {
+  archive {
+    frontier_ethereum_transaction(
+      order_by: {call: {block: {height: desc}}}
+      where: {call: {events: {name: {_eq: "Ethereum.Executed"}}}}
+    ) {
+      contract
+      sighash
+      call {
+        id
+        name
+        origin
+        success
+        args
+        block {
+          height
+          timestamp
+        }
+        events {
+          id
+          name
+          args
+        }
+      }
+    }
+  }
+}
+    `;
+export const useGetEvmTransactionsQuery = <
+	TData = GetEvmTransactionsQuery,
+	TError = unknown
+>(
+	client: GraphQLClient,
+	variables?: GetEvmTransactionsQueryVariables,
+	options?: UseQueryOptions<GetEvmTransactionsQuery, TError, TData>,
+	headers?: RequestInit["headers"]
+) =>
+	useQuery<GetEvmTransactionsQuery, TError, TData>(
+		variables === undefined
+			? ["GetEvmTransactions"]
+			: ["GetEvmTransactions", variables],
+		fetcher<GetEvmTransactionsQuery, GetEvmTransactionsQueryVariables>(
+			client,
+			GetEvmTransactionsDocument,
 			variables,
 			headers
 		),
