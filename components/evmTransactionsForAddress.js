@@ -17,6 +17,7 @@ import {
 import { usePolling } from "@/libs/hooks";
 import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
 import { formatExtrinsicId } from "@/libs/utils";
+
 import InOutLabel from "./inOutLabel";
 
 export default function EvmTransactionsForAddress({ walletAddress }) {
@@ -58,6 +59,20 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 										);
 										const { to, from } = ethereumExecutedEvent.args;
 
+										let toLo = to?.toLowerCase();
+										let fromLo = from?.toLowerCase();
+										let walLo = walletAddress?.toLowerCase();
+										let type;
+										if (toLo === fromLo) {
+											type = "self";
+										}
+										if (from === walLo && to !== walLo) {
+											type = "out";
+										}
+										if (from !== walLo && to === walLo) {
+											type = "in";
+										}
+
 										return (
 											<tr key={key}>
 												<TableLayout.Data dataClassName="!text-indigo-500">
@@ -73,12 +88,7 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 												</TableLayout.Data>
 
 												<TableLayout.Data>
-													{from?.toLowerCase() ===
-													walletAddress.toLowerCase() ? (
-														<InOutLabel type="out" />
-													) : (
-														<InOutLabel type="in" />
-													)}
+													<InOutLabel type={type} />
 												</TableLayout.Data>
 
 												<TableLayout.Data>
