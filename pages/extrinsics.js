@@ -53,19 +53,23 @@ export default function Extrinsics() {
 														{formatExtrinsicId(extrinsic.id)}
 													</Link>
 												</TableLayout.Data>
-												<TableLayout.Data>
+
+												<TableLayout.Data dataClassName="flex">
 													<BlockFinalizedIcon
 														status={extrinsic?.success}
 														iconClassName="h-5"
 														isExtrinsic={true}
 													/>
 												</TableLayout.Data>
+
 												<TableLayout.Data>
 													{formatAddress(extrinsic.hash, 12)}
 												</TableLayout.Data>
+
 												<TableLayout.Data>
 													<TimeAgo date={extrinsic.block.timestamp} />
 												</TableLayout.Data>
+
 												<TableLayout.Data dataClassName="!text-indigo-500 font-bold">
 													<Link href={`/block/${extrinsic.block.height}`}>
 														{extrinsic.block.height}

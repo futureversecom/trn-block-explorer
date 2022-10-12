@@ -1,0 +1,27 @@
+query GetEvmTransactionsFromAddress($address: String!) {
+	archive {
+		frontier_ethereum_transaction(
+			order_by: { call: { block: { height: desc } } }
+			where: { call: { events: { args: { _contains: { from: $address } } } } }
+		) {
+			contract
+			sighash
+			call {
+				id
+				name
+				origin
+				success
+				args
+				block {
+					height
+					timestamp
+				}
+				events {
+					id
+					name
+					args
+				}
+			}
+		}
+	}
+}
