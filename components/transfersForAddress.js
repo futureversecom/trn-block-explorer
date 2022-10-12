@@ -17,6 +17,8 @@ import { usePolling } from "@/libs/hooks";
 import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
 import { formatBalance, getAssetMetadata } from "@/libs/utils";
 
+import InOutLabel from "./inOutLabel";
+
 export default function TransfersForAddress({ walletAddress }) {
 	const { pages, currentPage } = usePagination("accountTransfers");
 
@@ -61,9 +63,11 @@ export default function TransfersForAddress({ walletAddress }) {
 
 												<TableLayout.Data>
 													{transfer.from_id?.toLowerCase() ===
-													walletAddress.toLowerCase()
-														? "Out"
-														: "In"}
+													walletAddress.toLowerCase() ? (
+														<InOutLabel type="out" />
+													) : (
+														<InOutLabel type="in" />
+													)}
 												</TableLayout.Data>
 
 												<TableLayout.Data>
