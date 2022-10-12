@@ -5367,6 +5367,13 @@ export type GetEvmTransactionsQuery = {
 				};
 			};
 		}>;
+		frontier_ethereum_transaction_aggregate: {
+			__typename?: "archive_frontier_ethereum_transaction_aggregate";
+			aggregate?: {
+				__typename?: "archive_frontier_ethereum_transaction_aggregate_fields";
+				count: number;
+			} | null;
+		};
 	} | null;
 };
 
@@ -5951,6 +5958,11 @@ export const GetEvmTransactionsDocument = `
           }
         }
         args
+      }
+    }
+    frontier_ethereum_transaction_aggregate {
+      aggregate {
+        count
       }
     }
   }

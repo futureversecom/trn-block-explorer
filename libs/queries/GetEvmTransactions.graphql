@@ -26,5 +26,10 @@ query GetEvmTransactions($limit: Int!, $offset: Int) {
 				args
 			}
 		}
+		frontier_ethereum_transaction_aggregate {
+			aggregate {
+				count
+			}
+		}
 	}
 }
