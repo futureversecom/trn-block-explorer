@@ -67,25 +67,20 @@ export default function Extrinsic({ extrinsicId }) {
 
 							<DetailsLayout.Data dataClassName="!text-indigo-500">
 								<div
-									className={`flex ${
-										last_block && "divide-x divide-gray-800"
-									}`}
+									className={`flex space-x-2`}
 								>
 									<div>
 										<Link href={`/block/${data.block.height}`}>
 											{data.block.height}
 										</Link>
 									</div>
-									{last_block && (
-										<div className="mx-auto my-auto text-white px-1">
-											<span>
-												<span className="font-bold">
-													{parseInt(last_block) - parseInt(data.block.height)}
-												</span>{" "}
-												Block Confirmations
-											</span>
-										</div>
-									)}
+
+									<div className="text-white">
+										<span className="font-bold">
+											{parseInt(last_block) - parseInt(data.block.height)}
+										</span>{" "}
+										Block Confirmations
+									</div>
 								</div>
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
