@@ -119,6 +119,8 @@ const useSearch = () => {
 				return setSearch("");
 			}
 
+			setSearch("")
+
 			return router.replace(to);
 		},
 		[search, isSearching, router]
