@@ -27,6 +27,11 @@ export default function Search() {
 							value={search}
 							type="text"
 							onChange={(e) => setSearch(e.target.value)}
+							onKeyDown={(e) => {
+								if (e.key == "Enter") {
+									onFormSubmit(e);
+								}
+							}}
 							className="block h-10 w-full border-l border-t border-b border-gray-400 bg-transparent p-3 text-white focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 							placeholder="Search by Block / Account / Extrinsic ID / Transaction Hash"
 						/>
@@ -119,7 +124,7 @@ const useSearch = () => {
 				return setSearch("");
 			}
 
-			setSearch("")
+			setSearch("");
 
 			return router.replace(to);
 		},
