@@ -81,7 +81,7 @@ export default function Extrinsics() {
 														extrinsic?.calls?.[0]?.name?.split(".")[0]}
 												</TableLayout.Data>
 												<TableLayout.Data>
-													<span className="capitalize">
+													<span className="capitalize truncate">
 														{extrinsic?.calls?.[0]?.name &&
 															extrinsic?.calls?.[0]?.name
 																?.split(".")[1]

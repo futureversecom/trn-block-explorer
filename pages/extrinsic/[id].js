@@ -2,7 +2,6 @@ import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import moment from "moment";
 import Link from "next/link";
 import { useState } from "react";
-import JSONPretty from "react-json-pretty";
 import TimeAgo from "react-timeago";
 
 import {
@@ -13,6 +12,7 @@ import {
 	TableLayout,
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
+import JSONViewer from "@/components/JSONViewer";
 import { useGetExtrinsicQuery } from "@/libs/api/generated";
 import { graphQLClient } from "@/libs/client";
 import { ROOT_GAS_TOKEN_PRE_BLOCK } from "@/libs/constants";
@@ -149,7 +149,7 @@ const Events = ({ events }) => {
 
 											{viewArgs.includes(key) && (
 												<div className="max-h-32 max-w-xl overflow-scroll rounded bg-gray-900 bg-opacity-30 p-2 text-xs text-white">
-													<JSONPretty data={event.args} />
+													<JSONViewer data={event.args} />
 												</div>
 											)}
 										</TableLayout.Data>
@@ -176,7 +176,6 @@ const Events = ({ events }) => {
 		</div>
 	);
 };
-
 
 const useToggleArgs = () => {
 	const [viewArgs, setViewArgs] = useState([]);

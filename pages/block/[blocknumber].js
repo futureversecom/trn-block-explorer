@@ -1,7 +1,6 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
 import moment from "moment";
 import Link from "next/link";
-import JSONPretty from "react-json-pretty";
 import TimeAgo from "react-timeago";
 
 import {
@@ -11,6 +10,7 @@ import {
 	PageHeader,
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
+import JSONViewer from "@/components/JSONViewer";
 import { useGetBlockQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
 import { formatExtrinsicId } from "@/libs/utils";
@@ -131,7 +131,7 @@ export default function Block({ blockNumber }) {
 							<DetailsLayout.Title title="Events" />
 							<DetailsLayout.Data>
 								<div className="h-64 overflow-scroll rounded bg-gray-900 bg-opacity-30 p-2">
-									<JSONPretty id="json-pretty" data={query.data.events} />
+									<JSONViewer data={query.data.events} />
 								</div>
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
