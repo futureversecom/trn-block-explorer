@@ -177,6 +177,7 @@ const Events = ({ events }) => {
 	);
 };
 
+
 const useToggleArgs = () => {
 	const [viewArgs, setViewArgs] = useState([]);
 
