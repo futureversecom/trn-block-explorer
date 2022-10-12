@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { ethers } from "ethers";
+import _ from "lodash";
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
 
@@ -88,7 +89,7 @@ const useSearch = () => {
 			return `/transfer/${search}`;
 		}
 
-		if (Number(search) && search >= 0) {
+		if (parseInt(search) >= 0) {
 			response = await graphQLClient.request(GetBlockDocument, {
 				height: search,
 			});
@@ -112,7 +113,9 @@ const useSearch = () => {
 		async (e) => {
 			e.preventDefault();
 
-			if (!search || isSearching) return;
+			if (isSearching) return;
+			if (search == "") return;
+
 			setError("");
 			setIsSearching(true);
 
