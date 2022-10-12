@@ -53,7 +53,13 @@ export default function Block({ blockNumber }) {
 				<DetailsLayout.Container>
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Height" />
-						<DetailsLayout.Data>{blockNumber}</DetailsLayout.Data>
+						<DetailsLayout.Data>
+							{blockNumber == "0" ? (
+								<span className="font-bold">GENESIS BLOCK</span>
+							) : (
+								blockNumber
+							)}
+						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
 					<DetailsLayout.Wrapper>
