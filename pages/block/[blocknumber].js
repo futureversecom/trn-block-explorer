@@ -1,4 +1,4 @@
-import { CubeIcon } from "@heroicons/react/24/outline";
+import { ChevronLeftIcon, CubeIcon } from "@heroicons/react/24/outline";
 import moment from "moment";
 import Link from "next/link";
 import TimeAgo from "react-timeago";
@@ -54,11 +54,20 @@ export default function Block({ blockNumber }) {
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Height" />
 						<DetailsLayout.Data>
-							{blockNumber == "0" ? (
-								<span className="font-bold">GENESIS BLOCK</span>
-							) : (
-								blockNumber
-							)}
+							<div className="flex space-x-3">
+								<div className="flex h-6 w-6 cursor-pointer space-x-3 border text-center">
+									<Link href={`/block/${getPrevBlock()}`}>
+										<ChevronLeftIcon className="mx-auto my-auto h-4 w-4" />
+									</Link>
+								</div>
+								<div>
+									{blockNumber == "0" ? (
+										<span className="font-bold">GENESIS BLOCK</span>
+									) : (
+										blockNumber
+									)}
+								</div>
+							</div>
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
