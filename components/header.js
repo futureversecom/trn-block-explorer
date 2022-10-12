@@ -4,7 +4,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Fragment } from "react";
-import GasTracker from "@/components/gasTracker";
+
 import { IS_MAINNET } from "@/libs/constants";
 
 const links = [
@@ -87,7 +87,6 @@ export default function Header() {
 								</div>
 							</div>
 							<div className="flex flex-shrink-0 items-center space-x-3 text-white">
-								<GasTracker/>
 								<span
 									className={clsx(
 										"inline-block h-5 whitespace-nowrap py-1 px-2 text-center align-baseline font-gilroy-extrabold text-xs uppercase leading-none text-black",

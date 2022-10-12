@@ -70,7 +70,7 @@ export default function Block({ blockNumber }) {
 							</div>
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
-
+					
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Timestamp" />
 						<DetailsLayout.Data>

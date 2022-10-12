@@ -16,7 +16,7 @@ export const AccountTables = ({ walletAddress }) => {
 
 	return (
 		<div className="mt-6">
-			<Tab.Group>
+			<Tab.Group defaultIndex={1}>
 				<TabList titles={["Transfers", "EVM Transactions"]}>
 					{isRefetching && (
 						<div className="absolute right-2 top-6 flex">
