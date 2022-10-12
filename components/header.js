@@ -46,7 +46,7 @@ export default function Header() {
 									)}
 								</Disclosure.Button>
 							</div>
-							<div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+							<div className="select-none flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
 								<div className="flex flex-shrink-0 items-center text-white">
 									<Link href="/">
 										<span
@@ -64,7 +64,7 @@ export default function Header() {
 										<Fragment key={key}>
 											<span
 												className={clsx(
-													`inline-flex items-center font-gilroy-medium text-nav uppercase leading-[23px] tracking-[1.1px] text-white`
+													`select-none inline-flex items-center font-gilroy-medium text-nav uppercase leading-[23px] tracking-[1.1px] text-white`
 												)}
 											>
 												{"//"}

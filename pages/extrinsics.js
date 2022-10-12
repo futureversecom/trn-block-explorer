@@ -41,6 +41,7 @@ export default function Extrinsics() {
 											<TableLayout.HeadItem text="Hash" />
 											<TableLayout.HeadItem text="Time" />
 											<TableLayout.HeadItem text="Block" />
+											<TableLayout.HeadItem text="Pallet" />
 											<TableLayout.HeadItem text="Call" />
 											<TableLayout.HeadItem text="Events" />
 										</tr>
@@ -76,7 +77,16 @@ export default function Extrinsics() {
 													</Link>
 												</TableLayout.Data>
 												<TableLayout.Data>
-													{extrinsic.calls[0].name}
+													{extrinsic?.calls?.[0]?.name &&
+														extrinsic?.calls?.[0]?.name?.split(".")[0]}
+												</TableLayout.Data>
+												<TableLayout.Data>
+													<span className="capitalize">
+														{extrinsic?.calls?.[0]?.name &&
+															extrinsic?.calls?.[0]?.name
+																?.split(".")[1]
+																?.replaceAll("_", " ")}
+													</span>
 												</TableLayout.Data>
 												<TableLayout.Data>
 													{extrinsic.events_aggregate.aggregate.count}
