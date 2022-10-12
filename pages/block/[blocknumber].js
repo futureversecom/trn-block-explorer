@@ -124,14 +124,16 @@ export default function Block({ blockNumber }) {
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
-					<DetailsLayout.Wrapper>
-						<DetailsLayout.Title title="Events" />
-						<DetailsLayout.Data>
-							<div className="h-64 overflow-scroll rounded bg-gray-900 bg-opacity-30 p-2">
-								<JSONPretty id="json-pretty" data={query.data.events} />
-							</div>
-						</DetailsLayout.Data>
-					</DetailsLayout.Wrapper>
+					{query?.data?.events?.length > 0 && (
+						<DetailsLayout.Wrapper>
+							<DetailsLayout.Title title="Events" />
+							<DetailsLayout.Data>
+								<div className="h-64 overflow-scroll rounded bg-gray-900 bg-opacity-30 p-2">
+									<JSONPretty id="json-pretty" data={query.data.events} />
+								</div>
+							</DetailsLayout.Data>
+						</DetailsLayout.Wrapper>
+					)}
 
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Spec Version" />
