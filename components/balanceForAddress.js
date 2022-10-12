@@ -128,17 +128,19 @@ const FormattedBalance = ({ balance, assetId }) => {
 
 	const amount = useMemo(() => {
 		let [beforeDec, afterDec] = formatBalance(balance, decimals).split(".");
-
-		if (!viewFull) afterDec = afterDec.slice(0, 6);
-
-		return `${beforeDec}.${afterDec}`;
+		if (afterDec) {
+			if (!viewFull) afterDec = afterDec.slice(0, 6);
+			return `${beforeDec}.${afterDec}`;
+		} else {
+			return beforeDec;
+		}
 	}, [balance, decimals, viewFull]);
 
 	return (
 		<p
 			className="whitespace-nowrap"
-			onMouseOver={() => setViewFull(true)}
-			onMouseOut={() => setViewFull(false)}
+			// onMouseOver={() => setViewFull(true)}
+			// onMouseOut={() => setViewFull(false)}
 		>
 			{amount}
 			{decimals > 6 && !viewFull && <span>...</span>} {symbol}

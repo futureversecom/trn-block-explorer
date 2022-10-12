@@ -5,5 +5,9 @@ export const formatBalance = (balance: number = 0, decimals: number) => {
 		.formatUnits(String(balance), decimals)
 		.split(".");
 
-	return `${beforeDec}.${afterDec.padEnd(decimals, "0")}`;
+	if (afterDec != "0") {
+		return `${beforeDec}.${afterDec}`;
+	} else {
+		return beforeDec;
+	}
 };
