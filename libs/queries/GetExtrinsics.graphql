@@ -1,18 +1,18 @@
 query GetExtrinsics($limit: Int!, $offset: Int) {
 	archive {
-		call(
+		extrinsic(
 			limit: $limit
 			offset: $offset
 			order_by: { block: { height: desc } }
-			where: { name: { _neq: "Timestamp.set" } }
+			where: { calls: { name: { _neq: "Timestamp.set" } } }
 		) {
 			id
 			success
-			name
-			extrinsic {
-				hash
-				index_in_block
+			calls {
+				name
 			}
+			hash
+			index_in_block
 			block {
 				height
 				timestamp
@@ -23,7 +23,7 @@ query GetExtrinsics($limit: Int!, $offset: Int) {
 				}
 			}
 		}
-		call_aggregate(where: { name: { _neq: "Timestamp.set" } }) {
+		extrinsic_aggregate(where: { calls: { name: { _neq: "Timestamp.set" } } }) {
 			aggregate {
 				count
 			}

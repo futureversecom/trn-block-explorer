@@ -1,12 +1,14 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import clsx from "clsx";
+import { useMemo, useState } from "react";
 import QRCode from "react-qr-code";
 
-import { LoadingBlock, RefetchIndicator } from "@/components";
 import { CopyToClipboard } from "@/components/icons";
 import { useGetBalanceQuery } from "@/libs/api/generated.ts";
-import { NATIVE_TOKEN } from "@/libs/constants";
 import { usePolling } from "@/libs/hooks";
 import { formatBalance, getAssetMetadata } from "@/libs/utils";
+
+import { LoadingBlock, RefetchIndicator } from "./";
 
 export default function BalanceForAddress({ walletAddress }) {
 	const query = usePolling(
@@ -63,25 +65,32 @@ export default function BalanceForAddress({ walletAddress }) {
 							</div>
 						</div>
 						<div>
-							<div className="max-h-[16em] overflow-y-scroll px-4 py-5 sm:p-0">
+							<div
+								className={clsx(
+									"max-h-[16em] px-4 py-5 sm:p-0",
+									balance?.assets?.length > 1 && "overflow-y-scroll"
+								)}
+							>
 								<dl className="sm:divide-y sm:divide-gray-200">
-									<Balance title="Free">
-										{formatBalance(balance?.free, 6)} {NATIVE_TOKEN}
-									</Balance>
-									<Balance title="Reserved">
-										{formatBalance(balance?.reserved, 6)} {NATIVE_TOKEN}
-									</Balance>
-									<Balance title="Total">
-										{formatBalance(balance?.total, 6)} {NATIVE_TOKEN}
-									</Balance>
-									{balance?.assets?.map(({ assetId, balance }) => {
-										const { symbol, decimals } = getAssetMetadata(assetId);
-										return (
-											<Balance key={assetId} title={symbol}>
-												{formatBalance(balance, decimals)}
-											</Balance>
-										);
-									})}
+									{["Free", "Reserved", "Total"].map((title) => (
+										<Balance title={title} key={title}>
+											<FormattedBalance
+												assetId={1}
+												balance={balance?.[title.toLowerCase()] ?? 0}
+											/>
+										</Balance>
+									))}
+									{balance?.assets?.length && (
+										<Balance title="Others">
+											{balance.assets.map((asset) => (
+												<FormattedBalance
+													key={asset.assetId}
+													assetId={asset.assetId}
+													balance={asset.balance}
+												/>
+											))}
+										</Balance>
+									)}
 									<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6" />
 								</dl>
 							</div>
@@ -97,7 +106,42 @@ const Balance = ({ title, children }) => {
 	return (
 		<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
 			<div className="text-sm font-medium text-white">{title}</div>
-			<div className="text-sm font-medium text-white">{children}</div>
+			<div className="space-y-1 text-sm font-medium text-white">{children}</div>
 		</div>
+	);
+};
+
+const FormattedBalance = ({ balance, assetId }) => {
+	const [viewFull, setViewFull] = useState(false);
+
+	const { symbol, decimals } = useMemo(() => {
+		const assetIdOrMetadata = getAssetMetadata(String(assetId));
+
+		if (!assetIdOrMetadata?.symbol)
+			return {
+				symbol: `Asset #${assetId}`,
+				decimals: 6,
+			};
+
+		return assetIdOrMetadata;
+	}, [assetId]);
+
+	const amount = useMemo(() => {
+		let [beforeDec, afterDec] = formatBalance(balance, decimals).split(".");
+
+		if (!viewFull) afterDec = afterDec.slice(0, 6);
+
+		return `${beforeDec}.${afterDec}`;
+	}, [balance, decimals, viewFull]);
+
+	return (
+		<p
+			className="whitespace-nowrap"
+			onMouseOver={() => setViewFull(true)}
+			onMouseOut={() => setViewFull(false)}
+		>
+			{amount}
+			{decimals > 6 && !viewFull && <span>...</span>} {symbol}
+		</p>
 	);
 };
