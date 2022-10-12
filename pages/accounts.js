@@ -10,14 +10,15 @@ import {
 	TableLayout,
 } from "@/components";
 import { useGetAccountsQuery } from "@/libs/api/generated.ts";
-import { NATIVE_TOKEN } from "@/libs/constants";
 import { usePolling } from "@/libs/hooks";
 import { usePagination } from "@/libs/stores";
-import { formatAddress, formatBalance } from "@/libs/utils";
+import { formatAddress, formatBalance, getAssetMetadata } from "@/libs/utils";
 
 export default function Accounts() {
 	const query = useQuery(20);
 	const { pages, currentPage } = usePagination("accounts");
+
+	const nativeToken = getAssetMetadata("1").symbol;
 
 	return (
 		<ContainerLayout>
@@ -59,15 +60,15 @@ export default function Accounts() {
 												</TableLayout.Data>
 
 												<TableLayout.Data>
-													{formatBalance(account?.free, 6)} {NATIVE_TOKEN}
+													{formatBalance(account?.free, 6)} {nativeToken}
 												</TableLayout.Data>
 
 												<TableLayout.Data>
-													{formatBalance(account?.reserved, 6)} {NATIVE_TOKEN}
+													{formatBalance(account?.reserved, 6)} {nativeToken}
 												</TableLayout.Data>
 
 												<TableLayout.Data>
-													{formatBalance(account?.total, 6)} {NATIVE_TOKEN}
+													{formatBalance(account?.total, 6)} {nativeToken}
 												</TableLayout.Data>
 											</tr>
 										))}
