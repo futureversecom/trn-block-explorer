@@ -109,20 +109,22 @@ export default function Block({ blockNumber }) {
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
-					<DetailsLayout.Wrapper>
-						<DetailsLayout.Title title="Extrinsics" />
-						<DetailsLayout.Data>
-							<ul>
-								{query.data.extrinsics.map((extrinsic, i) => (
-									<li className="cursor-pointer text-indigo-500" key={i}>
-										<Link href={`/extrinsic/${extrinsic.id}`}>
-											{formatExtrinsicId(extrinsic.id)}
-										</Link>
-									</li>
-								))}
-							</ul>
-						</DetailsLayout.Data>
-					</DetailsLayout.Wrapper>
+					{query?.data?.extrinsics?.length > 0 && (
+						<DetailsLayout.Wrapper>
+							<DetailsLayout.Title title="Extrinsics" />
+							<DetailsLayout.Data>
+								<ul>
+									{query.data.extrinsics.map((extrinsic, i) => (
+										<li className="cursor-pointer text-indigo-500" key={i}>
+											<Link href={`/extrinsic/${extrinsic.id}`}>
+												{formatExtrinsicId(extrinsic.id)}
+											</Link>
+										</li>
+									))}
+								</ul>
+							</DetailsLayout.Data>
+						</DetailsLayout.Wrapper>
+					)}
 
 					{query?.data?.events?.length > 0 && (
 						<DetailsLayout.Wrapper>
