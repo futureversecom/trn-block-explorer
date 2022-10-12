@@ -14,9 +14,10 @@ import {
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import JSONViewer from "@/components/JSONViewer";
-import { useGetExtrinsicQuery } from "@/libs/api/generated";
+import { useGetBlocksQuery, useGetExtrinsicQuery } from "@/libs/api/generated";
 import { graphQLClient } from "@/libs/client";
 import { ROOT_GAS_TOKEN_PRE_BLOCK } from "@/libs/constants";
+import { usePolling } from "@/libs/hooks";
 import { formatBalance, formatExtrinsicId } from "@/libs/utils";
 
 export const getServerSideProps = (context) => ({
@@ -25,7 +26,13 @@ export const getServerSideProps = (context) => ({
 
 export default function Extrinsic({ extrinsicId }) {
 	const query = useGetExtrinsicQuery(graphQLClient, { extrinsicId });
+	const blockQuery = usePolling({}, useGetBlocksQuery, {
+		limit: 1,
+	});
 	const data = query?.data?.archive?.extrinsic_by_pk;
+
+	const last_block =
+		blockQuery?.data?.archive?.block_aggregate?.aggregate?.count;
 
 	return (
 		<ContainerLayout>
@@ -59,9 +66,27 @@ export default function Extrinsic({ extrinsicId }) {
 							<DetailsLayout.Title title="Block" />
 
 							<DetailsLayout.Data dataClassName="!text-indigo-500">
-								<Link href={`/block/${data.block.height}`}>
-									{data.block.height}
-								</Link>
+								<div
+									className={`flex ${
+										last_block && "divide-x divide-gray-800"
+									}`}
+								>
+									<div>
+										<Link href={`/block/${data.block.height}`}>
+											{data.block.height}
+										</Link>
+									</div>
+									{last_block && (
+										<div className="mx-auto my-auto text-white px-1">
+											<span>
+												<span className="font-bold">
+													{parseInt(last_block) - parseInt(data.block.height)}
+												</span>{" "}
+												Block Confirmations
+											</span>
+										</div>
+									)}
+								</div>
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 
