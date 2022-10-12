@@ -4,7 +4,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Fragment } from "react";
-
+import GasTracker from "@/components/gasTracker";
 import { IS_MAINNET } from "@/libs/constants";
 
 const links = [
@@ -46,7 +46,7 @@ export default function Header() {
 									)}
 								</Disclosure.Button>
 							</div>
-							<div className="select-none flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+							<div className="flex flex-1 select-none items-center justify-center sm:items-stretch sm:justify-start">
 								<div className="flex flex-shrink-0 items-center text-white">
 									<Link href="/">
 										<span
@@ -64,7 +64,7 @@ export default function Header() {
 										<Fragment key={key}>
 											<span
 												className={clsx(
-													`select-none inline-flex items-center font-gilroy-medium text-nav uppercase leading-[23px] tracking-[1.1px] text-white`
+													`inline-flex select-none items-center font-gilroy-medium text-nav uppercase leading-[23px] tracking-[1.1px] text-white`
 												)}
 											>
 												{"//"}
@@ -86,7 +86,8 @@ export default function Header() {
 									{/* border-indigo-500 to set active state */}
 								</div>
 							</div>
-							<div className="flex flex-shrink-0 items-center text-white">
+							<div className="flex flex-shrink-0 items-center space-x-3 text-white">
+								<GasTracker/>
 								<span
 									className={clsx(
 										"inline-block h-5 whitespace-nowrap py-1 px-2 text-center align-baseline font-gilroy-extrabold text-xs uppercase leading-none text-black",
