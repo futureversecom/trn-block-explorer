@@ -139,8 +139,8 @@ const FormattedBalance = ({ balance, assetId }) => {
 	return (
 		<p
 			className="whitespace-nowrap"
-			// onMouseOver={() => setViewFull(true)}
-			// onMouseOut={() => setViewFull(false)}
+			onMouseOver={() => setViewFull(true)}
+			onMouseOut={() => setViewFull(false)}
 		>
 			{amount}
 			{decimals > 6 && !viewFull && <span>...</span>} {symbol}
