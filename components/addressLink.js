@@ -11,7 +11,7 @@ export const AddressLink = ({ isAccount, address }) => {
 	const isBurn = BURN_ADDRESSES.includes(address.toLowerCase());
 	return (
 		<Link href={`/account/${address}`}>
-			<div className="flex gap-2">
+			<div className="flex gap-2 cursor-pointer">
 				{formatAddress(address)}{" "}
 				{isBurn && <Tooltip message={"Known burn address"}>🔥</Tooltip>}
 			</div>
