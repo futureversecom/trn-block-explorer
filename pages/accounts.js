@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 
 import {
+	AddressLink,
 	ContainerLayout,
 	LoadingBlock,
 	PageHeader,
@@ -12,7 +13,7 @@ import {
 import { useGetAccountsQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
 import { usePagination } from "@/libs/stores";
-import { formatAddress, formatBalance, getAssetMetadata } from "@/libs/utils";
+import { formatBalance, getAssetMetadata } from "@/libs/utils";
 
 export default function Accounts() {
 	const query = useQuery(20);
@@ -54,9 +55,7 @@ export default function Accounts() {
 												</TableLayout.Data>
 
 												<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500 font-bold">
-													<Link href={`/account/${account.id}`}>
-														{formatAddress(account.id)}
-													</Link>
+													<AddressLink address={account.id} isAccount={false} />
 												</TableLayout.Data>
 
 												<TableLayout.Data>
