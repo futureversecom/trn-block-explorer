@@ -1,4 +1,5 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import { ClockIcon } from "@heroicons/react/24/outline";
 import moment from "moment";
 import Link from "next/link";
 import { useState } from "react";
@@ -40,10 +41,17 @@ export default function Extrinsic({ extrinsicId }) {
 						<DetailsLayout.Wrapper>
 							<DetailsLayout.Title title="Timestamp" />
 							<DetailsLayout.Data>
-								{moment(data.block.timestamp).format("LLL")}{" "}
-								<span className="ml-3 text-xs">
-									<TimeAgo date={data.block.timestamp} />
-								</span>
+								<div className="flex space-x-2">
+									<div>
+										<ClockIcon className="h-5 w-5" />
+									</div>
+									<div>
+										{moment(data.block.timestamp).format("LLL")}{" "}
+										<span className="ml-3 text-xs">
+											<TimeAgo date={data.block.timestamp} />
+										</span>
+									</div>
+								</div>
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 
