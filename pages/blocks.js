@@ -65,10 +65,12 @@ export default function Blocks() {
 												<TableLayout.Data>
 													{block.events_aggregate.aggregate.count || "? "}
 												</TableLayout.Data>
-												<TableLayout.Data>
-													{block.validator
-														? formatAddress(block.validator)
-														: "?"}
+												<TableLayout.Data dataClassName={"text-indigo-500"}>
+													<Link href={`/account/${block.validator}`}>
+														{block.validator
+															? formatAddress(block.validator)
+															: "?"}
+													</Link>
 												</TableLayout.Data>
 												<TableLayout.Data>
 													{block.hash ? formatAddress(block.hash, 12) : "?"}
