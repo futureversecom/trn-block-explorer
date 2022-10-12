@@ -5377,16 +5377,13 @@ export type GetExtrinsicsQuery = {
 	__typename?: "query_root";
 	archive?: {
 		__typename?: "archive_archive_query";
-		call: Array<{
-			__typename?: "archive_call";
-			id: string;
+		extrinsic: Array<{
+			__typename?: "archive_extrinsic";
+			id: any;
 			success: boolean;
-			name: string;
-			extrinsic: {
-				__typename?: "archive_extrinsic";
-				hash: any;
-				index_in_block: number;
-			};
+			hash: any;
+			index_in_block: number;
+			calls: Array<{ __typename?: "archive_call"; name: string }>;
 			block: { __typename?: "archive_block"; height: number; timestamp: any };
 			events_aggregate: {
 				__typename?: "archive_event_aggregate";
@@ -5396,10 +5393,10 @@ export type GetExtrinsicsQuery = {
 				} | null;
 			};
 		}>;
-		call_aggregate: {
-			__typename?: "archive_call_aggregate";
+		extrinsic_aggregate: {
+			__typename?: "archive_extrinsic_aggregate";
 			aggregate?: {
-				__typename?: "archive_call_aggregate_fields";
+				__typename?: "archive_extrinsic_aggregate_fields";
 				count: number;
 			} | null;
 		};
@@ -5864,19 +5861,19 @@ export const useGetExtrinsicIdFromHashQuery = <
 export const GetExtrinsicsDocument = `
     query GetExtrinsics($limit: Int!, $offset: Int) {
   archive {
-    call(
+    extrinsic(
       limit: $limit
       offset: $offset
       order_by: {block: {height: desc}}
-      where: {name: {_neq: "Timestamp.set"}}
+      where: {calls: {name: {_neq: "Timestamp.set"}}}
     ) {
       id
       success
-      name
-      extrinsic {
-        hash
-        index_in_block
+      calls {
+        name
       }
+      hash
+      index_in_block
       block {
         height
         timestamp
@@ -5887,7 +5884,7 @@ export const GetExtrinsicsDocument = `
         }
       }
     }
-    call_aggregate(where: {name: {_neq: "Timestamp.set"}}) {
+    extrinsic_aggregate(where: {calls: {name: {_neq: "Timestamp.set"}}}) {
       aggregate {
         count
       }
