@@ -17,6 +17,7 @@ import {
 import { usePolling } from "@/libs/hooks";
 import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
 import { formatExtrinsicId } from "@/libs/utils";
+import InOutLabel from "./inOutLabel";
 
 export default function EvmTransactionsForAddress({ walletAddress }) {
 	const { pages, currentPage } = usePagination("accountEvmTransactions");
@@ -72,9 +73,12 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 												</TableLayout.Data>
 
 												<TableLayout.Data>
-													{from?.toLowerCase() === walletAddress.toLowerCase()
-														? "Out"
-														: "In"}
+													{from?.toLowerCase() ===
+													walletAddress.toLowerCase() ? (
+														<InOutLabel type="out" />
+													) : (
+														<InOutLabel type="in" />
+													)}
 												</TableLayout.Data>
 
 												<TableLayout.Data>
