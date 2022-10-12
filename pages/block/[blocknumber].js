@@ -1,4 +1,8 @@
-import { ChevronLeftIcon, CubeIcon } from "@heroicons/react/24/outline";
+import {
+	ChevronLeftIcon,
+	ClockIcon,
+	CubeIcon,
+} from "@heroicons/react/24/outline";
 import moment from "moment";
 import Link from "next/link";
 import TimeAgo from "react-timeago";
@@ -70,14 +74,21 @@ export default function Block({ blockNumber }) {
 							</div>
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
-					
+
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Timestamp" />
 						<DetailsLayout.Data>
-							{moment(query.data.timestamp).format("LLL")}{" "}
-							<span className="ml-3 text-xs">
-								<TimeAgo date={query.data.timestamp} />
-							</span>
+							<div className="flex space-x-2">
+								<div>
+									<ClockIcon className="h-5 w-5" />
+								</div>
+								<div>
+									{moment(query.data.timestamp).format("LLL")}{" "}
+									<span className="text-xs">
+										<TimeAgo date={query.data.timestamp} />
+									</span>
+								</div>
+							</div>
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
