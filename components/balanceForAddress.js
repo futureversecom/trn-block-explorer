@@ -63,7 +63,7 @@ export default function BalanceForAddress({ walletAddress }) {
 										</div>
 									</div>
 									{BURN_ADDRESSES.includes(walletAddress.toLowerCase()) && (
-										<div className="max-w-fit py-4 px-6 text-sm">
+										<div className="max-w-fit py-4 md:px-6 text-sm">
 											<p className="border border-red-400 bg-red-300 p-2 text-red-800">
 												<span className="font-bold">🔥 Attention:</span> This
 												address is a known burn address. Funds sent to this
