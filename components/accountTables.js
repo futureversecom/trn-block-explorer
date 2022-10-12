@@ -15,6 +15,7 @@ import {
 export const AccountTables = ({ walletAddress }) => {
 	const isRefetching = useAccountRefetchStatus();
 	const router = useRouter();
+	// tab name -> index <-- tab name
 	const url_to_index = ["transfers", "evm_transactions"];
 
 	return (
