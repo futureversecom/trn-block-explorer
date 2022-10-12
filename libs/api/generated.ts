@@ -5299,6 +5299,41 @@ export type GetChainDataQuery = {
 	} | null;
 };
 
+export type GetEvmTransactionByHashQueryVariables = Exact<{
+	txHash: Scalars["String"];
+}>;
+
+export type GetEvmTransactionByHashQuery = {
+	__typename?: "query_root";
+	archive?: {
+		__typename?: "archive_archive_query";
+		frontier_ethereum_transaction: Array<{
+			__typename?: "archive_frontier_ethereum_transaction";
+			contract: any;
+			sighash?: string | null;
+			call: {
+				__typename?: "archive_call";
+				name: string;
+				success: boolean;
+				args?: any | null;
+				block: { __typename?: "archive_block"; height: number; timestamp: any };
+				extrinsic: {
+					__typename?: "archive_extrinsic";
+					id: any;
+					hash: any;
+					events: Array<{
+						__typename?: "archive_event";
+						id: any;
+						name: string;
+						index_in_block: number;
+						args?: any | null;
+					}>;
+				};
+			};
+		}>;
+	} | null;
+};
+
 export type GetEvmTransactionsQueryVariables = Exact<{
 	limit: Scalars["Int"];
 	offset?: InputMaybe<Scalars["Int"]>;
@@ -5839,6 +5874,54 @@ export const useGetChainDataQuery = <
 			variables,
 			headers
 		),
+		options
+	);
+export const GetEvmTransactionByHashDocument = `
+    query GetEvmTransactionByHash($txHash: String!) {
+  archive {
+    frontier_ethereum_transaction(
+      where: {call: {events: {args: {_contains: {transactionHash: $txHash}}}}}
+    ) {
+      contract
+      sighash
+      call {
+        name
+        success
+        block {
+          height
+          timestamp
+        }
+        extrinsic {
+          id
+          hash
+          events {
+            id
+            name
+            index_in_block
+            args
+          }
+        }
+        args
+      }
+    }
+  }
+}
+    `;
+export const useGetEvmTransactionByHashQuery = <
+	TData = GetEvmTransactionByHashQuery,
+	TError = unknown
+>(
+	client: GraphQLClient,
+	variables: GetEvmTransactionByHashQueryVariables,
+	options?: UseQueryOptions<GetEvmTransactionByHashQuery, TError, TData>,
+	headers?: RequestInit["headers"]
+) =>
+	useQuery<GetEvmTransactionByHashQuery, TError, TData>(
+		["GetEvmTransactionByHash", variables],
+		fetcher<
+			GetEvmTransactionByHashQuery,
+			GetEvmTransactionByHashQueryVariables
+		>(client, GetEvmTransactionByHashDocument, variables, headers),
 		options
 	);
 export const GetEvmTransactionsDocument = `
