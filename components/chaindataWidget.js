@@ -46,7 +46,7 @@ export default function ChaindataWidget() {
 				)}
 			</div>
 			{query.isLoading ? (
-				<LoadingBlock title="Chaindata" height="h-28" />
+				<LoadingBlock title="Chaindata" height="h-[5.500em]" />
 			) : (
 				<div className="space-y-3">
 					<dl className="grid grid-cols-1 divide-y-4 divide-gray-400 overflow-hidden border border-gray-400 bg-transparent text-[#111] md:grid-cols-3 md:divide-y-0 md:divide-x-2">

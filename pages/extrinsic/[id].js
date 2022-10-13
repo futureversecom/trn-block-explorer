@@ -1,4 +1,5 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import { isHex } from "@polkadot/util";
 import moment from "moment";
 import Link from "next/link";
 import { useState } from "react";
@@ -13,14 +14,81 @@ import {
 	TableLayout,
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
-import { useGetExtrinsicQuery } from "@/libs/api/generated";
+import {
+	GetExtrinsicByRegexDocument,
+	GetExtrinsicIdFromHashDocument,
+	useGetExtrinsicQuery,
+} from "@/libs/api/generated";
 import { graphQLClient } from "@/libs/client";
 import { ROOT_GAS_TOKEN_PRE_BLOCK } from "@/libs/constants";
 import { formatBalance, formatExtrinsicId } from "@/libs/utils";
 
-export const getServerSideProps = (context) => ({
-	props: { extrinsicId: context?.params?.id },
-});
+export const getServerSideProps = async (context) => {
+	let extrinsicId = context?.params?.id;
+
+	// redirects to /extrinsic/0000XXXXXX-00000X-XXXXX route
+	const returnRedirect = (extrinsicIdValue) => ({
+		redirect: {
+			destination: `/extrinsic/${extrinsicIdValue}`,
+			permanent: false,
+		},
+	});
+
+	const returnProp = (extrinsicIdValue) => ({
+		props: { extrinsicId: extrinsicIdValue },
+	});
+
+	const returnNotFound = () => ({ notFound: true });
+
+	const getExtrinsicIdByRegex = async (blockNumber, extrinsicIdx) => {
+		// gets the 0000XXXXXX-00000X-XXXXX extrinsicId based from the formatted XXXXXX-X id
+		const byRegexResponse = await graphQLClient.request(
+			GetExtrinsicByRegexDocument,
+			{
+				regex: `0+${blockNumber}-0+${extrinsicIdx}`,
+			}
+		);
+		return !byRegexResponse?.archive?.extrinsic?.length
+			? null
+			: byRegexResponse?.archive?.extrinsic[0].id;
+	};
+
+	const getExtrinsicIdByHash = async (extrinsicHash) => {
+		const byHashResponse = await graphQLClient.request(
+			GetExtrinsicIdFromHashDocument,
+			{
+				extrinsicHash,
+			}
+		);
+		return !byHashResponse?.archive?.extrinsic?.length
+			? null
+			: byHashResponse?.archive?.extrinsic[0].id;
+	};
+
+	if (
+		!isHex(extrinsicId, 256) &&
+		extrinsicId.length !== 66 &&
+		extrinsicId.includes("-")
+	) {
+		const extrinsicIdSplit = extrinsicId?.split("-");
+
+		if (extrinsicIdSplit && extrinsicIdSplit.length > 2) {
+			// returns 0000XXXXXX-00000X-XXXXX extrinsicId
+			return returnProp(extrinsicId);
+		}
+
+		const resultFromRegex = await getExtrinsicIdByRegex(
+			extrinsicIdSplit[0],
+			extrinsicIdSplit[1]
+		);
+		return !resultFromRegex
+			? returnNotFound()
+			: returnRedirect(resultFromRegex);
+	}
+
+	const resultFromHash = await getExtrinsicIdByHash(extrinsicId);
+	return !resultFromHash ? returnNotFound() : returnProp(resultFromHash);
+};
 
 export default function Extrinsic({ extrinsicId }) {
 	const query = useGetExtrinsicQuery(graphQLClient, { extrinsicId });
@@ -40,9 +108,10 @@ export default function Extrinsic({ extrinsicId }) {
 						<DetailsLayout.Wrapper>
 							<DetailsLayout.Title title="Timestamp" />
 							<DetailsLayout.Data>
-								{moment(data.block.timestamp).format("LLL")}{" "}
+								{/* @FIXME: Unhandled runtime error occurs when `data.block` is null */}
+								{moment(data?.block?.timestamp).format("LLL")}{" "}
 								<span className="ml-3 text-xs">
-									<TimeAgo date={data.block.timestamp} />
+									<TimeAgo date={data?.block?.timestamp} />
 								</span>
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
@@ -51,8 +120,8 @@ export default function Extrinsic({ extrinsicId }) {
 							<DetailsLayout.Title title="Block" />
 
 							<DetailsLayout.Data dataClassName="!text-indigo-500">
-								<Link href={`/block/${data.block.height}`}>
-									{data.block.height}
+								<Link href={`/block/${data?.block?.height}`}>
+									{data?.block?.height}
 								</Link>
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
@@ -76,7 +145,7 @@ export default function Extrinsic({ extrinsicId }) {
 							<DetailsLayout.Data>{data.calls[0].name}</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 
-						<Fee events={data.events} height={data.block.height} />
+						<Fee events={data.events} height={data?.block?.height} />
 
 						{data?.signature?.signature && (
 							<DetailsLayout.Wrapper>
@@ -139,36 +208,34 @@ const Events = ({ events }) => {
 							</thead>
 							<tbody className="divide-y divide-gray-800 bg-transparent">
 								{events.map((event, key) => (
-									<>
-										<tr key={key}>
-											<TableLayout.Data>
-												{formatExtrinsicId(event.id)}
-											</TableLayout.Data>
+									<tr key={key}>
+										<TableLayout.Data>
+											{formatExtrinsicId(event.id)}
+										</TableLayout.Data>
 
-											<TableLayout.Data dataClassName="space-y-4">
-												{event.name}
+										<TableLayout.Data dataClassName="space-y-4">
+											{event.name}
 
-												{viewArgs.includes(key) && (
-													<div className="max-h-32 max-w-xl overflow-scroll rounded bg-gray-900 bg-opacity-30 p-2 text-xs text-white">
-														<JSONPretty data={event.args} />
-													</div>
-												)}
-											</TableLayout.Data>
+											{viewArgs.includes(key) && (
+												<div className="max-h-32 max-w-xl overflow-scroll rounded bg-gray-900 bg-opacity-30 p-2 text-xs text-white">
+													<JSONPretty data={event.args} />
+												</div>
+											)}
+										</TableLayout.Data>
 
-											<TableLayout.Data>{event.phase}</TableLayout.Data>
+										<TableLayout.Data>{event.phase}</TableLayout.Data>
 
-											<TableLayout.Data>
-												<button
-													onClick={() => toggleArgs(key)}
-													className={
-														"inline-flex items-center border border-indigo-500 px-4 py-1.5 text-xs font-bold text-indigo-300 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-													}
-												>
-													{viewArgs.includes(key) ? "Hide" : "View"}
-												</button>
-											</TableLayout.Data>
-										</tr>
-									</>
+										<TableLayout.Data>
+											<button
+												onClick={() => toggleArgs(key)}
+												className={
+													"inline-flex items-center border border-indigo-500 px-4 py-1.5 text-xs font-bold text-indigo-300 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+												}
+											>
+												{viewArgs.includes(key) ? "Hide" : "View"}
+											</button>
+										</TableLayout.Data>
+									</tr>
 								))}
 							</tbody>
 						</TableLayout.Table>
