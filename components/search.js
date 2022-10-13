@@ -9,7 +9,7 @@ import {
 	GetBlockDocument,
 	GetBlockHeightFromHashDocument,
 	GetExtrinsicByRegexDocument,
-	GetTransferByHashDocument,
+	GetExtrinsicIdFromHashDocument,
 } from "@/libs/api/generated";
 import { graphQLClient } from "@/libs/client";
 
@@ -81,12 +81,12 @@ const useSearch = () => {
 			if (response?.archive?.block?.length)
 				return `/block/${response.archive.block[0].height}`;
 
-			response = await graphQLClient.request(GetTransferByHashDocument, {
-				hash: search,
+			response = await graphQLClient.request(GetExtrinsicIdFromHashDocument, {
+				extrinsicHash: search,
 			});
 
-			if (!response?.transfers?.transfers?.length) return;
-			return `/transfer/${search}`;
+			if (!response?.archive?.extrinsic?.length) return;
+			return `/extrinsic/${search}`;
 		}
 
 		if (parseInt(search) >= 0) {

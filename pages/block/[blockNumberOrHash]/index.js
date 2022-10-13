@@ -3,6 +3,9 @@ import {
 	ClockIcon,
 	CubeIcon,
 } from "@heroicons/react/24/outline";
+import { CubeIcon } from "@heroicons/react/24/outline";
+import { isHex } from "@polkadot/util";
+
 import moment from "moment";
 import Link from "next/link";
 import TimeAgo from "react-timeago";
@@ -14,16 +17,41 @@ import {
 	PageHeader,
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
+
 import JSONViewer from "@/components/JSONViewer";
 import { useGetBlockQuery } from "@/libs/api/generated.ts";
+
+import { GetBlockDocument, useGetBlockQuery } from "@/libs/api/generated.ts";
+import { graphQLClient } from "@/libs/client";
+
 import { usePolling } from "@/libs/hooks";
 import { formatExtrinsicId } from "@/libs/utils";
 
-export const getServerSideProps = (context) => ({
-	props: { blockNumber: context?.params?.blocknumber },
-});
+export const getServerSideProps = async (context) => {
+	const numberOrHash = context?.params?.blockNumberOrHash;
 
-export default function Block({ blockNumber }) {
+	const returnNotFound = () => ({ notFound: true });
+
+	const returnProp = async () => {
+		const blockNumber = numberOrHash;
+		try {
+			const byBlockResponse = await graphQLClient.request(GetBlockDocument, {
+				height: blockNumber,
+			});
+			// to make sure the block data exist otherwise, redirect to a notFound page
+			return !byBlockResponse?.archive?.block.length
+				? returnNotFound()
+				: { props: { blockNumber } };
+		} catch (error) {
+			// to handle invalid numberOrHash value
+			return returnNotFound();
+		}
+	};
+
+	return !isHex(numberOrHash, 256) ? returnProp() : returnNotFound();
+};
+
+export default function BlockByNumber({ blockNumber }) {
 	let query = usePolling({}, useGetBlockQuery, {
 		height: parseInt(blockNumber),
 	});

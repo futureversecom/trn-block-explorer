@@ -5508,6 +5508,19 @@ export type GetExtrinsicIdFromHashQuery = {
 	} | null;
 };
 
+export type GetExtrinsicIdFromHashAndBlockHashQueryVariables = Exact<{
+	extrinsicHash: Scalars["bpchar"];
+	blockHash: Scalars["bpchar"];
+}>;
+
+export type GetExtrinsicIdFromHashAndBlockHashQuery = {
+	__typename?: "query_root";
+	archive?: {
+		__typename?: "archive_archive_query";
+		extrinsic: Array<{ __typename?: "archive_extrinsic"; id: any }>;
+	} | null;
+};
+
 export type GetExtrinsicsQueryVariables = Exact<{
 	limit: Scalars["Int"];
 	offset?: InputMaybe<Scalars["Int"]>;
@@ -6192,6 +6205,38 @@ export const useGetExtrinsicIdFromHashQuery = <
 			variables,
 			headers
 		),
+		options
+	);
+export const GetExtrinsicIdFromHashAndBlockHashDocument = `
+    query GetExtrinsicIdFromHashAndBlockHash($extrinsicHash: bpchar!, $blockHash: bpchar!) {
+  archive {
+    extrinsic(
+      where: {hash: {_eq: $extrinsicHash}, block: {hash: {_eq: $blockHash}}}
+    ) {
+      id
+    }
+  }
+}
+    `;
+export const useGetExtrinsicIdFromHashAndBlockHashQuery = <
+	TData = GetExtrinsicIdFromHashAndBlockHashQuery,
+	TError = unknown
+>(
+	client: GraphQLClient,
+	variables: GetExtrinsicIdFromHashAndBlockHashQueryVariables,
+	options?: UseQueryOptions<
+		GetExtrinsicIdFromHashAndBlockHashQuery,
+		TError,
+		TData
+	>,
+	headers?: RequestInit["headers"]
+) =>
+	useQuery<GetExtrinsicIdFromHashAndBlockHashQuery, TError, TData>(
+		["GetExtrinsicIdFromHashAndBlockHash", variables],
+		fetcher<
+			GetExtrinsicIdFromHashAndBlockHashQuery,
+			GetExtrinsicIdFromHashAndBlockHashQueryVariables
+		>(client, GetExtrinsicIdFromHashAndBlockHashDocument, variables, headers),
 		options
 	);
 export const GetExtrinsicsDocument = `

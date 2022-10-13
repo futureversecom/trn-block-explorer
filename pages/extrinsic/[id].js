@@ -1,10 +1,10 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { ClockIcon } from "@heroicons/react/24/outline";
+import { isHex } from "@polkadot/util";
 import moment from "moment";
 import Link from "next/link";
 import { useState } from "react";
 import TimeAgo from "react-timeago";
-
 import {
 	ContainerLayout,
 	DetailsLayout,
@@ -13,16 +13,87 @@ import {
 	TableLayout,
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
+
 import JSONViewer from "@/components/JSONViewer";
 import { useGetBlocksQuery, useGetExtrinsicQuery } from "@/libs/api/generated";
+
+import {
+	GetExtrinsicByRegexDocument,
+	GetExtrinsicIdFromHashDocument,
+	useGetExtrinsicQuery,
+} from "@/libs/api/generated";
+
 import { graphQLClient } from "@/libs/client";
 import { ROOT_GAS_TOKEN_PRE_BLOCK } from "@/libs/constants";
 import { usePolling } from "@/libs/hooks";
 import { formatBalance, formatExtrinsicId } from "@/libs/utils";
 
-export const getServerSideProps = (context) => ({
-	props: { extrinsicId: context?.params?.id },
-});
+export const getServerSideProps = async (context) => {
+	let extrinsicId = context?.params?.id;
+
+	// redirects to /extrinsic/0000XXXXXX-00000X-XXXXX route
+	const returnRedirect = (extrinsicIdValue) => ({
+		redirect: {
+			destination: `/extrinsic/${extrinsicIdValue}`,
+			permanent: false,
+		},
+	});
+
+	const returnProp = (extrinsicIdValue) => ({
+		props: { extrinsicId: extrinsicIdValue },
+	});
+
+	const returnNotFound = () => ({ notFound: true });
+
+	const getExtrinsicIdByRegex = async (blockNumber, extrinsicIdx) => {
+		// gets the 0000XXXXXX-00000X-XXXXX extrinsicId based from the formatted XXXXXX-X id
+		const byRegexResponse = await graphQLClient.request(
+			GetExtrinsicByRegexDocument,
+			{
+				regex: `0+${blockNumber}-0+${extrinsicIdx}`,
+			}
+		);
+		return !byRegexResponse?.archive?.extrinsic?.length
+			? null
+			: byRegexResponse?.archive?.extrinsic[0].id;
+	};
+
+	const getExtrinsicIdByHash = async (extrinsicHash) => {
+		const byHashResponse = await graphQLClient.request(
+			GetExtrinsicIdFromHashDocument,
+			{
+				extrinsicHash,
+			}
+		);
+		return !byHashResponse?.archive?.extrinsic?.length
+			? null
+			: byHashResponse?.archive?.extrinsic[0].id;
+	};
+
+	if (
+		!isHex(extrinsicId, 256) &&
+		extrinsicId.length !== 66 &&
+		extrinsicId.includes("-")
+	) {
+		const extrinsicIdSplit = extrinsicId?.split("-");
+
+		if (extrinsicIdSplit && extrinsicIdSplit.length > 2) {
+			// returns 0000XXXXXX-00000X-XXXXX extrinsicId
+			return returnProp(extrinsicId);
+		}
+
+		const resultFromRegex = await getExtrinsicIdByRegex(
+			extrinsicIdSplit[0],
+			extrinsicIdSplit[1]
+		);
+		return !resultFromRegex
+			? returnNotFound()
+			: returnRedirect(resultFromRegex);
+	}
+
+	const resultFromHash = await getExtrinsicIdByHash(extrinsicId);
+	return !resultFromHash ? returnNotFound() : returnProp(resultFromHash);
+};
 
 export default function Extrinsic({ extrinsicId }) {
 	const query = useGetExtrinsicQuery(graphQLClient, { extrinsicId });
@@ -82,6 +153,7 @@ export default function Extrinsic({ extrinsicId }) {
 										Block Confirmations
 									</div>
 								</div>
+
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 
@@ -104,7 +176,7 @@ export default function Extrinsic({ extrinsicId }) {
 							<DetailsLayout.Data>{data.calls[0].name}</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 
-						<Fee events={data.events} height={data.block.height} />
+						<Fee events={data.events} height={data?.block?.height} />
 
 						{data?.signature?.signature && (
 							<DetailsLayout.Wrapper>
