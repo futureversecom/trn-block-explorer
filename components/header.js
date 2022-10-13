@@ -24,6 +24,10 @@ const links = [
 		title: "Accounts",
 		href: "/accounts",
 	},
+	{
+		title: "EVM Transactions",
+		href: "/evmtransactions",
+	},
 ];
 
 export default function Header() {

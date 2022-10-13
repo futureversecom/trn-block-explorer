@@ -14,6 +14,7 @@ import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetEvmTransactionsQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
 import { usePagination } from "@/libs/stores";
+import { formatAddress, formatExtrinsicId } from "@/libs/utils";
 
 export default function EVMTransactions() {
 	const query = useQuery(20);
@@ -38,60 +39,39 @@ export default function EVMTransactions() {
 											<TableLayout.HeadItem text="Id" />
 											<TableLayout.HeadItem text="Status" />
 											<TableLayout.HeadItem text="Hash" />
-											<TableLayout.HeadItem text="Time" />
 											<TableLayout.HeadItem text="Block" />
-											<TableLayout.HeadItem text="Pallet" />
-											<TableLayout.HeadItem text="Call" />
-											<TableLayout.HeadItem text="Events" />
+											<TableLayout.HeadItem text="Time" />
+											<TableLayout.HeadItem text="Contract" />
 										</tr>
 									</thead>
 									<tbody className="divide-y divide-gray-800 bg-transparent">
-										{query.data?.map((extrinsic, key) => (
-											<>{console.log(extrinsic)}</>
-											// <tr key={key}>
-											// 	<TableLayout.Data dataClassName="!text-indigo-500 font-bold">
-											// 		<Link href={`/extrinsic/${extrinsic.id}`}>
-											// 			{formatExtrinsicId(extrinsic.id)}
-											// 		</Link>
-											// 	</TableLayout.Data>
-
-											// 	<TableLayout.Data dataClassName="flex">
-											// 		<BlockFinalizedIcon
-											// 			status={extrinsic?.success}
-											// 			iconClassName="h-5"
-											// 			isExtrinsic={true}
-											// 		/>
-											// 	</TableLayout.Data>
-
-											// 	<TableLayout.Data>
-											// 		{formatAddress(extrinsic.hash, 12)}
-											// 	</TableLayout.Data>
-
-											// 	<TableLayout.Data>
-											// 		<TimeAgo date={extrinsic.block.timestamp} />
-											// 	</TableLayout.Data>
-
-											// 	<TableLayout.Data dataClassName="!text-indigo-500 font-bold">
-											// 		<Link href={`/block/${extrinsic.block.height}`}>
-											// 			{extrinsic.block.height}
-											// 		</Link>
-											// 	</TableLayout.Data>
-											// 	<TableLayout.Data>
-											// 		{extrinsic?.calls?.[0]?.name &&
-											// 			extrinsic?.calls?.[0]?.name?.split(".")[0]}
-											// 	</TableLayout.Data>
-											// 	<TableLayout.Data>
-											// 		<span className="capitalize truncate">
-											// 			{extrinsic?.calls?.[0]?.name &&
-											// 				extrinsic?.calls?.[0]?.name
-											// 					?.split(".")[1]
-											// 					?.replaceAll("_", " ")}
-											// 		</span>
-											// 	</TableLayout.Data>
-											// 	<TableLayout.Data>
-											// 		{extrinsic.events_aggregate.aggregate.count}
-											// 	</TableLayout.Data>
-											// </tr>
+										{query.data?.map((transaction, key) => (
+											<tr key={key}>
+												<TableLayout.Data dataClassName="!text-indigo-500 font-bold">
+													<Link
+														href={`/extrinsic/${transaction.call.extrinsic.id}`}
+													>
+														<span>
+															{formatExtrinsicId(transaction.call.extrinsic.id)}
+														</span>
+													</Link>
+												</TableLayout.Data>
+												<TableLayout.Data>
+													{transaction.call.success ? "yes" : "no"}
+												</TableLayout.Data>
+												<TableLayout.Data>
+													{formatAddress(transaction.call.extrinsic.hash, 6)}
+												</TableLayout.Data>
+												<TableLayout.Data>
+													{transaction.call.block.height}
+												</TableLayout.Data>
+												<TableLayout.Data>
+													<TimeAgo date={transaction.call.block.timestamp} />
+												</TableLayout.Data>
+												<TableLayout.Data>
+													{transaction.contract}
+												</TableLayout.Data>
+											</tr>
 										))}
 									</tbody>
 								</TableLayout.Table>
@@ -129,6 +109,7 @@ const useQuery = (limit) => {
 
 const usePages = (data, limit) => {
 	const { setPages } = usePagination("evmtransactions");
+
 
 	useEffect(() => {
 		if (!data?.archive?.frontier_ethereum_transaction_aggregate) return;

@@ -33,6 +33,9 @@ const pagination = atom<PaginationState>({
 	accounts: {
 		currentPage: 1,
 	},
+	evmtransactions: {
+		currentPage: 1,
+	},
 });
 
 interface PaginationUpdate {
@@ -78,14 +81,16 @@ export const usePagination = (table: Table) => {
 	useEffect(() => {
 		if (!router?.asPath) return;
 
-		["extrinsics", "blocks", "accounts", "account"].forEach((path: string) => {
-			if (!path || router?.asPath.includes(path)) return;
+		["extrinsics", "blocks", "accounts", "account", "evmtransactions"].forEach(
+			(path: string) => {
+				if (!path || router?.asPath.includes(path)) return;
 
-			if (path !== "account") return resetCurrentPage(path as Table);
+				if (path !== "account") return resetCurrentPage(path as Table);
 
-			resetCurrentPage("accountTransfers");
-			resetCurrentPage("accountEvmTransactions");
-		});
+				resetCurrentPage("accountTransfers");
+				resetCurrentPage("accountEvmTransactions");
+			}
+		);
 	}, [router?.asPath]);
 
 	return {
