@@ -14,6 +14,7 @@ import { useGetEvmTransactionsQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
 import { usePagination } from "@/libs/stores";
 import { formatAddress, formatExtrinsicId } from "@/libs/utils";
+import BlockFinalizedIcon from '@/components/icons/BlockFinalizedIcon'
 
 export default function EVMTransactions() {
 	const query = useQuery(20);
@@ -45,10 +46,9 @@ export default function EVMTransactions() {
 									</thead>
 									<tbody className="divide-y divide-gray-800 bg-transparent">
 										{query.data?.map((transaction, key) => {
-
 											// TODO: Extract from and to from Ethereum.Executed event
 											const call = transaction.call;
-											console.log(call)
+											console.log(call);
 											// const ethereumExecutedEvent = call.events.find(
 											// 	(event) => event.name === "Ethereum.Executed"
 											// );
@@ -68,7 +68,11 @@ export default function EVMTransactions() {
 														</Link>
 													</TableLayout.Data>
 													<TableLayout.Data>
-														{transaction.call.success ? "yes" : "no"}
+														<BlockFinalizedIcon
+															status={transaction.call.success}
+															iconClassName="h-5"
+															isExtrinsic={true}
+														/>
 													</TableLayout.Data>
 													<TableLayout.Data>
 														{formatAddress(transaction.call.extrinsic.hash, 6)}
