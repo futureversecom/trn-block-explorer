@@ -1,7 +1,7 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
+import { isHex } from "@polkadot/util";
 import moment from "moment";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import JSONPretty from "react-json-pretty";
 import TimeAgo from "react-timeago";
 
@@ -12,58 +12,36 @@ import {
 	PageHeader,
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
-import {
-	GetExtrinsicIdFromHashAndBlockHashDocument,
-	useGetBlockQuery,
-} from "@/libs/api/generated.ts";
+import { GetBlockDocument, useGetBlockQuery } from "@/libs/api/generated.ts";
 import { graphQLClient } from "@/libs/client";
 import { usePolling } from "@/libs/hooks";
 import { formatExtrinsicId } from "@/libs/utils";
 
 export const getServerSideProps = async (context) => {
-	const numberOrHash = context?.params?.numberOrHash;
-	const numberOrHashLen = numberOrHash?.length;
-
-	const returnRedirect = async () => {
-		const [blockHash, extrinsicHash] = numberOrHash;
-		// if blockHash and extrinsicHash values are hash values
-		if (blockHash.startsWith("0x") && extrinsicHash.startsWith("0x")) {
-			const byHashResponse = await graphQLClient.request(
-				GetExtrinsicIdFromHashAndBlockHashDocument,
-				{
-					extrinsicHash,
-					blockHash,
-				}
-			);
-
-			return (
-				byHashResponse?.archive?.extrinsic.length &&
-				byHashResponse?.archive?.extrinsic[0].id && {
-					// then redirect to /extrinsic/{extrinsic-id}
-					redirect: {
-						destination: `/extrinsic/${byHashResponse?.archive?.extrinsic[0].id}`,
-						permanent: false,
-					},
-				}
-			);
-		}
-	};
-
-	// numberOrHash[0] value is a block number
-	const returnProp = () => ({
-		props: { blockNumber: numberOrHash[0] },
-	});
+	const numberOrHash = context?.params?.blockNumberOrHash;
 
 	const returnNotFound = () => ({ notFound: true });
 
-	if (numberOrHashLen === 2) return returnRedirect();
+	const returnProp = async () => {
+		const blockNumber = numberOrHash;
+		try {
+			const byBlockResponse = await graphQLClient.request(GetBlockDocument, {
+				height: blockNumber,
+			});
+			// to make sure the block data exist otherwise, redirect to a notFound page
+			return !byBlockResponse?.archive?.block.length
+				? returnNotFound()
+				: { props: { blockNumber } };
+		} catch (error) {
+			// to handle invalid numberOrHash value
+			return returnNotFound();
+		}
+	};
 
-	if (numberOrHashLen < 2) return returnProp();
-
-	return returnNotFound();
+	return !isHex(numberOrHash, 256) ? returnProp() : returnNotFound();
 };
 
-export default function Block({ blockNumber }) {
+export default function BlockByNumber({ blockNumber }) {
 	let query = usePolling({}, useGetBlockQuery, {
 		height: parseInt(blockNumber),
 	});

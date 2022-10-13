@@ -1,4 +1,5 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import { isHex } from "@polkadot/util";
 import moment from "moment";
 import Link from "next/link";
 import { useState } from "react";
@@ -65,7 +66,7 @@ export const getServerSideProps = async (context) => {
 	};
 
 	if (
-		!extrinsicId?.startsWith("0x") &&
+		!isHex(extrinsicId, 256) &&
 		extrinsicId.length !== 66 &&
 		extrinsicId.includes("-")
 	) {
