@@ -10,6 +10,7 @@ interface Pagination {
 type Table =
 	| "accountEvmTransactions"
 	| "accountTransfers"
+	| "evmtransactions"
 	| "extrinsics"
 	| "blocks"
 	| "accounts";
@@ -91,6 +92,6 @@ export const usePagination = (table: Table) => {
 		setPages,
 		setCurrentPage,
 		pages: pagination[table]?.pages,
-		currentPage: pagination[table].currentPage,
+		currentPage: pagination[table]?.currentPage,
 	};
 };
