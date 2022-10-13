@@ -10,7 +10,7 @@ import { formatExtrinsicId } from "@/libs/utils";
 
 export default function ExtrinsicsWidget() {
 	const query = usePolling({}, useGetExtrinsicsQuery, { limit: 10 });
-	query.data = query?.data?.archive?.call;
+	query.data = query?.data?.archive?.extrinsic;
 
 	return (
 		<div>
@@ -33,16 +33,16 @@ export default function ExtrinsicsWidget() {
 					</Link>
 				</div>
 			</div>
-			<div className="min-h-[760px] divide-y divide-gray-400 border border-gray-400 bg-transparent px-4 py-3 sm:px-6">
+			<div className="h-[46.688em] max-h-[46.688em] divide-y divide-gray-400 overflow-scroll border border-gray-400 bg-transparent px-4 pb-3 pt-1 sm:px-6">
 				{query.isLoading
 					? DummyListItem(10)
-					: query.data?.map((call, key) => (
+					: query.data?.map((extrinsic, key) => (
 							<Extrinsic
 								key={key}
-								success={call.success}
-								call={call.name}
-								timestamp={call.block.timestamp}
-								extrinsicId={call.id}
+								success={extrinsic.success}
+								call={extrinsic.calls[0].name}
+								timestamp={extrinsic.block.timestamp}
+								extrinsicId={extrinsic.id}
 							/>
 					  ))}
 			</div>
@@ -70,7 +70,7 @@ const Extrinsic = ({ success, call, timestamp, extrinsicId }) => {
 						<TimeAgo date={timestamp} />
 					</div>
 					<div>
-						<BlockFinalizedIcon status={success} />
+						<BlockFinalizedIcon status={success} isExtrinsic={true} />
 					</div>
 				</div>
 			</div>

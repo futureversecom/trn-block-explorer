@@ -1,6 +1,20 @@
 {
   "tokens": [
     {
+      "symbol": "ROOT",
+      "decimals": 6,
+      "assetId": 1,
+      "mainnet": true
+    },
+
+    {
+      "symbol": "ROOT",
+      "decimals": 6,
+      "assetId": 1,
+      "mainnet": false
+    },
+
+    {
       "symbol": "XRP",
       "decimals": 6,
       "assetId": 2,
