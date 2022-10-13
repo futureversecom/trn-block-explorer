@@ -5,6 +5,7 @@ import moment from "moment";
 import Link from "next/link";
 import { useState } from "react";
 import TimeAgo from "react-timeago";
+
 import {
 	ContainerLayout,
 	DetailsLayout,
@@ -13,16 +14,13 @@ import {
 	TableLayout,
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
-
 import JSONViewer from "@/components/JSONViewer";
-import { useGetBlocksQuery, useGetExtrinsicQuery } from "@/libs/api/generated";
-
 import {
 	GetExtrinsicByRegexDocument,
 	GetExtrinsicIdFromHashDocument,
+	useGetBlocksQuery,
 	useGetExtrinsicQuery,
 } from "@/libs/api/generated";
-
 import { graphQLClient } from "@/libs/client";
 import { ROOT_GAS_TOKEN_PRE_BLOCK } from "@/libs/constants";
 import { usePolling } from "@/libs/hooks";
@@ -137,9 +135,7 @@ export default function Extrinsic({ extrinsicId }) {
 							<DetailsLayout.Title title="Block" />
 
 							<DetailsLayout.Data dataClassName="!text-indigo-500">
-								<div
-									className={`flex space-x-2`}
-								>
+								<div className={`flex space-x-2`}>
 									<div>
 										<Link href={`/block/${data.block.height}`}>
 											{data.block.height}
@@ -153,7 +149,6 @@ export default function Extrinsic({ extrinsicId }) {
 										Block Confirmations
 									</div>
 								</div>
-
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 

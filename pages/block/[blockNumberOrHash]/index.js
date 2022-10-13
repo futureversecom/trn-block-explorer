@@ -3,7 +3,6 @@ import {
 	ClockIcon,
 	CubeIcon,
 } from "@heroicons/react/24/outline";
-import { CubeIcon } from "@heroicons/react/24/outline";
 import { isHex } from "@polkadot/util";
 
 import moment from "moment";
@@ -19,7 +18,6 @@ import {
 import { BlockFinalizedIcon } from "@/components/icons";
 
 import JSONViewer from "@/components/JSONViewer";
-import { useGetBlockQuery } from "@/libs/api/generated.ts";
 
 import { GetBlockDocument, useGetBlockQuery } from "@/libs/api/generated.ts";
 import { graphQLClient } from "@/libs/client";
