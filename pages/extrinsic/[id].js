@@ -144,7 +144,8 @@ export default function Extrinsic({ extrinsicId }) {
 
 									<div className="text-white">
 										<span className="font-bold">
-											{parseInt(last_block) - parseInt(data.block.height)}
+											{parseInt(last_block) - parseInt(data.block.height) ||
+												"Loading"}
 										</span>{" "}
 										Block Confirmations
 									</div>

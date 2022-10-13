@@ -4,11 +4,9 @@ import {
 	CubeIcon,
 } from "@heroicons/react/24/outline";
 import { isHex } from "@polkadot/util";
-
 import moment from "moment";
 import Link from "next/link";
 import TimeAgo from "react-timeago";
-
 import {
 	ContainerLayout,
 	DetailsLayout,
@@ -16,12 +14,9 @@ import {
 	PageHeader,
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
-
 import JSONViewer from "@/components/JSONViewer";
-
 import { GetBlockDocument, useGetBlockQuery } from "@/libs/api/generated.ts";
 import { graphQLClient } from "@/libs/client";
-
 import { usePolling } from "@/libs/hooks";
 import { formatExtrinsicId } from "@/libs/utils";
 
