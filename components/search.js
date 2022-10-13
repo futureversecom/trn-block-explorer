@@ -64,7 +64,7 @@ const useSearch = () => {
 	const [error, setError] = useState(undefined);
 
 	const getSearchURL = async (search) => {
-		if (ethers.utils.isAddress(search)) return `/account/${search}`;
+		if (ethers.utils.isAddress(search)) return `/account/${search}`; // /account/{accountHash} route
 
 		let response;
 		if (search.length === 66) {
@@ -73,14 +73,14 @@ const useSearch = () => {
 			});
 
 			if (response?.archive?.block?.length)
-				return `/block/${response.archive.block[0].height}`;
+				return `/block/${response.archive.block[0].height}`; // /block/{blockHash} route
 
 			response = await graphQLClient.request(GetExtrinsicIdFromHashDocument, {
 				extrinsicHash: search,
 			});
 
 			if (!response?.archive?.extrinsic?.length) return;
-			return `/extrinsic/${search}`;
+			return `/extrinsic/${search}`; // /extrinsic/{extrinsicHash} route
 		}
 
 		if (Number(search) && search >= 0) {
@@ -89,7 +89,7 @@ const useSearch = () => {
 			});
 
 			if (!response?.archive?.block?.length) return;
-			return `/block/${search}`;
+			return `/block/${search}`; // /block/{blockNumber} route
 		}
 
 		if (search.includes("-")) {
@@ -99,7 +99,7 @@ const useSearch = () => {
 			});
 
 			if (!response?.archive?.extrinsic?.length) return;
-			return `/extrinsic/${response.archive.extrinsic[0].id}`;
+			return `/extrinsic/${response.archive.extrinsic[0].id}`; // /extrinsic/{extrinsicId} route
 		}
 	};
 

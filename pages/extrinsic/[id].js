@@ -27,12 +27,24 @@ export const getServerSideProps = async (context) => {
 	let extrinsicId = context?.params?.id;
 
 	// redirects to /extrinsic/0000XXXXXX-00000X-XXXXX route
-	const returnRedirect = (extrinsicIdValue) => ({
+	const returnRedirectExtrinsicDetail = (extrinsicIdValue) => ({
 		redirect: {
 			destination: `/extrinsic/${extrinsicIdValue}`,
 			permanent: false,
 		},
 	});
+
+	const returnRedirectExtrinsicList = (extrinsicIds) => {
+		const extrinsicIdsStr = extrinsicIds.reduce(function (a, b) {
+			return (a.id || a) + "/" + b.id;
+		});
+		return {
+			redirect: {
+				destination: `/extrinsics/${extrinsicIdsStr}`,
+				permanent: false,
+			},
+		};
+	};
 
 	const returnProp = (extrinsicIdValue) => ({
 		props: { extrinsicId: extrinsicIdValue },
@@ -54,6 +66,24 @@ export const getServerSideProps = async (context) => {
 	};
 
 	const getExtrinsicIdByHash = async (extrinsicHash) => {
+		if (
+			extrinsicHash ===
+			"0x9f597d2f05e18ff7989632d6ef82e2e157497ce75d87bb63e9e9def05d52f220"
+		) {
+			// @TODO: these are just mock data for testing purposes
+			// and will need to be removed after done with testing
+			return [
+				{
+					id: "0000282577-000001-6e108",
+				},
+				{
+					id: "0000280546-000001-28cc1",
+				},
+				{
+					id: "0000279302-000001-65a4c",
+				},
+			];
+		}
 		const byHashResponse = await graphQLClient.request(
 			GetExtrinsicIdFromHashDocument,
 			{
@@ -62,7 +92,9 @@ export const getServerSideProps = async (context) => {
 		);
 		return !byHashResponse?.archive?.extrinsic?.length
 			? null
-			: byHashResponse?.archive?.extrinsic[0].id;
+			: byHashResponse?.archive?.extrinsic?.length > 1
+			? byHashResponse?.archive?.extrinsic // multiple Ids
+			: byHashResponse?.archive?.extrinsic[0].id; // just one id
 	};
 
 	if (
@@ -83,11 +115,15 @@ export const getServerSideProps = async (context) => {
 		);
 		return !resultFromRegex
 			? returnNotFound()
-			: returnRedirect(resultFromRegex);
+			: returnRedirectExtrinsicDetail(resultFromRegex);
 	}
 
 	const resultFromHash = await getExtrinsicIdByHash(extrinsicId);
-	return !resultFromHash ? returnNotFound() : returnProp(resultFromHash);
+	return !resultFromHash
+		? returnNotFound()
+		: Array.isArray(resultFromHash)
+		? returnRedirectExtrinsicList(resultFromHash)
+		: returnProp(resultFromHash);
 };
 
 export default function Extrinsic({ extrinsicId }) {
