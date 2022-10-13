@@ -1,17 +1,9 @@
 import clsx from "clsx";
 import { ethers } from "ethers";
-import _ from "lodash";
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
 
 import { RefetchIndicator } from "@/components";
-import {
-	GetBlockDocument,
-	GetBlockHeightFromHashDocument,
-	GetExtrinsicByRegexDocument,
-	GetExtrinsicIdFromHashDocument,
-} from "@/libs/api/generated";
-import { graphQLClient } from "@/libs/client";
 
 export default function Search() {
 	const { search, setSearch, isSearching, error, onFormSubmit } = useSearch();

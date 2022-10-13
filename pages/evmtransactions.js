@@ -10,7 +10,6 @@ import {
 	Pagination,
 	TableLayout,
 } from "@/components";
-import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetEvmTransactionsQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
 import { usePagination } from "@/libs/stores";
@@ -45,34 +44,47 @@ export default function EVMTransactions() {
 										</tr>
 									</thead>
 									<tbody className="divide-y divide-gray-800 bg-transparent">
-										{query.data?.map((transaction, key) => (
-											<tr key={key}>
-												<TableLayout.Data dataClassName="!text-indigo-500 font-bold">
-													<Link
-														href={`/extrinsic/${transaction.call.extrinsic.id}`}
-													>
-														<span>
-															{formatExtrinsicId(transaction.call.extrinsic.id)}
-														</span>
-													</Link>
-												</TableLayout.Data>
-												<TableLayout.Data>
-													{transaction.call.success ? "yes" : "no"}
-												</TableLayout.Data>
-												<TableLayout.Data>
-													{formatAddress(transaction.call.extrinsic.hash, 6)}
-												</TableLayout.Data>
-												<TableLayout.Data>
-													{transaction.call.block.height}
-												</TableLayout.Data>
-												<TableLayout.Data>
-													<TimeAgo date={transaction.call.block.timestamp} />
-												</TableLayout.Data>
-												<TableLayout.Data>
-													{transaction.contract}
-												</TableLayout.Data>
-											</tr>
-										))}
+										{query.data?.map((transaction, key) => {
+
+											// TODO: Extract from and to from Ethereum.Executed event
+											const call = transaction.call;
+											console.log(call)
+											// const ethereumExecutedEvent = call.events.find(
+											// 	(event) => event.name === "Ethereum.Executed"
+											// );
+											// const { to, from } = ethereumExecutedEvent.args;
+											// console.log(to, from)
+											return (
+												<tr key={key}>
+													<TableLayout.Data dataClassName="!text-indigo-500 font-bold">
+														<Link
+															href={`/extrinsic/${transaction.call.extrinsic.id}`}
+														>
+															<span>
+																{formatExtrinsicId(
+																	transaction.call.extrinsic.id
+																)}
+															</span>
+														</Link>
+													</TableLayout.Data>
+													<TableLayout.Data>
+														{transaction.call.success ? "yes" : "no"}
+													</TableLayout.Data>
+													<TableLayout.Data>
+														{formatAddress(transaction.call.extrinsic.hash, 6)}
+													</TableLayout.Data>
+													<TableLayout.Data>
+														{transaction.call.block.height}
+													</TableLayout.Data>
+													<TableLayout.Data>
+														<TimeAgo date={transaction.call.block.timestamp} />
+													</TableLayout.Data>
+													<TableLayout.Data>
+														{transaction.contract}
+													</TableLayout.Data>
+												</tr>
+											);
+										})}
 									</tbody>
 								</TableLayout.Table>
 							</div>
@@ -109,7 +121,6 @@ const useQuery = (limit) => {
 
 const usePages = (data, limit) => {
 	const { setPages } = usePagination("evmtransactions");
-
 
 	useEffect(() => {
 		if (!data?.archive?.frontier_ethereum_transaction_aggregate) return;
