@@ -21,9 +21,11 @@ export default function ExtrinsicIds({ extrinsicIds }) {
 	const query = useQuery(20, extrinsicIds);
 	const { pages } = usePagination("extrinsics");
 
+	const hashValue = query.isFetching ? "-" : "Not found";
+
 	return (
 		<ExtrinsicsList
-			title={`Extrinsics from hash: ${!query.hash ? "Not found" : query.hash}`}
+			title={`Extrinsics from hash: ${!query.hash ? hashValue : query.hash}`}
 			query={query}
 			pages={pages}
 		/>
