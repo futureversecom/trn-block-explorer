@@ -29,7 +29,7 @@ const useQuery = (limit) => {
 
 	return {
 		...query,
-		data: query?.data?.archive?.call,
+		data: query?.data?.archive?.extrinsic,
 	};
 };
 
@@ -37,15 +37,17 @@ const usePages = (data, limit) => {
 	const { setPages } = usePagination("extrinsics");
 
 	useEffect(() => {
-		if (!data?.archive?.call_aggregate) return;
+		if (!data?.archive?.extrinsic_aggregate) return;
 
 		setPages(
 			Array.from(
 				Array(
-					Math.ceil(data?.archive?.call_aggregate?.aggregate?.count / limit)
+					Math.ceil(
+						data?.archive?.extrinsic_aggregate?.aggregate?.count / limit
+					)
 				)
 			)
 		);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [data?.archive?.call_aggregate]);
+	}, [data?.archive?.extrinsic_aggregate]);
 };

@@ -39,33 +39,40 @@ export default function ExtrinsicsList({ title, query, pages }) {
 										</tr>
 									</thead>
 									<tbody className="divide-y divide-gray-800 bg-transparent">
-										{query.data?.map((call, key) => (
+										{query.data?.map((extrinsic, key) => (
 											<tr key={key}>
 												<TableLayout.Data dataClassName="!text-indigo-500 font-bold">
-													<Link href={`/extrinsic/${call.id}`}>
-														{formatExtrinsicId(call.id)}
+													<Link href={`/extrinsic/${extrinsic.id}`}>
+														{formatExtrinsicId(extrinsic.id)}
 													</Link>
 												</TableLayout.Data>
-												<TableLayout.Data>
+
+												<TableLayout.Data dataClassName="flex">
 													<BlockFinalizedIcon
-														status={call?.success}
+														status={extrinsic?.success}
 														iconClassName="h-5"
+														isExtrinsic={true}
 													/>
 												</TableLayout.Data>
+
 												<TableLayout.Data>
-													{formatAddress(call.extrinsic.hash, 12)}
+													{formatAddress(extrinsic.hash, 12)}
 												</TableLayout.Data>
+
 												<TableLayout.Data>
-													<TimeAgo date={call.block.timestamp} />
+													<TimeAgo date={extrinsic.block.timestamp} />
 												</TableLayout.Data>
+
 												<TableLayout.Data dataClassName="!text-indigo-500 font-bold">
-													<Link href={`/block/${call.block.height}`}>
-														{call.block.height}
+													<Link href={`/block/${extrinsic.block.height}`}>
+														{extrinsic.block.height}
 													</Link>
 												</TableLayout.Data>
-												<TableLayout.Data>{call.name}</TableLayout.Data>
 												<TableLayout.Data>
-													{call.events_aggregate.aggregate.count}
+													{extrinsic.calls[0].name}
+												</TableLayout.Data>
+												<TableLayout.Data>
+													{extrinsic.events_aggregate.aggregate.count}
 												</TableLayout.Data>
 											</tr>
 										))}

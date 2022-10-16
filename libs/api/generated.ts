@@ -5371,7 +5371,7 @@ export type GetExtrinsicsByIdsQueryVariables = Exact<{
 }>;
 
 
-export type GetExtrinsicsByIdsQuery = { __typename?: 'query_root', archive?: { __typename?: 'archive_archive_query', call: Array<{ __typename?: 'archive_call', id: string, success: boolean, name: string, extrinsic: { __typename?: 'archive_extrinsic', hash: any, index_in_block: number }, block: { __typename?: 'archive_block', height: number, timestamp: any }, events_aggregate: { __typename?: 'archive_event_aggregate', aggregate?: { __typename?: 'archive_event_aggregate_fields', count: number } | null } }>, call_aggregate: { __typename?: 'archive_call_aggregate', aggregate?: { __typename?: 'archive_call_aggregate_fields', count: number } | null } } | null };
+export type GetExtrinsicsByIdsQuery = { __typename?: 'query_root', archive?: { __typename?: 'archive_archive_query', extrinsic: Array<{ __typename?: 'archive_extrinsic', id: any, success: boolean, hash: any, index_in_block: number, calls: Array<{ __typename?: 'archive_call', name: string }>, block: { __typename?: 'archive_block', height: number, timestamp: any }, events_aggregate: { __typename?: 'archive_event_aggregate', aggregate?: { __typename?: 'archive_event_aggregate_fields', count: number } | null } }>, extrinsic_aggregate: { __typename?: 'archive_extrinsic_aggregate', aggregate?: { __typename?: 'archive_extrinsic_aggregate_fields', count: number } | null } } | null };
 
 export type GetTransferByHashQueryVariables = Exact<{
   hash: Scalars['String'];
@@ -5878,19 +5878,19 @@ export const useGetExtrinsicsQuery = <
 export const GetExtrinsicsByIdsDocument = `
     query GetExtrinsicsByIds($limit: Int!, $offset: Int, $idArray: [String!]) {
   archive {
-    call(
+    extrinsic(
       limit: $limit
       offset: $offset
       order_by: {block: {height: desc}}
-      where: {name: {_neq: "Timestamp.set"}, id: {_in: $idArray}}
+      where: {calls: {name: {_neq: "Timestamp.set"}, id: {_in: $idArray}}}
     ) {
       id
       success
-      name
-      extrinsic {
-        hash
-        index_in_block
+      calls {
+        name
       }
+      hash
+      index_in_block
       block {
         height
         timestamp
@@ -5901,7 +5901,9 @@ export const GetExtrinsicsByIdsDocument = `
         }
       }
     }
-    call_aggregate(where: {name: {_neq: "Timestamp.set"}, id: {_in: $idArray}}) {
+    extrinsic_aggregate(
+      where: {calls: {name: {_neq: "Timestamp.set"}, id: {_in: $idArray}}}
+    ) {
       aggregate {
         count
       }
