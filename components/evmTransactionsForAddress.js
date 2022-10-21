@@ -1,7 +1,6 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { useEffect, useMemo } from "react";
-import TimeAgo from "react-timeago";
 
 import {
 	AddressLink,
@@ -14,14 +13,19 @@ import {
 	useGetEvmTransactionsFromAddressQuery,
 	useGetEvmTransactionsToAddressQuery,
 } from "@/libs/api/generated";
-import { usePolling } from "@/libs/hooks";
-import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
+import { usePolling, useTimeAgo } from "@/libs/hooks";
+import {
+	useAccountRefetchStatus,
+	usePagination,
+	useTickerAtom,
+} from "@/libs/stores";
 import { formatExtrinsicId } from "@/libs/utils";
 
 export default function EvmTransactionsForAddress({ walletAddress }) {
 	const { pages, currentPage } = usePagination("accountEvmTransactions");
 
 	const query = useTransactions(walletAddress);
+	const tick = useTickerAtom();
 
 	const pageSlice = useMemo(() => (currentPage - 1) * 10, [currentPage]);
 
@@ -58,60 +62,16 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 										const { to, from } = ethereumExecutedEvent.args;
 
 										return (
-											<tr key={key}>
-												<TableLayout.Data dataClassName="!text-indigo-500">
-													<Link href={`/block/${call.block.height}`}>
-														{call.block.height}
-													</Link>
-												</TableLayout.Data>
-
-												<TableLayout.Data dataClassName="!text-indigo-500">
-													<Link href={`/extrinsic/${call.id}`}>
-														{formatExtrinsicId(call.id)}
-													</Link>
-												</TableLayout.Data>
-
-												<TableLayout.Data>
-													{from?.toLowerCase() === walletAddress.toLowerCase()
-														? "Out"
-														: "In"}
-												</TableLayout.Data>
-
-												<TableLayout.Data>
-													<TimeAgo date={call.block.timestamp} />
-												</TableLayout.Data>
-
-												<TableLayout.Data
-													dataClassName={clsx(
-														from !== walletAddress.toLowerCase() &&
-															"!text-indigo-500"
-													)}
-												>
-													<AddressLink
-														address={from}
-														isAccount={from === walletAddress.toLowerCase()}
-													/>
-												</TableLayout.Data>
-
-												<TableLayout.Data
-													dataClassName={clsx(
-														to !== walletAddress.toLowerCase() &&
-															"!text-indigo-500"
-													)}
-												>
-													<AddressLink
-														address={to}
-														isAccount={to === walletAddress.toLowerCase()}
-													/>
-												</TableLayout.Data>
-
-												<TableLayout.Data dataClassName="flex">
-													<BlockFinalizedIcon
-														status={call.success}
-														isExtrinsic={true}
-													/>
-												</TableLayout.Data>
-											</tr>
+											<EvmTransactionsForAddressRow
+												key={key}
+												block={call.block}
+												id={call.id}
+												from={from}
+												to={to}
+												walletAddress={walletAddress}
+												success={call.success}
+												tick={tick}
+											/>
 										);
 									})}
 							</tbody>
@@ -126,6 +86,61 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 		</div>
 	);
 }
+
+const EvmTransactionsForAddressRow = ({
+	block,
+	id,
+	from,
+	to,
+	walletAddress,
+	success,
+	tick,
+}) => {
+	const timeAgo = useTimeAgo(block?.timestamp, tick);
+	return (
+		<tr>
+			<TableLayout.Data dataClassName="!text-indigo-500">
+				<Link href={`/block/${block.height}`}>{block.height}</Link>
+			</TableLayout.Data>
+
+			<TableLayout.Data dataClassName="!text-indigo-500">
+				<Link href={`/extrinsic/${id}`}>{formatExtrinsicId(id)}</Link>
+			</TableLayout.Data>
+
+			<TableLayout.Data>
+				{from?.toLowerCase() === walletAddress.toLowerCase() ? "Out" : "In"}
+			</TableLayout.Data>
+
+			<TableLayout.Data>{timeAgo}</TableLayout.Data>
+
+			<TableLayout.Data
+				dataClassName={clsx(
+					from !== walletAddress.toLowerCase() && "!text-indigo-500"
+				)}
+			>
+				<AddressLink
+					address={from}
+					isAccount={from === walletAddress.toLowerCase()}
+				/>
+			</TableLayout.Data>
+
+			<TableLayout.Data
+				dataClassName={clsx(
+					to !== walletAddress.toLowerCase() && "!text-indigo-500"
+				)}
+			>
+				<AddressLink
+					address={to}
+					isAccount={to === walletAddress.toLowerCase()}
+				/>
+			</TableLayout.Data>
+
+			<TableLayout.Data dataClassName="flex">
+				<BlockFinalizedIcon status={success} isExtrinsic={true} />
+			</TableLayout.Data>
+		</tr>
+	);
+};
 
 const useTransactions = (address) => {
 	const toQuery = usePolling(

@@ -1,17 +1,18 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { ethers } from "ethers";
 import Link from "next/link";
-import TimeAgo from "react-timeago";
 
 import { LoadingBlock, RefetchIndicator } from "@/components";
 import { TransferStatusIcon } from "@/components/icons";
 import { useGetTransfersQuery } from "@/libs/api/generated.ts";
-import { useExtrinsicId, usePolling } from "@/libs/hooks";
+import { useExtrinsicId, usePolling, useTimeAgo } from "@/libs/hooks";
+import { useTickerAtom } from "@/libs/stores";
 import { formatAddress } from "@/libs/utils";
 
 export default function TransfersWidget() {
 	const query = usePolling({}, useGetTransfersQuery, { limit: 10 });
 	const transfers = query?.data?.transfers?.transfers;
+	const tick = useTickerAtom();
 
 	return (
 		<div>
@@ -48,6 +49,7 @@ export default function TransfersWidget() {
 							amount={item.amount}
 							status={item.status}
 							blockNumber={item.blockNumber}
+							tick={tick}
 						/>
 					))}
 				</div>
@@ -64,8 +66,10 @@ const TransferItem = ({
 	amount,
 	status,
 	blockNumber,
+	tick,
 }) => {
 	const id = useExtrinsicId(extrinsicHash);
+	const timeAgo = useTimeAgo(timestamp, tick);
 
 	return (
 		<div className="block py-3">
@@ -112,9 +116,7 @@ const TransferItem = ({
 						</>
 					)}
 				</div>
-				<div className="text-sm text-gray-600">
-					<TimeAgo date={timestamp} />
-				</div>
+				<div className="text-sm text-gray-600">{timeAgo}</div>
 			</div>
 		</div>
 	);

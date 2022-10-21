@@ -1,7 +1,6 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useEffect } from "react";
-import TimeAgo from "react-timeago";
 
 import {
 	ContainerLayout,
@@ -12,13 +11,14 @@ import {
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetExtrinsicsQuery } from "@/libs/api/generated.ts";
-import { usePolling } from "@/libs/hooks";
-import { usePagination } from "@/libs/stores";
+import { usePolling, useTimeAgo } from "@/libs/hooks";
+import { usePagination, useTickerAtom } from "@/libs/stores";
 import { formatAddress, formatExtrinsicId } from "@/libs/utils";
 
 export default function Extrinsics() {
 	const query = useQuery(20);
 	const { pages } = usePagination("extrinsics");
+	const tick = useTickerAtom();
 
 	return (
 		<ContainerLayout>
@@ -47,41 +47,16 @@ export default function Extrinsics() {
 									</thead>
 									<tbody className="divide-y divide-gray-800 bg-transparent">
 										{query.data?.map((extrinsic, key) => (
-											<tr key={key}>
-												<TableLayout.Data dataClassName="!text-indigo-500 font-bold">
-													<Link href={`/extrinsic/${extrinsic.id}`}>
-														{formatExtrinsicId(extrinsic.id)}
-													</Link>
-												</TableLayout.Data>
-
-												<TableLayout.Data dataClassName="flex">
-													<BlockFinalizedIcon
-														status={extrinsic?.success}
-														iconClassName="h-5"
-														isExtrinsic={true}
-													/>
-												</TableLayout.Data>
-
-												<TableLayout.Data>
-													{formatAddress(extrinsic.hash, 12)}
-												</TableLayout.Data>
-
-												<TableLayout.Data>
-													<TimeAgo date={extrinsic.block.timestamp} />
-												</TableLayout.Data>
-
-												<TableLayout.Data dataClassName="!text-indigo-500 font-bold">
-													<Link href={`/block/${extrinsic.block.height}`}>
-														{extrinsic.block.height}
-													</Link>
-												</TableLayout.Data>
-												<TableLayout.Data>
-													{extrinsic.calls[0].name}
-												</TableLayout.Data>
-												<TableLayout.Data>
-													{extrinsic.events_aggregate.aggregate.count}
-												</TableLayout.Data>
-											</tr>
+											<ExtrinsicRow
+												key={key}
+												id={extrinsic.id}
+												hash={extrinsic.hash}
+												success={extrinsic?.success}
+												events_aggregate={extrinsic.events_aggregate}
+												block={extrinsic.block}
+												calls={extrinsic.calls}
+												tick={tick}
+											/>
 										))}
 									</tbody>
 								</TableLayout.Table>
@@ -95,6 +70,39 @@ export default function Extrinsics() {
 		</ContainerLayout>
 	);
 }
+
+const ExtrinsicRow = ({
+	id,
+	hash,
+	success,
+	events_aggregate,
+	block,
+	calls,
+	tick,
+}) => {
+	const timeAgo = useTimeAgo(block.timestamp, tick);
+	return (
+		<tr>
+			<TableLayout.Data dataClassName="!text-indigo-500 font-bold">
+				<Link href={`/extrinsic/${id}`}>{formatExtrinsicId(id)}</Link>
+			</TableLayout.Data>
+			<TableLayout.Data dataClassName="flex">
+				<BlockFinalizedIcon
+					status={success}
+					iconClassName="h-5"
+					isExtrinsic={true}
+				/>
+			</TableLayout.Data>
+			<TableLayout.Data>{formatAddress(hash, 12)}</TableLayout.Data>
+			<TableLayout.Data>{timeAgo}</TableLayout.Data>
+			<TableLayout.Data dataClassName="!text-indigo-500 font-bold">
+				<Link href={`/block/${block.height}`}>{block.height}</Link>
+			</TableLayout.Data>
+			<TableLayout.Data>{calls[0].name}</TableLayout.Data>
+			<TableLayout.Data>{events_aggregate.aggregate.count}</TableLayout.Data>
+		</tr>
+	);
+};
 
 const useQuery = (limit) => {
 	const { currentPage } = usePagination("extrinsics");

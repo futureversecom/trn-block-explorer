@@ -4,7 +4,6 @@ import moment from "moment";
 import Link from "next/link";
 import { useState } from "react";
 import JSONPretty from "react-json-pretty";
-import TimeAgo from "react-timeago";
 
 import {
 	ContainerLayout,
@@ -21,6 +20,8 @@ import {
 } from "@/libs/api/generated";
 import { graphQLClient } from "@/libs/client";
 import { ROOT_GAS_TOKEN_PRE_BLOCK } from "@/libs/constants";
+import { useTimeAgo } from "@/libs/hooks";
+import { useTickerAtom } from "@/libs/stores";
 import { formatBalance, formatExtrinsicId } from "@/libs/utils";
 
 export const getServerSideProps = async (context) => {
@@ -93,6 +94,8 @@ export const getServerSideProps = async (context) => {
 export default function Extrinsic({ extrinsicId }) {
 	const query = useGetExtrinsicQuery(graphQLClient, { extrinsicId });
 	const data = query?.data?.archive?.extrinsic_by_pk;
+	const tick = useTickerAtom();
+	const timeAgo = useTimeAgo(data?.block?.timestamp, tick);
 
 	return (
 		<ContainerLayout>
@@ -110,9 +113,7 @@ export default function Extrinsic({ extrinsicId }) {
 							<DetailsLayout.Data>
 								{/* @FIXME: Unhandled runtime error occurs when `data.block` is null */}
 								{moment(data?.block?.timestamp).format("LLL")}{" "}
-								<span className="ml-3 text-xs">
-									<TimeAgo date={data?.block?.timestamp} />
-								</span>
+								<span className="ml-3 text-xs">{timeAgo}</span>
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 

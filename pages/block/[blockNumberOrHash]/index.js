@@ -3,7 +3,6 @@ import { isHex } from "@polkadot/util";
 import moment from "moment";
 import Link from "next/link";
 import JSONPretty from "react-json-pretty";
-import TimeAgo from "react-timeago";
 
 import {
 	ContainerLayout,
@@ -14,7 +13,8 @@ import {
 import { BlockFinalizedIcon } from "@/components/icons";
 import { GetBlockDocument, useGetBlockQuery } from "@/libs/api/generated.ts";
 import { graphQLClient } from "@/libs/client";
-import { usePolling } from "@/libs/hooks";
+import { usePolling, useTimeAgo } from "@/libs/hooks";
+import { useTickerAtom } from "@/libs/stores";
 import { formatExtrinsicId } from "@/libs/utils";
 
 export const getServerSideProps = async (context) => {
@@ -47,6 +47,9 @@ export default function BlockByNumber({ blockNumber }) {
 	});
 
 	query.data = query?.data?.archive?.block[0];
+
+	const tick = useTickerAtom();
+	const timeAgo = useTimeAgo(query?.data?.timestamp, tick);
 
 	const getPrevBlock = () => {
 		if (parseInt(blockNumber) == 0) {
@@ -82,9 +85,7 @@ export default function BlockByNumber({ blockNumber }) {
 						<DetailsLayout.Title title="Timestamp" />
 						<DetailsLayout.Data>
 							{moment(query.data.timestamp).format("LLL")}{" "}
-							<span className="ml-3 text-xs">
-								<TimeAgo date={query.data.timestamp} />
-							</span>
+							<span className="ml-3 text-xs">{timeAgo}</span>
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
