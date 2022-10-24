@@ -15,7 +15,7 @@ export const useTickerAtom = () => {
 	const [tick, setTick] = useAtom(tickerAtom);
 
 	useInterval(() => {
-		setTick(new Date(tick.setSeconds(tick.getSeconds() + 1)));
+		setTick(new Date());
 	}, 1000);
 
 	return tick;
