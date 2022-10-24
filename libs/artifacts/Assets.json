@@ -42,6 +42,22 @@
       "decimals": 18,
       "assetId": 1124,
       "mainnet": false
+    },
+
+    {
+      "symbol": "SYLO",
+      "address": "0xf293d23bf2cdc05411ca0eddd588eb1977e8dcd4",
+      "decimals": 18,
+      "assetId": 0,
+      "mainnet": true
+    },
+
+    {
+      "symbol": "SYLO",
+      "address": "0x147dE5ddE61c38A5289a398B7bC096DF88E6251F",
+      "decimals": 18,
+      "assetId": 3172,
+      "mainnet": false
     }
   ]
 }
