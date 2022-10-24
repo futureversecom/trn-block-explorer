@@ -2,7 +2,7 @@ import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { isHex } from "@polkadot/util";
 import moment from "moment";
 import Link from "next/link";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import JSONPretty from "react-json-pretty";
 import TimeAgo from "react-timeago";
 
@@ -21,6 +21,7 @@ import {
 } from "@/libs/api/generated";
 import { graphQLClient } from "@/libs/client";
 import { ROOT_GAS_TOKEN_PRE_BLOCK } from "@/libs/constants";
+import { useExtrinsicSuccess } from "@/libs/hooks";
 import { formatBalance, formatExtrinsicId } from "@/libs/utils";
 
 export const getServerSideProps = async (context) => {
@@ -93,6 +94,7 @@ export const getServerSideProps = async (context) => {
 export default function Extrinsic({ extrinsicId }) {
 	const query = useGetExtrinsicQuery(graphQLClient, { extrinsicId });
 	const extrinsic = query?.data?.archive?.extrinsic_by_pk;
+	const extrinsicSuccess = useExtrinsicSuccess(extrinsic);
 
 	return (
 		<ContainerLayout>
@@ -131,7 +133,7 @@ export default function Extrinsic({ extrinsicId }) {
 							<DetailsLayout.Data>
 								<div className="flex flex-row space-x-3">
 									<BlockFinalizedIcon
-										status={extrinsic?.success}
+										status={extrinsicSuccess}
 										isExtrinsic={true}
 									/>
 								</div>
