@@ -4,7 +4,7 @@ import Link from "next/link";
 import { DummyListItem, RefetchIndicator } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetExtrinsicsQuery } from "@/libs/api/generated.ts";
-import { usePolling, useTimeAgo } from "@/libs/hooks";
+import { useExtrinsicSuccess, usePolling, useTimeAgo } from "@/libs/hooks";
 import { useTickerAtom } from "@/libs/stores";
 import { formatExtrinsicId } from "@/libs/utils";
 
@@ -40,7 +40,7 @@ export default function ExtrinsicsWidget() {
 					: query.data?.map((extrinsic, key) => (
 							<Extrinsic
 								key={key}
-								success={extrinsic.success}
+								extrinsic={extrinsic}
 								call={extrinsic.calls[0].name}
 								timestamp={extrinsic.block.timestamp}
 								extrinsicId={extrinsic.id}
@@ -52,8 +52,10 @@ export default function ExtrinsicsWidget() {
 	);
 }
 
-const Extrinsic = ({ success, call, timestamp, extrinsicId, tick }) => {
+const Extrinsic = ({ extrinsic, call, timestamp, extrinsicId, tick }) => {
 	const timeAgo = useTimeAgo(timestamp, tick);
+	const extrinsicSuccess = useExtrinsicSuccess(extrinsic);
+
 	return (
 		<div className="block py-3">
 			<div className="flex flex-row justify-between">
@@ -71,7 +73,7 @@ const Extrinsic = ({ success, call, timestamp, extrinsicId, tick }) => {
 				<div className="flex space-x-3">
 					<div className="text-sm text-gray-200">{timeAgo}</div>
 					<div>
-						<BlockFinalizedIcon status={success} isExtrinsic={true} />
+						<BlockFinalizedIcon status={extrinsicSuccess} isExtrinsic={true} />
 					</div>
 				</div>
 			</div>

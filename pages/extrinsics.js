@@ -11,7 +11,7 @@ import {
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetExtrinsicsQuery } from "@/libs/api/generated.ts";
-import { usePolling, useTimeAgo } from "@/libs/hooks";
+import { useExtrinsicSuccess, usePolling, useTimeAgo } from "@/libs/hooks";
 import { usePagination, useTickerAtom } from "@/libs/stores";
 import { formatAddress, formatExtrinsicId } from "@/libs/utils";
 
@@ -51,7 +51,7 @@ export default function Extrinsics() {
 												key={key}
 												id={extrinsic.id}
 												hash={extrinsic.hash}
-												success={extrinsic?.success}
+												extrinsic={extrinsic}
 												events_aggregate={extrinsic.events_aggregate}
 												block={extrinsic.block}
 												calls={extrinsic.calls}
@@ -74,13 +74,15 @@ export default function Extrinsics() {
 const ExtrinsicRow = ({
 	id,
 	hash,
-	success,
+	extrinsic,
 	events_aggregate,
 	block,
 	calls,
 	tick,
 }) => {
 	const timeAgo = useTimeAgo(block.timestamp, tick);
+	const extrinsicSuccess = useExtrinsicSuccess(extrinsic);
+
 	return (
 		<tr>
 			<TableLayout.Data dataClassName="!text-indigo-500 font-bold">
@@ -88,7 +90,7 @@ const ExtrinsicRow = ({
 			</TableLayout.Data>
 			<TableLayout.Data dataClassName="flex">
 				<BlockFinalizedIcon
-					status={success}
+					status={extrinsicSuccess}
 					iconClassName="h-5"
 					isExtrinsic={true}
 				/>
