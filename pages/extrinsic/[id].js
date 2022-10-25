@@ -2,7 +2,7 @@ import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { isHex } from "@polkadot/util";
 import moment from "moment";
 import Link from "next/link";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import JSONPretty from "react-json-pretty";
 import TimeAgo from "react-timeago";
 
@@ -21,6 +21,7 @@ import {
 } from "@/libs/api/generated";
 import { graphQLClient } from "@/libs/client";
 import { ROOT_GAS_TOKEN_PRE_BLOCK } from "@/libs/constants";
+import { useExtrinsicSuccess } from "@/libs/hooks";
 import { formatBalance, formatExtrinsicId } from "@/libs/utils";
 
 export const getServerSideProps = async (context) => {
@@ -92,7 +93,8 @@ export const getServerSideProps = async (context) => {
 
 export default function Extrinsic({ extrinsicId }) {
 	const query = useGetExtrinsicQuery(graphQLClient, { extrinsicId });
-	const data = query?.data?.archive?.extrinsic_by_pk;
+	const extrinsic = query?.data?.archive?.extrinsic_by_pk;
+	const extrinsicSuccess = useExtrinsicSuccess(extrinsic);
 
 	return (
 		<ContainerLayout>
@@ -108,10 +110,10 @@ export default function Extrinsic({ extrinsicId }) {
 						<DetailsLayout.Wrapper>
 							<DetailsLayout.Title title="Timestamp" />
 							<DetailsLayout.Data>
-								{/* @FIXME: Unhandled runtime error occurs when `data.block` is null */}
-								{moment(data?.block?.timestamp).format("LLL")}{" "}
+								{/* @FIXME: Unhandled runtime error occurs when `extrinsic.block` is null */}
+								{moment(extrinsic?.block?.timestamp).format("LLL")}{" "}
 								<span className="ml-3 text-xs">
-									<TimeAgo date={data?.block?.timestamp} />
+									<TimeAgo date={extrinsic?.block?.timestamp} />
 								</span>
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
@@ -120,8 +122,8 @@ export default function Extrinsic({ extrinsicId }) {
 							<DetailsLayout.Title title="Block" />
 
 							<DetailsLayout.Data dataClassName="!text-indigo-500">
-								<Link href={`/block/${data?.block?.height}`}>
-									{data?.block?.height}
+								<Link href={`/block/${extrinsic?.block?.height}`}>
+									{extrinsic?.block?.height}
 								</Link>
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
@@ -130,34 +132,37 @@ export default function Extrinsic({ extrinsicId }) {
 							<DetailsLayout.Title title="Status" />
 							<DetailsLayout.Data>
 								<div className="flex flex-row space-x-3">
-									<BlockFinalizedIcon status={true} isExtrinsic={true} />
+									<BlockFinalizedIcon
+										status={extrinsicSuccess}
+										isExtrinsic={true}
+									/>
 								</div>
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 
 						<DetailsLayout.Wrapper>
 							<DetailsLayout.Title title="Hash" />
-							<DetailsLayout.Data>{data.hash}</DetailsLayout.Data>
+							<DetailsLayout.Data>{extrinsic.hash}</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 
 						<DetailsLayout.Wrapper>
 							<DetailsLayout.Title title="Method" />
-							<DetailsLayout.Data>{data.calls[0].name}</DetailsLayout.Data>
+							<DetailsLayout.Data>{extrinsic.calls[0].name}</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 
-						<Fee events={data.events} height={data?.block?.height} />
+						<Fee events={extrinsic.events} height={extrinsic?.block?.height} />
 
-						{data?.signature?.signature && (
+						{extrinsic?.signature?.signature && (
 							<DetailsLayout.Wrapper>
 								<DetailsLayout.Title title="Signature" />
 								<DetailsLayout.Data dataClassName="break-all">
-									{data.signature.signature}
+									{extrinsic.signature.signature}
 								</DetailsLayout.Data>
 							</DetailsLayout.Wrapper>
 						)}
 					</DetailsLayout.Container>
 
-					<Events events={data.events} />
+					<Events events={extrinsic.events} />
 				</>
 			)}
 		</ContainerLayout>

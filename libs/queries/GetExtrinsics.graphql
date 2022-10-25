@@ -17,6 +17,10 @@ query GetExtrinsics($limit: Int!, $offset: Int) {
 				height
 				timestamp
 			}
+			events {
+				name
+				args
+			}
 			events_aggregate {
 				aggregate {
 					count
