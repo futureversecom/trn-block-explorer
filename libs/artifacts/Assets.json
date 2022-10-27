@@ -48,7 +48,7 @@
       "symbol": "SYLO",
       "address": "0xf293d23bf2cdc05411ca0eddd588eb1977e8dcd4",
       "decimals": 18,
-      "assetId": 0,
+      "assetId": 3172,
       "mainnet": true
     },
 
@@ -57,6 +57,22 @@
       "address": "0x147dE5ddE61c38A5289a398B7bC096DF88E6251F",
       "decimals": 18,
       "assetId": 3172,
+      "mainnet": false
+    },
+
+    {
+      "symbol": "USDC",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "decimals": 6,
+      "assetId": 2148,
+      "mainnet": true
+    },
+
+    {
+      "symbol": "USDC",
+      "address": "0x07865c6e87b9f70255377e024ace6630c1eaa37f",
+      "decimals": 6,
+      "assetId": 2148,
       "mainnet": false
     }
   ]
