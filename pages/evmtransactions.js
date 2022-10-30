@@ -10,11 +10,11 @@ import {
 	Pagination,
 	TableLayout,
 } from "@/components";
+import BlockFinalizedIcon from "@/components/icons/blockFinalizedIcon";
 import { useGetEvmTransactionsQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
 import { usePagination } from "@/libs/stores";
 import { formatAddress, formatExtrinsicId } from "@/libs/utils";
-import BlockFinalizedIcon from '@/components/icons/BlockFinalizedIcon'
 
 export default function EVMTransactions() {
 	const query = useQuery(20);
