@@ -5538,6 +5538,11 @@ export type GetExtrinsicsQuery = {
 			index_in_block: number;
 			calls: Array<{ __typename?: "archive_call"; name: string }>;
 			block: { __typename?: "archive_block"; height: number; timestamp: any };
+			events: Array<{
+				__typename?: "archive_event";
+				name: string;
+				args?: any | null;
+			}>;
 			events_aggregate: {
 				__typename?: "archive_event_aggregate";
 				aggregate?: {
@@ -6258,6 +6263,10 @@ export const GetExtrinsicsDocument = `
       block {
         height
         timestamp
+      }
+      events {
+        name
+        args
       }
       events_aggregate {
         aggregate {

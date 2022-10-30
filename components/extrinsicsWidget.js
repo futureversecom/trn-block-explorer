@@ -5,7 +5,7 @@ import TimeAgo from "react-timeago";
 import { DummyListItem, RefetchIndicator } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetExtrinsicsQuery } from "@/libs/api/generated.ts";
-import { usePolling } from "@/libs/hooks";
+import { useExtrinsicSuccess, usePolling } from "@/libs/hooks";
 import { formatExtrinsicId } from "@/libs/utils";
 
 export default function ExtrinsicsWidget() {
@@ -39,7 +39,7 @@ export default function ExtrinsicsWidget() {
 					: query.data?.map((extrinsic, key) => (
 							<Extrinsic
 								key={key}
-								success={extrinsic.success}
+								extrinsic={extrinsic}
 								call={extrinsic.calls[0].name}
 								timestamp={extrinsic.block.timestamp}
 								extrinsicId={extrinsic.id}
@@ -50,7 +50,9 @@ export default function ExtrinsicsWidget() {
 	);
 }
 
-const Extrinsic = ({ success, call, timestamp, extrinsicId }) => {
+const Extrinsic = ({ extrinsic, call, timestamp, extrinsicId }) => {
+	const extrinsicSuccess = useExtrinsicSuccess(extrinsic);
+
 	return (
 		<div className="block py-3">
 			<div className="flex flex-row justify-between">
@@ -70,7 +72,7 @@ const Extrinsic = ({ success, call, timestamp, extrinsicId }) => {
 						<TimeAgo date={timestamp} />
 					</div>
 					<div>
-						<BlockFinalizedIcon status={success} isExtrinsic={true} />
+						<BlockFinalizedIcon status={extrinsicSuccess} isExtrinsic={true} />
 					</div>
 				</div>
 			</div>

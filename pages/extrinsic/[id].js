@@ -3,7 +3,8 @@ import { ClockIcon } from "@heroicons/react/24/outline";
 import { isHex } from "@polkadot/util";
 import moment from "moment";
 import Link from "next/link";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import JSONPretty from "react-json-pretty";
 import TimeAgo from "react-timeago";
 
 import {
@@ -24,6 +25,7 @@ import {
 import { graphQLClient } from "@/libs/client";
 import { ROOT_GAS_TOKEN_PRE_BLOCK } from "@/libs/constants";
 import { usePolling } from "@/libs/hooks";
+import { useExtrinsicSuccess } from "@/libs/hooks";
 import { formatBalance, formatExtrinsicId } from "@/libs/utils";
 
 export const getServerSideProps = async (context) => {
@@ -99,6 +101,8 @@ export default function Extrinsic({ extrinsicId }) {
 		limit: 1,
 	});
 	const data = query?.data?.archive?.extrinsic_by_pk;
+	const extrinsic = query?.data?.archive?.extrinsic_by_pk;
+	const extrinsicSuccess = useExtrinsicSuccess(extrinsic);
 
 	const last_block =
 		blockQuery?.data?.archive?.block_aggregate?.aggregate?.count;
@@ -122,7 +126,8 @@ export default function Extrinsic({ extrinsicId }) {
 										<ClockIcon className="h-5 w-5" />
 									</div>
 									<div>
-										{moment(data.block.timestamp).format("LLL")}{" "}
+										{/* @FIXME: Unhandled runtime error occurs when `extrinsic.block` is null */}
+										{moment(extrinsic?.block?.timestamp).format("LLL")}{" "}
 										<span className="ml-3 text-xs">
 											<TimeAgo date={data.block.timestamp} />
 										</span>
@@ -157,34 +162,37 @@ export default function Extrinsic({ extrinsicId }) {
 							<DetailsLayout.Title title="Status" />
 							<DetailsLayout.Data>
 								<div className="flex flex-row space-x-3">
-									<BlockFinalizedIcon status={true} isExtrinsic={true} />
+									<BlockFinalizedIcon
+										status={extrinsicSuccess}
+										isExtrinsic={true}
+									/>
 								</div>
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 
 						<DetailsLayout.Wrapper>
 							<DetailsLayout.Title title="Hash" />
-							<DetailsLayout.Data>{data.hash}</DetailsLayout.Data>
+							<DetailsLayout.Data>{extrinsic.hash}</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 
 						<DetailsLayout.Wrapper>
 							<DetailsLayout.Title title="Method" />
-							<DetailsLayout.Data>{data.calls[0].name}</DetailsLayout.Data>
+							<DetailsLayout.Data>{extrinsic.calls[0].name}</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 
-						<Fee events={data.events} height={data?.block?.height} />
+						<Fee events={extrinsic.events} height={extrinsic?.block?.height} />
 
-						{data?.signature?.signature && (
+						{extrinsic?.signature?.signature && (
 							<DetailsLayout.Wrapper>
 								<DetailsLayout.Title title="Signature" />
 								<DetailsLayout.Data dataClassName="break-all">
-									{data.signature.signature}
+									{extrinsic.signature.signature}
 								</DetailsLayout.Data>
 							</DetailsLayout.Wrapper>
 						)}
 					</DetailsLayout.Container>
 
-					<Events events={data.events} />
+					<Events events={extrinsic.events} />
 				</>
 			)}
 		</ContainerLayout>
