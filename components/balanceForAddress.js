@@ -5,6 +5,7 @@ import QRCode from "react-qr-code";
 
 import { CopyToClipboard } from "@/components/icons";
 import { useGetBalanceQuery } from "@/libs/api/generated.ts";
+import { BURN_ADDRESSES } from "@/libs/constants";
 import { usePolling } from "@/libs/hooks";
 import { formatBalance, getAssetMetadata } from "@/libs/utils";
 
@@ -61,6 +62,15 @@ export default function BalanceForAddress({ walletAddress }) {
 											</div>
 										</div>
 									</div>
+									{BURN_ADDRESSES.includes(walletAddress.toLowerCase()) && (
+										<div className="max-w-fit py-4 md:px-6 text-sm">
+											<p className="border border-red-400 bg-red-300 p-2 text-red-800">
+												<span className="font-bold">🔥 Attention:</span> This
+												address is a known burn address. Funds sent to this
+												address are lost forever.
+											</p>
+										</div>
+									)}
 								</dl>
 							</div>
 						</div>
@@ -128,10 +138,12 @@ const FormattedBalance = ({ balance, assetId }) => {
 
 	const amount = useMemo(() => {
 		let [beforeDec, afterDec] = formatBalance(balance, decimals).split(".");
-
-		if (!viewFull) afterDec = afterDec.slice(0, 6);
-
-		return `${beforeDec}.${afterDec}`;
+		if (afterDec) {
+			if (!viewFull) afterDec = afterDec.slice(0, 6);
+			return `${beforeDec}.${afterDec}`;
+		} else {
+			return beforeDec;
+		}
 	}, [balance, decimals, viewFull]);
 
 	return (

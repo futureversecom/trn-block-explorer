@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-key */
 import { Tab } from "@headlessui/react";
 import clsx from "clsx";
+import { useRouter } from "next/router";
 import { Fragment } from "react";
 
 import { useAccountRefetchStatus } from "@/libs/stores";
@@ -13,10 +14,24 @@ import {
 
 export const AccountTables = ({ walletAddress }) => {
 	const isRefetching = useAccountRefetchStatus();
+	const router = useRouter();
+	// tab name -> index <-- tab name
+	const url_to_index = ["transfers", "evm_transactions"];
 
 	return (
 		<div className="mt-6">
-			<Tab.Group>
+			<Tab.Group
+				defaultIndex={url_to_index.indexOf(router?.query?.tab) || 0}
+				onChange={(e) => {
+					router.push({
+						...router,
+						query: {
+							...router.query,
+							tab: url_to_index[e],
+						},
+					});
+				}}
+			>
 				<TabList titles={["Transfers", "EVM Transactions"]}>
 					{isRefetching && (
 						<div className="absolute right-2 top-6 flex">

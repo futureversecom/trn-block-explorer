@@ -4,13 +4,6 @@ import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
 
 import { RefetchIndicator } from "@/components";
-import {
-	GetBlockDocument,
-	GetBlockHeightFromHashDocument,
-	GetExtrinsicByRegexDocument,
-	GetExtrinsicIdFromHashDocument,
-} from "@/libs/api/generated";
-import { graphQLClient } from "@/libs/client";
 
 export default function Search() {
 	const { search, setSearch, isSearching, error, onFormSubmit } = useSearch();
@@ -27,6 +20,11 @@ export default function Search() {
 							value={search}
 							type="text"
 							onChange={(e) => setSearch(e.target.value)}
+							onKeyDown={(e) => {
+								if (e.key == "Enter") {
+									onFormSubmit(e);
+								}
+							}}
 							className="block h-10 w-full border-l border-t border-b border-gray-400 bg-transparent p-3 text-white focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 							placeholder="Search by Block / Account / Extrinsic ID / Transaction Hash"
 						/>
@@ -63,43 +61,17 @@ const useSearch = () => {
 	const [isSearching, setIsSearching] = useState(false);
 	const [error, setError] = useState(undefined);
 
-	const getSearchURL = async (search) => {
+	const getSearchURL = (search) => {
 		if (ethers.utils.isAddress(search)) return `/account/${search}`;
 
-		let response;
-		if (search.length === 66) {
-			response = await graphQLClient.request(GetBlockHeightFromHashDocument, {
-				blockHash: search,
-			});
-
-			if (response?.archive?.block?.length)
-				return `/block/${response.archive.block[0].height}`;
-
-			response = await graphQLClient.request(GetExtrinsicIdFromHashDocument, {
-				extrinsicHash: search,
-			});
-
-			if (!response?.archive?.extrinsic?.length) return;
+		// EXTRINSIC HASH OR EXTRINSIC ID
+		if (search.length === 66 || search.includes("-")) {
 			return `/extrinsic/${search}`;
 		}
 
-		if (Number(search) && search >= 0) {
-			response = await graphQLClient.request(GetBlockDocument, {
-				height: search,
-			});
-
-			if (!response?.archive?.block?.length) return;
+		// BLOCK NUMBER
+		if (parseInt(search) >= 0) {
 			return `/block/${search}`;
-		}
-
-		if (search.includes("-")) {
-			const [blockNumber, extrinsicId] = search.split("-");
-			response = await graphQLClient.request(GetExtrinsicByRegexDocument, {
-				regex: `0+${blockNumber}-0+${extrinsicId}`,
-			});
-
-			if (!response?.archive?.extrinsic?.length) return;
-			return `/extrinsic/${response.archive.extrinsic[0].id}`;
 		}
 	};
 
@@ -107,17 +79,21 @@ const useSearch = () => {
 		async (e) => {
 			e.preventDefault();
 
-			if (!search || isSearching) return;
+			if (isSearching) return;
+			if (search == "") return;
+
 			setError("");
 			setIsSearching(true);
 
-			const to = await getSearchURL(search.trim());
+			const to = getSearchURL(search.trim());
 			setIsSearching(false);
 
 			if (!to) {
 				setError("Invalid search parameter");
 				return setSearch("");
 			}
+
+			setSearch("");
 
 			return router.replace(to);
 		},

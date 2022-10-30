@@ -1,0 +1,35 @@
+query GetEvmTransactions($limit: Int!, $offset: Int) {
+	archive {
+		frontier_ethereum_transaction(
+			limit: $limit
+			offset: $offset
+			order_by: { call: { block: { height: desc } } }
+		) {
+			contract
+			sighash
+			call {
+				name
+				success
+				block {
+					height
+					timestamp
+				}
+				extrinsic {
+					id
+					hash
+					events_aggregate {
+						aggregate {
+							count
+						}
+					}
+				}
+				args
+			}
+		}
+		frontier_ethereum_transaction_aggregate {
+			aggregate {
+				count
+			}
+		}
+	}
+}

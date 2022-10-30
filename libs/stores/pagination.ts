@@ -10,6 +10,7 @@ interface Pagination {
 type Table =
 	| "accountEvmTransactions"
 	| "accountTransfers"
+	| "evmtransactions"
 	| "extrinsics"
 	| "blocks"
 	| "accounts";
@@ -30,6 +31,9 @@ const pagination = atom<PaginationState>({
 		currentPage: 1,
 	},
 	accounts: {
+		currentPage: 1,
+	},
+	evmtransactions: {
 		currentPage: 1,
 	},
 });
@@ -77,20 +81,22 @@ export const usePagination = (table: Table) => {
 	useEffect(() => {
 		if (!router?.asPath) return;
 
-		["extrinsics", "blocks", "accounts", "account"].forEach((path: string) => {
-			if (!path || router?.asPath.includes(path)) return;
+		["extrinsics", "blocks", "accounts", "account", "evmtransactions"].forEach(
+			(path: string) => {
+				if (!path || router?.asPath.includes(path)) return;
 
-			if (path !== "account") return resetCurrentPage(path as Table);
+				if (path !== "account") return resetCurrentPage(path as Table);
 
-			resetCurrentPage("accountTransfers");
-			resetCurrentPage("accountEvmTransactions");
-		});
+				resetCurrentPage("accountTransfers");
+				resetCurrentPage("accountEvmTransactions");
+			}
+		);
 	}, [router?.asPath]);
 
 	return {
 		setPages,
 		setCurrentPage,
 		pages: pagination[table]?.pages,
-		currentPage: pagination[table].currentPage,
+		currentPage: pagination[table]?.currentPage,
 	};
 };

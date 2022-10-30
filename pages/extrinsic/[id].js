@@ -1,4 +1,5 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import { ClockIcon } from "@heroicons/react/24/outline";
 import { isHex } from "@polkadot/util";
 import moment from "moment";
 import Link from "next/link";
@@ -14,13 +15,16 @@ import {
 	TableLayout,
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
+import JSONViewer from "@/components/JSONViewer";
 import {
 	GetExtrinsicByRegexDocument,
 	GetExtrinsicIdFromHashDocument,
+	useGetBlocksQuery,
 	useGetExtrinsicQuery,
 } from "@/libs/api/generated";
 import { graphQLClient } from "@/libs/client";
 import { ROOT_GAS_TOKEN_PRE_BLOCK } from "@/libs/constants";
+import { usePolling } from "@/libs/hooks";
 import { useExtrinsicSuccess } from "@/libs/hooks";
 import { formatBalance, formatExtrinsicId } from "@/libs/utils";
 
@@ -93,8 +97,15 @@ export const getServerSideProps = async (context) => {
 
 export default function Extrinsic({ extrinsicId }) {
 	const query = useGetExtrinsicQuery(graphQLClient, { extrinsicId });
+	const blockQuery = usePolling({}, useGetBlocksQuery, {
+		limit: 1,
+	});
+	const data = query?.data?.archive?.extrinsic_by_pk;
 	const extrinsic = query?.data?.archive?.extrinsic_by_pk;
 	const extrinsicSuccess = useExtrinsicSuccess(extrinsic);
+
+	const last_block =
+		blockQuery?.data?.archive?.block_aggregate?.aggregate?.count;
 
 	return (
 		<ContainerLayout>
@@ -110,11 +121,18 @@ export default function Extrinsic({ extrinsicId }) {
 						<DetailsLayout.Wrapper>
 							<DetailsLayout.Title title="Timestamp" />
 							<DetailsLayout.Data>
-								{/* @FIXME: Unhandled runtime error occurs when `extrinsic.block` is null */}
-								{moment(extrinsic?.block?.timestamp).format("LLL")}{" "}
-								<span className="ml-3 text-xs">
-									<TimeAgo date={extrinsic?.block?.timestamp} />
-								</span>
+								<div className="flex space-x-2">
+									<div>
+										<ClockIcon className="h-5 w-5" />
+									</div>
+									<div>
+										{/* @FIXME: Unhandled runtime error occurs when `extrinsic.block` is null */}
+										{moment(extrinsic?.block?.timestamp).format("LLL")}{" "}
+										<span className="ml-3 text-xs">
+											<TimeAgo date={data.block.timestamp} />
+										</span>
+									</div>
+								</div>
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 
@@ -122,9 +140,21 @@ export default function Extrinsic({ extrinsicId }) {
 							<DetailsLayout.Title title="Block" />
 
 							<DetailsLayout.Data dataClassName="!text-indigo-500">
-								<Link href={`/block/${extrinsic?.block?.height}`}>
-									{extrinsic?.block?.height}
-								</Link>
+								<div className={`flex space-x-2`}>
+									<div>
+										<Link href={`/block/${data.block.height}`}>
+											{data.block.height}
+										</Link>
+									</div>
+
+									<div className="text-white">
+										<span className="font-bold">
+											{parseInt(last_block) - parseInt(data.block.height) ||
+												"Loading"}
+										</span>{" "}
+										Block Confirmations
+									</div>
+								</div>
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 
@@ -223,7 +253,7 @@ const Events = ({ events }) => {
 
 											{viewArgs.includes(key) && (
 												<div className="max-h-32 max-w-xl overflow-scroll rounded bg-gray-900 bg-opacity-30 p-2 text-xs text-white">
-													<JSONPretty data={event.args} />
+													<JSONViewer data={event.args} />
 												</div>
 											)}
 										</TableLayout.Data>

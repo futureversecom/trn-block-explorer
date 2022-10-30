@@ -24,6 +24,10 @@ const links = [
 		title: "Accounts",
 		href: "/accounts",
 	},
+	{
+		title: "EVM Transactions",
+		href: "/evmtransactions",
+	},
 ];
 
 export default function Header() {
@@ -46,7 +50,7 @@ export default function Header() {
 									)}
 								</Disclosure.Button>
 							</div>
-							<div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+							<div className="flex flex-1 select-none items-center justify-center sm:items-stretch sm:justify-start">
 								<div className="flex flex-shrink-0 items-center text-white">
 									<Link href="/">
 										<span
@@ -64,7 +68,7 @@ export default function Header() {
 										<Fragment key={key}>
 											<span
 												className={clsx(
-													`inline-flex items-center font-gilroy-medium text-nav uppercase leading-[23px] tracking-[1.1px] text-white`
+													`inline-flex select-none items-center font-gilroy-medium text-nav uppercase leading-[23px] tracking-[1.1px] text-white`
 												)}
 											>
 												{"//"}
@@ -86,7 +90,7 @@ export default function Header() {
 									{/* border-indigo-500 to set active state */}
 								</div>
 							</div>
-							<div className="flex flex-shrink-0 items-center text-white">
+							<div className="flex flex-shrink-0 items-center space-x-3 text-white">
 								<span
 									className={clsx(
 										"inline-block h-5 whitespace-nowrap py-1 px-2 text-center align-baseline font-gilroy-extrabold text-xs uppercase leading-none text-black",

@@ -1,10 +1,12 @@
-import { CubeIcon } from "@heroicons/react/24/outline";
+import {
+	ChevronLeftIcon,
+	ClockIcon,
+	CubeIcon,
+} from "@heroicons/react/24/outline";
 import { isHex } from "@polkadot/util";
 import moment from "moment";
 import Link from "next/link";
-import JSONPretty from "react-json-pretty";
 import TimeAgo from "react-timeago";
-
 import {
 	ContainerLayout,
 	DetailsLayout,
@@ -12,6 +14,7 @@ import {
 	PageHeader,
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
+import JSONViewer from "@/components/JSONViewer";
 import { GetBlockDocument, useGetBlockQuery } from "@/libs/api/generated.ts";
 import { graphQLClient } from "@/libs/client";
 import { usePolling } from "@/libs/hooks";
@@ -75,16 +78,38 @@ export default function BlockByNumber({ blockNumber }) {
 				<DetailsLayout.Container>
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Height" />
-						<DetailsLayout.Data>{blockNumber}</DetailsLayout.Data>
+						<DetailsLayout.Data>
+							<div className="flex space-x-3">
+								<div className="flex h-6 w-6 cursor-pointer space-x-3 border text-center">
+									<Link href={`/block/${getPrevBlock()}`}>
+										<ChevronLeftIcon className="mx-auto my-auto h-4 w-4" />
+									</Link>
+								</div>
+								<div>
+									{blockNumber == "0" ? (
+										<span className="font-bold">GENESIS BLOCK</span>
+									) : (
+										blockNumber
+									)}
+								</div>
+							</div>
+						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Timestamp" />
 						<DetailsLayout.Data>
-							{moment(query.data.timestamp).format("LLL")}{" "}
-							<span className="ml-3 text-xs">
-								<TimeAgo date={query.data.timestamp} />
-							</span>
+							<div className="flex space-x-2">
+								<div>
+									<ClockIcon className="h-5 w-5" />
+								</div>
+								<div>
+									{moment(query.data.timestamp).format("LLL")}{" "}
+									<span className="text-xs">
+										<TimeAgo date={query.data.timestamp} />
+									</span>
+								</div>
+							</div>
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
@@ -125,29 +150,33 @@ export default function BlockByNumber({ blockNumber }) {
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
-					<DetailsLayout.Wrapper>
-						<DetailsLayout.Title title="Extrinsics" />
-						<DetailsLayout.Data>
-							<ul>
-								{query.data.extrinsics.map((extrinsic, i) => (
-									<li className="cursor-pointer text-indigo-500" key={i}>
-										<Link href={`/extrinsic/${extrinsic.id}`}>
-											{formatExtrinsicId(extrinsic.id)}
-										</Link>
-									</li>
-								))}
-							</ul>
-						</DetailsLayout.Data>
-					</DetailsLayout.Wrapper>
+					{query?.data?.extrinsics?.length > 0 && (
+						<DetailsLayout.Wrapper>
+							<DetailsLayout.Title title="Extrinsics" />
+							<DetailsLayout.Data>
+								<ul>
+									{query.data.extrinsics.map((extrinsic, i) => (
+										<li className="cursor-pointer text-indigo-500" key={i}>
+											<Link href={`/extrinsic/${extrinsic.id}`}>
+												{formatExtrinsicId(extrinsic.id)}
+											</Link>
+										</li>
+									))}
+								</ul>
+							</DetailsLayout.Data>
+						</DetailsLayout.Wrapper>
+					)}
 
-					<DetailsLayout.Wrapper>
-						<DetailsLayout.Title title="Events" />
-						<DetailsLayout.Data>
-							<div className="h-64 overflow-scroll rounded bg-gray-900 bg-opacity-30 p-2">
-								<JSONPretty id="json-pretty" data={query.data.events} />
-							</div>
-						</DetailsLayout.Data>
-					</DetailsLayout.Wrapper>
+					{query?.data?.events?.length > 0 && (
+						<DetailsLayout.Wrapper>
+							<DetailsLayout.Title title="Events" />
+							<DetailsLayout.Data>
+								<div className="h-64 overflow-scroll rounded bg-gray-900 bg-opacity-30 p-2">
+									<JSONViewer data={query.data.events} />
+								</div>
+							</DetailsLayout.Data>
+						</DetailsLayout.Wrapper>
+					)}
 
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Spec Version" />
