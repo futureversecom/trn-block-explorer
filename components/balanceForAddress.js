@@ -7,7 +7,7 @@ import { CopyToClipboard } from "@/components/icons";
 import { useGetBalanceQuery } from "@/libs/api/generated.ts";
 import { BURN_ADDRESSES } from "@/libs/constants";
 import { usePolling } from "@/libs/hooks";
-import { formatBalance, getAssetMetadata } from "@/libs/utils";
+import { formatAddress, formatBalance, getAssetMetadata } from "@/libs/utils";
 
 import { LoadingBlock, RefetchIndicator } from "./";
 
@@ -52,18 +52,8 @@ export default function BalanceForAddress({ walletAddress }) {
 											<div className="my-auto text-lg">Unknown</div>
 										</div>
 									</div>
-									<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-										<div className="flex flex-row space-x-3 text-sm font-medium text-white">
-											<p className="truncate md:whitespace-normal">
-												{walletAddress}
-											</p>
-											<div className="my-auto">
-												<CopyToClipboard value={walletAddress} />
-											</div>
-										</div>
-									</div>
 									{BURN_ADDRESSES.includes(walletAddress.toLowerCase()) && (
-										<div className="max-w-fit py-4 md:px-6 text-sm">
+										<div className="max-w-fit py-4 text-sm md:px-6">
 											<p className="border border-red-400 bg-red-300 p-2 text-red-800">
 												<span className="font-bold">🔥 Attention:</span> This
 												address is a known burn address. Funds sent to this

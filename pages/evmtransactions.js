@@ -56,18 +56,18 @@ export default function EVMTransactions() {
 											// console.log(to, from)
 											return (
 												<tr key={key}>
-													<TableLayout.Data dataClassName="!text-indigo-500 font-bold">
+													<TableLayout.Data>
 														<Link
 															href={`/extrinsic/${transaction.call.extrinsic.id}`}
 														>
-															<span>
+															<span className="cursor-pointer text-indigo-500 hover:text-white">
 																{formatExtrinsicId(
 																	transaction.call.extrinsic.id
 																)}
 															</span>
 														</Link>
 													</TableLayout.Data>
-													<TableLayout.Data>
+													<TableLayout.Data dataClassName="flex">
 														<BlockFinalizedIcon
 															status={transaction.call.success}
 															iconClassName="h-5"

@@ -3,61 +3,68 @@
 @tailwind utilities;
 
 @font-face {
-	font-family: "Gilroy UltraLight";
+	font-family: "Gilroy";
 	src: url("../public/fonts/Gilroy/Gilroy-UltraLight.ttf");
 	font-style: normal;
+	font-weight: 100;
 }
 
 @font-face {
-	font-family: "Gilroy Thin";
+	font-family: "Gilroy";
 	src: url("../public/fonts/Gilroy/Gilroy-Thin.ttf");
 	font-style: normal;
+	font-weight: 200;
 }
 
 @font-face {
-	font-family: "Gilroy Light";
+	font-family: "Gilroy";
 	src: url("../public/fonts/Gilroy/Gilroy-Light.ttf");
 	font-style: normal;
+	font-weight: 300;
 }
 
 @font-face {
-	font-family: "Gilroy Regular";
+	font-family: "Gilroy";
 	src: url("../public/fonts/Gilroy/Gilroy-Regular.ttf");
 	font-style: normal;
+	font-weight: 400;
 }
 
 @font-face {
-	font-family: "Gilroy Medium";
+	font-family: "Gilroy";
 	src: url("../public/fonts/Gilroy/Gilroy-Medium.ttf");
 	font-style: normal;
+	font-weight: 500;
 }
 
 @font-face {
-	font-family: "Gilroy SemiBold";
+	font-family: "Gilroy";
 	src: url("../public/fonts/Gilroy/Gilroy-SemiBold.ttf");
 	font-style: normal;
+	font-weight: 600;
 }
 
 @font-face {
-	font-family: "Gilroy Bold";
+	font-family: "Gilroy";
 	src: url("../public/fonts/Gilroy/Gilroy-Bold.ttf");
 	font-style: normal;
+	font-weight: 700;
 }
 
 @font-face {
-	font-family: "Gilroy ExtraBold";
+	font-family: "Gilroy";
 	src: url("../public/fonts/Gilroy/Gilroy-ExtraBold.ttf");
 	font-style: normal;
+	font-weight: 800;
 }
 
 @font-face {
-	font-family: "Gilroy Heavy";
+	font-family: "Gilroy";
 	src: url("../public/fonts/Gilroy/Gilroy-Heavy.ttf");
 	font-style: normal;
+	font-weight: 900;
 }
 
-@font-face {
-	font-family: "Gilroy Black";
-	src: url("../public/fonts/Gilroy/Gilroy-Black.ttf");
-	font-style: normal;
+body {
+	@apply antialiased;
 }

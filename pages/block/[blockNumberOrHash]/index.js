@@ -93,7 +93,7 @@ export default function BlockByNumber({ blockNumber }) {
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Height" />
 						<DetailsLayout.Data>
-							<div className="flex space-x-3">
+							<div className="flex items-center space-x-3">
 								<div className="flex h-6 w-6 cursor-pointer space-x-3 border text-center">
 									<Link href={`/block/${getPrevBlock()}`}>
 										<ChevronLeftIcon className="mx-auto my-auto h-4 w-4" />
@@ -119,7 +119,7 @@ export default function BlockByNumber({ blockNumber }) {
 								</div>
 								<div>
 									{moment(query.data.timestamp).format("LLL")}{" "}
-									<span className="text-xs">
+									<span className="ml-3 text-xs">
 										<TimeAgo date={query.data.timestamp} />
 									</span>
 								</div>

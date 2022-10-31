@@ -47,8 +47,6 @@ export default function EVMTransaction({ hash }) {
 		maxPriorityFeePerGas: ethArgsData?.maxPriorityFeePerGas,
 	};
 
-	console.log(data);
-
 	return (
 		<ContainerLayout>
 			<PageHeader
