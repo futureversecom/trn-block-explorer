@@ -7,6 +7,7 @@ import { isHex } from "@polkadot/util";
 import moment from "moment";
 import Link from "next/link";
 import TimeAgo from "react-timeago";
+
 import {
 	ContainerLayout,
 	DetailsLayout,
@@ -15,33 +16,46 @@ import {
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import JSONViewer from "@/components/JSONViewer";
-import { GetBlockDocument, useGetBlockQuery } from "@/libs/api/generated.ts";
+import {
+	GetBlockDocument,
+	GetBlockHeightFromHashDocument,
+	useGetBlockQuery,
+} from "@/libs/api/generated.ts";
 import { graphQLClient } from "@/libs/client";
 import { usePolling } from "@/libs/hooks";
 import { formatExtrinsicId } from "@/libs/utils";
 
+const returnNotFound = () => ({ notFound: true });
+
 export const getServerSideProps = async (context) => {
 	const numberOrHash = context?.params?.blockNumberOrHash;
+	const isBlockHash = isHex(numberOrHash, 256);
 
-	const returnNotFound = () => ({ notFound: true });
+	try {
+		if (isBlockHash) {
+			const byHashResponse = await graphQLClient.request(
+				GetBlockHeightFromHashDocument,
+				{
+					blockHash: numberOrHash,
+				}
+			);
 
-	const returnProp = async () => {
-		const blockNumber = numberOrHash;
-		try {
-			const byBlockResponse = await graphQLClient.request(GetBlockDocument, {
-				height: blockNumber,
-			});
-			// to make sure the block data exist otherwise, redirect to a notFound page
-			return !byBlockResponse?.archive?.block.length
+			return !byHashResponse?.archive?.block.length
 				? returnNotFound()
-				: { props: { blockNumber } };
-		} catch (error) {
-			// to handle invalid numberOrHash value
-			return returnNotFound();
+				: { props: { blockNumber: byHashResponse?.archive?.block[0]?.height } };
 		}
-	};
 
-	return !isHex(numberOrHash, 256) ? returnProp() : returnNotFound();
+		const byBlockResponse = await graphQLClient.request(GetBlockDocument, {
+			height: numberOrHash,
+		});
+
+		return !byBlockResponse?.archive?.block.length
+			? returnNotFound()
+			: { props: { blockNumber: numberOrHash } };
+	} catch (err) {
+		console.error("Error finding block by hash or number", err?.message ?? err);
+		return returnNotFound();
+	}
 };
 
 export default function BlockByNumber({ blockNumber }) {
