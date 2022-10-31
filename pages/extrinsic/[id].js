@@ -188,7 +188,10 @@ export default function Extrinsic({ extrinsicId }) {
 							<DetailsLayout.Data>{extrinsic.calls[0].name}</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 
-						<TransactionActions events={extrinsic.events} isSuccess={extrinsicSuccess} />
+						<TransactionActions
+							events={extrinsic.events}
+							isSuccess={extrinsicSuccess}
+						/>
 
 						<Fee events={extrinsic.events} height={extrinsic?.block?.height} />
 

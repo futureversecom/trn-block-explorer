@@ -17,6 +17,14 @@ query GetEvmTransactions($limit: Int!, $offset: Int) {
 				extrinsic {
 					id
 					hash
+					events {
+						args
+						id
+						index_in_block
+						name
+						phase
+						pos
+					}
 					events_aggregate {
 						aggregate {
 							count
