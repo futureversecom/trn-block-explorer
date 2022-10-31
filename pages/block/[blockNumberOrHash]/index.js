@@ -7,6 +7,7 @@ import { isHex } from "@polkadot/util";
 import moment from "moment";
 import Link from "next/link";
 import TimeAgo from "react-timeago";
+
 import {
 	ContainerLayout,
 	DetailsLayout,
@@ -79,7 +80,7 @@ export default function BlockByNumber({ blockNumber }) {
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Height" />
 						<DetailsLayout.Data>
-							<div className="flex space-x-3">
+							<div className="flex items-center space-x-3">
 								<div className="flex h-6 w-6 cursor-pointer space-x-3 border text-center">
 									<Link href={`/block/${getPrevBlock()}`}>
 										<ChevronLeftIcon className="mx-auto my-auto h-4 w-4" />
