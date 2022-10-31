@@ -55,9 +55,11 @@ export default function TransfersForAddress({ walletAddress }) {
 
 										return (
 											<tr key={key}>
-												<TableLayout.Data dataClassName="!text-indigo-500">
+												<TableLayout.Data>
 													<Link href={`/block/${transfer.block_number}`}>
-														{transfer.block_number}
+														<span className="cursor-pointer text-indigo-500 hover:text-white">
+															{transfer.block_number}
+														</span>
 													</Link>
 												</TableLayout.Data>
 
