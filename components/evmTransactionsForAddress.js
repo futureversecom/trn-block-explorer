@@ -95,24 +95,14 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 													<TimeAgo date={call.block.timestamp} />
 												</TableLayout.Data>
 
-												<TableLayout.Data
-													dataClassName={clsx(
-														from !== walletAddress.toLowerCase() &&
-															"!text-indigo-500"
-													)}
-												>
+												<TableLayout.Data>
 													<AddressLink
 														address={from}
 														isAccount={from === walletAddress.toLowerCase()}
 													/>
 												</TableLayout.Data>
 
-												<TableLayout.Data
-													dataClassName={clsx(
-														to !== walletAddress.toLowerCase() &&
-															"!text-indigo-500"
-													)}
-												>
+												<TableLayout.Data>
 													<AddressLink
 														address={to}
 														isAccount={to === walletAddress.toLowerCase()}

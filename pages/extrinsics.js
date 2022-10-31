@@ -70,9 +70,11 @@ const Extrinsic = ({ extrinsic }) => {
 
 	return (
 		<Fragment>
-			<TableLayout.Data dataClassName="!text-indigo-500 font-bold">
+			<TableLayout.Data>
 				<Link href={`/extrinsic/${extrinsic.id}`}>
-					{formatExtrinsicId(extrinsic.id)}
+					<span className="cursor-pointer text-indigo-500 hover:text-white">
+						{formatExtrinsicId(extrinsic.id)}
+					</span>
 				</Link>
 			</TableLayout.Data>
 
@@ -92,7 +94,9 @@ const Extrinsic = ({ extrinsic }) => {
 
 			<TableLayout.Data dataClassName="!text-indigo-500 font-bold">
 				<Link href={`/block/${extrinsic.block.height}`}>
-					{extrinsic.block.height}
+					<span className="cursor-pointer text-indigo-500 hover:text-white">
+						{extrinsic.block.height}
+					</span>
 				</Link>
 			</TableLayout.Data>
 			<TableLayout.Data>

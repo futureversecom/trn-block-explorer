@@ -82,24 +82,14 @@ export default function TransfersForAddress({ walletAddress }) {
 													{formatBalance(transfer.amount, asset?.decimals ?? 6)}
 												</TableLayout.Data>
 
-												<TableLayout.Data
-													dataClassName={clsx(
-														transfer.from_id !== walletAddress &&
-															"!text-indigo-500"
-													)}
-												>
+												<TableLayout.Data>
 													<AddressLink
 														address={transfer.from_id}
 														isAccount={transfer.from_id === walletAddress}
 													/>
 												</TableLayout.Data>
 
-												<TableLayout.Data
-													dataClassName={clsx(
-														transfer.to_id !== walletAddress &&
-															"!text-indigo-500"
-													)}
-												>
+												<TableLayout.Data>
 													<AddressLink
 														address={transfer.to_id}
 														isAccount={transfer.to_id === walletAddress}

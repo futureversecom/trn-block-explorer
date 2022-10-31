@@ -59,7 +59,7 @@ export default function BlocksWidget() {
 					</Link>
 				</div>
 			</div>
-			<div className="h-[46.688em] max-h-[46.688em] divide-y divide-gray-400 overflow-scroll md:overflow-visible border border-gray-400 bg-transparent px-4 pb-3 pt-1 sm:px-6">
+			<div className="h-[46.688em] max-h-[46.688em] divide-y divide-gray-400 overflow-scroll border border-gray-400 bg-transparent px-4 pb-3 pt-1 sm:px-6 md:overflow-visible">
 				{query.isLoading
 					? DummyListItem(10)
 					: blocks?.map((item, key) => (
@@ -85,13 +85,13 @@ const BlockItem = ({ height, extrinsics, events, timestamp, status }) => {
 					<span className="mr-2 text-white">Block#</span>
 					{status == true ? (
 						<Link href={`/block/${height}`}>
-							<span className="cursor-pointer font-number text-lg text-indigo-500">
+							<span className="cursor-pointer text-lg text-indigo-500 hover:text-white">
 								{numberWithCommas(height)}
 							</span>
 						</Link>
 					) : (
 						// for unfinalized blocks, the details page will not be available for now so we'll remove the link
-						<span className="font-number text-lg text-indigo-500">
+						<span className="text-lg text-indigo-800">
 							{numberWithCommas(height)}
 						</span>
 					)}
