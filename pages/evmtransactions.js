@@ -67,7 +67,7 @@ export default function EVMTransactions() {
 															</span>
 														</Link>
 													</TableLayout.Data>
-													<TableLayout.Data>
+													<TableLayout.Data dataClassName="flex">
 														<BlockFinalizedIcon
 															status={transaction.call.success}
 															iconClassName="h-5"

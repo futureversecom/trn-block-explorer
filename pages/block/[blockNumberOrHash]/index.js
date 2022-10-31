@@ -106,7 +106,7 @@ export default function BlockByNumber({ blockNumber }) {
 								</div>
 								<div>
 									{moment(query.data.timestamp).format("LLL")}{" "}
-									<span className="text-xs">
+									<span className="ml-3 text-xs">
 										<TimeAgo date={query.data.timestamp} />
 									</span>
 								</div>
