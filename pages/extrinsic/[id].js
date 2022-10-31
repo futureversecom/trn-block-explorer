@@ -104,8 +104,13 @@ export default function Extrinsic({ extrinsicId }) {
 	const extrinsic = query?.data?.archive?.extrinsic_by_pk;
 	const extrinsicSuccess = useExtrinsicSuccess(extrinsic);
 
-	const last_block =
+	const lastBlock =
 		blockQuery?.data?.archive?.block_aggregate?.aggregate?.count;
+
+	const blockConfirmations = useMemo(() => {
+		if (!lastBlock || !data?.block?.height) return;
+		return parseInt(lastBlock) - parseInt(data.block.height);
+	}, [lastBlock, data?.block?.height]);
 
 	return (
 		<ContainerLayout>
@@ -140,20 +145,23 @@ export default function Extrinsic({ extrinsicId }) {
 							<DetailsLayout.Title title="Block" />
 
 							<DetailsLayout.Data dataClassName="!text-indigo-500">
-								<div className={`flex space-x-2`}>
+								<div className="flex items-center space-x-2">
 									<div>
 										<Link href={`/block/${data.block.height}`}>
 											{data.block.height}
 										</Link>
 									</div>
 
-									<div className="text-white">
-										<span className="font-bold">
-											{parseInt(last_block) - parseInt(data.block.height) ||
-												"Loading"}
-										</span>{" "}
-										Block Confirmations
-									</div>
+									{blockConfirmations && (
+										<div className="text-white">
+											<span className="font-semibold">
+												{blockConfirmations}
+											</span>{" "}
+											{blockConfirmations === 1
+												? "Block Confirmation"
+												: "Block Confirmations"}
+										</div>
+									)}
 								</div>
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
