@@ -9,6 +9,7 @@ import { getAssetMetadata } from "@/libs/utils/getAssetMetadata";
 export default function TransactionActions({ events }) {
 	const mapped = {
 		"Assets.Transferred": AssetsTransferred,
+		"Assets.Issued": AssetsIssued,
 	};
 
 	const parsedEvents = Object.keys(mapped);
@@ -38,6 +39,27 @@ export default function TransactionActions({ events }) {
 		</Fragment>
 	);
 }
+
+const AssetsIssued = ({ data }) => {
+	const asset = getAssetMetadata(data?.args?.assetId);
+	const formattedAmount = ethers.utils
+		.formatUnits(data?.args?.totalSupply, asset?.decimals)
+		.toString();
+	return (
+		<div className="flex space-x-1">
+			<span className="font-semibold">Minted</span>
+			<span>
+				{formattedAmount} {asset?.symbol}
+			</span>
+			<span className="font-semibold">To</span>
+			<Link href={`/account/${data?.args?.owner}`}>
+				<span className="cursor-pointer text-indigo-500">
+					{formatAddress(data?.args?.owner)}
+				</span>
+			</Link>
+		</div>
+	);
+};
 
 const AssetsTransferred = ({ data }) => {
 	const asset = getAssetMetadata(data?.args?.assetId);
