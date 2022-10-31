@@ -6,7 +6,7 @@ import { DetailsLayout } from "@/components";
 import { formatAddress } from "@/libs/utils";
 import { getAssetMetadata } from "@/libs/utils/getAssetMetadata";
 
-export default function TransactionActions({ events }) {
+export default function TransactionActions({ events, isSuccess }) {
 	const mapped = {
 		"Assets.Transferred": AssetsTransferred,
 		"Assets.Issued": AssetsIssued,
@@ -19,7 +19,7 @@ export default function TransactionActions({ events }) {
 
 	return (
 		<Fragment>
-			{filteredEvents?.length ? (
+			{filteredEvents?.length && isSuccess ? (
 				<DetailsLayout.Wrapper>
 					<DetailsLayout.Title title="Transaction Action(s)" />
 					<DetailsLayout.Data>
