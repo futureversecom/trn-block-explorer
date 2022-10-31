@@ -55,8 +55,8 @@ export default function Header() {
 									<Link href="/">
 										<span
 											className={clsx(
-												`my-auto cursor-pointer font-gilroy-medium text-nav leading-[23px] tracking-[1.1px]`,
-												router.pathname === "/" && "font-gilroy-extrabold"
+												`my-auto cursor-pointer text-nav leading-[23px] tracking-[1.1px]`,
+												router.pathname === "/" && "font-extrabold"
 											)}
 										>
 											THE ROOT NETWORK <sup className="text-red-500">alpha</sup>
@@ -68,7 +68,7 @@ export default function Header() {
 										<Fragment key={key}>
 											<span
 												className={clsx(
-													`inline-flex select-none items-center font-gilroy-medium text-nav uppercase leading-[23px] tracking-[1.1px] text-white`
+													`inline-flex select-none items-center text-nav font-medium uppercase leading-[23px] tracking-[1.1px] text-white`
 												)}
 											>
 												{"//"}
@@ -76,9 +76,8 @@ export default function Header() {
 											<Link href={link.href} key={key}>
 												<a
 													className={clsx(
-														`inline-flex items-center font-gilroy-medium text-nav uppercase leading-[23px] tracking-[1.1px] text-white`,
-														router.pathname === link.href &&
-															"font-gilroy-extrabold"
+														`inline-flex items-center text-nav font-medium uppercase leading-[23px] tracking-[1.1px] text-white`,
+														router.pathname === link.href && "font-extrabold"
 													)}
 												>
 													{link.title}
@@ -93,7 +92,7 @@ export default function Header() {
 							<div className="flex flex-shrink-0 items-center space-x-3 text-white">
 								<span
 									className={clsx(
-										"inline-block h-5 whitespace-nowrap py-1 px-2 text-center align-baseline font-gilroy-extrabold text-xs uppercase leading-none text-black",
+										"inline-block h-5 whitespace-nowrap py-1 px-2 text-center align-baseline text-xs font-extrabold uppercase leading-none text-black",
 										IS_MAINNET ? "bg-lime-700" : "bg-white"
 									)}
 								>

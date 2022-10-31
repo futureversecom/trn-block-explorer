@@ -70,13 +70,19 @@ export default function ChaindataWidget() {
 							>
 								<div className="my-auto pr-3">
 									{item.name === "Transfers" && (
-										<ChartPieIcon className="h-12 text-gray-200" />
+										<ChartPieIcon
+											className="h-12 text-gray-200"
+											strokeWidth="1"
+										/>
 									)}
 									{item.name === "Finalized Blocks" && (
-										<CubeIcon className="h-12 text-gray-200" />
+										<CubeIcon className="h-12 text-gray-200" strokeWidth="1" />
 									)}
 									{item.name === "Holders" && (
-										<UserGroupIcon className="h-12 text-gray-200" />
+										<UserGroupIcon
+											className="h-12 text-gray-200"
+											strokeWidth="1"
+										/>
 									)}
 								</div>
 								<div>

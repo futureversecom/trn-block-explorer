@@ -54,7 +54,7 @@ export default function Accounts() {
 													# {key + 1 + (currentPage - 1) * 20}
 												</TableLayout.Data>
 
-												<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500 font-bold">
+												<TableLayout.Data>
 													<AddressLink address={account.id} isAccount={false} />
 												</TableLayout.Data>
 

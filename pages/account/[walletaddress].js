@@ -7,6 +7,7 @@ import {
 	ContainerLayout,
 	PageHeader,
 } from "@/components";
+import { CopyToClipboard } from "@/components/icons";
 
 export const getServerSideProps = (context) => ({
 	props: { walletAddress: context?.params?.walletaddress },
@@ -20,13 +21,17 @@ export default function Account({ walletAddress }) {
 	return (
 		<ContainerLayout>
 			<PageHeader
-				title={`Wallet # ${walletAddress}`}
+				title={`Wallet #${walletAddress}`}
 				icon={
 					<div className="my-auto h-5 pr-3 text-white">
 						<Jazzicon diameter={20} seed={jsNumberForAddress(walletAddress)} />
 					</div>
 				}
-			/>
+			>
+				<div className="ml-1">
+					<CopyToClipboard value={walletAddress} />
+				</div>
+			</PageHeader>
 			<BalanceForAddress walletAddress={walletAddress} />
 			<AccountTables walletAddress={walletAddress} />
 		</ContainerLayout>

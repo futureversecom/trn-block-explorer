@@ -55,9 +55,11 @@ export default function TransfersForAddress({ walletAddress }) {
 
 										return (
 											<tr key={key}>
-												<TableLayout.Data dataClassName="!text-indigo-500">
+												<TableLayout.Data>
 													<Link href={`/block/${transfer.block_number}`}>
-														{transfer.block_number}
+														<span className="cursor-pointer text-indigo-500 hover:text-white">
+															{transfer.block_number}
+														</span>
 													</Link>
 												</TableLayout.Data>
 
@@ -82,24 +84,14 @@ export default function TransfersForAddress({ walletAddress }) {
 													{formatBalance(transfer.amount, asset?.decimals ?? 6)}
 												</TableLayout.Data>
 
-												<TableLayout.Data
-													dataClassName={clsx(
-														transfer.from_id !== walletAddress &&
-															"!text-indigo-500"
-													)}
-												>
+												<TableLayout.Data>
 													<AddressLink
 														address={transfer.from_id}
 														isAccount={transfer.from_id === walletAddress}
 													/>
 												</TableLayout.Data>
 
-												<TableLayout.Data
-													dataClassName={clsx(
-														transfer.to_id !== walletAddress &&
-															"!text-indigo-500"
-													)}
-												>
+												<TableLayout.Data>
 													<AddressLink
 														address={transfer.to_id}
 														isAccount={transfer.to_id === walletAddress}

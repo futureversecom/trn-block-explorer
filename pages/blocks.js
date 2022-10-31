@@ -48,9 +48,11 @@ export default function Blocks() {
 									<tbody className="divide-y divide-gray-800 bg-transparent">
 										{query.data.map((block, key) => (
 											<tr key={key}>
-												<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500 font-bold">
+												<TableLayout.Data>
 													<Link href={`/block/${block.height}`}>
-														{block.height}
+														<span className="cursor-pointer text-indigo-500 hover:text-white">
+															{block.height}
+														</span>
 													</Link>
 												</TableLayout.Data>
 												<TableLayout.Data dataClassName="flex">
@@ -65,11 +67,13 @@ export default function Blocks() {
 												<TableLayout.Data>
 													{block.events_aggregate.aggregate.count || "? "}
 												</TableLayout.Data>
-												<TableLayout.Data dataClassName={"text-indigo-500"}>
+												<TableLayout.Data>
 													<Link href={`/account/${block.validator}`}>
-														{block.validator
-															? formatAddress(block.validator)
-															: "?"}
+														<span className="cursor-pointer text-indigo-500 hover:text-white">
+															{block.validator
+																? formatAddress(block.validator)
+																: "?"}
+														</span>
 													</Link>
 												</TableLayout.Data>
 												<TableLayout.Data>

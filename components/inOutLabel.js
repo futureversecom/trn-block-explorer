@@ -1,7 +1,7 @@
 const InOutLabel = ({ type }) => {
-	const incoming = "bg-green-300 text-green-800";
-	const outgoing = "bg-orange-300 text-orange-800";
-	const self = "bg-blue-300 text-blue-800";
+	const incoming = "text-green-700";
+	const outgoing = "text-orange-400";
+	const self = "text-white";
 	const theType = type.toLowerCase();
 
 	const classes = {
@@ -10,9 +10,7 @@ const InOutLabel = ({ type }) => {
 		self: self,
 	};
 	return (
-		<div
-			className={`w-8 p-1 text-center font-bold ${classes[theType]} capitalize`}
-		>
+		<div className={`w-8 p-1 text-center ${classes[theType]} capitalize`}>
 			{type}
 		</div>
 	);

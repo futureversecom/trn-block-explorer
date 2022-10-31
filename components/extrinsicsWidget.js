@@ -58,7 +58,7 @@ const Extrinsic = ({ extrinsic, call, timestamp, extrinsicId }) => {
 			<div className="flex flex-row justify-between">
 				<div className="text-sm font-bold">
 					<span className="mr-2 text-white">Extrinsic#</span>
-					<span className="cursor-pointer font-number text-lg text-indigo-500">
+					<span className="cursor-pointer text-lg text-indigo-500 hover:text-white">
 						<Link href={`/extrinsic/${extrinsicId}`}>
 							{formatExtrinsicId(extrinsicId)}
 						</Link>
