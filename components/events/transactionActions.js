@@ -46,17 +46,17 @@ const EthereumExecuted = ({ data }) => {
 	return (
 		<div className="flex space-x-1">
 			<span className="font-semibold">EVM Transaction From</span>
-			<span>
+			<Link href={`/account/${from}`}>
 				<span className="cursor-pointer text-indigo-500">
 					{formatAddress(from)}
 				</span>
-			</span>
+			</Link>
 			<span className="font-semibold">To</span>
-			<span>
+			<Link href={`/account/${to}`}>
 				<span className="cursor-pointer text-indigo-500">
 					{formatAddress(to)}
 				</span>
-			</span>
+			</Link>
 			<span className="font-semibold">TxHash:</span>
 			<span>{formatAddress(transactionHash)}</span>
 		</div>
