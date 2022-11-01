@@ -90,21 +90,25 @@ const Erc20PegErc20Withdraw = ({ data }) => {
 const EthereumExecuted = ({ data }) => {
 	let { from, to, transactionHash } = data?.args;
 	return (
-		<div className="flex space-x-1">
-			<span className="font-semibold">EVM Transaction From</span>
-			<Link href={`/account/${from}`}>
-				<span className="cursor-pointer text-indigo-500 hover:text-white">
-					{formatAddress(from)}
-				</span>
-			</Link>
-			<span className="font-semibold">To</span>
-			<Link href={`/account/${to}`}>
-				<span className="cursor-pointer text-indigo-500 hover:text-white">
-					{formatAddress(to)}
-				</span>
-			</Link>
-			<span className="font-semibold">TxHash:</span>
-			<span>{formatAddress(transactionHash)}</span>
+		<div className="flex flex-col">
+			<div className="flex space-x-1">
+				<span className="font-semibold">EVM Transaction From</span>
+				<Link href={`/account/${from}`}>
+					<span className="cursor-pointer text-indigo-500 hover:text-white">
+						{formatAddress(from)}
+					</span>
+				</Link>
+				<span className="font-semibold">To</span>
+				<Link href={`/account/${to}`}>
+					<span className="cursor-pointer text-indigo-500 hover:text-white">
+						{formatAddress(to)}
+					</span>
+				</Link>
+			</div>
+			<div className="flex space-x-1">
+				<span className="font-semibold">TxHash:</span>
+				<span>{formatAddress(transactionHash)}</span>
+			</div>
 		</div>
 	);
 };
