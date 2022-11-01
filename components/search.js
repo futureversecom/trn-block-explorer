@@ -70,7 +70,7 @@ const useSearch = () => {
 		}
 
 		// BLOCK NUMBER
-		if (parseInt(search) >= 0) {
+		if (Number(search) >= 0 && new RegExp("^[0-9]+$").test(search)) {
 			return `/block/${search}`;
 		}
 	};
