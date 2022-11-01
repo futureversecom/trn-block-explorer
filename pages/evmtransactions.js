@@ -39,7 +39,7 @@ export default function EVMTransactions() {
 											<TableLayout.HeadItem text="Id" />
 											<TableLayout.HeadItem text="Tx Hash" />
 											<TableLayout.HeadItem text="Status" />
-											<TableLayout.HeadItem text="Hash" />
+											{/* <TableLayout.HeadItem text="Hash" /> */}
 											<TableLayout.HeadItem text="Block" />
 											<TableLayout.HeadItem text="Time" />
 											<TableLayout.HeadItem text="From" />
@@ -79,20 +79,35 @@ export default function EVMTransactions() {
 															isExtrinsic={true}
 														/>
 													</TableLayout.Data>
-													<TableLayout.Data>
+													{/* <TableLayout.Data>
 														{formatAddress(transaction.call.extrinsic.hash, 6)}
-													</TableLayout.Data>
+													</TableLayout.Data> */}
 													<TableLayout.Data>
-														{transaction.call.block.height}
+														<Link
+															href={`/block/${transaction.call.block.height}`}
+														>
+															<span className="cursor-pointer text-indigo-500">
+																{transaction.call.block.height}
+															</span>
+														</Link>
 													</TableLayout.Data>
 													<TableLayout.Data>
 														<TimeAgo date={transaction.call.block.timestamp} />
 													</TableLayout.Data>
 													<TableLayout.Data>
-														{formatAddress(from)}
+														<Link href={`/account/${from}`}>
+															<span className="cursor-pointer text-indigo-500">
+																{formatAddress(from)}
+															</span>
+														</Link>
 													</TableLayout.Data>
+
 													<TableLayout.Data>
-														{formatAddress(to)}
+														<Link href={`/account/${to}`}>
+															<span className="cursor-pointer text-indigo-500">
+																{formatAddress(to)}
+															</span>
+														</Link>
 													</TableLayout.Data>
 												</tr>
 											);
