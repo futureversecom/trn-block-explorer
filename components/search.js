@@ -47,7 +47,7 @@ export default function Search() {
 					</div>
 				</fieldset>
 				{error && (
-					<div className="select-none text-sm text-red-400">{error}</div>
+					<div className="mt-2 select-none text-sm text-red-400">{error}</div>
 				)}
 			</form>
 		</div>
@@ -65,12 +65,16 @@ const useSearch = () => {
 		if (ethers.utils.isAddress(search)) return `/account/${search}`;
 
 		// EXTRINSIC HASH OR EXTRINSIC ID
-		if (search.length === 66 || search.includes("-")) {
+		if (search.length === 66 || new RegExp("^[0-9-]*$").test(search)) {
 			return `/extrinsic/${search}`;
 		}
 
 		// BLOCK NUMBER
-		if (parseInt(search) >= 0) {
+		if (
+			Number(search) >= 0 &&
+			new RegExp("^[0-9]+$").test(search) &&
+			Number(search) <= Number.MAX_SAFE_INTEGER
+		) {
 			return `/block/${search}`;
 		}
 	};
