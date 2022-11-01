@@ -10,6 +10,7 @@ export default function TransactionActions({ events, isSuccess }) {
 	const mapped = {
 		"Assets.Transferred": AssetsTransferred,
 		"Assets.Issued": AssetsIssued,
+		"Ethereum.Executed": EthereumExecuted,
 	};
 
 	const parsedEvents = Object.keys(mapped);
@@ -39,6 +40,28 @@ export default function TransactionActions({ events, isSuccess }) {
 		</Fragment>
 	);
 }
+
+const EthereumExecuted = ({ data }) => {
+	let { from, to, transactionHash } = data?.args;
+	return (
+		<div className="flex space-x-1">
+			<span className="font-semibold">EVM Transaction From</span>
+			<span>
+				<span className="cursor-pointer text-indigo-500">
+					{formatAddress(from)}
+				</span>
+			</span>
+			<span className="font-semibold">To</span>
+			<span>
+				<span className="cursor-pointer text-indigo-500">
+					{formatAddress(to)}
+				</span>
+			</span>
+			<span className="font-semibold">TxHash:</span>
+			<span>{formatAddress(transactionHash)}</span>
+		</div>
+	);
+};
 
 const AssetsIssued = ({ data }) => {
 	const asset = getAssetMetadata(data?.args?.assetId);
