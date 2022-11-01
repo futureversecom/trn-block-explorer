@@ -47,7 +47,7 @@ export default function Search() {
 					</div>
 				</fieldset>
 				{error && (
-					<div className="select-none text-sm text-red-400">{error}</div>
+					<div className="select-none text-sm text-red-400 mt-2">{error}</div>
 				)}
 			</form>
 		</div>
