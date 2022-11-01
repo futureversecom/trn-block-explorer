@@ -34,7 +34,7 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 			{query.isLoading ? (
 				<LoadingBlock title="Evm Transactions" height="h-20" />
 			) : (
-				<div className="divide-y border border-gray-400 text-white">
+				<div className="divide-y border border-gray-400 text-white overflow-x-auto">
 					{query?.data?.length > 0 ? (
 						<TableLayout.Table>
 							<thead className="bg-transparent">
