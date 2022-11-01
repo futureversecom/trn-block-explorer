@@ -5357,6 +5357,15 @@ export type GetEvmTransactionsQuery = {
 					__typename?: "archive_extrinsic";
 					id: any;
 					hash: any;
+					events: Array<{
+						__typename?: "archive_event";
+						args?: any | null;
+						id: any;
+						index_in_block: number;
+						name: string;
+						phase: string;
+						pos: number;
+					}>;
 					events_aggregate: {
 						__typename?: "archive_event_aggregate";
 						aggregate?: {
@@ -5969,6 +5978,14 @@ export const GetEvmTransactionsDocument = `
         extrinsic {
           id
           hash
+          events {
+            args
+            id
+            index_in_block
+            name
+            phase
+            pos
+          }
           events_aggregate {
             aggregate {
               count

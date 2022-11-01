@@ -14,6 +14,7 @@ import {
 	PageHeader,
 	TableLayout,
 } from "@/components";
+import TransactionActions from "@/components/events/transactionActions";
 import { BlockFinalizedIcon } from "@/components/icons";
 import JSONViewer from "@/components/JSONViewer";
 import {
@@ -143,7 +144,6 @@ export default function Extrinsic({ extrinsicId }) {
 
 						<DetailsLayout.Wrapper>
 							<DetailsLayout.Title title="Block" />
-
 							<DetailsLayout.Data dataClassName="!text-indigo-500">
 								<div className="flex items-center space-x-2">
 									<div>
@@ -187,6 +187,11 @@ export default function Extrinsic({ extrinsicId }) {
 							<DetailsLayout.Title title="Method" />
 							<DetailsLayout.Data>{extrinsic.calls[0].name}</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
+
+						<TransactionActions
+							events={extrinsic.events}
+							isSuccess={extrinsicSuccess}
+						/>
 
 						<Fee events={extrinsic.events} height={extrinsic?.block?.height} />
 

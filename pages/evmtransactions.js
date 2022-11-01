@@ -37,23 +37,25 @@ export default function EVMTransactions() {
 									<thead className="bg-transparent text-white">
 										<tr>
 											<TableLayout.HeadItem text="Id" />
+											<TableLayout.HeadItem text="Tx Hash" />
 											<TableLayout.HeadItem text="Status" />
-											<TableLayout.HeadItem text="Hash" />
+											{/* <TableLayout.HeadItem text="Hash" /> */}
 											<TableLayout.HeadItem text="Block" />
 											<TableLayout.HeadItem text="Time" />
-											<TableLayout.HeadItem text="Contract" />
+											<TableLayout.HeadItem text="From" />
+											<TableLayout.HeadItem text="To" />
 										</tr>
 									</thead>
 									<tbody className="divide-y divide-gray-800 bg-transparent">
 										{query.data?.map((transaction, key) => {
-											// TODO: Extract from and to from Ethereum.Executed event
-											const call = transaction.call;
-											console.log(call);
-											// const ethereumExecutedEvent = call.events.find(
-											// 	(event) => event.name === "Ethereum.Executed"
-											// );
-											// const { to, from } = ethereumExecutedEvent.args;
-											// console.log(to, from)
+											const ethereumExecutedEvent =
+												transaction?.call?.extrinsic?.events?.find(
+													(event) => event.name === "Ethereum.Executed"
+												);
+
+											const { to, from, transactionHash } =
+												ethereumExecutedEvent.args;
+
 											return (
 												<tr key={key}>
 													<TableLayout.Data>
@@ -67,6 +69,9 @@ export default function EVMTransactions() {
 															</span>
 														</Link>
 													</TableLayout.Data>
+													<TableLayout.Data>
+														{formatAddress(transactionHash)}
+													</TableLayout.Data>
 													<TableLayout.Data dataClassName="flex">
 														<BlockFinalizedIcon
 															status={transaction.call.success}
@@ -74,17 +79,35 @@ export default function EVMTransactions() {
 															isExtrinsic={true}
 														/>
 													</TableLayout.Data>
-													<TableLayout.Data>
+													{/* <TableLayout.Data>
 														{formatAddress(transaction.call.extrinsic.hash, 6)}
-													</TableLayout.Data>
+													</TableLayout.Data> */}
 													<TableLayout.Data>
-														{transaction.call.block.height}
+														<Link
+															href={`/block/${transaction.call.block.height}`}
+														>
+															<span className="cursor-pointer text-indigo-500 hover:text-white">
+																{transaction.call.block.height}
+															</span>
+														</Link>
 													</TableLayout.Data>
 													<TableLayout.Data>
 														<TimeAgo date={transaction.call.block.timestamp} />
 													</TableLayout.Data>
 													<TableLayout.Data>
-														{transaction.contract}
+														<Link href={`/account/${from}`}>
+															<span className="cursor-pointer text-indigo-500 hover:text-white">
+																{formatAddress(from)}
+															</span>
+														</Link>
+													</TableLayout.Data>
+
+													<TableLayout.Data>
+														<Link href={`/account/${to}`}>
+															<span className="cursor-pointer text-indigo-500 hover:text-white">
+																{formatAddress(to)}
+															</span>
+														</Link>
 													</TableLayout.Data>
 												</tr>
 											);
