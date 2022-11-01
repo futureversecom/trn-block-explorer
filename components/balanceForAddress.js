@@ -42,22 +42,26 @@ export default function BalanceForAddress({ walletAddress }) {
 								<dl>
 									<div className="py-4 outline outline-0 sm:py-5 sm:px-6">
 										<div className="flex w-full flex-row space-x-3 text-sm font-medium text-white">
-											<div>
+											<div className="h-16">
 												<Jazzicon
-													className="block"
+													className="my-auto block"
 													diameter={64}
 													seed={jsNumberForAddress(walletAddress)}
 												/>
 											</div>
 
-											<div className="flex-1">
-												<div className="my-auto text-lg">Unknown</div>
-												<div className="text-md flex items-center truncate leading-6 text-white">
-													{walletAddress}
-													<CopyToClipboard
-														value={walletAddress}
-														className="ml-1 inline-block"
-													/>
+											<div className="my-auto flex-col">
+												<div className="text-lg">Unknown</div>
+												<div className="text-md flex flex-wrap items-center leading-6 text-white md:space-x-2">
+													<div className="basis-1/2 truncate md:basis-auto">
+														{walletAddress}
+													</div>
+													<div className="basis-1/2 md:basis-auto">
+														<CopyToClipboard
+															value={walletAddress}
+															className="my-auto ml-1"
+														/>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -77,7 +81,7 @@ export default function BalanceForAddress({ walletAddress }) {
 						<div>
 							<div
 								className={clsx(
-									"max-h-[16em] px-4 py-5 sm:p-0 overflow-y-auto",
+									"max-h-[16em] overflow-y-auto px-4 py-5 sm:p-0",
 									balance?.assets?.length > 1 && "overflow-y-scroll"
 								)}
 							>
