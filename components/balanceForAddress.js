@@ -1,6 +1,7 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 import { useMemo, useState } from "react";
+import { Fragment } from "react";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 
 import { CopyToClipboard } from "@/components/icons";
@@ -23,6 +24,8 @@ export default function BalanceForAddress({ walletAddress }) {
 
 	const balance = query?.data?.balances?.account[0];
 
+	const xrpBalance = balance?.assets?.find((e) => e.assetId == 2);
+
 	return (
 		<div>
 			<div className="flex flex-row justify-between py-3">
@@ -35,79 +38,78 @@ export default function BalanceForAddress({ walletAddress }) {
 			{query.isLoading ? (
 				<LoadingBlock title="Balance" height="h-20" />
 			) : (
-				<div className="divide-y border border-gray-400 bg-transparent px-4 py-3 sm:px-6">
+				<div className="divide-y border border-gray-400 bg-transparent py-4">
 					<div className="grid grid-cols-1 md:grid-cols-2">
 						<div>
-							<div className=" px-4 py-5 sm:p-0">
-								<dl>
-									<div className="py-4 outline outline-0 sm:py-5 sm:px-6">
-										<div className="flex w-full flex-row space-x-3 text-sm font-medium text-white">
-											<div className="h-16">
-												<Jazzicon
-													className="my-auto block"
-													diameter={64}
-													seed={jsNumberForAddress(walletAddress)}
-												/>
-											</div>
+							<Fragment>
+								<div className="py-4 outline outline-0 sm:py-5 sm:px-6">
+									<div className="flex w-full flex-row space-x-3 text-sm font-medium text-white">
+										<div className="h-16">
+											<Jazzicon
+												className="my-auto block"
+												diameter={64}
+												seed={jsNumberForAddress(walletAddress)}
+											/>
+										</div>
 
-											<div className="my-auto flex-col">
-												<div className="text-lg">Unknown</div>
-												<div className="text-md flex flex-wrap items-center leading-6 text-white md:space-x-2">
-													<div className="basis-1/2 truncate md:basis-auto">
-														{walletAddress}
-													</div>
-													<div className="basis-1/2 md:basis-auto">
-														<CopyToClipboard
-															value={walletAddress}
-															className="my-auto ml-1"
-														/>
-													</div>
+										<div className="my-auto flex-col">
+											<div className="text-lg">Unknown</div>
+											<div className="text-md flex flex-wrap items-center leading-6 text-white md:space-x-2">
+												<div className="basis-1/2 truncate md:basis-auto">
+													{walletAddress}
+												</div>
+												<div className="basis-1/2 md:basis-auto">
+													<CopyToClipboard
+														value={walletAddress}
+														className="my-auto ml-1"
+													/>
 												</div>
 											</div>
 										</div>
 									</div>
-									{BURN_ADDRESSES.includes(walletAddress.toLowerCase()) && (
-										<div className="max-w-fit py-4 text-sm md:px-6">
-											<p className="border border-red-400 bg-red-300 p-2 text-red-800">
-												<span className="font-bold">🔥 Attention:</span> This
-												address is a known burn address. Funds sent to this
-												address are lost forever.
-											</p>
-										</div>
-									)}
-								</dl>
-							</div>
-						</div>
-						<div>
-							<div
-								className={clsx(
-									"max-h-[16em] overflow-y-auto px-4 py-5 sm:p-0",
-									balance?.assets?.length > 1 && "overflow-y-scroll"
+								</div>
+								{BURN_ADDRESSES.includes(walletAddress.toLowerCase()) && (
+									<div className="max-w-fit py-4 text-sm md:px-6">
+										<p className="border border-red-400 bg-red-300 p-2 text-red-800">
+											<span className="font-bold">🔥 Attention:</span> This
+											address is a known burn address. Funds sent to this
+											address are lost forever.
+										</p>
+									</div>
 								)}
-							>
-								<dl className="sm:divide-y sm:divide-gray-200">
-									{["Free", "Reserved", "Total"].map((title) => (
-										<Balance title={title} key={title}>
-											<FormattedBalance
-												assetId={1}
-												balance={balance?.[title.toLowerCase()] ?? 0}
-											/>
-										</Balance>
-									))}
-									{balance?.assets?.length && (
-										<Balance title="Others">
-											{balance.assets.map((asset) => (
+							</Fragment>
+						</div>
+						<div
+							className={clsx(
+								"max-h-[16em] overflow-y-auto px-4 py-5 sm:p-0",
+								balance?.assets?.length > 1 && "overflow-y-auto"
+							)}
+						>
+							<dl className="divide-y-1 sm:divide-y sm:divide-gray-600">
+								<Balance title="Root Balance">
+									<FormattedBalance assetId={1} balance={balance?.free ?? 0} />
+								</Balance>
+								<Balance title="XRP Balance">
+									<FormattedBalance
+										assetId={2}
+										balance={xrpBalance?.balance ?? 0}
+									/>
+								</Balance>
+
+								{balance?.assets?.length && (
+									<Balance title="Other Tokens">
+										{balance.assets
+											.filter((e) => e.assetId != "2")
+											.map((asset) => (
 												<FormattedBalance
 													key={asset.assetId}
 													assetId={asset.assetId}
 													balance={asset.balance}
 												/>
 											))}
-										</Balance>
-									)}
-									<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6" />
-								</dl>
-							</div>
+									</Balance>
+								)}
+							</dl>
 						</div>
 					</div>
 				</div>
@@ -118,7 +120,7 @@ export default function BalanceForAddress({ walletAddress }) {
 
 const Balance = ({ title, children }) => {
 	return (
-		<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+		<div className="py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
 			<div className="text-sm font-medium text-white">{title}</div>
 			<div className="space-y-1 text-sm font-medium text-white">{children}</div>
 		</div>
