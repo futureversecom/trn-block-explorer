@@ -12,6 +12,7 @@ export default function TransactionActions({ events, isSuccess }) {
 		"Assets.Issued": AssetsIssued,
 		"Ethereum.Executed": EthereumExecuted,
 		"Erc20Peg.Erc20Withdraw": Erc20PegErc20Withdraw,
+		"Assets.Burned": AssetsBurned,
 	};
 
 	const parsedEvents = Object.keys(mapped);
@@ -46,9 +47,30 @@ export default function TransactionActions({ events, isSuccess }) {
 	);
 }
 
+const AssetsBurned = ({ data }) => {
+	let { owner, assetId, balance } = data?.args;
+	const asset = getAssetMetadata(assetId);
+	const formattedAmount = ethers.utils
+		.formatUnits(balance, asset?.decimals)
+		.toString();
+	return (
+		<div className="flex space-x-1">
+			<span className="font-semibold">Internal Burn</span>
+			<span>
+				{formattedAmount} {asset?.symbol}
+			</span>
+			<span className="font-semibold">From</span>
+			<Link href={`/account/${owner}`}>
+				<span className="cursor-pointer text-indigo-500">
+					{formatAddress(owner)}
+				</span>
+			</Link>
+		</div>
+	);
+};
+
 const Erc20PegErc20Withdraw = ({ data }) => {
 	let [assetId, amount, to] = data?.args;
-
 	const asset = getAssetMetadata(assetId);
 	const formattedAmount = ethers.utils
 		.formatUnits(amount, asset?.decimals)
