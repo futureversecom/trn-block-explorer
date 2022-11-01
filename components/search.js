@@ -70,7 +70,11 @@ const useSearch = () => {
 		}
 
 		// BLOCK NUMBER
-		if (Number(search) >= 0 && new RegExp("^[0-9]+$").test(search)) {
+		if (
+			Number(search) >= 0 &&
+			new RegExp("^[0-9]+$").test(search) &&
+			Number(search) <= Number.MAX_SAFE_INTEGER
+		) {
 			return `/block/${search}`;
 		}
 	};
