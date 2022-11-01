@@ -6,7 +6,7 @@ export { default as Footer } from "./footer";
 export { default as Header } from "./header";
 export { default as LoadingBlock } from "./loadingBlock";
 export { default as DummyListItem } from "./dummyListItem";
-export { default as PageHeader } from "./pageHeader";
+export { default as PageHeader, PageHead } from "./pageHeader";
 export { default as RefetchIndicator } from "./refetchIndicator";
 export { default as Search } from "./search";
 export { default as TransfersWidget } from "./transfersWidget";
