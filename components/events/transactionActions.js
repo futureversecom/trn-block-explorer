@@ -27,14 +27,10 @@ export default function TransactionActions({ events, isSuccess }) {
 					<DetailsLayout.Title title="Transaction Action(s)" />
 					<DetailsLayout.Data>
 						<div className="grid grid-cols-1 gap-2">
-							{events.map((e) => {
+							{events.map((e, key) => {
 								const Component = mapped[e.name];
 								if (Component) {
-									return (
-										<div>
-											<Component data={e} />
-										</div>
-									);
+									return <Component data={e} key={key} />;
 								}
 							})}
 						</div>
