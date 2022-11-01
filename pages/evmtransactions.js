@@ -86,7 +86,7 @@ export default function EVMTransactions() {
 														<Link
 															href={`/block/${transaction.call.block.height}`}
 														>
-															<span className="cursor-pointer text-indigo-500">
+															<span className="cursor-pointer text-indigo-500 hover:text-white">
 																{transaction.call.block.height}
 															</span>
 														</Link>
@@ -96,7 +96,7 @@ export default function EVMTransactions() {
 													</TableLayout.Data>
 													<TableLayout.Data>
 														<Link href={`/account/${from}`}>
-															<span className="cursor-pointer text-indigo-500">
+															<span className="cursor-pointer text-indigo-500 hover:text-white">
 																{formatAddress(from)}
 															</span>
 														</Link>
@@ -104,7 +104,7 @@ export default function EVMTransactions() {
 
 													<TableLayout.Data>
 														<Link href={`/account/${to}`}>
-															<span className="cursor-pointer text-indigo-500">
+															<span className="cursor-pointer text-indigo-500 hover:text-white">
 																{formatAddress(to)}
 															</span>
 														</Link>
