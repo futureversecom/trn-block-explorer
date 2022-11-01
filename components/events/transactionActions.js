@@ -57,7 +57,7 @@ const AssetsBurned = ({ data }) => {
 			</span>
 			<span className="font-semibold">From</span>
 			<Link href={`/account/${owner}`}>
-				<span className="cursor-pointer text-indigo-500">
+				<span className="cursor-pointer text-indigo-500 hover:text-white">
 					{formatAddress(owner)}
 				</span>
 			</Link>
@@ -79,7 +79,7 @@ const Erc20PegErc20Withdraw = ({ data }) => {
 			</span>
 			<span className="font-semibold">To</span>
 			<Link href={`/account/${to}`}>
-				<span className="cursor-pointer text-indigo-500">
+				<span className="cursor-pointer text-indigo-500 hover:text-white">
 					{formatAddress(to)}
 				</span>
 			</Link>
@@ -93,13 +93,13 @@ const EthereumExecuted = ({ data }) => {
 		<div className="flex space-x-1">
 			<span className="font-semibold">EVM Transaction From</span>
 			<Link href={`/account/${from}`}>
-				<span className="cursor-pointer text-indigo-500">
+				<span className="cursor-pointer text-indigo-500 hover:text-white">
 					{formatAddress(from)}
 				</span>
 			</Link>
 			<span className="font-semibold">To</span>
 			<Link href={`/account/${to}`}>
-				<span className="cursor-pointer text-indigo-500">
+				<span className="cursor-pointer text-indigo-500 hover:text-white">
 					{formatAddress(to)}
 				</span>
 			</Link>
@@ -122,7 +122,7 @@ const AssetsIssued = ({ data }) => {
 			</span>
 			<span className="font-semibold">To</span>
 			<Link href={`/account/${data?.args?.owner}`}>
-				<span className="cursor-pointer text-indigo-500">
+				<span className="cursor-pointer text-indigo-500 hover:text-white">
 					{formatAddress(data?.args?.owner)}
 				</span>
 			</Link>
@@ -139,13 +139,13 @@ const AssetsTransferred = ({ data }) => {
 		<div className="flex space-x-1">
 			<span className="font-semibold">From</span>
 			<Link href={`/account/${data?.args?.from}`}>
-				<span className="cursor-pointer text-indigo-500">
+				<span className="cursor-pointer text-indigo-500 hover:text-white">
 					{formatAddress(data?.args?.from)}
 				</span>
 			</Link>
 			<span className="font-semibold">To</span>
 			<Link href={`/account/${data?.args?.to}`}>
-				<span className="cursor-pointer text-indigo-500">
+				<span className="cursor-pointer text-indigo-500 hover:text-white">
 					{formatAddress(data?.args?.to)}
 				</span>
 			</Link>
