@@ -77,7 +77,7 @@ export default function BalanceForAddress({ walletAddress }) {
 						<div>
 							<div
 								className={clsx(
-									"max-h-[16em] px-4 py-5 sm:p-0",
+									"max-h-[16em] px-4 py-5 sm:p-0 overflow-y-auto",
 									balance?.assets?.length > 1 && "overflow-y-scroll"
 								)}
 							>
