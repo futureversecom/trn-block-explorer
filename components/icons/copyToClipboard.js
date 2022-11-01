@@ -1,7 +1,8 @@
 import { CheckIcon, ClipboardIcon } from "@heroicons/react/24/outline";
+import clsx from "clsx";
 import { useEffect, useState } from "react";
 
-export default function CopyToClipBoard({ value }) {
+export default function CopyToClipBoard({ value, className }) {
 	const [copied, setCopied] = useState(false);
 
 	useEffect(() => {
@@ -30,7 +31,7 @@ export default function CopyToClipBoard({ value }) {
 			onClick={() => {
 				copyThis();
 			}}
-			className="cursor-pointer"
+			className={clsx("cursor-pointer", className)}
 		>
 			{copied ? (
 				<CheckIcon className={classes} />

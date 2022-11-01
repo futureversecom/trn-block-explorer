@@ -1,13 +1,13 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 import { useMemo, useState } from "react";
-import QRCode from "react-qr-code";
+import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 
 import { CopyToClipboard } from "@/components/icons";
 import { useGetBalanceQuery } from "@/libs/api/generated.ts";
 import { BURN_ADDRESSES } from "@/libs/constants";
 import { usePolling } from "@/libs/hooks";
-import { formatAddress, formatBalance, getAssetMetadata } from "@/libs/utils";
+import { formatBalance, getAssetMetadata } from "@/libs/utils";
 
 import { LoadingBlock, RefetchIndicator } from "./";
 
@@ -40,16 +40,26 @@ export default function BalanceForAddress({ walletAddress }) {
 						<div>
 							<div className=" px-4 py-5 sm:p-0">
 								<dl>
-									<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-										<div className="flex flex-row space-x-3 text-sm font-medium text-white">
+									<div className="py-4 outline outline-0 sm:py-5 sm:px-6">
+										<div className="flex w-full flex-row space-x-3 text-sm font-medium text-white">
 											<div>
-												<QRCode
-													value={walletAddress}
-													size={64}
-													className="rounded-full"
+												<Jazzicon
+													className="block"
+													diameter={64}
+													seed={jsNumberForAddress(walletAddress)}
 												/>
 											</div>
-											<div className="my-auto text-lg">Unknown</div>
+
+											<div className="flex-1">
+												<div className="my-auto text-lg">Unknown</div>
+												<div className="text-md flex items-center truncate leading-6 text-white">
+													{walletAddress}
+													<CopyToClipboard
+														value={walletAddress}
+														className="ml-1 inline-block"
+													/>
+												</div>
+											</div>
 										</div>
 									</div>
 									{BURN_ADDRESSES.includes(walletAddress.toLowerCase()) && (
