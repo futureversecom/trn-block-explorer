@@ -11,6 +11,7 @@ export default function TransactionActions({ events, isSuccess }) {
 		"Assets.Transferred": AssetsTransferred,
 		"Assets.Issued": AssetsIssued,
 		"Ethereum.Executed": EthereumExecuted,
+		"Erc20Peg.Erc20Withdraw": Erc20PegErc20Withdraw,
 	};
 
 	const parsedEvents = Object.keys(mapped);
@@ -24,11 +25,15 @@ export default function TransactionActions({ events, isSuccess }) {
 				<DetailsLayout.Wrapper>
 					<DetailsLayout.Title title="Transaction Action(s)" />
 					<DetailsLayout.Data>
-						<div className="space-y-3 divide-y">
+						<div className="grid grid-cols-1 gap-2">
 							{events.map((e) => {
 								const Component = mapped[e.name];
 								if (Component) {
-									return <Component data={e} />;
+									return (
+										<div>
+											<Component data={e} />
+										</div>
+									);
 								}
 							})}
 						</div>
@@ -40,6 +45,29 @@ export default function TransactionActions({ events, isSuccess }) {
 		</Fragment>
 	);
 }
+
+const Erc20PegErc20Withdraw = ({ data }) => {
+	let [assetId, amount, to] = data?.args;
+
+	const asset = getAssetMetadata(assetId);
+	const formattedAmount = ethers.utils
+		.formatUnits(amount, asset?.decimals)
+		.toString();
+	return (
+		<div className="flex space-x-1">
+			<span className="font-semibold">ERC20Peg Withdraw</span>
+			<span>
+				{formattedAmount} {asset?.symbol}
+			</span>
+			<span className="font-semibold">To</span>
+			<Link href={`/account/${to}`}>
+				<span className="cursor-pointer text-indigo-500">
+					{formatAddress(to)}
+				</span>
+			</Link>
+		</div>
+	);
+};
 
 const EthereumExecuted = ({ data }) => {
 	let { from, to, transactionHash } = data?.args;
