@@ -42,7 +42,7 @@ export default function BalanceForAddress({ walletAddress }) {
 					<div className="grid grid-cols-1 md:grid-cols-2">
 						<div>
 							<Fragment>
-								<div className="py-4 outline outline-0 sm:py-5 sm:px-6">
+								<div className="py-4 px-4 outline outline-0 sm:py-5 sm:px-6">
 									<div className="flex w-full flex-row space-x-3 text-sm font-medium text-white">
 										<div className="h-16">
 											<Jazzicon
