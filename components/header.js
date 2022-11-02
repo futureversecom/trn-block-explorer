@@ -39,7 +39,7 @@ export default function Header() {
 
 	return (
 		<Disclosure as="nav" className="sm:pt-[23px]">
-			{({ open }) => (
+			{({ open, close }) => (
 				<>
 					<div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
 						<div className="relative flex h-10">
@@ -110,7 +110,10 @@ export default function Header() {
 						<div className="divide-y divide-gray-400">
 							{links.map((link, key) => (
 								<Link href={link.href} key={key}>
-									<Disclosure.Button className="my-auto block w-full bg-transparent py-2 text-base font-medium text-gray-300">
+									<Disclosure.Button
+										onClick={close}
+										className="my-auto block w-full bg-transparent py-2 text-base font-medium text-gray-300"
+									>
 										{link.title}
 									</Disclosure.Button>
 								</Link>
