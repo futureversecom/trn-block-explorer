@@ -41,7 +41,7 @@ export default function EVMTransactions() {
 											<TableLayout.HeadItem text="Status" />
 											{/* <TableLayout.HeadItem text="Hash" /> */}
 											<TableLayout.HeadItem text="Block" />
-											<TableLayout.HeadItem text="Time" />
+											<TableLayout.HeadItem text="Age" />
 											<TableLayout.HeadItem text="From" />
 											<TableLayout.HeadItem text="To" />
 										</tr>
