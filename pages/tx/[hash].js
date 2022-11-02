@@ -97,7 +97,9 @@ export default function EVMTransaction({ hash }) {
 
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Input" />
-						<DetailsLayout.Data>{data.input}</DetailsLayout.Data>
+						<DetailsLayout.Data>
+							<p className="truncate">{data.input}</p>
+						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
 					<DetailsLayout.Wrapper>
