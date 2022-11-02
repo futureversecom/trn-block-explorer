@@ -1,12 +1,12 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useMemo } from "react";
-import TimeAgo from "react-timeago";
 
 import { DummyListItem, RefetchIndicator } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetBlocksQuery } from "@/libs/api/generated.ts";
-import { usePolling, useSubscribeHeader } from "@/libs/hooks";
+import { usePolling, useSubscribeHeader, useTimeAgo } from "@/libs/hooks";
+import { useTickerAtom } from "@/libs/stores";
 import { numberWithCommas } from "@/libs/utils";
 
 function removeDuplicates(a, b) {
@@ -19,8 +19,8 @@ export default function BlocksWidget() {
 	const query = usePolling({}, useGetBlocksQuery, {
 		limit: 10,
 	});
-
 	const unfinalizedBlocks = useSubscribeHeader();
+	const tick = useTickerAtom();
 
 	let dedupedBlocks = useMemo(() => {
 		if (
@@ -70,6 +70,7 @@ export default function BlocksWidget() {
 								events={item?.events_aggregate?.aggregate?.count || "?"}
 								timestamp={item.timestamp}
 								status={item.isFinalized ?? true}
+								tick={tick}
 							/>
 					  ))}
 			</div>
@@ -77,7 +78,8 @@ export default function BlocksWidget() {
 	);
 }
 
-const BlockItem = ({ height, extrinsics, events, timestamp, status }) => {
+const BlockItem = ({ height, extrinsics, events, timestamp, status, tick }) => {
+	const timeAgo = useTimeAgo(timestamp, tick);
 	return (
 		<div className="block py-3">
 			<div className="flex flex-row justify-between">
@@ -103,9 +105,7 @@ const BlockItem = ({ height, extrinsics, events, timestamp, status }) => {
 					<span>{events} Events</span>{" "}
 				</div>
 				<div className="flex space-x-3">
-					<div className="text-sm text-gray-200">
-						<TimeAgo date={timestamp} />
-					</div>
+					<div className="text-sm text-gray-200">{timeAgo}</div>
 					<div>
 						<BlockFinalizedIcon status={status} />
 					</div>

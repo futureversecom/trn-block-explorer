@@ -6,7 +6,6 @@ import {
 import { isHex } from "@polkadot/util";
 import moment from "moment";
 import Link from "next/link";
-import TimeAgo from "react-timeago";
 
 import {
 	ContainerLayout,
@@ -22,7 +21,8 @@ import {
 	useGetBlockQuery,
 } from "@/libs/api/generated.ts";
 import { graphQLClient } from "@/libs/client";
-import { usePolling } from "@/libs/hooks";
+import { usePolling, useTimeAgo } from "@/libs/hooks";
+import { useTickerAtom } from "@/libs/stores";
 import { formatExtrinsicId } from "@/libs/utils";
 
 const returnNotFound = () => ({ notFound: true });
@@ -64,6 +64,9 @@ export default function BlockByNumber({ blockNumber }) {
 	});
 
 	query.data = query?.data?.archive?.block[0];
+
+	const tick = useTickerAtom();
+	const timeAgo = useTimeAgo(query?.data?.timestamp, tick);
 
 	const getPrevBlock = () => {
 		if (parseInt(blockNumber) == 0) {
@@ -119,9 +122,7 @@ export default function BlockByNumber({ blockNumber }) {
 								</div>
 								<div>
 									{moment(query.data.timestamp).format("LLL")}{" "}
-									<span className="ml-3 text-xs">
-										<TimeAgo date={query.data.timestamp} />
-									</span>
+									<span className="ml-3 text-xs">{timeAgo}</span>
 								</div>
 							</div>
 						</DetailsLayout.Data>

@@ -1,7 +1,6 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { Fragment, useEffect } from "react";
-import TimeAgo from "react-timeago";
+import { useEffect } from "react";
 
 import {
 	ContainerLayout,
@@ -12,13 +11,14 @@ import {
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetExtrinsicsQuery } from "@/libs/api/generated.ts";
-import { useExtrinsicSuccess, usePolling } from "@/libs/hooks";
-import { usePagination } from "@/libs/stores";
+import { useExtrinsicSuccess, usePolling, useTimeAgo } from "@/libs/hooks";
+import { usePagination, useTickerAtom } from "@/libs/stores";
 import { formatAddress, formatExtrinsicId } from "@/libs/utils";
 
 export default function Extrinsics() {
 	const query = useQuery(20);
 	const { pages } = usePagination("extrinsics");
+	const tick = useTickerAtom();
 
 	return (
 		<ContainerLayout>
@@ -48,9 +48,16 @@ export default function Extrinsics() {
 									</thead>
 									<tbody className="divide-y divide-gray-800 bg-transparent">
 										{query.data?.map((extrinsic, key) => (
-											<tr key={key}>
-												<Extrinsic extrinsic={extrinsic} />
-											</tr>
+											<ExtrinsicRow
+												key={key}
+												id={extrinsic.id}
+												hash={extrinsic.hash}
+												extrinsic={extrinsic}
+												events_aggregate={extrinsic.events_aggregate}
+												block={extrinsic.block}
+												calls={extrinsic.calls}
+												tick={tick}
+											/>
 										))}
 									</tbody>
 								</TableLayout.Table>
@@ -65,15 +72,24 @@ export default function Extrinsics() {
 	);
 }
 
-const Extrinsic = ({ extrinsic }) => {
+const ExtrinsicRow = ({
+	id,
+	hash,
+	extrinsic,
+	events_aggregate,
+	block,
+	calls,
+	tick,
+}) => {
+	const timeAgo = useTimeAgo(block.timestamp, tick);
 	const extrinsicSuccess = useExtrinsicSuccess(extrinsic);
 
 	return (
-		<Fragment>
-			<TableLayout.Data>
-				<Link href={`/extrinsic/${extrinsic.id}`}>
+		<tr>
+			<TableLayout.Data dataClassName="!text-indigo-500 font-bold">
+				<Link href={`/extrinsic/${id}`}>
 					<span className="cursor-pointer text-indigo-500 hover:text-white">
-						{formatExtrinsicId(extrinsic.id)}
+						{formatExtrinsicId(id)}
 					</span>
 				</Link>
 			</TableLayout.Data>
@@ -86,33 +102,31 @@ const Extrinsic = ({ extrinsic }) => {
 				/>
 			</TableLayout.Data>
 
-			<TableLayout.Data>{formatAddress(extrinsic.hash, 12)}</TableLayout.Data>
+			<TableLayout.Data>{formatAddress(hash, 12)}</TableLayout.Data>
+
+			<TableLayout.Data>{timeAgo}</TableLayout.Data>
 
 			<TableLayout.Data>
-				<TimeAgo date={extrinsic.block.timestamp} />
-			</TableLayout.Data>
-
-			<TableLayout.Data dataClassName="!text-indigo-500 font-bold">
-				<Link href={`/block/${extrinsic.block.height}`}>
+				<Link href={`/block/${block.height}`}>
 					<span className="cursor-pointer text-indigo-500 hover:text-white">
-						{extrinsic.block.height}
+						{block.height}
 					</span>
 				</Link>
 			</TableLayout.Data>
+
 			<TableLayout.Data>
-				{extrinsic?.calls?.[0]?.name &&
-					extrinsic?.calls?.[0]?.name?.split(".")[0]}
+				{calls?.[0]?.name && calls?.[0]?.name?.split(".")[0]}
 			</TableLayout.Data>
+
 			<TableLayout.Data>
 				<span className="truncate capitalize">
-					{extrinsic?.calls?.[0]?.name &&
-						extrinsic?.calls?.[0]?.name?.split(".")[1]?.replaceAll("_", " ")}
+					{calls?.[0]?.name &&
+						calls?.[0]?.name?.split(".")[1]?.replaceAll("_", " ")}
 				</span>
 			</TableLayout.Data>
-			<TableLayout.Data>
-				{extrinsic.events_aggregate.aggregate.count}
-			</TableLayout.Data>
-		</Fragment>
+
+			<TableLayout.Data>{events_aggregate.aggregate.count}</TableLayout.Data>
+		</tr>
 	);
 };
 

@@ -1,7 +1,6 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useEffect } from "react";
-import TimeAgo from "react-timeago";
 
 import {
 	ContainerLayout,
@@ -12,13 +11,14 @@ import {
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetBlocksQuery } from "@/libs/api/generated.ts";
-import { usePolling } from "@/libs/hooks";
-import { usePagination } from "@/libs/stores";
+import { usePolling, useTimeAgo } from "@/libs/hooks";
+import { usePagination, useTickerAtom } from "@/libs/stores";
 import { formatAddress } from "@/libs/utils";
 
 export default function Blocks() {
 	const query = useQuery(20);
 	const { pages } = usePagination("blocks");
+	const tick = useTickerAtom();
 
 	return (
 		<ContainerLayout>
@@ -47,39 +47,16 @@ export default function Blocks() {
 									</thead>
 									<tbody className="divide-y divide-gray-800 bg-transparent">
 										{query.data.map((block, key) => (
-											<tr key={key}>
-												<TableLayout.Data>
-													<Link href={`/block/${block.height}`}>
-														<span className="cursor-pointer text-indigo-500 hover:text-white">
-															{block.height}
-														</span>
-													</Link>
-												</TableLayout.Data>
-												<TableLayout.Data dataClassName="flex">
-													<BlockFinalizedIcon status={true} />
-												</TableLayout.Data>
-												<TableLayout.Data>
-													<TimeAgo date={block.timestamp} />
-												</TableLayout.Data>
-												<TableLayout.Data>
-													{block.extrinsics_aggregate.aggregate.count || "?"}
-												</TableLayout.Data>
-												<TableLayout.Data>
-													{block.events_aggregate.aggregate.count || "? "}
-												</TableLayout.Data>
-												<TableLayout.Data>
-													<Link href={`/account/${block.validator}`}>
-														<span className="cursor-pointer text-indigo-500 hover:text-white">
-															{block.validator
-																? formatAddress(block.validator)
-																: "?"}
-														</span>
-													</Link>
-												</TableLayout.Data>
-												<TableLayout.Data>
-													{block.hash ? formatAddress(block.hash, 12) : "?"}
-												</TableLayout.Data>
-											</tr>
+											<BlockRow
+												key={key}
+												height={block.height}
+												hash={block.hash}
+												extrinsics_aggregate={block.extrinsics_aggregate}
+												events_aggregate={block.events_aggregate}
+												timestamp={block.timestamp}
+												validator={block.validator}
+												tick={tick}
+											/>
 										))}
 									</tbody>
 								</TableLayout.Table>
@@ -93,6 +70,62 @@ export default function Blocks() {
 		</ContainerLayout>
 	);
 }
+
+const BlockRow = ({
+	height,
+	hash,
+	extrinsics_aggregate,
+	events_aggregate,
+	timestamp,
+	validator,
+	tick,
+}) => {
+	const timeAgo = useTimeAgo(timestamp, tick);
+	return (
+		<tr>
+			<TableLayout.Data>
+				<Link href={`/block/${height}`}>
+					<span className="cursor-pointer text-indigo-500 hover:text-white">
+						{height}
+					</span>
+				</Link>
+			</TableLayout.Data>
+
+			<TableLayout.Data dataClassName="flex">
+				<BlockFinalizedIcon status={true} />
+			</TableLayout.Data>
+
+			<TableLayout.Data>{timeAgo}</TableLayout.Data>
+
+			<TableLayout.Data>
+				{extrinsics_aggregate.aggregate.count || "?"}
+			</TableLayout.Data>
+
+			<TableLayout.Data>
+				{events_aggregate.aggregate.count || "? "}
+			</TableLayout.Data>
+
+			<TableLayout.Data>
+				<Link href={`/account/${block.validator}`}>
+					<span className="cursor-pointer text-indigo-500 hover:text-white">
+						{block.validator ? formatAddress(block.validator) : "?"}
+					</span>
+				</Link>
+			</TableLayout.Data>
+			<TableLayout.Data>
+				<Link href={`/account/${validator}`}>
+					<span className="cursor-pointer text-indigo-500 hover:text-white">
+						{validator ? formatAddress(validator) : "?"}
+					</span>
+				</Link>
+			</TableLayout.Data>
+
+			<TableLayout.Data>
+				{hash ? formatAddress(hash, 12) : "?"}
+			</TableLayout.Data>
+		</tr>
+	);
+};
 
 const useQuery = (limit) => {
 	const { currentPage } = usePagination("blocks");
