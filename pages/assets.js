@@ -1,4 +1,7 @@
-import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
+import {
+	ArrowTopRightOnSquareIcon,
+	CurrencyDollarIcon,
+} from "@heroicons/react/24/outline";
 import Image from "next/future/image";
 
 import {
@@ -38,7 +41,7 @@ export default function Assets() {
 									<tr>
 										<TableLayout.HeadItem />
 										<TableLayout.HeadItem text="Asset Id" />
-										<TableLayout.HeadItem text="Token" />
+										<TableLayout.HeadItem text="Token Name" />
 										<TableLayout.HeadItem text="Symbol" />
 										<TableLayout.HeadItem text="Website" />
 									</tr>
@@ -60,6 +63,11 @@ export default function Assets() {
 											<TableLayout.Data>{asset.assetId}</TableLayout.Data>
 											<TableLayout.Data>{asset.name}</TableLayout.Data>
 											<TableLayout.Data>{asset.symbol}</TableLayout.Data>
+											<TableLayout.Data>
+												<a href={asset.external_url} target="_blank">
+													<ArrowTopRightOnSquareIcon className="h-5 w-5 cursor-pointer text-indigo-500 hover:text-white" />
+												</a>
+											</TableLayout.Data>
 										</tr>
 									))}
 								</tbody>
