@@ -69,8 +69,10 @@ export default function EVMTransactions() {
 															</span>
 														</Link>
 													</TableLayout.Data>
-													<TableLayout.Data>
-														{formatAddress(transactionHash)}
+													<TableLayout.Data dataClassName="cursor-pointer text-indigo-500 hover:text-white">
+														<Link href={`/tx/${transactionHash}`}>
+															{formatAddress(transactionHash, 12)}
+														</Link>
 													</TableLayout.Data>
 													<TableLayout.Data dataClassName="flex">
 														<BlockFinalizedIcon
