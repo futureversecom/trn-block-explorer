@@ -87,12 +87,12 @@ export default function EVMTransaction({ hash }) {
 
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Gas Limit" />
-						<DetailsLayout.Data>{data?.gasLimit[0]}</DetailsLayout.Data>
+						<DetailsLayout.Data>{data?.gasLimit?.[0]}</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Nonce" />
-						<DetailsLayout.Data>{data.nonce[0]}</DetailsLayout.Data>
+						<DetailsLayout.Data>{data.nonce?.[0]}</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
 					<DetailsLayout.Wrapper>
@@ -105,7 +105,7 @@ export default function EVMTransaction({ hash }) {
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Value" />
 						<DetailsLayout.Data>
-							{ethers.utils.formatEther(data.value[0])}
+							{data?.value?.[0] ? ethers.utils.formatEther(data.value[0]) : ''}
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
