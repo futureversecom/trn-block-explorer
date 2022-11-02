@@ -64,7 +64,7 @@ export default function Assets() {
 											<TableLayout.Data>{asset.name}</TableLayout.Data>
 											<TableLayout.Data>{asset.symbol}</TableLayout.Data>
 											<TableLayout.Data>
-												<a href={asset.external_url} target="_blank">
+												<a href={asset.external_url} target="_blank" rel="noreferrer">
 													<ArrowTopRightOnSquareIcon className="h-5 w-5 cursor-pointer text-indigo-500 hover:text-white" />
 												</a>
 											</TableLayout.Data>
