@@ -1,4 +1,5 @@
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
+import Image from "next/future/image";
 
 import {
 	ContainerLayout,
@@ -7,18 +8,19 @@ import {
 	TableLayout,
 } from "@/components";
 import EthIcon from "@/components/icons/currencies/eth.png";
+import SyloIcon from "@/components/icons/currencies/sylo.png";
+import USDCIcon from "@/components/icons/currencies/usdc.png";
+import XRPIcon from "@/components/icons/currencies/xrp.png";
 import AssetsJson from "@/libs/artifacts/Assets.json";
 import { IS_MAINNET } from "@/libs/constants";
 
 export default function Assets() {
 	const assets = AssetsJson?.tokens?.filter((e) => e.mainnet === IS_MAINNET);
-	console.log(assets);
-
 	const icons = {
-		// "SYLO": '',
-		// "ETH": '',
-		// "XRP": '',
+		SYLO: SyloIcon,
 		ETH: EthIcon,
+		XRP: XRPIcon,
+		USDC: USDCIcon,
 		// "ROOT": ''
 	};
 	return (
@@ -44,7 +46,17 @@ export default function Assets() {
 								<tbody className="divide-y divide-gray-800 bg-transparent">
 									{assets.map((asset, key) => (
 										<tr key={key}>
-											<TableLayout.Data>Icon</TableLayout.Data>
+											<TableLayout.Data dataClassName="w-16" customPadding>
+												{icons[asset?.symbol] ? (
+													<Image
+														src={icons[asset?.symbol]}
+														width={32}
+														className="m-2 mx-auto my-auto pl-2 md:pl-0"
+													/>
+												) : (
+													<></>
+												)}
+											</TableLayout.Data>
 											<TableLayout.Data>{asset.assetId}</TableLayout.Data>
 											<TableLayout.Data>{asset.name}</TableLayout.Data>
 											<TableLayout.Data>{asset.symbol}</TableLayout.Data>
