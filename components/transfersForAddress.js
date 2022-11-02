@@ -15,7 +15,11 @@ import {
 } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
 import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
-import { formatBalance, getAssetMetadata } from "@/libs/utils";
+import {
+	formatBalance,
+	formatExtrinsicId,
+	getAssetMetadata,
+} from "@/libs/utils";
 
 import InOutLabel from "./inOutLabel";
 
@@ -33,12 +37,13 @@ export default function TransfersForAddress({ walletAddress }) {
 			{query.isLoading ? (
 				<LoadingBlock title="Transfers" height="h-20" />
 			) : (
-				<div className="divide-y border border-gray-400 text-white overflow-x-auto">
+				<div className="divide-y overflow-x-auto border border-gray-400 text-white">
 					{query?.data?.length > 0 ? (
 						<TableLayout.Table>
 							<thead className="bg-transparent">
 								<tr>
 									<TableLayout.HeadItem text="Height" />
+									<TableLayout.HeadItem text="Extrinsic" />
 									<TableLayout.HeadItem text="Type" />
 									<TableLayout.HeadItem text="Timestamp" />
 									<TableLayout.HeadItem text="Token" />
@@ -59,6 +64,14 @@ export default function TransfersForAddress({ walletAddress }) {
 													<Link href={`/block/${transfer.block_number}`}>
 														<span className="cursor-pointer text-indigo-500 hover:text-white">
 															{transfer.block_number}
+														</span>
+													</Link>
+												</TableLayout.Data>
+
+												<TableLayout.Data>
+													<Link href={`/extrinsic/${transfer.id}`}>
+														<span className="cursor-pointer text-indigo-500 hover:text-white">
+															{formatExtrinsicId(transfer.id)}
 														</span>
 													</Link>
 												</TableLayout.Data>
