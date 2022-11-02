@@ -107,10 +107,10 @@ export default function Header() {
 					</div>
 
 					<Disclosure.Panel className="sm:hidden">
-						<div className="space-y-1 pt-2 pb-4">
+						<div className="divide-y divide-gray-400">
 							{links.map((link, key) => (
 								<Link href={link.href} key={key}>
-									<Disclosure.Button className="block border-l-4 border-indigo-500 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700">
+									<Disclosure.Button className="my-auto block w-full bg-transparent py-2 text-base font-medium text-gray-300">
 										{link.title}
 									</Disclosure.Button>
 								</Link>
