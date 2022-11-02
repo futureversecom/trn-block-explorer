@@ -28,6 +28,10 @@ const links = [
 		title: "EVM Transactions",
 		href: "/evmtransactions",
 	},
+	{
+		title: "Assets",
+		href: "/assets",
+	},
 ];
 
 export default function Header() {
