@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import Link from "next/link";
 import { useEffect, useMemo } from "react";
 import TimeAgo from "react-timeago";
@@ -16,7 +15,7 @@ import {
 } from "@/libs/api/generated";
 import { usePolling } from "@/libs/hooks";
 import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
-import { formatExtrinsicId } from "@/libs/utils";
+import { formatAddress, formatExtrinsicId } from "@/libs/utils";
 
 import InOutLabel from "./inOutLabel";
 
@@ -34,13 +33,14 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 			{query.isLoading ? (
 				<LoadingBlock title="Evm Transactions" height="h-20" />
 			) : (
-				<div className="divide-y border border-gray-400 text-white overflow-x-auto">
+				<div className="divide-y overflow-x-auto border border-gray-400 text-white">
 					{query?.data?.length > 0 ? (
 						<TableLayout.Table>
 							<thead className="bg-transparent">
 								<tr>
 									<TableLayout.HeadItem text="Height" />
 									<TableLayout.HeadItem text="Extrinsic" />
+									<TableLayout.HeadItem text="Tx Hash" />
 									<TableLayout.HeadItem text="Type" />
 									<TableLayout.HeadItem text="Timestamp" />
 									<TableLayout.HeadItem text="From" />
@@ -57,7 +57,8 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 										const ethereumExecutedEvent = call.events.find(
 											(event) => event.name === "Ethereum.Executed"
 										);
-										const { to, from } = ethereumExecutedEvent.args;
+										const { to, from, transactionHash } =
+											ethereumExecutedEvent.args;
 
 										let toLo = to?.toLowerCase();
 										let fromLo = from?.toLowerCase();
@@ -82,35 +83,34 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 														</span>
 													</Link>
 												</TableLayout.Data>
-
 												<TableLayout.Data dataClassName="!text-indigo-500">
 													<Link href={`/extrinsic/${call.id}`}>
 														{formatExtrinsicId(call.id)}
 													</Link>
 												</TableLayout.Data>
-
+												<TableLayout.Data dataClassName="cursor-pointer text-indigo-500 hover:text-white">
+													<Link href={`/tx/${transactionHash}`}>
+														{formatAddress(transactionHash, 12)}
+													</Link>
+												</TableLayout.Data>
 												<TableLayout.Data>
 													<InOutLabel type={type} />
 												</TableLayout.Data>
-
 												<TableLayout.Data>
 													<TimeAgo date={call.block.timestamp} />
 												</TableLayout.Data>
-
 												<TableLayout.Data>
 													<AddressLink
 														address={from}
 														isAccount={from === walletAddress.toLowerCase()}
 													/>
 												</TableLayout.Data>
-
 												<TableLayout.Data>
 													<AddressLink
 														address={to}
 														isAccount={to === walletAddress.toLowerCase()}
 													/>
 												</TableLayout.Data>
-
 												<TableLayout.Data dataClassName="flex">
 													<BlockFinalizedIcon
 														status={call.success}
