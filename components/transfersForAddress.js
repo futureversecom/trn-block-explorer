@@ -14,6 +14,7 @@ import {
 	useGetTransfersToAddressQuery,
 } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
+import { useExtrinsicSuccess } from "@/libs/hooks";
 import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
 import {
 	formatBalance,
@@ -43,7 +44,7 @@ export default function TransfersForAddress({ walletAddress }) {
 							<thead className="bg-transparent">
 								<tr>
 									<TableLayout.HeadItem text="Height" />
-									<TableLayout.HeadItem text="Extrinsic" />
+									{/* <TableLayout.HeadItem text="Extrinsic" /> */}
 									<TableLayout.HeadItem text="Type" />
 									<TableLayout.HeadItem text="Timestamp" />
 									<TableLayout.HeadItem text="Token" />
@@ -60,6 +61,7 @@ export default function TransfersForAddress({ walletAddress }) {
 
 										return (
 											<tr key={key}>
+												{console.log(transfer)}
 												<TableLayout.Data>
 													<Link href={`/block/${transfer.block_number}`}>
 														<span className="cursor-pointer text-indigo-500 hover:text-white">
@@ -67,15 +69,14 @@ export default function TransfersForAddress({ walletAddress }) {
 														</span>
 													</Link>
 												</TableLayout.Data>
-
-												<TableLayout.Data>
-													<Link href={`/extrinsic/${transfer.id}`}>
+												 {/* TODO: Implement extrinsic redirect */}
+												{/* <TableLayout.Data>
+													<Link href={`/extrinsic/${transfer.extrinsic_hash}`}>
 														<span className="cursor-pointer text-indigo-500 hover:text-white">
 															{formatExtrinsicId(transfer.id)}
 														</span>
 													</Link>
-												</TableLayout.Data>
-
+												</TableLayout.Data> */}
 												<TableLayout.Data>
 													{transfer.from_id?.toLowerCase() ===
 													walletAddress.toLowerCase() ? (
@@ -84,26 +85,21 @@ export default function TransfersForAddress({ walletAddress }) {
 														<InOutLabel type="in" />
 													)}
 												</TableLayout.Data>
-
 												<TableLayout.Data>
 													<TimeAgo date={transfer.timestamp} />
 												</TableLayout.Data>
-
 												<TableLayout.Data>
 													{asset?.symbol ?? transfer.asset_id}
 												</TableLayout.Data>
-
 												<TableLayout.Data>
 													{formatBalance(transfer.amount, asset?.decimals ?? 6)}
 												</TableLayout.Data>
-
 												<TableLayout.Data>
 													<AddressLink
 														address={transfer.from_id}
 														isAccount={transfer.from_id === walletAddress}
 													/>
 												</TableLayout.Data>
-
 												<TableLayout.Data>
 													<AddressLink
 														address={transfer.to_id}

@@ -135,7 +135,9 @@ export default function Extrinsic({ extrinsicId }) {
 										{/* @FIXME: Unhandled runtime error occurs when `extrinsic.block` is null */}
 										{moment(extrinsic?.block?.timestamp).format("LLL")}{" "}
 										<span className="ml-3 text-xs">
-											<TimeAgo date={data.block.timestamp} />
+											{data?.block?.timestamp && (
+												<TimeAgo date={data?.block?.timestamp} />
+											)}
 										</span>
 									</div>
 								</div>
@@ -147,8 +149,8 @@ export default function Extrinsic({ extrinsicId }) {
 							<DetailsLayout.Data dataClassName="!text-indigo-500">
 								<div className="flex items-center space-x-2">
 									<div>
-										<Link href={`/block/${data.block.height}`}>
-											{data.block.height}
+										<Link href={`/block/${data?.block?.height}`}>
+											{data?.block?.height}
 										</Link>
 									</div>
 
