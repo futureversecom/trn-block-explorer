@@ -4,12 +4,12 @@ import {
 	CubeIcon,
 } from "@heroicons/react/24/outline";
 import { isHex } from "@polkadot/util";
-import moment from "moment";
 import Link from "next/link";
 
 import {
 	ContainerLayout,
 	DetailsLayout,
+	ElapsedTime,
 	LoadingBlock,
 	PageHeader,
 } from "@/components";
@@ -21,8 +21,7 @@ import {
 	useGetBlockQuery,
 } from "@/libs/api/generated.ts";
 import { graphQLClient } from "@/libs/client";
-import { usePolling, useTimeAgo } from "@/libs/hooks";
-import { useTickerAtom } from "@/libs/stores";
+import { usePolling } from "@/libs/hooks";
 import { formatExtrinsicId } from "@/libs/utils";
 
 const returnNotFound = () => ({ notFound: true });
@@ -64,9 +63,6 @@ export default function BlockByNumber({ blockNumber }) {
 	});
 
 	query.data = query?.data?.archive?.block[0];
-
-	const tick = useTickerAtom();
-	const timeAgo = useTimeAgo(query?.data?.timestamp, tick);
 
 	const getPrevBlock = () => {
 		if (parseInt(blockNumber) == 0) {
@@ -120,10 +116,7 @@ export default function BlockByNumber({ blockNumber }) {
 								<div>
 									<ClockIcon className="h-5 w-5" />
 								</div>
-								<div>
-									{moment(query.data.timestamp).format("LLL")}{" "}
-									<span className="ml-3 text-xs">{timeAgo}</span>
-								</div>
+								<ElapsedTime timestamp={query?.data?.timestamp} />
 							</div>
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>

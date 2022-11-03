@@ -1,18 +1,17 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
 import { ethers } from "ethers";
-import moment from "moment";
 import Link from "next/link";
 
 import {
 	ContainerLayout,
 	DetailsLayout,
+	ElapsedTime,
 	LoadingBlock,
 	PageHeader,
 } from "@/components";
 import { BlockFinalizedIcon, CopyToClipboard } from "@/components/icons";
 import { useGetTransferByHashQuery } from "@/libs/api/generated.ts";
-import { useExtrinsicId, usePolling, useTimeAgo } from "@/libs/hooks";
-import { useTickerAtom } from "@/libs/stores";
+import { useExtrinsicId, usePolling } from "@/libs/hooks";
 import { formatAddress } from "@/libs/utils";
 
 export const getServerSideProps = (context) => ({
@@ -27,8 +26,6 @@ export default function Transfer({ hash }) {
 	query.data = query?.data?.transfers?.transfers[0];
 
 	const id = useExtrinsicId(query.data?.extrinsicHash);
-	const tick = useTickerAtom();
-	const timeAgo = useTimeAgo(query?.data?.timestamp, tick);
 
 	return (
 		<ContainerLayout>
@@ -79,8 +76,7 @@ export default function Transfer({ hash }) {
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Timestamp" />
 						<DetailsLayout.Data>
-							{moment(query.data.timestamp).format("LLL")}{" "}
-							<span className="ml-3 text-xs">{timeAgo}</span>
+							<ElapsedTime timestamp={query?.data?.timestamp} />
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 

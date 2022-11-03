@@ -1,13 +1,13 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import { isHex } from "@polkadot/util";
-import moment from "moment";
 import Link from "next/link";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import {
 	ContainerLayout,
 	DetailsLayout,
+	ElapsedTime,
 	LoadingBlock,
 	PageHeader,
 	TableLayout,
@@ -23,8 +23,7 @@ import {
 } from "@/libs/api/generated";
 import { graphQLClient } from "@/libs/client";
 import { ROOT_GAS_TOKEN_PRE_BLOCK } from "@/libs/constants";
-import { useExtrinsicSuccess, usePolling, useTimeAgo } from "@/libs/hooks";
-import { useTickerAtom } from "@/libs/stores";
+import { useExtrinsicSuccess, usePolling } from "@/libs/hooks";
 import { formatBalance, formatExtrinsicId } from "@/libs/utils";
 
 export const getServerSideProps = async (context) => {
@@ -102,8 +101,6 @@ export default function Extrinsic({ extrinsicId }) {
 	const data = query?.data?.archive?.extrinsic_by_pk;
 	const extrinsic = query?.data?.archive?.extrinsic_by_pk;
 	const extrinsicSuccess = useExtrinsicSuccess(extrinsic);
-	const tick = useTickerAtom();
-	const timeAgo = useTimeAgo(extrinsic?.block?.timestamp, tick);
 
 	const lastBlock =
 		blockQuery?.data?.archive?.block_aggregate?.aggregate?.count;
@@ -131,11 +128,8 @@ export default function Extrinsic({ extrinsicId }) {
 									<div>
 										<ClockIcon className="h-5 w-5" />
 									</div>
-									<div>
-										{/* @FIXME: Unhandled runtime error occurs when `extrinsic.block` is null */}
-										{moment(extrinsic?.block?.timestamp).format("LLL")}{" "}
-										<span className="ml-3 text-xs">{timeAgo}</span>
-									</div>
+									{/* @FIXME: Unhandled runtime error occurs when `extrinsic.block` is null */}
+									<ElapsedTime timestamp={extrinsic?.block?.timestamp} />
 								</div>
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>

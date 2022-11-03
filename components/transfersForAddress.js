@@ -6,16 +6,17 @@ import {
 	LoadingBlock,
 	Pagination,
 	TableLayout,
+	TimeAgo,
 } from "@/components";
 import {
 	useGetTransfersFromAddressQuery,
 	useGetTransfersToAddressQuery,
 } from "@/libs/api/generated.ts";
-import { usePolling, useTimeAgo } from "@/libs/hooks";
+import { usePolling } from "@/libs/hooks";
 import {
 	useAccountRefetchStatus,
 	usePagination,
-	useTickerAtom,
+	useTimeTicker,
 } from "@/libs/stores";
 import { formatBalance, getAssetMetadata } from "@/libs/utils";
 
@@ -25,7 +26,7 @@ export default function TransfersForAddress({ walletAddress }) {
 	const { pages, currentPage } = usePagination("accountTransfers");
 
 	const query = useTransfers(walletAddress);
-	const tick = useTickerAtom();
+	useTimeTicker();
 
 	const pageSlice = useMemo(() => (currentPage - 1) * 10, [currentPage]);
 
@@ -66,7 +67,6 @@ export default function TransfersForAddress({ walletAddress }) {
 												asset={asset}
 												asset_id={transfer.asset_id}
 												amount={transfer.amount}
-												tick={tick}
 											/>
 										);
 									})}
@@ -92,9 +92,7 @@ const TransfersForAddressRow = ({
 	asset,
 	asset_id,
 	amount,
-	tick,
 }) => {
-	const timeAgo = useTimeAgo(timestamp, tick);
 	return (
 		<tr>
 			<TableLayout.Data>
@@ -113,7 +111,9 @@ const TransfersForAddressRow = ({
 				)}
 			</TableLayout.Data>
 
-			<TableLayout.Data>{timeAgo}</TableLayout.Data>
+			<TableLayout.Data>
+				<TimeAgo timestamp={timestamp} />
+			</TableLayout.Data>
 
 			<TableLayout.Data>{asset?.symbol ?? asset_id}</TableLayout.Data>
 

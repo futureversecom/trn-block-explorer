@@ -4,14 +4,14 @@ import { useInterval } from "@/libs/hooks";
 
 const ticker = atom(new Date());
 
-const tickerAtom = atom(
+export const tickerAtom = atom(
 	(get) => get(ticker),
 	(get, set, newValue: Date) => {
 		set(ticker, newValue);
 	}
 );
 
-export const useTickerAtom = () => {
+export const useTimeTicker = () => {
 	const [tick, setTick] = useAtom(tickerAtom);
 
 	useInterval(() => {

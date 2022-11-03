@@ -7,11 +7,12 @@ import {
 	LoadingBlock,
 	PageHeader,
 	TableLayout,
+	TimeAgo,
 } from "@/components";
 import { TransferStatusIcon } from "@/components/icons";
 import { useGetTransfersQuery } from "@/libs/api/generated.ts";
-import { usePolling, useTimeAgo } from "@/libs/hooks";
-import { useTickerAtom } from "@/libs/stores";
+import { usePolling } from "@/libs/hooks";
+import { useTimeTicker } from "@/libs/stores";
 import { formatAddress } from "@/libs/utils";
 
 export default function Transfers() {
@@ -19,7 +20,7 @@ export default function Transfers() {
 		limit: 20,
 	});
 	query.data = query?.data?.balances?.transfer;
-	const tick = useTickerAtom();
+	useTimeTicker();
 
 	return (
 		<ContainerLayout>
@@ -57,7 +58,6 @@ export default function Transfers() {
 												amount={transfer.amount}
 												from={transfer?.from}
 												to={transfer?.to}
-												tick={tick}
 											/>
 										))}
 									</tbody>
@@ -79,9 +79,7 @@ const TransferRow = ({
 	amount,
 	from,
 	to,
-	tick,
 }) => {
-	const timeAgo = useTimeAgo(timestamp, tick);
 	return (
 		<tr>
 			<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500">
@@ -97,7 +95,9 @@ const TransferRow = ({
 			<TableLayout.Data>
 				<TransferStatusIcon status={status} iconClassName="h-5" />
 			</TableLayout.Data>
-			<TableLayout.Data>{timeAgo}</TableLayout.Data>
+			<TableLayout.Data>
+				<TimeAgo timestamp={timestamp} />
+			</TableLayout.Data>
 			<TableLayout.Data>
 				{ethers.utils.formatEther(amount)} Root
 			</TableLayout.Data>

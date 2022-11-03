@@ -1,17 +1,17 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
-import { DummyListItem, RefetchIndicator } from "@/components";
+import { DummyListItem, RefetchIndicator, TimeAgo } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetExtrinsicsQuery } from "@/libs/api/generated.ts";
-import { useExtrinsicSuccess, usePolling, useTimeAgo } from "@/libs/hooks";
-import { useTickerAtom } from "@/libs/stores";
+import { useExtrinsicSuccess, usePolling } from "@/libs/hooks";
+import { useTimeTicker } from "@/libs/stores";
 import { formatExtrinsicId } from "@/libs/utils";
 
 export default function ExtrinsicsWidget() {
 	const query = usePolling({}, useGetExtrinsicsQuery, { limit: 10 });
 	query.data = query?.data?.archive?.extrinsic;
-	const tick = useTickerAtom();
+	useTimeTicker();
 
 	return (
 		<div>
@@ -44,7 +44,6 @@ export default function ExtrinsicsWidget() {
 								call={extrinsic.calls[0].name}
 								timestamp={extrinsic.block.timestamp}
 								extrinsicId={extrinsic.id}
-								tick={tick}
 							/>
 					  ))}
 			</div>
@@ -52,8 +51,7 @@ export default function ExtrinsicsWidget() {
 	);
 }
 
-const Extrinsic = ({ extrinsic, call, timestamp, extrinsicId, tick }) => {
-	const timeAgo = useTimeAgo(timestamp, tick);
+const Extrinsic = ({ extrinsic, call, timestamp, extrinsicId }) => {
 	const extrinsicSuccess = useExtrinsicSuccess(extrinsic);
 
 	return (
@@ -71,7 +69,9 @@ const Extrinsic = ({ extrinsic, call, timestamp, extrinsicId, tick }) => {
 			<div className="flex flex-row justify-between text-sm text-gray-500">
 				<div className="text-gray-200">{call}</div>
 				<div className="flex space-x-3">
-					<div className="text-sm text-gray-200">{timeAgo}</div>
+					<div className="text-sm text-gray-200">
+						<TimeAgo timestamp={timestamp} />
+					</div>
 					<div>
 						<BlockFinalizedIcon status={extrinsicSuccess} isExtrinsic={true} />
 					</div>

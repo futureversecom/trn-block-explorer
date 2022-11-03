@@ -6,17 +6,18 @@ import {
 	LoadingBlock,
 	Pagination,
 	TableLayout,
+	TimeAgo,
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import {
 	useGetEvmTransactionsFromAddressQuery,
 	useGetEvmTransactionsToAddressQuery,
 } from "@/libs/api/generated";
-import { usePolling, useTimeAgo } from "@/libs/hooks";
+import { usePolling } from "@/libs/hooks";
 import {
 	useAccountRefetchStatus,
 	usePagination,
-	useTickerAtom,
+	useTimeTicker,
 } from "@/libs/stores";
 import { formatExtrinsicId } from "@/libs/utils";
 
@@ -26,7 +27,7 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 	const { pages, currentPage } = usePagination("accountEvmTransactions");
 
 	const query = useTransactions(walletAddress);
-	const tick = useTickerAtom();
+	useTimeTicker();
 
 	const pageSlice = useMemo(() => (currentPage - 1) * 10, [currentPage]);
 
@@ -86,7 +87,6 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 												walletAddress={walletAddress}
 												success={call.success}
 												type={type}
-												tick={tick}
 											/>
 										);
 									})}
@@ -111,9 +111,7 @@ const EvmTransactionsForAddressRow = ({
 	walletAddress,
 	success,
 	type,
-	tick,
 }) => {
-	const timeAgo = useTimeAgo(block?.timestamp, tick);
 	return (
 		<tr>
 			<TableLayout.Data dataClassName="!text-indigo-500">
@@ -132,7 +130,9 @@ const EvmTransactionsForAddressRow = ({
 				<InOutLabel type={type} />
 			</TableLayout.Data>
 
-			<TableLayout.Data>{timeAgo}</TableLayout.Data>
+			<TableLayout.Data>
+				<TimeAgo timestamp={block?.timestamp} />
+			</TableLayout.Data>
 
 			<TableLayout.Data>
 				<AddressLink

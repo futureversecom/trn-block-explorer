@@ -8,17 +8,18 @@ import {
 	PageHeader,
 	Pagination,
 	TableLayout,
+	TimeAgo,
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetBlocksQuery } from "@/libs/api/generated.ts";
-import { usePolling, useTimeAgo } from "@/libs/hooks";
-import { usePagination, useTickerAtom } from "@/libs/stores";
+import { usePolling } from "@/libs/hooks";
+import { usePagination, useTimeTicker } from "@/libs/stores";
 import { formatAddress } from "@/libs/utils";
 
 export default function Blocks() {
 	const query = useQuery(20);
 	const { pages } = usePagination("blocks");
-	const tick = useTickerAtom();
+	useTimeTicker();
 
 	return (
 		<ContainerLayout>
@@ -55,7 +56,6 @@ export default function Blocks() {
 												events_aggregate={block.events_aggregate}
 												timestamp={block.timestamp}
 												validator={block.validator}
-												tick={tick}
 											/>
 										))}
 									</tbody>
@@ -78,9 +78,7 @@ const BlockRow = ({
 	events_aggregate,
 	timestamp,
 	validator,
-	tick,
 }) => {
-	const timeAgo = useTimeAgo(timestamp, tick);
 	return (
 		<tr>
 			<TableLayout.Data>
@@ -95,7 +93,9 @@ const BlockRow = ({
 				<BlockFinalizedIcon status={true} />
 			</TableLayout.Data>
 
-			<TableLayout.Data>{timeAgo}</TableLayout.Data>
+			<TableLayout.Data>
+				<TimeAgo timestamp={timestamp} />
+			</TableLayout.Data>
 
 			<TableLayout.Data>
 				{extrinsics_aggregate.aggregate.count || "?"}
@@ -105,13 +105,6 @@ const BlockRow = ({
 				{events_aggregate.aggregate.count || "? "}
 			</TableLayout.Data>
 
-			<TableLayout.Data>
-				<Link href={`/account/${block.validator}`}>
-					<span className="cursor-pointer text-indigo-500 hover:text-white">
-						{block.validator ? formatAddress(block.validator) : "?"}
-					</span>
-				</Link>
-			</TableLayout.Data>
 			<TableLayout.Data>
 				<Link href={`/account/${validator}`}>
 					<span className="cursor-pointer text-indigo-500 hover:text-white">

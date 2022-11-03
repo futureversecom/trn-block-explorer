@@ -8,17 +8,18 @@ import {
 	PageHeader,
 	Pagination,
 	TableLayout,
+	TimeAgo,
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetExtrinsicsQuery } from "@/libs/api/generated.ts";
-import { useExtrinsicSuccess, usePolling, useTimeAgo } from "@/libs/hooks";
-import { usePagination, useTickerAtom } from "@/libs/stores";
+import { useExtrinsicSuccess, usePolling } from "@/libs/hooks";
+import { usePagination, useTimeTicker } from "@/libs/stores";
 import { formatAddress, formatExtrinsicId } from "@/libs/utils";
 
 export default function Extrinsics() {
 	const query = useQuery(20);
 	const { pages } = usePagination("extrinsics");
-	const tick = useTickerAtom();
+	useTimeTicker();
 
 	return (
 		<ContainerLayout>
@@ -56,7 +57,6 @@ export default function Extrinsics() {
 												events_aggregate={extrinsic.events_aggregate}
 												block={extrinsic.block}
 												calls={extrinsic.calls}
-												tick={tick}
 											/>
 										))}
 									</tbody>
@@ -79,9 +79,7 @@ const ExtrinsicRow = ({
 	events_aggregate,
 	block,
 	calls,
-	tick,
 }) => {
-	const timeAgo = useTimeAgo(block.timestamp, tick);
 	const extrinsicSuccess = useExtrinsicSuccess(extrinsic);
 
 	return (
@@ -104,7 +102,9 @@ const ExtrinsicRow = ({
 
 			<TableLayout.Data>{formatAddress(hash, 12)}</TableLayout.Data>
 
-			<TableLayout.Data>{timeAgo}</TableLayout.Data>
+			<TableLayout.Data>
+				<TimeAgo timestamp={block.timestamp} />
+			</TableLayout.Data>
 
 			<TableLayout.Data>
 				<Link href={`/block/${block.height}`}>

@@ -1,12 +1,11 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
 import { ethers } from "ethers";
-import moment from "moment";
 import Link from "next/link";
-import TimeAgo from "react-timeago";
 
 import {
 	ContainerLayout,
 	DetailsLayout,
+	ElapsedTime,
 	LoadingBlock,
 	PageHeader,
 } from "@/components";
@@ -76,12 +75,7 @@ export default function EVMTransaction({ hash }) {
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Timestamp" />
 						<DetailsLayout.Data>
-							<div className="flex space-x-2">
-								<div>{moment(data.timestamp).format("LLL")}</div>
-								<div>
-									<TimeAgo date={data.timestamp} />
-								</div>
-							</div>
+							<ElapsedTime timestamp={data.timestamp} />
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
