@@ -1,7 +1,6 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useEffect } from "react";
-import TimeAgo from "react-timeago";
 
 import {
 	ContainerLayout,
@@ -9,6 +8,7 @@ import {
 	PageHeader,
 	Pagination,
 	TableLayout,
+	TimeAgo,
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetBlocksQuery } from "@/libs/api/generated.ts";
@@ -47,39 +47,15 @@ export default function Blocks() {
 									</thead>
 									<tbody className="divide-y divide-gray-800 bg-transparent">
 										{query.data.map((block, key) => (
-											<tr key={key}>
-												<TableLayout.Data>
-													<Link href={`/block/${block.height}`}>
-														<span className="cursor-pointer text-indigo-500 hover:text-white">
-															{block.height}
-														</span>
-													</Link>
-												</TableLayout.Data>
-												<TableLayout.Data dataClassName="flex">
-													<BlockFinalizedIcon status={true} />
-												</TableLayout.Data>
-												<TableLayout.Data>
-													<TimeAgo date={block.timestamp} />
-												</TableLayout.Data>
-												<TableLayout.Data>
-													{block.extrinsics_aggregate.aggregate.count || "?"}
-												</TableLayout.Data>
-												<TableLayout.Data>
-													{block.events_aggregate.aggregate.count || "? "}
-												</TableLayout.Data>
-												<TableLayout.Data>
-													<Link href={`/account/${block.validator}`}>
-														<span className="cursor-pointer text-indigo-500 hover:text-white">
-															{block.validator
-																? formatAddress(block.validator)
-																: "?"}
-														</span>
-													</Link>
-												</TableLayout.Data>
-												<TableLayout.Data>
-													{block.hash ? formatAddress(block.hash, 12) : "?"}
-												</TableLayout.Data>
-											</tr>
+											<BlockRow
+												key={key}
+												height={block.height}
+												hash={block.hash}
+												extrinsics_aggregate={block.extrinsics_aggregate}
+												events_aggregate={block.events_aggregate}
+												timestamp={block.timestamp}
+												validator={block.validator}
+											/>
 										))}
 									</tbody>
 								</TableLayout.Table>
@@ -93,6 +69,55 @@ export default function Blocks() {
 		</ContainerLayout>
 	);
 }
+
+const BlockRow = ({
+	height,
+	hash,
+	extrinsics_aggregate,
+	events_aggregate,
+	timestamp,
+	validator,
+}) => {
+	return (
+		<tr>
+			<TableLayout.Data>
+				<Link href={`/block/${height}`}>
+					<span className="cursor-pointer text-indigo-500 hover:text-white">
+						{height}
+					</span>
+				</Link>
+			</TableLayout.Data>
+
+			<TableLayout.Data dataClassName="flex">
+				<BlockFinalizedIcon status={true} />
+			</TableLayout.Data>
+
+			<TableLayout.Data>
+				<TimeAgo timestamp={timestamp} />
+			</TableLayout.Data>
+
+			<TableLayout.Data>
+				{extrinsics_aggregate.aggregate.count || "?"}
+			</TableLayout.Data>
+
+			<TableLayout.Data>
+				{events_aggregate.aggregate.count || "? "}
+			</TableLayout.Data>
+
+			<TableLayout.Data>
+				<Link href={`/account/${validator}`}>
+					<span className="cursor-pointer text-indigo-500 hover:text-white">
+						{validator ? formatAddress(validator) : "?"}
+					</span>
+				</Link>
+			</TableLayout.Data>
+
+			<TableLayout.Data>
+				{hash ? formatAddress(hash, 12) : "?"}
+			</TableLayout.Data>
+		</tr>
+	);
+};
 
 const useQuery = (limit) => {
 	const { currentPage } = usePagination("blocks");

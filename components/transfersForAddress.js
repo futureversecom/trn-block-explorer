@@ -1,13 +1,12 @@
-import clsx from "clsx";
 import Link from "next/link";
 import { useEffect, useMemo } from "react";
-import TimeAgo from "react-timeago";
 
 import {
 	AddressLink,
 	LoadingBlock,
 	Pagination,
 	TableLayout,
+	TimeAgo,
 } from "@/components";
 import {
 	useGetTransfersFromAddressQuery,
@@ -52,52 +51,18 @@ export default function TransfersForAddress({ walletAddress }) {
 									.slice(pageSlice, pageSlice + 10)
 									.map((transfer, key) => {
 										const asset = getAssetMetadata(transfer.asset_id);
-
 										return (
-											<tr key={key}>
-												<TableLayout.Data>
-													<Link href={`/block/${transfer.block_number}`}>
-														<span className="cursor-pointer text-indigo-500 hover:text-white">
-															{transfer.block_number}
-														</span>
-													</Link>
-												</TableLayout.Data>
-
-												<TableLayout.Data>
-													{transfer.from_id?.toLowerCase() ===
-													walletAddress.toLowerCase() ? (
-														<InOutLabel type="out" />
-													) : (
-														<InOutLabel type="in" />
-													)}
-												</TableLayout.Data>
-
-												<TableLayout.Data>
-													<TimeAgo date={transfer.timestamp} />
-												</TableLayout.Data>
-
-												<TableLayout.Data>
-													{asset?.symbol ?? transfer.asset_id}
-												</TableLayout.Data>
-
-												<TableLayout.Data>
-													{formatBalance(transfer.amount, asset?.decimals ?? 6)}
-												</TableLayout.Data>
-
-												<TableLayout.Data>
-													<AddressLink
-														address={transfer.from_id}
-														isAccount={transfer.from_id === walletAddress}
-													/>
-												</TableLayout.Data>
-
-												<TableLayout.Data>
-													<AddressLink
-														address={transfer.to_id}
-														isAccount={transfer.to_id === walletAddress}
-													/>
-												</TableLayout.Data>
-											</tr>
+											<TransfersForAddressRow
+												key={key}
+												block_number={transfer.block_number}
+												from_id={transfer.from_id}
+												to_id={transfer.to_id}
+												walletAddress={walletAddress}
+												timestamp={transfer.timestamp}
+												asset={asset}
+												asset_id={transfer.asset_id}
+												amount={transfer.amount}
+											/>
 										);
 									})}
 							</tbody>
@@ -112,6 +77,55 @@ export default function TransfersForAddress({ walletAddress }) {
 		</div>
 	);
 }
+
+const TransfersForAddressRow = ({
+	block_number,
+	from_id,
+	to_id,
+	walletAddress,
+	timestamp,
+	asset,
+	asset_id,
+	amount,
+}) => {
+	return (
+		<tr>
+			<TableLayout.Data>
+				<Link href={`/block/${block_number}`}>
+					<span className="cursor-pointer text-indigo-500 hover:text-white">
+						{block_number}
+					</span>
+				</Link>
+			</TableLayout.Data>
+
+			<TableLayout.Data>
+				{from_id?.toLowerCase() === walletAddress.toLowerCase() ? (
+					<InOutLabel type="out" />
+				) : (
+					<InOutLabel type="in" />
+				)}
+			</TableLayout.Data>
+
+			<TableLayout.Data>
+				<TimeAgo timestamp={timestamp} />
+			</TableLayout.Data>
+
+			<TableLayout.Data>{asset?.symbol ?? asset_id}</TableLayout.Data>
+
+			<TableLayout.Data>
+				{formatBalance(amount, asset?.decimals ?? 6)}
+			</TableLayout.Data>
+
+			<TableLayout.Data>
+				<AddressLink address={from_id} isAccount={from_id === walletAddress} />
+			</TableLayout.Data>
+
+			<TableLayout.Data>
+				<AddressLink address={to_id} isAccount={to_id === walletAddress} />
+			</TableLayout.Data>
+		</tr>
+	);
+};
 
 const useTransfers = (address) => {
 	const toQuery = usePolling(

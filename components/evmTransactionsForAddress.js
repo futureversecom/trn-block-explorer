@@ -1,13 +1,12 @@
-import clsx from "clsx";
 import Link from "next/link";
 import { useEffect, useMemo } from "react";
-import TimeAgo from "react-timeago";
 
 import {
 	AddressLink,
 	LoadingBlock,
 	Pagination,
 	TableLayout,
+	TimeAgo,
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import {
@@ -74,50 +73,16 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 										}
 
 										return (
-											<tr key={key}>
-												<TableLayout.Data dataClassName="!text-indigo-500">
-													<Link href={`/block/${call.block.height}`}>
-														<span className="cursor-pointer text-indigo-500 hover:text-white">
-															{call.block.height}
-														</span>
-													</Link>
-												</TableLayout.Data>
-
-												<TableLayout.Data dataClassName="!text-indigo-500">
-													<Link href={`/extrinsic/${call.id}`}>
-														{formatExtrinsicId(call.id)}
-													</Link>
-												</TableLayout.Data>
-
-												<TableLayout.Data>
-													<InOutLabel type={type} />
-												</TableLayout.Data>
-
-												<TableLayout.Data>
-													<TimeAgo date={call.block.timestamp} />
-												</TableLayout.Data>
-
-												<TableLayout.Data>
-													<AddressLink
-														address={from}
-														isAccount={from === walletAddress.toLowerCase()}
-													/>
-												</TableLayout.Data>
-
-												<TableLayout.Data>
-													<AddressLink
-														address={to}
-														isAccount={to === walletAddress.toLowerCase()}
-													/>
-												</TableLayout.Data>
-
-												<TableLayout.Data dataClassName="flex">
-													<BlockFinalizedIcon
-														status={call.success}
-														isExtrinsic={true}
-													/>
-												</TableLayout.Data>
-											</tr>
+											<EvmTransactionsForAddressRow
+												key={key}
+												block={call.block}
+												id={call.id}
+												from={from}
+												to={to}
+												walletAddress={walletAddress}
+												success={call.success}
+												type={type}
+											/>
 										);
 									})}
 							</tbody>
@@ -132,6 +97,58 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 		</div>
 	);
 }
+
+const EvmTransactionsForAddressRow = ({
+	block,
+	id,
+	from,
+	to,
+	walletAddress,
+	success,
+	type,
+}) => {
+	return (
+		<tr>
+			<TableLayout.Data dataClassName="!text-indigo-500">
+				<Link href={`/block/${block.height}`}>
+					<span className="cursor-pointer text-indigo-500 hover:text-white">
+						{block.height}
+					</span>
+				</Link>
+			</TableLayout.Data>
+
+			<TableLayout.Data dataClassName="!text-indigo-500">
+				<Link href={`/extrinsic/${id}`}>{formatExtrinsicId(id)}</Link>
+			</TableLayout.Data>
+
+			<TableLayout.Data>
+				<InOutLabel type={type} />
+			</TableLayout.Data>
+
+			<TableLayout.Data>
+				<TimeAgo timestamp={block?.timestamp} />
+			</TableLayout.Data>
+
+			<TableLayout.Data>
+				<AddressLink
+					address={from}
+					isAccount={from === walletAddress.toLowerCase()}
+				/>
+			</TableLayout.Data>
+
+			<TableLayout.Data>
+				<AddressLink
+					address={to}
+					isAccount={to === walletAddress.toLowerCase()}
+				/>
+			</TableLayout.Data>
+
+			<TableLayout.Data dataClassName="flex">
+				<BlockFinalizedIcon status={success} isExtrinsic={true} />
+			</TableLayout.Data>
+		</tr>
+	);
+};
 
 const useTransactions = (address) => {
 	const toQuery = usePolling(

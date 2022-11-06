@@ -6,13 +6,13 @@ import {
 import { isHex } from "@polkadot/util";
 import moment from "moment";
 import Link from "next/link";
-import TimeAgo from "react-timeago";
 
 import {
 	ContainerLayout,
 	DetailsLayout,
 	LoadingBlock,
 	PageHeader,
+	TimeAgo,
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import JSONViewer from "@/components/JSONViewer";
@@ -118,10 +118,11 @@ export default function BlockByNumber({ blockNumber }) {
 									<ClockIcon className="h-5 w-5" />
 								</div>
 								<div>
-									{moment(query.data.timestamp).format("LLL")}{" "}
-									<span className="ml-3 text-xs">
-										<TimeAgo date={query.data.timestamp} />
-									</span>
+									{moment(query?.data?.timestamp).format("LLL")}{" "}
+									<TimeAgo
+										timestamp={query?.data?.timestamp}
+										timeAgoClassName="ml-3 text-xs"
+									/>
 								</div>
 							</div>
 						</DetailsLayout.Data>

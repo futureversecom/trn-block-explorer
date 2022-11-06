@@ -1,8 +1,7 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import TimeAgo from "react-timeago";
 
-import { DummyListItem, RefetchIndicator } from "@/components";
+import { DummyListItem, RefetchIndicator, TimeAgo } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetExtrinsicsQuery } from "@/libs/api/generated.ts";
 import { useExtrinsicSuccess, usePolling } from "@/libs/hooks";
@@ -69,7 +68,7 @@ const Extrinsic = ({ extrinsic, call, timestamp, extrinsicId }) => {
 				<div className="text-gray-200">{call}</div>
 				<div className="flex space-x-3">
 					<div className="text-sm text-gray-200">
-						<TimeAgo date={timestamp} />
+						<TimeAgo timestamp={timestamp} />
 					</div>
 					<div>
 						<BlockFinalizedIcon status={extrinsicSuccess} isExtrinsic={true} />

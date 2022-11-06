@@ -4,8 +4,6 @@ import { isHex } from "@polkadot/util";
 import moment from "moment";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import JSONPretty from "react-json-pretty";
-import TimeAgo from "react-timeago";
 
 import {
 	ContainerLayout,
@@ -13,6 +11,7 @@ import {
 	LoadingBlock,
 	PageHeader,
 	TableLayout,
+	TimeAgo,
 } from "@/components";
 import TransactionActions from "@/components/events/transactionActions";
 import { BlockFinalizedIcon } from "@/components/icons";
@@ -25,8 +24,7 @@ import {
 } from "@/libs/api/generated";
 import { graphQLClient } from "@/libs/client";
 import { ROOT_GAS_TOKEN_PRE_BLOCK } from "@/libs/constants";
-import { usePolling } from "@/libs/hooks";
-import { useExtrinsicSuccess } from "@/libs/hooks";
+import { useExtrinsicSuccess, usePolling } from "@/libs/hooks";
 import { formatBalance, formatExtrinsicId } from "@/libs/utils";
 
 export const getServerSideProps = async (context) => {
@@ -131,12 +129,13 @@ export default function Extrinsic({ extrinsicId }) {
 									<div>
 										<ClockIcon className="h-5 w-5" />
 									</div>
+									{/* @FIXME: Unhandled runtime error occurs when `extrinsic.block` is null */}
 									<div>
-										{/* @FIXME: Unhandled runtime error occurs when `extrinsic.block` is null */}
 										{moment(extrinsic?.block?.timestamp).format("LLL")}{" "}
-										<span className="ml-3 text-xs">
-											<TimeAgo date={data.block.timestamp} />
-										</span>
+										<TimeAgo
+											timestamp={extrinsic?.block?.timestamp}
+											timeAgoClassName="ml-3 text-xs"
+										/>
 									</div>
 								</div>
 							</DetailsLayout.Data>

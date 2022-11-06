@@ -24,6 +24,6 @@ export const usePolling = <T>(
 			isError,
 			isRefetching,
 		}),
-		[data, initialData, isFetching, isLoading, isError, isRefetching]
+		[data, initialData, isLoading, isError, isRefetching]
 	);
 };
