@@ -1,13 +1,14 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
 import { ethers } from "ethers";
+import moment from "moment";
 import Link from "next/link";
 
 import {
 	ContainerLayout,
 	DetailsLayout,
-	ElapsedTime,
 	LoadingBlock,
 	PageHeader,
+	TimeAgo,
 } from "@/components";
 import { BlockFinalizedIcon, CopyToClipboard } from "@/components/icons";
 import { useGetTransferByHashQuery } from "@/libs/api/generated.ts";
@@ -76,7 +77,13 @@ export default function Transfer({ hash }) {
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Timestamp" />
 						<DetailsLayout.Data>
-							<ElapsedTime timestamp={query?.data?.timestamp} />
+							<div>
+								{moment(query?.data?.timestamp).format("LLL")}{" "}
+								<TimeAgo
+									timestamp={query?.data?.timestamp}
+									timeAgoClassName="ml-3 text-xs"
+								/>
+							</div>
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 

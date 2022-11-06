@@ -13,13 +13,12 @@ import {
 import BlockFinalizedIcon from "@/components/icons/blockFinalizedIcon";
 import { useGetEvmTransactionsQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
-import { usePagination, useTimeTicker } from "@/libs/stores";
+import { usePagination } from "@/libs/stores";
 import { formatAddress, formatExtrinsicId } from "@/libs/utils";
 
 export default function EVMTransactions() {
 	const query = useQuery(20);
 	const { pages } = usePagination("evmtransactions");
-	useTimeTicker();
 
 	return (
 		<ContainerLayout>

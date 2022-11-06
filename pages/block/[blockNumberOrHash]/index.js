@@ -4,14 +4,15 @@ import {
 	CubeIcon,
 } from "@heroicons/react/24/outline";
 import { isHex } from "@polkadot/util";
+import moment from "moment";
 import Link from "next/link";
 
 import {
 	ContainerLayout,
 	DetailsLayout,
-	ElapsedTime,
 	LoadingBlock,
 	PageHeader,
+	TimeAgo,
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import JSONViewer from "@/components/JSONViewer";
@@ -116,7 +117,13 @@ export default function BlockByNumber({ blockNumber }) {
 								<div>
 									<ClockIcon className="h-5 w-5" />
 								</div>
-								<ElapsedTime timestamp={query?.data?.timestamp} />
+								<div>
+									{moment(query?.data?.timestamp).format("LLL")}{" "}
+									<TimeAgo
+										timestamp={query?.data?.timestamp}
+										timeAgoClassName="ml-3 text-xs"
+									/>
+								</div>
 							</div>
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>

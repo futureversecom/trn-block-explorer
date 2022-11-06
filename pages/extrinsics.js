@@ -13,13 +13,12 @@ import {
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetExtrinsicsQuery } from "@/libs/api/generated.ts";
 import { useExtrinsicSuccess, usePolling } from "@/libs/hooks";
-import { usePagination, useTimeTicker } from "@/libs/stores";
+import { usePagination } from "@/libs/stores";
 import { formatAddress, formatExtrinsicId } from "@/libs/utils";
 
 export default function Extrinsics() {
 	const query = useQuery(20);
 	const { pages } = usePagination("extrinsics");
-	useTimeTicker();
 
 	return (
 		<ContainerLayout>

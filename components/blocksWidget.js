@@ -6,7 +6,6 @@ import { DummyListItem, RefetchIndicator, TimeAgo } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetBlocksQuery } from "@/libs/api/generated.ts";
 import { usePolling, useSubscribeHeader } from "@/libs/hooks";
-import { useTimeTicker } from "@/libs/stores";
 import { numberWithCommas } from "@/libs/utils";
 
 function removeDuplicates(a, b) {
@@ -20,7 +19,6 @@ export default function BlocksWidget() {
 		limit: 10,
 	});
 	const unfinalizedBlocks = useSubscribeHeader();
-	useTimeTicker();
 
 	let dedupedBlocks = useMemo(() => {
 		if (

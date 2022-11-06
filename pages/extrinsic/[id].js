@@ -1,16 +1,17 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import { isHex } from "@polkadot/util";
+import moment from "moment";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
 import {
 	ContainerLayout,
 	DetailsLayout,
-	ElapsedTime,
 	LoadingBlock,
 	PageHeader,
 	TableLayout,
+	TimeAgo,
 } from "@/components";
 import TransactionActions from "@/components/events/transactionActions";
 import { BlockFinalizedIcon } from "@/components/icons";
@@ -129,7 +130,13 @@ export default function Extrinsic({ extrinsicId }) {
 										<ClockIcon className="h-5 w-5" />
 									</div>
 									{/* @FIXME: Unhandled runtime error occurs when `extrinsic.block` is null */}
-									<ElapsedTime timestamp={extrinsic?.block?.timestamp} />
+									<div>
+										{moment(extrinsic?.block?.timestamp).format("LLL")}{" "}
+										<TimeAgo
+											timestamp={extrinsic?.block?.timestamp}
+											timeAgoClassName="ml-3 text-xs"
+										/>
+									</div>
 								</div>
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>

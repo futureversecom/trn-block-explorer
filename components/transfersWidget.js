@@ -6,13 +6,11 @@ import { LoadingBlock, RefetchIndicator, TimeAgo } from "@/components";
 import { TransferStatusIcon } from "@/components/icons";
 import { useGetTransfersQuery } from "@/libs/api/generated.ts";
 import { useExtrinsicId, usePolling } from "@/libs/hooks";
-import { useTimeTicker } from "@/libs/stores";
 import { formatAddress } from "@/libs/utils";
 
 export default function TransfersWidget() {
 	const query = usePolling({}, useGetTransfersQuery, { limit: 10 });
 	const transfers = query?.data?.transfers?.transfers;
-	useTimeTicker();
 
 	return (
 		<div>

@@ -5,13 +5,11 @@ import { DummyListItem, RefetchIndicator, TimeAgo } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetExtrinsicsQuery } from "@/libs/api/generated.ts";
 import { useExtrinsicSuccess, usePolling } from "@/libs/hooks";
-import { useTimeTicker } from "@/libs/stores";
 import { formatExtrinsicId } from "@/libs/utils";
 
 export default function ExtrinsicsWidget() {
 	const query = usePolling({}, useGetExtrinsicsQuery, { limit: 10 });
 	query.data = query?.data?.archive?.extrinsic;
-	useTimeTicker();
 
 	return (
 		<div>

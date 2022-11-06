@@ -13,11 +13,7 @@ import {
 	useGetTransfersToAddressQuery,
 } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
-import {
-	useAccountRefetchStatus,
-	usePagination,
-	useTimeTicker,
-} from "@/libs/stores";
+import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
 import { formatBalance, getAssetMetadata } from "@/libs/utils";
 
 import InOutLabel from "./inOutLabel";
@@ -26,7 +22,6 @@ export default function TransfersForAddress({ walletAddress }) {
 	const { pages, currentPage } = usePagination("accountTransfers");
 
 	const query = useTransfers(walletAddress);
-	useTimeTicker();
 
 	const pageSlice = useMemo(() => (currentPage - 1) * 10, [currentPage]);
 

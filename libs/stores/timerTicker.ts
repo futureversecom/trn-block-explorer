@@ -2,21 +2,16 @@ import { atom, useAtom } from "jotai";
 
 import { useInterval } from "@/libs/hooks";
 
-const ticker = atom(new Date());
+export const ticker = atom(new Date());
 
-export const tickerAtom = atom(
-	(get) => get(ticker),
-	(get, set, newValue: Date) => {
-		set(ticker, newValue);
-	}
-);
+const tickerAtom = atom(null, (get, set, newValue: Date) => {
+	set(ticker, newValue);
+});
 
 export const useTimeTicker = () => {
-	const [tick, setTick] = useAtom(tickerAtom);
+	const [_, setTick] = useAtom(tickerAtom);
 
 	useInterval(() => {
 		setTick(new Date());
 	}, 1000);
-
-	return tick;
 };

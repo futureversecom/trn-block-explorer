@@ -13,13 +13,12 @@ import {
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetBlocksQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
-import { usePagination, useTimeTicker } from "@/libs/stores";
+import { usePagination } from "@/libs/stores";
 import { formatAddress } from "@/libs/utils";
 
 export default function Blocks() {
 	const query = useQuery(20);
 	const { pages } = usePagination("blocks");
-	useTimeTicker();
 
 	return (
 		<ContainerLayout>

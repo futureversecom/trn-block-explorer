@@ -14,11 +14,7 @@ import {
 	useGetEvmTransactionsToAddressQuery,
 } from "@/libs/api/generated";
 import { usePolling } from "@/libs/hooks";
-import {
-	useAccountRefetchStatus,
-	usePagination,
-	useTimeTicker,
-} from "@/libs/stores";
+import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
 import { formatExtrinsicId } from "@/libs/utils";
 
 import InOutLabel from "./inOutLabel";
@@ -27,7 +23,6 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 	const { pages, currentPage } = usePagination("accountEvmTransactions");
 
 	const query = useTransactions(walletAddress);
-	useTimeTicker();
 
 	const pageSlice = useMemo(() => (currentPage - 1) * 10, [currentPage]);
 

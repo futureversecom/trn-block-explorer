@@ -12,7 +12,6 @@ import {
 import { TransferStatusIcon } from "@/components/icons";
 import { useGetTransfersQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
-import { useTimeTicker } from "@/libs/stores";
 import { formatAddress } from "@/libs/utils";
 
 export default function Transfers() {
@@ -20,7 +19,6 @@ export default function Transfers() {
 		limit: 20,
 	});
 	query.data = query?.data?.balances?.transfer;
-	useTimeTicker();
 
 	return (
 		<ContainerLayout>
