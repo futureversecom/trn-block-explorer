@@ -1,7 +1,6 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useEffect } from "react";
-import TimeAgo from "react-timeago";
 
 import {
 	ContainerLayout,
@@ -9,6 +8,7 @@ import {
 	PageHeader,
 	Pagination,
 	TableLayout,
+	TimeAgo,
 } from "@/components";
 import BlockFinalizedIcon from "@/components/icons/blockFinalizedIcon";
 import { useGetEvmTransactionsQuery } from "@/libs/api/generated.ts";
@@ -47,9 +47,9 @@ export default function EVMTransactions() {
 										</tr>
 									</thead>
 									<tbody className="divide-y divide-gray-800 bg-transparent">
-										{query.data?.map((transaction, key) => {
+										{query.data?.map((tx, key) => {
 											const ethereumExecutedEvent =
-												transaction?.call?.extrinsic?.events?.find(
+												tx?.call?.extrinsic?.events?.find(
 													(event) => event.name === "Ethereum.Executed"
 												);
 
@@ -57,61 +57,13 @@ export default function EVMTransactions() {
 												ethereumExecutedEvent.args;
 
 											return (
-												<tr key={key}>
-													<TableLayout.Data>
-														<Link
-															href={`/extrinsic/${transaction.call.extrinsic.id}`}
-														>
-															<span className="cursor-pointer text-indigo-500 hover:text-white">
-																{formatExtrinsicId(
-																	transaction.call.extrinsic.id
-																)}
-															</span>
-														</Link>
-													</TableLayout.Data>
-													<TableLayout.Data dataClassName="cursor-pointer text-indigo-500 hover:text-white">
-														<Link href={`/tx/${transactionHash}`}>
-															{formatAddress(transactionHash, 12)}
-														</Link>
-													</TableLayout.Data>
-													<TableLayout.Data dataClassName="flex">
-														<BlockFinalizedIcon
-															status={transaction.call.success}
-															iconClassName="h-5"
-															isExtrinsic={true}
-														/>
-													</TableLayout.Data>
-													{/* <TableLayout.Data>
-														{formatAddress(transaction.call.extrinsic.hash, 6)}
-													</TableLayout.Data> */}
-													<TableLayout.Data>
-														<Link
-															href={`/block/${transaction.call.block.height}`}
-														>
-															<span className="cursor-pointer text-indigo-500 hover:text-white">
-																{transaction.call.block.height}
-															</span>
-														</Link>
-													</TableLayout.Data>
-													<TableLayout.Data>
-														<TimeAgo date={transaction.call.block.timestamp} />
-													</TableLayout.Data>
-													<TableLayout.Data>
-														<Link href={`/account/${from}`}>
-															<span className="cursor-pointer text-indigo-500 hover:text-white">
-																{formatAddress(from)}
-															</span>
-														</Link>
-													</TableLayout.Data>
-
-													<TableLayout.Data>
-														<Link href={`/account/${to}`}>
-															<span className="cursor-pointer text-indigo-500 hover:text-white">
-																{formatAddress(to)}
-															</span>
-														</Link>
-													</TableLayout.Data>
-												</tr>
+												<EVMTransactionsRow
+													key={key}
+													tx={tx}
+													transactionHash={transactionHash}
+													from={from}
+													to={to}
+												/>
 											);
 										})}
 									</tbody>
@@ -126,6 +78,56 @@ export default function EVMTransactions() {
 		</ContainerLayout>
 	);
 }
+
+const EVMTransactionsRow = ({ tx, transactionHash, from, to }) => {
+	return (
+		<tr>
+			<TableLayout.Data>
+				<Link href={`/extrinsic/${tx.call.extrinsic.id}`}>
+					<span className="cursor-pointer text-indigo-500 hover:text-white">
+						{formatExtrinsicId(tx.call.extrinsic.id)}
+					</span>
+				</Link>
+			</TableLayout.Data>
+			<TableLayout.Data>{formatAddress(transactionHash)}</TableLayout.Data>
+			<TableLayout.Data dataClassName="flex">
+				<BlockFinalizedIcon
+					status={tx.call.success}
+					iconClassName="h-5"
+					isExtrinsic={true}
+				/>
+			</TableLayout.Data>
+			{/* <TableLayout.Data>
+														{formatAddress(tx.call.extrinsic.hash, 6)}
+													</TableLayout.Data> */}
+			<TableLayout.Data>
+				<Link href={`/block/${tx.call.block.height}`}>
+					<span className="cursor-pointer text-indigo-500 hover:text-white">
+						{tx.call.block.height}
+					</span>
+				</Link>
+			</TableLayout.Data>
+			<TableLayout.Data>
+				<TimeAgo timestamp={tx.call.block.timestamp} />
+			</TableLayout.Data>
+			<TableLayout.Data>
+				<Link href={`/account/${from}`}>
+					<span className="cursor-pointer text-indigo-500 hover:text-white">
+						{formatAddress(from)}
+					</span>
+				</Link>
+			</TableLayout.Data>
+
+			<TableLayout.Data>
+				<Link href={`/account/${to}`}>
+					<span className="cursor-pointer text-indigo-500 hover:text-white">
+						{formatAddress(to)}
+					</span>
+				</Link>
+			</TableLayout.Data>
+		</tr>
+	);
+};
 
 const useQuery = (limit) => {
 	const { currentPage } = usePagination("evmtransactions");

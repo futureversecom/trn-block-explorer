@@ -1,9 +1,8 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useMemo } from "react";
-import TimeAgo from "react-timeago";
 
-import { DummyListItem, RefetchIndicator } from "@/components";
+import { DummyListItem, RefetchIndicator, TimeAgo } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetBlocksQuery } from "@/libs/api/generated.ts";
 import { usePolling, useSubscribeHeader } from "@/libs/hooks";
@@ -19,7 +18,6 @@ export default function BlocksWidget() {
 	const query = usePolling({}, useGetBlocksQuery, {
 		limit: 10,
 	});
-
 	const unfinalizedBlocks = useSubscribeHeader();
 
 	let dedupedBlocks = useMemo(() => {
@@ -104,7 +102,7 @@ const BlockItem = ({ height, extrinsics, events, timestamp, status }) => {
 				</div>
 				<div className="flex space-x-3">
 					<div className="text-sm text-gray-200">
-						<TimeAgo date={timestamp} />
+						<TimeAgo timestamp={timestamp} />
 					</div>
 					<div>
 						<BlockFinalizedIcon status={status} />

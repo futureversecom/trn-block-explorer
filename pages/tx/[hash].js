@@ -2,13 +2,13 @@ import { CubeIcon } from "@heroicons/react/24/outline";
 import { ethers } from "ethers";
 import moment from "moment";
 import Link from "next/link";
-import TimeAgo from "react-timeago";
 
 import {
 	ContainerLayout,
 	DetailsLayout,
 	LoadingBlock,
 	PageHeader,
+	TimeAgo,
 } from "@/components";
 import { useGetEvmTransactionByHashQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
@@ -76,11 +76,12 @@ export default function EVMTransaction({ hash }) {
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Timestamp" />
 						<DetailsLayout.Data>
-							<div className="flex space-x-2">
-								<div>{moment(data.timestamp).format("LLL")}</div>
-								<div>
-									<TimeAgo date={data.timestamp} />
-								</div>
+							<div>
+								{moment(data.timestamp).format("LLL")}{" "}
+								<TimeAgo
+									timestamp={data.timestamp}
+									timeAgoClassName="ml-3 text-xs"
+								/>
 							</div>
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>

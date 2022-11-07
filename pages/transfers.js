@@ -1,13 +1,13 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
 import { ethers } from "ethers";
 import Link from "next/link";
-import TimeAgo from "react-timeago";
 
 import {
 	ContainerLayout,
 	LoadingBlock,
 	PageHeader,
 	TableLayout,
+	TimeAgo,
 } from "@/components";
 import { TransferStatusIcon } from "@/components/icons";
 import { useGetTransfersQuery } from "@/libs/api/generated.ts";
@@ -18,7 +18,6 @@ export default function Transfers() {
 	let query = usePolling({}, useGetTransfersQuery, {
 		limit: 20,
 	});
-
 	query.data = query?.data?.balances?.transfer;
 
 	return (
@@ -48,52 +47,16 @@ export default function Transfers() {
 									</thead>
 									<tbody className="divide-y divide-gray-200 bg-white">
 										{query.data.map((transfer, key) => (
-											<tr key={key}>
-												<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500">
-													<Link href={`/transfer/${transfer.extrinsicHash}`}>
-														{formatAddress(transfer.extrinsicHash, 12)}
-													</Link>
-												</TableLayout.Data>
-												<Link href={`/block/${transfer.blockNumber}`}>
-													<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500">
-														{transfer.blockNumber}
-													</TableLayout.Data>
-												</Link>
-												<TableLayout.Data>
-													<TransferStatusIcon
-														status={transfer?.status}
-														iconClassName="h-5"
-													/>
-												</TableLayout.Data>
-												<TableLayout.Data>
-													<TimeAgo date={transfer.timestamp} />
-												</TableLayout.Data>
-												<TableLayout.Data>
-													{ethers.utils.formatEther(transfer.amount)} Root
-												</TableLayout.Data>
-												{transfer?.from?.id ? (
-													<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500">
-														<Link href={`/account/${transfer.from.id}`}>
-															{formatAddress(transfer.from.id)}
-														</Link>
-													</TableLayout.Data>
-												) : (
-													<TableLayout.Data>
-														{transfer?.status ?? "?"}
-													</TableLayout.Data>
-												)}
-												{transfer?.to?.id ? (
-													<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500">
-														<Link href={`/account/${transfer.to.id}`}>
-															{formatAddress(transfer.to.id)}
-														</Link>
-													</TableLayout.Data>
-												) : (
-													<TableLayout.Data>
-														{transfer?.status ?? "?"}
-													</TableLayout.Data>
-												)}
-											</tr>
+											<TransferRow
+												key={key}
+												extrinsicHash={transfer.extrinsicHash}
+												blockNumber={transfer.blockNumber}
+												status={transfer?.status}
+												timestamp={transfer.timestamp}
+												amount={transfer.amount}
+												from={transfer?.from}
+												to={transfer?.to}
+											/>
 										))}
 									</tbody>
 								</TableLayout.Table>
@@ -105,3 +68,51 @@ export default function Transfers() {
 		</ContainerLayout>
 	);
 }
+
+const TransferRow = ({
+	extrinsicHash,
+	blockNumber,
+	status,
+	timestamp,
+	amount,
+	from,
+	to,
+}) => {
+	return (
+		<tr>
+			<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500">
+				<Link href={`/transfer/${extrinsicHash}`}>
+					{formatAddress(extrinsicHash, 12)}
+				</Link>
+			</TableLayout.Data>
+			<Link href={`/block/${blockNumber}`}>
+				<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500">
+					{blockNumber}
+				</TableLayout.Data>
+			</Link>
+			<TableLayout.Data>
+				<TransferStatusIcon status={status} iconClassName="h-5" />
+			</TableLayout.Data>
+			<TableLayout.Data>
+				<TimeAgo timestamp={timestamp} />
+			</TableLayout.Data>
+			<TableLayout.Data>
+				{ethers.utils.formatEther(amount)} Root
+			</TableLayout.Data>
+			{from?.id ? (
+				<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500">
+					<Link href={`/account/${from.id}`}>{formatAddress(from.id)}</Link>
+				</TableLayout.Data>
+			) : (
+				<TableLayout.Data>{status ?? "?"}</TableLayout.Data>
+			)}
+			{to?.id ? (
+				<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500">
+					<Link href={`/account/${to.id}`}>{formatAddress(to.id)}</Link>
+				</TableLayout.Data>
+			) : (
+				<TableLayout.Data>{status ?? "?"}</TableLayout.Data>
+			)}
+		</tr>
+	);
+};

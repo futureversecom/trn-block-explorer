@@ -1,9 +1,8 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { ethers } from "ethers";
 import Link from "next/link";
-import TimeAgo from "react-timeago";
 
-import { LoadingBlock, RefetchIndicator } from "@/components";
+import { LoadingBlock, RefetchIndicator, TimeAgo } from "@/components";
 import { TransferStatusIcon } from "@/components/icons";
 import { useGetTransfersQuery } from "@/libs/api/generated.ts";
 import { useExtrinsicId, usePolling } from "@/libs/hooks";
@@ -113,7 +112,7 @@ const TransferItem = ({
 					)}
 				</div>
 				<div className="text-sm text-gray-600">
-					<TimeAgo date={timestamp} />
+					<TimeAgo timestamp={timestamp} />
 				</div>
 			</div>
 		</div>
