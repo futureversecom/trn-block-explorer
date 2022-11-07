@@ -38,7 +38,7 @@ export default function Blocks() {
 										<tr>
 											<TableLayout.HeadItem text="Block" />
 											<TableLayout.HeadItem text="Status" />
-											<TableLayout.HeadItem text="Time" />
+											<TableLayout.HeadItem text="Age" />
 											<TableLayout.HeadItem text="Extrinsics" />
 											<TableLayout.HeadItem text="Events" />
 											<TableLayout.HeadItem text="Validator" />

@@ -89,7 +89,7 @@ const BlockItem = ({ height, extrinsics, events, timestamp, status }) => {
 						</Link>
 					) : (
 						// for unfinalized blocks, the details page will not be available for now so we'll remove the link
-						<span className="text-lg text-indigo-800">
+						<span className="cursor-not-allowed text-lg text-indigo-800">
 							{numberWithCommas(height)}
 						</span>
 					)}

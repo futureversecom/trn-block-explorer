@@ -28,6 +28,10 @@ const links = [
 		title: "EVM Transactions",
 		href: "/evmtransactions",
 	},
+	// {
+	// 	title: "Assets",
+	// 	href: "/assets",
+	// },
 ];
 
 export default function Header() {
@@ -35,13 +39,13 @@ export default function Header() {
 
 	return (
 		<Disclosure as="nav" className="sm:pt-[23px]">
-			{({ open }) => (
+			{({ open, close }) => (
 				<>
 					<div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
 						<div className="relative flex h-10">
-							<div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+							<div className="inset-y-0 left-0 flex items-center sm:hidden">
 								{/* Mobile menu button */}
-								<Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+								<Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset">
 									<span className="sr-only">Open main menu</span>
 									{open ? (
 										<XMarkIcon className="block h-6 w-6" aria-hidden="true" />
@@ -103,10 +107,13 @@ export default function Header() {
 					</div>
 
 					<Disclosure.Panel className="sm:hidden">
-						<div className="space-y-1 pt-2 pb-4">
+						<div className="divide-y divide-gray-400">
 							{links.map((link, key) => (
 								<Link href={link.href} key={key}>
-									<Disclosure.Button className="block border-l-4 border-indigo-500 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700">
+									<Disclosure.Button
+										onClick={close}
+										className="my-auto block w-full bg-transparent py-2 text-base font-medium text-gray-300"
+									>
 										{link.title}
 									</Disclosure.Button>
 								</Link>

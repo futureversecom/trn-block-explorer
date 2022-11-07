@@ -1,79 +1,99 @@
 {
   "tokens": [
     {
+      "name": "Root",
       "symbol": "ROOT",
       "decimals": 6,
       "assetId": 1,
-      "mainnet": true
+      "mainnet": true,
+      "external_url": "https://futureverse.com"
     },
 
     {
+      "name": "Root",
       "symbol": "ROOT",
       "decimals": 6,
       "assetId": 1,
-      "mainnet": false
+      "mainnet": false,
+      "external_url": "https://futureverse.com"
     },
 
     {
+      "name": "Ripple",
       "symbol": "XRP",
       "decimals": 6,
       "assetId": 2,
-      "mainnet": true
+      "mainnet": true,
+      "external_url": "https://ripple.com"
     },
 
     {
+      "name": "Ripple",
       "symbol": "XRP",
       "decimals": 6,
       "assetId": 2,
-      "mainnet": false
+      "mainnet": false,
+      "external_url": "https://ripple.com"
     },
 
     {
+      "name": "Ethereum",
       "symbol": "ETH",
       "address": "0x0000000000000000000000000000000000000000",
       "decimals": 18,
       "assetId": 1124,
-      "mainnet": true
+      "mainnet": true,
+      "external_url": "https://ethereum.org"
     },
 
     {
+      "name": "Ethereum",
       "symbol": "ETH",
       "address": "0x0000000000000000000000000000000000000000",
       "decimals": 18,
       "assetId": 1124,
-      "mainnet": false
+      "mainnet": false,
+      "external_url": "https://ethereum.org"
     },
 
     {
+      "name": "SYLO Token",
       "symbol": "SYLO",
       "address": "0xf293d23bf2cdc05411ca0eddd588eb1977e8dcd4",
       "decimals": 18,
       "assetId": 2148,
-      "mainnet": true
+      "mainnet": true,
+      "external_url": "https://www.sylo.io/"
     },
 
     {
+      "name": "SYLO Token",
       "symbol": "SYLO",
       "address": "0x147dE5ddE61c38A5289a398B7bC096DF88E6251F",
       "decimals": 18,
       "assetId": 3172,
-      "mainnet": false
+      "mainnet": false,
+      "external_url": "https://www.sylo.io/"
     },
 
     {
+      "name": "USD Coin",
       "symbol": "USDC",
       "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
       "decimals": 6,
       "assetId": 3172,
-      "mainnet": true
+      "mainnet": true,
+      "external_url": "https://www.centre.io/usdc"
     },
 
     {
+      "name": "USD Coin",
       "symbol": "USDC",
       "address": "0x07865c6e87b9f70255377e024ace6630c1eaa37f",
       "decimals": 6,
       "assetId": 2148,
-      "mainnet": false
+      "mainnet": false,
+      "external_url": "https://www.centre.io/usdc"
     }
   ]
 }

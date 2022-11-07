@@ -146,8 +146,8 @@ export default function Extrinsic({ extrinsicId }) {
 							<DetailsLayout.Data dataClassName="!text-indigo-500">
 								<div className="flex items-center space-x-2">
 									<div>
-										<Link href={`/block/${data.block.height}`}>
-											{data.block.height}
+										<Link href={`/block/${data?.block?.height}`}>
+											{data?.block?.height}
 										</Link>
 									</div>
 

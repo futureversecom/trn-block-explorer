@@ -5,6 +5,7 @@ query GetAccounts($limit: Int!, $offset: Int) {
 			free
 			total
 			updated_at
+			assets
 		}
 		account_aggregate {
 			aggregate {

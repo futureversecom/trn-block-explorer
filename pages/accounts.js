@@ -1,5 +1,4 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
-import Link from "next/link";
 import { useEffect } from "react";
 
 import {
@@ -42,35 +41,38 @@ export default function Accounts() {
 												headItemClassName="text-center"
 											/>
 											<TableLayout.HeadItem text="Account" />
-											<TableLayout.HeadItem text="Free" />
-											<TableLayout.HeadItem text="Reserved" />
-											<TableLayout.HeadItem text="Total" />
+											<TableLayout.HeadItem text="Root Balance" />
+											<TableLayout.HeadItem text="XRP Balance" />
 										</tr>
 									</thead>
 									<tbody className="divide-y divide-gray-800 bg-transparent">
-										{query.data.map((account, key) => (
-											<tr key={key}>
-												<TableLayout.Data dataClassName="text-center">
-													# {key + 1 + (currentPage - 1) * 20}
-												</TableLayout.Data>
+										{query.data.map((account, key) => {
+											const xrpBalance =
+												account?.assets?.find((e) => e.assetId == 2)?.balance ??
+												0;
+											return (
+												<tr key={key}>
+													<TableLayout.Data dataClassName="text-center">
+														# {key + 1 + (currentPage - 1) * 20}
+													</TableLayout.Data>
 
-												<TableLayout.Data>
-													<AddressLink address={account.id} isAccount={false} />
-												</TableLayout.Data>
+													<TableLayout.Data>
+														<AddressLink
+															address={account.id}
+															isAccount={false}
+														/>
+													</TableLayout.Data>
 
-												<TableLayout.Data>
-													{formatBalance(account?.free, 6)} {nativeToken}
-												</TableLayout.Data>
+													<TableLayout.Data>
+														{formatBalance(account?.free, 6)} {nativeToken}
+													</TableLayout.Data>
 
-												<TableLayout.Data>
-													{formatBalance(account?.reserved, 6)} {nativeToken}
-												</TableLayout.Data>
-
-												<TableLayout.Data>
-													{formatBalance(account?.total, 6)} {nativeToken}
-												</TableLayout.Data>
-											</tr>
-										))}
+													<TableLayout.Data>
+														{formatBalance(xrpBalance, 6)} XRP
+													</TableLayout.Data>
+												</tr>
+											);
+										})}
 									</tbody>
 								</TableLayout.Table>
 							</div>

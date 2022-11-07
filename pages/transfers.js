@@ -39,7 +39,7 @@ export default function Transfers() {
 											<TableLayout.HeadItem text="Hash" />
 											<TableLayout.HeadItem text="Height" />
 											<TableLayout.HeadItem text="Status" />
-											<TableLayout.HeadItem text="Time" />
+											<TableLayout.HeadItem text="Age" />
 											<TableLayout.HeadItem text="Amount" />
 											<TableLayout.HeadItem text="From" />
 											<TableLayout.HeadItem text="To" />

@@ -15,7 +15,7 @@ import {
 } from "@/libs/api/generated";
 import { usePolling } from "@/libs/hooks";
 import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
-import { formatExtrinsicId } from "@/libs/utils";
+import { formatAddress, formatExtrinsicId } from "@/libs/utils";
 
 import InOutLabel from "./inOutLabel";
 
@@ -33,13 +33,14 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 			{query.isLoading ? (
 				<LoadingBlock title="Evm Transactions" height="h-20" />
 			) : (
-				<div className="divide-y border border-gray-400 text-white">
+				<div className="divide-y overflow-x-auto border border-gray-400 text-white">
 					{query?.data?.length > 0 ? (
 						<TableLayout.Table>
 							<thead className="bg-transparent">
 								<tr>
 									<TableLayout.HeadItem text="Height" />
 									<TableLayout.HeadItem text="Extrinsic" />
+									<TableLayout.HeadItem text="Tx Hash" />
 									<TableLayout.HeadItem text="Type" />
 									<TableLayout.HeadItem text="Timestamp" />
 									<TableLayout.HeadItem text="From" />
@@ -56,7 +57,8 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 										const ethereumExecutedEvent = call.events.find(
 											(event) => event.name === "Ethereum.Executed"
 										);
-										const { to, from } = ethereumExecutedEvent.args;
+										const { to, from, transactionHash } =
+											ethereumExecutedEvent.args;
 
 										let toLo = to?.toLowerCase();
 										let fromLo = from?.toLowerCase();

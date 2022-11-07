@@ -39,7 +39,7 @@ export default function Extrinsics() {
 											<TableLayout.HeadItem text="Id" />
 											<TableLayout.HeadItem text="Status" />
 											<TableLayout.HeadItem text="Hash" />
-											<TableLayout.HeadItem text="Time" />
+											<TableLayout.HeadItem text="Age" />
 											<TableLayout.HeadItem text="Block" />
 											<TableLayout.HeadItem text="Pallet" />
 											<TableLayout.HeadItem text="Call" />

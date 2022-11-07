@@ -13,8 +13,13 @@ import {
 	useGetTransfersToAddressQuery,
 } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
+import { useExtrinsicSuccess } from "@/libs/hooks";
 import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
-import { formatBalance, getAssetMetadata } from "@/libs/utils";
+import {
+	formatBalance,
+	formatExtrinsicId,
+	getAssetMetadata,
+} from "@/libs/utils";
 
 import InOutLabel from "./inOutLabel";
 
@@ -32,12 +37,13 @@ export default function TransfersForAddress({ walletAddress }) {
 			{query.isLoading ? (
 				<LoadingBlock title="Transfers" height="h-20" />
 			) : (
-				<div className="divide-y border border-gray-400 text-white">
+				<div className="divide-y overflow-x-auto border border-gray-400 text-white">
 					{query?.data?.length > 0 ? (
 						<TableLayout.Table>
 							<thead className="bg-transparent">
 								<tr>
 									<TableLayout.HeadItem text="Height" />
+									{/* <TableLayout.HeadItem text="Extrinsic" /> */}
 									<TableLayout.HeadItem text="Type" />
 									<TableLayout.HeadItem text="Timestamp" />
 									<TableLayout.HeadItem text="Token" />

@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { ethers } from "ethers";
 import { useRouter } from "next/router";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { RefetchIndicator } from "@/components";
 
@@ -60,6 +60,12 @@ const useSearch = () => {
 	const [search, setSearch] = useState("");
 	const [isSearching, setIsSearching] = useState(false);
 	const [error, setError] = useState(undefined);
+
+	useEffect(() => {
+		if (error) {
+			setError(undefined);
+		}
+	}, [router?.pathname]);
 
 	const getSearchURL = (search) => {
 		if (ethers.utils.isAddress(search)) return `/account/${search}`;

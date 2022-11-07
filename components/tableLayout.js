@@ -20,11 +20,12 @@ const HeadItem = ({ text, headItemClassName }) => (
 	</th>
 );
 
-const Data = ({ children, dataClassName }) => (
+const Data = ({ children, dataClassName, customPadding }) => (
 	<td
 		className={clsx(
-			"whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-6",
-			dataClassName
+			"whitespace-nowrap text-sm font-medium text-white",
+			dataClassName,
+			!customPadding && "sm:pl-6 py-4 pl-4 pr-3"
 		)}
 	>
 		{children}
