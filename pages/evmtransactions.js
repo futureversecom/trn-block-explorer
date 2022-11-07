@@ -54,7 +54,11 @@ export default function EVMTransactions() {
 												);
 
 											const { to, from, transactionHash } =
-												ethereumExecutedEvent.args;
+												ethereumExecutedEvent?.args || {
+													to: null,
+													from: null,
+													transactionHash: null,
+												};
 
 											return (
 												<EVMTransactionsRow
