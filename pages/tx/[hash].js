@@ -12,6 +12,7 @@ import {
 	PageHeader,
 	TimeAgo,
 } from "@/components";
+import GasUsage from "@/components/evm/GasUsage";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetEvmTransactionByHashQuery } from "@/libs/api/generated.ts";
 import { getTransactionByHash } from "@/libs/evm-api";
@@ -98,7 +99,10 @@ export default function EVMTransaction({ hash }) {
 								) : (
 									<Fragment />
 								)}
-								{query?.data?.parsedData?.name && query?.data?.parsedData?.name}
+								<span className="capitalize">
+									{query?.data?.parsedData?.name &&
+										query?.data?.parsedData?.name}
+								</span>
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 					) : (
@@ -186,13 +190,16 @@ export default function EVMTransaction({ hash }) {
 
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Transaction Fee" />
-						<DetailsLayout.Data>{"????"}</DetailsLayout.Data>
+						<DetailsLayout.Data>
+							<GasUsage tx={query?.data} />
+						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Gas Limit & Usage" />
 						<DetailsLayout.Data>
-							{query?.data?.gasLimit} / {query?.data?.gasUsed} (
+							{ethers.utils.commify(query?.data?.gasLimit)} /{" "}
+							{ethers.utils.commify(query?.data?.gasUsed)} (
 							{((query?.data?.gasUsed / query?.data?.gasLimit) * 100).toFixed(
 								2
 							)}{" "}
@@ -200,18 +207,18 @@ export default function EVMTransaction({ hash }) {
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
-					{query?.data?.type == 2 && (
-						<DetailsLayout.Wrapper>
-							<DetailsLayout.Title title="Gas Fees" />
-							<DetailsLayout.Data>
-								<div className="flex space-x-3">
-									<span>
-										Base:{" "}
-										{ethers.utils
-											.formatUnits(query?.data?.gasPrice, "gwei")
-											.toString()}{" "}
-										gwei
-									</span>
+					<DetailsLayout.Wrapper>
+						<DetailsLayout.Title title="Gas Fees" />
+						<DetailsLayout.Data>
+							<div className="flex space-x-3">
+								<span>
+									Base:{" "}
+									{ethers.utils
+										.formatUnits(query?.data?.gasPrice, "gwei")
+										.toString()}{" "}
+									gwei
+								</span>
+								{query?.data?.type == 2 && (
 									<span>
 										Max:{" "}
 										{ethers.utils
@@ -219,6 +226,8 @@ export default function EVMTransaction({ hash }) {
 											.toString()}{" "}
 										gwei
 									</span>
+								)}
+								{query?.data?.type == 2 && (
 									<span>
 										Max Priority:{" "}
 										{ethers.utils
@@ -226,10 +235,10 @@ export default function EVMTransaction({ hash }) {
 											.toString()}{" "}
 										gwei
 									</span>
-								</div>
-							</DetailsLayout.Data>
-						</DetailsLayout.Wrapper>
-					)}
+								)}
+							</div>
+						</DetailsLayout.Data>
+					</DetailsLayout.Wrapper>
 
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Attributes" />
