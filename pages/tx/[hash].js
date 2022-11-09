@@ -89,14 +89,48 @@ export default function EVMTransaction({ hash }) {
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 					)}
-					{query?.data?.parsedData?.name || query?.data?.creates && (
+					{query?.data?.parsedData?.name || query?.data?.creates ? (
 						<DetailsLayout.Wrapper>
 							<DetailsLayout.Title title="Method" />
 							<DetailsLayout.Data>
-								{!query?.data?.to && query?.data?.creates ? `Contract Deployment ${query?.data?.creates}` : <Fragment/>}
+								{!query?.data?.to && query?.data?.creates ? (
+									`Contract Deployment ${query?.data?.creates}`
+								) : (
+									<Fragment />
+								)}
 								{query?.data?.parsedData?.name && query?.data?.parsedData?.name}
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
+					) : (
+						<Fragment />
+					)}
+
+					{query?.data?.parsedData?.args ? (
+						<DetailsLayout.Wrapper>
+							<DetailsLayout.Title title="Events Occured" />
+							<DetailsLayout.Data>
+								<div className="flex space-x-3">
+									{Object.keys(query?.data?.parsedData?.args).map((e) => {
+										const value = query?.data?.parsedData?.args?.[e];
+										const isAddress = ethers.utils.isAddress(value)
+											? true
+											: false;
+										const finalValue = isAddress ? formatAddress(value) : value;
+
+										if (isNaN(e)) {
+											return (
+												<span className="my-auto">
+													<span className="font-bold capitalize">{e}</span>{" "}
+													{finalValue}
+												</span>
+											);
+										}
+									})}
+								</div>
+							</DetailsLayout.Data>
+						</DetailsLayout.Wrapper>
+					) : (
+						<Fragment />
 					)}
 
 					<DetailsLayout.Wrapper>
@@ -138,7 +172,11 @@ export default function EVMTransaction({ hash }) {
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Gas Limit & Usage" />
 						<DetailsLayout.Data>
-							{query?.data?.gasLimit} / {query?.data?.gasUsed} ({(query?.data?.gasUsed / query?.data?.gasLimit * 100).toFixed(2)} %)
+							{query?.data?.gasLimit} / {query?.data?.gasUsed} (
+							{((query?.data?.gasUsed / query?.data?.gasLimit) * 100).toFixed(
+								2
+							)}{" "}
+							%)
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
