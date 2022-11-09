@@ -80,7 +80,7 @@ const useSearch = () => {
 		}
 
 		// EXTRINSIC HASH OR EXTRINSIC ID
-		if (search.split('-')?.length == 3) {
+		if (search.split("-")?.length == 3) {
 			return `/extrinsic/${search}`;
 		}
 	};

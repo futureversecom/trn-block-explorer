@@ -25,7 +25,7 @@ const Data = ({ children, dataClassName, customPadding }) => (
 		className={clsx(
 			"whitespace-nowrap text-sm font-medium text-white",
 			dataClassName,
-			!customPadding && "sm:pl-6 py-4 pl-4 pr-3"
+			!customPadding && "py-4 pl-4 pr-3 sm:pl-6"
 		)}
 	>
 		{children}
