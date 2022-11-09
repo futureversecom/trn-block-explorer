@@ -105,26 +105,46 @@ export default function EVMTransaction({ hash }) {
 						<Fragment />
 					)}
 
-					{query?.data?.parsedData?.args ? (
+					{query?.data?.parsedLogs?.length > 0 ? (
 						<DetailsLayout.Wrapper>
 							<DetailsLayout.Title title="Events Occured" />
 							<DetailsLayout.Data>
-								<div className="flex space-x-3">
-									{Object.keys(query?.data?.parsedData?.args).map((e) => {
-										const value = query?.data?.parsedData?.args?.[e];
-										const isAddress = ethers.utils.isAddress(value)
-											? true
-											: false;
-										const finalValue = isAddress ? formatAddress(value) : value;
+								<div className="flex space-x-1">
+									{query?.data?.parsedLogs.map((log) => {
+										let args = {};
+										Object.keys(log?.args).map((key) => {
+											if (isNaN(Number(key))) {
+												const val = log?.args?.[key];
+												const data = ethers.utils.isAddress(val) ? (
+													<Link href={`/account/${val}`}>
+														{formatAddress(val)}
+													</Link>
+												) : (
+													val
+												);
+												args[key] = data;
+											}
+										});
 
-										if (isNaN(e)) {
-											return (
-												<span className="my-auto">
-													<span className="font-bold capitalize">{e}</span>{" "}
-													{finalValue}
-												</span>
-											);
-										}
+										return (
+											<span className="my-auto flex space-x-2">
+												<span className="capitalize">{log?.parsedFromAbi}</span>
+												<span>{log.name}</span>
+												{Object.keys(args)?.map((key) => {
+													const value = args[key];
+													return (
+														<Fragment>
+															<span className="my-auto font-bold capitalize">
+																{key}
+															</span>
+															<span className="my-auto capitalize">
+																{value}
+															</span>
+														</Fragment>
+													);
+												})}
+											</span>
+										);
 									})}
 								</div>
 							</DetailsLayout.Data>
@@ -137,9 +157,9 @@ export default function EVMTransaction({ hash }) {
 						<DetailsLayout.Title title="Timestamp" />
 						<DetailsLayout.Data>
 							<div>
-								{moment(query.data.timestamp).format("LLL")}{" "}
+								{moment(query.data.timestamp * 1000).format("LLL")}{" "}
 								<TimeAgo
-									timestamp={query.data.timestamp}
+									timestamp={query.data.timestamp * 1000}
 									timeAgoClassName="ml-3 text-xs"
 								/>
 							</div>
