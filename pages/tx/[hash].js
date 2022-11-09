@@ -74,9 +74,6 @@ export default function EVMTransaction({ hash }) {
 								) : (
 									<Fragment />
 								)}
-								{query?.data?.blockNumber && (
-									<span className="my-auto">{query?.data?.blockNumber}</span>
-								)}
 							</div>
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
@@ -92,11 +89,12 @@ export default function EVMTransaction({ hash }) {
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 					)}
-					{query?.data?.parsedData?.name && (
+					{query?.data?.parsedData?.name || query?.data?.creates && (
 						<DetailsLayout.Wrapper>
 							<DetailsLayout.Title title="Method" />
 							<DetailsLayout.Data>
-								{query?.data?.parsedData?.name}
+								{!query?.data?.to && query?.data?.creates ? `Contract Deployment ${query?.data?.creates}` : <Fragment/>}
+								{query?.data?.parsedData?.name && query?.data?.parsedData?.name}
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 					)}
