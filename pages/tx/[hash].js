@@ -13,10 +13,9 @@ import {
 	TimeAgo,
 } from "@/components";
 import GasUsage from "@/components/evm/GasUsage";
-import { BlockFinalizedIcon } from "@/components/icons";
-import { useGetEvmTransactionByHashQuery } from "@/libs/api/generated.ts";
+import ContractIcon from "@/components/evm/ContractIcon";
+import { CopyToClipboard } from "@/components/icons";
 import { getTransactionByHash } from "@/libs/evm-api";
-import { usePolling } from "@/libs/hooks";
 import { formatAddress } from "@/libs/utils";
 
 export const getServerSideProps = (context) => ({
@@ -42,8 +41,11 @@ export default function EVMTransaction({ hash }) {
 				<DetailsLayout.Container>
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Transaction Hash" />
-						<DetailsLayout.Data>
-							{query?.data?.transactionHash || query?.data?.hash}
+						<DetailsLayout.Data dataClassName="flex space-x-1">
+							<span>{query?.data?.transactionHash || query?.data?.hash} </span>
+							<CopyToClipboard
+								value={query?.data?.transactionHash || query?.data?.hash}
+							/>
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
@@ -113,7 +115,7 @@ export default function EVMTransaction({ hash }) {
 						<DetailsLayout.Wrapper>
 							<DetailsLayout.Title title="Events Occured" />
 							<DetailsLayout.Data>
-								<div className="flex space-x-1">
+								<div className="flex flex-col">
 									{query?.data?.parsedLogs.map((log) => {
 										let args = {};
 										Object.keys(log?.args).map((key) => {
@@ -131,7 +133,7 @@ export default function EVMTransaction({ hash }) {
 										});
 
 										return (
-											<span className="my-auto flex space-x-2">
+											<div className="my-auto flex space-x-2">
 												<span className="capitalize">{log?.parsedFromAbi}</span>
 												<span>{log.name}</span>
 												{Object.keys(args)?.map((key) => {
@@ -147,7 +149,7 @@ export default function EVMTransaction({ hash }) {
 														</Fragment>
 													);
 												})}
-											</span>
+											</div>
 										);
 									})}
 								</div>
@@ -171,13 +173,32 @@ export default function EVMTransaction({ hash }) {
 					</DetailsLayout.Wrapper>
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="From" />
-						<DetailsLayout.Data>{query?.data?.from}</DetailsLayout.Data>
+						<DetailsLayout.Data dataClassName="flex space-x-1">
+							<Link href={`/account/${query?.data?.from}`}>
+								<span className="cursor-pointer text-indigo-500 hover:text-white">
+									{query?.data?.from}
+								</span>
+							</Link>
+							<CopyToClipboard value={query?.data?.from} />
+						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
-					<DetailsLayout.Wrapper>
-						<DetailsLayout.Title title="Interacted with (To)" />
-						<DetailsLayout.Data>{query?.data?.to}</DetailsLayout.Data>
-					</DetailsLayout.Wrapper>
+					{query?.data?.to ? (
+						<DetailsLayout.Wrapper>
+							<DetailsLayout.Title title="Interacted with (To)" />
+							<DetailsLayout.Data dataClassName="flex space-x-1">
+								{query?.data?.toContract && <ContractIcon />}
+								<Link href={`/account/${query?.data?.to}`}>
+									<span className="cursor-pointer text-indigo-500 hover:text-white">
+										{query?.data?.to}
+									</span>
+								</Link>
+								<CopyToClipboard value={query?.data?.to} />
+							</DetailsLayout.Data>
+						</DetailsLayout.Wrapper>
+					) : (
+						<Fragment />
+					)}
 
 					{/* <DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Value" />
@@ -260,13 +281,15 @@ export default function EVMTransaction({ hash }) {
 
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Value" />
-						<DetailsLayout.Data>{String(ethers.utils.formatEther(String(query.data.value)))} XRP</DetailsLayout.Data>
+						<DetailsLayout.Data>
+							{String(ethers.utils.formatEther(String(query.data.value)))} XRP
+						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
-					<DetailsLayout.Wrapper>
+					{/* <DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Input Data" />
-						<DetailsLayout.Data>{query.data.nonce}</DetailsLayout.Data>
-					</DetailsLayout.Wrapper>
+						<DetailsLayout.Data>{JSON.stringify(query?.data?.parsedData)}</DetailsLayout.Data>
+					</DetailsLayout.Wrapper> */}
 				</DetailsLayout.Container>
 			)}
 		</ContainerLayout>
