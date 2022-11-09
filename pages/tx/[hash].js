@@ -216,7 +216,7 @@ export default function EVMTransaction({ hash }) {
 									{ethers.utils
 										.formatUnits(query?.data?.gasPrice, "gwei")
 										.toString()}{" "}
-									gwei
+									Gwei
 								</span>
 								{query?.data?.type == 2 && (
 									<span>
@@ -224,7 +224,7 @@ export default function EVMTransaction({ hash }) {
 										{ethers.utils
 											.formatUnits(query?.data?.maxFeePerGas, "gwei")
 											.toString()}{" "}
-										gwei
+										Gwei
 									</span>
 								)}
 								{query?.data?.type == 2 && (
@@ -233,7 +233,7 @@ export default function EVMTransaction({ hash }) {
 										{ethers.utils
 											.formatUnits(query?.data?.maxPriorityFeePerGas, "gwei")
 											.toString()}{" "}
-										gwei
+										Gwei
 									</span>
 								)}
 							</div>
