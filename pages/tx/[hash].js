@@ -13,17 +13,23 @@ import {
 import { useGetEvmTransactionByHashQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
 import { formatAddress } from "@/libs/utils";
+import { getTransactionByHash } from "@/libs/evm-api";
+import { useQuery } from '@tanstack/react-query'
 
 export const getServerSideProps = (context) => ({
 	props: { hash: context?.params?.hash },
 });
 
 export default function EVMTransaction({ hash }) {
-	let query = usePolling({}, useGetEvmTransactionByHashQuery, {
-		txHash: hash,
-	});
+	const query = useQuery([hash], async () => {
+		const data = await getTransactionByHash(hash);
+		console.log(data);
+		return data;
+	})
 
 	const transaction = query?.data?.archive?.frontier_ethereum_transaction?.[0];
+
+	getTransactionByHash(hash);
 
 	const ethData = transaction?.call?.extrinsic?.events?.find(
 		(e) => e.name === "Ethereum.Executed"
