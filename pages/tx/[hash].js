@@ -12,8 +12,8 @@ import {
 	PageHeader,
 	TimeAgo,
 } from "@/components";
+import AddressLink from "@/components/evm/AddressLink";
 import GasUsage from "@/components/evm/GasUsage";
-import ContractIcon from "@/components/evm/ContractIcon";
 import { CopyToClipboard } from "@/components/icons";
 import { getTransactionByHash } from "@/libs/evm-api";
 import { formatAddress } from "@/libs/utils";
@@ -159,27 +159,29 @@ export default function EVMTransaction({ hash }) {
 						<Fragment />
 					)}
 
-					<DetailsLayout.Wrapper>
-						<DetailsLayout.Title title="Timestamp" />
-						<DetailsLayout.Data>
-							<div>
-								{moment(query.data.timestamp * 1000).format("LLL")}{" "}
-								<TimeAgo
-									timestamp={query.data.timestamp * 1000}
-									timeAgoClassName="ml-3 text-xs"
-								/>
-							</div>
-						</DetailsLayout.Data>
-					</DetailsLayout.Wrapper>
+					{query?.data?.timestamp ? (
+						<DetailsLayout.Wrapper>
+							<DetailsLayout.Title title="Timestamp" />
+							<DetailsLayout.Data>
+								<div>
+									{moment(query.data.timestamp * 1000).format("LLL")}{" "}
+									<TimeAgo
+										timestamp={query.data.timestamp * 1000}
+										timeAgoClassName="ml-3 text-xs"
+									/>
+								</div>
+							</DetailsLayout.Data>
+						</DetailsLayout.Wrapper>
+					) : (
+						<Fragment />
+					)}
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="From" />
 						<DetailsLayout.Data dataClassName="flex space-x-1">
-							<Link href={`/account/${query?.data?.from}`}>
-								<span className="cursor-pointer text-indigo-500 hover:text-white">
-									{query?.data?.from}
-								</span>
-							</Link>
-							<CopyToClipboard value={query?.data?.from} />
+							<AddressLink
+								address={query?.data?.from}
+								contractData={query?.data?.fromContract}
+							/>
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
@@ -187,27 +189,15 @@ export default function EVMTransaction({ hash }) {
 						<DetailsLayout.Wrapper>
 							<DetailsLayout.Title title="Interacted with (To)" />
 							<DetailsLayout.Data dataClassName="flex space-x-1">
-								{query?.data?.toContract && <ContractIcon />}
-								<Link href={`/account/${query?.data?.to}`}>
-									<span className="cursor-pointer text-indigo-500 hover:text-white">
-										{query?.data?.to}
-									</span>
-								</Link>
-								<CopyToClipboard value={query?.data?.to} />
+								<AddressLink
+									address={query?.data?.to}
+									contractData={query?.data?.toContract}
+								/>
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 					) : (
 						<Fragment />
 					)}
-
-					{/* <DetailsLayout.Wrapper>
-						<DetailsLayout.Title title="Value" />
-						<DetailsLayout.Data>
-							{query?.data?.value
-								? ethers.utils.formatEther(query.data.value.toString())
-								: 0}
-						</DetailsLayout.Data>
-					</DetailsLayout.Wrapper> */}
 
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Transaction Fee" />
