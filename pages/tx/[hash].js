@@ -123,14 +123,14 @@ export default function EVMTransaction({ hash }) {
 						<DetailsLayout.Data>{query?.data?.to}</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
-					<DetailsLayout.Wrapper>
+					{/* <DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Value" />
 						<DetailsLayout.Data>
 							{query?.data?.value
-								? ethers.utils.formatEther(query.data.value)
+								? ethers.utils.formatEther(query.data.value.toString())
 								: 0}
 						</DetailsLayout.Data>
-					</DetailsLayout.Wrapper>
+					</DetailsLayout.Wrapper> */}
 
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Transaction Fee" />
@@ -140,7 +140,7 @@ export default function EVMTransaction({ hash }) {
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Gas Limit & Usage" />
 						<DetailsLayout.Data>
-							{query?.data?.gasLimit} / {query?.data?.gasUsed}
+							{query?.data?.gasLimit} / {query?.data?.gasUsed} ({(query?.data?.gasUsed / query?.data?.gasLimit * 100).toFixed(2)} %)
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
