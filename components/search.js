@@ -70,11 +70,6 @@ const useSearch = () => {
 	const getSearchURL = (search) => {
 		if (ethers.utils.isAddress(search)) return `/account/${search}`;
 
-		// EXTRINSIC HASH OR EXTRINSIC ID
-		if (search.length === 66 || new RegExp("^[0-9-]*$").test(search)) {
-			return `/extrinsic/${search}`;
-		}
-
 		// BLOCK NUMBER
 		if (
 			Number(search) >= 0 &&
@@ -82,6 +77,11 @@ const useSearch = () => {
 			Number(search) <= Number.MAX_SAFE_INTEGER
 		) {
 			return `/block/${search}`;
+		}
+
+		// EXTRINSIC HASH OR EXTRINSIC ID
+		if (search.split('-')?.length == 3) {
+			return `/extrinsic/${search}`;
 		}
 	};
 
