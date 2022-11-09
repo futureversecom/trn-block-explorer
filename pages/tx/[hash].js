@@ -27,32 +27,6 @@ export default function EVMTransaction({ hash }) {
 		return data;
 	})
 
-	const transaction = query?.data?.archive?.frontier_ethereum_transaction?.[0];
-
-	getTransactionByHash(hash);
-
-	const ethData = transaction?.call?.extrinsic?.events?.find(
-		(e) => e.name === "Ethereum.Executed"
-	);
-
-	const ethArgsData = transaction?.call?.args?.transaction?.value;
-	const type = transaction?.call?.args?.transaction?.__kind;
-
-	const data = {
-		txHash: ethData?.args?.transactionHash,
-		block: transaction?.call?.block?.height,
-		timestamp: transaction?.call?.block?.timestamp,
-		from: ethData?.args?.from,
-		to: ethData?.args?.to,
-		type,
-		input: ethArgsData?.input,
-		nonce: ethArgsData?.nonce,
-		value: ethArgsData?.value,
-		gasLimit: ethArgsData?.gasLimit,
-		maxFeePerGas: ethArgsData?.maxFeePerGas,
-		maxPriorityFeePerGas: ethArgsData?.maxPriorityFeePerGas,
-	};
-
 	return (
 		<ContainerLayout>
 			<PageHeader
@@ -65,15 +39,15 @@ export default function EVMTransaction({ hash }) {
 				<DetailsLayout.Container>
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Transaction Hash" />
-						<DetailsLayout.Data>{data.txHash}</DetailsLayout.Data>
+						<DetailsLayout.Data>{query.data.transactionHash}</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Block Height" />
 						<DetailsLayout.Data>
-							<Link href={`/block/${data.block}`}>
+							<Link href={`/block/${query.data.blockNumber}`}>
 								<span className="cursor-pointer text-indigo-500">
-									{data.block}
+									{query.data.blockNumber}
 								</span>
 							</Link>
 						</DetailsLayout.Data>
@@ -83,9 +57,9 @@ export default function EVMTransaction({ hash }) {
 						<DetailsLayout.Title title="Timestamp" />
 						<DetailsLayout.Data>
 							<div>
-								{moment(data.timestamp).format("LLL")}{" "}
+								{moment(query.data.timestamp).format("LLL")}{" "}
 								<TimeAgo
-									timestamp={data.timestamp}
+									timestamp={query.data.timestamp}
 									timeAgoClassName="ml-3 text-xs"
 								/>
 							</div>
@@ -94,31 +68,31 @@ export default function EVMTransaction({ hash }) {
 
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Gas Limit" />
-						<DetailsLayout.Data>{data?.gasLimit?.[0]}</DetailsLayout.Data>
+						<DetailsLayout.Data>{query?.data?.gasLimit}</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Nonce" />
-						<DetailsLayout.Data>{data.nonce?.[0]}</DetailsLayout.Data>
+						<DetailsLayout.Data>{query.data.nonce}</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Input" />
 						<DetailsLayout.Data>
-							<p className="truncate">{data.input}</p>
+							<p className="truncate">{query.data.input}</p>
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Value" />
 						<DetailsLayout.Data>
-							{data?.value?.[0] ? ethers.utils.formatEther(data.value[0]) : ''}
+							{query?.data?.value ? ethers.utils.formatEther(query.data.value) : 0}
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Type" />
-						<DetailsLayout.Data>{data.type}</DetailsLayout.Data>
+						<DetailsLayout.Data>{query?.data?.type}</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 				</DetailsLayout.Container>
 			)}
