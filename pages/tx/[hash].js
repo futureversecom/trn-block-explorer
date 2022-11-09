@@ -259,6 +259,11 @@ export default function EVMTransaction({ hash }) {
 					</DetailsLayout.Wrapper>
 
 					<DetailsLayout.Wrapper>
+						<DetailsLayout.Title title="Value" />
+						<DetailsLayout.Data>{String(ethers.utils.formatEther(String(query.data.value)))} XRP</DetailsLayout.Data>
+					</DetailsLayout.Wrapper>
+
+					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Input Data" />
 						<DetailsLayout.Data>{query.data.nonce}</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
