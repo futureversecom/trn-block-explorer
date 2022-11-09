@@ -9,14 +9,11 @@ export default function GasUsage({ tx }) {
 	let fee;
 
 	if (type == 0) {
-		const gasLimit = ethers.BigNumber.from(tx.gasLimit);
-		let gasPrice = String(
+		const gasLimit = new BigNumber(tx.gasLimit);
+		let gasPrice = new BigNumber(
 			ethers.utils.formatUnits(String(tx.gasPrice), "gwei")
 		);
-		if (gasPrice.includes(".")) {
-			gasPrice = gasPrice.split(".")[0];
-		}
-		const totalFee = gasLimit.mul(gasPrice);
+		const totalFee = gasLimit.multipliedBy(gasPrice);
         const divisor = new BigNumber(10).pow(9);
 		fee = totalFee.dividedBy(divisor).toString()
 	}
