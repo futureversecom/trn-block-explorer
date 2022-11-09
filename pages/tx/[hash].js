@@ -42,50 +42,64 @@ export default function EVMTransaction({ hash }) {
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Transaction Hash" />
 						<DetailsLayout.Data>
-							{query.data.transactionHash}
+							{query?.data?.transactionHash || query?.data?.hash}
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Status" />
 						<DetailsLayout.Data>
-							{query?.data?.status == 1 && (
-								<span className="inline-flex items-center rounded-md bg-green-100 px-2.5 py-0.5 text-sm font-medium text-green-800">
-									Success
-								</span>
-							)}
-							{query?.data.status == 0 && (
-								<div className="flex space-x-3">
-									<span className="inline-flex items-center rounded-md bg-red-100 px-2.5 py-0.5 text-sm font-medium text-red-800">
-										Reverted
+							<div className="flex space-x-3">
+								{query?.data?.status == 1 && (
+									<span className="inline-flex items-center rounded-md bg-green-100 px-2.5 py-0.5 text-sm font-medium text-green-800">
+										Success
 									</span>
-									{query?.data?.error && (
+								)}
+								{query?.data.status == 0 && (
+									<div className="flex space-x-3">
 										<span className="inline-flex items-center rounded-md bg-red-100 px-2.5 py-0.5 text-sm font-medium text-red-800">
-											Revert Message: {query?.data?.error}
+											Reverted
 										</span>
-									)}
-								</div>
-							)}
-							{!query?.data?.status && !query?.data?.blockNumber ? (
-								<span className="inline-flex items-center rounded-md bg-gray-100 px-2.5 py-0.5 text-sm font-medium text-gray-800">
-									Pending
-								</span>
-							) : (
-								<Fragment />
-							)}
+										{query?.data?.error && (
+											<span className="inline-flex items-center rounded-md bg-red-100 px-2.5 py-0.5 text-sm font-medium text-red-800">
+												Revert Message: {query?.data?.error}
+											</span>
+										)}
+									</div>
+								)}
+								{!query?.data?.status && !query?.data?.blockNumber ? (
+									<span className="inline-flex items-center rounded-md bg-gray-100 px-2.5 py-0.5 text-sm font-medium text-gray-800">
+										Pending
+									</span>
+								) : (
+									<Fragment />
+								)}
+								{query?.data?.blockNumber && (
+									<span className="my-auto">{query?.data?.blockNumber}</span>
+								)}
+							</div>
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
-
-					<DetailsLayout.Wrapper>
-						<DetailsLayout.Title title="Block Height" />
-						<DetailsLayout.Data>
-							<Link href={`/block/${query.data.blockNumber}`}>
-								<span className="cursor-pointer text-indigo-500">
-									{query.data.blockNumber}
-								</span>
-							</Link>
-						</DetailsLayout.Data>
-					</DetailsLayout.Wrapper>
+					{query?.data?.blockNumber && (
+						<DetailsLayout.Wrapper>
+							<DetailsLayout.Title title="Block Height" />
+							<DetailsLayout.Data>
+								<Link href={`/block/${query.data.blockNumber}`}>
+									<span className="cursor-pointer text-indigo-500">
+										{query.data.blockNumber}
+									</span>
+								</Link>
+							</DetailsLayout.Data>
+						</DetailsLayout.Wrapper>
+					)}
+					{query?.data?.parsedData?.name && (
+						<DetailsLayout.Wrapper>
+							<DetailsLayout.Title title="Method" />
+							<DetailsLayout.Data>
+								{query?.data?.parsedData?.name}
+							</DetailsLayout.Data>
+						</DetailsLayout.Wrapper>
+					)}
 
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Timestamp" />
@@ -130,10 +144,36 @@ export default function EVMTransaction({ hash }) {
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
-					<DetailsLayout.Wrapper>
-						<DetailsLayout.Title title="Gas Fees" />
-						<DetailsLayout.Data>{query.data.nonce}</DetailsLayout.Data>
-					</DetailsLayout.Wrapper>
+					{query?.data?.type == 2 && (
+						<DetailsLayout.Wrapper>
+							<DetailsLayout.Title title="Gas Fees" />
+							<DetailsLayout.Data>
+								<div className="flex space-x-3">
+									<span>
+										Base:{" "}
+										{ethers.utils
+											.formatUnits(query?.data?.gasPrice, "gwei")
+											.toString()}{" "}
+										gwei
+									</span>
+									<span>
+										Max:{" "}
+										{ethers.utils
+											.formatUnits(query?.data?.maxFeePerGas, "gwei")
+											.toString()}{" "}
+										gwei
+									</span>
+									<span>
+										Max Priority:{" "}
+										{ethers.utils
+											.formatUnits(query?.data?.maxPriorityFeePerGas, "gwei")
+											.toString()}{" "}
+										gwei
+									</span>
+								</div>
+							</DetailsLayout.Data>
+						</DetailsLayout.Wrapper>
+					)}
 
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Attributes" />
