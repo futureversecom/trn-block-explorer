@@ -117,6 +117,9 @@ export default function EVMTransaction({ hash }) {
 							<DetailsLayout.Data>
 								<div className="flex flex-col">
 									{query?.data?.parsedLogs.map((log) => {
+										const allowed = ['ERC20', 'ERC1155', 'ERC721'];
+										console.log(log?.parsedFromAbi)
+										if(!allowed.includes(log?.parsedFromAbi)) return <Fragment/>;
 										let args = {};
 										Object.keys(log?.args).map((key) => {
 											if (isNaN(Number(key))) {
@@ -162,13 +165,28 @@ export default function EVMTransaction({ hash }) {
 					{query?.data?.timestamp ? (
 						<DetailsLayout.Wrapper>
 							<DetailsLayout.Title title="Timestamp" />
-							<DetailsLayout.Data>
+							<DetailsLayout.Data dataClassName="flex flex-col space-y-1">
 								<div>
 									{moment(query.data.timestamp * 1000).format("LLL")}{" "}
 									<TimeAgo
 										timestamp={query.data.timestamp * 1000}
 										timeAgoClassName="ml-3 text-xs"
 									/>
+								</div>
+								<div>
+								{query?.data?.firstSeen && (
+										<div className="text-xs space-x-1">
+											<span>
+											Confirmed within:
+											</span>
+											<span>
+											{moment(query?.data?.timestamp * 1000).diff(
+												moment(query?.data?.firstSeen * 1000),
+												"seconds"
+											)} second(s)
+											</span>
+										</div>
+									)}
 								</div>
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
