@@ -14,8 +14,10 @@ import {
 } from "@/components";
 import AddressLink from "@/components/evm/AddressLink";
 import GasUsage from "@/components/evm/GasUsage";
+import DisplayNFTImage from "@/components/evm/DisplayNFTImage";
 import { CopyToClipboard } from "@/components/icons";
 import { getTransactionByHash } from "@/libs/evm-api";
+
 import { formatAddress } from "@/libs/utils";
 
 export const getServerSideProps = (context) => ({
@@ -137,8 +139,8 @@ export default function EVMTransaction({ hash }) {
 
 										return (
 											<div className="my-auto flex space-x-2">
-												<span className="capitalize">{log?.parsedFromAbi}</span>
-												<span>{log.name}</span>
+												<span className="capitalize my-auto">{log?.parsedFromAbi}</span>
+												<span className="my-auto">{log.name}</span>
 												{Object.keys(args)?.map((key) => {
 													let value = args[key];
 													if (key == "amount" || key == "value") {
@@ -148,7 +150,7 @@ export default function EVMTransaction({ hash }) {
 													}
 													return (
 														<Fragment>
-															<span className="my-auto font-bold capitalize">
+															<span className="my-auto font-semi capitalize">
 																{key}
 															</span>
 															<span className="my-auto capitalize">
@@ -158,8 +160,12 @@ export default function EVMTransaction({ hash }) {
 													);
 												})}
 												<span className="my-auto capitalize">
-													{log?.contractData?.name} ({log?.contractData?.symbol})
+													{log?.contractData?.name} ({log?.contractData?.symbol}
+													)
 												</span>
+												{log?.contractData?.uri && (
+													<DisplayNFTImage args={log?.args} uri={log?.contractData?.uri}/>
+												)}
 											</div>
 										);
 									})}
