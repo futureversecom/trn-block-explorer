@@ -12,9 +12,10 @@ export default function AddressLink({
 	showNameAndSymbol,
 	hideCopyButton,
 }) {
+	const isContract = contractData?.address;
 	return (
 		<Fragment>
-			{contractData ? <ContractIcon /> : <Fragment />}
+			{isContract ? <ContractIcon /> : <Fragment />}
 
 			<span className="flex space-x-2">
 				<Link href={`/account/${address}`}>

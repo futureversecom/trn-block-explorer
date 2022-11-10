@@ -117,7 +117,7 @@ export default function EVMTransaction({ hash }) {
 						<DetailsLayout.Wrapper>
 							<DetailsLayout.Title title="Events Occured" />
 							<DetailsLayout.Data>
-								<div className="flex flex-col">
+								<div className="flex flex-col space-y-3">
 									{query?.data?.parsedLogs.map((log) => {
 										const allowed = ["ERC20", "ERC1155", "ERC721"];
 										if (!allowed.includes(log?.parsedFromAbi))
@@ -138,7 +138,7 @@ export default function EVMTransaction({ hash }) {
 										});
 
 										return (
-											<div className="my-auto flex space-x-2">
+											<div className="flex space-x-2">
 												<span className="capitalize my-auto">{log?.parsedFromAbi}</span>
 												<span className="my-auto">{log.name}</span>
 												{Object.keys(args)?.map((key) => {

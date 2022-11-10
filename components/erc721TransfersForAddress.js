@@ -61,13 +61,18 @@ export default function Erc721TransfersForAddress({ walletAddress }) {
 									if (tx?.to == tx?.from) {
 										type = "self";
 									}
-									const currentArg = tx?.parsedLogs.find(
-										(e) => e.parsedFromAbi == "ERC721"
-									);
-									console.log(currentArg);
+									let currentArg = tx?.parsedLogs;
+									const contractData =
+										Object.getPrototypeOf(currentArg?.contractData) ===
+										Object.prototype
+											? currentArg?.contractData
+											: currentArg?.contractData?.[0];
+
+									currentArg.contractData = contractData;
+									const name = `${contractData?.name} (${contractData?.symbol})`;
 									return (
 										<EvmTransactionsForAddressRow
-											key={tx?.transactionHash || tx?.hash || key}
+											key={key}
 											transactionHash={tx?.transactionHash || tx?.hash}
 											block={tx?.blockNumber}
 											from={currentArg?.args?.from}
@@ -80,7 +85,7 @@ export default function Erc721TransfersForAddress({ walletAddress }) {
 											type={type}
 											value={tx?.value}
 											tokenId={currentArg?.args?.tokenId}
-											name={`${currentArg?.contractData?.name} (${currentArg?.contractData?.symbol})`}
+											name={name}
 											fromContract={tx?.fromContract}
 											toContract={tx?.toContract}
 											log={currentArg}
