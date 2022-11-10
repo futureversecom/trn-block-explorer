@@ -5,6 +5,7 @@ import { Fragment, useEffect, useMemo } from "react";
 import { LoadingBlock, Pagination, TableLayout, TimeAgo } from "@/components";
 import AddressLink from "@/components/evm/AddressLink";
 import DisplayNFTImage from "@/components/evm/DisplayNFTImage";
+import TransactionStatus from "@/components/evm/TransactionStatus";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { getERC721TransferForAddress } from "@/libs/evm-api";
 import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
@@ -52,16 +53,16 @@ export default function Erc721TransfersForAddress({ walletAddress }) {
 							<tbody className="divide-y divide-gray-800 bg-transparent">
 								{query?.data?.docs?.map((tx, key) => {
 									let type;
-									if (tx?.from == walletAddress) {
+									let currentArg = tx?.parsedLogs;
+									if (currentArg?.args?.from == walletAddress) {
 										type = "out";
 									}
-									if (tx?.to == walletAddress) {
+									if (currentArg?.args?.to == walletAddress) {
 										type = "in";
 									}
-									if (tx?.to == tx?.from) {
+									if (currentArg?.args?.to == currentArg?.args?.from) {
 										type = "self";
 									}
-									let currentArg = tx?.parsedLogs;
 									const contractData =
 										Object.getPrototypeOf(currentArg?.contractData) ===
 										Object.prototype
@@ -74,6 +75,7 @@ export default function Erc721TransfersForAddress({ walletAddress }) {
 										<EvmTransactionsForAddressRow
 											key={key}
 											transactionHash={tx?.transactionHash || tx?.hash}
+											tx={tx}
 											block={tx?.blockNumber}
 											from={currentArg?.args?.from}
 											// method={tx?.parsedData?.name || " - "}
@@ -120,12 +122,13 @@ const EvmTransactionsForAddressRow = ({
 	isDeployment,
 	name,
 	log,
+	tx,
 }) => {
 	return (
 		<tr>
 			<TableLayout.Data dataClassName="my-auto">
 				{/* <BlockFinalizedIcon status={success} isExtrinsic={true} /> */}
-				YES
+				<TransactionStatus tx={tx} />
 			</TableLayout.Data>
 			<TableLayout.Data dataClassName="!text-indigo-500">
 				<Link href={`/tx/${transactionHash}`}>

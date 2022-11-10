@@ -2,7 +2,7 @@ const InOutLabel = ({ type }) => {
 	const incoming = "text-green-700";
 	const outgoing = "text-orange-400";
 	const self = "text-white";
-	const theType = type.toLowerCase();
+	const theType = type?.toLowerCase();
 
 	const classes = {
 		out: outgoing,
