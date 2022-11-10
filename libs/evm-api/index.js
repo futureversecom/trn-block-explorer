@@ -42,7 +42,7 @@ export const getTransactionByHash = async (transactionHash) => {
 };
 
 export const getTransactionsForAddress = async (address, page) => {
-	return await fetch(`${BASE_URL}/api/getTransactionByHash`, {
+	return await fetch(`${BASE_URL}/api/getTransactionsForAddress`, {
 		method: "POST",
 		...headers(),
 		body: JSON.stringify({ address, page }),

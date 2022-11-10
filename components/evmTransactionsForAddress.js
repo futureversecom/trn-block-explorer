@@ -1,3 +1,5 @@
+import { useQuery } from "@tanstack/react-query";
+import { ethers } from "ethers";
 import Link from "next/link";
 import { useEffect, useMemo } from "react";
 
@@ -13,16 +15,25 @@ import {
 	useGetEvmTransactionsFromAddressQuery,
 	useGetEvmTransactionsToAddressQuery,
 } from "@/libs/api/generated";
+import { getTransactionsForAddress } from "@/libs/evm-api";
 import { usePolling } from "@/libs/hooks";
 import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
-import { formatAddress, formatExtrinsicId } from "@/libs/utils";
+import { formatAddress } from "@/libs/utils";
 
 import InOutLabel from "./inOutLabel";
 
 export default function EvmTransactionsForAddress({ walletAddress }) {
 	const { pages, currentPage } = usePagination("accountEvmTransactions");
 
-	const query = useTransactions(walletAddress);
+	// const query = useTransactions(walletAddress);
+
+	const query = useQuery(
+		["evm_transactions", walletAddress, currentPage],
+		async () => {
+			const data = await getTransactionsForAddress(walletAddress);
+			return data;
+		}
+	);
 
 	const pageSlice = useMemo(() => (currentPage - 1) * 10, [currentPage]);
 
@@ -34,59 +45,49 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 				<LoadingBlock title="Evm Transactions" height="h-20" />
 			) : (
 				<div className="divide-y overflow-x-auto border border-gray-400 text-white">
-					{query?.data?.length > 0 ? (
+					{query?.data?.docs?.length > 0 ? (
 						<TableLayout.Table>
 							<thead className="bg-transparent">
 								<tr>
-									<TableLayout.HeadItem text="Height" />
-									<TableLayout.HeadItem text="Extrinsic" />
+									<TableLayout.HeadItem text="Status" />
 									<TableLayout.HeadItem text="Tx Hash" />
-									<TableLayout.HeadItem text="Type" />
+									<TableLayout.HeadItem text="Method" />
+									<TableLayout.HeadItem text="Block" />
 									<TableLayout.HeadItem text="Timestamp" />
 									<TableLayout.HeadItem text="From" />
+									<TableLayout.HeadItem text="Type" />
 									<TableLayout.HeadItem text="To" />
-									<TableLayout.HeadItem text="Status" />
+									<TableLayout.HeadItem text="Value" />
 								</tr>
 							</thead>
 							<tbody className="divide-y divide-gray-800 bg-transparent">
-								{query.data
-									.slice(pageSlice, pageSlice + 10)
-									.map((transaction, key) => {
-										const call = transaction.call;
-
-										const ethereumExecutedEvent = call.events.find(
-											(event) => event.name === "Ethereum.Executed"
-										);
-										const { to, from, transactionHash } =
-											ethereumExecutedEvent.args;
-
-										let toLo = to?.toLowerCase();
-										let fromLo = from?.toLowerCase();
-										let walLo = walletAddress?.toLowerCase();
-										let type;
-										if (toLo === fromLo) {
-											type = "self";
-										}
-										if (from === walLo && to !== walLo) {
-											type = "out";
-										}
-										if (from !== walLo && to === walLo) {
-											type = "in";
-										}
-
-										return (
-											<EvmTransactionsForAddressRow
-												key={key}
-												block={call.block}
-												id={call.id}
-												from={from}
-												to={to}
-												walletAddress={walletAddress}
-												success={call.success}
-												type={type}
-											/>
-										);
-									})}
+								{query?.data?.docs?.map((tx, key) => {
+									let type;
+									if (tx?.from == walletAddress) {
+										type = "out";
+									}
+									if (tx?.to == walletAddress) {
+										type = "in";
+									}
+									if (tx?.to == tx?.from) {
+										type = "self";
+									}
+									return (
+										<EvmTransactionsForAddressRow
+											key={tx?.transactionHash || tx?.hash || key}
+											transactionHash={tx?.transactionHash || tx?.hash}
+											block={tx?.blockNumber}
+											from={tx?.from}
+											method={tx?.parsedData?.name || " - "}
+											timestamp={tx?.timestamp}
+											to={tx?.to}
+											walletAddress={walletAddress}
+											success={tx?.status == 1 ? true : false}
+											type={type}
+											value={tx?.value}
+										/>
+									);
+								})}
 							</tbody>
 						</TableLayout.Table>
 					) : (
@@ -102,25 +103,52 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 
 const EvmTransactionsForAddressRow = ({
 	block,
-	id,
+	method,
+	timestamp,
 	from,
+	transactionHash,
 	to,
 	walletAddress,
 	success,
 	type,
+	value,
 }) => {
 	return (
 		<tr>
+			<TableLayout.Data dataClassName="flex">
+				<BlockFinalizedIcon status={success} isExtrinsic={true} />
+			</TableLayout.Data>
 			<TableLayout.Data dataClassName="!text-indigo-500">
-				<Link href={`/block/${block.height}`}>
+				<Link href={`/tx/${transactionHash}`}>
 					<span className="cursor-pointer text-indigo-500 hover:text-white">
-						{block.height}
+						{formatAddress(transactionHash)}
 					</span>
 				</Link>
 			</TableLayout.Data>
 
+			<TableLayout.Data>
+				<span className="capitalize">{method || " - "}</span>
+			</TableLayout.Data>
+
 			<TableLayout.Data dataClassName="!text-indigo-500">
-				<Link href={`/extrinsic/${id}`}>{formatExtrinsicId(id)}</Link>
+				<Link href={`/block/${block}`}>
+					<span className="cursor-pointer text-indigo-500 hover:text-white">
+						{block}
+					</span>
+				</Link>
+			</TableLayout.Data>
+
+			<TableLayout.Data>
+				{timestamp ? <TimeAgo timestamp={timestamp * 1000} /> : "?"}
+			</TableLayout.Data>
+
+			<TableLayout.Data>
+				{from && (
+					<AddressLink
+						address={from}
+						isAccount={from === walletAddress.toLowerCase()}
+					/>
+				)}
 			</TableLayout.Data>
 
 			<TableLayout.Data>
@@ -128,25 +156,16 @@ const EvmTransactionsForAddressRow = ({
 			</TableLayout.Data>
 
 			<TableLayout.Data>
-				<TimeAgo timestamp={block?.timestamp} />
+				{to && (
+					<AddressLink
+						address={to}
+						isAccount={to === walletAddress.toLowerCase()}
+					/>
+				)}
 			</TableLayout.Data>
 
 			<TableLayout.Data>
-				<AddressLink
-					address={from}
-					isAccount={from === walletAddress.toLowerCase()}
-				/>
-			</TableLayout.Data>
-
-			<TableLayout.Data>
-				<AddressLink
-					address={to}
-					isAccount={to === walletAddress.toLowerCase()}
-				/>
-			</TableLayout.Data>
-
-			<TableLayout.Data dataClassName="flex">
-				<BlockFinalizedIcon status={success} isExtrinsic={true} />
+				{ethers.utils.formatEther(String(value || 0)).toString()} XRP
 			</TableLayout.Data>
 		</tr>
 	);
