@@ -117,9 +117,9 @@ export default function EVMTransaction({ hash }) {
 							<DetailsLayout.Data>
 								<div className="flex flex-col">
 									{query?.data?.parsedLogs.map((log) => {
-										const allowed = ['ERC20', 'ERC1155', 'ERC721'];
-										console.log(log?.parsedFromAbi)
-										if(!allowed.includes(log?.parsedFromAbi)) return <Fragment/>;
+										const allowed = ["ERC20", "ERC1155", "ERC721"];
+										if (!allowed.includes(log?.parsedFromAbi))
+											return <Fragment />;
 										let args = {};
 										Object.keys(log?.args).map((key) => {
 											if (isNaN(Number(key))) {
@@ -140,7 +140,12 @@ export default function EVMTransaction({ hash }) {
 												<span className="capitalize">{log?.parsedFromAbi}</span>
 												<span>{log.name}</span>
 												{Object.keys(args)?.map((key) => {
-													const value = args[key];
+													let value = args[key];
+													if (key == "amount" || key == "value") {
+														value = ethers.utils
+															.formatUnits(value, log?.contractData?.decimals)
+															.toString();
+													}
 													return (
 														<Fragment>
 															<span className="my-auto font-bold capitalize">
@@ -152,6 +157,9 @@ export default function EVMTransaction({ hash }) {
 														</Fragment>
 													);
 												})}
+												<span className="my-auto capitalize">
+													{log?.contractData?.name} ({log?.contractData?.symbol})
+												</span>
 											</div>
 										);
 									})}
@@ -174,16 +182,15 @@ export default function EVMTransaction({ hash }) {
 									/>
 								</div>
 								<div>
-								{query?.data?.firstSeen && (
-										<div className="text-xs space-x-1">
+									{query?.data?.firstSeen && (
+										<div className="space-x-1 text-xs">
+											<span>Confirmed within:</span>
 											<span>
-											Confirmed within:
-											</span>
-											<span>
-											{moment(query?.data?.timestamp * 1000).diff(
-												moment(query?.data?.firstSeen * 1000),
-												"seconds"
-											)} second(s)
+												{moment(query?.data?.timestamp * 1000).diff(
+													moment(query?.data?.firstSeen * 1000),
+													"seconds"
+												)}{" "}
+												second(s)
 											</span>
 										</div>
 									)}
@@ -199,6 +206,7 @@ export default function EVMTransaction({ hash }) {
 							<AddressLink
 								address={query?.data?.from}
 								contractData={query?.data?.fromContract}
+								showNameAndSymbol
 							/>
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
@@ -210,6 +218,7 @@ export default function EVMTransaction({ hash }) {
 								<AddressLink
 									address={query?.data?.to}
 									contractData={query?.data?.toContract}
+									showNameAndSymbol
 								/>
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
@@ -217,22 +226,36 @@ export default function EVMTransaction({ hash }) {
 						<Fragment />
 					)}
 
-					<DetailsLayout.Wrapper>
-						<DetailsLayout.Title title="Transaction Fee" />
-						<DetailsLayout.Data>
-							<GasUsage tx={query?.data} />
-						</DetailsLayout.Data>
-					</DetailsLayout.Wrapper>
+					{query?.data?.status == 0 ||
+						(query?.data?.status == 1 && (
+							<DetailsLayout.Wrapper>
+								<DetailsLayout.Title title="Transaction Fee" />
+								<DetailsLayout.Data>
+									<GasUsage tx={query?.data} />
+								</DetailsLayout.Data>
+							</DetailsLayout.Wrapper>
+						))}
 
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Gas Limit & Usage" />
 						<DetailsLayout.Data>
 							{ethers.utils.commify(query?.data?.gasLimit)} /{" "}
-							{ethers.utils.commify(query?.data?.gasUsed)} (
-							{((query?.data?.gasUsed / query?.data?.gasLimit) * 100).toFixed(
-								2
-							)}{" "}
-							%)
+							{query?.data?.gasUsed ? (
+								<Fragment>
+									{ethers.utils.commify(query?.data?.gasUsed)}
+									<Fragment>
+										{" "}
+										(
+										{(
+											(query?.data?.gasUsed / query?.data?.gasLimit) *
+											100
+										).toFixed(2)}{" "}
+										%)
+									</Fragment>
+								</Fragment>
+							) : (
+								"?"
+							)}
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
