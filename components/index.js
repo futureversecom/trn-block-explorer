@@ -14,6 +14,8 @@ export { default as ExtrinsicsWidget } from "./extrinsicsWidget";
 export { default as ContainerLayout } from "./containerLayout";
 export { default as Tooltip } from "./tooltip";
 export { default as EvmTransactionsForAddress } from "./evmTransactionsForAddress";
+export { default as Erc721TransfersForAddress } from "./erc721TransfersForAddress";
+
 export * from "./detailsLayout";
 export * from "./tableLayout";
 export * from "./addressLink";

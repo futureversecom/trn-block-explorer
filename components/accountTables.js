@@ -10,13 +10,14 @@ import {
 	EvmTransactionsForAddress,
 	RefetchIndicator,
 	TransfersForAddress,
+	Erc721TransfersForAddress
 } from "./";
 
 export const AccountTables = ({ walletAddress }) => {
 	const isRefetching = useAccountRefetchStatus();
 	const router = useRouter();
 	// tab name -> index <-- tab name
-	const url_to_index = ["transfers", "evm_transactions"];
+	const url_to_index = ["transfers", "evm_transactions", "erc721_transfers"];
 
 	return (
 		<div className="mt-6">
@@ -32,7 +33,7 @@ export const AccountTables = ({ walletAddress }) => {
 					});
 				}}
 			>
-				<TabList titles={["Transfers", "EVM Transactions"]}>
+				<TabList titles={["Transfers", "EVM Transactions", "ERC721 Transfers"]}>
 					{isRefetching && (
 						<div className="absolute right-2 top-6 flex">
 							<RefetchIndicator />
@@ -43,6 +44,7 @@ export const AccountTables = ({ walletAddress }) => {
 					panels={[
 						<TransfersForAddress walletAddress={walletAddress} />,
 						<EvmTransactionsForAddress walletAddress={walletAddress} />,
+						<Erc721TransfersForAddress walletAddress={walletAddress} />,
 					]}
 				/>
 			</Tab.Group>
