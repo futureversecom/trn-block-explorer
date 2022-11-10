@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { ethers } from "ethers";
 import Link from "next/link";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, Fragment } from "react";
 
 import {
 	AddressLink,
@@ -19,7 +19,6 @@ import { getTransactionsForAddress } from "@/libs/evm-api";
 import { usePolling } from "@/libs/hooks";
 import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
 import { formatAddress } from "@/libs/utils";
-
 import InOutLabel from "./inOutLabel";
 
 export default function EvmTransactionsForAddress({ walletAddress }) {
@@ -80,7 +79,8 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 											from={tx?.from}
 											method={tx?.parsedData?.name || " - "}
 											timestamp={tx?.timestamp}
-											to={tx?.to}
+											to={tx?.to || tx?.creates}
+											isDeployment={tx?.creates || false}
 											walletAddress={walletAddress}
 											success={tx?.status == 1 ? true : false}
 											type={type}
@@ -112,6 +112,7 @@ const EvmTransactionsForAddressRow = ({
 	success,
 	type,
 	value,
+	isDeployment,
 }) => {
 	return (
 		<tr>
@@ -157,10 +158,13 @@ const EvmTransactionsForAddressRow = ({
 
 			<TableLayout.Data>
 				{to && (
-					<AddressLink
-						address={to}
-						isAccount={to === walletAddress.toLowerCase()}
-					/>
+					<div className="flex space-x-2">
+						{isDeployment && <div>Created</div>}
+						<AddressLink
+							address={to}
+							isAccount={to === walletAddress.toLowerCase()}
+						/>
+					</div>
 				)}
 			</TableLayout.Data>
 
