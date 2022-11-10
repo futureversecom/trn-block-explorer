@@ -10,10 +10,11 @@ export default function AddressLink({
 	contractData,
 	format,
 	showNameAndSymbol,
+	hideCopyButton,
 }) {
 	return (
 		<Fragment>
-			{contractData && <ContractIcon />}
+			{contractData ? <ContractIcon /> : <Fragment />}
 
 			<span className="flex space-x-2">
 				<Link href={`/account/${address}`}>
@@ -31,7 +32,7 @@ export default function AddressLink({
 				)}
 			</span>
 
-			<CopyToClipboard value={address} />
+			{!hideCopyButton && <CopyToClipboard value={address} />}
 		</Fragment>
 	);
 }

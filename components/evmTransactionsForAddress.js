@@ -1,15 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { ethers } from "ethers";
 import Link from "next/link";
-import { useEffect, useMemo, Fragment } from "react";
+import { Fragment, useEffect, useMemo } from "react";
 
-import {
-	AddressLink,
-	LoadingBlock,
-	Pagination,
-	TableLayout,
-	TimeAgo,
-} from "@/components";
+import { LoadingBlock, Pagination, TableLayout, TimeAgo } from "@/components";
+import AddressLink from "@/components/evm/AddressLink";
 import { BlockFinalizedIcon } from "@/components/icons";
 import {
 	useGetEvmTransactionsFromAddressQuery,
@@ -19,6 +14,7 @@ import { getTransactionsForAddress } from "@/libs/evm-api";
 import { usePolling } from "@/libs/hooks";
 import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
 import { formatAddress } from "@/libs/utils";
+
 import InOutLabel from "./inOutLabel";
 
 export default function EvmTransactionsForAddress({ walletAddress }) {
@@ -78,13 +74,15 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 											block={tx?.blockNumber}
 											from={tx?.from}
 											method={tx?.parsedData?.name || " - "}
-											timestamp={tx?.timestamp}
+											timestamp={tx?.timestamp || tx?.firstSeen}
 											to={tx?.to || tx?.creates}
 											isDeployment={tx?.creates || false}
 											walletAddress={walletAddress}
 											success={tx?.status == 1 ? true : false}
 											type={type}
 											value={tx?.value}
+											fromContract={tx?.fromContract}
+											toContract={tx?.toContract}
 										/>
 									);
 								})}
@@ -109,6 +107,8 @@ const EvmTransactionsForAddressRow = ({
 	transactionHash,
 	to,
 	walletAddress,
+	toContract,
+	fromContract,
 	success,
 	type,
 	value,
@@ -128,15 +128,21 @@ const EvmTransactionsForAddressRow = ({
 			</TableLayout.Data>
 
 			<TableLayout.Data>
-				<span className="capitalize">{method || " - "}</span>
+				<span className="inline-flex items-center rounded bg-gray-800 px-2 py-0.5 text-xs font-medium text-gray-100 capitalize">
+					{method || " - "}
+				</span>
 			</TableLayout.Data>
 
-			<TableLayout.Data dataClassName="!text-indigo-500">
-				<Link href={`/block/${block}`}>
-					<span className="cursor-pointer text-indigo-500 hover:text-white">
-						{block}
-					</span>
-				</Link>
+			<TableLayout.Data>
+				{block ? (
+					<Link href={`/block/${block}`}>
+						<span className="cursor-pointer text-indigo-500 hover:text-white">
+							{block}
+						</span>
+					</Link>
+				) : (
+					"-"
+				)}
 			</TableLayout.Data>
 
 			<TableLayout.Data>
@@ -144,11 +150,17 @@ const EvmTransactionsForAddressRow = ({
 			</TableLayout.Data>
 
 			<TableLayout.Data>
-				{from && (
-					<AddressLink
-						address={from}
-						isAccount={from === walletAddress.toLowerCase()}
-					/>
+				{from ? (
+					<div className="flex space-x-2">
+						<AddressLink
+							address={from}
+							contractData={fromContract}
+							format
+							hideCopyButton
+						/>
+					</div>
+				) : (
+					" - "
 				)}
 			</TableLayout.Data>
 
@@ -157,14 +169,18 @@ const EvmTransactionsForAddressRow = ({
 			</TableLayout.Data>
 
 			<TableLayout.Data>
-				{to && (
+				{to ? (
 					<div className="flex space-x-2">
 						{isDeployment && <div>Created</div>}
 						<AddressLink
 							address={to}
-							isAccount={to === walletAddress.toLowerCase()}
+							contractData={toContract}
+							format
+							hideCopyButton
 						/>
 					</div>
+				) : (
+					<Fragment />
 				)}
 			</TableLayout.Data>
 
