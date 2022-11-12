@@ -60,3 +60,13 @@ export const getERC721TransferForAddress = async (address, page) => {
 		return extractBody(response);
 	});
 };
+
+export const getERC20TransferForAddress = async (address, page) => {
+	return await fetch(`${BASE_URL}/api/getERC20TransferForAddress`, {
+		method: "POST",
+		...headers(),
+		body: JSON.stringify({ address, page }),
+	}).then((response) => {
+		return extractBody(response);
+	});
+};
