@@ -20,12 +20,11 @@ export default function Erc721TransfersForAddress({ walletAddress }) {
 		["erc721_transfers", walletAddress, currentPage],
 		() => {
 			return getERC721TransferForAddress(walletAddress);
+		},
+		{
+			refetchInterval: 15_000,
 		}
 	);
-
-	const pageSlice = useMemo(() => (currentPage - 1) * 10, [currentPage]);
-
-	useAccountRefetchStatus("accountEvmTransactions", query.isRefetching);
 
 	return (
 		<div>
@@ -108,7 +107,6 @@ export default function Erc721TransfersForAddress({ walletAddress }) {
 
 const EvmTransactionsForAddressRow = ({
 	block,
-	method,
 	timestamp,
 	from,
 	transactionHash,
@@ -116,7 +114,6 @@ const EvmTransactionsForAddressRow = ({
 	tokenId,
 	toContract,
 	fromContract,
-	success,
 	type,
 	isDeployment,
 	name,
@@ -126,7 +123,6 @@ const EvmTransactionsForAddressRow = ({
 	return (
 		<tr>
 			<TableLayout.Data dataClassName="my-auto">
-				{/* <BlockFinalizedIcon status={success} isExtrinsic={true} /> */}
 				<TransactionStatus tx={tx} />
 			</TableLayout.Data>
 			<TableLayout.Data dataClassName="!text-indigo-500">
@@ -136,12 +132,6 @@ const EvmTransactionsForAddressRow = ({
 					</span>
 				</Link>
 			</TableLayout.Data>
-
-			{/* <TableLayout.Data>
-				<span className="inline-flex items-center rounded bg-gray-800 px-2 py-0.5 text-xs font-medium text-gray-100 capitalize">
-					{method || " - "}
-				</span>
-			</TableLayout.Data> */}
 
 			<TableLayout.Data>
 				{block ? (
@@ -208,15 +198,4 @@ const EvmTransactionsForAddressRow = ({
 			</TableLayout.Data>
 		</tr>
 	);
-};
-
-const usePages = (transferCount) => {
-	const { setPages } = usePagination("accountEvmTransactions");
-
-	useEffect(() => {
-		if (!transferCount) return;
-
-		setPages(Array.from(Array(Math.ceil(transferCount / 10))));
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [transferCount]);
 };
