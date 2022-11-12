@@ -140,6 +140,13 @@ export default function EVMTransaction({ hash }) {
 										}
 
 										if (
+											log?.name == "Approval" &&
+											log?.parsedFromAbi == "ERC721"
+										) {
+											return <EventComponents.ERC721Approval log={log} />;
+										}
+
+										if (
 											log?.name == "TransferBatch" &&
 											log?.parsedFromAbi == "ERC1155"
 										) {

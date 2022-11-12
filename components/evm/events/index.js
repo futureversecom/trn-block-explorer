@@ -1,13 +1,10 @@
+import { ShieldExclamationIcon } from "@heroicons/react/24/outline";
 import { ethers } from "ethers";
 import Link from "next/link";
 import { Fragment } from "react";
 
 import DisplayNFTImage from "@/components/evm/DisplayNFTImage";
 import { formatAddress } from "@/libs/utils";
-
-// ERC165 + ERC721
-
-// event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
 
 // ERC721
 // event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
@@ -51,6 +48,9 @@ const ApprovalForAll = ({ log }) => {
 	return (
 		<div className="flex space-x-2">
 			<div className="space-x-2 my-auto flex-grow">
+				<div className="flex">
+					<ShieldExclamationIcon className="h-5 w-5 mr-2" /> Approval{" "}
+				</div>
 				<span className="my-auto font-semi capitalize">Owner</span>
 				<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
 					<Link href={`/account/${log?.args?.owner || log?.args?.account}`}>
@@ -203,6 +203,9 @@ const ERC20Approval = ({ log }) => {
 	return (
 		<div className="flex space-x-2">
 			<div className="space-x-2 my-auto flex-grow">
+				<div className="flex">
+					<ShieldExclamationIcon className="h-5 w-5 mr-2" /> Approval{" "}
+				</div>
 				<span className="my-auto font-semi capitalize">Owner</span>
 				<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
 					<Link href={`/account/${log?.args?.owner}`}>
@@ -227,6 +230,36 @@ const ERC20Approval = ({ log }) => {
 		</div>
 	);
 };
+
+// event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
+const ERC721Approval = ({ log }) => {
+	return (
+		<div className="flex space-x-2">
+			<div className="space-x-2 my-auto flex">
+				<div className="flex">
+					<ShieldExclamationIcon className="h-5 w-5 mr-2" /> Approval{" "}
+				</div>
+				<span className="my-auto font-semi capitalize">Owner</span>
+				<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
+					<Link href={`/account/${log?.args?.owner}`}>
+						{formatAddress(log?.args?.owner)}
+					</Link>
+				</span>
+				<span className="my-auto font-semi capitalize">Approved Spender</span>
+				<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
+					<Link href={`/account/${log?.args?.approved}`}>
+						{formatAddress(log?.args?.approved)}
+					</Link>
+				</span>
+				<span className="my-auto font-semi capitalize">TokenId</span>
+				<span className="my-auto capitalize">{log?.args?.tokenId}</span>
+				<span className="my-auto capitalize">
+					{log?.contractData?.name} ({log?.contractData?.symbol})
+				</span>
+			</div>
+		</div>
+	);
+};
 export default {
 	Transfer: Transfer,
 	ApprovalForAll: ApprovalForAll,
@@ -234,6 +267,7 @@ export default {
 	TransferSingle: TransferSingle,
 	ERC20Transfer: ERC20Transfer,
 	ERC20Approval: ERC20Approval,
+	ERC721Approval: ERC721Approval,
 };
 
 {
