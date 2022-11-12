@@ -5,13 +5,11 @@ import { Tooltip } from "@/components";
 import DisplayNFTImage from "@/components/evm/DisplayNFTImage";
 import { formatAddress } from "@/libs/utils";
 
-// // ERC165 + ERC721
+// ERC165 + ERC721
 
 // event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
 
-// // ERC165 + ERC1155
-
-// // ERC20
+// ERC20
 // event Transfer(address indexed from, address indexed to, uint256 value);
 // event Approval(address indexed owner, address indexed spender, uint256 value);
 
@@ -59,8 +57,8 @@ const ApprovalForAll = ({ log }) => {
 			<div className="space-x-2 my-auto flex-grow">
 				<span className="my-auto font-semi capitalize">Owner</span>
 				<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
-					<Link href={`/account/${log?.args?.owner}`}>
-						{formatAddress(log?.args?.owner)}
+					<Link href={`/account/${log?.args?.owner || log?.args?.account}`}>
+						{formatAddress(log?.args?.owner || log?.args?.account)}
 					</Link>
 				</span>
 				<span className="my-auto font-semi capitalize">Operator</span>
