@@ -1,4 +1,7 @@
-import { ShieldExclamationIcon } from "@heroicons/react/24/outline";
+import {
+	ChevronRightIcon,
+	ShieldExclamationIcon,
+} from "@heroicons/react/24/outline";
 import { ethers } from "ethers";
 import Link from "next/link";
 import { Fragment } from "react";
@@ -105,6 +108,7 @@ const TransferBatch = ({ log }) => {
 			</div>
 			{log?.args?.ids?.map((tokenId, key) => (
 				<div className="flex space-x-2 my-auto" key={key}>
+					<ChevronRightIcon className="w-4 h-4 my-auto" />
 					<div className="flex-grow my-auto space-x-2">
 						<span className="my-auto font-semibold capitalize">TokenId</span>
 						<span className="my-auto capitalize">{tokenId}</span>
