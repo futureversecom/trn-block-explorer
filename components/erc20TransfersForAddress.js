@@ -79,6 +79,7 @@ export default function Erc20TransfersForAddress({ walletAddress }) {
 											tx={tx}
 											timestamp={tx?.timestamp || tx?.firstSeen}
 											to={currentArg?.args?.to}
+											from={currentArg?.args?.from}
 											isDeployment={tx?.creates || false}
 											type={type}
 											name={name}
