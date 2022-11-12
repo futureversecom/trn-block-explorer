@@ -8,7 +8,6 @@ import { formatAddress } from "@/libs/utils";
 // // ERC165 + ERC721
 
 // event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
-// event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
 
 // // ERC165 + ERC1155
 
@@ -63,9 +62,38 @@ const Transfer = ({ log }) => {
 		</div>
 	);
 };
+// event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
+const ApprovalForAll = ({ log }) => {
+	return (
+		<div className="flex space-x-2">
+			<div className="space-x-2 my-auto flex-grow">
+				<span className="my-auto font-semi capitalize">Owner</span>
+				<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
+					<Link href={`/account/${log?.args?.owner}`}>
+						{formatAddress(log?.args?.owner)}
+					</Link>
+				</span>
+				<span className="my-auto font-semi capitalize">Operator</span>
+				<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
+					<Link href={`/account/${log?.args?.operator}`}>
+						{formatAddress(log?.args?.operator)}
+					</Link>
+				</span>
+				<span className="my-auto font-semi capitalize">Approved</span>
+				<span className="my-auto capitalize">
+					{log?.args?.approved ? "Yes" : "No"}
+				</span>
+				<span className="my-auto capitalize">
+					{log?.contractData?.name} ({log?.contractData?.symbol})
+				</span>
+			</div>
+		</div>
+	);
+};
 
 export default {
 	Transfer: Transfer,
+	ApprovalForAll: ApprovalForAll,
 };
 
 {
