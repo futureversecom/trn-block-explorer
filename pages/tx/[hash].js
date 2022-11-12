@@ -120,13 +120,18 @@ export default function EVMTransaction({ hash }) {
 									{query?.data?.parsedLogs.map((log) => {
 										const allowed = ["ERC20", "ERC1155", "ERC721"];
 										if (!allowed.includes(log?.parsedFromAbi))
-											return <Fragment />;
+											return <Fragment key={`${log?.transactionHash}_${log?.logIndex}`} />;
 
 										if (
 											log?.name == "Transfer" &&
 											log?.parsedFromAbi == "ERC721"
 										) {
-											return <EventComponents.Transfer log={log} />;
+											return (
+												<EventComponents.Transfer
+													log={log}
+													key={`${log?.transactionHash}_${log?.logIndex}`}
+												/>
+											);
 										}
 
 										if (
@@ -134,44 +139,74 @@ export default function EVMTransaction({ hash }) {
 											(log?.parsedFromAbi == "ERC721" ||
 												log?.parsedFromAbi == "ERC1155")
 										) {
-											return <EventComponents.ApprovalForAll log={log} />;
+											return (
+												<EventComponents.ApprovalForAll
+													log={log}
+													key={`${log?.transactionHash}_${log?.logIndex}`}
+												/>
+											);
 										}
 
 										if (
 											log?.name == "Approval" &&
 											log?.parsedFromAbi == "ERC721"
 										) {
-											return <EventComponents.ERC721Approval log={log} />;
+											return (
+												<EventComponents.ERC721Approval
+													log={log}
+													key={`${log?.transactionHash}_${log?.logIndex}`}
+												/>
+											);
 										}
 
 										if (
 											log?.name == "TransferBatch" &&
 											log?.parsedFromAbi == "ERC1155"
 										) {
-											return <EventComponents.TransferBatch log={log} />;
+											return (
+												<EventComponents.TransferBatch
+													log={log}
+													key={`${log?.transactionHash}_${log?.logIndex}`}
+												/>
+											);
 										}
 
 										if (
 											log?.name == "TransferSingle" &&
 											log?.parsedFromAbi == "ERC1155"
 										) {
-											return <EventComponents.TransferSingle log={log} />;
+											return (
+												<EventComponents.TransferSingle
+													log={log}
+													key={`${log?.transactionHash}_${log?.logIndex}`}
+												/>
+											);
 										}
 										if (
 											log?.name == "Transfer" &&
 											log?.parsedFromAbi == "ERC20"
 										) {
-											return <EventComponents.ERC20Transfer log={log} />;
+											return (
+												<EventComponents.ERC20Transfer
+													log={log}
+													key={`${log?.transactionHash}_${log?.logIndex}`}
+												/>
+											);
 										}
 
 										if (
 											log?.name == "Approval" &&
 											log?.parsedFromAbi == "ERC20"
 										) {
-											return <EventComponents.ERC20Approval log={log} />;
+											return (
+												<EventComponents.ERC20Approval
+													log={log}
+													key={`${log?.transactionHash}_${log?.logIndex}`}
+												/>
+											);
 										}
 
-										return <Fragment />;
+										return <Fragment key={`${log?.transactionHash}_${log?.logIndex}`} />;
 									})}
 								</div>
 							</DetailsLayout.Data>
