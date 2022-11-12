@@ -20,7 +20,7 @@ export default function DisplayNFTImage({ args, uri, width, height }) {
 			}
 			return image || null;
 		},
-		{ enabled: uri && args?.tokenId }
+		{ enabled: uri && args?.tokenId ? true : false }
 	);
 
 	if (!uri || !args?.tokenId) return <Fragment />;
