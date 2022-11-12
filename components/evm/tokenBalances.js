@@ -1,17 +1,33 @@
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import { useQuery } from "@tanstack/react-query";
 import { Fragment } from "react";
+
+import { getERC20Balance, getERC721Balance } from "@/libs/evm-api";
+import { formatUnits } from "@/libs/utils";
 
 function classNames(...classes) {
 	return classes.filter(Boolean).join(" ");
 }
 
 export default function TokenBalances({ walletAddress }) {
+	const query = useQuery(
+		["erc20_erc721_evm_token_balances", walletAddress],
+		async () => {
+			const erc721 = await getERC721Balance(walletAddress);
+			console.log(erc721);
+			const erc20 = await getERC20Balance(walletAddress);
+			console.log(erc20);
+			return { erc721, erc20, totalSum: 500 };
+		}
+	);
 	return (
 		<Menu as="div" className="relative inline-block text-left">
 			<div>
 				<Menu.Button className="inline-flex w-full justify-between border border-gray-300 bg-transparent px-4 py-1.5 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">
-					Retrieving tokens..
+					{query?.isLoading && "Retrieving Tokens"}
+					{query?.isError && "Error Fetching Data"}
+					{query?.data?.totalSum && `${query?.data?.totalSum} token(s)`}
 					<ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
 				</Menu.Button>
 			</div>
@@ -27,52 +43,83 @@ export default function TokenBalances({ walletAddress }) {
 			>
 				<Menu.Items className="absolute right-0 z-10 mt-2 w-full origin-top-right divide-y divide-gray-100 bg-[#111] text-white border border-gray-300 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
 					<div className="px-4 py-3">
-						<p className="font-semibold">ERC20 Tokens</p>
+						<p className="font-semibold">
+							ERC20 Tokens ({query?.data?.erc20?.length ?? "0"})
+						</p>
 					</div>
 					<div className="py-1">
-						<Menu.Item>
-							{({ active }) => (
-								<a
-									href="#"
-									className={classNames(
-										active ? "text-gray-200" : "text-white",
-										"block px-4 py-2 text-sm"
-									)}
-								>
-									<div className="flex justify-between">
-										<div className="flex flex-col">
-											<span>Sylo (SYLO)</span>
-											<span>0x00000000000000000000</span>
-										</div>
-										<div className="my-auto">100000</div>
-									</div>
-								</a>
-							)}
-						</Menu.Item>
+						{query?.data?.erc20?.length ? (
+							<Fragment>
+								{query?.data?.erc20?.map((token, key) => (
+									<Menu.Item key={key}>
+										{({ active }) => (
+											<a
+												href="#"
+												className={classNames(
+													active ? "text-gray-200" : "text-white",
+													"block px-4 py-2 text-sm"
+												)}
+											>
+												<div className="flex justify-between">
+													<div className="flex flex-col">
+														<span className="font-semibold">
+															{token?.contractData?.[0]?.name ?? "??"} (
+															{token?.contractData?.[0]?.symbol ?? "??"})
+														</span>
+														<span>{token?.address}</span>
+													</div>
+													<div className="my-auto">
+														{formatUnits(
+															token?.balance,
+															token?.contractData?.[0]?.decimals || 18
+														)}
+													</div>
+												</div>
+											</a>
+										)}
+									</Menu.Item>
+								))}
+							</Fragment>
+						) : (
+							"No erc20 tokens"
+						)}
 					</div>
 					<div className="px-4 py-3">
-						<p className="font-semibold">ERC721 Tokens</p>
+						<p className="font-semibold">
+							ERC721 Tokens ({query?.data?.erc721?.length ?? "0"})
+						</p>
 					</div>
 					<div className="py-1">
-						<Menu.Item>
-							{({ active }) => (
-								<a
-									href="#"
-									className={classNames(
-										active ? "text-gray-200" : "text-white",
-										"block px-4 py-2 text-sm"
-									)}
-								>
-									<div className="flex justify-between">
-										<div className="flex flex-col">
-											<span>Scenes & Sounds</span>
-											<span>0x00000000000000000000</span>
-										</div>
-										<div className="my-auto">25 NFT(s)</div>
-									</div>
-								</a>
-							)}
-						</Menu.Item>
+						{query?.data?.erc721?.length ? (
+							<Fragment>
+								{query?.data?.erc721?.map((token, key) => (
+									<Menu.Item key={key}>
+										{({ active }) => (
+											<a
+												href="#"
+												className={classNames(
+													active ? "text-gray-200" : "text-white",
+													"block px-4 py-2 text-sm"
+												)}
+											>
+												<div className="flex justify-between">
+													<div className="flex flex-col">
+														<span className="font-semibold">
+															{token?.contractData?.[0]?.name ?? "??"} (
+															{token?.contractData?.[0]?.symbol ?? "??"})
+														</span>
+														<span>{token?.address}</span>
+													</div>
+													<div className="my-auto">{token?.balance}</div>
+												</div>
+											</a>
+										)}
+									</Menu.Item>
+								))}
+							</Fragment>
+						) : (
+							"No ERC721 tokens"
+						)}
 					</div>
 				</Menu.Items>
 			</Transition>

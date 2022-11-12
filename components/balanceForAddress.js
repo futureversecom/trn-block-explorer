@@ -114,7 +114,7 @@ export default function BalanceForAddress({ walletAddress }) {
 						</div>
 						<div className="py-3 px-4 flex flex-col space-y-2">
 							<span className="text-white">Tokens</span>
-							<TokenBalances />
+							<TokenBalances walletAddress={walletAddress} />
 						</div>
 					</div>
 				</div>
