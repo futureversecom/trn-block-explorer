@@ -98,9 +98,6 @@ const EVMTransactionsRow = ({ tx, transactionHash, from, to }) => {
 			<TableLayout.Data dataClassName="flex">
 				<TransactionStatus tx={tx} />
 			</TableLayout.Data>
-			{/* <TableLayout.Data>
-														{formatAddress(tx.call.extrinsic.hash, 6)}
-													</TableLayout.Data> */}
 			<TableLayout.Data>
 				<Link href={`/block/${tx.call.block.height}`}>
 					<span className="cursor-pointer text-indigo-500 hover:text-white">

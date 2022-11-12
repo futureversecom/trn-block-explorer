@@ -1,10 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
+import BigNumber from "bignumber.js";
 import { ethers } from "ethers";
 import Link from "next/link";
 import { Fragment, useEffect, useMemo } from "react";
 
 import { LoadingBlock, Pagination, TableLayout, TimeAgo } from "@/components";
 import AddressLink from "@/components/evm/AddressLink";
+import TransactionStatus from "@/components/evm/TransactionStatus";
 import { BlockFinalizedIcon } from "@/components/icons";
 import {
 	useGetEvmTransactionsFromAddressQuery,
@@ -14,13 +16,11 @@ import { getTransactionsForAddress } from "@/libs/evm-api";
 import { usePolling } from "@/libs/hooks";
 import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
 import { formatAddress } from "@/libs/utils";
-import TransactionStatus from "@/components/evm/TransactionStatus";
+
 import InOutLabel from "./inOutLabel";
 
 export default function EvmTransactionsForAddress({ walletAddress }) {
-	const { pages, currentPage } = usePagination("accountEvmTransactions");
-
-	// const query = useTransactions(walletAddress);
+	const { pages, currentPage } = { pages: 1, currentPage: 1 };
 
 	const query = useQuery(
 		["evm_transactions", walletAddress, currentPage],
@@ -29,10 +29,6 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 			return data;
 		}
 	);
-
-	const pageSlice = useMemo(() => (currentPage - 1) * 10, [currentPage]);
-
-	useAccountRefetchStatus("accountEvmTransactions", query.isRefetching);
 
 	return (
 		<div>
@@ -114,12 +110,12 @@ const EvmTransactionsForAddressRow = ({
 	type,
 	value,
 	isDeployment,
-	tx
+	tx,
 }) => {
 	return (
 		<tr>
 			<TableLayout.Data dataClassName="flex">
-				<TransactionStatus tx={tx}/>
+				<TransactionStatus tx={tx} />
 			</TableLayout.Data>
 			<TableLayout.Data dataClassName="!text-indigo-500">
 				<Link href={`/tx/${transactionHash}`}>
@@ -187,65 +183,11 @@ const EvmTransactionsForAddressRow = ({
 			</TableLayout.Data>
 
 			<TableLayout.Data>
-				{ethers.utils.formatEther(String(value || 0)).toString()} XRP
+				{new BigNumber(value.toString())
+					.dividedBy(new BigNumber(10).pow(18))
+					.toString()}{" "}
+				XRP
 			</TableLayout.Data>
 		</tr>
 	);
-};
-
-const useTransactions = (address) => {
-	const toQuery = usePolling(
-		{},
-		useGetEvmTransactionsToAddressQuery,
-		{
-			address: address.toLowerCase(),
-		},
-		12000
-	);
-
-	const fromQuery = usePolling(
-		{},
-		useGetEvmTransactionsFromAddressQuery,
-		{
-			address: address.toLowerCase(),
-		},
-		12000
-	);
-
-	const data = useMemo(() => {
-		const allTransactions = [
-			...(toQuery?.data?.archive?.frontier_ethereum_transaction ?? []),
-			...(fromQuery?.data?.archive?.frontier_ethereum_transaction ?? []),
-		].sort((a, b) =>
-			a.call.block.timestamp < b.call.block.timestamp ? 1 : -1
-		);
-
-		return allTransactions.reduce((transactions, curr) => {
-			const duplicateIndex = transactions.findIndex(
-				(transaction) => transaction.call.id === curr.call.id
-			);
-			if (duplicateIndex !== -1) return transactions;
-
-			return transactions.concat(curr);
-		}, []);
-	}, [toQuery?.data, fromQuery?.data]);
-
-	usePages(data?.length);
-
-	return {
-		data,
-		isLoading: toQuery?.isLoading || fromQuery?.isLoading,
-		isRefetching: toQuery?.isRefetching || fromQuery?.isRefetching,
-	};
-};
-
-const usePages = (transferCount) => {
-	const { setPages } = usePagination("accountEvmTransactions");
-
-	useEffect(() => {
-		if (!transferCount) return;
-
-		setPages(Array.from(Array(Math.ceil(transferCount / 10))));
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [transferCount]);
 };
