@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Fragment } from "react";
 
 import { getERC20Balance, getERC721Balance } from "@/libs/evm-api";
-import { formatUnits } from "@/libs/utils";
+import { formatAddress, formatUnits } from "@/libs/utils";
 
 function classNames(...classes) {
 	return classes.filter(Boolean).join(" ");
@@ -66,7 +66,9 @@ export default function TokenBalances({ walletAddress }) {
 															{token?.contractData?.[0]?.name ?? "??"} (
 															{token?.contractData?.[0]?.symbol ?? "??"})
 														</span>
-														<span>{token?.address}</span>
+														<span className="overflow-ellipsis">
+															{formatAddress(token?.address, 9)}
+														</span>
 													</div>
 													<div className="my-auto">
 														{formatUnits(
@@ -81,7 +83,7 @@ export default function TokenBalances({ walletAddress }) {
 								))}
 							</Fragment>
 						) : (
-							"No erc20 tokens"
+							<div className="p-4 text-center text-sm">No ERC20 Tokens</div>
 						)}
 					</div>
 					<div className="px-4 py-3">
@@ -108,7 +110,9 @@ export default function TokenBalances({ walletAddress }) {
 															{token?.contractData?.[0]?.name ?? "??"} (
 															{token?.contractData?.[0]?.symbol ?? "??"})
 														</span>
-														<span>{token?.address}</span>
+														<span className="overflow-ellipsis">
+															{formatAddress(token?.address, 9)}
+														</span>
 													</div>
 													<div className="my-auto">{token?.balance}</div>
 												</div>
@@ -118,7 +122,7 @@ export default function TokenBalances({ walletAddress }) {
 								))}
 							</Fragment>
 						) : (
-							"No ERC721 tokens"
+							<div className="p-4 text-center text-sm">No ERC721 Tokens</div>
 						)}
 					</div>
 				</Menu.Items>
