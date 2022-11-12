@@ -24,9 +24,8 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 
 	const query = useQuery(
 		["evm_transactions", walletAddress, currentPage],
-		async () => {
-			const data = await getTransactionsForAddress(walletAddress);
-			return data;
+		() => {
+			return getTransactionsForAddress(walletAddress);
 		}
 	);
 
