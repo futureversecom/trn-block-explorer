@@ -15,6 +15,7 @@ import {
 import AddressLink from "@/components/evm/AddressLink";
 import EventComponents from "@/components/evm/events/index.js";
 import GasUsage from "@/components/evm/GasUsage";
+import TransactionStatus from "@/components/evm/TransactionStatus";
 import { CopyToClipboard } from "@/components/icons";
 import { getTransactionByHash } from "@/libs/evm-api";
 import { formatAddress, formatUnits } from "@/libs/utils";
@@ -54,29 +55,15 @@ export default function EVMTransaction({ hash }) {
 						<DetailsLayout.Title title="Status" />
 						<DetailsLayout.Data>
 							<div className="flex space-x-3">
-								{query?.data?.status == 1 && (
-									<span className="inline-flex items-center rounded-md bg-green-100 px-2.5 py-0.5 text-sm font-medium text-green-800">
-										Success
-									</span>
-								)}
+								<TransactionStatus tx={query?.data} />
 								{query?.data.status == 0 && (
 									<div className="flex space-x-3">
-										<span className="inline-flex items-center rounded-md bg-red-100 px-2.5 py-0.5 text-sm font-medium text-red-800">
-											Reverted
-										</span>
 										{query?.data?.error && (
-											<span className="inline-flex items-center rounded-md bg-red-100 px-2.5 py-0.5 text-sm font-medium text-red-800">
+											<span className="inline-flex items-center rounded bg-red-100 px-2 py-0.5 text-xs font-medium text-red-800">
 												Revert Message: {query?.data?.error}
 											</span>
 										)}
 									</div>
-								)}
-								{!query?.data?.status && !query?.data?.blockNumber ? (
-									<span className="inline-flex items-center rounded-md bg-gray-100 px-2.5 py-0.5 text-sm font-medium text-gray-800">
-										Pending
-									</span>
-								) : (
-									<Fragment />
 								)}
 							</div>
 						</DetailsLayout.Data>
@@ -120,7 +107,11 @@ export default function EVMTransaction({ hash }) {
 									{query?.data?.parsedLogs.map((log) => {
 										const allowed = ["ERC20", "ERC1155", "ERC721"];
 										if (!allowed.includes(log?.parsedFromAbi))
-											return <Fragment key={`${log?.transactionHash}_${log?.logIndex}`} />;
+											return (
+												<Fragment
+													key={`${log?.transactionHash}_${log?.logIndex}`}
+												/>
+											);
 
 										if (
 											log?.name == "Transfer" &&
@@ -206,7 +197,11 @@ export default function EVMTransaction({ hash }) {
 											);
 										}
 
-										return <Fragment key={`${log?.transactionHash}_${log?.logIndex}`} />;
+										return (
+											<Fragment
+												key={`${log?.transactionHash}_${log?.logIndex}`}
+											/>
+										);
 									})}
 								</div>
 							</DetailsLayout.Data>
