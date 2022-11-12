@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { ethers } from "ethers";
 import Link from "next/link";
 import { Fragment, useEffect, useMemo } from "react";
 
@@ -20,7 +21,7 @@ export default function Erc20TransfersForAddress({ walletAddress }) {
 		["erc20_transfers", walletAddress, currentPage],
 		async () => {
 			const data = await getERC20TransferForAddress(walletAddress);
-			console.log('erc20', data)
+			console.log("erc20", data);
 			return data;
 		}
 	);
@@ -39,16 +40,14 @@ export default function Erc20TransfersForAddress({ walletAddress }) {
 						<TableLayout.Table>
 							<thead className="bg-transparent">
 								<tr>
-									<TableLayout.HeadItem text="Status" />
 									<TableLayout.HeadItem text="Tx Hash" />
-									{/* <TableLayout.HeadItem text="Method" /> */}
-									<TableLayout.HeadItem text="Block" />
+									<TableLayout.HeadItem text="Status" />
 									<TableLayout.HeadItem text="Timestamp" />
 									<TableLayout.HeadItem text="From" />
 									<TableLayout.HeadItem text="Type" />
 									<TableLayout.HeadItem text="To" />
-									<TableLayout.HeadItem text="Name" />
-									<TableLayout.HeadItem text="TokenId" />
+									<TableLayout.HeadItem text="Value" />
+									<TableLayout.HeadItem text="Token" />
 								</tr>
 							</thead>
 							<tbody className="divide-y divide-gray-800 bg-transparent">
@@ -72,26 +71,25 @@ export default function Erc20TransfersForAddress({ walletAddress }) {
 
 									currentArg.contractData = contractData;
 									const name = `${contractData?.name} (${contractData?.symbol})`;
+
 									return (
 										<EvmTransactionsForAddressRow
 											key={key}
 											transactionHash={tx?.transactionHash || tx?.hash}
 											tx={tx}
-											block={tx?.blockNumber}
-											from={currentArg?.args?.from}
-											// method={tx?.parsedData?.name || " - "}
 											timestamp={tx?.timestamp || tx?.firstSeen}
 											to={currentArg?.args?.to}
 											isDeployment={tx?.creates || false}
-											walletAddress={walletAddress}
-											success={tx?.status == 1 ? true : false}
 											type={type}
-											value={tx?.value}
-											tokenId={currentArg?.args?.tokenId}
 											name={name}
 											fromContract={tx?.fromContract}
 											toContract={tx?.toContract}
-											log={currentArg}
+											value={ethers.utils
+												.formatUnits(
+													currentArg?.args?.value,
+													currentArg?.contractData?.decimals
+												)
+												.toString()}
 										/>
 									);
 								})}
@@ -109,26 +107,21 @@ export default function Erc20TransfersForAddress({ walletAddress }) {
 }
 
 const EvmTransactionsForAddressRow = ({
-	block,
-	method,
 	timestamp,
 	from,
 	transactionHash,
 	to,
-	tokenId,
 	toContract,
 	fromContract,
-	success,
 	type,
 	isDeployment,
 	name,
-	log,
+	value,
 	tx,
 }) => {
 	return (
 		<tr>
 			<TableLayout.Data dataClassName="my-auto">
-				{/* <BlockFinalizedIcon status={success} isExtrinsic={true} /> */}
 				<TransactionStatus tx={tx} />
 			</TableLayout.Data>
 			<TableLayout.Data dataClassName="!text-indigo-500">
@@ -137,24 +130,6 @@ const EvmTransactionsForAddressRow = ({
 						{formatAddress(transactionHash, 3)}
 					</span>
 				</Link>
-			</TableLayout.Data>
-
-			{/* <TableLayout.Data>
-				<span className="inline-flex items-center rounded bg-gray-800 px-2 py-0.5 text-xs font-medium text-gray-100 capitalize">
-					{method || " - "}
-				</span>
-			</TableLayout.Data> */}
-
-			<TableLayout.Data>
-				{block ? (
-					<Link href={`/block/${block}`}>
-						<span className="cursor-pointer text-indigo-500 hover:text-white">
-							{block}
-						</span>
-					</Link>
-				) : (
-					"-"
-				)}
 			</TableLayout.Data>
 
 			<TableLayout.Data>
@@ -195,30 +170,10 @@ const EvmTransactionsForAddressRow = ({
 					<Fragment />
 				)}
 			</TableLayout.Data>
-			<TableLayout.Data>{name}</TableLayout.Data>
-			<TableLayout.Data>{tokenId}</TableLayout.Data>
 			<TableLayout.Data>
-				{log?.contractData?.uri && (
-					<DisplayNFTImage
-						key={log?.args?.tokenId}
-						args={log?.args}
-						uri={log?.contractData?.uri}
-						width={75}
-						height={75}
-					/>
-				)}
+				<span className="text-xs">{value}</span>
 			</TableLayout.Data>
+			<TableLayout.Data>{name}</TableLayout.Data>
 		</tr>
 	);
-};
-
-const usePages = (transferCount) => {
-	const { setPages } = usePagination("accountEvmTransactions");
-
-	useEffect(() => {
-		if (!transferCount) return;
-
-		setPages(Array.from(Array(Math.ceil(transferCount / 10))));
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [transferCount]);
 };
