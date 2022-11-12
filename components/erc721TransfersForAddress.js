@@ -1,14 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { Fragment, useEffect, useMemo } from "react";
-
+import { Fragment } from "react";
 import { LoadingBlock, Pagination, TableLayout, TimeAgo } from "@/components";
 import AddressLink from "@/components/evm/AddressLink";
 import DisplayNFTImage from "@/components/evm/DisplayNFTImage";
 import TransactionStatus from "@/components/evm/TransactionStatus";
-import { BlockFinalizedIcon } from "@/components/icons";
 import { getERC721TransferForAddress } from "@/libs/evm-api";
-import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
+import { usePagination } from "@/libs/stores";
 import { formatAddress } from "@/libs/utils";
 
 import InOutLabel from "./inOutLabel";

@@ -1,15 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { ethers } from "ethers";
 import Link from "next/link";
-import { Fragment, useEffect, useMemo } from "react";
+import { Fragment } from "react";
 
 import { LoadingBlock, Pagination, TableLayout, TimeAgo } from "@/components";
 import AddressLink from "@/components/evm/AddressLink";
-import DisplayNFTImage from "@/components/evm/DisplayNFTImage";
 import TransactionStatus from "@/components/evm/TransactionStatus";
-import { BlockFinalizedIcon } from "@/components/icons";
 import { getERC20TransferForAddress } from "@/libs/evm-api";
-import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
+import { usePagination } from "@/libs/stores";
 import { formatAddress } from "@/libs/utils";
 
 import InOutLabel from "./inOutLabel";
@@ -19,16 +17,10 @@ export default function Erc20TransfersForAddress({ walletAddress }) {
 
 	const query = useQuery(
 		["erc20_transfers", walletAddress, currentPage],
-		async () => {
-			const data = await getERC20TransferForAddress(walletAddress);
-			console.log("erc20", data);
-			return data;
+		() => {
+			return getERC20TransferForAddress(walletAddress);
 		}
 	);
-
-	const pageSlice = useMemo(() => (currentPage - 1) * 10, [currentPage]);
-
-	useAccountRefetchStatus("accountEvmTransactions", query.isRefetching);
 
 	return (
 		<div>
