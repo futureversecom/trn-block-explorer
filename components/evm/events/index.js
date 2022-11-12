@@ -47,30 +47,28 @@ const Transfer = ({ log }) => {
 const ApprovalForAll = ({ log }) => {
 	return (
 		<div className="flex space-x-2">
-			<div className="space-x-2 my-auto flex-grow">
-				<div className="flex">
-					<ShieldExclamationIcon className="h-5 w-5 mr-2" /> Approval{" "}
-				</div>
-				<span className="my-auto font-semi capitalize">Owner</span>
-				<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
-					<Link href={`/account/${log?.args?.owner || log?.args?.account}`}>
-						{formatAddress(log?.args?.owner || log?.args?.account)}
-					</Link>
-				</span>
-				<span className="my-auto font-semi capitalize">Operator</span>
-				<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
-					<Link href={`/account/${log?.args?.operator}`}>
-						{formatAddress(log?.args?.operator)}
-					</Link>
-				</span>
-				<span className="my-auto font-semi capitalize">Approved</span>
-				<span className="my-auto capitalize">
-					{log?.args?.approved ? "Yes" : "No"}
-				</span>
-				<span className="my-auto capitalize">
-					{log?.contractData?.name} ({log?.contractData?.symbol})
-				</span>
+			<div className="flex">
+				<ShieldExclamationIcon className="h-5 w-5 mr-2" /> Approval{" "}
 			</div>
+			<span className="my-auto font-semi capitalize">Owner</span>
+			<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
+				<Link href={`/account/${log?.args?.owner || log?.args?.account}`}>
+					{formatAddress(log?.args?.owner || log?.args?.account)}
+				</Link>
+			</span>
+			<span className="my-auto font-semi capitalize">Operator</span>
+			<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
+				<Link href={`/account/${log?.args?.operator}`}>
+					{formatAddress(log?.args?.operator)}
+				</Link>
+			</span>
+			<span className="my-auto font-semi capitalize">Approved</span>
+			<span className="my-auto capitalize">
+				{log?.args?.approved ? "Yes" : "No"}
+			</span>
+			<span className="my-auto capitalize">
+				{log?.contractData?.name} ({log?.contractData?.symbol})
+			</span>
 		</div>
 	);
 };
@@ -201,32 +199,30 @@ const ERC20Transfer = ({ log }) => {
 // event Approval(address indexed owner, address indexed spender, uint256 value);
 const ERC20Approval = ({ log }) => {
 	return (
-		<div className="flex space-x-2">
-			<div className="space-x-2 my-auto flex-grow">
-				<div className="flex">
-					<ShieldExclamationIcon className="h-5 w-5 mr-2" /> Approval{" "}
-				</div>
-				<span className="my-auto font-semi capitalize">Owner</span>
-				<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
-					<Link href={`/account/${log?.args?.owner}`}>
-						{formatAddress(log?.args?.owner)}
-					</Link>
-				</span>
-				<span className="my-auto font-semi capitalize">Spender</span>
-				<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
-					<Link href={`/account/${log?.args?.spender}`}>
-						{formatAddress(log?.args?.spender)}
-					</Link>
-				</span>
-				<span className="my-auto capitalize">
-					{ethers.utils
-						.formatUnits(log?.args?.value, log?.contractData?.decimals)
-						.toString()}
-				</span>
-				<span className="my-auto capitalize">
-					{log?.contractData?.name} ({log?.contractData?.symbol})
-				</span>
+		<div className="flex space-x-2 my-auto">
+			<div className="flex">
+				<ShieldExclamationIcon className="h-5 w-5 mr-2" /> Approval{" "}
 			</div>
+			<span className="my-auto font-semi capitalize">Owner</span>
+			<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
+				<Link href={`/account/${log?.args?.owner}`}>
+					{formatAddress(log?.args?.owner)}
+				</Link>
+			</span>
+			<span className="my-auto font-semi capitalize">Spender</span>
+			<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
+				<Link href={`/account/${log?.args?.spender}`}>
+					{formatAddress(log?.args?.spender)}
+				</Link>
+			</span>
+			<span className="my-auto capitalize">
+				{ethers.utils
+					.formatUnits(log?.args?.value, log?.contractData?.decimals)
+					.toString()}
+			</span>
+			<span className="my-auto capitalize">
+				{log?.contractData?.name} ({log?.contractData?.symbol})
+			</span>
 		</div>
 	);
 };
@@ -235,28 +231,26 @@ const ERC20Approval = ({ log }) => {
 const ERC721Approval = ({ log }) => {
 	return (
 		<div className="flex space-x-2">
-			<div className="space-x-2 my-auto flex">
-				<div className="flex">
-					<ShieldExclamationIcon className="h-5 w-5 mr-2" /> Approval{" "}
-				</div>
-				<span className="my-auto font-semi capitalize">Owner</span>
-				<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
-					<Link href={`/account/${log?.args?.owner}`}>
-						{formatAddress(log?.args?.owner)}
-					</Link>
-				</span>
-				<span className="my-auto font-semi capitalize">Approved Spender</span>
-				<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
-					<Link href={`/account/${log?.args?.approved}`}>
-						{formatAddress(log?.args?.approved)}
-					</Link>
-				</span>
-				<span className="my-auto font-semi capitalize">TokenId</span>
-				<span className="my-auto capitalize">{log?.args?.tokenId}</span>
-				<span className="my-auto capitalize">
-					{log?.contractData?.name} ({log?.contractData?.symbol})
-				</span>
+			<div className="flex">
+				<ShieldExclamationIcon className="h-5 w-5 mr-2" /> Approval{" "}
 			</div>
+			<span className="my-auto font-semi capitalize">Owner</span>
+			<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
+				<Link href={`/account/${log?.args?.owner}`}>
+					{formatAddress(log?.args?.owner)}
+				</Link>
+			</span>
+			<span className="my-auto font-semi capitalize">Approved Spender</span>
+			<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
+				<Link href={`/account/${log?.args?.approved}`}>
+					{formatAddress(log?.args?.approved)}
+				</Link>
+			</span>
+			<span className="my-auto font-semi capitalize">TokenId</span>
+			<span className="my-auto capitalize">{log?.args?.tokenId}</span>
+			<span className="my-auto capitalize">
+				{log?.contractData?.name} ({log?.contractData?.symbol})
+			</span>
 		</div>
 	);
 };
@@ -269,43 +263,3 @@ export default {
 	ERC20Approval: ERC20Approval,
 	ERC721Approval: ERC721Approval,
 };
-
-{
-	/* <div className="flex space-x-2">
-												<span className="capitalize my-auto">
-													{log?.parsedFromAbi}
-												</span>
-												<span className="my-auto">{log.name}</span>
-												{Object.keys(args)?.map((key) => {
-													let value = args[key];
-													if (key == "amount" || key == "value") {
-														value = ethers.utils
-															.formatUnits(value, log?.contractData?.decimals)
-															.toString();
-													}
-													if(isBoolean(value)){
-														value = value.toString()
-													}
-													return (
-														<Fragment>
-															<span className="my-auto font-semi capitalize">
-																{key}
-															</span>
-															<span className="my-auto capitalize">
-																{value}
-															</span>
-														</Fragment>
-													);
-												})}
-												<span className="my-auto capitalize">
-													{log?.contractData?.name} ({log?.contractData?.symbol}
-													)
-												</span>
-												{log?.contractData?.uri && (
-													<DisplayNFTImage
-														args={log?.args}
-														uri={log?.contractData?.uri}
-													/>
-												)}
-											</div> */
-}
