@@ -13,12 +13,12 @@ import {
 	TimeAgo,
 } from "@/components";
 import AddressLink from "@/components/evm/AddressLink";
-import GasUsage from "@/components/evm/GasUsage";
 import DisplayNFTImage from "@/components/evm/DisplayNFTImage";
+import GasUsage from "@/components/evm/GasUsage";
 import { CopyToClipboard } from "@/components/icons";
 import { getTransactionByHash } from "@/libs/evm-api";
-
 import { formatAddress } from "@/libs/utils";
+import { isBoolean } from "lodash";
 
 export const getServerSideProps = (context) => ({
 	props: { hash: context?.params?.hash },
@@ -139,7 +139,9 @@ export default function EVMTransaction({ hash }) {
 
 										return (
 											<div className="flex space-x-2">
-												<span className="capitalize my-auto">{log?.parsedFromAbi}</span>
+												<span className="capitalize my-auto">
+													{log?.parsedFromAbi}
+												</span>
 												<span className="my-auto">{log.name}</span>
 												{Object.keys(args)?.map((key) => {
 													let value = args[key];
@@ -148,12 +150,16 @@ export default function EVMTransaction({ hash }) {
 															.formatUnits(value, log?.contractData?.decimals)
 															.toString();
 													}
+													if(isBoolean(value)){
+														value = value.toString()
+													}
 													return (
 														<Fragment>
 															<span className="my-auto font-semi capitalize">
 																{key}
 															</span>
 															<span className="my-auto capitalize">
+																
 																{value}
 															</span>
 														</Fragment>
@@ -164,7 +170,10 @@ export default function EVMTransaction({ hash }) {
 													)
 												</span>
 												{log?.contractData?.uri && (
-													<DisplayNFTImage args={log?.args} uri={log?.contractData?.uri}/>
+													<DisplayNFTImage
+														args={log?.args}
+														uri={log?.contractData?.uri}
+													/>
 												)}
 											</div>
 										);

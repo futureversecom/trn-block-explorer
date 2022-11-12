@@ -10,6 +10,7 @@ import {
 	TableLayout,
 	TimeAgo,
 } from "@/components";
+import TransactionStatus from "@/components/evm/TransactionStatus";
 import BlockFinalizedIcon from "@/components/icons/blockFinalizedIcon";
 import { useGetEvmTransactionsQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
@@ -95,11 +96,7 @@ const EVMTransactionsRow = ({ tx, transactionHash, from, to }) => {
 			</TableLayout.Data>
 			<TableLayout.Data>{formatAddress(transactionHash)}</TableLayout.Data>
 			<TableLayout.Data dataClassName="flex">
-				<BlockFinalizedIcon
-					status={tx.call.success}
-					iconClassName="h-5"
-					isExtrinsic={true}
-				/>
+				<TransactionStatus tx={tx} />
 			</TableLayout.Data>
 			{/* <TableLayout.Data>
 														{formatAddress(tx.call.extrinsic.hash, 6)}

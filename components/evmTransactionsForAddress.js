@@ -14,7 +14,7 @@ import { getTransactionsForAddress } from "@/libs/evm-api";
 import { usePolling } from "@/libs/hooks";
 import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
 import { formatAddress } from "@/libs/utils";
-
+import TransactionStatus from "@/components/evm/TransactionStatus";
 import InOutLabel from "./inOutLabel";
 
 export default function EvmTransactionsForAddress({ walletAddress }) {
@@ -83,6 +83,7 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 											value={tx?.value}
 											fromContract={tx?.fromContract}
 											toContract={tx?.toContract}
+											tx={tx}
 										/>
 									);
 								})}
@@ -113,11 +114,12 @@ const EvmTransactionsForAddressRow = ({
 	type,
 	value,
 	isDeployment,
+	tx
 }) => {
 	return (
 		<tr>
 			<TableLayout.Data dataClassName="flex">
-				<BlockFinalizedIcon status={success} isExtrinsic={true} />
+				<TransactionStatus tx={tx}/>
 			</TableLayout.Data>
 			<TableLayout.Data dataClassName="!text-indigo-500">
 				<Link href={`/tx/${transactionHash}`}>
