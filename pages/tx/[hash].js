@@ -1,6 +1,7 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
 import { useQuery } from "@tanstack/react-query";
 import { ethers } from "ethers";
+import { isBoolean } from "lodash";
 import moment from "moment";
 import Link from "next/link";
 import { Fragment } from "react";
@@ -14,11 +15,11 @@ import {
 } from "@/components";
 import AddressLink from "@/components/evm/AddressLink";
 import DisplayNFTImage from "@/components/evm/DisplayNFTImage";
+import EventComponents from "@/components/evm/events/index.js";
 import GasUsage from "@/components/evm/GasUsage";
 import { CopyToClipboard } from "@/components/icons";
 import { getTransactionByHash } from "@/libs/evm-api";
 import { formatAddress } from "@/libs/utils";
-import { isBoolean } from "lodash";
 
 export const getServerSideProps = (context) => ({
 	props: { hash: context?.params?.hash },
@@ -122,60 +123,15 @@ export default function EVMTransaction({ hash }) {
 										const allowed = ["ERC20", "ERC1155", "ERC721"];
 										if (!allowed.includes(log?.parsedFromAbi))
 											return <Fragment />;
-										let args = {};
-										Object.keys(log?.args).map((key) => {
-											if (isNaN(Number(key))) {
-												const val = log?.args?.[key];
-												const data = ethers.utils.isAddress(val) ? (
-													<Link href={`/account/${val}`}>
-														{formatAddress(val)}
-													</Link>
-												) : (
-													val
-												);
-												args[key] = data;
-											}
-										});
 
-										return (
-											<div className="flex space-x-2">
-												<span className="capitalize my-auto">
-													{log?.parsedFromAbi}
-												</span>
-												<span className="my-auto">{log.name}</span>
-												{Object.keys(args)?.map((key) => {
-													let value = args[key];
-													if (key == "amount" || key == "value") {
-														value = ethers.utils
-															.formatUnits(value, log?.contractData?.decimals)
-															.toString();
-													}
-													if(isBoolean(value)){
-														value = value.toString()
-													}
-													return (
-														<Fragment>
-															<span className="my-auto font-semi capitalize">
-																{key}
-															</span>
-															<span className="my-auto capitalize">
-																{value}
-															</span>
-														</Fragment>
-													);
-												})}
-												<span className="my-auto capitalize">
-													{log?.contractData?.name} ({log?.contractData?.symbol}
-													)
-												</span>
-												{log?.contractData?.uri && (
-													<DisplayNFTImage
-														args={log?.args}
-														uri={log?.contractData?.uri}
-													/>
-												)}
-											</div>
-										);
+										if (
+											log?.name == "Transfer" &&
+											log?.parsedFromAbi == "ERC721"
+										) {
+											return <EventComponents.Transfer log={log} />;
+										}
+
+										return <Fragment />;
 									})}
 								</div>
 							</DetailsLayout.Data>
