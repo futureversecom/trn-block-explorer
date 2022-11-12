@@ -32,7 +32,6 @@ export default function GasUsage({ tx }) {
 		maxPriorityFeePerGas = new BigNumber(maxPriorityFeePerGas);
 		gasPrice = gasPrice.plus(maxPriorityFeePerGas);
 		const totalFee = gasLimit.multipliedBy(gasPrice); // Number(gasLimit) * Number(gasPrice);
-		console.log(totalFee.toString());
 		const divisor = new BigNumber(10).pow(9);
 		fee = totalFee.dividedBy(divisor).toString();
 	}

@@ -25,10 +25,10 @@ export const getServerSideProps = (context) => ({
 });
 
 export default function EVMTransaction({ hash }) {
-	const query = useQuery([hash], async () => {
-		const data = await getTransactionByHash(hash);
-		console.log(data);
-		return data;
+	const query = useQuery([hash], () => {
+		return getTransactionByHash(hash).then((data) => {
+			return data;
+		});
 	});
 
 	return (
