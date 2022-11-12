@@ -15,10 +15,16 @@ export default function TokenBalances({ walletAddress }) {
 		["erc20_erc721_evm_token_balances", walletAddress],
 		async () => {
 			const erc721 = await getERC721Balance(walletAddress);
-			console.log(erc721);
 			const erc20 = await getERC20Balance(walletAddress);
-			console.log(erc20);
-			return { erc721, erc20, totalSum: 500 };
+
+			return {
+				erc721,
+				erc20,
+			};
+		},
+		{
+			refetchInterval: 30_000,
+			enabled: walletAddress ? true : false,
 		}
 	);
 	return (
@@ -27,7 +33,20 @@ export default function TokenBalances({ walletAddress }) {
 				<Menu.Button className="inline-flex w-full justify-between border border-gray-300 bg-transparent px-4 py-1.5 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">
 					{query?.isLoading && "Retrieving Tokens"}
 					{query?.isError && "Error Fetching Data"}
-					{query?.data?.totalSum && `${query?.data?.totalSum} token(s)`}
+					{!query?.isError && !query?.isLoading ? (
+						<Fragment>
+							<div className="flex divide-x">
+								<div className="pr-3">
+									{query?.data?.erc721?.length || 0} NFTs
+								</div>
+								<div className="px-3">
+									{query?.data?.erc20?.length || 0} ERC20 Tokens
+								</div>
+							</div>
+						</Fragment>
+					) : (
+						<Fragment />
+					)}
 					<ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
 				</Menu.Button>
 			</div>
