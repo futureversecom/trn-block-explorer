@@ -152,6 +152,12 @@ export default function EVMTransaction({ hash }) {
 										) {
 											return <EventComponents.TransferSingle log={log} />;
 										}
+										if (
+											log?.name == "Transfer" &&
+											log?.parsedFromAbi == "ERC20"
+										) {
+											return <EventComponents.ERC20Transfer log={log} />;
+										}
 
 										return <Fragment />;
 									})}

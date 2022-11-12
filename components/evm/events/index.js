@@ -1,7 +1,7 @@
+import { ethers } from "ethers";
 import Link from "next/link";
 import { Fragment } from "react";
 
-import { Tooltip } from "@/components";
 import DisplayNFTImage from "@/components/evm/DisplayNFTImage";
 import { formatAddress } from "@/libs/utils";
 
@@ -10,7 +10,6 @@ import { formatAddress } from "@/libs/utils";
 // event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
 
 // ERC20
-// event Transfer(address indexed from, address indexed to, uint256 value);
 // event Approval(address indexed owner, address indexed spender, uint256 value);
 
 // ERC721
@@ -94,7 +93,7 @@ const TransferBatch = ({ log }) => {
 				<div className="space-x-2 my-auto flex-grow">
 					<span className="my-auto font-semi capitalize">From</span>
 					<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
-						<Link href={`/account/${log?.args?.to}`}>
+						<Link href={`/account/${log?.args?.from}`}>
 							{formatAddress(log?.args?.from)}
 						</Link>
 					</span>
@@ -108,7 +107,6 @@ const TransferBatch = ({ log }) => {
 						{log?.contractData?.name} ({log?.contractData?.symbol})
 					</span>
 				</div>
-				{console.log(log?.contractData)}
 			</div>
 			{log?.args?.ids?.map((tokenId, key) => (
 				<div className="flex space-x-2 my-auto" key={key}>
@@ -141,7 +139,7 @@ const TransferSingle = ({ log }) => {
 			<div className="space-x-2 my-auto flex-grow">
 				<span className="my-auto font-semi capitalize">From</span>
 				<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
-					<Link href={`/account/${log?.args?.to}`}>
+					<Link href={`/account/${log?.args?.from}`}>
 						{formatAddress(log?.args?.from)}
 					</Link>
 				</span>
@@ -172,11 +170,42 @@ const TransferSingle = ({ log }) => {
 		</div>
 	);
 };
+
+// event Transfer(address indexed from, address indexed to, uint256 value);
+const ERC20Transfer = ({ log }) => {
+	return (
+		<div className="flex space-x-2">
+			<div className="space-x-2 my-auto flex-grow">
+				<span className="my-auto font-semi capitalize">From</span>
+				<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
+					<Link href={`/account/${log?.args?.from}`}>
+						{formatAddress(log?.args?.from)}
+					</Link>
+				</span>
+				<span className="my-auto font-semi capitalize">To</span>
+				<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
+					<Link href={`/account/${log?.args?.to}`}>
+						{formatAddress(log?.args?.to)}
+					</Link>
+				</span>
+				<span className="my-auto capitalize">
+					{ethers.utils
+						.formatUnits(log?.args?.value, log?.contractData?.decimals)
+						.toString()}
+				</span>
+				<span className="my-auto capitalize">
+					{log?.contractData?.name} ({log?.contractData?.symbol})
+				</span>
+			</div>
+		</div>
+	);
+};
 export default {
 	Transfer: Transfer,
 	ApprovalForAll: ApprovalForAll,
 	TransferBatch: TransferBatch,
 	TransferSingle: TransferSingle,
+	ERC20Transfer: ERC20Transfer,
 };
 
 {
