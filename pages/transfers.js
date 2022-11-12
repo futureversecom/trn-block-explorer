@@ -12,7 +12,7 @@ import {
 import { TransferStatusIcon } from "@/components/icons";
 import { useGetTransfersQuery } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
-import { formatAddress } from "@/libs/utils";
+import { formatAddress, formatUnits } from "@/libs/utils";
 
 export default function Transfers() {
 	let query = usePolling({}, useGetTransfersQuery, {
@@ -96,9 +96,7 @@ const TransferRow = ({
 			<TableLayout.Data>
 				<TimeAgo timestamp={timestamp} />
 			</TableLayout.Data>
-			<TableLayout.Data>
-				{ethers.utils.formatEther(amount)} Root
-			</TableLayout.Data>
+			<TableLayout.Data>{formatUnits(amount, 18)} Root</TableLayout.Data>
 			{from?.id ? (
 				<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500">
 					<Link href={`/account/${from.id}`}>{formatAddress(from.id)}</Link>
