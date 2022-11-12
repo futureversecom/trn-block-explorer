@@ -131,8 +131,19 @@ export default function EVMTransaction({ hash }) {
 											return <EventComponents.Transfer log={log} />;
 										}
 
-										if(log?.name == 'ApprovalForAll' && (log?.parsedFromAbi == 'ERC721' || log?.parsedFromAbi == 'ERC1155')){
-											return <EventComponents.ApprovalForAll log={log}/>
+										if (
+											log?.name == "ApprovalForAll" &&
+											(log?.parsedFromAbi == "ERC721" ||
+												log?.parsedFromAbi == "ERC1155")
+										) {
+											return <EventComponents.ApprovalForAll log={log} />;
+										}
+
+										if (
+											log?.name == "TransferBatch" &&
+											log?.parsedFromAbi == "ERC1155"
+										) {
+											return <EventComponents.TransferBatch log={log} />;
 										}
 
 										return <Fragment />;

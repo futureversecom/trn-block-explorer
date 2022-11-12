@@ -12,14 +12,6 @@ import { formatAddress } from "@/libs/utils";
 // // ERC165 + ERC1155
 
 // event TransferSingle(address indexed operator, address indexed from, address indexed to, uint256 id, uint256 value);
-// event TransferBatch(
-//   address indexed operator,
-//   address indexed from,
-//   address indexed to,
-//   uint256[] ids,
-//   uint256[] values
-// );
-// event ApprovalForAll(address indexed account, address indexed operator, bool approved);
 
 // // ERC20
 // event Transfer(address indexed from, address indexed to, uint256 value);
@@ -91,9 +83,67 @@ const ApprovalForAll = ({ log }) => {
 	);
 };
 
+// event TransferBatch(
+//   address indexed operator,
+//   address indexed from,
+//   address indexed to,
+//   uint256[] ids,
+//   uint256[] values
+// );
+
+const TransferBatch = ({ log }) => {
+	return (
+		<Fragment>
+			<div className="flex space-x-2">
+				<div className="space-x-2 my-auto flex-grow">
+					<span className="my-auto font-semi capitalize">From</span>
+					<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
+						<Link href={`/account/${log?.args?.to}`}>
+							{formatAddress(log?.args?.from)}
+						</Link>
+					</span>
+					<span className="my-auto font-semi capitalize">To</span>
+					<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
+						<Link href={`/account/${log?.args?.to}`}>
+							{formatAddress(log?.args?.to)}
+						</Link>
+					</span>
+					<span className="my-auto capitalize">
+						{log?.contractData?.name} ({log?.contractData?.symbol})
+					</span>
+				</div>
+				{console.log(log?.contractData)}
+			</div>
+			{log?.args?.ids?.map((tokenId, key) => (
+				<div className="flex space-x-2 my-auto" key={key}>
+					<div className="flex-grow my-auto space-x-2">
+						<span className="my-auto font-semibold capitalize">TokenId</span>
+						<span className="my-auto capitalize">{tokenId}</span>
+						<span className="my-auto font-semibold capitalize">Quantity</span>
+						<span className="my-auto capitalize">
+							{log?.args?.[4]?.[key]}
+						</span>
+					</div>
+					<div className="flex-shrink">
+						{log?.contractData?.uri && (
+							<DisplayNFTImage
+								args={{ tokenId }}
+								uri={log?.contractData?.uri}
+								height={25}
+								width={25}
+							/>
+						)}
+					</div>
+				</div>
+			))}
+		</Fragment>
+	);
+};
+
 export default {
 	Transfer: Transfer,
 	ApprovalForAll: ApprovalForAll,
+	TransferBatch: TransferBatch,
 };
 
 {
