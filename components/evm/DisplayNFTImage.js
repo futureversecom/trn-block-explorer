@@ -6,19 +6,24 @@ import { Fragment } from "react";
 const externaImageLoader = ({ src }) => `${src}`;
 
 export default function DisplayNFTImage({ args, uri, width, height }) {
-	if (!uri || !args?.tokenId) return <Fragment />;
 	let metadataPath = `${uri}${args?.tokenId}`;
 	if (metadataPath.includes("{id}")) {
 		metadataPath = metadataPath.replace("{id}", args?.tokenId);
 	}
-	const query = useQuery([uri, args?.tokenId], async () => {
-		let data = await fetch(metadataPath).then((resp) => resp.json());
-		let image = data?.image;
-		if (data?.image?.includes("ipfs")) {
-			image = `https://gateway.ipfs.io/ipfs/${image.replace("ipfs://", "")}`;
-		}
-		return image || null;
-	});
+	const query = useQuery(
+		[uri, args?.tokenId],
+		async () => {
+			let data = await fetch(metadataPath).then((resp) => resp.json());
+			let image = data?.image;
+			if (data?.image?.includes("ipfs")) {
+				image = `https://gateway.ipfs.io/ipfs/${image.replace("ipfs://", "")}`;
+			}
+			return image || null;
+		},
+		{ enabled: uri && args?.tokenId }
+	);
+
+	if (!uri || !args?.tokenId) return <Fragment />;
 
 	return (
 		<Fragment>
