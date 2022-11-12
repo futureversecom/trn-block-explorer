@@ -70,3 +70,23 @@ export const getERC20TransferForAddress = async (address, page) => {
 		return extractBody(response);
 	});
 };
+
+export const getERC20Balance = async (address) => {
+	return await fetch(`${BASE_URL}/api/getERC20Balance`, {
+		method: "POST",
+		...headers(),
+		body: JSON.stringify({ address }),
+	}).then((response) => {
+		return extractBody(response);
+	});
+};
+
+export const getERC721Balance = async (address) => {
+	return await fetch(`${BASE_URL}/api/getERC721Balance`, {
+		method: "POST",
+		...headers(),
+		body: JSON.stringify({ address }),
+	}).then((response) => {
+		return extractBody(response);
+	});
+};
