@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { Fragment } from "react";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 
+import TokenBalances from "@/components/evm/tokenBalances";
 import { CopyToClipboard } from "@/components/icons";
 import { useGetBalanceQuery } from "@/libs/api/generated.ts";
 import { BURN_ADDRESSES } from "@/libs/constants";
@@ -110,6 +111,10 @@ export default function BalanceForAddress({ walletAddress }) {
 									<Fragment />
 								)}
 							</dl>
+						</div>
+						<div className="py-3 px-4 flex flex-col space-y-2">
+							<span className="text-white">Tokens</span>
+							<TokenBalances />
 						</div>
 					</div>
 				</div>
