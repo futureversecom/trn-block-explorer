@@ -1,4 +1,5 @@
 import BigNumber from "bignumber.js";
+import { commify } from "ethers/lib/utils";
 
 export * from "./formatExtrinsicId";
 export * from "./getAssetMetadata";
@@ -9,7 +10,7 @@ export const formatUnits = (value, decimals) => {
 	const a = new BigNumber(value.toString()).dividedBy(
 		new BigNumber(10).pow(decimals)
 	);
-	return a.toString();
+	return commify(a).toString();
 };
 
 export const sleep = () => {
