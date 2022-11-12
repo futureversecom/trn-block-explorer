@@ -9,9 +9,6 @@ import { formatAddress } from "@/libs/utils";
 
 // event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
 
-// ERC20
-// event Approval(address indexed owner, address indexed spender, uint256 value);
-
 // ERC721
 // event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
 const Transfer = ({ log }) => {
@@ -200,12 +197,43 @@ const ERC20Transfer = ({ log }) => {
 		</div>
 	);
 };
+
+// event Approval(address indexed owner, address indexed spender, uint256 value);
+const ERC20Approval = ({ log }) => {
+	return (
+		<div className="flex space-x-2">
+			<div className="space-x-2 my-auto flex-grow">
+				<span className="my-auto font-semi capitalize">Owner</span>
+				<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
+					<Link href={`/account/${log?.args?.owner}`}>
+						{formatAddress(log?.args?.owner)}
+					</Link>
+				</span>
+				<span className="my-auto font-semi capitalize">Spender</span>
+				<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
+					<Link href={`/account/${log?.args?.spender}`}>
+						{formatAddress(log?.args?.spender)}
+					</Link>
+				</span>
+				<span className="my-auto capitalize">
+					{ethers.utils
+						.formatUnits(log?.args?.value, log?.contractData?.decimals)
+						.toString()}
+				</span>
+				<span className="my-auto capitalize">
+					{log?.contractData?.name} ({log?.contractData?.symbol})
+				</span>
+			</div>
+		</div>
+	);
+};
 export default {
 	Transfer: Transfer,
 	ApprovalForAll: ApprovalForAll,
 	TransferBatch: TransferBatch,
 	TransferSingle: TransferSingle,
 	ERC20Transfer: ERC20Transfer,
+	ERC20Approval: ERC20Approval,
 };
 
 {
