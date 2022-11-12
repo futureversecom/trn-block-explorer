@@ -1,7 +1,6 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
 import { useQuery } from "@tanstack/react-query";
 import { ethers } from "ethers";
-import { isBoolean } from "lodash";
 import moment from "moment";
 import Link from "next/link";
 import { Fragment } from "react";
@@ -14,12 +13,11 @@ import {
 	TimeAgo,
 } from "@/components";
 import AddressLink from "@/components/evm/AddressLink";
-import DisplayNFTImage from "@/components/evm/DisplayNFTImage";
 import EventComponents from "@/components/evm/events/index.js";
 import GasUsage from "@/components/evm/GasUsage";
 import { CopyToClipboard } from "@/components/icons";
 import { getTransactionByHash } from "@/libs/evm-api";
-import { formatAddress } from "@/libs/utils";
+import { formatAddress, formatUnits } from "@/libs/utils";
 
 export const getServerSideProps = (context) => ({
 	props: { hash: context?.params?.hash },
@@ -325,7 +323,7 @@ export default function EVMTransaction({ hash }) {
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Value" />
 						<DetailsLayout.Data>
-							{String(ethers.utils.formatEther(String(query.data.value)))} XRP
+							{formatUnits(query.data.value, 18)} XRP
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
