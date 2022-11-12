@@ -159,7 +159,6 @@ export default function EVMTransaction({ hash }) {
 																{key}
 															</span>
 															<span className="my-auto capitalize">
-																
 																{value}
 															</span>
 														</Fragment>
