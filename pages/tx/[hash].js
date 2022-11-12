@@ -146,6 +146,13 @@ export default function EVMTransaction({ hash }) {
 											return <EventComponents.TransferBatch log={log} />;
 										}
 
+										if (
+											log?.name == "TransferSingle" &&
+											log?.parsedFromAbi == "ERC1155"
+										) {
+											return <EventComponents.TransferSingle log={log} />;
+										}
+
 										return <Fragment />;
 									})}
 								</div>
