@@ -2,6 +2,7 @@ import BigNumber from "bignumber.js";
 import { ethers } from "ethers";
 import EVMTooltip from "@/components/evm/evmTooltip";
 import { formatUSD } from "@/libs/utils";
+import { Fragment } from 'react';
 
 export default function GasUsage({ tx }) {
 	const type = tx?.type;
