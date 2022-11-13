@@ -1,21 +1,20 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import { useState } from 'react';
-import {
-	ContainerLayout,
-	LoadingBlock,
-	PageHeader,
-} from "@/components";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+
+import { ContainerLayout, LoadingBlock, PageHeader } from "@/components";
 import EVMPagination from "@/components/evm/evmpagination";
 import EVMTransactionsTable from "@/components/evm/evmTransactionsTable";
-import { getTransactionsForAddress } from "@/libs/evm-api";
-import { useQuery } from '@tanstack/react-query'
+import { getEVMTransactions } from "@/libs/evm-api";
+
 export default function EVMTransactions() {
 	const [page, setPage] = useState(1);
+	const limit = 25;
 
 	const query = useQuery(
-		["evm_transactions_overview", page],
+		["evm_transactions_overview", limit, page],
 		() => {
-			return getTransactionsForAddress("", page);
+			return getEVMTransactions(page, limit);
 		},
 		{
 			refetchInterval: 15_000,

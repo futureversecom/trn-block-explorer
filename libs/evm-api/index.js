@@ -109,11 +109,11 @@ export const isContract = async (address) => {
 	});
 };
 
-export const getEVMTransactions = async (page) => {
+export const getEVMTransactions = async (page, limit) => {
 	return await fetch(`${BASE_URL}/api/getEVMTransactions`, {
 		method: "POST",
 		...headers(),
-		body: JSON.stringify({ page }),
+		body: JSON.stringify({ page, limit }),
 	}).then((response) => {
 		return extractBody(response);
 	});
