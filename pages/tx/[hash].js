@@ -98,14 +98,16 @@ export default function EVMTransaction({ hash }) {
 								helpTooltip="The smart contract function that was used in this transaction."
 							/>
 							<DetailsLayout.Data>
-								{!query?.data?.to && query?.data?.creates ? (
-									`Contract Deployment ${query?.data?.creates}`
-								) : (
-									<Fragment />
-								)}
-								<span className="capitalize">
-									{query?.data?.parsedData?.name &&
-										query?.data?.parsedData?.name}
+								<span className="my-auto rounded bg-black bg-opacity-20 p-1 text-xs">
+									{!query?.data?.to && query?.data?.creates ? (
+										`Contract Deployment ${query?.data?.creates}`
+									) : (
+										<Fragment />
+									)}
+									<span className="capitalize">
+										{query?.data?.parsedData?.name &&
+											query?.data?.parsedData?.name}
+									</span>
 								</span>
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
