@@ -116,7 +116,9 @@ export default function EVMTransaction({ hash }) {
 					{query?.data?.parsedLogs?.length > 0 ? (
 						<DetailsLayout.Wrapper>
 							<DetailsLayout.Title
-								title="Events Occured"
+								title={`Events Occured (${
+									query?.data?.parsedLogs?.length || 0
+								} events)`}
 								helpTooltip="Allows you to view any events happened in this transaction."
 							/>
 							<DetailsLayout.Data>
