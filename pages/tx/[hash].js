@@ -150,11 +150,11 @@ export default function EVMTransaction({ hash }) {
 											log?.parsedFromAbi == "ERC721"
 										) {
 											return (
-												<div className={childClasses}>
-													<EventComponents.Transfer
-														log={log}
-														key={`${log?.transactionHash}_${log?.logIndex}`}
-													/>
+												<div
+													className={childClasses}
+													key={`${log?.transactionHash}_${log?.logIndex}`}
+												>
+													<EventComponents.Transfer log={log} />
 												</div>
 											);
 										}
@@ -165,11 +165,11 @@ export default function EVMTransaction({ hash }) {
 												log?.parsedFromAbi == "ERC1155")
 										) {
 											return (
-												<div className={childClasses}>
-													<EventComponents.ApprovalForAll
-														log={log}
-														key={`${log?.transactionHash}_${log?.logIndex}`}
-													/>
+												<div
+													className={childClasses}
+													key={`${log?.transactionHash}_${log?.logIndex}`}
+												>
+													<EventComponents.ApprovalForAll log={log} />
 												</div>
 											);
 										}
@@ -179,11 +179,11 @@ export default function EVMTransaction({ hash }) {
 											log?.parsedFromAbi == "ERC721"
 										) {
 											return (
-												<div className={childClasses}>
-													<EventComponents.ERC721Approval
-														log={log}
-														key={`${log?.transactionHash}_${log?.logIndex}`}
-													/>
+												<div
+													className={childClasses}
+													key={`${log?.transactionHash}_${log?.logIndex}`}
+												>
+													<EventComponents.ERC721Approval log={log} />
 												</div>
 											);
 										}
@@ -193,11 +193,11 @@ export default function EVMTransaction({ hash }) {
 											log?.parsedFromAbi == "ERC1155"
 										) {
 											return (
-												<div className={childClasses}>
-													<EventComponents.TransferBatch
-														log={log}
-														key={`${log?.transactionHash}_${log?.logIndex}`}
-													/>
+												<div
+													className={childClasses}
+													key={`${log?.transactionHash}_${log?.logIndex}`}
+												>
+													<EventComponents.TransferBatch log={log} />
 												</div>
 											);
 										}
@@ -207,11 +207,11 @@ export default function EVMTransaction({ hash }) {
 											log?.parsedFromAbi == "ERC1155"
 										) {
 											return (
-												<div className={childClasses}>
-													<EventComponents.TransferSingle
-														log={log}
-														key={`${log?.transactionHash}_${log?.logIndex}`}
-													/>
+												<div
+													className={childClasses}
+													key={`${log?.transactionHash}_${log?.logIndex}`}
+												>
+													<EventComponents.TransferSingle log={log} />
 												</div>
 											);
 										}
@@ -220,11 +220,11 @@ export default function EVMTransaction({ hash }) {
 											log?.parsedFromAbi == "ERC20"
 										) {
 											return (
-												<div className={childClasses}>
-													<EventComponents.ERC20Transfer
-														log={log}
-														key={`${log?.transactionHash}_${log?.logIndex}`}
-													/>
+												<div
+													className={childClasses}
+													key={`${log?.transactionHash}_${log?.logIndex}`}
+												>
+													<EventComponents.ERC20Transfer log={log} />
 												</div>
 											);
 										}
@@ -234,11 +234,11 @@ export default function EVMTransaction({ hash }) {
 											log?.parsedFromAbi == "ERC20"
 										) {
 											return (
-												<div className={childClasses}>
-													<EventComponents.ERC20Approval
-														log={log}
-														key={`${log?.transactionHash}_${log?.logIndex}`}
-													/>
+												<div
+													className={childClasses}
+													key={`${log?.transactionHash}_${log?.logIndex}`}
+												>
+													<EventComponents.ERC20Approval log={log} />
 												</div>
 											);
 										}
@@ -451,7 +451,9 @@ export default function EVMTransaction({ hash }) {
 						<DetailsLayout.Data>
 							<div className="flex space-x-2">
 								<span className="my-auto rounded bg-black bg-opacity-20 p-1 text-xs flex space-x-2">
-									{query?.data?.value >= 1 ? formatUnits(query.data.value, 18) : "0"}{" "}
+									{query?.data?.value >= 1
+										? formatUnits(query.data.value, 18)
+										: "0"}{" "}
 									XRP
 								</span>
 								{txUsdPrice ? (
