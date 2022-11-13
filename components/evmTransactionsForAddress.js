@@ -4,8 +4,9 @@ import { ethers } from "ethers";
 import Link from "next/link";
 import { Fragment, useEffect, useMemo } from "react";
 
-import { LoadingBlock, Pagination, TableLayout, TimeAgo } from "@/components";
+import { LoadingBlock, TableLayout, TimeAgo } from "@/components";
 import AddressLink from "@/components/evm/AddressLink";
+import EVMPagination from "@/components/evm/evmpagination";
 import TransactionStatus from "@/components/evm/TransactionStatus";
 import { BlockFinalizedIcon } from "@/components/icons";
 import {
@@ -101,7 +102,7 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 				</div>
 			)}
 
-			{pages?.length > 1 && <Pagination table="accountEvmTransactions" />}
+			<EVMPagination data={query?.data} />
 		</div>
 	);
 }
