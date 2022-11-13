@@ -35,6 +35,14 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 				<LoadingBlock title="Evm Transactions" height="h-20" />
 			) : (
 				<div className="divide-y overflow-x-auto border border-gray-400 text-white">
+					{query?.data?.docs?.length ? (
+						<div className="text-sm px-3 py-3">
+							Displaying {parseInt(query?.data?.limit * query?.data?.page)} from
+							a total of {query?.data?.totalDocs} transactions
+						</div>
+					) : (
+						<Fragment />
+					)}
 					{query?.data?.docs?.length > 0 ? (
 						<TableLayout.Table>
 							<thead className="bg-transparent">
