@@ -38,8 +38,8 @@ const Transfer = ({ log }) => {
 				<DisplayNFTImage
 					args={log?.args}
 					uri={log?.contractData?.uri}
-					height={100}
-					width={100}
+					height={50}
+					width={50}
 				/>
 			</div>
 		</div>
@@ -121,8 +121,8 @@ const TransferBatch = ({ log }) => {
 						<DisplayNFTImage
 							args={{ tokenId }}
 							uri={log?.contractData?.uri}
-							height={25}
-							width={25}
+							height={50}
+							width={50}
 						/>
 					</div>
 				</div>
@@ -161,8 +161,8 @@ const TransferSingle = ({ log }) => {
 				<DisplayNFTImage
 					args={{ tokenId: log?.args?.id }}
 					uri={log?.contractData?.uri}
-					height={100}
-					width={100}
+					height={50}
+					width={50}
 				/>
 			</div>
 		</div>
