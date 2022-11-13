@@ -1,6 +1,7 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Fragment } from "react";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
@@ -11,7 +12,7 @@ import { useGetBalanceQuery } from "@/libs/api/generated.ts";
 import { BURN_ADDRESSES } from "@/libs/constants";
 import { isContract } from "@/libs/evm-api";
 import { usePolling } from "@/libs/hooks";
-import { formatBalance, getAssetMetadata } from "@/libs/utils";
+import { formatAddress, formatBalance, getAssetMetadata } from "@/libs/utils";
 
 import { LoadingBlock, RefetchIndicator } from "./";
 
@@ -33,7 +34,7 @@ export default function BalanceForAddress({ walletAddress }) {
 		[walletAddress, "isContract"],
 		() => {
 			return isContract(walletAddress).then((data) => {
-				return data?.isContract;
+				return data;
 			});
 		},
 		{
@@ -45,8 +46,7 @@ export default function BalanceForAddress({ walletAddress }) {
 		<div>
 			<div className="flex flex-row justify-between py-3">
 				<div className="flex">
-					<ArrowsRightLeftIcon className="my-auto h-5 pr-3 text-white" />
-					<h3 className="text-md font-medium leading-6 text-white">Balance</h3>
+					<h3 className="text-md font-medium leading-6 text-white">Overview</h3>
 				</div>
 				<div>{query.isRefetching && <RefetchIndicator />}</div>
 			</div>
@@ -69,7 +69,7 @@ export default function BalanceForAddress({ walletAddress }) {
 
 										<div className="my-auto flex-col">
 											<div className="text-lg">
-												{isContractQuery?.data == true
+												{isContractQuery?.data?.isContract == true
 													? "Contractaddress"
 													: "Wallet"}{" "}
 											</div>
@@ -129,6 +129,35 @@ export default function BalanceForAddress({ walletAddress }) {
 									<Fragment />
 								)}
 							</dl>
+							{isContractQuery?.data?.contractData?.contractCreator &&
+							isContractQuery?.data?.contractData?.deploymentTransactionHash ? (
+								<Balance title="Contract Creator">
+									<div className="text-white text-sm space-x-1">
+										<Link
+											href={`/account/${isContractQuery?.data?.contractData?.contractCreator}`}
+										>
+											<span className="text-indigo-500 hover:text-white cursor-pointer">
+												{formatAddress(
+													isContractQuery?.data?.contractData?.contractCreator
+												)}
+											</span>
+										</Link>
+										<span>at txn:</span>
+										<Link
+											href={`/tx/${isContractQuery?.data?.contractData?.deploymentTransactionHash}`}
+										>
+											<span className="text-indigo-500 hover:text-white cursor-pointer">
+												{formatAddress(
+													isContractQuery?.data?.contractData
+														?.deploymentTransactionHash
+												)}
+											</span>
+										</Link>
+									</div>
+								</Balance>
+							) : (
+								<Fragment />
+							)}
 						</div>
 						<div className="py-3 px-4 flex flex-col space-y-2">
 							<span className="text-white">Tokens</span>
@@ -145,7 +174,9 @@ const Balance = ({ title, children }) => {
 	return (
 		<div className="py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
 			<div className="text-sm font-medium text-white">{title}</div>
-			<div className="space-y-1 text-sm font-medium text-white">{children}</div>
+			<div className="space-y-1 text-sm font-medium text-white col-span-2">
+				{children}
+			</div>
 		</div>
 	);
 };
