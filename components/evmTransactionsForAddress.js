@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import BigNumber from "bignumber.js";
 import Link from "next/link";
 import { Fragment, useState } from "react";
+
 import { LoadingBlock, TableLayout, TimeAgo } from "@/components";
 import AddressLink from "@/components/evm/AddressLink";
 import EVMPagination from "@/components/evm/evmpagination";
@@ -105,10 +106,8 @@ const EvmTransactionsForAddressRow = ({
 	from,
 	transactionHash,
 	to,
-	walletAddress,
 	toContract,
 	fromContract,
-	success,
 	type,
 	value,
 	isDeployment,
