@@ -451,7 +451,7 @@ export default function EVMTransaction({ hash }) {
 						<DetailsLayout.Data>
 							<div className="flex space-x-2">
 								<span className="my-auto rounded bg-black bg-opacity-20 p-1 text-xs flex space-x-2">
-									{query?.data?.value ? formatUnits(query.data.value, 18) : "?"}{" "}
+									{query?.data?.value >= 1 ? formatUnits(query.data.value, 18) : "0"}{" "}
 									XRP
 								</span>
 								{txUsdPrice ? (
