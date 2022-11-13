@@ -1,32 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
 import BigNumber from "bignumber.js";
-import { ethers } from "ethers";
 import Link from "next/link";
-import { Fragment, useEffect, useMemo } from "react";
-
+import { Fragment, useState } from "react";
 import { LoadingBlock, TableLayout, TimeAgo } from "@/components";
 import AddressLink from "@/components/evm/AddressLink";
 import EVMPagination from "@/components/evm/evmpagination";
 import TransactionStatus from "@/components/evm/TransactionStatus";
-import { BlockFinalizedIcon } from "@/components/icons";
-import {
-	useGetEvmTransactionsFromAddressQuery,
-	useGetEvmTransactionsToAddressQuery,
-} from "@/libs/api/generated";
 import { getTransactionsForAddress } from "@/libs/evm-api";
-import { usePolling } from "@/libs/hooks";
-import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
 import { formatAddress } from "@/libs/utils";
 
 import InOutLabel from "./inOutLabel";
 
 export default function EvmTransactionsForAddress({ walletAddress }) {
-	const { pages, currentPage } = { pages: 1, currentPage: 1 };
+	const [page, setPage] = useState(1);
 
 	const query = useQuery(
-		["evm_transactions", walletAddress, currentPage],
+		["evm_transactions", walletAddress, page],
 		() => {
-			return getTransactionsForAddress(walletAddress);
+			return getTransactionsForAddress(walletAddress, page);
 		},
 		{
 			refetchInterval: 15_000,
@@ -102,7 +93,7 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 				</div>
 			)}
 
-			<EVMPagination data={query?.data} />
+			<EVMPagination data={query?.data} onPageChange={(p) => setPage(p)} />
 		</div>
 	);
 }

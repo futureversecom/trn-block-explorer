@@ -41,8 +41,6 @@ export default function BalanceForAddress({ walletAddress }) {
 		}
 	);
 
-	console.log(isContractQuery?.data);
-
 	return (
 		<div>
 			<div className="flex flex-row justify-between py-3">
