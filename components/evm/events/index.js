@@ -34,14 +34,12 @@ const Transfer = ({ log }) => {
 				</span>
 			</div>
 			<div className="flex-shrink">
-				{log?.contractData?.uri && (
-					<DisplayNFTImage
-						args={log?.args}
-						uri={log?.contractData?.uri}
-						height={100}
-						width={100}
-					/>
-				)}
+				<DisplayNFTImage
+					args={log?.args}
+					uri={log?.contractData?.uri}
+					height={100}
+					width={100}
+				/>
 			</div>
 		</div>
 	);
@@ -116,14 +114,12 @@ const TransferBatch = ({ log }) => {
 						<span className="my-auto capitalize">{log?.args?.[4]?.[key]}</span>
 					</div>
 					<div className="flex-shrink">
-						{log?.contractData?.uri && (
-							<DisplayNFTImage
-								args={{ tokenId }}
-								uri={log?.contractData?.uri}
-								height={25}
-								width={25}
-							/>
-						)}
+						<DisplayNFTImage
+							args={{ tokenId }}
+							uri={log?.contractData?.uri}
+							height={25}
+							width={25}
+						/>
 					</div>
 				</div>
 			))}
@@ -157,14 +153,12 @@ const TransferSingle = ({ log }) => {
 				</span>
 			</div>
 			<div className="flex-shrink">
-				{log?.contractData?.uri && (
-					<DisplayNFTImage
-						args={{ tokenId: log?.args?.id }}
-						uri={log?.contractData?.uri}
-						height={100}
-						width={100}
-					/>
-				)}
+				<DisplayNFTImage
+					args={{ tokenId: log?.args?.id }}
+					uri={log?.contractData?.uri}
+					height={100}
+					width={100}
+				/>
 			</div>
 		</div>
 	);

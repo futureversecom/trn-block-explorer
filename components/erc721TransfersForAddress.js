@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { Fragment } from "react";
+
 import { LoadingBlock, Pagination, TableLayout, TimeAgo } from "@/components";
 import AddressLink from "@/components/evm/AddressLink";
 import DisplayNFTImage from "@/components/evm/DisplayNFTImage";
@@ -184,15 +185,13 @@ const EvmTransactionsForAddressRow = ({
 			<TableLayout.Data>{name}</TableLayout.Data>
 			<TableLayout.Data>{tokenId}</TableLayout.Data>
 			<TableLayout.Data>
-				{log?.contractData?.uri && (
-					<DisplayNFTImage
-						key={log?.args?.tokenId}
-						args={log?.args}
-						uri={log?.contractData?.uri}
-						width={75}
-						height={75}
-					/>
-				)}
+				<DisplayNFTImage
+					key={log?.args?.tokenId}
+					args={log?.args}
+					uri={log?.contractData?.uri}
+					width={75}
+					height={75}
+				/>
 			</TableLayout.Data>
 		</tr>
 	);
