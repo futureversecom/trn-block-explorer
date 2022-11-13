@@ -1,6 +1,14 @@
 import fetch from "node-fetch";
 
-const BASE_URL = "http://localhost:3001";
+import { IS_MAINNET } from "@/libs/constants";
+
+let BASE_URL = undefined;
+
+if (IS_MAINNET) {
+	BASE_URL = "http://localhost:3001";
+} else {
+	BASE_URL = "http://localhost:3001";
+}
 
 const headers = () => {
 	return {
