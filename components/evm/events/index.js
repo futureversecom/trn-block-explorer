@@ -88,6 +88,9 @@ const TransferBatch = ({ log }) => {
 		<Fragment>
 			<div className="flex space-x-2">
 				<div className="space-x-2 my-auto flex-grow">
+					<span className="my-auto font-semibold capitalize">
+						TransferBatch
+					</span>
 					<span className="my-auto font-semibold capitalize">From</span>
 					<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
 						<Link href={`/account/${log?.args?.from}`}>
@@ -133,6 +136,7 @@ const TransferSingle = ({ log }) => {
 	return (
 		<div className="flex space-x-2">
 			<div className="space-x-2 my-auto flex-grow">
+				<span className="my-auto font-semibold capitalize">Transfer</span>
 				<span className="my-auto font-semibold capitalize">From</span>
 				<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
 					<Link href={`/account/${log?.args?.from}`}>
@@ -170,6 +174,7 @@ const ERC20Transfer = ({ log }) => {
 	return (
 		<div className="flex space-x-2">
 			<div className="space-x-2 my-auto flex-grow">
+				<span className="my-auto font-semibold capitalize">Transfer</span>
 				<span className="my-auto font-semibold capitalize">From</span>
 				<span className="my-auto text-indigo-500 hover:text-white cursor-pointer">
 					<Link href={`/account/${log?.args?.from}`}>
