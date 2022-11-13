@@ -10,7 +10,6 @@ import { Fragment, useState } from "react";
 import {
 	ContainerLayout,
 	DetailsLayout,
-	LoadingBlock,
 	PageHeader,
 	TimeAgo,
 } from "@/components";
@@ -20,6 +19,7 @@ import EVMTooltip from "@/components/evm/evmTooltip";
 import GasUsage from "@/components/evm/GasUsage";
 import TransactionStatus from "@/components/evm/TransactionStatus";
 import { CopyToClipboard } from "@/components/icons";
+import LoadingLayout from "@/components/layout/loadingLayout";
 import { getTransactionByHash } from "@/libs/evm-api";
 import { formatUnits, formatUSD } from "@/libs/utils";
 
@@ -30,10 +30,10 @@ export const getServerSideProps = (context) => ({
 export default function EVMTransaction({ hash }) {
 	const [showMore, setShowMore] = useState(false);
 	const query = useQuery([hash], () => {
-		return getTransactionByHash(hash).then((data) => {
-			return data;
-		});
+		return getTransactionByHash(hash);
 	});
+
+	console.log(query);
 
 	const parsedData = query?.data?.parsedData;
 
@@ -51,9 +51,7 @@ export default function EVMTransaction({ hash }) {
 	return (
 		<ContainerLayout>
 			<PageHeader title={`Transaction Details`} />
-			{query.isLoading || query.isError ? (
-				<LoadingBlock title={`EVM Transaction ${hash}`} />
-			) : (
+			<LoadingLayout query={query}>
 				<DetailsLayout.Container>
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title
@@ -76,7 +74,7 @@ export default function EVMTransaction({ hash }) {
 						<DetailsLayout.Data>
 							<div className="flex space-x-3">
 								<TransactionStatus tx={query?.data} />
-								{query?.data.status == 0 && (
+								{query?.data?.status == 0 && (
 									<div className="flex space-x-3">
 										{query?.data?.error && (
 											<span className="inline-flex items-center rounded bg-red-100 px-2 py-0.5 text-xs font-medium text-red-800">
@@ -342,7 +340,10 @@ export default function EVMTransaction({ hash }) {
 							helpTooltip="The maximum gas the transaction could have consumed, and the actual consumption."
 						/>
 						<DetailsLayout.Data>
-							{ethers.utils.commify(query?.data?.gasLimit)} /{" "}
+							{query?.data?.gasLimit
+								? ethers.utils.commify(query?.data?.gasLimit)
+								: "?"}{" "}
+							/{" "}
 							{query?.data?.gasUsed ? (
 								<Fragment>
 									{ethers.utils.commify(query?.data?.gasUsed)}
@@ -369,15 +370,21 @@ export default function EVMTransaction({ hash }) {
 						<DetailsLayout.Data>
 							<div className="flex space-x-3">
 								<EVMTooltip
-									message={`${ethers.utils
-										.formatEther(query?.data?.gasPrice)
-										.toString()} XRP`}
+									message={`${
+										query?.data?.gasPrice
+											? ethers.utils
+													.formatEther(query?.data?.gasPrice)
+													.toString()
+											: "0"
+									} XRP`}
 								>
 									<span>
 										Base:{" "}
-										{ethers.utils
-											.formatUnits(query?.data?.gasPrice, "gwei")
-											.toString()}{" "}
+										{query?.data?.gasPrice
+											? ethers.utils
+													.formatUnits(query?.data?.gasPrice, "gwei")
+													.toString()
+											: "?"}{" "}
 										Gwei
 									</span>
 								</EVMTooltip>
@@ -444,7 +451,8 @@ export default function EVMTransaction({ hash }) {
 						<DetailsLayout.Data>
 							<div className="flex space-x-2">
 								<span className="my-auto rounded bg-black bg-opacity-20 p-1 text-xs flex space-x-2">
-									{formatUnits(query.data.value, 18)} XRP
+									{query?.data?.value ? formatUnits(query.data.value, 18) : "?"}{" "}
+									XRP
 								</span>
 								{txUsdPrice ? (
 									<div className="flex space-x-2">
@@ -528,7 +536,7 @@ export default function EVMTransaction({ hash }) {
 						</div>
 					)}
 				</DetailsLayout.Container>
-			)}
+			</LoadingLayout>
 			<div className="py-3 flex text-white text-opacity-50 space-x-2 text-sm">
 				<div className="my-auto">
 					<LightBulbIcon className="w-3 h-3" />
