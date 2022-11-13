@@ -6,8 +6,8 @@ export default function LoadingLayout({ query, children }) {
 	if (query?.data) return children;
 
 	return (
-		<div className="grid h-96 place-items-center border border-gray-300 py-10 text-white">
-			<div>
+		<div className="grid h-32 place-items-center border border-gray-300 text-white">
+			<div className="my-auto">
 				{isLoading && (
 					<div>
 						<Text text="Retrieving data, please wait..." />
@@ -28,5 +28,5 @@ export default function LoadingLayout({ query, children }) {
 }
 
 const Text = ({ text }) => {
-	return <span className="text-xl">{text}</span>;
+	return <span className="text-lg">{text}</span>;
 };
