@@ -15,11 +15,12 @@ import {
 } from "@/components";
 import AddressLink from "@/components/evm/AddressLink";
 import EventComponents from "@/components/evm/events/index.js";
+import EVMTooltip from "@/components/evm/evmTooltip";
 import GasUsage from "@/components/evm/GasUsage";
 import TransactionStatus from "@/components/evm/TransactionStatus";
 import { CopyToClipboard } from "@/components/icons";
 import { getTransactionByHash } from "@/libs/evm-api";
-import { formatAddress, formatUnits } from "@/libs/utils";
+import { formatUnits } from "@/libs/utils";
 
 export const getServerSideProps = (context) => ({
 	props: { hash: context?.params?.hash },
@@ -43,7 +44,10 @@ export default function EVMTransaction({ hash }) {
 			) : (
 				<DetailsLayout.Container>
 					<DetailsLayout.Wrapper>
-						<DetailsLayout.Title title="Transaction Hash" />
+						<DetailsLayout.Title
+							title="Transaction Hash"
+							helpTooltip="This is the unique identifier for your transaction."
+						/>
 						<DetailsLayout.Data dataClassName="flex space-x-1">
 							<span>{query?.data?.transactionHash || query?.data?.hash} </span>
 							<CopyToClipboard
@@ -53,7 +57,10 @@ export default function EVMTransaction({ hash }) {
 					</DetailsLayout.Wrapper>
 
 					<DetailsLayout.Wrapper>
-						<DetailsLayout.Title title="Status" />
+						<DetailsLayout.Title
+							title="Status"
+							helpTooltip="The current status of your transaction."
+						/>
 						<DetailsLayout.Data>
 							<div className="flex space-x-3">
 								<TransactionStatus tx={query?.data} />
@@ -71,7 +78,10 @@ export default function EVMTransaction({ hash }) {
 					</DetailsLayout.Wrapper>
 					{query?.data?.blockNumber && (
 						<DetailsLayout.Wrapper>
-							<DetailsLayout.Title title="Block Height" />
+							<DetailsLayout.Title
+								title="Block Height"
+								helpTooltip="The block number your transaction hash confirmed in."
+							/>
 							<DetailsLayout.Data>
 								<Link href={`/block/${query.data.blockNumber}`}>
 									<span className="cursor-pointer text-indigo-500">
@@ -83,7 +93,10 @@ export default function EVMTransaction({ hash }) {
 					)}
 					{query?.data?.parsedData?.name || query?.data?.creates ? (
 						<DetailsLayout.Wrapper>
-							<DetailsLayout.Title title="Method" />
+							<DetailsLayout.Title
+								title="Method"
+								helpTooltip="The smart contract function that was used in this transaction."
+							/>
 							<DetailsLayout.Data>
 								{!query?.data?.to && query?.data?.creates ? (
 									`Contract Deployment ${query?.data?.creates}`
@@ -102,7 +115,10 @@ export default function EVMTransaction({ hash }) {
 
 					{query?.data?.parsedLogs?.length > 0 ? (
 						<DetailsLayout.Wrapper>
-							<DetailsLayout.Title title="Events Occured" />
+							<DetailsLayout.Title
+								title="Events Occured"
+								helpTooltip="Allows you to view any events happened in this transaction."
+							/>
 							<DetailsLayout.Data>
 								<div className="flex flex-col space-y-3">
 									{query?.data?.parsedLogs.map((log) => {
@@ -213,7 +229,10 @@ export default function EVMTransaction({ hash }) {
 
 					{query?.data?.timestamp ? (
 						<DetailsLayout.Wrapper>
-							<DetailsLayout.Title title="Timestamp" />
+							<DetailsLayout.Title
+								title="Timestamp"
+								helpTooltip="The timestamp this transaction got confirmed at."
+							/>
 							<DetailsLayout.Data dataClassName="flex flex-col space-y-1">
 								<div>
 									{moment(query.data.timestamp * 1000).format("LLL")}{" "}
@@ -242,7 +261,10 @@ export default function EVMTransaction({ hash }) {
 						<Fragment />
 					)}
 					<DetailsLayout.Wrapper>
-						<DetailsLayout.Title title="From" />
+						<DetailsLayout.Title
+							title="From"
+							helpTooltip="The wallet the transaction originates from."
+						/>
 						<DetailsLayout.Data dataClassName="flex space-x-1">
 							<AddressLink
 								address={query?.data?.from}
@@ -254,7 +276,10 @@ export default function EVMTransaction({ hash }) {
 
 					{query?.data?.to ? (
 						<DetailsLayout.Wrapper>
-							<DetailsLayout.Title title="Interacted with (To)" />
+							<DetailsLayout.Title
+								title="Interacted with (To)"
+								helpTooltip="The wallet the transaction went to. Could be a contract."
+							/>
 							<DetailsLayout.Data dataClassName="flex space-x-1">
 								<AddressLink
 									address={query?.data?.to}
@@ -270,7 +295,10 @@ export default function EVMTransaction({ hash }) {
 					{query?.data?.status == 0 ||
 						(query?.data?.status == 1 && (
 							<DetailsLayout.Wrapper>
-								<DetailsLayout.Title title="Transaction Fee" />
+								<DetailsLayout.Title
+									title="Transaction Fee"
+									helpTooltip="The fee paid to get the transaction mined."
+								/>
 								<DetailsLayout.Data>
 									<GasUsage tx={query?.data} />
 								</DetailsLayout.Data>
@@ -278,7 +306,10 @@ export default function EVMTransaction({ hash }) {
 						))}
 
 					<DetailsLayout.Wrapper>
-						<DetailsLayout.Title title="Gas Limit & Usage" />
+						<DetailsLayout.Title
+							title="Gas Limit & Usage"
+							helpTooltip="The maximum gas the transaction could have consumed, and the actual consumption."
+						/>
 						<DetailsLayout.Data>
 							{ethers.utils.commify(query?.data?.gasLimit)} /{" "}
 							{query?.data?.gasUsed ? (
@@ -301,7 +332,10 @@ export default function EVMTransaction({ hash }) {
 					</DetailsLayout.Wrapper>
 
 					<DetailsLayout.Wrapper>
-						<DetailsLayout.Title title="Gas Fees" />
+						<DetailsLayout.Title
+							title="Gas Fees"
+							helpTooltip="Details how the transaction fee was calculated."
+						/>
 						<DetailsLayout.Data>
 							<div className="flex space-x-3">
 								<span>
@@ -334,7 +368,10 @@ export default function EVMTransaction({ hash }) {
 					</DetailsLayout.Wrapper>
 
 					<DetailsLayout.Wrapper>
-						<DetailsLayout.Title title="Attributes" />
+						<DetailsLayout.Title
+							title="Attributes"
+							helpTooltip="Information about this transaction, such as the type of gas method."
+						/>
 						<DetailsLayout.Data>
 							<div className="flex space-x-3">
 								<span className="my-auto rounded bg-black bg-opacity-20 p-1 text-xs">
@@ -352,7 +389,10 @@ export default function EVMTransaction({ hash }) {
 					</DetailsLayout.Wrapper>
 
 					<DetailsLayout.Wrapper>
-						<DetailsLayout.Title title="Value" />
+						<DetailsLayout.Title
+							title="Value"
+							helpTooltip="The amount that was sent with this transaction."
+						/>
 						<DetailsLayout.Data>
 							<span className="my-auto rounded bg-black bg-opacity-20 p-1 text-xs">
 								{formatUnits(query.data.value, 18)} XRP
@@ -376,7 +416,10 @@ export default function EVMTransaction({ hash }) {
 
 					{showMore && (
 						<DetailsLayout.Wrapper>
-							<DetailsLayout.Title title="Input Data" />
+							<DetailsLayout.Title
+								title="Input Data"
+								helpTooltip="The data that went into this transaction."
+							/>
 							<DetailsLayout.Data>
 								<div className="p-2 bg-black bg-opacity-20 rounded-md max-h-64 overflow-y-scroll">
 									{parsedData ? (

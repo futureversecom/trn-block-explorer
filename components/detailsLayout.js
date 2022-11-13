@@ -1,4 +1,7 @@
 import clsx from "clsx";
+import { Fragment } from "react";
+
+import EVMToolTip from "@/components/evm/evmTooltip";
 
 const Container = ({ children, containerClassName }) => (
 	<div
@@ -24,9 +27,21 @@ const Wrapper = ({ children, wrapperClassName }) => (
 	</div>
 );
 
-const Title = ({ title, titleClassName }) => (
-	<dt className={clsx("text-sm font-medium text-white", titleClassName)}>
-		{title}
+const Title = ({ title, titleClassName, helpTooltip }) => (
+	<dt
+		className={clsx(
+			"text-sm font-medium text-white flex space-x-2",
+			titleClassName
+		)}
+	>
+		{helpTooltip ? (
+			<div>
+				<EVMToolTip message={helpTooltip} />
+			</div>
+		) : (
+			<Fragment />
+		)}
+		<div>{title}</div>
 	</dt>
 );
 
