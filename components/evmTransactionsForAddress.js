@@ -26,6 +26,9 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 		["evm_transactions", walletAddress, currentPage],
 		() => {
 			return getTransactionsForAddress(walletAddress);
+		},
+		{
+			refetchInterval: 15_000,
 		}
 	);
 

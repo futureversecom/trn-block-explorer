@@ -19,6 +19,9 @@ export default function Erc20TransfersForAddress({ walletAddress }) {
 		["erc20_transfers", walletAddress, currentPage],
 		() => {
 			return getERC20TransferForAddress(walletAddress);
+		},
+		{
+			refetchInterval: 15_000,
 		}
 	);
 

@@ -29,11 +29,17 @@ export default function BalanceForAddress({ walletAddress }) {
 	const xrpBalance = balance?.assets?.find((e) => e.assetId == 2);
 	const tokensWithoutXRP = balance?.assets?.filter((e) => e.assetId != 2);
 
-	const isContractQuery = useQuery([walletAddress, "isContract"], () => {
-		return isContract(walletAddress).then((data) => {
-			return data?.isContract;
-		});
-	});
+	const isContractQuery = useQuery(
+		[walletAddress, "isContract"],
+		() => {
+			return isContract(walletAddress).then((data) => {
+				return data?.isContract;
+			});
+		},
+		{
+			refetchInterval: 0,
+		}
+	);
 
 	console.log(isContractQuery?.data);
 
