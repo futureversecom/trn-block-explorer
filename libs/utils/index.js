@@ -5,6 +5,13 @@ export * from "./getAssetMetadata";
 export * from "./formatBalance";
 export * from "./formatTimeAgo";
 
+export const formatUSD = (amount) => {
+	return new Intl.NumberFormat("en-EN", {
+		style: "currency",
+		currency: "USD",
+	}).format(amount);
+};
+
 export const formatUnits = (value, decimals) => {
 	const a = new BigNumber(value.toString()).dividedBy(
 		new BigNumber(10).pow(decimals)

@@ -1,5 +1,7 @@
 import BigNumber from "bignumber.js";
 import { ethers } from "ethers";
+import EVMTooltip from "@/components/evm/evmTooltip";
+import { formatUSD } from "@/libs/utils";
 
 export default function GasUsage({ tx }) {
 	const type = tx?.type;
@@ -8,6 +10,7 @@ export default function GasUsage({ tx }) {
 	// 0 = Legacy;
 
 	let fee;
+	let txUsdPrice;
 
 	if (type == 0) {
 		const gasLimit = new BigNumber(tx.gasLimit);
@@ -38,9 +41,31 @@ export default function GasUsage({ tx }) {
 
 	const currency = "XRP";
 
+	if (tx?.xrpPrice?.price) {
+		txUsdPrice = formatUSD(
+			parseFloat(
+				new BigNumber(String(fee)).multipliedBy(
+					new BigNumber(tx?.xrpPrice?.price)
+				)
+			)
+		);
+	}
 	return (
-		<span>
-			{String(fee)} {currency}
-		</span>
+		<div className="flex space-x-2">
+			<span>
+				{String(fee)} {currency}
+			</span>
+			{txUsdPrice ? (
+				<div className="flex space-x-2">
+					<span className="my-auto rounded bg-black bg-opacity-20 p-1 text-xs">
+						<EVMTooltip message={`1 XRP @ ${formatUSD(tx?.xrpPrice?.price)}`}>
+							{txUsdPrice}
+						</EVMTooltip>
+					</span>
+				</div>
+			) : (
+				<Fragment />
+			)}
+		</div>
 	);
 }
