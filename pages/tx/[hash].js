@@ -1,5 +1,5 @@
 import { ArrowDownIcon } from "@heroicons/react/20/solid";
-import { ArrowUpIcon, CubeIcon } from "@heroicons/react/24/outline";
+import { ArrowUpIcon, LightBulbIcon } from "@heroicons/react/24/outline";
 import { useQuery } from "@tanstack/react-query";
 import { ethers } from "ethers";
 import moment from "moment";
@@ -124,7 +124,7 @@ export default function EVMTransaction({ hash }) {
 								helpTooltip="Allows you to view any events happened in this transaction."
 							/>
 							<DetailsLayout.Data>
-								<div className="flex flex-col space-y-3">
+								<div className="flex flex-col">
 									{query?.data?.parsedLogs.map((log) => {
 										const allowed = ["ERC20", "ERC1155", "ERC721"];
 										if (!allowed.includes(log?.parsedFromAbi))
@@ -468,6 +468,16 @@ export default function EVMTransaction({ hash }) {
 					)}
 				</DetailsLayout.Container>
 			)}
+			<div className="py-3 flex text-white text-opacity-50 space-x-2 text-sm">
+				<div className="my-auto">
+					<LightBulbIcon className="w-3 h-3" />
+				</div>
+				<div className="my-auto">
+					A transaction is nothing but an cryptographically proven instruction.
+					This block explorer only tracks them, and can in no way reverse or
+					alter them.
+				</div>
+			</div>
 		</ContainerLayout>
 	);
 }
