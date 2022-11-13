@@ -84,8 +84,8 @@ export default function Erc20TransfersForAddress({ walletAddress }) {
 											isDeployment={tx?.creates || false}
 											type={type}
 											name={name}
-											fromContract={tx?.fromContract}
-											toContract={tx?.toContract}
+											fromContract={tx?.fromContract?.[0]}
+											toContract={tx?.toContract?.[0]}
 											value={ethers.utils
 												.formatUnits(
 													currentArg?.args?.value,
@@ -116,7 +116,6 @@ const EvmTransactionsForAddressRow = ({
 	toContract,
 	fromContract,
 	type,
-	isDeployment,
 	name,
 	value,
 	tx,
@@ -160,7 +159,6 @@ const EvmTransactionsForAddressRow = ({
 			<TableLayout.Data>
 				{to ? (
 					<div className="flex space-x-2">
-						{isDeployment && <div>Created</div>}
 						<AddressLink
 							address={to}
 							contractData={toContract}
