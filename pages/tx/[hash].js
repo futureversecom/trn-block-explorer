@@ -340,14 +340,14 @@ export default function EVMTransaction({ hash }) {
 						<DetailsLayout.Title title="Attributes" />
 						<DetailsLayout.Data>
 							<div className="flex space-x-3">
-								<span className="my-auto rounded bg-gray-900 p-1 text-xs">
+								<span className="my-auto rounded bg-black bg-opacity-20 p-1 text-xs">
 									Txn Type: {query?.data?.type} (
 									{query?.data?.type == 2 ? "EIP-1559" : "Legacy"})
 								</span>
-								<span className="my-auto rounded bg-gray-900 p-1 text-xs">
+								<span className="my-auto rounded bg-black bg-opacity-20 p-1 text-xs">
 									Nonce: {query?.data?.nonce}
 								</span>
-								<span className="my-auto rounded bg-gray-900 p-1 text-xs">
+								<span className="my-auto rounded bg-black bg-opacity-20 p-1 text-xs">
 									Position in Block: {query?.data?.transactionIndex}
 								</span>
 							</div>
@@ -357,7 +357,9 @@ export default function EVMTransaction({ hash }) {
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Value" />
 						<DetailsLayout.Data>
-							{formatUnits(query.data.value, 18)} XRP
+							<span className="my-auto rounded bg-black bg-opacity-20 p-1 text-xs">
+								{formatUnits(query.data.value, 18)} XRP
+							</span>
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
@@ -379,7 +381,7 @@ export default function EVMTransaction({ hash }) {
 						<DetailsLayout.Wrapper>
 							<DetailsLayout.Title title="Input Data" />
 							<DetailsLayout.Data>
-								<div className="p-2 bg-black bg-opacity-10 rounded-md max-h-64 overflow-y-scroll">
+								<div className="p-2 bg-black bg-opacity-20 rounded-md max-h-64 overflow-y-scroll">
 									{parsedData ? (
 										<div className="space-y-2 font-mono">
 											<p>Function: {parsedData?.signature}</p>

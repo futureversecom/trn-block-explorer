@@ -21,7 +21,6 @@ export default function DisplayNFTImage({ args, uri, width, height }) {
 	const query = useQuery(
 		[uri, args?.tokenId],
 		() => {
-			if (!uri || !args?.tokenId) throw new Error("No image can be retrieved");
 			return fetch(metadataPath)
 				.then((resp) => resp.json())
 				.then((data) => {
