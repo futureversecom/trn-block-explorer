@@ -31,6 +31,8 @@ export default function EVMTransaction({ hash }) {
 		});
 	});
 
+	const parsedData = query?.data?.parsedData;
+
 	return (
 		<ContainerLayout>
 			<PageHeader
@@ -357,10 +359,33 @@ export default function EVMTransaction({ hash }) {
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
-					{/* <DetailsLayout.Wrapper>
+					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Input Data" />
-						<DetailsLayout.Data>{JSON.stringify(query?.data?.parsedData)}</DetailsLayout.Data>
-					</DetailsLayout.Wrapper> */}
+						<DetailsLayout.Data>
+							<div className="p-2 bg-black bg-opacity-10 rounded-md max-h-64 overflow-y-scroll">
+								{parsedData ? (
+									<div className="space-y-2 font-mono">
+										<p>Function: {parsedData?.signature}</p>
+										<p>MethodId: {parsedData?.sighash}</p>
+										{parsedData?.args ? (
+											<div className="flex flex-col">
+												{Object.keys(parsedData.args).map((e) => (
+													<div key={e} className="flex space-x-3">
+														<div className="flex-shrink">{`[${e}]`}:</div>
+														<div>{parsedData.args[e]}</div>
+													</div>
+												))}
+											</div>
+										) : (
+											<Fragment />
+										)}
+									</div>
+								) : (
+									<span className="overflow-ellipsis">{query?.data?.data}</span>
+								)}
+							</div>
+						</DetailsLayout.Data>
+					</DetailsLayout.Wrapper>
 				</DetailsLayout.Container>
 			)}
 		</ContainerLayout>
