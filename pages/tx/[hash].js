@@ -1,5 +1,9 @@
 import { ArrowDownIcon } from "@heroicons/react/20/solid";
-import { ArrowUpIcon, LightBulbIcon } from "@heroicons/react/24/outline";
+import {
+	ArrowUpIcon,
+	ClockIcon,
+	LightBulbIcon,
+} from "@heroicons/react/24/outline";
 import { useQuery } from "@tanstack/react-query";
 import BigNumber from "bignumber.js";
 import { ethers } from "ethers";
@@ -260,17 +264,28 @@ export default function EVMTransaction({ hash }) {
 								title="Timestamp"
 								helpTooltip="The timestamp this transaction got confirmed at."
 							/>
-							<DetailsLayout.Data dataClassName="flex flex-col space-y-1">
+							<DetailsLayout.Data dataClassName="flex space-x-1">
 								<div>
-									{moment(query.data.timestamp * 1000).format("LLL")}{" "}
+									<ClockIcon className="w-5 h-5 my-auto" />
+								</div>
+								<div>
 									<TimeAgo
 										timestamp={query.data.timestamp * 1000}
-										timeAgoClassName="ml-3 text-xs"
+										timeAgoClassName="text-sm"
 									/>
 								</div>
 								<div>
+									<EVMTooltip
+										message={`${moment(query.data.timestamp * 1000).format(
+											"Z"
+										)} UTC`}
+									>
+										( {moment(query.data.timestamp * 1000).format("LLL")} ){" "}
+									</EVMTooltip>
+								</div>
+								<div>
 									{query?.data?.firstSeen && (
-										<div className="space-x-1 text-xs">
+										<div className="ml-2 border-l border-gray-800 pl-2 space-x-1 text-sm my-auto">
 											<span>Confirmed within:</span>
 											<span>
 												{moment(query?.data?.timestamp * 1000).diff(
