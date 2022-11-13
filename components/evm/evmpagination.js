@@ -2,8 +2,8 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 
 export default function EVMPagination({ data, onPageChange }) {
 	return (
-		<div className="flex justify-between py-3 text-sm">
-			<div className="my-auto text-white">Show X Records</div>
+		<div className="flex justify-end py-3 text-sm">
+			{/* <div className="my-auto text-white">Show X Records</div> */}
 			<div>
 				<div className="flex divide-x border">
 					<PaginationBadge
