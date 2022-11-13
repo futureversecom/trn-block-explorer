@@ -37,10 +37,7 @@ export default function EVMTransaction({ hash }) {
 
 	return (
 		<ContainerLayout>
-			<PageHeader
-				title={`EVM Transaction # ${formatAddress(hash, 12)}`}
-				icon={<CubeIcon className="my-auto h-5 pr-3 text-white" />}
-			/>
+			<PageHeader title={`Transaction Details`} />
 			{query.isLoading || query.isError ? (
 				<LoadingBlock title={`EVM Transaction ${hash}`} />
 			) : (
