@@ -1,7 +1,12 @@
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
+import ReactTooltip from "react-tooltip";
 
 export default function EVMTooltip({ message, children }) {
+	useEffect(() => {
+		ReactTooltip.rebuild();
+	}, [message]);
+
 	return (
 		<Fragment>
 			<p data-tip={message}>

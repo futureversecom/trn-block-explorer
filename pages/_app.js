@@ -1,11 +1,10 @@
 import { QueryClientProvider } from "@tanstack/react-query";
 import Head from "next/head";
-
+import ReactTooltip from "react-tooltip";
 import { Footer, Header, Search } from "@/components";
 import { queryClient } from "@/libs/client";
 import { useRootApi, useTimeTicker } from "@/libs/stores";
 import "@/styles/globals.css";
-import ReactTooltip from "react-tooltip";
 import { usePageTracking } from "../libs/hooks";
 
 function MyApp({ Component, pageProps }) {
@@ -17,8 +16,8 @@ function MyApp({ Component, pageProps }) {
 
 	return (
 		<QueryClientProvider client={queryClient}>
-			<ReactTooltip/>
 			<div className="h-full min-h-screen bg-[#111]">
+				<ReactTooltip />
 				<Head>
 					<title>The Root Network Block Explorer</title>
 					<meta
