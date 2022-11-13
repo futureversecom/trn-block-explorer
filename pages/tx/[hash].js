@@ -332,7 +332,6 @@ export default function EVMTransaction({ hash }) {
 								<Fragment>
 									{ethers.utils.commify(query?.data?.gasUsed)}
 									<Fragment>
-										{" "}
 										(
 										{(
 											(query?.data?.gasUsed / query?.data?.gasLimit) *
@@ -354,30 +353,48 @@ export default function EVMTransaction({ hash }) {
 						/>
 						<DetailsLayout.Data>
 							<div className="flex space-x-3">
-								<span>
-									Base:{" "}
-									{ethers.utils
-										.formatUnits(query?.data?.gasPrice, "gwei")
-										.toString()}{" "}
-									Gwei
-								</span>
-								{query?.data?.type == 2 && (
+								<EVMTooltip
+									message={`${ethers.utils
+										.formatEther(query?.data?.gasPrice)
+										.toString()} XRP`}
+								>
 									<span>
-										Max:{" "}
+										Base:{" "}
 										{ethers.utils
-											.formatUnits(query?.data?.maxFeePerGas, "gwei")
+											.formatUnits(query?.data?.gasPrice, "gwei")
 											.toString()}{" "}
 										Gwei
 									</span>
+								</EVMTooltip>
+								{query?.data?.type == 2 && (
+									<EVMTooltip
+										message={`${ethers.utils
+											.formatEther(query?.data?.maxFeePerGas)
+											.toString()} XRP`}
+									>
+										<span>
+											Max:{" "}
+											{ethers.utils
+												.formatUnits(query?.data?.maxFeePerGas, "gwei")
+												.toString()}{" "}
+											Gwei
+										</span>
+									</EVMTooltip>
 								)}
 								{query?.data?.type == 2 && (
-									<span>
-										Max Priority:{" "}
-										{ethers.utils
-											.formatUnits(query?.data?.maxPriorityFeePerGas, "gwei")
-											.toString()}{" "}
-										Gwei
-									</span>
+									<EVMTooltip
+										message={`${ethers.utils
+											.formatEther(query?.data?.maxPriorityFeePerGas)
+											.toString()} XRP`}
+									>
+										<span>
+											Max Priority:{" "}
+											{ethers.utils
+												.formatUnits(query?.data?.maxPriorityFeePerGas, "gwei")
+												.toString()}{" "}
+											Gwei
+										</span>
+									</EVMTooltip>
 								)}
 							</div>
 						</DetailsLayout.Data>
