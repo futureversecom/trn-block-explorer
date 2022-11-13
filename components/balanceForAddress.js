@@ -104,7 +104,7 @@ export default function BalanceForAddress({ walletAddress }) {
 								balance?.assets?.length > 1 && "overflow-y-auto"
 							)}
 						>
-							<dl className="divide-y-1 sm:divide-y sm:divide-gray-600">
+							<dl>
 								<Balance title="Root Balance">
 									<FormattedBalance assetId={1} balance={balance?.free ?? 0} />
 								</Balance>
