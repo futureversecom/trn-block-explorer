@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Fragment } from "react";
 
 import ContractIcon from "@/components/evm/ContractIcon";
+import EVMTooltip from "@/components/evm/evmTooltip";
 import { CopyToClipboard } from "@/components/icons";
 import { formatAddress } from "@/libs/utils";
 
@@ -15,7 +16,13 @@ export default function AddressLink({
 	const isContract = contractData?.address;
 	return (
 		<Fragment>
-			{isContract ? <ContractIcon /> : <Fragment />}
+			{isContract ? (
+				<EVMTooltip message="Contract">
+					<ContractIcon />
+				</EVMTooltip>
+			) : (
+				<Fragment />
+			)}
 
 			<span className="flex space-x-2">
 				<Link href={`/account/${address}`}>

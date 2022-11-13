@@ -33,8 +33,6 @@ export default function EVMTransaction({ hash }) {
 		return getTransactionByHash(hash);
 	});
 
-	console.log(query);
-
 	const parsedData = query?.data?.parsedData;
 
 	let txUsdPrice;
