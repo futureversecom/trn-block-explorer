@@ -435,7 +435,7 @@ export default function EVMTransaction({ hash }) {
 													{Object.keys(parsedData.args).map((e) => (
 														<div key={e} className="flex space-x-3">
 															<div className="flex-shrink">{`[${e}]`}:</div>
-															<div>{parsedData.args[e]}</div>
+															<div>{String(parsedData.args[e])}</div>
 														</div>
 													))}
 												</div>
