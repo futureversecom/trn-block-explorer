@@ -98,3 +98,14 @@ export const getERC721Balance = async (address) => {
 		return extractBody(response);
 	});
 };
+
+export const isContract = async (address) => {
+	return await fetch(`${BASE_URL}/api/isContract`, {
+		method: "POST",
+		...headers(),
+		body: JSON.stringify({ address }),
+	}).then((response) => {
+		return extractBody(response);
+	});
+};
+

@@ -1,4 +1,5 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
 import { useMemo, useState } from "react";
 import { Fragment } from "react";
@@ -8,6 +9,7 @@ import TokenBalances from "@/components/evm/tokenBalances";
 import { CopyToClipboard } from "@/components/icons";
 import { useGetBalanceQuery } from "@/libs/api/generated.ts";
 import { BURN_ADDRESSES } from "@/libs/constants";
+import { isContract } from "@/libs/evm-api";
 import { usePolling } from "@/libs/hooks";
 import { formatBalance, getAssetMetadata } from "@/libs/utils";
 
@@ -26,6 +28,14 @@ export default function BalanceForAddress({ walletAddress }) {
 	const balance = query?.data?.balances?.account[0];
 	const xrpBalance = balance?.assets?.find((e) => e.assetId == 2);
 	const tokensWithoutXRP = balance?.assets?.filter((e) => e.assetId != 2);
+
+	const isContractQuery = useQuery([walletAddress, "isContract"], () => {
+		return isContract(walletAddress).then((data) => {
+			return data?.isContract;
+		});
+	});
+
+	console.log(isContractQuery?.data);
 
 	return (
 		<div>
@@ -54,7 +64,11 @@ export default function BalanceForAddress({ walletAddress }) {
 										</div>
 
 										<div className="my-auto flex-col">
-											<div className="text-lg">Unknown</div>
+											<div className="text-lg">
+												{isContractQuery?.data == true
+													? "Contractaddress"
+													: "Wallet"}{" "}
+											</div>
 											<div className="text-md flex flex-wrap items-center leading-6 text-white md:space-x-2">
 												<div className="basis-1/2 truncate md:basis-auto">
 													{walletAddress}
