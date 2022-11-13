@@ -1,9 +1,10 @@
-import { CubeIcon } from "@heroicons/react/24/outline";
+import { ArrowDownIcon } from "@heroicons/react/20/solid";
+import { ArrowUpIcon, CubeIcon } from "@heroicons/react/24/outline";
 import { useQuery } from "@tanstack/react-query";
 import { ethers } from "ethers";
 import moment from "moment";
 import Link from "next/link";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 
 import {
 	ContainerLayout,
@@ -25,6 +26,7 @@ export const getServerSideProps = (context) => ({
 });
 
 export default function EVMTransaction({ hash }) {
+	const [showMore, setShowMore] = useState(false);
 	const query = useQuery([hash], () => {
 		return getTransactionByHash(hash).then((data) => {
 			return data;
@@ -359,33 +361,65 @@ export default function EVMTransaction({ hash }) {
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
-					<DetailsLayout.Wrapper>
-						<DetailsLayout.Title title="Input Data" />
-						<DetailsLayout.Data>
-							<div className="p-2 bg-black bg-opacity-10 rounded-md max-h-64 overflow-y-scroll">
-								{parsedData ? (
-									<div className="space-y-2 font-mono">
-										<p>Function: {parsedData?.signature}</p>
-										<p>MethodId: {parsedData?.sighash}</p>
-										{parsedData?.args ? (
-											<div className="flex flex-col">
-												{Object.keys(parsedData.args).map((e) => (
-													<div key={e} className="flex space-x-3">
-														<div className="flex-shrink">{`[${e}]`}:</div>
-														<div>{parsedData.args[e]}</div>
-													</div>
-												))}
-											</div>
-										) : (
-											<Fragment />
-										)}
-									</div>
-								) : (
-									<span className="overflow-ellipsis">{query?.data?.data}</span>
-								)}
+					{!showMore && (
+						<div
+							className="py-4 px-5 text-sm flex space-x-2 text-indigo-500 hover:text-white my-auto cursor-pointer"
+							onClick={() => {
+								setShowMore(true);
+							}}
+						>
+							<div>Click to see More</div>
+							<div>
+								<ArrowDownIcon className="w-5 h-5 my-auto" />
 							</div>
-						</DetailsLayout.Data>
-					</DetailsLayout.Wrapper>
+						</div>
+					)}
+
+					{showMore && (
+						<DetailsLayout.Wrapper>
+							<DetailsLayout.Title title="Input Data" />
+							<DetailsLayout.Data>
+								<div className="p-2 bg-black bg-opacity-10 rounded-md max-h-64 overflow-y-scroll">
+									{parsedData ? (
+										<div className="space-y-2 font-mono">
+											<p>Function: {parsedData?.signature}</p>
+											<p>MethodId: {parsedData?.sighash}</p>
+											{parsedData?.args ? (
+												<div className="flex flex-col">
+													{Object.keys(parsedData.args).map((e) => (
+														<div key={e} className="flex space-x-3">
+															<div className="flex-shrink">{`[${e}]`}:</div>
+															<div>{parsedData.args[e]}</div>
+														</div>
+													))}
+												</div>
+											) : (
+												<Fragment />
+											)}
+										</div>
+									) : (
+										<span className="overflow-ellipsis">
+											{query?.data?.data}
+										</span>
+									)}
+								</div>
+							</DetailsLayout.Data>
+						</DetailsLayout.Wrapper>
+					)}
+
+					{showMore && (
+						<div
+							className="py-4 px-5 text-sm flex space-x-2 text-indigo-500 hover:text-white my-auto cursor-pointer"
+							onClick={() => {
+								setShowMore(false);
+							}}
+						>
+							<div>Click to see Less</div>
+							<div>
+								<ArrowUpIcon className="w-5 h-5 my-auto" />
+							</div>
+						</div>
+					)}
 				</DetailsLayout.Container>
 			)}
 		</ContainerLayout>
