@@ -136,9 +136,10 @@ export default function EVMTransaction({ hash }) {
 								helpTooltip="Allows you to view any events happened in this transaction."
 							/>
 							<DetailsLayout.Data>
-								<div className="flex flex-col">
+								<div className="flex flex-col divide-y divide-gray-800">
 									{query?.data?.parsedLogs.map((log) => {
 										const allowed = ["ERC20", "ERC1155", "ERC721"];
+										const childClasses = "py-2";
 										if (!allowed.includes(log?.parsedFromAbi))
 											return (
 												<Fragment
@@ -151,10 +152,12 @@ export default function EVMTransaction({ hash }) {
 											log?.parsedFromAbi == "ERC721"
 										) {
 											return (
-												<EventComponents.Transfer
-													log={log}
-													key={`${log?.transactionHash}_${log?.logIndex}`}
-												/>
+												<div className={childClasses}>
+													<EventComponents.Transfer
+														log={log}
+														key={`${log?.transactionHash}_${log?.logIndex}`}
+													/>
+												</div>
 											);
 										}
 
@@ -164,10 +167,12 @@ export default function EVMTransaction({ hash }) {
 												log?.parsedFromAbi == "ERC1155")
 										) {
 											return (
-												<EventComponents.ApprovalForAll
-													log={log}
-													key={`${log?.transactionHash}_${log?.logIndex}`}
-												/>
+												<div className={childClasses}>
+													<EventComponents.ApprovalForAll
+														log={log}
+														key={`${log?.transactionHash}_${log?.logIndex}`}
+													/>
+												</div>
 											);
 										}
 
@@ -176,10 +181,12 @@ export default function EVMTransaction({ hash }) {
 											log?.parsedFromAbi == "ERC721"
 										) {
 											return (
-												<EventComponents.ERC721Approval
-													log={log}
-													key={`${log?.transactionHash}_${log?.logIndex}`}
-												/>
+												<div className={childClasses}>
+													<EventComponents.ERC721Approval
+														log={log}
+														key={`${log?.transactionHash}_${log?.logIndex}`}
+													/>
+												</div>
 											);
 										}
 
@@ -188,10 +195,12 @@ export default function EVMTransaction({ hash }) {
 											log?.parsedFromAbi == "ERC1155"
 										) {
 											return (
-												<EventComponents.TransferBatch
-													log={log}
-													key={`${log?.transactionHash}_${log?.logIndex}`}
-												/>
+												<div className={childClasses}>
+													<EventComponents.TransferBatch
+														log={log}
+														key={`${log?.transactionHash}_${log?.logIndex}`}
+													/>
+												</div>
 											);
 										}
 
@@ -200,10 +209,12 @@ export default function EVMTransaction({ hash }) {
 											log?.parsedFromAbi == "ERC1155"
 										) {
 											return (
-												<EventComponents.TransferSingle
-													log={log}
-													key={`${log?.transactionHash}_${log?.logIndex}`}
-												/>
+												<div className={childClasses}>
+													<EventComponents.TransferSingle
+														log={log}
+														key={`${log?.transactionHash}_${log?.logIndex}`}
+													/>
+												</div>
 											);
 										}
 										if (
@@ -211,10 +222,12 @@ export default function EVMTransaction({ hash }) {
 											log?.parsedFromAbi == "ERC20"
 										) {
 											return (
-												<EventComponents.ERC20Transfer
-													log={log}
-													key={`${log?.transactionHash}_${log?.logIndex}`}
-												/>
+												<div className={childClasses}>
+													<EventComponents.ERC20Transfer
+														log={log}
+														key={`${log?.transactionHash}_${log?.logIndex}`}
+													/>
+												</div>
 											);
 										}
 
@@ -223,10 +236,12 @@ export default function EVMTransaction({ hash }) {
 											log?.parsedFromAbi == "ERC20"
 										) {
 											return (
-												<EventComponents.ERC20Approval
-													log={log}
-													key={`${log?.transactionHash}_${log?.logIndex}`}
-												/>
+												<div className={childClasses}>
+													<EventComponents.ERC20Approval
+														log={log}
+														key={`${log?.transactionHash}_${log?.logIndex}`}
+													/>
+												</div>
 											);
 										}
 
