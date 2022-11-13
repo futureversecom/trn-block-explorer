@@ -1,7 +1,6 @@
 import BigNumber from "bignumber.js";
 import Link from "next/link";
 import { Fragment } from "react";
-
 import { TableLayout, TimeAgo } from "@/components";
 import AddressLink from "@/components/evm/AddressLink";
 import TransactionStatus from "@/components/evm/TransactionStatus";

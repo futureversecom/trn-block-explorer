@@ -109,3 +109,12 @@ export const isContract = async (address) => {
 	});
 };
 
+export const getEVMTransactions = async (page) => {
+	return await fetch(`${BASE_URL}/api/getEVMTransactions`, {
+		method: "POST",
+		...headers(),
+		body: JSON.stringify({ page }),
+	}).then((response) => {
+		return extractBody(response);
+	});
+};
