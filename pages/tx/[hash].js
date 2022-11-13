@@ -1,6 +1,7 @@
 import { ArrowDownIcon } from "@heroicons/react/20/solid";
 import { ArrowUpIcon, LightBulbIcon } from "@heroicons/react/24/outline";
 import { useQuery } from "@tanstack/react-query";
+import BigNumber from "bignumber.js";
 import { ethers } from "ethers";
 import moment from "moment";
 import Link from "next/link";
@@ -20,7 +21,7 @@ import GasUsage from "@/components/evm/GasUsage";
 import TransactionStatus from "@/components/evm/TransactionStatus";
 import { CopyToClipboard } from "@/components/icons";
 import { getTransactionByHash } from "@/libs/evm-api";
-import { formatUnits } from "@/libs/utils";
+import { formatUnits, formatUSD } from "@/libs/utils";
 
 export const getServerSideProps = (context) => ({
 	props: { hash: context?.params?.hash },
@@ -35,6 +36,17 @@ export default function EVMTransaction({ hash }) {
 	});
 
 	const parsedData = query?.data?.parsedData;
+
+	let txUsdPrice;
+	if (query?.data?.xrpPrice?.price && query?.data?.value) {
+		txUsdPrice = formatUSD(
+			parseFloat(
+				new BigNumber(formatUnits(query.data.value, 18)).multipliedBy(
+					new BigNumber(query?.data?.xrpPrice?.price)
+				)
+			)
+		);
+	}
 
 	return (
 		<ContainerLayout>
@@ -398,9 +410,26 @@ export default function EVMTransaction({ hash }) {
 							helpTooltip="The amount that was sent with this transaction."
 						/>
 						<DetailsLayout.Data>
-							<span className="my-auto rounded bg-black bg-opacity-20 p-1 text-xs">
-								{formatUnits(query.data.value, 18)} XRP
-							</span>
+							<div className="flex space-x-2">
+								<span className="my-auto rounded bg-black bg-opacity-20 p-1 text-xs flex space-x-2">
+									{formatUnits(query.data.value, 18)} XRP
+								</span>
+								{txUsdPrice ? (
+									<div className="flex space-x-2">
+										<span className="my-auto rounded bg-black bg-opacity-20 p-1 text-xs">
+											<EVMTooltip
+												message={`1 XRP @ ${formatUSD(
+													query?.data?.xrpPrice?.price
+												)}`}
+											>
+												{txUsdPrice}
+											</EVMTooltip>
+										</span>
+									</div>
+								) : (
+									<Fragment />
+								)}
+							</div>
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
