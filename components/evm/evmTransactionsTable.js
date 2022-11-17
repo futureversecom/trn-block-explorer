@@ -8,6 +8,7 @@ import InOutLabel from "@/components/inOutLabel";
 import { formatAddress } from "@/libs/utils";
 
 export default function EVMTransactionsTable({ query, walletAddress }) {
+
 	return (
 		<div className="divide-y overflow-x-auto border border-gray-400 text-white">
 			{query?.data?.docs?.length ? (
@@ -49,7 +50,7 @@ export default function EVMTransactionsTable({ query, walletAddress }) {
 							}
 							return (
 								<EvmTransactionsForAddressRow
-									key={tx?.transactionHash || tx?.hash || key}
+									key={tx?.transactionHash || tx?.hash}
 									transactionHash={tx?.transactionHash || tx?.hash}
 									block={tx?.blockNumber}
 									from={tx?.from}

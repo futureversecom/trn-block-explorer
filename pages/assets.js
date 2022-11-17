@@ -55,6 +55,7 @@ export default function Assets() {
 														src={icons[asset?.symbol]}
 														width={32}
 														height={32}
+														alt={asset?.symbol}
 														className="m-2 mx-auto my-auto pl-2 md:pl-0"
 													/>
 												) : (
