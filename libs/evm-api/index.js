@@ -5,9 +5,9 @@ import { IS_MAINNET } from "@/libs/constants";
 let BASE_URL = undefined;
 
 if (IS_MAINNET) {
-	BASE_URL = "http://localhost:3001";
+	BASE_URL = "https://232b-212-127-153-81.eu.ngrok.io";
 } else {
-	BASE_URL = "http://localhost:3001";
+	BASE_URL = "https://232b-212-127-153-81.eu.ngrok.io";
 }
 
 const headers = () => {
