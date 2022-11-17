@@ -24,6 +24,7 @@ import GasUsage from "@/components/evm/GasUsage";
 import TransactionStatus from "@/components/evm/TransactionStatus";
 import { CopyToClipboard } from "@/components/icons";
 import LoadingLayout from "@/components/layout/loadingLayout";
+import { IS_MAINNET } from "@/libs/constants";
 import { getTransactionByHash } from "@/libs/evm-api";
 import { formatUnits, formatUSD } from "@/libs/utils";
 
@@ -55,6 +56,12 @@ export default function EVMTransaction({ hash }) {
 			<PageHeader title={`Transaction Details`} />
 			<LoadingLayout query={query}>
 				<DetailsLayout.Container>
+					{!IS_MAINNET && (
+						<p className="p-3 text-sm text-red-500">
+							This is a <span className="font-semibold">testnet</span>{" "}
+							transaction.
+						</p>
+					)}
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title
 							title="Transaction Hash"
