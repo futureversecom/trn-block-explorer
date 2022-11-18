@@ -3,10 +3,10 @@ import { Tab } from "@headlessui/react";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { Fragment } from "react";
 
-import ContractTab from "@/components/evm/ContractTab";
 import { useAccountRefetchStatus } from "@/libs/stores";
 
 import {
@@ -16,6 +16,10 @@ import {
 	RefetchIndicator,
 	TransfersForAddress,
 } from "./";
+
+const ContractTab = dynamic(() => import("@/components/evm/ContractTab"), {
+	ssr: false,
+});
 
 export const AccountTables = ({ walletAddress }) => {
 	const isRefetching = useAccountRefetchStatus();
