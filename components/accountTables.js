@@ -1,9 +1,12 @@
 /* eslint-disable react/jsx-key */
 import { Tab } from "@headlessui/react";
+import { CheckCircleIcon } from "@heroicons/react/24/outline";
+import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
 import { useRouter } from "next/router";
 import { Fragment } from "react";
 
+import ContractTab from "@/components/evm/ContractTab";
 import { useAccountRefetchStatus } from "@/libs/stores";
 
 import {
@@ -25,6 +28,47 @@ export const AccountTables = ({ walletAddress }) => {
 		"erc20_transfers",
 	];
 
+	const isContractQuery = useQuery(
+		[walletAddress, "isContract"],
+		() => {
+			return isContract(walletAddress).then((data) => {
+				return data;
+			});
+		},
+		{
+			refetchInterval: 0,
+		}
+	);
+
+	let panelTitles = [
+		"Transfers",
+		"EVM Transactions",
+		"ERC721 Transfers",
+		"ERC20 Transfers",
+	];
+
+	let panels = [
+		<TransfersForAddress walletAddress={walletAddress} />,
+		<EvmTransactionsForAddress walletAddress={walletAddress} />,
+		<Erc721TransfersForAddress walletAddress={walletAddress} />,
+		<Erc20TransfersForAddress walletAddress={walletAddress} />,
+	];
+
+	console.log(isContractQuery?.data);
+
+	if (isContractQuery?.data?.isContract) {
+		panelTitles.push(
+			<div className="flex space-x-1 my-auto">
+				{isContractQuery?.data?.verified && (
+					<CheckCircleIcon className="h-5 w-5 text-green-500 my-auto" />
+				)}
+				<div>Contract</div>
+			</div>
+		);
+
+		panels.push(<ContractTab data={undefined} />);
+	}
+
 	return (
 		<div>
 			<Tab.Group
@@ -39,28 +83,14 @@ export const AccountTables = ({ walletAddress }) => {
 					});
 				}}
 			>
-				<TabList
-					titles={[
-						"Transfers",
-						"EVM Transactions",
-						"ERC721 Transfers",
-						"ERC20 Transfers",
-					]}
-				>
+				<TabList titles={panelTitles}>
 					{isRefetching && (
 						<div className="absolute right-2 top-6 flex">
 							<RefetchIndicator />
 						</div>
 					)}
 				</TabList>
-				<TabPanels
-					panels={[
-						<TransfersForAddress walletAddress={walletAddress} />,
-						<EvmTransactionsForAddress walletAddress={walletAddress} />,
-						<Erc721TransfersForAddress walletAddress={walletAddress} />,
-						<Erc20TransfersForAddress walletAddress={walletAddress} />,
-					]}
-				/>
+				<TabPanels panels={panels} />
 			</Tab.Group>
 		</div>
 	);

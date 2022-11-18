@@ -1,13 +1,14 @@
 import fetch from "node-fetch";
 
 import { IS_MAINNET } from "@/libs/constants";
+import { wordlists } from "ethers";
 
 let BASE_URL = undefined;
 
 if (IS_MAINNET) {
-	BASE_URL = "https://232b-212-127-153-81.eu.ngrok.io";
+	BASE_URL = "http://localhost:3001";
 } else {
-	BASE_URL = "https://232b-212-127-153-81.eu.ngrok.io";
+	BASE_URL = "http://localhost:3001";
 }
 
 const headers = () => {
