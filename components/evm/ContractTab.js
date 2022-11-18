@@ -339,10 +339,17 @@ contract Multicall2 {
 			{files?.length ? (
 				files.map((file, key) => (
 					<div key={key} className="space-y-2">
-						<div>
-							<span className="text-sm text-gray-200">
-								File {key + 1} of {files?.length}
-							</span>
+						<div className="flex justify-between">
+							<div className="my-auto">
+								<span className="text-sm text-gray-200">
+									File {key + 1} of {files?.length}
+								</span>
+							</div>
+							<div className="my-auto">
+								<EVMTooltip message="Copy source code to clipboard.">
+									<CopyToClipboard message={file} />
+								</EVMTooltip>
+							</div>
 						</div>
 						<div className="w-full max-h-64 overflow-y-scroll bg-black bg-opacity-20 rounded-lg">
 							<CodeEditor
