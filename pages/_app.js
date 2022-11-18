@@ -1,10 +1,13 @@
 import { QueryClientProvider } from "@tanstack/react-query";
+import dynamic from "next/dynamic";
 import Head from "next/head";
 import ReactTooltip from "react-tooltip";
+
 import { Footer, Header, Search } from "@/components";
 import { queryClient } from "@/libs/client";
 import { useRootApi, useTimeTicker } from "@/libs/stores";
 import "@/styles/globals.css";
+
 import { usePageTracking } from "../libs/hooks";
 
 function MyApp({ Component, pageProps }) {

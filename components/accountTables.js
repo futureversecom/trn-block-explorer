@@ -3,10 +3,9 @@ import { Tab } from "@headlessui/react";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
-import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { Fragment } from "react";
-
+import { isContract } from "@/libs/evm-api";
 import { useAccountRefetchStatus } from "@/libs/stores";
 
 import {
@@ -17,15 +16,19 @@ import {
 	TransfersForAddress,
 } from "./";
 
+import dynamic from 'next/dynamic';
+
 const ContractTab = dynamic(() => import("@/components/evm/ContractTab"), {
 	ssr: false,
 });
+
+// import ContractTab from '@/components/evm/ContractTab'
 
 export const AccountTables = ({ walletAddress }) => {
 	const isRefetching = useAccountRefetchStatus();
 	const router = useRouter();
 	// tab name -> index <-- tab name
-	const url_to_index = [
+	let url_to_index = [
 		"transfers",
 		"evm_transactions",
 		"erc721_transfers",
@@ -58,8 +61,6 @@ export const AccountTables = ({ walletAddress }) => {
 		<Erc20TransfersForAddress walletAddress={walletAddress} />,
 	];
 
-	console.log(isContractQuery?.data);
-
 	if (isContractQuery?.data?.isContract) {
 		panelTitles.push(
 			<div className="flex space-x-1 my-auto">
@@ -71,6 +72,8 @@ export const AccountTables = ({ walletAddress }) => {
 		);
 
 		panels.push(<ContractTab data={undefined} />);
+
+		url_to_index.push("contract")
 	}
 
 	return (
