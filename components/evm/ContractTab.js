@@ -3,6 +3,229 @@ import CodeEditor from "@uiw/react-textarea-code-editor";
 import "@uiw/react-textarea-code-editor/dist.css";
 import { Fragment } from "react";
 
+const abi = `[
+	{
+	  "constant": true,
+	  "inputs": [],
+	  "name": "name",
+	  "outputs": [
+		{
+		  "name": "",
+		  "type": "string"
+		}
+	  ],
+	  "payable": false,
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "constant": false,
+	  "inputs": [
+		{
+		  "name": "_spender",
+		  "type": "address"
+		},
+		{
+		  "name": "_value",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "approve",
+	  "outputs": [
+		{
+		  "name": "",
+		  "type": "bool"
+		}
+	  ],
+	  "payable": false,
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "constant": true,
+	  "inputs": [],
+	  "name": "totalSupply",
+	  "outputs": [
+		{
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "payable": false,
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "constant": false,
+	  "inputs": [
+		{
+		  "name": "_from",
+		  "type": "address"
+		},
+		{
+		  "name": "_to",
+		  "type": "address"
+		},
+		{
+		  "name": "_value",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "transferFrom",
+	  "outputs": [
+		{
+		  "name": "",
+		  "type": "bool"
+		}
+	  ],
+	  "payable": false,
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "constant": true,
+	  "inputs": [],
+	  "name": "decimals",
+	  "outputs": [
+		{
+		  "name": "",
+		  "type": "uint8"
+		}
+	  ],
+	  "payable": false,
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "constant": true,
+	  "inputs": [
+		{
+		  "name": "_owner",
+		  "type": "address"
+		}
+	  ],
+	  "name": "balanceOf",
+	  "outputs": [
+		{
+		  "name": "balance",
+		  "type": "uint256"
+		}
+	  ],
+	  "payable": false,
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "constant": true,
+	  "inputs": [],
+	  "name": "symbol",
+	  "outputs": [
+		{
+		  "name": "",
+		  "type": "string"
+		}
+	  ],
+	  "payable": false,
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "constant": false,
+	  "inputs": [
+		{
+		  "name": "_to",
+		  "type": "address"
+		},
+		{
+		  "name": "_value",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "transfer",
+	  "outputs": [
+		{
+		  "name": "",
+		  "type": "bool"
+		}
+	  ],
+	  "payable": false,
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "constant": true,
+	  "inputs": [
+		{
+		  "name": "_owner",
+		  "type": "address"
+		},
+		{
+		  "name": "_spender",
+		  "type": "address"
+		}
+	  ],
+	  "name": "allowance",
+	  "outputs": [
+		{
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "payable": false,
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "payable": true,
+	  "stateMutability": "payable",
+	  "type": "fallback"
+	},
+	{
+	  "anonymous": false,
+	  "inputs": [
+		{
+		  "indexed": true,
+		  "name": "owner",
+		  "type": "address"
+		},
+		{
+		  "indexed": true,
+		  "name": "spender",
+		  "type": "address"
+		},
+		{
+		  "indexed": false,
+		  "name": "value",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "Approval",
+	  "type": "event"
+	},
+	{
+	  "anonymous": false,
+	  "inputs": [
+		{
+		  "indexed": true,
+		  "name": "from",
+		  "type": "address"
+		},
+		{
+		  "indexed": true,
+		  "name": "to",
+		  "type": "address"
+		},
+		{
+		  "indexed": false,
+		  "name": "value",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "Transfer",
+	  "type": "event"
+	}
+  ]`;
+
 export default function ContractTab() {
 	const files = [1, 2, 3];
 
@@ -82,14 +305,31 @@ contract Multicall2 {
 	return (
 		<div className="text-white p-3 border border-gray-400 space-y-3">
 			<div className="flex justify-between">
-				<div className="my-auto">Contract Source Verified</div>
+				<div className="my-auto">
+					<HeaderText message="Contract Details" />
+				</div>
 				<div>
 					<ExclamationTriangleIcon className="h-8 w-8 text-red-600 my-auto" />
 				</div>
 			</div>
 			{/* Contract Information Section */}
-			<div className="flex flex-row">
-				<div>ello</div>
+			<div className="space-y-2">
+				<div className="sm:grid sm:grid-cols-8 sm:gap-4">
+					<dt className="text-sm font-medium text-gray-200">Contract Name</dt>
+					<dd className="mt-1 text-sm text-white sm:mt-0">Multicall2</dd>
+				</div>
+				<div className="sm:grid sm:grid-cols-8 sm:gap-4">
+					<dt className="text-sm font-medium text-gray-200">
+						Compiler Version
+					</dt>
+					<dd className="mt-1 text-sm text-white sm:mt-0">
+						v0.8.0+commit.c7dfd78e
+					</dd>
+				</div>
+				<div className="sm:grid sm:grid-cols-8 sm:gap-4">
+					<dt className="text-sm font-medium text-gray-200">Optimizations</dt>
+					<dd className="mt-1 text-sm text-white sm:mt-0">200</dd>
+				</div>
 			</div>
 			<HeaderText message="Source File(s)" />
 			{/* Contract Source Code Section */}
@@ -105,7 +345,7 @@ contract Multicall2 {
 							<CodeEditor
 								value={contract}
 								language="sol"
-								padding={0}
+								padding={10}
 								style={{
 									fontSize: 12,
 									fontFamily:
@@ -121,6 +361,19 @@ contract Multicall2 {
 			)}
 
 			<HeaderText message="ABI" />
+			<div className="w-full max-h-64 overflow-y-scroll bg-black bg-opacity-20 rounded-lg">
+				<CodeEditor
+					value={abi}
+					language="json"
+					padding={10}
+					style={{
+						fontSize: 12,
+						fontFamily:
+							"ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace",
+					}}
+					disabled
+				/>
+			</div>
 			{/* ABI Section */}
 			<HeaderText message="Deployed Bytecode" />
 			{/* Bytecode Section */}
@@ -134,5 +387,9 @@ contract Multicall2 {
 }
 
 const HeaderText = ({ message }) => {
-	return <div><span className="text-lg">{message}</span></div>;
+	return (
+		<div>
+			<span className="text-lg font-semibold">{message}</span>
+		</div>
+	);
 };
