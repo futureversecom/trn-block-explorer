@@ -4,6 +4,7 @@ import "@uiw/react-textarea-code-editor/dist.css";
 import { Fragment } from "react";
 
 import EVMTooltip from "@/components/evm/EVMTooltip";
+import SolidityCompilerBugs from "@/components/evm/SolidityCompilerBugs";
 import { CopyToClipboard } from "@/components/icons";
 
 const abi = `[
@@ -312,7 +313,7 @@ contract Multicall2 {
 					<HeaderText message="Contract Details" />
 				</div>
 				<div>
-					<ExclamationTriangleIcon className="h-8 w-8 text-red-600 my-auto" />
+					<SolidityCompilerBugs version={"0.8.0"} />
 				</div>
 			</div>
 			{/* Contract Information Section */}
