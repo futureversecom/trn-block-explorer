@@ -1,310 +1,28 @@
-import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
+import { useQuery } from "@tanstack/react-query";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 import "@uiw/react-textarea-code-editor/dist.css";
 import { Fragment } from "react";
-
+import { isContract } from "@/libs/evm-api";
 import EVMTooltip from "@/components/evm/EVMTooltip";
 import SolidityCompilerBugs from "@/components/evm/SolidityCompilerBugs";
 import { CopyToClipboard } from "@/components/icons";
 
-const abi = `[
-	{
-	  "constant": true,
-	  "inputs": [],
-	  "name": "name",
-	  "outputs": [
-		{
-		  "name": "",
-		  "type": "string"
-		}
-	  ],
-	  "payable": false,
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "constant": false,
-	  "inputs": [
-		{
-		  "name": "_spender",
-		  "type": "address"
+export default function ContractTab({ walletAddress }) {
+	const contractQuery = useQuery(
+		[walletAddress, "isContract"],
+		() => {
+			return isContract(walletAddress).then((data) => {
+				return data;
+			});
 		},
 		{
-		  "name": "_value",
-		  "type": "uint256"
+			refetchInterval: 0,
 		}
-	  ],
-	  "name": "approve",
-	  "outputs": [
-		{
-		  "name": "",
-		  "type": "bool"
-		}
-	  ],
-	  "payable": false,
-	  "stateMutability": "nonpayable",
-	  "type": "function"
-	},
-	{
-	  "constant": true,
-	  "inputs": [],
-	  "name": "totalSupply",
-	  "outputs": [
-		{
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "payable": false,
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "constant": false,
-	  "inputs": [
-		{
-		  "name": "_from",
-		  "type": "address"
-		},
-		{
-		  "name": "_to",
-		  "type": "address"
-		},
-		{
-		  "name": "_value",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "transferFrom",
-	  "outputs": [
-		{
-		  "name": "",
-		  "type": "bool"
-		}
-	  ],
-	  "payable": false,
-	  "stateMutability": "nonpayable",
-	  "type": "function"
-	},
-	{
-	  "constant": true,
-	  "inputs": [],
-	  "name": "decimals",
-	  "outputs": [
-		{
-		  "name": "",
-		  "type": "uint8"
-		}
-	  ],
-	  "payable": false,
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "constant": true,
-	  "inputs": [
-		{
-		  "name": "_owner",
-		  "type": "address"
-		}
-	  ],
-	  "name": "balanceOf",
-	  "outputs": [
-		{
-		  "name": "balance",
-		  "type": "uint256"
-		}
-	  ],
-	  "payable": false,
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "constant": true,
-	  "inputs": [],
-	  "name": "symbol",
-	  "outputs": [
-		{
-		  "name": "",
-		  "type": "string"
-		}
-	  ],
-	  "payable": false,
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "constant": false,
-	  "inputs": [
-		{
-		  "name": "_to",
-		  "type": "address"
-		},
-		{
-		  "name": "_value",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "transfer",
-	  "outputs": [
-		{
-		  "name": "",
-		  "type": "bool"
-		}
-	  ],
-	  "payable": false,
-	  "stateMutability": "nonpayable",
-	  "type": "function"
-	},
-	{
-	  "constant": true,
-	  "inputs": [
-		{
-		  "name": "_owner",
-		  "type": "address"
-		},
-		{
-		  "name": "_spender",
-		  "type": "address"
-		}
-	  ],
-	  "name": "allowance",
-	  "outputs": [
-		{
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "payable": false,
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "payable": true,
-	  "stateMutability": "payable",
-	  "type": "fallback"
-	},
-	{
-	  "anonymous": false,
-	  "inputs": [
-		{
-		  "indexed": true,
-		  "name": "owner",
-		  "type": "address"
-		},
-		{
-		  "indexed": true,
-		  "name": "spender",
-		  "type": "address"
-		},
-		{
-		  "indexed": false,
-		  "name": "value",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "Approval",
-	  "type": "event"
-	},
-	{
-	  "anonymous": false,
-	  "inputs": [
-		{
-		  "indexed": true,
-		  "name": "from",
-		  "type": "address"
-		},
-		{
-		  "indexed": true,
-		  "name": "to",
-		  "type": "address"
-		},
-		{
-		  "indexed": false,
-		  "name": "value",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "Transfer",
-	  "type": "event"
-	}
-  ]`;
+	);
 
-export default function ContractTab() {
-	const files = [1, 2, 3];
+	const contractData = contractQuery?.data?.contractData;
 
-	const contract = `pragma solidity >=0.5.0;
-pragma experimental ABIEncoderV2;
-
-/// @title Multicall2 - Aggregate results from multiple read-only function calls
-/// @author Michael Elliot <mike@makerdao.com>
-/// @author Joshua Levine <joshua@makerdao.com>
-/// @author Nick Johnson <arachnid@notdot.net>
-
-contract Multicall2 {
-    struct Call {
-        address target;
-        bytes callData;
-    }
-    struct Result {
-        bool success;
-        bytes returnData;
-    }
-
-    function aggregate(Call[] memory calls) public returns (uint256 blockNumber, bytes[] memory returnData) {
-        blockNumber = block.number;
-        returnData = new bytes[](calls.length);
-        for(uint256 i = 0; i < calls.length; i++) {
-            (bool success, bytes memory ret) = calls[i].target.call(calls[i].callData);
-            require(success, "Multicall aggregate: call failed");
-            returnData[i] = ret;
-        }
-    }
-    function blockAndAggregate(Call[] memory calls) public returns (uint256 blockNumber, bytes32 blockHash, Result[] memory returnData) {
-        (blockNumber, blockHash, returnData) = tryBlockAndAggregate(true, calls);
-    }
-    function getBlockHash(uint256 blockNumber) public view returns (bytes32 blockHash) {
-        blockHash = blockhash(blockNumber);
-    }
-    function getBlockNumber() public view returns (uint256 blockNumber) {
-        blockNumber = block.number;
-    }
-    function getCurrentBlockCoinbase() public view returns (address coinbase) {
-        coinbase = block.coinbase;
-    }
-    function getCurrentBlockDifficulty() public view returns (uint256 difficulty) {
-        difficulty = block.difficulty;
-    }
-    function getCurrentBlockGasLimit() public view returns (uint256 gaslimit) {
-        gaslimit = block.gaslimit;
-    }
-    function getCurrentBlockTimestamp() public view returns (uint256 timestamp) {
-        timestamp = block.timestamp;
-    }
-    function getEthBalance(address addr) public view returns (uint256 balance) {
-        balance = addr.balance;
-    }
-    function getLastBlockHash() public view returns (bytes32 blockHash) {
-        blockHash = blockhash(block.number - 1);
-    }
-    function tryAggregate(bool requireSuccess, Call[] memory calls) public returns (Result[] memory returnData) {
-        returnData = new Result[](calls.length);
-        for(uint256 i = 0; i < calls.length; i++) {
-            (bool success, bytes memory ret) = calls[i].target.call(calls[i].callData);
-
-            if (requireSuccess) {
-                require(success, "Multicall2 aggregate: call failed");
-            }
-
-            returnData[i] = Result(success, ret);
-        }
-    }
-    function tryBlockAndAggregate(bool requireSuccess, Call[] memory calls) public returns (uint256 blockNumber, bytes32 blockHash, Result[] memory returnData) {
-        blockNumber = block.number;
-        blockHash = blockhash(block.number);
-        returnData = tryAggregate(requireSuccess, calls);
-    }
-}`;
+	const fileKeys = contractData?.files ? Object.keys(contractData?.files) : [];
 
 	return (
 		<div className="text-white p-3 border border-gray-400 space-y-3">
@@ -320,66 +38,76 @@ contract Multicall2 {
 			<div className="space-y-2">
 				<div className="sm:grid sm:grid-cols-8 sm:gap-4">
 					<dt className="text-sm font-medium text-gray-200">Contract Name</dt>
-					<dd className="mt-1 text-sm text-white sm:mt-0">Multicall2</dd>
+					<dd className="mt-1 text-sm text-white sm:mt-0">
+						{fileKeys?.[0]?.replace(".sol", "")}
+					</dd>
 				</div>
 				<div className="sm:grid sm:grid-cols-8 sm:gap-4">
 					<dt className="text-sm font-medium text-gray-200">
 						Compiler Version
 					</dt>
 					<dd className="mt-1 text-sm text-white sm:mt-0">
-						v0.8.0+commit.c7dfd78e
+						{contractData?.compilerVersion}
 					</dd>
 				</div>
 				<div className="sm:grid sm:grid-cols-8 sm:gap-4">
 					<dt className="text-sm font-medium text-gray-200">Optimizations</dt>
-					<dd className="mt-1 text-sm text-white sm:mt-0">200</dd>
+					<dd className="mt-1 text-sm text-white sm:mt-0">
+						<span className="font-semibold mr-2">
+							{contractData?.optimizationEnabled ? "Enabled" : "Disabled"}
+						</span>
+						{contractData?.optimizationRuns}
+					</dd>
 				</div>
 			</div>
 			<HeaderText message="Source File(s)" />
 			{/* Contract Source Code Section */}
-			{files?.length ? (
-				files.map((file, key) => (
-					<div key={key} className="space-y-2">
-						<div className="flex justify-between">
-							<div className="my-auto">
-								<span className="text-sm text-gray-200">
-									File {key + 1} of {files?.length}
-								</span>
+			{fileKeys?.length ? (
+				fileKeys.map((fileName, key) => {
+					const content = contractData?.files?.[fileName]?.content;
+					return (
+						<div key={key} className="space-y-2">
+							<div className="flex justify-between">
+								<div className="my-auto">
+									<span className="text-sm text-gray-200">
+										File {key + 1} of {fileKeys?.length} - {fileName}
+									</span>
+								</div>
+								<div className="my-auto">
+									<EVMTooltip message="Copy source code to clipboard.">
+										<CopyToClipboard message={content} />
+									</EVMTooltip>
+								</div>
 							</div>
-							<div className="my-auto">
-								<EVMTooltip message="Copy source code to clipboard.">
-									<CopyToClipboard message={file} />
-								</EVMTooltip>
+							<div className="w-full max-h-64 overflow-y-scroll bg-black bg-opacity-20 rounded-lg">
+								<CodeEditor
+									value={content}
+									language="sol"
+									padding={10}
+									style={{
+										fontSize: 12,
+										fontFamily:
+											"ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace",
+									}}
+									disabled
+								/>
 							</div>
 						</div>
-						<div className="w-full max-h-64 overflow-y-scroll bg-black bg-opacity-20 rounded-lg">
-							<CodeEditor
-								value={contract}
-								language="sol"
-								padding={10}
-								style={{
-									fontSize: 12,
-									fontFamily:
-										"ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace",
-								}}
-								disabled
-							/>
-						</div>
-					</div>
-				))
+					);
+				})
 			) : (
 				<Fragment />
 			)}
 
 			<Clipboard
-				copyText={"demo"}
+				copyText={contractData?.abi}
 				headerText="ABI"
 				tooltip={"Copy ABI to clipboard."}
 			/>
 
 			<div className="w-full max-h-64 overflow-y-scroll bg-black bg-opacity-20 rounded-lg">
 				<CodeEditor
-					value={abi}
+					value={JSON.stringify(contractData?.abi)}
 					language="json"
 					padding={10}
 					style={{

@@ -71,7 +71,7 @@ export const AccountTables = ({ walletAddress }) => {
 			</div>
 		);
 
-		panels.push(<ContractTab data={undefined} />);
+		panels.push(<ContractTab walletAddress={walletAddress} />);
 
 		url_to_index.push("contract")
 	}
