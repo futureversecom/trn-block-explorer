@@ -2,10 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 import "@uiw/react-textarea-code-editor/dist.css";
 import { Fragment } from "react";
-import { isContract } from "@/libs/evm-api";
+
 import EVMTooltip from "@/components/evm/EVMTooltip";
 import SolidityCompilerBugs from "@/components/evm/SolidityCompilerBugs";
 import { CopyToClipboard } from "@/components/icons";
+import { isContract } from "@/libs/evm-api";
 
 export default function ContractTab({ walletAddress }) {
 	const contractQuery = useQuery(
@@ -31,7 +32,11 @@ export default function ContractTab({ walletAddress }) {
 					<HeaderText message="Contract Details" />
 				</div>
 				<div>
-					<SolidityCompilerBugs version={"0.8.0"} />
+					<SolidityCompilerBugs
+						version={contractData?.compilerVersion
+							.split("+")?.[0]
+							?.replace("v", "")}
+					/>
 				</div>
 			</div>
 			{/* Contract Information Section */}
