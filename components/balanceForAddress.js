@@ -24,7 +24,9 @@ export default function BalanceForAddress({ walletAddress }) {
 
 	const balance = query?.data?.balances?.account[0];
 	const xrpBalance = balance?.assets?.find((e) => e.assetId == 2);
-	const tokensWithoutXRP = balance?.assets?.filter((e) => e.assetId != 2);
+	const otherTokens = balance?.assets?.filter(
+		(e) => e.assetId != 1 && e.assetId != 2
+	);
 
 	return (
 		<div>
@@ -96,9 +98,9 @@ export default function BalanceForAddress({ walletAddress }) {
 									/>
 								</Balance>
 
-								{tokensWithoutXRP?.length ? (
+								{otherTokens?.length ? (
 									<Balance title="Other Tokens">
-										{tokensWithoutXRP.map((asset) => (
+										{otherTokens.map((asset) => (
 											<FormattedBalance
 												key={asset.assetId}
 												assetId={asset.assetId}
