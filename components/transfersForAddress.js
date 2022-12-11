@@ -13,12 +13,11 @@ import {
 	useGetTransfersToAddressQuery,
 } from "@/libs/api/generated.ts";
 import { usePolling } from "@/libs/hooks";
-import { useExtrinsicSuccess } from "@/libs/hooks";
 import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
 import {
 	formatBalance,
-	formatExtrinsicId,
 	getAssetMetadata,
+	parseLargeAmount,
 } from "@/libs/utils";
 
 import InOutLabel from "./inOutLabel";
@@ -94,6 +93,8 @@ const TransfersForAddressRow = ({
 	asset_id,
 	amount,
 }) => {
+	const parsedAmount = useMemo(() => parseLargeAmount(amount), [amount]);
+
 	return (
 		<tr>
 			<TableLayout.Data>
@@ -119,7 +120,7 @@ const TransfersForAddressRow = ({
 			<TableLayout.Data>{asset?.symbol ?? asset_id}</TableLayout.Data>
 
 			<TableLayout.Data>
-				{formatBalance(amount, asset?.decimals ?? 6)}
+				{formatBalance(parsedAmount, asset?.decimals ?? 6)}
 			</TableLayout.Data>
 
 			<TableLayout.Data>
