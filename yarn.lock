@@ -1206,6 +1206,7 @@ __metadata:
     eslint: 8.21.0
     eslint-config-next: 12.2.3
     ethers: ^5.7.0
+    from-exponential: ^1.1.1
     graphql: ^16.6.0
     graphql-request: ^4.3.0
     javascript-time-ago: ^2.5.7
@@ -4919,6 +4920,13 @@ __metadata:
   version: 4.2.0
   resolution: "fraction.js@npm:4.2.0"
   checksum: 8c76a6e21dedea87109d6171a0ac77afa14205794a565d71cb10d2925f629a3922da61bf45ea52dbc30bce4d8636dc0a27213a88cbd600eab047d82f9a3a94c5
+  languageName: node
+  linkType: hard
+
+"from-exponential@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "from-exponential@npm:1.1.1"
+  checksum: af2765bd4f78836153c46cf4aff51ba9f2d1ac6b7d9568d69901d2045ba5b80a47de4f2a693bcc2006a7516cef71f636a4e42596cdd77a0addcc739539eb0f48
   languageName: node
   linkType: hard
 
