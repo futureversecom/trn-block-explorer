@@ -2,7 +2,6 @@ export * from "./formatExtrinsicId";
 export * from "./getAssetMetadata";
 export * from "./formatBalance";
 export * from "./formatTimeAgo";
-export * from "./parseLargeAmount";
 
 export const sleep = () => {
 	return new Promise((resolve) => {

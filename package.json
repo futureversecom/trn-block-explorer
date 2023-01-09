@@ -20,6 +20,7 @@
     "clsx": "^1.2.1",
     "cookies-next": "^2.1.1",
     "ethers": "^5.7.0",
+    "from-exponential": "^1.1.1",
     "javascript-time-ago": "^2.5.7",
     "jotai": "^1.8.3",
     "moment": "^2.29.4",
