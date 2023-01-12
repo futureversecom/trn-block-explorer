@@ -2,7 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
 import { Fragment, useState } from "react";
 
-import EVMTooltip from "@/components/evm/EVMTooltip";
+import EVMTooltip from "@/components/evm/evmTooltip";
 import bugs from "@/components/evm/sol-bugs/bugs.json";
 import bugsByVersion from "@/components/evm/sol-bugs/sol-bugs-by-version.json";
 

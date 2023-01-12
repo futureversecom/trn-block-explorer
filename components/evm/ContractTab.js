@@ -3,7 +3,7 @@ import CodeEditor from "@uiw/react-textarea-code-editor";
 import "@uiw/react-textarea-code-editor/dist.css";
 import { Fragment } from "react";
 
-import EVMTooltip from "@/components/evm/EVMTooltip";
+import EVMTooltip from "@/components/evm/evmTooltip";
 import SolidityCompilerBugs from "@/components/evm/SolidityCompilerBugs";
 import { CopyToClipboard } from "@/components/icons";
 import { isContract } from "@/libs/evm-api";
