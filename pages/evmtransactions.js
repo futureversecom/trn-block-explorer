@@ -20,6 +20,7 @@ export default function EVMTransactions() {
 			refetchInterval: 15_000,
 		}
 	);
+
 	return (
 		<ContainerLayout>
 			<PageHeader

@@ -258,12 +258,15 @@ const ERC721Approval = ({ log }) => {
 		</div>
 	);
 };
-export default {
-	Transfer: Transfer,
-	ApprovalForAll: ApprovalForAll,
-	TransferBatch: TransferBatch,
-	TransferSingle: TransferSingle,
-	ERC20Transfer: ERC20Transfer,
-	ERC20Approval: ERC20Approval,
-	ERC721Approval: ERC721Approval,
+
+const EvmEvents = {
+	Transfer,
+	ApprovalForAll,
+	TransferBatch,
+	TransferSingle,
+	ERC20Transfer,
+	ERC20Approval,
+	ERC721Approval,
 };
+
+export default EvmEvents;
