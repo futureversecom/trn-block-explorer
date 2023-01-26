@@ -72,8 +72,7 @@ export default function TokenBalances({ walletAddress }) {
 								{query?.data?.erc20?.map((token, key) => (
 									<Menu.Item key={key}>
 										{({ active }) => (
-											<a
-												href="#"
+											<div
 												className={classNames(
 													active ? "text-gray-200" : "text-white",
 													"block px-4 py-2 text-sm"
@@ -96,7 +95,7 @@ export default function TokenBalances({ walletAddress }) {
 														)}
 													</div>
 												</div>
-											</a>
+											</div>
 										)}
 									</Menu.Item>
 								))}
@@ -116,8 +115,7 @@ export default function TokenBalances({ walletAddress }) {
 								{query?.data?.erc721?.map((token, key) => (
 									<Menu.Item key={key}>
 										{({ active }) => (
-											<a
-												href="#"
+											<div
 												className={classNames(
 													active ? "text-gray-200" : "text-white",
 													"block px-4 py-2 text-sm"
@@ -135,7 +133,7 @@ export default function TokenBalances({ walletAddress }) {
 													</div>
 													<div className="my-auto">{token?.balance}</div>
 												</div>
-											</a>
+											</div>
 										)}
 									</Menu.Item>
 								))}

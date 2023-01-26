@@ -1,8 +1,8 @@
 import BigNumber from "bignumber.js";
 import { ethers } from "ethers";
+
 import EVMTooltip from "@/components/evm/evmTooltip";
 import { formatUSD } from "@/libs/utils";
-import { Fragment } from 'react';
 
 export default function GasUsage({ tx }) {
 	const type = tx?.type;
@@ -30,9 +30,12 @@ export default function GasUsage({ tx }) {
 			ethers.utils.formatUnits(String(tx.effectiveGasPrice), "gwei")
 		);
 		gasPrice = new BigNumber(gasPrice);
-		let maxPriorityFeePerGas = String(
-			ethers.utils.formatUnits(String(tx.maxPriorityFeePerGas), "gwei")
-		);
+		let maxPriorityFeePerGas = tx.maxPriorityFeePerGas
+			? String(
+					ethers.utils.formatUnits(String(tx.maxPriorityFeePerGas), "gwei")
+					// eslint-disable-next-line no-mixed-spaces-and-tabs
+			  )
+			: 0;
 		maxPriorityFeePerGas = new BigNumber(maxPriorityFeePerGas);
 		gasPrice = gasPrice.plus(maxPriorityFeePerGas);
 		const totalFee = gasLimit.multipliedBy(gasPrice); // Number(gasLimit) * Number(gasPrice);
@@ -51,8 +54,11 @@ export default function GasUsage({ tx }) {
 			)
 		);
 	}
+
+	if (isNaN(fee)) return "-";
+
 	return (
-		<div className="flex space-x-2">
+		<div className="flex items-center space-x-2">
 			<span>
 				{String(fee)} {currency}
 			</span>
@@ -64,9 +70,7 @@ export default function GasUsage({ tx }) {
 						</EVMTooltip>
 					</span>
 				</div>
-			) : (
-				<Fragment />
-			)}
+			) : null}
 		</div>
 	);
 }

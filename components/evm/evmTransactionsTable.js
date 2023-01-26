@@ -1,6 +1,8 @@
 import BigNumber from "bignumber.js";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { Fragment } from "react";
+
 import { TableLayout, TimeAgo } from "@/components";
 import AddressLink from "@/components/evm/AddressLink";
 import TransactionStatus from "@/components/evm/TransactionStatus";
@@ -8,17 +10,16 @@ import InOutLabel from "@/components/inOutLabel";
 import { formatAddress } from "@/libs/utils";
 
 export default function EVMTransactionsTable({ query, walletAddress }) {
+	const router = useRouter();
 
 	return (
 		<div className="divide-y overflow-x-auto border border-gray-400 text-white">
-			{query?.data?.docs?.length ? (
+			{query?.data?.docs?.length && router.pathname !== "/evmtransactions" ? (
 				<div className="text-sm px-3 py-3">
-					Displaying {parseInt(query?.data?.limit * query?.data?.page)} from a
-					total of {query?.data?.totalDocs} transactions
+					Displaying {parseInt(query?.data?.docs?.length)} from a total of{" "}
+					{query?.data?.totalDocs} transactions
 				</div>
-			) : (
-				<Fragment />
-			)}
+			) : null}
 			{query?.data?.docs?.length > 0 ? (
 				<TableLayout.Table>
 					<thead className="bg-transparent">
@@ -35,7 +36,7 @@ export default function EVMTransactionsTable({ query, walletAddress }) {
 						</tr>
 					</thead>
 					<tbody className="divide-y divide-gray-800 bg-transparent">
-						{query?.data?.docs?.map((tx, key) => {
+						{query?.data?.docs?.map((tx) => {
 							let type;
 							if (walletAddress) {
 								if (tx?.from == walletAddress) {
@@ -54,7 +55,7 @@ export default function EVMTransactionsTable({ query, walletAddress }) {
 									transactionHash={tx?.transactionHash || tx?.hash}
 									block={tx?.blockNumber}
 									from={tx?.from}
-									method={tx?.parsedData?.name || " - "}
+									method={tx?.parsedData?.name}
 									timestamp={tx?.timestamp || tx?.firstSeen}
 									to={tx?.to || tx?.creates}
 									isDeployment={tx?.creates || false}
@@ -82,7 +83,7 @@ const EvmTransactionsForAddressRow = ({
 	method,
 	timestamp,
 	from,
-    walletAddress,
+	walletAddress,
 	transactionHash,
 	to,
 	toContract,
@@ -105,10 +106,14 @@ const EvmTransactionsForAddressRow = ({
 				</Link>
 			</TableLayout.Data>
 
-			<TableLayout.Data>
-				<span className="inline-flex items-center rounded bg-gray-800 px-2 py-0.5 text-xs font-medium text-gray-100 capitalize">
-					{method || " - "}
-				</span>
+			<TableLayout.Data dataClassName="text-center">
+				{method ? (
+					<span className="inline-flex items-center rounded bg-gray-800 px-2 py-0.5 text-xs font-medium text-gray-100 capitalize">
+						{method}
+					</span>
+				) : (
+					" - "
+				)}
 			</TableLayout.Data>
 
 			<TableLayout.Data>
@@ -164,11 +169,12 @@ const EvmTransactionsForAddressRow = ({
 				)}
 			</TableLayout.Data>
 
-			<TableLayout.Data>
-				{new BigNumber(value.toString())
-					.dividedBy(new BigNumber(10).pow(18))
-					.toString()}{" "}
-				XRP
+			<TableLayout.Data dataClassName="text-center">
+				{typeof value !== "undefined"
+					? `${new BigNumber(value?.toString())
+							.dividedBy(new BigNumber(10).pow(18))
+							.toString()} XRP`
+					: " - "}
 			</TableLayout.Data>
 		</tr>
 	);

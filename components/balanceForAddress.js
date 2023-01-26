@@ -1,4 +1,3 @@
-import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
 import Link from "next/link";
