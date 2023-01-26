@@ -1,8 +1,9 @@
 import { ArrowDownIcon } from "@heroicons/react/20/solid";
 import {
+	ArrowsRightLeftIcon,
 	ArrowUpIcon,
 	ClockIcon,
-	LightBulbIcon,
+	InformationCircleIcon,
 } from "@heroicons/react/24/outline";
 import { useQuery } from "@tanstack/react-query";
 import BigNumber from "bignumber.js";
@@ -24,7 +25,6 @@ import GasUsage from "@/components/evm/GasUsage";
 import TransactionStatus from "@/components/evm/TransactionStatus";
 import { CopyToClipboard } from "@/components/icons";
 import LoadingLayout from "@/components/layout/loadingLayout";
-import { IS_MAINNET } from "@/libs/constants";
 import { getTransactionByHash } from "@/libs/evm-api";
 import { formatUnits, formatUSD } from "@/libs/utils";
 
@@ -51,17 +51,21 @@ export default function EVMTransaction({ hash }) {
 		);
 	}
 
+	const gasUsagePercentage =
+		query?.data?.gasUsed && query?.data?.gasLimit
+			? `(${((query?.data?.gasUsed / query?.data?.gasLimit) * 100).toFixed(
+					2
+			  )}%)`
+			: "";
+
 	return (
 		<ContainerLayout>
-			<PageHeader title={`Transaction Details`} />
+			<PageHeader
+				title={`EVM Transaction Details`}
+				icon={<ArrowsRightLeftIcon className="my-auto h-5 pr-3 text-white" />}
+			/>
 			<LoadingLayout query={query}>
 				<DetailsLayout.Container>
-					{!IS_MAINNET && (
-						<p className="p-3 text-sm text-red-500">
-							This is a <span className="font-semibold">testnet</span>{" "}
-							transaction.
-						</p>
-					)}
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title
 							title="Transaction Hash"
@@ -360,25 +364,17 @@ export default function EVMTransaction({ hash }) {
 							helpTooltip="The maximum gas the transaction could have consumed, and the actual consumption."
 						/>
 						<DetailsLayout.Data>
-							{query?.data?.gasLimit
-								? ethers.utils.commify(query?.data?.gasLimit)
-								: "?"}{" "}
-							/{" "}
-							{query?.data?.gasUsed ? (
-								<Fragment>
-									{ethers.utils.commify(query?.data?.gasUsed)}
-									<Fragment>
-										(
-										{(
-											(query?.data?.gasUsed / query?.data?.gasLimit) *
-											100
-										).toFixed(2)}{" "}
-										%)
-									</Fragment>
-								</Fragment>
-							) : (
-								"?"
-							)}
+							{`${
+								query?.data?.gasLimit
+									? ethers.utils.commify(query?.data?.gasLimit)
+									: "?"
+							}`}
+							{" / "}
+							{query?.data?.gasUsed
+								? `${ethers.utils.commify(
+										query?.data?.gasUsed
+								  )} ${gasUsagePercentage}`
+								: "?"}
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
@@ -408,7 +404,7 @@ export default function EVMTransaction({ hash }) {
 										Gwei
 									</span>
 								</EVMTooltip>
-								{query?.data?.type == 2 && (
+								{query?.data?.type == 2 && query?.data?.maxFeePerGas && (
 									<EVMTooltip
 										message={`${ethers.utils
 											.formatEther(query?.data?.maxFeePerGas)
@@ -423,7 +419,7 @@ export default function EVMTransaction({ hash }) {
 										</span>
 									</EVMTooltip>
 								)}
-								{query?.data?.type == 2 && (
+								{query?.data?.type == 2 && query?.data?.maxPriorityFeePerGas && (
 									<EVMTooltip
 										message={`${ethers.utils
 											.formatEther(query?.data?.maxPriorityFeePerGas)
@@ -454,7 +450,7 @@ export default function EVMTransaction({ hash }) {
 									{query?.data?.type == 2 ? "EIP-1559" : "Legacy"})
 								</span>
 								<span className="my-auto rounded bg-black bg-opacity-20 p-1 text-xs">
-									Nonce: {query?.data?.nonce}
+									Nonce: {query?.data?.nonce || "-"}
 								</span>
 								<span className="my-auto rounded bg-black bg-opacity-20 p-1 text-xs">
 									Position in Block: {query?.data?.transactionIndex}
@@ -470,15 +466,15 @@ export default function EVMTransaction({ hash }) {
 						/>
 						<DetailsLayout.Data>
 							<div className="flex space-x-2">
-								<span className="my-auto rounded bg-black bg-opacity-20 p-1 text-xs flex space-x-2">
-									{query?.data?.value >= 1
+								<span className="my-auto flex space-x-2">
+									{query?.data?.value && query?.data?.value >= 1
 										? formatUnits(query.data.value, 18)
 										: "0"}{" "}
 									XRP
 								</span>
 								{txUsdPrice ? (
 									<div className="flex space-x-2">
-										<span className="my-auto rounded bg-black bg-opacity-20 p-1 text-xs">
+										<span className="my-auto">
 											<EVMTooltip
 												message={`1 XRP @ ${formatUSD(
 													query?.data?.xrpPrice?.price
@@ -488,9 +484,7 @@ export default function EVMTransaction({ hash }) {
 											</EVMTooltip>
 										</span>
 									</div>
-								) : (
-									<Fragment />
-								)}
+								) : null}
 							</div>
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
@@ -516,7 +510,7 @@ export default function EVMTransaction({ hash }) {
 								helpTooltip="The data that went into this transaction."
 							/>
 							<DetailsLayout.Data>
-								<div className="p-2 bg-black bg-opacity-20 rounded-md max-h-64 overflow-y-scroll">
+								<div className="max-h-64 overflow-y-scroll">
 									{parsedData ? (
 										<div className="space-y-2 font-mono">
 											<p>Function: {parsedData?.signature}</p>
@@ -530,13 +524,11 @@ export default function EVMTransaction({ hash }) {
 														</div>
 													))}
 												</div>
-											) : (
-												<Fragment />
-											)}
+											) : null}
 										</div>
 									) : (
 										<span className="overflow-ellipsis">
-											{query?.data?.data}
+											{query?.data?.data || "-"}
 										</span>
 									)}
 								</div>
@@ -559,14 +551,18 @@ export default function EVMTransaction({ hash }) {
 					)}
 				</DetailsLayout.Container>
 			</LoadingLayout>
-			<div className="py-3 flex text-white text-opacity-50 space-x-2 text-sm">
-				<div className="my-auto">
-					<LightBulbIcon className="w-3 h-3" />
-				</div>
-				<div className="my-auto">
-					A transaction is nothing but an cryptographically proven instruction.
-					This block explorer only tracks them, and can in no way reverse or
-					alter them.
+			<div className="space-x-2 px-4 py-3" role="alert">
+				<div className="flex items-start">
+					<div>
+						<InformationCircleIcon className="h-6 w-6 text-white text-opacity-50 mr-2" />
+					</div>
+					<div>
+						<p className="text-white text-opacity-50 text-sm">
+							A transaction is nothing but a cryptographically proven
+							instruction. This block explorer only tracks them, and can in no
+							way reverse or alter them.
+						</p>
+					</div>
 				</div>
 			</div>
 		</ContainerLayout>

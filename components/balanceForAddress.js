@@ -1,4 +1,3 @@
-import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
 import Link from "next/link";
@@ -72,7 +71,7 @@ export default function BalanceForAddress({ walletAddress }) {
 										<div className="my-auto flex-col">
 											<div className="text-lg">
 												{isContractQuery?.data?.isContract == true
-													? "Contractaddress"
+													? "Contract Address"
 													: "Wallet"}{" "}
 											</div>
 											<div className="text-md flex flex-wrap items-center leading-6 text-white md:space-x-2">

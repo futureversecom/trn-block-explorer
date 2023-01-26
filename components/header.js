@@ -21,17 +21,17 @@ const links = [
 		href: "/extrinsics",
 	},
 	{
+		title: "EVM Transactions",
+		href: "/evmtransactions",
+	},
+	{
 		title: "Accounts",
 		href: "/accounts",
 	},
 	{
-		title: "EVM Transactions",
-		href: "/evmtransactions",
+		title: "Assets",
+		href: "/assets",
 	},
-	// {
-	// 	title: "Assets",
-	// 	href: "/assets",
-	// },
 ];
 
 export default function Header() {

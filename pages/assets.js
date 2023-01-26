@@ -4,12 +4,7 @@ import {
 } from "@heroicons/react/24/outline";
 import Image from "next/future/image";
 
-import {
-	ContainerLayout,
-	LoadingBlock,
-	PageHeader,
-	TableLayout,
-} from "@/components";
+import { ContainerLayout, PageHeader, TableLayout } from "@/components";
 import EthIcon from "@/components/icons/currencies/eth.png";
 import SyloIcon from "@/components/icons/currencies/sylo.png";
 import USDCIcon from "@/components/icons/currencies/usdc.png";
@@ -18,13 +13,14 @@ import AssetsJson from "@/libs/artifacts/Assets.json";
 import { IS_MAINNET } from "@/libs/constants";
 
 export default function Assets() {
-	const assets = AssetsJson?.tokens?.filter((e) => e.mainnet === IS_MAINNET);
+	const assets = AssetsJson?.tokens?.filter(
+		(e) => e.mainnet === IS_MAINNET && e.symbol !== "ROOT"
+	);
 	const icons = {
 		SYLO: SyloIcon,
 		ETH: EthIcon,
 		XRP: XRPIcon,
 		USDC: USDCIcon,
-		// "ROOT": ''
 	};
 	return (
 		<ContainerLayout>
@@ -53,8 +49,8 @@ export default function Assets() {
 												{icons[asset?.symbol] ? (
 													<Image
 														src={icons[asset?.symbol]}
-														width={32}
-														height={32}
+														width={24}
+														height={24}
 														alt={asset?.symbol}
 														className="m-2 mx-auto my-auto pl-2 md:pl-0"
 													/>
