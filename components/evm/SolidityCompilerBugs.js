@@ -9,7 +9,7 @@ import bugsByVersion from "@/components/evm/sol-bugs/sol-bugs-by-version.json";
 export default function SolidityCompilerBugs({ version }) {
 	const [open, setOpen] = useState(false);
 	const bugsForVersion = bugsByVersion?.[version]?.bugs;
-	const bugsToMap = bugs.filter((e) => bugsForVersion.includes(e.name));
+	const bugsToMap = bugs.filter((e) => bugsForVersion?.includes(e.name));
 
 	return (
 		<div>

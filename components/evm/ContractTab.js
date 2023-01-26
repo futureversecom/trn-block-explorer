@@ -34,7 +34,7 @@ export default function ContractTab({ walletAddress }) {
 				<div>
 					<SolidityCompilerBugs
 						version={contractData?.compilerVersion
-							.split("+")?.[0]
+							?.split("+")?.[0]
 							?.replace("v", "")}
 					/>
 				</div>
