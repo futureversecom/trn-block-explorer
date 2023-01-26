@@ -21,12 +21,12 @@ const links = [
 		href: "/extrinsics",
 	},
 	{
-		title: "Accounts",
-		href: "/accounts",
-	},
-	{
 		title: "EVM Transactions",
 		href: "/evmtransactions",
+	},
+	{
+		title: "Accounts",
+		href: "/accounts",
 	},
 	{
 		title: "Assets",
