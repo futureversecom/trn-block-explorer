@@ -19,8 +19,10 @@ export default function Account({ walletAddress }) {
 	return (
 		<ContainerLayout>
 			<PageHead title={`Wallet #${walletAddress}`} />
-			<BalanceForAddress walletAddress={walletAddress} />
-			<AccountTables walletAddress={walletAddress} />
+			<div className="space-y-3">
+				<BalanceForAddress walletAddress={walletAddress} />
+				<AccountTables walletAddress={walletAddress} />
+			</div>
 		</ContainerLayout>
 	);
 }

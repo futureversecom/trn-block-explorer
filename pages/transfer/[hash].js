@@ -13,7 +13,7 @@ import {
 import { BlockFinalizedIcon, CopyToClipboard } from "@/components/icons";
 import { useGetTransferByHashQuery } from "@/libs/api/generated.ts";
 import { useExtrinsicId, usePolling } from "@/libs/hooks";
-import { formatAddress } from "@/libs/utils";
+import { formatAddress, formatUnits } from "@/libs/utils";
 
 export const getServerSideProps = (context) => ({
 	props: { hash: context?.params?.hash },
@@ -124,7 +124,7 @@ export default function Transfer({ hash }) {
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Amount" />
 						<DetailsLayout.Data>
-							{ethers.utils.formatEther(query.data.amount)} Root
+							{formatUnits(query.data.amount, 18)} Root
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 				</DetailsLayout.Container>

@@ -5,13 +5,15 @@ export default function PageHeader({ title, icon, children }) {
 	return (
 		<Fragment>
 			<PageHead title={title} />
-
 			<div className="flex items-center py-3">
 				{icon}
 				<h3 className="text-md truncate font-bold leading-6 text-white">
 					{title}
 				</h3>
 				{children}
+			</div>
+			<div className="relative">
+				<div className="w-full border-t border-gray-300 py-3" />
 			</div>
 		</Fragment>
 	);

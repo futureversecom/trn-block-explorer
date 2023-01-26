@@ -1,8 +1,7 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const removeImports = require("next-remove-imports")();
+
+module.exports = removeImports({
 	reactStrictMode: true,
 	swcMinify: true,
-	experimental: { images: { allowFutureImage: true } },
-};
-
-module.exports = nextConfig;
+	experimental: { images: { allowFutureImage: true }, esmExternals: true },
+});

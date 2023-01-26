@@ -1,5 +1,7 @@
 import clsx from "clsx";
 
+import EVMToolTip from "@/components/evm/evmTooltip";
+
 const Container = ({ children, containerClassName }) => (
 	<div
 		className={clsx(
@@ -24,9 +26,19 @@ const Wrapper = ({ children, wrapperClassName }) => (
 	</div>
 );
 
-const Title = ({ title, titleClassName }) => (
-	<dt className={clsx("text-sm font-medium text-white", titleClassName)}>
-		{title}
+const Title = ({ title, titleClassName, helpTooltip }) => (
+	<dt
+		className={clsx(
+			"text-sm font-medium text-white flex items-center space-x-2",
+			titleClassName
+		)}
+	>
+		<div>{title}</div>
+		{helpTooltip ? (
+			<div>
+				<EVMToolTip message={helpTooltip} />
+			</div>
+		) : null}
 	</dt>
 );
 

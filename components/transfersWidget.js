@@ -6,7 +6,7 @@ import { LoadingBlock, RefetchIndicator, TimeAgo } from "@/components";
 import { TransferStatusIcon } from "@/components/icons";
 import { useGetTransfersQuery } from "@/libs/api/generated.ts";
 import { useExtrinsicId, usePolling } from "@/libs/hooks";
-import { formatAddress } from "@/libs/utils";
+import { formatAddress, formatUnits } from "@/libs/utils";
 
 export default function TransfersWidget() {
 	const query = usePolling({}, useGetTransfersQuery, { limit: 10 });
@@ -82,7 +82,7 @@ const TransferItem = ({
 					)}
 				</div>
 				<div className="my-auto flex">
-					{ethers.utils.formatEther(amount.toString()).toString()} Root{" "}
+					{formatUnits(amount, 18)} Root{" "}
 					<TransferStatusIcon status={status} iconClassName="h-5" />
 				</div>
 			</div>
