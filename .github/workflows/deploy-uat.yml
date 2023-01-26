@@ -11,6 +11,10 @@ on:
         required: true
         description: Select a UAT branch
         options: ["", "uat/porcini"]
+      token:
+        type: string
+        description: Deploy token, generate one with `repo` permission
+        required: true
       commitSHA:
         type: string
         required: false
@@ -23,6 +27,7 @@ jobs:
       - name: Checkout and fetch main branch
         uses: actions/checkout@v3
         with:
+          token: ${{github.event.inputs.token}}
           ref: ${{github.event.repository.default_branch}}
       - name: Run the deployment using latest commit from default branch
         run: |
@@ -39,6 +44,7 @@ jobs:
       - name: Checkout and fetch using provided commit SHA
         uses: actions/checkout@v3
         with:
+          token: ${{github.event.inputs.token}}
           ref: ${{github.event.inputs.commitSHA}}
       - name: Run the deployment using provided commit SHA
         run: |
