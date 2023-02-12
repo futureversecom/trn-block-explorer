@@ -5,6 +5,7 @@ import {
 import Image from "next/future/image";
 
 import { ContainerLayout, PageHeader, TableLayout } from "@/components";
+import ASTOIcon from "@/components/icons/currencies/asto.png";
 import EthIcon from "@/components/icons/currencies/eth.png";
 import SyloIcon from "@/components/icons/currencies/sylo.png";
 import USDCIcon from "@/components/icons/currencies/usdc.png";
@@ -17,6 +18,7 @@ export default function Assets() {
 		(e) => e.mainnet === IS_MAINNET && e.symbol !== "ROOT"
 	);
 	const icons = {
+		ASTO: ASTOIcon,
 		SYLO: SyloIcon,
 		ETH: EthIcon,
 		XRP: XRPIcon,
