@@ -103,7 +103,7 @@ const TransfersForAddressRow = ({
 			</TableLayout.Data>
 
 			<TableLayout.Data>
-				{from_id?.toLowerCase() === walletAddress.toLowerCase() ? (
+				{from_id?.toLowerCase() === walletAddress?.toLowerCase() ? (
 					<InOutLabel type="out" />
 				) : (
 					<InOutLabel type="in" />

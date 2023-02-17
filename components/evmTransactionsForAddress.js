@@ -134,14 +134,14 @@ const EvmTransactionsForAddressRow = ({
 			<TableLayout.Data>
 				<AddressLink
 					address={from}
-					isAccount={from === walletAddress.toLowerCase()}
+					isAccount={from === walletAddress?.toLowerCase()}
 				/>
 			</TableLayout.Data>
 
 			<TableLayout.Data>
 				<AddressLink
 					address={to}
-					isAccount={to === walletAddress.toLowerCase()}
+					isAccount={to === walletAddress?.toLowerCase()}
 				/>
 			</TableLayout.Data>
 
@@ -157,7 +157,7 @@ const useTransactions = (address) => {
 		{},
 		useGetEvmTransactionsToAddressQuery,
 		{
-			address: address.toLowerCase(),
+			address: address?.toLowerCase(),
 		},
 		12000
 	);
@@ -166,7 +166,7 @@ const useTransactions = (address) => {
 		{},
 		useGetEvmTransactionsFromAddressQuery,
 		{
-			address: address.toLowerCase(),
+			address: address?.toLowerCase(),
 		},
 		12000
 	);

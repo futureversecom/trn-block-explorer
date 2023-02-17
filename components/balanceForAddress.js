@@ -70,7 +70,7 @@ export default function BalanceForAddress({ walletAddress }) {
 										</div>
 									</div>
 								</div>
-								{BURN_ADDRESSES.includes(walletAddress.toLowerCase()) && (
+								{BURN_ADDRESSES.includes(walletAddress?.toLowerCase()) && (
 									<div className="max-w-fit py-4 text-sm md:px-6">
 										<p className="border border-red-400 bg-red-300 p-2 text-red-800">
 											<span className="font-bold">🔥 Attention:</span> This
