@@ -3,8 +3,10 @@ import { Tab } from "@headlessui/react";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { Fragment } from "react";
+
 import { isContract } from "@/libs/evm-api";
 import { useAccountRefetchStatus } from "@/libs/stores";
 
@@ -15,8 +17,6 @@ import {
 	RefetchIndicator,
 	TransfersForAddress,
 } from "./";
-
-import dynamic from 'next/dynamic';
 
 const ContractTab = dynamic(() => import("@/components/evm/ContractTab"), {
 	ssr: false,
@@ -63,9 +63,9 @@ export const AccountTables = ({ walletAddress }) => {
 
 	if (isContractQuery?.data?.isContract) {
 		panelTitles.push(
-			<div className="flex space-x-1 my-auto">
+			<div className="my-auto flex space-x-1">
 				{isContractQuery?.data?.verified && (
-					<CheckCircleIcon className="h-5 w-5 text-green-500 my-auto" />
+					<CheckCircleIcon className="my-auto h-5 w-5 text-green-500" />
 				)}
 				<div>Contract</div>
 			</div>
@@ -73,7 +73,7 @@ export const AccountTables = ({ walletAddress }) => {
 
 		panels.push(<ContractTab walletAddress={walletAddress} />);
 
-		url_to_index.push("contract")
+		url_to_index.push("contract");
 	}
 
 	return (
@@ -104,7 +104,7 @@ export const AccountTables = ({ walletAddress }) => {
 };
 
 const TabList = ({ titles, children }) => (
-	<Tab.List className="relative flex space-x-2 mb-3">
+	<Tab.List className="relative mb-3 flex space-x-2">
 		{titles.map((title, key) => (
 			<Fragment key={key}>
 				<Tab className="text-white outline-none">

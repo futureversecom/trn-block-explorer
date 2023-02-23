@@ -2,12 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import { ethers } from "ethers";
 import Link from "next/link";
 import { Fragment, useState } from "react";
-import EVMPagination from "@/components/evm/evmpagination";
+
 import { LoadingBlock, TableLayout, TimeAgo } from "@/components";
 import AddressLink from "@/components/evm/AddressLink";
+import EVMPagination from "@/components/evm/evmpagination";
 import TransactionStatus from "@/components/evm/TransactionStatus";
 import { getERC20TransferForAddress } from "@/libs/evm-api";
 import { formatAddress } from "@/libs/utils";
+
 import InOutLabel from "./inOutLabel";
 
 export default function Erc20TransfersForAddress({ walletAddress }) {
@@ -30,7 +32,7 @@ export default function Erc20TransfersForAddress({ walletAddress }) {
 			) : (
 				<div className="divide-y overflow-x-auto border border-gray-400 text-white">
 					{query?.data?.docs?.length ? (
-						<div className="text-sm px-3 py-3">
+						<div className="px-3 py-3 text-sm">
 							Displaying {parseInt(query?.data?.limit * query?.data?.page)} from
 							a total of {query?.data?.totalDocs} transfers
 						</div>

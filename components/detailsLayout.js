@@ -29,7 +29,7 @@ const Wrapper = ({ children, wrapperClassName }) => (
 const Title = ({ title, titleClassName, helpTooltip }) => (
 	<dt
 		className={clsx(
-			"text-sm font-medium text-white flex items-center space-x-2",
+			"flex items-center space-x-2 text-sm font-medium text-white",
 			titleClassName
 		)}
 	>

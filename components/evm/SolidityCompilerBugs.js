@@ -20,7 +20,7 @@ export default function SolidityCompilerBugs({ version }) {
 					}}
 				>
 					<EVMTooltip message={"Solidity version has known compiler bugs."}>
-						<ExclamationTriangleIcon className="h-6 w-6 text-red-600 my-auto cursor-pointer" />
+						<ExclamationTriangleIcon className="my-auto h-6 w-6 cursor-pointer text-red-600" />
 					</EVMTooltip>
 				</div>
 			) : (

@@ -277,7 +277,7 @@ export default function EVMTransaction({ hash }) {
 							/>
 							<DetailsLayout.Data dataClassName="flex space-x-1">
 								<div>
-									<ClockIcon className="w-5 h-5 my-auto" />
+									<ClockIcon className="my-auto h-5 w-5" />
 								</div>
 								<div>
 									<TimeAgo
@@ -296,7 +296,7 @@ export default function EVMTransaction({ hash }) {
 								</div>
 								<div>
 									{query?.data?.firstSeen && (
-										<div className="ml-2 border-l border-gray-800 pl-2 space-x-1 text-sm my-auto">
+										<div className="my-auto ml-2 space-x-1 border-l border-gray-800 pl-2 text-sm">
 											<span>Confirmed within:</span>
 											<span>
 												{moment(query?.data?.timestamp * 1000).diff(
@@ -491,14 +491,14 @@ export default function EVMTransaction({ hash }) {
 
 					{!showMore && (
 						<div
-							className="py-4 px-5 text-sm flex space-x-2 text-indigo-500 hover:text-white my-auto cursor-pointer"
+							className="my-auto flex cursor-pointer space-x-2 py-4 px-5 text-sm text-indigo-500 hover:text-white"
 							onClick={() => {
 								setShowMore(true);
 							}}
 						>
 							<div>Click to see More</div>
 							<div>
-								<ArrowDownIcon className="w-5 h-5 my-auto" />
+								<ArrowDownIcon className="my-auto h-5 w-5" />
 							</div>
 						</div>
 					)}
@@ -538,14 +538,14 @@ export default function EVMTransaction({ hash }) {
 
 					{showMore && (
 						<div
-							className="py-4 px-5 text-sm flex space-x-2 text-indigo-500 hover:text-white my-auto cursor-pointer"
+							className="my-auto flex cursor-pointer space-x-2 py-4 px-5 text-sm text-indigo-500 hover:text-white"
 							onClick={() => {
 								setShowMore(false);
 							}}
 						>
 							<div>Click to see Less</div>
 							<div>
-								<ArrowUpIcon className="w-5 h-5 my-auto" />
+								<ArrowUpIcon className="my-auto h-5 w-5" />
 							</div>
 						</div>
 					)}
@@ -554,10 +554,10 @@ export default function EVMTransaction({ hash }) {
 			<div className="space-x-2 px-4 py-3" role="alert">
 				<div className="flex items-start">
 					<div>
-						<InformationCircleIcon className="h-6 w-6 text-white text-opacity-50 mr-2" />
+						<InformationCircleIcon className="mr-2 h-6 w-6 text-white text-opacity-50" />
 					</div>
 					<div>
-						<p className="text-white text-opacity-50 text-sm">
+						<p className="text-sm text-white text-opacity-50">
 							A transaction is nothing but a cryptographically proven
 							instruction. This block explorer only tracks them, and can in no
 							way reverse or alter them.

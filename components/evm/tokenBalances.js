@@ -60,7 +60,7 @@ export default function TokenBalances({ walletAddress }) {
 				leaveFrom="transform opacity-100 scale-100"
 				leaveTo="transform opacity-0 scale-95"
 			>
-				<Menu.Items className="absolute right-0 z-10 mt-2 w-full origin-top-right divide-y divide-gray-100 bg-[#111] text-white border border-gray-300 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+				<Menu.Items className="absolute right-0 z-10 mt-2 w-full origin-top-right divide-y divide-gray-100 border border-gray-300 bg-[#111] text-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
 					<div className="px-4 py-3">
 						<p className="font-semibold">
 							ERC20 Tokens ({query?.data?.erc20?.length ?? "0"})
