@@ -1,6 +1,6 @@
 query GetTransfers($limit: Int!) {
 	balances {
-		transfer(limit: $limit, order_by: { block_number: desc }) {
+		transfer(limit: $limit, order_by: { id: desc }) {
 			timestamp
 			status
 			id

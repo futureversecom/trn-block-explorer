@@ -6269,7 +6269,7 @@ export const GetExtrinsicsDocument = `
     extrinsic(
       limit: $limit
       offset: $offset
-      order_by: {block: {height: desc}}
+      order_by: {id: desc}
       where: {calls: {name: {_neq: "Timestamp.set"}}}
     ) {
       id
@@ -6359,7 +6359,7 @@ export const useGetTransferByHashQuery = <
 export const GetTransfersDocument = `
     query GetTransfers($limit: Int!) {
   balances {
-    transfer(limit: $limit, order_by: {block_number: desc}) {
+    transfer(limit: $limit, order_by: {id: desc}) {
       timestamp
       status
       id

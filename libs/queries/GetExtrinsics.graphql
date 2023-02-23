@@ -3,7 +3,7 @@ query GetExtrinsics($limit: Int!, $offset: Int) {
 		extrinsic(
 			limit: $limit
 			offset: $offset
-			order_by: { block: { height: desc } }
+			order_by: { id: desc }
 			where: { calls: { name: { _neq: "Timestamp.set" } } }
 		) {
 			id
