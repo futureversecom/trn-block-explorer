@@ -133,11 +133,11 @@ export default function BalanceForAddress({ walletAddress }) {
 							{isContractQuery?.data?.contractData?.contractCreator &&
 							isContractQuery?.data?.contractData?.deploymentTransactionHash ? (
 								<Balance title="Contract Creator">
-									<div className="text-white text-sm space-x-1">
+									<div className="space-x-1 text-sm text-white">
 										<Link
 											href={`/account/${isContractQuery?.data?.contractData?.contractCreator}`}
 										>
-											<span className="text-indigo-500 hover:text-white cursor-pointer">
+											<span className="cursor-pointer text-indigo-500 hover:text-white">
 												{formatAddress(
 													isContractQuery?.data?.contractData?.contractCreator
 												)}
@@ -147,7 +147,7 @@ export default function BalanceForAddress({ walletAddress }) {
 										<Link
 											href={`/tx/${isContractQuery?.data?.contractData?.deploymentTransactionHash}`}
 										>
-											<span className="text-indigo-500 hover:text-white cursor-pointer">
+											<span className="cursor-pointer text-indigo-500 hover:text-white">
 												{formatAddress(
 													isContractQuery?.data?.contractData
 														?.deploymentTransactionHash
@@ -160,7 +160,7 @@ export default function BalanceForAddress({ walletAddress }) {
 								<Fragment />
 							)}
 						</div>
-						<div className="py-3 px-4 flex flex-col space-y-2">
+						<div className="flex flex-col space-y-2 py-3 px-4">
 							<span className="text-white">Tokens</span>
 							<TokenBalances walletAddress={walletAddress} />
 						</div>
@@ -175,7 +175,7 @@ const Balance = ({ title, children }) => {
 	return (
 		<div className="py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
 			<div className="text-sm font-medium text-white">{title}</div>
-			<div className="space-y-1 text-sm font-medium text-white col-span-2">
+			<div className="col-span-2 space-y-1 text-sm font-medium text-white">
 				{children}
 			</div>
 		</div>

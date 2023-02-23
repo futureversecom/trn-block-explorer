@@ -26,7 +26,7 @@ export default function ContractTab({ walletAddress }) {
 	const fileKeys = contractData?.files ? Object.keys(contractData?.files) : [];
 
 	return (
-		<div className="text-white p-3 border border-gray-400 space-y-3">
+		<div className="space-y-3 border border-gray-400 p-3 text-white">
 			<div className="flex justify-between">
 				<div className="my-auto">
 					<HeaderText message="Contract Details" />
@@ -58,7 +58,7 @@ export default function ContractTab({ walletAddress }) {
 				<div className="sm:grid sm:grid-cols-8 sm:gap-4">
 					<dt className="text-sm font-medium text-gray-200">Optimizations</dt>
 					<dd className="mt-1 text-sm text-white sm:mt-0">
-						<span className="font-semibold mr-2">
+						<span className="mr-2 font-semibold">
 							{contractData?.optimizationEnabled ? "Enabled" : "Disabled"}
 						</span>
 						{contractData?.optimizationRuns}
@@ -84,7 +84,7 @@ export default function ContractTab({ walletAddress }) {
 									</EVMTooltip>
 								</div>
 							</div>
-							<div className="w-full max-h-64 overflow-y-scroll bg-black bg-opacity-20 rounded-lg">
+							<div className="max-h-64 w-full overflow-y-scroll rounded-lg bg-black bg-opacity-20">
 								<CodeEditor
 									value={content}
 									language="sol"
@@ -110,7 +110,7 @@ export default function ContractTab({ walletAddress }) {
 				tooltip={"Copy ABI to clipboard."}
 			/>
 
-			<div className="w-full max-h-64 overflow-y-scroll bg-black bg-opacity-20 rounded-lg">
+			<div className="max-h-64 w-full overflow-y-scroll rounded-lg bg-black bg-opacity-20">
 				<CodeEditor
 					value={JSON.stringify(contractData?.abi)}
 					language="json"
@@ -130,7 +130,7 @@ export default function ContractTab({ walletAddress }) {
 				tooltip={"Copy deployed bytecode to clipboard."}
 			/>
 			<div>
-				<p className="overflow-y-scroll max-h-32 break-all font-mono bg-black bg-opacity-20 p-3 rounded text-sm">
+				<p className="max-h-32 overflow-y-scroll break-all rounded bg-black bg-opacity-20 p-3 font-mono text-sm">
 					60806040523480156200001157600080fd5b506040518060600160405280602581526020016200309460259139620000378162000099565b506200004c62000046620000b2565b620000b6565b60408051808201909152601d8082527f464c554620576f726c643a205363656e657320616e6420536f756e64730000006020909201918252620000929160099162000108565b50620001eb565b8051620000ae90600290602084019062000108565b5050565b3390565b600380546001600160a01b038381166001600160a01b0319831681179093556040519116919082907f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e090600090a35050565b8280546200011690620001ae565b90600052602060002090601f0160209004810192826200013a576000855562000185565b82601f106200015557805160ff191683800117855562000185565b8280016001018555821562000185579182015b828111156200018557825182559160200191906001019062000168565b506200019392915062000197565b5090565b5b8082111562000193576000815560010162000198565b600281046001821680620001c357607f821691505b60208210811415620001e557634e487b7160e01b600052602260045260246000fd5b50919050565b612e9980620001fb6000396000f3fe608060405234801561001057600080fd5b50600436106101c65760003560e01c80639c345aef116101005780639c345aef146103445780639d9892cd14610357578063a17fa4641461036a578
 				</p>
 			</div>
@@ -148,7 +148,7 @@ const HeaderText = ({ message }) => {
 
 const Clipboard = ({ tooltip, copyText, headerText }) => {
 	return (
-		<div className="flex justify-between py-2 border-b border-gray-600">
+		<div className="flex justify-between border-b border-gray-600 py-2">
 			<div>
 				<HeaderText message={headerText} />
 			</div>

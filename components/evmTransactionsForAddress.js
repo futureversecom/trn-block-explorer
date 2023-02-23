@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+
 import { LoadingBlock } from "@/components";
 import EVMPagination from "@/components/evm/evmpagination";
 import EVMTransactionsTable from "@/components/evm/evmTransactionsTable";

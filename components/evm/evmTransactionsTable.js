@@ -15,7 +15,7 @@ export default function EVMTransactionsTable({ query, walletAddress }) {
 	return (
 		<div className="divide-y overflow-x-auto border border-gray-400 text-white">
 			{query?.data?.docs?.length && router.pathname !== "/evmtransactions" ? (
-				<div className="text-sm px-3 py-3">
+				<div className="px-3 py-3 text-sm">
 					Displaying {parseInt(query?.data?.docs?.length)} from a total of{" "}
 					{query?.data?.totalDocs} transactions
 				</div>
@@ -108,7 +108,7 @@ const EvmTransactionsForAddressRow = ({
 
 			<TableLayout.Data dataClassName="text-center">
 				{method ? (
-					<span className="inline-flex items-center rounded bg-gray-800 px-2 py-0.5 text-xs font-medium text-gray-100 capitalize">
+					<span className="inline-flex items-center rounded bg-gray-800 px-2 py-0.5 text-xs font-medium capitalize text-gray-100">
 						{method}
 					</span>
 				) : (
