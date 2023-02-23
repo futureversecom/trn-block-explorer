@@ -94,6 +94,26 @@
       "assetId": 2148,
       "mainnet": false,
       "external_url": "https://www.centre.io/usdc"
+    },
+
+    {
+      "name": "Altered State Token",
+      "symbol": "ASTO",
+      "address": "0x823556202e86763853b40e9cDE725f412e294689",
+      "decimals": 18,
+      "assetId": 4196,
+      "mainnet": true,
+      "external_url": "https://www.alteredstatemachine.xyz/token-page/"
+    },
+
+    {
+      "name": "Altered State Token",
+      "symbol": "ASTO",
+      "address": "0xBdc58b286D0e7d433bBcC84a2b7c35f43212EC6C",
+      "decimals": 18,
+      "assetId": 17508,
+      "mainnet": false,
+      "external_url": "https://www.alteredstatemachine.xyz/token-page/"
     }
   ]
 }
