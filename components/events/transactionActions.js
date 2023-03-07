@@ -107,7 +107,11 @@ const EthereumExecuted = ({ data }) => {
 			</div>
 			<div className="flex space-x-1">
 				<span className="font-semibold">TxHash:</span>
-				<span>{formatAddress(transactionHash)}</span>
+				<Link href={`/tx/${transactionHash}`}>
+					<span className="cursor-pointer text-indigo-500 hover:text-white">
+						{formatAddress(transactionHash)}
+					</span>
+				</Link>
 			</div>
 		</div>
 	);
