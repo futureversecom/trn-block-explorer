@@ -66,11 +66,17 @@ export default function Erc20TransfersForAddress({ walletAddress }) {
 									if (currentArg?.args?.to == currentArg?.args?.from) {
 										type = "self";
 									}
-									const contractData =
-										Object.getPrototypeOf(currentArg?.contractData) ===
-										Object.prototype
-											? currentArg?.contractData
-											: currentArg?.contractData?.[0];
+									let contractData;
+									if (typeof currentArg?.contractData == "object") {
+										if (
+											Object.getPrototypeOf(currentArg?.contractData) ===
+											Object.prototype
+										) {
+											contractData = currentArg?.contractData;
+										} else {
+											contractData = currentArg?.contractData?.[0];
+										}
+									}
 
 									currentArg.contractData = contractData;
 									const name = `${contractData?.name} (${contractData?.symbol})`;

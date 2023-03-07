@@ -2,7 +2,7 @@ import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { useQuery } from "@tanstack/react-query";
 import { Fragment } from "react";
-
+import AddressLink from "@/components/evm/AddressLink";
 import { getERC20Balance, getERC721Balance } from "@/libs/evm-api";
 import { formatAddress, formatUnits } from "@/libs/utils";
 
@@ -128,7 +128,9 @@ export default function TokenBalances({ walletAddress }) {
 															{token?.contractData?.[0]?.symbol ?? "??"})
 														</span>
 														<span className="overflow-ellipsis">
-															{formatAddress(token?.address, 9)}
+															<AddressLink address={token?.address}>
+																{formatAddress(token?.address, 9)}
+															</AddressLink>
 														</span>
 													</div>
 													<div className="my-auto">{token?.balance}</div>
