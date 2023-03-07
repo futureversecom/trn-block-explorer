@@ -68,3 +68,12 @@
 body {
 	@apply antialiased;
 }
+
+#nprogress .bar {
+	background: white;
+}
+
+#nprogress .spinner-icon {
+	border-top-color: white;
+	border-left-color: white;
+}
