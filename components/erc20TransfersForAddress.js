@@ -43,8 +43,8 @@ export default function Erc20TransfersForAddress({ walletAddress }) {
 						<TableLayout.Table>
 							<thead className="bg-transparent">
 								<tr>
-									<TableLayout.HeadItem text="Tx Hash" />
 									<TableLayout.HeadItem text="Status" />
+									<TableLayout.HeadItem text="Tx Hash" />
 									<TableLayout.HeadItem text="Timestamp" />
 									<TableLayout.HeadItem text="From" />
 									<TableLayout.HeadItem text="Type" />
