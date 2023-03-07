@@ -79,7 +79,9 @@ export default function Erc20TransfersForAddress({ walletAddress }) {
 									}
 
 									currentArg.contractData = contractData;
-									const name = `${contractData?.name} (${contractData?.symbol})`;
+									const name = `${
+										contractData?.name ? contractData?.name : "?"
+									} (${contractData?.symbol ? contractData?.symbol : "?"})`;
 
 									return (
 										<EvmTransactionsForAddressRow
