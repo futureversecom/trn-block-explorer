@@ -1,0 +1,18 @@
+query GetExtrinsicsBasic($limit: Int!) {
+	archive {
+		extrinsic(
+			limit: $limit
+			order_by: { id: desc }
+			where: { calls: { name: { _neq: "Timestamp.set" } } }
+		) {
+			id
+			success
+			calls {
+				name
+			}
+			block {
+				timestamp
+			}
+		}
+	}
+}

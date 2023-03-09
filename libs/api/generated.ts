@@ -5571,6 +5571,24 @@ export type GetExtrinsicsQuery = {
 	} | null;
 };
 
+export type GetExtrinsicsBasicQueryVariables = Exact<{
+	limit: Scalars["Int"];
+}>;
+
+export type GetExtrinsicsBasicQuery = {
+	__typename?: "query_root";
+	archive?: {
+		__typename?: "archive_archive_query";
+		extrinsic: Array<{
+			__typename?: "archive_extrinsic";
+			id: any;
+			success: boolean;
+			calls: Array<{ __typename?: "archive_call"; name: string }>;
+			block: { __typename?: "archive_block"; timestamp: any };
+		}>;
+	} | null;
+};
+
 export type GetTransferByHashQueryVariables = Exact<{
 	hash: Scalars["String"];
 }>;
@@ -6315,6 +6333,45 @@ export const useGetExtrinsicsQuery = <
 		fetcher<GetExtrinsicsQuery, GetExtrinsicsQueryVariables>(
 			client,
 			GetExtrinsicsDocument,
+			variables,
+			headers
+		),
+		options
+	);
+export const GetExtrinsicsBasicDocument = `
+    query GetExtrinsicsBasic($limit: Int!) {
+  archive {
+    extrinsic(
+      limit: $limit
+      order_by: {id: desc}
+      where: {calls: {name: {_neq: "Timestamp.set"}}}
+    ) {
+      id
+      success
+      calls {
+        name
+      }
+      block {
+        timestamp
+      }
+    }
+  }
+}
+    `;
+export const useGetExtrinsicsBasicQuery = <
+	TData = GetExtrinsicsBasicQuery,
+	TError = unknown
+>(
+	client: GraphQLClient,
+	variables: GetExtrinsicsBasicQueryVariables,
+	options?: UseQueryOptions<GetExtrinsicsBasicQuery, TError, TData>,
+	headers?: RequestInit["headers"]
+) =>
+	useQuery<GetExtrinsicsBasicQuery, TError, TData>(
+		["GetExtrinsicsBasic", variables],
+		fetcher<GetExtrinsicsBasicQuery, GetExtrinsicsBasicQueryVariables>(
+			client,
+			GetExtrinsicsBasicDocument,
 			variables,
 			headers
 		),
