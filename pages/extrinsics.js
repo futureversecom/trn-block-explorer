@@ -8,7 +8,6 @@ import {
 	PageHeader,
 	Pagination,
 	PaginationFallback,
-	RefetchIndicator,
 	TableLayout,
 	TimeAgo,
 } from "@/components";
