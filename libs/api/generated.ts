@@ -5543,24 +5543,22 @@ export type GetExtrinsicsQuery = {
 		extrinsic: Array<{
 			__typename?: "archive_extrinsic";
 			id: any;
-			success: boolean;
 			hash: any;
-			index_in_block: number;
+			success: boolean;
 			calls: Array<{ __typename?: "archive_call"; name: string }>;
 			block: { __typename?: "archive_block"; height: number; timestamp: any };
-			events: Array<{
-				__typename?: "archive_event";
-				name: string;
-				args?: any | null;
-			}>;
-			events_aggregate: {
-				__typename?: "archive_event_aggregate";
-				aggregate?: {
-					__typename?: "archive_event_aggregate_fields";
-					count: number;
-				} | null;
-			};
 		}>;
+	} | null;
+};
+
+export type GetExtrinsicsAggregateQueryVariables = Exact<{
+	[key: string]: never;
+}>;
+
+export type GetExtrinsicsAggregateQuery = {
+	__typename?: "query_root";
+	archive?: {
+		__typename?: "archive_archive_query";
 		extrinsic_aggregate: {
 			__typename?: "archive_extrinsic_aggregate";
 			aggregate?: {
@@ -5568,24 +5566,6 @@ export type GetExtrinsicsQuery = {
 				count: number;
 			} | null;
 		};
-	} | null;
-};
-
-export type GetExtrinsicsBasicQueryVariables = Exact<{
-	limit: Scalars["Int"];
-}>;
-
-export type GetExtrinsicsBasicQuery = {
-	__typename?: "query_root";
-	archive?: {
-		__typename?: "archive_archive_query";
-		extrinsic: Array<{
-			__typename?: "archive_extrinsic";
-			id: any;
-			success: boolean;
-			calls: Array<{ __typename?: "archive_call"; name: string }>;
-			block: { __typename?: "archive_block"; timestamp: any };
-		}>;
 	} | null;
 };
 
@@ -6291,29 +6271,14 @@ export const GetExtrinsicsDocument = `
       where: {calls: {name: {_neq: "Timestamp.set"}}}
     ) {
       id
+      hash
       success
       calls {
         name
       }
-      hash
-      index_in_block
       block {
         height
         timestamp
-      }
-      events {
-        name
-        args
-      }
-      events_aggregate {
-        aggregate {
-          count
-        }
-      }
-    }
-    extrinsic_aggregate(where: {calls: {name: {_neq: "Timestamp.set"}}}) {
-      aggregate {
-        count
       }
     }
   }
@@ -6338,40 +6303,33 @@ export const useGetExtrinsicsQuery = <
 		),
 		options
 	);
-export const GetExtrinsicsBasicDocument = `
-    query GetExtrinsicsBasic($limit: Int!) {
+export const GetExtrinsicsAggregateDocument = `
+    query GetExtrinsicsAggregate {
   archive {
-    extrinsic(
-      limit: $limit
-      order_by: {id: desc}
-      where: {calls: {name: {_neq: "Timestamp.set"}}}
-    ) {
-      id
-      success
-      calls {
-        name
-      }
-      block {
-        timestamp
+    extrinsic_aggregate(where: {calls: {name: {_neq: "Timestamp.set"}}}) {
+      aggregate {
+        count
       }
     }
   }
 }
     `;
-export const useGetExtrinsicsBasicQuery = <
-	TData = GetExtrinsicsBasicQuery,
+export const useGetExtrinsicsAggregateQuery = <
+	TData = GetExtrinsicsAggregateQuery,
 	TError = unknown
 >(
 	client: GraphQLClient,
-	variables: GetExtrinsicsBasicQueryVariables,
-	options?: UseQueryOptions<GetExtrinsicsBasicQuery, TError, TData>,
+	variables?: GetExtrinsicsAggregateQueryVariables,
+	options?: UseQueryOptions<GetExtrinsicsAggregateQuery, TError, TData>,
 	headers?: RequestInit["headers"]
 ) =>
-	useQuery<GetExtrinsicsBasicQuery, TError, TData>(
-		["GetExtrinsicsBasic", variables],
-		fetcher<GetExtrinsicsBasicQuery, GetExtrinsicsBasicQueryVariables>(
+	useQuery<GetExtrinsicsAggregateQuery, TError, TData>(
+		variables === undefined
+			? ["GetExtrinsicsAggregate"]
+			: ["GetExtrinsicsAggregate", variables],
+		fetcher<GetExtrinsicsAggregateQuery, GetExtrinsicsAggregateQueryVariables>(
 			client,
-			GetExtrinsicsBasicDocument,
+			GetExtrinsicsAggregateDocument,
 			variables,
 			headers
 		),

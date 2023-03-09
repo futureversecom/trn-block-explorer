@@ -9,6 +9,8 @@ import { useCallback, useMemo } from "react";
 
 import { usePagination } from "@/libs/stores";
 
+import { PaginationButton } from "./";
+
 export const Pagination = ({ table }) => {
 	const { pages, currentPage } = usePagination(table);
 	const { prevPages, postPages, onPageClick } = usePages(table);
@@ -117,11 +119,14 @@ export const Pagination = ({ table }) => {
 const usePages = (table) => {
 	const { pages, currentPage, setCurrentPage } = usePagination(table);
 
-	const onPageClick = (page, condition) => {
-		if (condition) return;
+	const onPageClick = useCallback(
+		(page, condition) => {
+			if (condition) return;
 
-		setCurrentPage(page);
-	};
+			setCurrentPage(page);
+		},
+		[setCurrentPage]
+	);
 
 	const getPrevPages = useCallback(
 		(amount) => {
@@ -181,16 +186,3 @@ const usePages = (table) => {
 
 	return { prevPages, postPages, onPageClick };
 };
-
-const PaginationButton = ({ children, buttonClassName, ...props }) => (
-	<button
-		{...props}
-		type="button"
-		className={clsx(
-			"cursor-pointer border bg-transparent px-2 py-1",
-			buttonClassName
-		)}
-	>
-		{children}
-	</button>
-);

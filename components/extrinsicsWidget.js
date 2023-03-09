@@ -3,12 +3,12 @@ import Link from "next/link";
 
 import { DummyListItem, RefetchIndicator, TimeAgo } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
-import { useGetExtrinsicsBasicQuery } from "@/libs/api/generated.ts";
+import { useGetExtrinsicsQuery } from "@/libs/api/generated.ts";
 import { useExtrinsicSuccess, usePolling } from "@/libs/hooks";
 import { formatExtrinsicId } from "@/libs/utils";
 
 export default function ExtrinsicsWidget() {
-	const query = usePolling({}, useGetExtrinsicsBasicQuery, { limit: 10 });
+	const query = usePolling({}, useGetExtrinsicsQuery, { limit: 10 });
 	query.data = query?.data?.archive?.extrinsic;
 
 	return (
