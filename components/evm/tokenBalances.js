@@ -1,6 +1,7 @@
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
 import { Fragment } from "react";
 
 import { getERC20Balance, getERC721Balance } from "@/libs/evm-api";
@@ -84,9 +85,11 @@ export default function TokenBalances({ walletAddress }) {
 															{token?.contractData?.[0]?.name ?? "??"} (
 															{token?.contractData?.[0]?.symbol ?? "??"})
 														</span>
-														<span className="overflow-ellipsis">
-															{formatAddress(token?.address, 9)}
-														</span>
+														<Link href={`/account/${token?.address}`}>
+															<span className="overflow-ellipsis text-indigo-500 cursor-pointer">
+																{formatAddress(token?.address, 9)}
+															</span>
+														</Link>
 													</div>
 													<div className="my-auto">
 														{formatUnits(
@@ -127,9 +130,11 @@ export default function TokenBalances({ walletAddress }) {
 															{token?.contractData?.[0]?.name ?? "??"} (
 															{token?.contractData?.[0]?.symbol ?? "??"})
 														</span>
-														<span className="overflow-ellipsis">
-															{formatAddress(token?.address, 9)}
-														</span>
+														<Link href={`/account/${token?.address}`}>
+															<span className="overflow-ellipsis text-indigo-500 cursor-pointer">
+																{formatAddress(token?.address, 9)}
+															</span>
+														</Link>
 													</div>
 													<div className="my-auto">{token?.balance}</div>
 												</div>

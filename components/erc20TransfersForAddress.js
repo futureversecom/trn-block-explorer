@@ -43,8 +43,8 @@ export default function Erc20TransfersForAddress({ walletAddress }) {
 						<TableLayout.Table>
 							<thead className="bg-transparent">
 								<tr>
-									<TableLayout.HeadItem text="Tx Hash" />
 									<TableLayout.HeadItem text="Status" />
+									<TableLayout.HeadItem text="Tx Hash" />
 									<TableLayout.HeadItem text="Timestamp" />
 									<TableLayout.HeadItem text="From" />
 									<TableLayout.HeadItem text="Type" />
@@ -66,14 +66,22 @@ export default function Erc20TransfersForAddress({ walletAddress }) {
 									if (currentArg?.args?.to == currentArg?.args?.from) {
 										type = "self";
 									}
-									const contractData =
-										Object.getPrototypeOf(currentArg?.contractData) ===
-										Object.prototype
-											? currentArg?.contractData
-											: currentArg?.contractData?.[0];
+									let contractData;
+									if (typeof currentArg?.contractData == "object") {
+										if (
+											Object.getPrototypeOf(currentArg?.contractData) ===
+											Object.prototype
+										) {
+											contractData = currentArg?.contractData;
+										} else {
+											contractData = currentArg?.contractData?.[0];
+										}
+									}
 
 									currentArg.contractData = contractData;
-									const name = `${contractData?.name} (${contractData?.symbol})`;
+									const name = `${
+										contractData?.name ? contractData?.name : "?"
+									} (${contractData?.symbol ? contractData?.symbol : "?"})`;
 
 									return (
 										<EvmTransactionsForAddressRow
