@@ -1,0 +1,9 @@
+query GetExtrinsicsAggregate {
+	archive {
+		extrinsic_aggregate(where: { calls: { name: { _neq: "Timestamp.set" } } }) {
+			aggregate {
+				count
+			}
+		}
+	}
+}

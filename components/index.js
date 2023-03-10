@@ -22,4 +22,6 @@ export * from "./tableLayout";
 export * from "./addressLink";
 export * from "./accountTables";
 export * from "./pagination";
+export * from "./paginationButton";
+export * from "./paginationFallback";
 export * from "./timeAgo";

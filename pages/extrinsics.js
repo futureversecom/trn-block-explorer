@@ -7,11 +7,15 @@ import {
 	LoadingBlock,
 	PageHeader,
 	Pagination,
+	PaginationFallback,
 	TableLayout,
 	TimeAgo,
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
-import { useGetExtrinsicsQuery } from "@/libs/api/generated.ts";
+import {
+	useGetExtrinsicsAggregateQuery,
+	useGetExtrinsicsQuery,
+} from "@/libs/api/generated.ts";
 import { useExtrinsicSuccess, usePolling } from "@/libs/hooks";
 import { usePagination } from "@/libs/stores";
 import { formatAddress, formatExtrinsicId } from "@/libs/utils";
@@ -43,7 +47,6 @@ export default function Extrinsics() {
 											<TableLayout.HeadItem text="Block" />
 											<TableLayout.HeadItem text="Pallet" />
 											<TableLayout.HeadItem text="Call" />
-											<TableLayout.HeadItem text="Events" />
 										</tr>
 									</thead>
 									<tbody className="divide-y divide-gray-800 bg-transparent">
@@ -53,7 +56,6 @@ export default function Extrinsics() {
 												id={extrinsic.id}
 												hash={extrinsic.hash}
 												extrinsic={extrinsic}
-												events_aggregate={extrinsic.events_aggregate}
 												block={extrinsic.block}
 												calls={extrinsic.calls}
 											/>
@@ -66,19 +68,16 @@ export default function Extrinsics() {
 				</div>
 			)}
 
-			{pages?.length > 1 && <Pagination table="extrinsics" />}
+			{pages?.length > 1 ? (
+				<Pagination table="extrinsics" />
+			) : (
+				<PaginationFallback table="extrinsics" />
+			)}
 		</ContainerLayout>
 	);
 }
 
-const ExtrinsicRow = ({
-	id,
-	hash,
-	extrinsic,
-	events_aggregate,
-	block,
-	calls,
-}) => {
+const ExtrinsicRow = ({ id, hash, extrinsic, block, calls }) => {
 	const extrinsicSuccess = useExtrinsicSuccess(extrinsic);
 
 	return (
@@ -123,8 +122,6 @@ const ExtrinsicRow = ({
 						calls?.[0]?.name?.split(".")[1]?.replaceAll("_", " ")}
 				</span>
 			</TableLayout.Data>
-
-			<TableLayout.Data>{events_aggregate.aggregate.count}</TableLayout.Data>
 		</tr>
 	);
 };
@@ -136,7 +133,9 @@ const useQuery = (limit) => {
 		limit,
 		offset: (currentPage - 1) * limit,
 	});
-	usePages(query.data, limit);
+
+	const aggregateQuery = usePolling({}, useGetExtrinsicsAggregateQuery);
+	usePages(aggregateQuery.data, limit);
 
 	// Prefetch next page
 	usePolling({}, useGetExtrinsicsQuery, {
