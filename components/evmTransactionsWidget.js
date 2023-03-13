@@ -46,8 +46,9 @@ export default function EvmTransactionsWidget() {
 					: query?.data?.docs?.map((tx, key) => (
 							<EvmTx
 								key={key}
+								from={tx?.from}
 								success={tx?.status === 1}
-								method={tx?.parsedData?.name}
+								to={tx?.to || tx?.creates}
 								txHash={tx?.transactionHash || tx?.hash}
 								timestamp={tx?.timestamp || tx?.firstSeen}
 							/>
@@ -57,7 +58,7 @@ export default function EvmTransactionsWidget() {
 	);
 }
 
-const EvmTx = ({ txHash, method, timestamp, success }) => {
+const EvmTx = ({ txHash, to, from, timestamp, success }) => {
 	return (
 		<div className="block py-3">
 			<div className="flex flex-row justify-between">
@@ -69,7 +70,12 @@ const EvmTx = ({ txHash, method, timestamp, success }) => {
 				</div>
 			</div>
 			<div className="flex flex-row justify-between text-sm text-gray-500">
-				<div className="text-gray-200">{method ?? "-"}</div>
+				<div className="text-gray-200">
+					From: {formatAddress(from)}, To:{" "}
+					<span className="cursor-pointer text-indigo-500 hover:text-white">
+						<Link href={`/address/${to}`}>{formatAddress(to)}</Link>
+					</span>
+				</div>
 				<div className="flex space-x-3">
 					<div className="text-sm text-gray-200">
 						<TimeAgo timestamp={timestamp * 1000} />
