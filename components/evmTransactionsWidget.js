@@ -2,10 +2,11 @@ import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 
-import { DummyListItem, RefetchIndicator, TimeAgo } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { getEVMTransactions } from "@/libs/evm-api";
 import { formatAddress } from "@/libs/utils";
+
+import { DummyListItem, RefetchIndicator, TextLink, TimeAgo } from "./";
 
 export default function EvmTransactionsWidget() {
 	const limit = 10;
@@ -64,17 +65,18 @@ const EvmTx = ({ txHash, to, from, timestamp, success }) => {
 			<div className="flex flex-row justify-between">
 				<div className="text-sm font-bold">
 					<span className="mr-2 text-white">Tx Hash</span>
-					<span className="cursor-pointer text-lg text-indigo-500 hover:text-white">
-						<Link href={`/tx/${txHash}`}>{formatAddress(txHash)}</Link>
-					</span>
+					<TextLink
+						link={"/tx/${txHash}"}
+						linkClassName="text-lg"
+						text={formatAddress(txHash)}
+					/>
 				</div>
 			</div>
 			<div className="flex flex-row justify-between text-sm text-gray-500">
 				<div className="text-gray-200">
-					From: {formatAddress(from)}, To:{" "}
-					<span className="cursor-pointer text-indigo-500 hover:text-white">
-						<Link href={`/address/${to}`}>{formatAddress(to)}</Link>
-					</span>
+					From:{" "}
+					<TextLink link={`/address/${from}`} text={formatAddress(from)} />, To:{" "}
+					<TextLink link={`/address/${to}`} text={formatAddress(to)} />
 				</div>
 				<div className="flex space-x-3">
 					<div className="text-sm text-gray-200">
