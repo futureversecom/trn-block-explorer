@@ -25,7 +25,7 @@ export default function AddressLink({
 			)}
 
 			<span className="flex space-x-2">
-				<Link href={`/account/${address}`}>
+				<Link href={`/address/${address}`}>
 					<span className="cursor-pointer text-indigo-500 hover:text-white">
 						{format ? formatAddress(address) : address}
 					</span>

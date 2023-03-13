@@ -18,13 +18,13 @@ const Transfer = ({ log }) => {
 				<span className="my-auto font-semibold capitalize">Transfer</span>
 				<span className="my-auto font-semibold capitalize">From</span>
 				<span className="my-auto cursor-pointer text-indigo-500 hover:text-white">
-					<Link href={`/account/${log?.args?.to}`}>
+					<Link href={`/address/${log?.args?.to}`}>
 						{formatAddress(log?.args?.from)}
 					</Link>
 				</span>
 				<span className="my-auto font-semibold capitalize">To</span>
 				<span className="my-auto cursor-pointer text-indigo-500 hover:text-white">
-					<Link href={`/account/${log?.args?.to}`}>
+					<Link href={`/address/${log?.args?.to}`}>
 						{formatAddress(log?.args?.to)}
 					</Link>
 				</span>
@@ -54,13 +54,13 @@ const ApprovalForAll = ({ log }) => {
 			</div>
 			<span className="my-auto font-semibold capitalize">Owner</span>
 			<span className="my-auto cursor-pointer text-indigo-500 hover:text-white">
-				<Link href={`/account/${log?.args?.owner || log?.args?.account}`}>
+				<Link href={`/address/${log?.args?.owner || log?.args?.account}`}>
 					{formatAddress(log?.args?.owner || log?.args?.account)}
 				</Link>
 			</span>
 			<span className="my-auto font-semibold capitalize">Operator</span>
 			<span className="my-auto cursor-pointer text-indigo-500 hover:text-white">
-				<Link href={`/account/${log?.args?.operator}`}>
+				<Link href={`/address/${log?.args?.operator}`}>
 					{formatAddress(log?.args?.operator)}
 				</Link>
 			</span>
@@ -93,13 +93,13 @@ const TransferBatch = ({ log }) => {
 					</span>
 					<span className="my-auto font-semibold capitalize">From</span>
 					<span className="my-auto cursor-pointer text-indigo-500 hover:text-white">
-						<Link href={`/account/${log?.args?.from}`}>
+						<Link href={`/address/${log?.args?.from}`}>
 							{formatAddress(log?.args?.from)}
 						</Link>
 					</span>
 					<span className="my-auto font-semibold capitalize">To</span>
 					<span className="my-auto cursor-pointer text-indigo-500 hover:text-white">
-						<Link href={`/account/${log?.args?.to}`}>
+						<Link href={`/address/${log?.args?.to}`}>
 							{formatAddress(log?.args?.to)}
 						</Link>
 					</span>
@@ -139,13 +139,13 @@ const TransferSingle = ({ log }) => {
 				<span className="my-auto font-semibold capitalize">Transfer</span>
 				<span className="my-auto font-semibold capitalize">From</span>
 				<span className="my-auto cursor-pointer text-indigo-500 hover:text-white">
-					<Link href={`/account/${log?.args?.from}`}>
+					<Link href={`/address/${log?.args?.from}`}>
 						{formatAddress(log?.args?.from)}
 					</Link>
 				</span>
 				<span className="my-auto font-semibold capitalize">To</span>
 				<span className="my-auto cursor-pointer text-indigo-500 hover:text-white">
-					<Link href={`/account/${log?.args?.to}`}>
+					<Link href={`/address/${log?.args?.to}`}>
 						{formatAddress(log?.args?.to)}
 					</Link>
 				</span>
@@ -177,13 +177,13 @@ const ERC20Transfer = ({ log }) => {
 				<span className="my-auto font-semibold capitalize">Transfer</span>
 				<span className="my-auto font-semibold capitalize">From</span>
 				<span className="my-auto cursor-pointer text-indigo-500 hover:text-white">
-					<Link href={`/account/${log?.args?.from}`}>
+					<Link href={`/address/${log?.args?.from}`}>
 						{formatAddress(log?.args?.from)}
 					</Link>
 				</span>
 				<span className="my-auto font-semibold capitalize">To</span>
 				<span className="my-auto cursor-pointer text-indigo-500 hover:text-white">
-					<Link href={`/account/${log?.args?.to}`}>
+					<Link href={`/address/${log?.args?.to}`}>
 						{formatAddress(log?.args?.to)}
 					</Link>
 				</span>
@@ -209,13 +209,13 @@ const ERC20Approval = ({ log }) => {
 			</div>
 			<span className="my-auto font-semibold capitalize">Owner</span>
 			<span className="my-auto cursor-pointer text-indigo-500 hover:text-white">
-				<Link href={`/account/${log?.args?.owner}`}>
+				<Link href={`/address/${log?.args?.owner}`}>
 					{formatAddress(log?.args?.owner)}
 				</Link>
 			</span>
 			<span className="my-auto font-semibold capitalize">Spender</span>
 			<span className="my-auto cursor-pointer text-indigo-500 hover:text-white">
-				<Link href={`/account/${log?.args?.spender}`}>
+				<Link href={`/address/${log?.args?.spender}`}>
 					{formatAddress(log?.args?.spender)}
 				</Link>
 			</span>
@@ -240,13 +240,13 @@ const ERC721Approval = ({ log }) => {
 			</div>
 			<span className="my-auto font-semibold capitalize">Owner</span>
 			<span className="my-auto cursor-pointer text-indigo-500 hover:text-white">
-				<Link href={`/account/${log?.args?.owner}`}>
+				<Link href={`/address/${log?.args?.owner}`}>
 					{formatAddress(log?.args?.owner)}
 				</Link>
 			</span>
 			<span className="my-auto font-semibold capitalize">Approved Spender</span>
 			<span className="my-auto cursor-pointer text-indigo-500 hover:text-white">
-				<Link href={`/account/${log?.args?.approved}`}>
+				<Link href={`/address/${log?.args?.approved}`}>
 					{formatAddress(log?.args?.approved)}
 				</Link>
 			</span>

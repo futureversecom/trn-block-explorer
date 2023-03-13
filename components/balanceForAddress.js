@@ -135,7 +135,7 @@ export default function BalanceForAddress({ walletAddress }) {
 								<Balance title="Contract Creator">
 									<div className="space-x-1 text-sm text-white">
 										<Link
-											href={`/account/${isContractQuery?.data?.contractData?.contractCreator}`}
+											href={`/address/${isContractQuery?.data?.contractData?.contractCreator}`}
 										>
 											<span className="cursor-pointer text-indigo-500 hover:text-white">
 												{formatAddress(

@@ -99,14 +99,14 @@ const TransferRow = ({
 			<TableLayout.Data>{formatUnits(amount, 18)} Root</TableLayout.Data>
 			{from?.id ? (
 				<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500">
-					<Link href={`/account/${from.id}`}>{formatAddress(from.id)}</Link>
+					<Link href={`/address/${from.id}`}>{formatAddress(from.id)}</Link>
 				</TableLayout.Data>
 			) : (
 				<TableLayout.Data>{status ?? "?"}</TableLayout.Data>
 			)}
 			{to?.id ? (
 				<TableLayout.Data dataClassName="cursor-pointer !text-indigo-500">
-					<Link href={`/account/${to.id}`}>{formatAddress(to.id)}</Link>
+					<Link href={`/address/${to.id}`}>{formatAddress(to.id)}</Link>
 				</TableLayout.Data>
 			) : (
 				<TableLayout.Data>{status ?? "?"}</TableLayout.Data>

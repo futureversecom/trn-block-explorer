@@ -100,7 +100,7 @@ export default function Transfer({ hash }) {
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="From" />
 						<DetailsLayout.Data dataClassName="flex flex-row">
-							<Link href={`/account/${query.data.from?.id}`}>
+							<Link href={`/address/${query.data.from?.id}`}>
 								<span className="cursor-pointer text-sm text-indigo-500">
 									{query.data.from?.id}
 								</span>
@@ -112,7 +112,7 @@ export default function Transfer({ hash }) {
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="To" />
 						<DetailsLayout.Data dataClassName="flex flex-row">
-							<Link href={`/account/${query.data.to?.id}`}>
+							<Link href={`/address/${query.data.to?.id}`}>
 								<span className="cursor-pointer text-sm text-indigo-500">
 									{query.data.to?.id}
 								</span>

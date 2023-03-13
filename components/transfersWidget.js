@@ -91,7 +91,7 @@ const TransferItem = ({
 					{status !== "ISSUED" && (
 						<>
 							<span className="text-gray-500">From</span>{" "}
-							<Link href={`/account/${from}`}>
+							<Link href={`/address/${from}`}>
 								<span className="cursor-pointer text-indigo-500">
 									{formatAddress(from)}
 								</span>
@@ -103,7 +103,7 @@ const TransferItem = ({
 							<span className="text-gray-500">
 								{status === "ISSUED" ? "To" : "to"}
 							</span>{" "}
-							<Link href={`/account/${to}`}>
+							<Link href={`/address/${to}`}>
 								<span className="cursor-pointer text-indigo-500">
 									{formatAddress(to)}
 								</span>

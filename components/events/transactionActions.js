@@ -56,7 +56,7 @@ const AssetsBurned = ({ data }) => {
 				{formattedAmount} {asset?.symbol}
 			</span>
 			<span className="font-semibold">From</span>
-			<Link href={`/account/${owner}`}>
+			<Link href={`/address/${owner}`}>
 				<span className="cursor-pointer text-indigo-500 hover:text-white">
 					{formatAddress(owner)}
 				</span>
@@ -78,7 +78,7 @@ const Erc20PegErc20Withdraw = ({ data }) => {
 				{formattedAmount} {asset?.symbol}
 			</span>
 			<span className="font-semibold">To</span>
-			<Link href={`/account/${to}`}>
+			<Link href={`/address/${to}`}>
 				<span className="cursor-pointer text-indigo-500 hover:text-white">
 					{formatAddress(to)}
 				</span>
@@ -93,13 +93,13 @@ const EthereumExecuted = ({ data }) => {
 		<div className="flex flex-col">
 			<div className="flex space-x-1">
 				<span className="font-semibold">EVM Transaction From</span>
-				<Link href={`/account/${from}`}>
+				<Link href={`/address/${from}`}>
 					<span className="cursor-pointer text-indigo-500 hover:text-white">
 						{formatAddress(from)}
 					</span>
 				</Link>
 				<span className="font-semibold">To</span>
-				<Link href={`/account/${to}`}>
+				<Link href={`/address/${to}`}>
 					<span className="cursor-pointer text-indigo-500 hover:text-white">
 						{formatAddress(to)}
 					</span>
@@ -129,7 +129,7 @@ const AssetsIssued = ({ data }) => {
 				{formattedAmount} {asset?.symbol}
 			</span>
 			<span className="font-semibold">To</span>
-			<Link href={`/account/${data?.args?.owner}`}>
+			<Link href={`/address/${data?.args?.owner}`}>
 				<span className="cursor-pointer text-indigo-500 hover:text-white">
 					{formatAddress(data?.args?.owner)}
 				</span>
@@ -146,13 +146,13 @@ const AssetsTransferred = ({ data }) => {
 	return (
 		<div className="flex space-x-1">
 			<span className="font-semibold">From</span>
-			<Link href={`/account/${data?.args?.from}`}>
+			<Link href={`/address/${data?.args?.from}`}>
 				<span className="cursor-pointer text-indigo-500 hover:text-white">
 					{formatAddress(data?.args?.from)}
 				</span>
 			</Link>
 			<span className="font-semibold">To</span>
-			<Link href={`/account/${data?.args?.to}`}>
+			<Link href={`/address/${data?.args?.to}`}>
 				<span className="cursor-pointer text-indigo-500 hover:text-white">
 					{formatAddress(data?.args?.to)}
 				</span>

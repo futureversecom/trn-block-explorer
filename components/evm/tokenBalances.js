@@ -85,7 +85,7 @@ export default function TokenBalances({ walletAddress }) {
 															{token?.contractData?.[0]?.name ?? "??"} (
 															{token?.contractData?.[0]?.symbol ?? "??"})
 														</span>
-														<Link href={`/account/${token?.address}`}>
+														<Link href={`/address/${token?.address}`}>
 															<span className="cursor-pointer overflow-ellipsis text-indigo-500">
 																{formatAddress(token?.address, 9)}
 															</span>
@@ -130,7 +130,7 @@ export default function TokenBalances({ walletAddress }) {
 															{token?.contractData?.[0]?.name ?? "??"} (
 															{token?.contractData?.[0]?.symbol ?? "??"})
 														</span>
-														<Link href={`/account/${token?.address}`}>
+														<Link href={`/address/${token?.address}`}>
 															<span className="cursor-pointer overflow-ellipsis text-indigo-500">
 																{formatAddress(token?.address, 9)}
 															</span>

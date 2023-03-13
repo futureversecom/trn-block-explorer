@@ -68,7 +68,7 @@ const useSearch = () => {
 	}, [router?.pathname]);
 
 	const getSearchURL = (search) => {
-		if (ethers.utils.isAddress(search)) return `/account/${search}`;
+		if (ethers.utils.isAddress(search)) return `/address/${search}`;
 
 		if (search?.length == 66) {
 			return `/tx/${search}`;

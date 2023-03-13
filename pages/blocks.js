@@ -105,7 +105,7 @@ const BlockRow = ({
 			</TableLayout.Data>
 
 			<TableLayout.Data>
-				<Link href={`/account/${validator}`}>
+				<Link href={`/address/${validator}`}>
 					<span className="cursor-pointer text-indigo-500 hover:text-white">
 						{validator ? formatAddress(validator) : "?"}
 					</span>
