@@ -34,78 +34,80 @@ export default function ChaindataWidget() {
 
 	return (
 		<div>
-			<div className="flex flex-row justify-between py-3">
+			<div className="flex flex-row justify-between py-3 h-[3.5em]">
 				<div className="flex flex-row">
 					<ChartPieIcon className="my-auto h-5 pr-3 text-white" />
 					<h3 className="text-md font-bold leading-6 text-white">Chain Data</h3>
 				</div>
-				{query.isRefetching && (
+				{query?.isRefetching && (
 					<div>
 						<RefetchIndicator />
 					</div>
 				)}
 			</div>
-			{query.isLoading ? (
-				<LoadingBlock title="Chaindata" height="h-[5.500em]" />
-			) : (
-				<div className="space-y-3">
-					<dl className="grid grid-cols-1 divide-y divide-gray-400 overflow-hidden border border-gray-400 bg-transparent text-[#111] md:grid-cols-3 md:divide-y-0 md:divide-x">
-						{[
-							{
-								name: "Transfers",
-								stat: chainData?.transfers,
-							},
-							{
-								name: "Finalized Blocks",
-								stat: chainData?.blocks,
-							},
-							{
-								name: "Holders",
-								stat: chainData?.holders,
-							},
-						].map((item) => (
-							<div
-								key={item.name}
-								className="my-auto flex flex-row px-4 py-5 sm:p-4"
-							>
-								<div className="my-auto pr-3">
-									{item.name === "Transfers" && (
-										<ChartPieIcon
-											className="h-12 text-gray-200"
-											strokeWidth="1"
-										/>
-									)}
-									{item.name === "Finalized Blocks" && (
-										<CubeIcon className="h-12 text-gray-200" strokeWidth="1" />
-									)}
-									{item.name === "Holders" && (
-										<UserGroupIcon
-											className="h-12 text-gray-200"
-											strokeWidth="1"
-										/>
-									)}
-								</div>
-								<div>
-									<dt className="text-base font-semibold text-gray-200">
-										{item.name}
-									</dt>
-									<dd className="flex items-baseline justify-between md:block lg:flex">
-										<div className="flex items-baseline text-2xl font-bold text-white">
+			<div className="space-y-3">
+				<dl className="divide-y divide-gray-400 overflow-hidden border border-gray-400 bg-transparent text-[#111]">
+					{[
+						{
+							name: "Transfers",
+							stat: chainData?.transfers,
+						},
+						{
+							name: "Finalized Blocks",
+							stat: chainData?.blocks,
+						},
+						{
+							name: "Holders",
+							stat: chainData?.holders,
+						},
+					].map((item) => (
+						<div
+							key={item.name}
+							className="my-auto flex flex-row px-4 py-5 sm:p-4"
+						>
+							<div className="my-auto pr-3">
+								{item.name === "Transfers" && (
+									<ChartPieIcon
+										className="h-12 text-gray-200"
+										strokeWidth="1"
+									/>
+								)}
+								{item.name === "Finalized Blocks" && (
+									<CubeIcon className="h-12 text-gray-200" strokeWidth="1" />
+								)}
+								{item.name === "Holders" && (
+									<UserGroupIcon
+										className="h-12 text-gray-200"
+										strokeWidth="1"
+									/>
+								)}
+							</div>
+							<div>
+								<dt className="text-base font-semibold text-gray-200">
+									{item.name}
+								</dt>
+								<dd className="flex items-baseline justify-between md:block lg:flex">
+									<div className="flex items-baseline text-2xl font-bold text-white">
+										{item.stat ? (
 											<CountUp
 												duration={1}
+												separator=","
 												end={item.stat}
-												start={firstCount ? 0 : item.stat - 1}
-												separator={","}
 												className="font-number"
+												start={firstCount ? 0 : item.stat - 1}
 											/>
-										</div>
-									</dd>
-								</div>
+										) : (
+											<div className="animate-pulse grid grid-cols-8 gap-x-10 gap-y-2">
+												<div className="col-span-4 h-5 rounded bg-gray-400" />
+											</div>
+										)}
+									</div>
+								</dd>
 							</div>
-						))}
-					</dl>
-				</div>
-			)}
+						</div>
+					))}
+				</dl>
+			</div>
 		</div>
 	);
 }
