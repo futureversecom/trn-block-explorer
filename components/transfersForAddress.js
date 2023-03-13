@@ -3,13 +3,6 @@ import Link from "next/link";
 import { useEffect, useMemo } from "react";
 
 import {
-	AddressLink,
-	LoadingBlock,
-	Pagination,
-	TableLayout,
-	TimeAgo,
-} from "@/components";
-import {
 	useGetTransfersFromAddressQuery,
 	useGetTransfersToAddressQuery,
 } from "@/libs/api/generated.ts";
@@ -17,7 +10,14 @@ import { usePolling } from "@/libs/hooks";
 import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
 import { formatBalance, getAssetMetadata } from "@/libs/utils";
 
-import InOutLabel from "./inOutLabel";
+import {
+	AddressLink,
+	InOutLabel,
+	LoadingBlock,
+	Pagination,
+	TableLayout,
+	TimeAgo,
+} from "./";
 
 export default function TransfersForAddress({ walletAddress }) {
 	const { pages, currentPage } = usePagination("accountTransfers");

@@ -3,10 +3,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { Fragment } from "react";
 
-import { TableLayout, TimeAgo } from "@/components";
+import { InOutLabel, TableLayout, TimeAgo } from "@/components";
 import AddressLink from "@/components/evm/AddressLink";
 import TransactionStatus from "@/components/evm/TransactionStatus";
-import InOutLabel from "@/components/inOutLabel";
 import { formatAddress } from "@/libs/utils";
 
 export default function EVMTransactionsTable({ query, walletAddress }) {

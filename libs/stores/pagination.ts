@@ -1,42 +1,38 @@
 import { atom, useAtom } from "jotai";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
+
+const Tables = [
+	"blocks",
+	"accounts",
+	"extrinsics",
+	"evmtransactions",
+	"accountTransfers",
+	"accountErc20Transfers",
+	"accountErc721Transfers",
+	"accountEvmTransactions",
+] as const;
+
+type Table = (typeof Tables)[number];
 
 interface Pagination {
 	currentPage: number;
 	pages?: Array<undefined>;
 }
 
-type Table =
-	| "accountEvmTransactions"
-	| "accountTransfers"
-	| "evmtransactions"
-	| "extrinsics"
-	| "blocks"
-	| "accounts";
-
 type PaginationState = Record<Table, Pagination>;
 
-const pagination = atom<PaginationState>({
-	accountEvmTransactions: {
-		currentPage: 1,
-	},
-	accountTransfers: {
-		currentPage: 1,
-	},
-	extrinsics: {
-		currentPage: 1,
-	},
-	blocks: {
-		currentPage: 1,
-	},
-	accounts: {
-		currentPage: 1,
-	},
-	evmtransactions: {
-		currentPage: 1,
-	},
-});
+const pagination = atom<PaginationState>(
+	Tables.reduce(
+		(prev, table) => ({
+			...prev,
+			[table]: {
+				currentPage: 1,
+			},
+		}),
+		{}
+	) as PaginationState
+);
 
 interface PaginationUpdate {
 	key: "pages" | "currentPage";
@@ -69,13 +65,16 @@ export const usePagination = (table: Table) => {
 	const setPages = (pages: Array<undefined>) =>
 		setPagination({ table, key: "pages", value: pages });
 
-	const resetCurrentPage = (table: Table) => {
-		setPagination({
-			table,
-			key: "currentPage",
-			value: 1,
-		});
-	};
+	const resetCurrentPage = useCallback(
+		(table: Table) => {
+			setPagination({
+				table,
+				key: "currentPage",
+				value: 1,
+			});
+		},
+		[setPagination]
+	);
 
 	// Reset currentPage to 1 if user navigates away
 	useEffect(() => {
@@ -91,7 +90,7 @@ export const usePagination = (table: Table) => {
 				resetCurrentPage("accountEvmTransactions");
 			}
 		);
-	}, [router?.asPath]);
+	}, [router?.asPath, resetCurrentPage]);
 
 	return {
 		setPages,

@@ -1,29 +1,31 @@
 import { useQuery } from "@tanstack/react-query";
 import { ethers } from "ethers";
 import Link from "next/link";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect } from "react";
 
-import { LoadingBlock, TableLayout, TimeAgo } from "@/components";
 import AddressLink from "@/components/evm/AddressLink";
-import EVMPagination from "@/components/evm/evmpagination";
 import TransactionStatus from "@/components/evm/TransactionStatus";
 import { getERC20TransferForAddress } from "@/libs/evm-api";
+import { usePagination } from "@/libs/stores";
 import { formatAddress } from "@/libs/utils";
 
-import InOutLabel from "./inOutLabel";
+import { InOutLabel, LoadingBlock, Pagination, TableLayout, TimeAgo } from "./";
+
+const PaginationTable = "accountErc20Transfers";
 
 export default function Erc20TransfersForAddress({ walletAddress }) {
-	const [page, setPage] = useState(1);
+	const { pages, currentPage } = usePagination(PaginationTable);
 
 	const query = useQuery(
-		["erc20_transfers", walletAddress, page],
+		["erc20_transfers", walletAddress, currentPage],
 		() => {
-			return getERC20TransferForAddress(walletAddress, page);
+			return getERC20TransferForAddress(walletAddress, currentPage);
 		},
 		{
 			refetchInterval: 15_000,
 		}
 	);
+	usePages(query?.data);
 
 	return (
 		<div>
@@ -113,7 +115,7 @@ export default function Erc20TransfersForAddress({ walletAddress }) {
 				</div>
 			)}
 
-			<EVMPagination data={query?.data} onPageChange={(p) => setPage(p)} />
+			{pages?.length > 1 && <Pagination table={PaginationTable} />}
 		</div>
 	);
 }
@@ -186,4 +188,15 @@ const EvmTransactionsForAddressRow = ({
 			<TableLayout.Data>{name}</TableLayout.Data>
 		</tr>
 	);
+};
+
+const usePages = (data) => {
+	const { setPages } = usePagination(PaginationTable);
+
+	useEffect(() => {
+		if (!data?.totalPages) return;
+
+		setPages(Array.from(Array(data.totalPages)));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [data?.totalPages]);
 };

@@ -26,3 +26,4 @@ export * from "./pagination";
 export * from "./paginationButton";
 export * from "./paginationFallback";
 export * from "./timeAgo";
+export * from "./inOutLabel";

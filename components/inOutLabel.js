@@ -1,4 +1,4 @@
-const InOutLabel = ({ type }) => {
+export const InOutLabel = ({ type }) => {
 	const incoming = "text-green-700";
 	const outgoing = "text-orange-400";
 	const self = "text-white";
@@ -15,5 +15,3 @@ const InOutLabel = ({ type }) => {
 		</div>
 	);
 };
-
-export default InOutLabel;
