@@ -6,7 +6,7 @@ import {
 import { useEffect, useMemo, useState } from "react";
 import CountUp from "react-countup";
 
-import { LoadingBlock, RefetchIndicator } from "@/components";
+import { RefetchIndicator } from "@/components";
 import { useGetChainDataQuery } from "@/libs/api/generated";
 import { usePolling } from "@/libs/hooks";
 
@@ -33,7 +33,7 @@ export default function ChaindataWidget() {
 	}, [chainData, firstCount]);
 
 	return (
-		<div>
+		<div className="">
 			<div className="flex flex-row justify-between py-3 h-[3.5em]">
 				<div className="flex flex-row">
 					<ChartPieIcon className="my-auto h-5 pr-3 text-white" />
@@ -45,9 +45,13 @@ export default function ChaindataWidget() {
 					</div>
 				)}
 			</div>
-			<div className="space-y-3">
-				<dl className="divide-y divide-gray-400 overflow-hidden border border-gray-400 bg-transparent text-[#111]">
+			<div className="flex space-y-3 h-[23em] items-center">
+				<dl className="divide-y divide-gray-400 overflow-hidden border border-gray-400 bg-transparent text-[#111] w-full h-full grid grid-rows-3 ">
 					{[
+						{
+							name: "Holders",
+							stat: chainData?.holders,
+						},
 						{
 							name: "Transfers",
 							stat: chainData?.transfers,
@@ -56,16 +60,15 @@ export default function ChaindataWidget() {
 							name: "Finalized Blocks",
 							stat: chainData?.blocks,
 						},
-						{
-							name: "Holders",
-							stat: chainData?.holders,
-						},
 					].map((item) => (
-						<div
-							key={item.name}
-							className="my-auto flex flex-row px-4 py-5 sm:p-4"
-						>
+						<div key={item.name} className="flex items-center px-4 py-5 sm:p-4">
 							<div className="my-auto pr-3">
+								{item.name === "Holders" && (
+									<UserGroupIcon
+										className="h-12 text-gray-200"
+										strokeWidth="1"
+									/>
+								)}
 								{item.name === "Transfers" && (
 									<ChartPieIcon
 										className="h-12 text-gray-200"
@@ -74,12 +77,6 @@ export default function ChaindataWidget() {
 								)}
 								{item.name === "Finalized Blocks" && (
 									<CubeIcon className="h-12 text-gray-200" strokeWidth="1" />
-								)}
-								{item.name === "Holders" && (
-									<UserGroupIcon
-										className="h-12 text-gray-200"
-										strokeWidth="1"
-									/>
 								)}
 							</div>
 							<div>
