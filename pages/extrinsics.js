@@ -9,6 +9,7 @@ import {
 	Pagination,
 	PaginationFallback,
 	TableLayout,
+	TextLink,
 	TimeAgo,
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
@@ -82,12 +83,8 @@ const ExtrinsicRow = ({ id, hash, extrinsic, block, calls }) => {
 
 	return (
 		<tr>
-			<TableLayout.Data dataClassName="!text-indigo-500 font-bold">
-				<Link href={`/extrinsic/${id}`}>
-					<span className="cursor-pointer text-indigo-500 hover:text-white">
-						{formatExtrinsicId(id)}
-					</span>
-				</Link>
+			<TableLayout.Data dataClassName="font-bold">
+				<TextLink link={`/extrinsic/${id}`} text={formatExtrinsicId(id)} />
 			</TableLayout.Data>
 
 			<TableLayout.Data dataClassName="flex">
@@ -105,11 +102,7 @@ const ExtrinsicRow = ({ id, hash, extrinsic, block, calls }) => {
 			</TableLayout.Data>
 
 			<TableLayout.Data>
-				<Link href={`/block/${block.height}`}>
-					<span className="cursor-pointer text-indigo-500 hover:text-white">
-						{block.height}
-					</span>
-				</Link>
+				<TextLink link={`/block/${block.height}`} text={block.height} />
 			</TableLayout.Data>
 
 			<TableLayout.Data>

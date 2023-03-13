@@ -1,7 +1,12 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
-import { DummyListItem, RefetchIndicator, TimeAgo } from "@/components";
+import {
+	DummyListItem,
+	RefetchIndicator,
+	TextLink,
+	TimeAgo,
+} from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetExtrinsicsQuery } from "@/libs/api/generated.ts";
 import { useExtrinsicSuccess, usePolling } from "@/libs/hooks";
@@ -57,10 +62,12 @@ const Extrinsic = ({ extrinsic, call, timestamp, extrinsicId }) => {
 			<div className="flex flex-row justify-between">
 				<div className="text-sm font-bold">
 					<span className="mr-2 text-white">Extrinsic#</span>
-					<span className="cursor-pointer text-lg text-indigo-500 hover:text-white">
-						<Link href={`/extrinsic/${extrinsicId}`}>
-							{formatExtrinsicId(extrinsicId)}
-						</Link>
+					<span>
+						<TextLink
+							linkClassName="text-lg"
+							link={`/extrinsic/${extrinsicId}`}
+							text={formatExtrinsicId(extrinsicId)}
+						/>
 					</span>
 				</div>
 			</div>

@@ -1,9 +1,8 @@
 import BigNumber from "bignumber.js";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { Fragment } from "react";
 
-import { InOutLabel, TableLayout, TimeAgo } from "@/components";
+import { InOutLabel, TableLayout, TextLink, TimeAgo } from "@/components";
 import AddressLink from "@/components/evm/AddressLink";
 import TransactionStatus from "@/components/evm/TransactionStatus";
 import { formatAddress } from "@/libs/utils";
@@ -97,12 +96,11 @@ const EvmTransactionsForAddressRow = ({
 			<TableLayout.Data dataClassName="flex">
 				<TransactionStatus tx={tx} />
 			</TableLayout.Data>
-			<TableLayout.Data dataClassName="!text-indigo-500">
-				<Link href={`/tx/${transactionHash}`}>
-					<span className="cursor-pointer text-indigo-500 hover:text-white">
-						{formatAddress(transactionHash)}
-					</span>
-				</Link>
+			<TableLayout.Data>
+				<TextLink
+					link={`/tx/${transactionHash}`}
+					text={formatAddress(transactionHash)}
+				/>
 			</TableLayout.Data>
 
 			<TableLayout.Data dataClassName="text-center">
@@ -116,15 +114,7 @@ const EvmTransactionsForAddressRow = ({
 			</TableLayout.Data>
 
 			<TableLayout.Data>
-				{block ? (
-					<Link href={`/block/${block}`}>
-						<span className="cursor-pointer text-indigo-500 hover:text-white">
-							{block}
-						</span>
-					</Link>
-				) : (
-					"-"
-				)}
+				{block ? <TextLink link={`/block/${block}`} text={block} /> : "-"}
 			</TableLayout.Data>
 
 			<TableLayout.Data>

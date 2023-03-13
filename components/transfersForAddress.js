@@ -1,5 +1,4 @@
 import fromExponential from "from-exponential";
-import Link from "next/link";
 import { useEffect, useMemo } from "react";
 
 import {
@@ -16,6 +15,7 @@ import {
 	LoadingBlock,
 	Pagination,
 	TableLayout,
+	TextLink,
 	TimeAgo,
 } from "./";
 
@@ -95,11 +95,7 @@ const TransfersForAddressRow = ({
 	return (
 		<tr>
 			<TableLayout.Data>
-				<Link href={`/block/${block_number}`}>
-					<span className="cursor-pointer text-indigo-500 hover:text-white">
-						{block_number}
-					</span>
-				</Link>
+				<TextLink link={`/block/${block_number}`} text={block_number} />
 			</TableLayout.Data>
 
 			<TableLayout.Data>

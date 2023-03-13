@@ -1,5 +1,4 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
-import Link from "next/link";
 import { useEffect } from "react";
 
 import {
@@ -8,6 +7,7 @@ import {
 	PageHeader,
 	Pagination,
 	TableLayout,
+	TextLink,
 	TimeAgo,
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
@@ -81,11 +81,7 @@ const BlockRow = ({
 	return (
 		<tr>
 			<TableLayout.Data>
-				<Link href={`/block/${height}`}>
-					<span className="cursor-pointer text-indigo-500 hover:text-white">
-						{height}
-					</span>
-				</Link>
+				<TextLink link={`/block/${height}`} text={height} />
 			</TableLayout.Data>
 
 			<TableLayout.Data dataClassName="flex">
@@ -105,11 +101,14 @@ const BlockRow = ({
 			</TableLayout.Data>
 
 			<TableLayout.Data>
-				<Link href={`/address/${validator}`}>
-					<span className="cursor-pointer text-indigo-500 hover:text-white">
-						{validator ? formatAddress(validator) : "?"}
-					</span>
-				</Link>
+				{validator ? (
+					<TextLink
+						link={`/address/${validator}`}
+						text={formatAddress(validator)}
+					/>
+				) : (
+					<span>?</span>
+				)}
 			</TableLayout.Data>
 
 			<TableLayout.Data>

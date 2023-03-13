@@ -9,13 +9,13 @@ import { useQuery } from "@tanstack/react-query";
 import BigNumber from "bignumber.js";
 import { ethers } from "ethers";
 import moment from "moment";
-import Link from "next/link";
 import { Fragment, useState } from "react";
 
 import {
 	ContainerLayout,
 	DetailsLayout,
 	PageHeader,
+	TextLink,
 	TimeAgo,
 } from "@/components";
 import AddressLink from "@/components/evm/AddressLink";
@@ -106,11 +106,10 @@ export default function EVMTransaction({ hash }) {
 								helpTooltip="The block number your transaction hash confirmed in."
 							/>
 							<DetailsLayout.Data>
-								<Link href={`/block/${query.data.blockNumber}`}>
-									<span className="cursor-pointer text-indigo-500">
-										{query.data.blockNumber}
-									</span>
-								</Link>
+								<TextLink
+									text={query.data.blockNumber}
+									link={`/block/${query.data.blockNumber}`}
+								/>
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 					)}

@@ -2,7 +2,6 @@ import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import { isHex } from "@polkadot/util";
 import moment from "moment";
-import Link from "next/link";
 import { useMemo, useState } from "react";
 
 import {
@@ -11,6 +10,7 @@ import {
 	LoadingBlock,
 	PageHeader,
 	TableLayout,
+	TextLink,
 	TimeAgo,
 } from "@/components";
 import TransactionActions from "@/components/events/transactionActions";
@@ -143,12 +143,13 @@ export default function Extrinsic({ extrinsicId }) {
 
 						<DetailsLayout.Wrapper>
 							<DetailsLayout.Title title="Block" />
-							<DetailsLayout.Data dataClassName="!text-indigo-500">
+							<DetailsLayout.Data>
 								<div className="flex items-center space-x-2">
 									<div>
-										<Link href={`/block/${data?.block?.height}`}>
-											{data?.block?.height}
-										</Link>
+										<TextLink
+											text={data?.block?.height}
+											link={`/block/${data?.block?.height}`}
+										/>
 									</div>
 
 									{blockConfirmations && (

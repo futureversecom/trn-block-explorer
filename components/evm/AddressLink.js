@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { Fragment } from "react";
 
+import { TextLink } from "@/components";
 import ContractIcon from "@/components/evm/ContractIcon";
 import EVMTooltip from "@/components/evm/evmTooltip";
 import { CopyToClipboard } from "@/components/icons";
@@ -25,11 +25,10 @@ export default function AddressLink({
 			)}
 
 			<span className="flex space-x-2">
-				<Link href={`/address/${address}`}>
-					<span className="cursor-pointer text-indigo-500 hover:text-white">
-						{format ? formatAddress(address) : address}
-					</span>
-				</Link>
+				<TextLink
+					link={`/address/${address}`}
+					text={format ? formatAddress(address) : address}
+				/>
 				{showNameAndSymbol && (
 					<span>
 						{contractData?.name}{" "}

@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
-import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Fragment } from "react";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
@@ -13,7 +12,7 @@ import { isContract } from "@/libs/evm-api";
 import { usePolling } from "@/libs/hooks";
 import { formatAddress, formatBalance, getAssetMetadata } from "@/libs/utils";
 
-import { LoadingBlock, RefetchIndicator } from "./";
+import { LoadingBlock, RefetchIndicator, TextLink } from "./";
 
 export default function BalanceForAddress({ walletAddress }) {
 	const query = usePolling(
@@ -134,26 +133,20 @@ export default function BalanceForAddress({ walletAddress }) {
 							isContractQuery?.data?.contractData?.deploymentTransactionHash ? (
 								<Balance title="Contract Creator">
 									<div className="space-x-1 text-sm text-white">
-										<Link
-											href={`/address/${isContractQuery?.data?.contractData?.contractCreator}`}
-										>
-											<span className="cursor-pointer text-indigo-500 hover:text-white">
-												{formatAddress(
-													isContractQuery?.data?.contractData?.contractCreator
-												)}
-											</span>
-										</Link>
+										<TextLink
+											text={formatAddress(
+												isContractQuery?.data?.contractData?.contractCreator
+											)}
+											link={`/address/${isContractQuery?.data?.contractData?.contractCreator}`}
+										/>
 										<span>at txn:</span>
-										<Link
-											href={`/tx/${isContractQuery?.data?.contractData?.deploymentTransactionHash}`}
-										>
-											<span className="cursor-pointer text-indigo-500 hover:text-white">
-												{formatAddress(
-													isContractQuery?.data?.contractData
-														?.deploymentTransactionHash
-												)}
-											</span>
-										</Link>
+										<TextLink
+											text={formatAddress(
+												isContractQuery?.data?.contractData
+													?.deploymentTransactionHash
+											)}
+											link={`/tx/${isContractQuery?.data?.contractData?.deploymentTransactionHash}`}
+										/>
 									</div>
 								</Balance>
 							) : (
