@@ -33,9 +33,9 @@ export default function ChaindataWidget() {
 	}, [chainData, firstCount]);
 
 	return (
-		<div className="">
-			<div className="flex flex-row justify-between py-3 h-[3.5em]">
-				<div className="flex flex-row">
+		<div>
+			<div className="flex h-[3.5em] flex-row justify-between py-3">
+				<div className="flex items-center">
 					<ChartPieIcon className="my-auto h-5 pr-3 text-white" />
 					<h3 className="text-md font-bold leading-6 text-white">Chain Data</h3>
 				</div>
@@ -45,8 +45,8 @@ export default function ChaindataWidget() {
 					</div>
 				)}
 			</div>
-			<div className="flex space-y-3 h-[23em] items-center">
-				<dl className="divide-y divide-gray-400 overflow-hidden border border-gray-400 bg-transparent text-[#111] w-full h-full grid grid-rows-3 ">
+			<div className="flex h-[23em] items-center space-y-3">
+				<dl className="grid h-full w-full grid-rows-3 divide-y divide-gray-400 overflow-hidden border border-gray-400 bg-transparent text-[#111]">
 					{[
 						{
 							name: "Holders",
@@ -94,7 +94,7 @@ export default function ChaindataWidget() {
 												start={firstCount ? 0 : item.stat - 1}
 											/>
 										) : (
-											<div className="animate-pulse grid grid-cols-8 gap-x-10 gap-y-2">
+											<div className="grid animate-pulse grid-cols-8 gap-x-10 gap-y-2">
 												<div className="col-span-4 h-5 rounded bg-gray-400" />
 											</div>
 										)}

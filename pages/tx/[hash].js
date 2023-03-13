@@ -419,21 +419,25 @@ export default function EVMTransaction({ hash }) {
 										</span>
 									</EVMTooltip>
 								)}
-								{query?.data?.type == 2 && query?.data?.maxPriorityFeePerGas && (
-									<EVMTooltip
-										message={`${ethers.utils
-											.formatEther(query?.data?.maxPriorityFeePerGas)
-											.toString()} XRP`}
-									>
-										<span>
-											Max Priority:{" "}
-											{ethers.utils
-												.formatUnits(query?.data?.maxPriorityFeePerGas, "gwei")
-												.toString()}{" "}
-											Gwei
-										</span>
-									</EVMTooltip>
-								)}
+								{query?.data?.type == 2 &&
+									query?.data?.maxPriorityFeePerGas && (
+										<EVMTooltip
+											message={`${ethers.utils
+												.formatEther(query?.data?.maxPriorityFeePerGas)
+												.toString()} XRP`}
+										>
+											<span>
+												Max Priority:{" "}
+												{ethers.utils
+													.formatUnits(
+														query?.data?.maxPriorityFeePerGas,
+														"gwei"
+													)
+													.toString()}{" "}
+												Gwei
+											</span>
+										</EVMTooltip>
+									)}
 							</div>
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>

@@ -13,7 +13,7 @@ export default function ExtrinsicsWidget() {
 
 	return (
 		<div>
-			<div className="flex flex-row justify-between py-3 h-[3.5em]">
+			<div className="flex h-[3.5em] flex-row justify-between py-3">
 				<div className="flex items-center">
 					<ArrowsRightLeftIcon className="my-auto h-5 pr-3 text-white" />
 					<h3 className="text-md font-bold leading-6 text-white">
