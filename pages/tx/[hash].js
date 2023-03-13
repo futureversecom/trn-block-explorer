@@ -121,7 +121,7 @@ export default function EVMTransaction({ hash }) {
 								helpTooltip="The smart contract function that was used in this transaction."
 							/>
 							<DetailsLayout.Data>
-								<span className="my-auto rounded bg-black bg-opacity-20 p-1 text-xs">
+								<span className="my-auto rounded bg-black bg-opacity-20 p-1 text-sm">
 									{!query?.data?.to && query?.data?.creates ? (
 										`Contract Deployment ${query?.data?.creates}`
 									) : (
