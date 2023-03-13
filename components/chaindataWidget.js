@@ -45,8 +45,8 @@ export default function ChaindataWidget() {
 					</div>
 				)}
 			</div>
-			<div className="flex h-[23em] items-center space-y-3">
-				<dl className="grid h-full w-full grid-rows-3 divide-y divide-gray-400 overflow-hidden border border-gray-400 bg-transparent text-[#111]">
+			<div className="flex h-[23em] items-center">
+				<div className="space-y-6 w-full">
 					{[
 						{
 							name: "Holders",
@@ -61,50 +61,49 @@ export default function ChaindataWidget() {
 							stat: chainData?.blocks,
 						},
 					].map((item) => (
-						<div key={item.name} className="flex items-center px-4 py-5 sm:p-4">
-							<div className="my-auto pr-3">
-								{item.name === "Holders" && (
-									<UserGroupIcon
-										className="h-12 text-gray-200"
-										strokeWidth="1"
-									/>
-								)}
-								{item.name === "Transfers" && (
-									<ChartPieIcon
-										className="h-12 text-gray-200"
-										strokeWidth="1"
-									/>
-								)}
-								{item.name === "Finalized Blocks" && (
-									<CubeIcon className="h-12 text-gray-200" strokeWidth="1" />
-								)}
-							</div>
-							<div>
-								<dt className="text-base font-semibold text-gray-200">
-									{item.name}
-								</dt>
-								<dd className="flex items-baseline justify-between md:block lg:flex">
-									<div className="flex items-baseline text-2xl font-bold text-white">
-										{item.stat ? (
-											<CountUp
-												duration={1}
-												separator=","
-												end={item.stat}
-												className="font-number"
-												start={firstCount ? 0 : item.stat - 1}
-											/>
-										) : (
-											<div className="grid animate-pulse grid-cols-8 gap-x-10 gap-y-2">
-												<div className="col-span-4 h-5 rounded bg-gray-400" />
-											</div>
-										)}
-									</div>
-								</dd>
-							</div>
-						</div>
+						<ChainDataBlock
+							key={item.name}
+							name={item.name}
+							stat={item.stat}
+							firstCount={firstCount}
+						/>
 					))}
-				</dl>
+				</div>
 			</div>
 		</div>
 	);
 }
+
+const ChainDataBlock = ({ name, stat, firstCount }) => {
+	return (
+		<div className="flex w-full items-center border border-gray-400 bg-transparent text-[#111]">
+			<div className="flex items-center">
+				<div className="px-8">
+					{name === "Holders" && (
+						<UserGroupIcon className="h-12 text-gray-200" strokeWidth="1" />
+					)}
+					{name === "Transfers" && (
+						<ChartPieIcon className="h-12 text-gray-200" strokeWidth="1" />
+					)}
+					{name === "Finalized Blocks" && (
+						<CubeIcon className="h-12 text-gray-200" strokeWidth="1" />
+					)}
+				</div>
+			</div>
+			<div className="px-4 py-5 sm:p-4">
+				<dt className="text-base font-semibold text-gray-200">{name}</dt>
+				<dd className="flex items-baseline justify-between md:block lg:flex">
+					<div className="flex items-baseline text-2xl font-bold text-white">
+						<CountUp
+							end={stat}
+							duration={1}
+							separator={","}
+							className="font-number"
+							start={firstCount ? 0 : stat - 1}
+						/>
+					</div>
+				</dd>
+			</div>
+		</div>
+	);
+};
