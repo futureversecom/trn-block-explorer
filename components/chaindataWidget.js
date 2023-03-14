@@ -45,8 +45,8 @@ export default function ChaindataWidget() {
 					</div>
 				)}
 			</div>
-			<div className="flex h-[23em] items-center">
-				<div className="w-full space-y-6">
+			<div className="h-[23em]">
+				<div className="grid h-full w-full grid-rows-3 gap-6">
 					{[
 						{
 							name: "Holders",
