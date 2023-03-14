@@ -66,7 +66,7 @@ const EvmTx = ({ txHash, to, from, timestamp, success }) => {
 				<div className="text-sm font-bold">
 					<span className="mr-2 text-white">Tx Hash</span>
 					<TextLink
-						link={"/tx/${txHash}"}
+						link={`/tx/${txHash}`}
 						linkClassName="text-lg"
 						text={formatAddress(txHash)}
 					/>
