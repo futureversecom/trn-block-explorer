@@ -22,8 +22,6 @@ const ContractTab = dynamic(() => import("@/components/evm/ContractTab"), {
 	ssr: false,
 });
 
-// import ContractTab from '@/components/evm/ContractTab'
-
 export const AccountTables = ({ walletAddress }) => {
 	const isRefetching = useAccountRefetchStatus();
 	const router = useRouter();
@@ -79,7 +77,9 @@ export const AccountTables = ({ walletAddress }) => {
 	return (
 		<div>
 			<Tab.Group
-				defaultIndex={url_to_index.indexOf(router?.query?.tab) || 0}
+				defaultIndex={
+					router?.query?.tab ? url_to_index.indexOf(router.query.tab) : 0
+				}
 				onChange={(e) => {
 					router.push({
 						...router,
