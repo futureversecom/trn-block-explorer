@@ -207,7 +207,10 @@ const FormattedBalance = ({ balance, assetId }) => {
 			onMouseOut={() => setViewFull(false)}
 		>
 			{amount}
-			{decimals > 6 && !viewFull && <span>...</span>} {symbol}
+			{decimals > 6 && !viewFull && amount.includes(".") && (
+				<span>...</span>
+			)}{" "}
+			{symbol}
 		</p>
 	);
 };
