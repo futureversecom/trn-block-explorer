@@ -13,7 +13,7 @@ const Tables = [
 	"accountEvmTransactions",
 ] as const;
 
-type Table = (typeof Tables)[number];
+export type Table = (typeof Tables)[number];
 
 interface Pagination {
 	currentPage: number;

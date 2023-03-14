@@ -1,3 +1,4 @@
+export * from "./usePages";
 export * from "./useExtrinsicId";
 export * from "./usePolling";
 export * from "./useSubscribeHeader";

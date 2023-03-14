@@ -1,6 +1,5 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
 
 import {
 	ContainerLayout,
@@ -10,6 +9,7 @@ import {
 } from "@/components";
 import EVMTransactionsTable from "@/components/evm/evmTransactionsTable";
 import { getEVMTransactions } from "@/libs/evm-api";
+import { usePages } from "@/libs/hooks";
 import { usePagination } from "@/libs/stores";
 
 const PaginationTable = "evmtransactions";
@@ -27,7 +27,7 @@ export default function EVMTransactions() {
 			refetchInterval: 15_000,
 		}
 	);
-	usePages(query?.data);
+	usePages(PaginationTable, query?.data?.totalPages);
 
 	return (
 		<ContainerLayout>
@@ -47,14 +47,3 @@ export default function EVMTransactions() {
 		</ContainerLayout>
 	);
 }
-
-const usePages = (data) => {
-	const { setPages } = usePagination(PaginationTable);
-
-	useEffect(() => {
-		if (!data?.totalPages) return;
-
-		setPages(Array.from(Array(data.totalPages)));
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [data?.totalPages]);
-};

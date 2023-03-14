@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { Fragment, useEffect } from "react";
+import { Fragment } from "react";
 
 import AddressLink from "@/components/evm/AddressLink";
 import DisplayNFTImage from "@/components/evm/DisplayNFTImage";
 import TransactionStatus from "@/components/evm/TransactionStatus";
 import { getERC721TransferForAddress } from "@/libs/evm-api";
+import { usePages } from "@/libs/hooks";
 import { usePagination } from "@/libs/stores";
 import { formatAddress } from "@/libs/utils";
 
@@ -31,7 +32,7 @@ export default function Erc721TransfersForAddress({ walletAddress }) {
 			refetchInterval: 15_000,
 		}
 	);
-	usePages(query?.data);
+	usePages(PaginationTable, query?.data?.totalPages);
 
 	return (
 		<div>
@@ -202,15 +203,4 @@ const EvmTransactionsForAddressRow = ({
 			</TableLayout.Data>
 		</tr>
 	);
-};
-
-const usePages = (data) => {
-	const { setPages } = usePagination(PaginationTable);
-
-	useEffect(() => {
-		if (!data?.totalPages) return;
-
-		setPages(Array.from(Array(data.totalPages)));
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [data?.totalPages]);
 };

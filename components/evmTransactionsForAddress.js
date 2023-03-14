@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
 
 import { LoadingBlock, Pagination } from "@/components";
 import EVMTransactionsTable from "@/components/evm/evmTransactionsTable";
 import { getTransactionsForAddress } from "@/libs/evm-api";
+import { usePages } from "@/libs/hooks";
 import { usePagination } from "@/libs/stores";
 
 const PaginationTable = "accountEvmTransactions";
@@ -20,7 +20,7 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 			refetchInterval: 15_000,
 		}
 	);
-	usePages(query?.data);
+	usePages(PaginationTable, query?.data?.totalPages);
 
 	return (
 		<div>
@@ -34,14 +34,3 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 		</div>
 	);
 }
-
-const usePages = (data) => {
-	const { setPages } = usePagination(PaginationTable);
-
-	useEffect(() => {
-		if (!data?.totalPages) return;
-
-		setPages(Array.from(Array(data.totalPages)));
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [data?.totalPages]);
-};
