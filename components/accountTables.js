@@ -92,7 +92,7 @@ export const AccountTables = ({ walletAddress }) => {
 			>
 				<TabList titles={panelTitles}>
 					{isRefetching && (
-						<div className="absolute right-2 top-6 flex">
+						<div className="absolute right-2 top-2 flex">
 							<RefetchIndicator />
 						</div>
 					)}
