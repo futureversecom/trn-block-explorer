@@ -46,7 +46,7 @@ export default function ChaindataWidget() {
 				)}
 			</div>
 			<div className="flex h-[23em] items-center">
-				<div className="space-y-6 w-full">
+				<div className="w-full space-y-6">
 					{[
 						{
 							name: "Holders",
@@ -94,13 +94,19 @@ const ChainDataBlock = ({ name, stat, firstCount }) => {
 				<dt className="text-base font-semibold text-gray-200">{name}</dt>
 				<dd className="flex items-baseline justify-between md:block lg:flex">
 					<div className="flex items-baseline text-2xl font-bold text-white">
-						<CountUp
-							end={stat}
-							duration={1}
-							separator={","}
-							className="font-number"
-							start={firstCount ? 0 : stat - 1}
-						/>
+						{stat ? (
+							<CountUp
+								end={stat}
+								duration={1}
+								separator={","}
+								className="font-number"
+								start={firstCount ? 0 : stat - 1}
+							/>
+						) : (
+							<div className="grid animate-pulse grid-cols-8 gap-x-10 gap-y-2">
+								<div className="col-span-4 h-6 rounded bg-gray-400" />
+							</div>
+						)}
 					</div>
 				</dd>
 			</div>
