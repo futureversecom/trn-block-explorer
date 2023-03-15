@@ -11,7 +11,7 @@ const fallBack = `data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAMCAgM
 export default function DisplayNFTImage({ args, uri, width, height }) {
 	const [src, setSrc] = useState(undefined);
 	let metadataPath = uri;
-	
+
 	if (uri && args?.tokenId && !uri.includes('ipfs')) {
 		metadataPath = `${uri}${args?.tokenId ? args.tokenId : ""}`;
 	}
@@ -22,7 +22,6 @@ export default function DisplayNFTImage({ args, uri, width, height }) {
 	const query = useQuery(
 		[uri, args?.tokenId],
 		() => {
-			console.log(metadataPath)
 			return fetch(metadataPath)
 				.then((resp) => resp.json())
 				.then((data) => {
