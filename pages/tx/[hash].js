@@ -551,7 +551,7 @@ export default function EVMTransaction({ hash }) {
 					)}
 				</DetailsLayout.Container>
 			</LoadingLayout>
-			<div className="space-x-2 px-4 py-3" role="alert">
+			<div className="space-x-2 py-3" role="alert">
 				<div className="flex items-start">
 					<div>
 						<InformationCircleIcon className="mr-2 h-6 w-6 text-white text-opacity-50" />

@@ -45,7 +45,6 @@ export default function Erc721TransfersForAddress({ walletAddress }) {
 								<tr>
 									<TableLayout.HeadItem text="Status" />
 									<TableLayout.HeadItem text="Tx Hash" />
-									{/* <TableLayout.HeadItem text="Method" /> */}
 									<TableLayout.HeadItem text="Block" />
 									<TableLayout.HeadItem text="Timestamp" />
 									<TableLayout.HeadItem text="From" />
