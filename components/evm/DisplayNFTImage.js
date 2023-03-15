@@ -53,7 +53,7 @@ export default function DisplayNFTImage({ args, uri, width, height }) {
 		<Fragment>
 			<Image
 				loader={externaImageLoader}
-				src={src}
+				src={src || fallBack}
 				alt="NFT Image"
 				placeholder="blur"
 				blurDataURL={blurUrl}
