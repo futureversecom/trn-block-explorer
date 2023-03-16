@@ -10,8 +10,9 @@ const fallBack = `data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAMCAgM
 
 export default function DisplayNFTImage({ args, uri, width, height }) {
 	const [src, setSrc] = useState(undefined);
-	let metadataPath = undefined;
-	if (uri && args?.tokenId) {
+	let metadataPath = uri;
+
+	if (uri && args?.tokenId && !uri.includes('ipfs')) {
 		metadataPath = `${uri}${args?.tokenId ? args.tokenId : ""}`;
 	}
 	if (metadataPath?.includes("{id}")) {
@@ -25,7 +26,7 @@ export default function DisplayNFTImage({ args, uri, width, height }) {
 				.then((resp) => resp.json())
 				.then((data) => {
 					let image = data?.image;
-					if (data?.image?.includes("ipfs")) {
+					if (data?.image?.includes("ipfs://")) {
 						image = `https://gateway.ipfs.io/ipfs/${image.replace(
 							"ipfs://",
 							""
@@ -52,7 +53,7 @@ export default function DisplayNFTImage({ args, uri, width, height }) {
 		<Fragment>
 			<Image
 				loader={externaImageLoader}
-				src={src}
+				src={src || fallBack}
 				alt="NFT Image"
 				placeholder="blur"
 				blurDataURL={blurUrl}
