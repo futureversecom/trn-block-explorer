@@ -7,20 +7,12 @@ import {
 
 export default function Home() {
 	return (
-		<div>
-			<div className="overflow-hidden lg:pb-32 xl:pb-36 ">
-				<div className="mx-auto max-w-7xl py-3 px-4 sm:px-6 lg:px-8">
-					<div className="grid gap-5 sm:grid-cols-1 md:grid-cols-2">
-						<ChaindataWidget />
-						<BlocksWidget />
-					</div>
-				</div>
-				<div className="mx-auto max-w-7xl py-3 px-4 sm:px-6 lg:px-8">
-					<div className="grid gap-5 sm:grid-cols-1 md:grid-cols-2">
-						<ExtrinsicsWidget />
-						<EvmTransactionsWidget />
-					</div>
-				</div>
+		<div className="mx-auto flex h-full max-w-7xl  flex-col px-2 sm:px-6 lg:px-8">
+			<div className="grid h-full grid-rows-[24rem_minmax(24rem,_1fr)] gap-5 sm:grid-cols-1 md:grid-cols-2">
+				<ChaindataWidget />
+				<BlocksWidget />
+				<ExtrinsicsWidget />
+				<EvmTransactionsWidget />
 			</div>
 		</div>
 	);
