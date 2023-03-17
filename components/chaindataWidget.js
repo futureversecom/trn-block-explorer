@@ -33,11 +33,13 @@ export default function ChaindataWidget() {
 	}, [chainData, firstCount]);
 
 	return (
-		<div>
-			<div className="flex h-[3.5em] flex-row justify-between py-3">
+		<div className="flex flex-col">
+			<div className="flex flex-row justify-between py-3">
 				<div className="flex items-center">
 					<ChartPieIcon className="my-auto h-5 pr-3 text-white" />
-					<h3 className="text-md font-bold leading-6 text-white">Chain Data</h3>
+					<h3 className="text-md py-[0.3em] font-bold leading-6 text-white">
+						Chain Data
+					</h3>
 				</div>
 				{query?.isRefetching && (
 					<div>
@@ -45,30 +47,29 @@ export default function ChaindataWidget() {
 					</div>
 				)}
 			</div>
-			<div className="h-[23em]">
-				<div className="grid h-full w-full grid-rows-3 gap-6">
-					{[
-						{
-							name: "Holders",
-							stat: chainData?.holders,
-						},
-						{
-							name: "Transfers",
-							stat: chainData?.transfers,
-						},
-						{
-							name: "Finalized Blocks",
-							stat: chainData?.blocks,
-						},
-					].map((item) => (
-						<ChainDataBlock
-							key={item.name}
-							name={item.name}
-							stat={item.stat}
-							firstCount={firstCount}
-						/>
-					))}
-				</div>
+
+			<div className="grid h-full w-full grid-rows-3 gap-6">
+				{[
+					{
+						name: "Holders",
+						stat: chainData?.holders,
+					},
+					{
+						name: "Transfers",
+						stat: chainData?.transfers,
+					},
+					{
+						name: "Finalized Blocks",
+						stat: chainData?.blocks,
+					},
+				].map((item) => (
+					<ChainDataBlock
+						key={item.name}
+						name={item.name}
+						stat={item.stat}
+						firstCount={firstCount}
+					/>
+				))}
 			</div>
 		</div>
 	);
@@ -76,7 +77,7 @@ export default function ChaindataWidget() {
 
 const ChainDataBlock = ({ name, stat, firstCount }) => {
 	return (
-		<div className="flex w-full items-center border border-gray-400 bg-transparent text-[#111]">
+		<div className="flex w-full items-center rounded-sm border border-gray-400 bg-transparent text-[#111]">
 			<div className="flex items-center">
 				<div className="px-8">
 					{name === "Holders" && (
