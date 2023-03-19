@@ -14,14 +14,18 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
 	[SubKey in K]: Maybe<T[SubKey]>;
 };
 
-function fetcher<TData, TVariables>(
+function fetcher<TData, TVariables extends { [key: string]: any }>(
 	client: GraphQLClient,
 	query: string,
 	variables?: TVariables,
-	headers?: RequestInit["headers"]
+	requestHeaders?: RequestInit["headers"]
 ) {
 	return async (): Promise<TData> =>
-		client.request<TData, TVariables>(query, variables, headers);
+		client.request({
+			document: query,
+			variables,
+			requestHeaders,
+		});
 }
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -5569,52 +5573,6 @@ export type GetExtrinsicsAggregateQuery = {
 	} | null;
 };
 
-export type GetTransferByHashQueryVariables = Exact<{
-	hash: Scalars["String"];
-}>;
-
-export type GetTransferByHashQuery = {
-	__typename?: "query_root";
-	balances?: {
-		__typename?: "balances_balances_query";
-		transfer: Array<{
-			__typename?: "balances_transfer";
-			id: string;
-			amount: any;
-			asset_id: string;
-			block_number: number;
-			extrinsic_hash?: string | null;
-			status: string;
-			timestamp: any;
-			to_id?: string | null;
-			from_id?: string | null;
-		}>;
-	} | null;
-};
-
-export type GetTransfersQueryVariables = Exact<{
-	limit: Scalars["Int"];
-}>;
-
-export type GetTransfersQuery = {
-	__typename?: "query_root";
-	balances?: {
-		__typename?: "balances_balances_query";
-		transfer: Array<{
-			__typename?: "balances_transfer";
-			timestamp: any;
-			status: string;
-			id: string;
-			extrinsic_hash?: string | null;
-			block_number: number;
-			asset_id: string;
-			amount: any;
-			from_id?: string | null;
-			to_id?: string | null;
-		}>;
-	} | null;
-};
-
 export type GetTransfersFromAddressQueryVariables = Exact<{
 	offset?: InputMaybe<Scalars["Int"]>;
 	limit?: InputMaybe<Scalars["Int"]>;
@@ -6330,78 +6288,6 @@ export const useGetExtrinsicsAggregateQuery = <
 		fetcher<GetExtrinsicsAggregateQuery, GetExtrinsicsAggregateQueryVariables>(
 			client,
 			GetExtrinsicsAggregateDocument,
-			variables,
-			headers
-		),
-		options
-	);
-export const GetTransferByHashDocument = `
-    query GetTransferByHash($hash: String!) {
-  balances {
-    transfer(where: {extrinsic_hash: {_eq: $hash}}) {
-      id
-      amount
-      asset_id
-      block_number
-      extrinsic_hash
-      status
-      timestamp
-      to_id
-      from_id
-    }
-  }
-}
-    `;
-export const useGetTransferByHashQuery = <
-	TData = GetTransferByHashQuery,
-	TError = unknown
->(
-	client: GraphQLClient,
-	variables: GetTransferByHashQueryVariables,
-	options?: UseQueryOptions<GetTransferByHashQuery, TError, TData>,
-	headers?: RequestInit["headers"]
-) =>
-	useQuery<GetTransferByHashQuery, TError, TData>(
-		["GetTransferByHash", variables],
-		fetcher<GetTransferByHashQuery, GetTransferByHashQueryVariables>(
-			client,
-			GetTransferByHashDocument,
-			variables,
-			headers
-		),
-		options
-	);
-export const GetTransfersDocument = `
-    query GetTransfers($limit: Int!) {
-  balances {
-    transfer(limit: $limit, order_by: {id: desc}) {
-      timestamp
-      status
-      id
-      extrinsic_hash
-      block_number
-      asset_id
-      amount
-      from_id
-      to_id
-    }
-  }
-}
-    `;
-export const useGetTransfersQuery = <
-	TData = GetTransfersQuery,
-	TError = unknown
->(
-	client: GraphQLClient,
-	variables: GetTransfersQueryVariables,
-	options?: UseQueryOptions<GetTransfersQuery, TError, TData>,
-	headers?: RequestInit["headers"]
-) =>
-	useQuery<GetTransfersQuery, TError, TData>(
-		["GetTransfers", variables],
-		fetcher<GetTransfersQuery, GetTransfersQueryVariables>(
-			client,
-			GetTransfersDocument,
 			variables,
 			headers
 		),

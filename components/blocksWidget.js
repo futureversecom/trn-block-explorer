@@ -2,11 +2,12 @@ import { CubeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useMemo } from "react";
 
-import { DummyListItem, RefetchIndicator, TimeAgo } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetBlocksQuery } from "@/libs/api/generated.ts";
 import { usePolling, useSubscribeHeader } from "@/libs/hooks";
 import { numberWithCommas } from "@/libs/utils";
+
+import { DummyListItem, RefetchIndicator, TextLink, TimeAgo } from "./";
 
 function removeDuplicates(a, b) {
 	return Array.from(
@@ -37,7 +38,7 @@ export default function BlocksWidget() {
 	const blocks = dedupedBlocks;
 
 	return (
-		<div>
+		<div className="flex flex-col">
 			<div className="flex flex-row justify-between py-3">
 				<div className="flex items-center">
 					<CubeIcon className="my-auto h-5 pr-3 text-white" />
@@ -50,14 +51,14 @@ export default function BlocksWidget() {
 					<Link href={"/blocks"}>
 						<button
 							type="button"
-							className="inline-flex items-center border border-indigo-500 px-4 py-1.5 text-xs font-bold text-indigo-300 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 "
+							className="inline-flex items-center border border-indigo-500 px-4 py-2 text-xs font-bold text-indigo-300 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 						>
 							View All
 						</button>
 					</Link>
 				</div>
 			</div>
-			<div className="h-[46.688em] max-h-[46.688em] divide-y divide-gray-400 overflow-scroll border border-gray-400 bg-transparent px-4 pb-3 pt-1 sm:px-6 md:overflow-visible">
+			<div className="max-h-fit divide-y divide-gray-400 overflow-auto rounded-sm border border-gray-400 bg-transparent px-4 sm:px-6">
 				{query.isLoading
 					? DummyListItem(10)
 					: blocks?.map((item, key) => (
@@ -82,11 +83,11 @@ const BlockItem = ({ height, extrinsics, events, timestamp, status }) => {
 				<div className="text-sm font-bold">
 					<span className="mr-2 text-white">Block#</span>
 					{status == true ? (
-						<Link href={`/block/${height}`}>
-							<span className="cursor-pointer text-lg text-indigo-500 hover:text-white">
-								{numberWithCommas(height)}
-							</span>
-						</Link>
+						<TextLink
+							linkClassName="text-lg"
+							link={`/block/${height}`}
+							text={numberWithCommas(height)}
+						/>
 					) : (
 						// for unfinalized blocks, the details page will not be available for now so we'll remove the link
 						<span className="cursor-not-allowed text-lg text-indigo-800">

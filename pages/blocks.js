@@ -1,6 +1,4 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
-import Link from "next/link";
-import { useEffect } from "react";
 
 import {
 	ContainerLayout,
@@ -8,17 +6,20 @@ import {
 	PageHeader,
 	Pagination,
 	TableLayout,
+	TextLink,
 	TimeAgo,
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
 import { useGetBlocksQuery } from "@/libs/api/generated.ts";
-import { usePolling } from "@/libs/hooks";
+import { usePages, usePolling } from "@/libs/hooks";
 import { usePagination } from "@/libs/stores";
 import { formatAddress } from "@/libs/utils";
 
+const PaginationTable = "blocks";
+
 export default function Blocks() {
-	const query = useQuery(20);
-	const { pages } = usePagination("blocks");
+	const query = useQuery(25);
+	const { pages } = usePagination(PaginationTable);
 
 	return (
 		<ContainerLayout>
@@ -27,7 +28,7 @@ export default function Blocks() {
 				icon={<CubeIcon className="my-auto h-5 pr-3 text-white" />}
 			/>
 			{query.isLoading || query.isError ? (
-				<LoadingBlock title={"blocks"} />
+				<LoadingBlock title={PaginationTable} />
 			) : (
 				<div className="mt-0 flex flex-col">
 					<div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -65,7 +66,7 @@ export default function Blocks() {
 				</div>
 			)}
 
-			{pages?.length > 1 && <Pagination table="blocks" />}
+			{pages?.length > 1 && <Pagination table={PaginationTable} />}
 		</ContainerLayout>
 	);
 }
@@ -81,11 +82,7 @@ const BlockRow = ({
 	return (
 		<tr>
 			<TableLayout.Data>
-				<Link href={`/block/${height}`}>
-					<span className="cursor-pointer text-indigo-500 hover:text-white">
-						{height}
-					</span>
-				</Link>
+				<TextLink link={`/block/${height}`} text={height} />
 			</TableLayout.Data>
 
 			<TableLayout.Data dataClassName="flex">
@@ -105,11 +102,14 @@ const BlockRow = ({
 			</TableLayout.Data>
 
 			<TableLayout.Data>
-				<Link href={`/account/${validator}`}>
-					<span className="cursor-pointer text-indigo-500 hover:text-white">
-						{validator ? formatAddress(validator) : "?"}
-					</span>
-				</Link>
+				{validator ? (
+					<TextLink
+						link={`/address/${validator}`}
+						text={formatAddress(validator)}
+					/>
+				) : (
+					<span>?</span>
+				)}
 			</TableLayout.Data>
 
 			<TableLayout.Data>
@@ -120,13 +120,17 @@ const BlockRow = ({
 };
 
 const useQuery = (limit) => {
-	const { currentPage } = usePagination("blocks");
+	const { currentPage } = usePagination(PaginationTable);
 
 	const query = usePolling({}, useGetBlocksQuery, {
 		limit,
 		offset: (currentPage - 1) * limit,
 	});
-	usePages(query.data, limit);
+	usePages(
+		PaginationTable,
+		query?.data?.archive?.block_aggregate?.aggregate?.count,
+		limit
+	);
 
 	// Prefetch next page
 	usePolling({}, useGetBlocksQuery, {
@@ -138,21 +142,4 @@ const useQuery = (limit) => {
 		...query,
 		data: query?.data?.archive?.block,
 	};
-};
-
-const usePages = (data, limit) => {
-	const { setPages } = usePagination("blocks");
-
-	useEffect(() => {
-		if (!data?.archive?.block_aggregate) return;
-
-		setPages(
-			Array.from(
-				Array(
-					Math.ceil(data?.archive?.block_aggregate?.aggregate?.count / limit)
-				)
-			)
-		);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [data?.archive?.block_aggregate, limit]);
 };

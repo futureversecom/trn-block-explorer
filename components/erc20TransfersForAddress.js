@@ -1,29 +1,38 @@
 import { useQuery } from "@tanstack/react-query";
 import { ethers } from "ethers";
-import Link from "next/link";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 
-import { LoadingBlock, TableLayout, TimeAgo } from "@/components";
 import AddressLink from "@/components/evm/AddressLink";
-import EVMPagination from "@/components/evm/evmpagination";
 import TransactionStatus from "@/components/evm/TransactionStatus";
 import { getERC20TransferForAddress } from "@/libs/evm-api";
+import { usePages } from "@/libs/hooks";
+import { usePagination } from "@/libs/stores";
 import { formatAddress } from "@/libs/utils";
 
-import InOutLabel from "./inOutLabel";
+import {
+	InOutLabel,
+	LoadingBlock,
+	Pagination,
+	TableLayout,
+	TextLink,
+	TimeAgo,
+} from "./";
+
+const PaginationTable = "accountErc20Transfers";
 
 export default function Erc20TransfersForAddress({ walletAddress }) {
-	const [page, setPage] = useState(1);
+	const { pages, currentPage } = usePagination(PaginationTable);
 
 	const query = useQuery(
-		["erc20_transfers", walletAddress, page],
+		["erc20_transfers", walletAddress, currentPage],
 		() => {
-			return getERC20TransferForAddress(walletAddress, page);
+			return getERC20TransferForAddress(walletAddress, currentPage);
 		},
 		{
 			refetchInterval: 15_000,
 		}
 	);
+	usePages(PaginationTable, query?.data?.totalPages);
 
 	return (
 		<div>
@@ -113,7 +122,7 @@ export default function Erc20TransfersForAddress({ walletAddress }) {
 				</div>
 			)}
 
-			<EVMPagination data={query?.data} onPageChange={(p) => setPage(p)} />
+			{pages?.length > 1 && <Pagination table={PaginationTable} />}
 		</div>
 	);
 }
@@ -135,12 +144,11 @@ const EvmTransactionsForAddressRow = ({
 			<TableLayout.Data dataClassName="my-auto">
 				<TransactionStatus tx={tx} />
 			</TableLayout.Data>
-			<TableLayout.Data dataClassName="!text-indigo-500">
-				<Link href={`/tx/${transactionHash}`}>
-					<span className="cursor-pointer text-indigo-500 hover:text-white">
-						{formatAddress(transactionHash, 3)}
-					</span>
-				</Link>
+			<TableLayout.Data>
+				<TextLink
+					link={`/tx/${transactionHash}`}
+					text={formatAddress(transactionHash, 3)}
+				/>
 			</TableLayout.Data>
 
 			<TableLayout.Data>

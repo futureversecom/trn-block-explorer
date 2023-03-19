@@ -1,5 +1,4 @@
 import { CubeIcon } from "@heroicons/react/24/outline";
-import { useEffect } from "react";
 
 import {
 	AddressLink,
@@ -10,13 +9,15 @@ import {
 	TableLayout,
 } from "@/components";
 import { useGetAccountsQuery } from "@/libs/api/generated.ts";
-import { usePolling } from "@/libs/hooks";
+import { usePages, usePolling } from "@/libs/hooks";
 import { usePagination } from "@/libs/stores";
 import { formatBalance, getAssetMetadata } from "@/libs/utils";
 
+const PaginationTable = "accounts";
+
 export default function Accounts() {
-	const query = useQuery(20);
-	const { pages, currentPage } = usePagination("accounts");
+	const query = useQuery(25);
+	const { pages, currentPage } = usePagination(PaginationTable);
 
 	const nativeToken = getAssetMetadata("1").symbol;
 
@@ -27,7 +28,7 @@ export default function Accounts() {
 				icon={<CubeIcon className="my-auto h-5 pr-3 text-white" />}
 			/>
 			{query.isLoading || query.isError ? (
-				<LoadingBlock title={"accounts"} />
+				<LoadingBlock title={PaginationTable} />
 			) : (
 				<div className="mt-0 flex flex-col">
 					<div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -81,19 +82,23 @@ export default function Accounts() {
 				</div>
 			)}
 
-			{pages?.length > 1 && <Pagination table="accounts" />}
+			{pages?.length > 1 && <Pagination table={PaginationTable} />}
 		</ContainerLayout>
 	);
 }
 
 const useQuery = (limit) => {
-	const { currentPage } = usePagination("accounts");
+	const { currentPage } = usePagination(PaginationTable);
 
 	const query = usePolling({}, useGetAccountsQuery, {
 		limit,
 		offset: (currentPage - 1) * limit,
 	});
-	usePages(query.data, limit);
+	usePages(
+		PaginationTable,
+		query?.data?.balances?.account_aggregate?.aggregate?.count,
+		limit
+	);
 
 	// Prefetch next page
 	usePolling({}, useGetAccountsQuery, {
@@ -105,21 +110,4 @@ const useQuery = (limit) => {
 		...query,
 		data: query?.data?.balances?.account,
 	};
-};
-
-const usePages = (data, limit) => {
-	const { setPages } = usePagination("accounts");
-
-	useEffect(() => {
-		if (!data?.balances?.account_aggregate) return;
-
-		setPages(
-			Array.from(
-				Array(
-					Math.ceil(data?.balances?.account_aggregate?.aggregate?.count / limit)
-				)
-			)
-		);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [data?.balances?.account_aggregate, limit]);
 };

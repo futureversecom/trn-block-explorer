@@ -9,13 +9,13 @@ import { useQuery } from "@tanstack/react-query";
 import BigNumber from "bignumber.js";
 import { ethers } from "ethers";
 import moment from "moment";
-import Link from "next/link";
 import { Fragment, useState } from "react";
 
 import {
 	ContainerLayout,
 	DetailsLayout,
 	PageHeader,
+	TextLink,
 	TimeAgo,
 } from "@/components";
 import AddressLink from "@/components/evm/AddressLink";
@@ -106,11 +106,10 @@ export default function EVMTransaction({ hash }) {
 								helpTooltip="The block number your transaction hash confirmed in."
 							/>
 							<DetailsLayout.Data>
-								<Link href={`/block/${query.data.blockNumber}`}>
-									<span className="cursor-pointer text-indigo-500">
-										{query.data.blockNumber}
-									</span>
-								</Link>
+								<TextLink
+									text={query.data.blockNumber}
+									link={`/block/${query.data.blockNumber}`}
+								/>
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 					)}
@@ -121,7 +120,7 @@ export default function EVMTransaction({ hash }) {
 								helpTooltip="The smart contract function that was used in this transaction."
 							/>
 							<DetailsLayout.Data>
-								<span className="my-auto rounded bg-black bg-opacity-20 p-1 text-xs">
+								<span className="my-auto rounded bg-black bg-opacity-20 p-1 text-sm">
 									{!query?.data?.to && query?.data?.creates ? (
 										`Contract Deployment ${query?.data?.creates}`
 									) : (
@@ -419,21 +418,25 @@ export default function EVMTransaction({ hash }) {
 										</span>
 									</EVMTooltip>
 								)}
-								{query?.data?.type == 2 && query?.data?.maxPriorityFeePerGas && (
-									<EVMTooltip
-										message={`${ethers.utils
-											.formatEther(query?.data?.maxPriorityFeePerGas)
-											.toString()} XRP`}
-									>
-										<span>
-											Max Priority:{" "}
-											{ethers.utils
-												.formatUnits(query?.data?.maxPriorityFeePerGas, "gwei")
-												.toString()}{" "}
-											Gwei
-										</span>
-									</EVMTooltip>
-								)}
+								{query?.data?.type == 2 &&
+									query?.data?.maxPriorityFeePerGas && (
+										<EVMTooltip
+											message={`${ethers.utils
+												.formatEther(query?.data?.maxPriorityFeePerGas)
+												.toString()} XRP`}
+										>
+											<span>
+												Max Priority:{" "}
+												{ethers.utils
+													.formatUnits(
+														query?.data?.maxPriorityFeePerGas,
+														"gwei"
+													)
+													.toString()}{" "}
+												Gwei
+											</span>
+										</EVMTooltip>
+									)}
 							</div>
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>

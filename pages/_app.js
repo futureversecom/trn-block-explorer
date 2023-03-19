@@ -26,25 +26,22 @@ function MyApp({ Component, pageProps }) {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<PageLoader>
-				<div className="h-full min-h-screen bg-[#111]">
-					<ReactTooltip />
-					<Head>
-						<title>The Root Network Block Explorer</title>
-						<meta
-							name="description"
-							content="Explore and search blocks, extrinsics and accounts on The Root Network."
-						/>
-						<link rel="apple-touch-icon" sizes="256x256" href="/favicon_big" />
-						<link
-							rel="icon"
-							type="image/png"
-							sizes="32x32"
-							href="/favicon.png"
-						/>
-					</Head>
+				<ReactTooltip />
+				<Head>
+					<title>The Root Network Block Explorer</title>
+					<meta
+						name="description"
+						content="Explore and search blocks, extrinsics and accounts on The Root Network."
+					/>
+					<link rel="apple-touch-icon" sizes="256x256" href="/favicon_big" />
+					<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+				</Head>
+				<div className="flex h-full flex-col">
 					<Header />
 					<Search />
-					<Component {...pageProps} />
+					<div className="flex-1">
+						<Component {...pageProps} />
+					</div>
 					<Footer />
 				</div>
 			</PageLoader>

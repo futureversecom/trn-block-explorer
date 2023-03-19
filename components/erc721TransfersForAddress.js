@@ -1,29 +1,38 @@
 import { useQuery } from "@tanstack/react-query";
-import Link from "next/link";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 
-import { LoadingBlock, TableLayout, TimeAgo } from "@/components";
 import AddressLink from "@/components/evm/AddressLink";
 import DisplayNFTImage from "@/components/evm/DisplayNFTImage";
-import EVMPagination from "@/components/evm/evmpagination";
 import TransactionStatus from "@/components/evm/TransactionStatus";
 import { getERC721TransferForAddress } from "@/libs/evm-api";
+import { usePages } from "@/libs/hooks";
+import { usePagination } from "@/libs/stores";
 import { formatAddress } from "@/libs/utils";
 
-import InOutLabel from "./inOutLabel";
+import {
+	InOutLabel,
+	LoadingBlock,
+	Pagination,
+	TableLayout,
+	TextLink,
+	TimeAgo,
+} from "./";
+
+const PaginationTable = "accountErc721Transfers";
 
 export default function Erc721TransfersForAddress({ walletAddress }) {
-	const [page, setPage] = useState(1);
+	const { pages, currentPage } = usePagination(PaginationTable);
 
 	const query = useQuery(
-		["erc721_transfers", walletAddress, page],
+		["erc721_transfers", walletAddress, currentPage],
 		() => {
-			return getERC721TransferForAddress(walletAddress, page);
+			return getERC721TransferForAddress(walletAddress, currentPage);
 		},
 		{
 			refetchInterval: 15_000,
 		}
 	);
+	usePages(PaginationTable, query?.data?.totalPages);
 
 	return (
 		<div>
@@ -106,7 +115,7 @@ export default function Erc721TransfersForAddress({ walletAddress }) {
 				</div>
 			)}
 
-			<EVMPagination data={query?.data} onPageChange={(p) => setPage(p)} />
+			{pages?.length > 1 && <Pagination table={PaginationTable} />}
 		</div>
 	);
 }
@@ -131,24 +140,15 @@ const EvmTransactionsForAddressRow = ({
 			<TableLayout.Data dataClassName="my-auto">
 				<TransactionStatus tx={tx} />
 			</TableLayout.Data>
-			<TableLayout.Data dataClassName="!text-indigo-500">
-				<Link href={`/tx/${transactionHash}`}>
-					<span className="cursor-pointer text-indigo-500 hover:text-white">
-						{formatAddress(transactionHash, 3)}
-					</span>
-				</Link>
+			<TableLayout.Data>
+				<TextLink
+					link={`/tx/${transactionHash}`}
+					text={formatAddress(transactionHash, 3)}
+				/>
 			</TableLayout.Data>
 
 			<TableLayout.Data>
-				{block ? (
-					<Link href={`/block/${block}`}>
-						<span className="cursor-pointer text-indigo-500 hover:text-white">
-							{block}
-						</span>
-					</Link>
-				) : (
-					"-"
-				)}
+				{block ? <TextLink link={`/block/${block}`} text={block} /> : "-"}
 			</TableLayout.Data>
 
 			<TableLayout.Data>

@@ -1,8 +1,7 @@
 import { ethers } from "ethers";
-import Link from "next/link";
 import { Fragment } from "react";
 
-import { DetailsLayout } from "@/components";
+import { DetailsLayout, TextLink } from "@/components";
 import { formatAddress } from "@/libs/utils";
 import { getAssetMetadata } from "@/libs/utils/getAssetMetadata";
 
@@ -56,11 +55,7 @@ const AssetsBurned = ({ data }) => {
 				{formattedAmount} {asset?.symbol}
 			</span>
 			<span className="font-semibold">From</span>
-			<Link href={`/account/${owner}`}>
-				<span className="cursor-pointer text-indigo-500 hover:text-white">
-					{formatAddress(owner)}
-				</span>
-			</Link>
+			<TextLink link={`/address/${owner}`} text={formatAddress(owner)} />
 		</div>
 	);
 };
@@ -78,11 +73,7 @@ const Erc20PegErc20Withdraw = ({ data }) => {
 				{formattedAmount} {asset?.symbol}
 			</span>
 			<span className="font-semibold">To</span>
-			<Link href={`/account/${to}`}>
-				<span className="cursor-pointer text-indigo-500 hover:text-white">
-					{formatAddress(to)}
-				</span>
-			</Link>
+			<TextLink link={`/address/${to}`} text={formatAddress(to)} />
 		</div>
 	);
 };
@@ -93,25 +84,16 @@ const EthereumExecuted = ({ data }) => {
 		<div className="flex flex-col">
 			<div className="flex space-x-1">
 				<span className="font-semibold">EVM Transaction From</span>
-				<Link href={`/account/${from}`}>
-					<span className="cursor-pointer text-indigo-500 hover:text-white">
-						{formatAddress(from)}
-					</span>
-				</Link>
+				<TextLink link={`/address/${from}`} text={formatAddress(from)} />
 				<span className="font-semibold">To</span>
-				<Link href={`/account/${to}`}>
-					<span className="cursor-pointer text-indigo-500 hover:text-white">
-						{formatAddress(to)}
-					</span>
-				</Link>
+				<TextLink link={`/address/${to}`} text={formatAddress(to)} />
 			</div>
 			<div className="flex space-x-1">
 				<span className="font-semibold">TxHash:</span>
-				<Link href={`/tx/${transactionHash}`}>
-					<span className="cursor-pointer text-indigo-500 hover:text-white">
-						{formatAddress(transactionHash)}
-					</span>
-				</Link>
+				<TextLink
+					link={`/tx/${transactionHash}`}
+					text={formatAddress(transactionHash)}
+				/>
 			</div>
 		</div>
 	);
@@ -129,11 +111,10 @@ const AssetsIssued = ({ data }) => {
 				{formattedAmount} {asset?.symbol}
 			</span>
 			<span className="font-semibold">To</span>
-			<Link href={`/account/${data?.args?.owner}`}>
-				<span className="cursor-pointer text-indigo-500 hover:text-white">
-					{formatAddress(data?.args?.owner)}
-				</span>
-			</Link>
+			<TextLink
+				link={`/address/${data?.args?.owner}`}
+				text={formatAddress(data?.args?.owner)}
+			/>
 		</div>
 	);
 };
@@ -146,17 +127,15 @@ const AssetsTransferred = ({ data }) => {
 	return (
 		<div className="flex space-x-1">
 			<span className="font-semibold">From</span>
-			<Link href={`/account/${data?.args?.from}`}>
-				<span className="cursor-pointer text-indigo-500 hover:text-white">
-					{formatAddress(data?.args?.from)}
-				</span>
-			</Link>
+			<TextLink
+				link={`/address/${data?.args?.from}`}
+				text={formatAddress(data?.args?.from)}
+			/>
 			<span className="font-semibold">To</span>
-			<Link href={`/account/${data?.args?.to}`}>
-				<span className="cursor-pointer text-indigo-500 hover:text-white">
-					{formatAddress(data?.args?.to)}
-				</span>
-			</Link>
+			<TextLink
+				link={`/address/${data?.args?.to}`}
+				text={formatAddress(data?.args?.to)}
+			/>
 			<span className="font-semibold">For</span>
 			<span>
 				{formattedAmount} {asset?.symbol}

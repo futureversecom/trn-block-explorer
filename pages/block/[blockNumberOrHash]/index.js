@@ -12,6 +12,7 @@ import {
 	DetailsLayout,
 	LoadingBlock,
 	PageHeader,
+	TextLink,
 	TimeAgo,
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
@@ -145,11 +146,10 @@ export default function BlockByNumber({ blockNumber }) {
 					<DetailsLayout.Wrapper>
 						<DetailsLayout.Title title="Parent Hash" />
 						<DetailsLayout.Data>
-							<span className="cursor-pointer text-indigo-500">
-								<Link href={`/block/${getPrevBlock()}`}>
-									{query.data.parent_hash}
-								</Link>
-							</span>
+							<TextLink
+								link={`/block/${getPrevBlock()}`}
+								text={query.data.parent_hash}
+							/>
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
 
@@ -171,10 +171,11 @@ export default function BlockByNumber({ blockNumber }) {
 							<DetailsLayout.Data>
 								<ul>
 									{query.data.extrinsics.map((extrinsic, i) => (
-										<li className="cursor-pointer text-indigo-500" key={i}>
-											<Link href={`/extrinsic/${extrinsic.id}`}>
-												{formatExtrinsicId(extrinsic.id)}
-											</Link>
+										<li key={i}>
+											<TextLink
+												link={`/extrinsic/${extrinsic.id}`}
+												text={formatExtrinsicId(extrinsic.id)}
+											/>
 										</li>
 									))}
 								</ul>

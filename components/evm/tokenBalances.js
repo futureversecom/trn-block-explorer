@@ -1,15 +1,12 @@
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { useQuery } from "@tanstack/react-query";
-import Link from "next/link";
+import clsx from "clsx";
 import { Fragment } from "react";
 
+import { TextLink } from "@/components";
 import { getERC20Balance, getERC721Balance } from "@/libs/evm-api";
 import { formatAddress, formatUnits } from "@/libs/utils";
-
-function classNames(...classes) {
-	return classes.filter(Boolean).join(" ");
-}
 
 export default function TokenBalances({ walletAddress }) {
 	const query = useQuery(
@@ -74,7 +71,7 @@ export default function TokenBalances({ walletAddress }) {
 									<Menu.Item key={key}>
 										{({ active }) => (
 											<div
-												className={classNames(
+												className={clsx(
 													active ? "text-gray-200" : "text-white",
 													"block px-4 py-2 text-sm"
 												)}
@@ -85,11 +82,10 @@ export default function TokenBalances({ walletAddress }) {
 															{token?.contractData?.[0]?.name ?? "??"} (
 															{token?.contractData?.[0]?.symbol ?? "??"})
 														</span>
-														<Link href={`/account/${token?.address}`}>
-															<span className="overflow-ellipsis text-indigo-500 cursor-pointer">
-																{formatAddress(token?.address, 9)}
-															</span>
-														</Link>
+														<TextLink
+															link={`/address/${token?.address}`}
+															text={formatAddress(token?.address, 9)}
+														/>
 													</div>
 													<div className="my-auto">
 														{formatUnits(
@@ -119,7 +115,7 @@ export default function TokenBalances({ walletAddress }) {
 									<Menu.Item key={key}>
 										{({ active }) => (
 											<div
-												className={classNames(
+												className={clsx(
 													active ? "text-gray-200" : "text-white",
 													"block px-4 py-2 text-sm"
 												)}
@@ -130,11 +126,10 @@ export default function TokenBalances({ walletAddress }) {
 															{token?.contractData?.[0]?.name ?? "??"} (
 															{token?.contractData?.[0]?.symbol ?? "??"})
 														</span>
-														<Link href={`/account/${token?.address}`}>
-															<span className="overflow-ellipsis text-indigo-500 cursor-pointer">
-																{formatAddress(token?.address, 9)}
-															</span>
-														</Link>
+														<TextLink
+															link={`/address/${token?.address}`}
+															text={formatAddress(token?.address, 9)}
+														/>
 													</div>
 													<div className="my-auto">{token?.balance}</div>
 												</div>

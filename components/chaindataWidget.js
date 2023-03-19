@@ -6,7 +6,7 @@ import {
 import { useEffect, useMemo, useState } from "react";
 import CountUp from "react-countup";
 
-import { LoadingBlock, RefetchIndicator } from "@/components";
+import { RefetchIndicator } from "@/components";
 import { useGetChainDataQuery } from "@/libs/api/generated";
 import { usePolling } from "@/libs/hooks";
 
@@ -33,79 +33,84 @@ export default function ChaindataWidget() {
 	}, [chainData, firstCount]);
 
 	return (
-		<div>
+		<div className="flex flex-col">
 			<div className="flex flex-row justify-between py-3">
-				<div className="flex flex-row">
+				<div className="flex items-center">
 					<ChartPieIcon className="my-auto h-5 pr-3 text-white" />
-					<h3 className="text-md font-bold leading-6 text-white">Chain Data</h3>
+					<h3 className="text-md py-[0.3em] font-bold leading-6 text-white">
+						Chain Data
+					</h3>
 				</div>
-				{query.isRefetching && (
+				{query?.isRefetching && (
 					<div>
 						<RefetchIndicator />
 					</div>
 				)}
 			</div>
-			{query.isLoading ? (
-				<LoadingBlock title="Chaindata" height="h-[5.500em]" />
-			) : (
-				<div className="space-y-3">
-					<dl className="grid grid-cols-1 divide-y divide-gray-400 overflow-hidden border border-gray-400 bg-transparent text-[#111] md:grid-cols-3 md:divide-y-0 md:divide-x">
-						{[
-							{
-								name: "Transfers",
-								stat: chainData?.transfers,
-							},
-							{
-								name: "Finalized Blocks",
-								stat: chainData?.blocks,
-							},
-							{
-								name: "Holders",
-								stat: chainData?.holders,
-							},
-						].map((item) => (
-							<div
-								key={item.name}
-								className="my-auto flex flex-row px-4 py-5 sm:p-4"
-							>
-								<div className="my-auto pr-3">
-									{item.name === "Transfers" && (
-										<ChartPieIcon
-											className="h-12 text-gray-200"
-											strokeWidth="1"
-										/>
-									)}
-									{item.name === "Finalized Blocks" && (
-										<CubeIcon className="h-12 text-gray-200" strokeWidth="1" />
-									)}
-									{item.name === "Holders" && (
-										<UserGroupIcon
-											className="h-12 text-gray-200"
-											strokeWidth="1"
-										/>
-									)}
-								</div>
-								<div>
-									<dt className="text-base font-semibold text-gray-200">
-										{item.name}
-									</dt>
-									<dd className="flex items-baseline justify-between md:block lg:flex">
-										<div className="flex items-baseline text-2xl font-bold text-white">
-											<CountUp
-												duration={1}
-												end={item.stat}
-												start={firstCount ? 0 : item.stat - 1}
-												separator={","}
-												className="font-number"
-											/>
-										</div>
-									</dd>
-								</div>
-							</div>
-						))}
-					</dl>
-				</div>
-			)}
+
+			<div className="grid h-full w-full grid-rows-3 gap-6">
+				{[
+					{
+						name: "Holders",
+						stat: chainData?.holders,
+					},
+					{
+						name: "Transfers",
+						stat: chainData?.transfers,
+					},
+					{
+						name: "Finalized Blocks",
+						stat: chainData?.blocks,
+					},
+				].map((item) => (
+					<ChainDataBlock
+						key={item.name}
+						name={item.name}
+						stat={item.stat}
+						firstCount={firstCount}
+					/>
+				))}
+			</div>
 		</div>
 	);
 }
+
+const ChainDataBlock = ({ name, stat, firstCount }) => {
+	return (
+		<div className="flex w-full items-center rounded-sm border border-gray-400 bg-transparent text-[#111]">
+			<div className="flex items-center">
+				<div className="px-8">
+					{name === "Holders" && (
+						<UserGroupIcon className="h-12 text-gray-200" strokeWidth="1" />
+					)}
+					{name === "Transfers" && (
+						<ChartPieIcon className="h-12 text-gray-200" strokeWidth="1" />
+					)}
+					{name === "Finalized Blocks" && (
+						<CubeIcon className="h-12 text-gray-200" strokeWidth="1" />
+					)}
+				</div>
+			</div>
+			<div className="px-4 py-5 sm:p-4">
+				<dt className="text-base font-semibold text-gray-200">{name}</dt>
+				<dd className="flex items-baseline justify-between md:block lg:flex">
+					<div className="flex items-baseline text-2xl font-bold text-white">
+						{stat ? (
+							<CountUp
+								end={stat}
+								duration={1}
+								separator={","}
+								className="font-number"
+								start={firstCount ? 0 : stat - 1}
+							/>
+						) : (
+							<div className="grid animate-pulse grid-cols-8 gap-x-10 gap-y-2">
+								<div className="col-span-4 h-6 rounded bg-gray-400" />
+							</div>
+						)}
+					</div>
+				</dd>
+			</div>
+		</div>
+	);
+};

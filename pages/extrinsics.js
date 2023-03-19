@@ -1,6 +1,4 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import Link from "next/link";
-import { useEffect } from "react";
 
 import {
 	ContainerLayout,
@@ -9,6 +7,7 @@ import {
 	Pagination,
 	PaginationFallback,
 	TableLayout,
+	TextLink,
 	TimeAgo,
 } from "@/components";
 import { BlockFinalizedIcon } from "@/components/icons";
@@ -16,13 +15,15 @@ import {
 	useGetExtrinsicsAggregateQuery,
 	useGetExtrinsicsQuery,
 } from "@/libs/api/generated.ts";
-import { useExtrinsicSuccess, usePolling } from "@/libs/hooks";
+import { useExtrinsicSuccess, usePages, usePolling } from "@/libs/hooks";
 import { usePagination } from "@/libs/stores";
 import { formatAddress, formatExtrinsicId } from "@/libs/utils";
 
+const PaginationTable = "extrinsics";
+
 export default function Extrinsics() {
-	const query = useQuery(20);
-	const { pages } = usePagination("extrinsics");
+	const query = useQuery(25);
+	const { pages } = usePagination(PaginationTable);
 
 	return (
 		<ContainerLayout>
@@ -31,7 +32,7 @@ export default function Extrinsics() {
 				icon={<ArrowsRightLeftIcon className="my-auto h-5 pr-3 text-white" />}
 			/>
 			{query.isLoading || query.isError ? (
-				<LoadingBlock title={"extrinsics"} />
+				<LoadingBlock title={PaginationTable} />
 			) : (
 				<div className="mt-0 flex flex-col">
 					<div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -69,9 +70,9 @@ export default function Extrinsics() {
 			)}
 
 			{pages?.length > 1 ? (
-				<Pagination table="extrinsics" />
+				<Pagination table={PaginationTable} />
 			) : (
-				<PaginationFallback table="extrinsics" />
+				<PaginationFallback table={PaginationTable} />
 			)}
 		</ContainerLayout>
 	);
@@ -82,12 +83,8 @@ const ExtrinsicRow = ({ id, hash, extrinsic, block, calls }) => {
 
 	return (
 		<tr>
-			<TableLayout.Data dataClassName="!text-indigo-500 font-bold">
-				<Link href={`/extrinsic/${id}`}>
-					<span className="cursor-pointer text-indigo-500 hover:text-white">
-						{formatExtrinsicId(id)}
-					</span>
-				</Link>
+			<TableLayout.Data dataClassName="font-bold">
+				<TextLink link={`/extrinsic/${id}`} text={formatExtrinsicId(id)} />
 			</TableLayout.Data>
 
 			<TableLayout.Data dataClassName="flex">
@@ -105,11 +102,7 @@ const ExtrinsicRow = ({ id, hash, extrinsic, block, calls }) => {
 			</TableLayout.Data>
 
 			<TableLayout.Data>
-				<Link href={`/block/${block.height}`}>
-					<span className="cursor-pointer text-indigo-500 hover:text-white">
-						{block.height}
-					</span>
-				</Link>
+				<TextLink link={`/block/${block.height}`} text={block.height} />
 			</TableLayout.Data>
 
 			<TableLayout.Data>
@@ -127,7 +120,7 @@ const ExtrinsicRow = ({ id, hash, extrinsic, block, calls }) => {
 };
 
 const useQuery = (limit) => {
-	const { currentPage } = usePagination("extrinsics");
+	const { currentPage } = usePagination(PaginationTable);
 
 	const query = usePolling({}, useGetExtrinsicsQuery, {
 		limit,
@@ -135,7 +128,11 @@ const useQuery = (limit) => {
 	});
 
 	const aggregateQuery = usePolling({}, useGetExtrinsicsAggregateQuery);
-	usePages(aggregateQuery.data, limit);
+	usePages(
+		PaginationTable,
+		aggregateQuery?.data?.archive?.extrinsic_aggregate?.aggregate?.count,
+		limit
+	);
 
 	// Prefetch next page
 	usePolling({}, useGetExtrinsicsQuery, {
@@ -147,23 +144,4 @@ const useQuery = (limit) => {
 		...query,
 		data: query?.data?.archive?.extrinsic,
 	};
-};
-
-const usePages = (data, limit) => {
-	const { setPages } = usePagination("extrinsics");
-
-	useEffect(() => {
-		if (!data?.archive?.extrinsic_aggregate) return;
-
-		setPages(
-			Array.from(
-				Array(
-					Math.ceil(
-						data?.archive?.extrinsic_aggregate?.aggregate?.count / limit
-					)
-				)
-			)
-		);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [data?.archive?.extrinsic_aggregate]);
 };

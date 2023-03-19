@@ -1,25 +1,33 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
 
-import { ContainerLayout, LoadingBlock, PageHeader } from "@/components";
-import EVMPagination from "@/components/evm/evmpagination";
+import {
+	ContainerLayout,
+	LoadingBlock,
+	PageHeader,
+	Pagination,
+} from "@/components";
 import EVMTransactionsTable from "@/components/evm/evmTransactionsTable";
 import { getEVMTransactions } from "@/libs/evm-api";
+import { usePages } from "@/libs/hooks";
+import { usePagination } from "@/libs/stores";
+
+const PaginationTable = "evmtransactions";
 
 export default function EVMTransactions() {
-	const [page, setPage] = useState(1);
 	const limit = 25;
+	const { pages, currentPage } = usePagination(PaginationTable);
 
 	const query = useQuery(
-		["evm_transactions_overview", limit, page],
+		["evm_transactions_overview", limit, currentPage],
 		() => {
-			return getEVMTransactions(page, limit);
+			return getEVMTransactions(currentPage, limit);
 		},
 		{
 			refetchInterval: 15_000,
 		}
 	);
+	usePages(PaginationTable, query?.data?.totalPages);
 
 	return (
 		<ContainerLayout>
@@ -34,7 +42,7 @@ export default function EVMTransactions() {
 					<EVMTransactionsTable query={query} />
 				)}
 
-				<EVMPagination data={query?.data} onPageChange={(p) => setPage(p)} />
+				{pages?.length > 1 && <Pagination table={PaginationTable} />}
 			</div>
 		</ContainerLayout>
 	);

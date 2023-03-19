@@ -1,32 +1,38 @@
 import fromExponential from "from-exponential";
-import Link from "next/link";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 
-import {
-	AddressLink,
-	LoadingBlock,
-	Pagination,
-	TableLayout,
-	TimeAgo,
-} from "@/components";
 import {
 	useGetTransfersFromAddressQuery,
 	useGetTransfersToAddressQuery,
 } from "@/libs/api/generated.ts";
-import { usePolling } from "@/libs/hooks";
+import { usePages, usePolling } from "@/libs/hooks";
 import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
 import { formatBalance, getAssetMetadata } from "@/libs/utils";
 
-import InOutLabel from "./inOutLabel";
+import {
+	AddressLink,
+	InOutLabel,
+	LoadingBlock,
+	Pagination,
+	TableLayout,
+	TextLink,
+	TimeAgo,
+} from "./";
+
+const EntryLimit = 10;
+const PaginationTable = "accountTransfers";
 
 export default function TransfersForAddress({ walletAddress }) {
-	const { pages, currentPage } = usePagination("accountTransfers");
+	const { pages, currentPage } = usePagination(PaginationTable);
 
-	const query = useTransfers(walletAddress);
+	const query = useTransfers(walletAddress, EntryLimit);
 
-	const pageSlice = useMemo(() => (currentPage - 1) * 10, [currentPage]);
+	const pageSlice = useMemo(
+		() => (currentPage - 1) * EntryLimit,
+		[currentPage]
+	);
 
-	useAccountRefetchStatus("accountTransfers", query.isRefetching);
+	useAccountRefetchStatus(PaginationTable, query.isRefetching);
 
 	return (
 		<div>
@@ -75,7 +81,7 @@ export default function TransfersForAddress({ walletAddress }) {
 				</div>
 			)}
 
-			{pages?.length > 1 && <Pagination table="accountTransfers" />}
+			{pages?.length > 1 && <Pagination table={PaginationTable} />}
 		</div>
 	);
 }
@@ -95,11 +101,7 @@ const TransfersForAddressRow = ({
 	return (
 		<tr>
 			<TableLayout.Data>
-				<Link href={`/block/${block_number}`}>
-					<span className="cursor-pointer text-indigo-500 hover:text-white">
-						{block_number}
-					</span>
-				</Link>
+				<TextLink link={`/block/${block_number}`} text={block_number} />
 			</TableLayout.Data>
 
 			<TableLayout.Data>
@@ -131,7 +133,7 @@ const TransfersForAddressRow = ({
 	);
 };
 
-const useTransfers = (address) => {
+const useTransfers = (address, limit) => {
 	const toQuery = usePolling(
 		{},
 		useGetTransfersToAddressQuery,
@@ -160,23 +162,11 @@ const useTransfers = (address) => {
 				.sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1)),
 		[toQuery?.data, fromQuery?.data]
 	);
-
-	usePages(data?.length);
+	usePages(PaginationTable, data?.length, limit);
 
 	return {
 		data,
 		isLoading: toQuery?.isLoading || fromQuery?.isLoading,
 		isRefetching: toQuery?.isRefetching || fromQuery?.isRefetching,
 	};
-};
-
-const usePages = (transferCount) => {
-	const { setPages } = usePagination("accountTransfers");
-
-	useEffect(() => {
-		if (!transferCount) return;
-
-		setPages(Array.from(Array(Math.ceil(transferCount / 10))));
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [transferCount]);
 };
