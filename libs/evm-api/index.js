@@ -40,7 +40,7 @@ export const getTransactionByHash = async (txHash) => {
 };
 
 export const getTransactionsForAddress = async (address, page) => {
-	return await fetch(`${EVM_API_URL}/api/getTransactionsForAddress`, {
+	return await fetch("/api/evm/getTransactionsForAddress", {
 		method: "POST",
 		...headers(),
 		body: JSON.stringify({ address, page }),
