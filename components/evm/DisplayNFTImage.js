@@ -12,7 +12,7 @@ export default function DisplayNFTImage({ args, uri, width, height }) {
 	const [src, setSrc] = useState(undefined);
 	let metadataPath = uri;
 
-	if (uri && args?.tokenId && !uri.includes('ipfs')) {
+	if (uri && args?.tokenId && !uri.includes("ipfs")) {
 		metadataPath = `${uri}${args?.tokenId ? args.tokenId : ""}`;
 	}
 	if (metadataPath?.includes("{id}")) {
