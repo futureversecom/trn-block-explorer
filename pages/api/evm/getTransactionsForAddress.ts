@@ -14,6 +14,7 @@ export default async function handler(
 		if (!ethers.isAddress(address)) throw { message: "Invalid address" };
 
 		const DB = await Mongoose.connect(ROOT_NETWORK.MongoUri);
+
 		if (!page) page = 1;
 		address = ethers.getAddress(address);
 
