@@ -88,7 +88,7 @@ export const isContract = async (address) => {
 };
 
 export const getEVMTransactions = async (page, limit) => {
-	return await fetch(`${EVM_API_URL}/api/getEVMTransactions`, {
+	return await fetch("/api/evm/getEVMTransactions", {
 		method: "POST",
 		...headers(),
 		body: JSON.stringify({ page, limit }),
