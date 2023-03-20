@@ -9,17 +9,12 @@ export const ROOT_GAS_TOKEN_PRE_BLOCK = Number(
 export const EVM_API_URL =
 	process.env.NEXT_PUBLIC_EVM_API_URL ?? "http://localhost:3001";
 
-export const MONGO_APP_ID = process.env.NEXT_PUBLIC_MONGO_APP_ID ?? "";
-
-const EvmGraphQlEndpoint = `https://ap-southeast-2.aws.realm.mongodb.com/api/client/v2.0/app/${MONGO_APP_ID}/graphql`;
-
 export const ROOT_NETWORK = {
 	porcini: {
 		ChainName: "Porcini",
 		ApiUrl: {
 			InWebSocket: "wss://porcini.au.rootnet.app/ws",
 		},
-		EvmGraphQlEndpoint,
 		GraphQlEndpoint: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ?? "",
 	},
 	mainnet: {
@@ -27,7 +22,6 @@ export const ROOT_NETWORK = {
 		ApiUrl: {
 			InWebSocket: "wss://root.au.rootnet.live/ws",
 		},
-		EvmGraphQlEndpoint,
 		GraphQlEndpoint: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ?? "",
 	},
 }[IS_MAINNET ? "mainnet" : "porcini"];
