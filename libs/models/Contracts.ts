@@ -1,7 +1,7 @@
 import Mongoose, { Model, Schema } from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
 
-interface IContractaddress {
+interface IContract {
 	address: string;
 	name: string;
 	symbol: string;
@@ -23,7 +23,7 @@ interface IContractaddress {
 	files?: any;
 }
 
-const schema: Schema = new Schema<IContractaddress, Model<IContractaddress>>({
+const schema: Schema = new Schema<IContract, Model<IContract>>({
 	address: { type: String },
 	name: { type: String },
 	symbol: { type: String },
