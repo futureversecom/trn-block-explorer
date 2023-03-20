@@ -1,8 +1,6 @@
-import Mongoose from "mongoose";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { ROOT_NETWORK } from "@/libs/constants";
-import "@/libs/models";
+import { getMongoInstance } from "@/libs/utils";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -13,7 +11,7 @@ export default async function handler(
 		if (!page) page = 1;
 		if (!limit) limit = 10;
 
-		const DB = await Mongoose.connect(ROOT_NETWORK.MongoUri);
+		const DB = await getMongoInstance();
 
 		const data = await (DB.model("Transaction") as any).paginate(
 			{},

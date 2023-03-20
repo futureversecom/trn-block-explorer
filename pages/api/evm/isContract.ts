@@ -1,9 +1,7 @@
 import { utils as ethers } from "ethers";
-import Mongoose from "mongoose";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { ROOT_NETWORK } from "@/libs/constants";
-import "@/libs/models";
+import { getMongoInstance } from "@/libs/utils";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -13,7 +11,7 @@ export default async function handler(
 		const { address } = req.body;
 		if (!ethers.isAddress(address)) throw { message: "Invalid address" };
 
-		const DB = await Mongoose.connect(ROOT_NETWORK.MongoUri);
+		const DB = await getMongoInstance();
 
 		const contractData = await DB.model("Contractaddress")
 			.findOne({ address: ethers.getAddress(address) })
