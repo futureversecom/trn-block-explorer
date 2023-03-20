@@ -1,7 +1,5 @@
 import fetch from "node-fetch";
 
-import { EVM_API_URL } from "@/libs/constants";
-
 const headers = () => {
 	return {
 		headers: {

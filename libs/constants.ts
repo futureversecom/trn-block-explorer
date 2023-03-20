@@ -6,9 +6,6 @@ export const ROOT_GAS_TOKEN_PRE_BLOCK = Number(
 	process.env.NEXT_PUBLIC_ROOT_GAS_TOKEN_PRE_BLOCK
 );
 
-export const EVM_API_URL =
-	process.env.NEXT_PUBLIC_EVM_API_URL ?? "http://localhost:3001";
-
 const MONGO_URI = process.env.MONGO_URI ?? "";
 
 export const ROOT_NETWORK = {
