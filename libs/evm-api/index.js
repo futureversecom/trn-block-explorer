@@ -72,7 +72,7 @@ export const getERC20Balance = async (address) => {
 };
 
 export const getERC721Balance = async (address) => {
-	return await fetch(`${EVM_API_URL}/api/getERC721Balance`, {
+	return await fetch("/api/evm/getERC721Balance", {
 		method: "POST",
 		...headers(),
 		body: JSON.stringify({ address }),
