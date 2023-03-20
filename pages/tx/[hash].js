@@ -5,6 +5,7 @@ import {
 	ClockIcon,
 	InformationCircleIcon,
 } from "@heroicons/react/24/outline";
+import { useQuery } from "@tanstack/react-query";
 import BigNumber from "bignumber.js";
 import { ethers } from "ethers";
 import moment from "moment";
@@ -24,45 +25,8 @@ import GasUsage from "@/components/evm/GasUsage";
 import TransactionStatus from "@/components/evm/TransactionStatus";
 import { CopyToClipboard } from "@/components/icons";
 import LoadingLayout from "@/components/layout/loadingLayout";
-import { useEvmQuery, usePriceQuery } from "@/libs/hooks";
+import { getTransactionByHash } from "@/libs/evm-api";
 import { formatUnits, formatUSD } from "@/libs/utils";
-
-const GetTransactionByHash = `query GetTransactionByHash($hash: String!) {
-	transactions(query: { OR: [{ hash: $hash }, { transactionHash: $hash }] }) {
-		to
-		from
-		data
-		type
-		nonce
-		value
-		hash
-		error
-		status
-		creates
-		timestamp
-		blockNumber
-		transactionHash
-		transactionIndex
-		gasUsed
-		gasLimit
-		gasPrice
-		maxFeePerGas
-		effectiveGasPrice
-		maxPriorityFeePerGas
-		parsedData {
-			name
-			signature
-			sighash
-			args
-		}
-		parsedLogs {
-			parsedFromAbi
-			transactionHash
-			logIndex
-		}
-	}
-}
-`;
 
 export const getServerSideProps = (context) => ({
 	props: { hash: context?.params?.hash },
@@ -70,26 +34,18 @@ export const getServerSideProps = (context) => ({
 
 export default function EVMTransaction({ hash }) {
 	const [showMore, setShowMore] = useState(false);
-
-	const evmQuery = useEvmQuery({
-		queryKey: hash,
-		query: GetTransactionByHash,
-		variables: { hash },
+	const query = useQuery([hash], () => {
+		return getTransactionByHash(hash);
 	});
-	const query = {
-		...evmQuery,
-		data: evmQuery?.data?.transactions?.[0],
-	};
 
 	const parsedData = query?.data?.parsedData;
 
-	const xrpPriceQuery = usePriceQuery("XRP");
 	let txUsdPrice;
-	if (xrpPriceQuery?.data) {
+	if (query?.data?.xrpPrice?.price && query?.data?.value) {
 		txUsdPrice = formatUSD(
 			parseFloat(
 				new BigNumber(formatUnits(query.data.value, 18)).multipliedBy(
-					new BigNumber(xrpPriceQuery.data)
+					new BigNumber(query?.data?.xrpPrice?.price)
 				)
 			)
 		);
@@ -519,17 +475,19 @@ export default function EVMTransaction({ hash }) {
 										: "0"}{" "}
 									XRP
 								</span>
-								{txUsdPrice && (
+								{txUsdPrice ? (
 									<div className="flex space-x-2">
 										<span className="my-auto">
 											<EVMTooltip
-												message={`1 XRP @ ${formatUSD(xrpPriceQuery.data)}`}
+												message={`1 XRP @ ${formatUSD(
+													query?.data?.xrpPrice?.price
+												)}`}
 											>
 												{txUsdPrice}
 											</EVMTooltip>
 										</span>
 									</div>
-								)}
+								) : null}
 							</div>
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
