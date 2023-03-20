@@ -31,11 +31,11 @@ const extractBody = (res) => {
 	}
 };
 
-export const getTransactionByHash = async (transactionHash) => {
-	return await fetch(`${EVM_API_URL}/api/getTransactionByHash`, {
+export const getTransactionByHash = async (txHash) => {
+	return await fetch("/api/evm/getTransactionByHash", {
 		method: "POST",
 		...headers(),
-		body: JSON.stringify({ transactionHash }),
+		body: JSON.stringify({ txHash }),
 	}).then(extractBody);
 };
 

@@ -9,6 +9,8 @@ export const ROOT_GAS_TOKEN_PRE_BLOCK = Number(
 export const EVM_API_URL =
 	process.env.NEXT_PUBLIC_EVM_API_URL ?? "http://localhost:3001";
 
+const MONGO_URI = process.env.MONGO_URI ?? "";
+
 export const ROOT_NETWORK = {
 	porcini: {
 		ChainName: "Porcini",
@@ -16,6 +18,7 @@ export const ROOT_NETWORK = {
 			InWebSocket: "wss://porcini.au.rootnet.app/ws",
 		},
 		GraphQlEndpoint: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ?? "",
+		MongoUri: MONGO_URI,
 	},
 	mainnet: {
 		ChainName: "ROOT",
@@ -23,6 +26,7 @@ export const ROOT_NETWORK = {
 			InWebSocket: "wss://root.au.rootnet.live/ws",
 		},
 		GraphQlEndpoint: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ?? "",
+		MongoUri: MONGO_URI,
 	},
 }[IS_MAINNET ? "mainnet" : "porcini"];
 
