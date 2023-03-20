@@ -18,7 +18,9 @@ export const executeGraphQuery = async (
 		},
 	});
 
-	const data = await fetchResponse.json();
+	const { data, errors } = await fetchResponse.json();
+
+	if (errors) throw errors[0];
 
 	return data;
 };

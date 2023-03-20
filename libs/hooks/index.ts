@@ -7,3 +7,5 @@ export * from "./useTimeAgo";
 export * from "./useInterval";
 export * from "./useExtrinsicSuccess";
 export * from "./useRealmApp";
+export * from "./useEvmQuery";
+export * from "./usePriceQuery";
