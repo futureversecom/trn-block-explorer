@@ -34,6 +34,6 @@ export const extractDataFromAggregate = (
 		page,
 		limit,
 		totalDocs,
-		...(limit && { totalPages: Math.floor(totalDocs / limit) }),
+		...(limit && { totalPages: Math.ceil(totalDocs / limit) }),
 	};
 };

@@ -10,13 +10,15 @@ export default async function handler(
 		let { page, limit } = req.body;
 		if (!page) page = 1;
 		if (!limit) limit = 10;
+		console.log("yeet", (page - 1) * limit);
 
 		const agg = await fetchEvmData("action/aggregate", "Transactions", {
 			pipeline: [
+				{ $sort: { blockNumber: -1, firstSeen: 1 } },
 				{
 					$facet: {
 						metadata: [{ $count: "totalDocs" }],
-						data: [{ $skip: page * limit }, { $limit: limit }],
+						data: [{ $skip: (page - 1) * limit }, { $limit: limit }],
 					},
 				},
 			],

@@ -65,10 +65,11 @@ export default async function handler(
 						as: "toContract",
 					},
 				},
+				{ $sort: { blockNumber: -1, firstSeen: 1 } },
 				{
 					$facet: {
 						metadata: [{ $count: "totalDocs" }],
-						data: [{ $skip: page * limit }, { $limit: limit }],
+						data: [{ $skip: (page - 1) * limit }, { $limit: limit }],
 					},
 				},
 			],
