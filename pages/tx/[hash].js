@@ -39,6 +39,7 @@ export default function EVMTransaction({ hash }) {
 	});
 
 	const parsedData = query?.data?.parsedData;
+	const contractData = query?.data?.contractData;
 
 	let txUsdPrice;
 	if (query?.data?.xrpPrice?.price && query?.data?.value) {
@@ -113,7 +114,7 @@ export default function EVMTransaction({ hash }) {
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
 					)}
-					{query?.data?.parsedData?.name || query?.data?.creates ? (
+					{parsedData?.name || query?.data?.creates ? (
 						<DetailsLayout.Wrapper>
 							<DetailsLayout.Title
 								title="Method"
@@ -126,10 +127,9 @@ export default function EVMTransaction({ hash }) {
 									) : (
 										<Fragment />
 									)}
-									<span className="capitalize">
-										{query?.data?.parsedData?.name &&
-											query?.data?.parsedData?.name}
-									</span>
+									{parsedData?.name && (
+										<span className="capitalize">parsedData.name</span>
+									)}
 								</span>
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
@@ -147,9 +147,11 @@ export default function EVMTransaction({ hash }) {
 							/>
 							<DetailsLayout.Data>
 								<div className="flex flex-col divide-y divide-gray-800">
-									{query?.data?.parsedLogs.map((log) => {
+									{query?.data?.parsedLogs.map((log, i) => {
 										const allowed = ["ERC20", "ERC1155", "ERC721"];
 										const childClasses = "py-2";
+										log = { ...log, contractData: contractData?.[i] };
+
 										if (!allowed.includes(log?.parsedFromAbi))
 											return (
 												<Fragment
@@ -475,7 +477,7 @@ export default function EVMTransaction({ hash }) {
 										: "0"}{" "}
 									XRP
 								</span>
-								{txUsdPrice ? (
+								{txUsdPrice && (
 									<div className="flex space-x-2">
 										<span className="my-auto">
 											<EVMTooltip
@@ -487,7 +489,7 @@ export default function EVMTransaction({ hash }) {
 											</EVMTooltip>
 										</span>
 									</div>
-								) : null}
+								)}
 							</div>
 						</DetailsLayout.Data>
 					</DetailsLayout.Wrapper>
@@ -518,7 +520,7 @@ export default function EVMTransaction({ hash }) {
 										<div className="space-y-2 font-mono">
 											<p>Function: {parsedData?.signature}</p>
 											<p>MethodId: {parsedData?.sighash}</p>
-											{parsedData?.args ? (
+											{parsedData?.args && (
 												<div className="flex flex-col">
 													{Object.keys(parsedData.args).map((e) => (
 														<div key={e} className="flex space-x-3">
@@ -527,7 +529,7 @@ export default function EVMTransaction({ hash }) {
 														</div>
 													))}
 												</div>
-											) : null}
+											)}
 										</div>
 									) : (
 										<span className="overflow-ellipsis">
@@ -555,7 +557,7 @@ export default function EVMTransaction({ hash }) {
 				</DetailsLayout.Container>
 			</LoadingLayout>
 			<div className="space-x-2 py-3" role="alert">
-				<div className="flex items-start">
+				<div className="flex items-start items-center">
 					<div>
 						<InformationCircleIcon className="mr-2 h-6 w-6 text-white text-opacity-50" />
 					</div>

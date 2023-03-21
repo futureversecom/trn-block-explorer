@@ -22,9 +22,9 @@ export default async function handler(
 					{
 						$lookup: {
 							from: "Contractaddresses",
-							localField: "contractAddress",
+							localField: "parsedLogs.address",
 							foreignField: "address",
-							as: "parsedLogs.contractData",
+							as: "contractData",
 						},
 					},
 					{
