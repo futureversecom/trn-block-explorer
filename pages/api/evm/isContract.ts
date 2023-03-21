@@ -1,7 +1,7 @@
 import { utils as ethers } from "ethers";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { getMongoInstance } from "@/libs/utils";
+import { fetchEvmData } from "@/libs/utils";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -11,13 +11,13 @@ export default async function handler(
 		const { address } = req.body;
 		if (!ethers.isAddress(address)) throw { message: "Invalid address" };
 
-		const DB = await getMongoInstance();
+		const data = await fetchEvmData("action/findOne", "Contractaddresses", {
+			filter: {
+				address: ethers.getAddress(address),
+			},
+		});
 
-		const contractData = await DB.model("Contractaddress")
-			.findOne({ address: ethers.getAddress(address) })
-			.select("-_id")
-			.lean();
-
+		const contractData = data?.document;
 		return res.json({ isContract: !!contractData, contractData });
 	} catch (err: any) {
 		res.status(500).json({ error: err.message });

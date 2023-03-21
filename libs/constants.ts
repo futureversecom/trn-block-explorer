@@ -6,7 +6,11 @@ export const ROOT_GAS_TOKEN_PRE_BLOCK = Number(
 	process.env.NEXT_PUBLIC_ROOT_GAS_TOKEN_PRE_BLOCK
 );
 
-const MONGO_URI = process.env.MONGO_URI ?? "";
+const MONGO_APP_ID = process.env.MONGO_APP_ID ?? "";
+export const MONGO_API_KEY = process.env.MONGO_API_KEY ?? "";
+
+const GraphQlEndpoint = process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ?? "";
+const MongoApiEndpoint = `https://ap-southeast-2.aws.data.mongodb-api.com/app/${MONGO_APP_ID}/endpoint/data/v1`;
 
 export const ROOT_NETWORK = {
 	porcini: {
@@ -14,16 +18,18 @@ export const ROOT_NETWORK = {
 		ApiUrl: {
 			InWebSocket: "wss://porcini.au.rootnet.app/ws",
 		},
-		GraphQlEndpoint: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ?? "",
-		MongoUri: MONGO_URI,
+		GraphQlEndpoint,
+		MongoApiEndpoint,
+		MongoDatabase: "porcini-ingestor",
 	},
 	mainnet: {
 		ChainName: "ROOT",
 		ApiUrl: {
 			InWebSocket: "wss://root.au.rootnet.live/ws",
 		},
-		GraphQlEndpoint: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ?? "",
-		MongoUri: MONGO_URI,
+		GraphQlEndpoint,
+		MongoApiEndpoint,
+		MongoDatabase: "mainnet-ingestor",
 	},
 }[IS_MAINNET ? "mainnet" : "porcini"];
 

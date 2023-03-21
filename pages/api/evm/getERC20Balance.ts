@@ -2,7 +2,7 @@ import BigNumber from "bignumber.js";
 import { utils as ethers } from "ethers";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { getMongoInstance } from "@/libs/utils";
+import { fetchEvmData } from "@/libs/utils";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -13,86 +13,86 @@ export default async function handler(
 		if (!ethers.isAddress(address)) throw { message: "Invalid address" };
 		address = ethers.getAddress(address);
 
-		const DB = await getMongoInstance();
-
-		let data = await DB.model("Transaction").aggregate([
-			{
-				$match: {
-					"parsedLogs.name": "Transfer",
-					"parsedLogs.parsedFromAbi": "ERC20",
-					"$or": [
-						{
-							"parsedLogs.args.from": address,
-						},
-						{
-							"parsedLogs.args.to": address,
-						},
-					],
-				},
-			},
-			{
-				$unwind: "$parsedLogs",
-			},
-			{
-				$match: {
-					"parsedLogs.name": "Transfer",
-					"parsedLogs.parsedFromAbi": "ERC20",
-				},
-			},
-			{
-				$sort: {
-					blockNumber: 1,
-				},
-			},
-			{
-				$project: {
-					event: "$parsedLogs.name",
-					from: "$parsedLogs.args.from",
-					to: "$parsedLogs.args.to",
-					value: "$parsedLogs.args.value",
-					address: "$parsedLogs.address",
-					blockNumber: "$parsedLogs.blockNumber",
-				},
-			},
-			{
-				$group: {
-					_id: "$address",
-					balance: {
-						$push: "$value",
+		let data = await fetchEvmData("action/aggregate", "Transactions", {
+			pipeline: [
+				{
+					$match: {
+						"parsedLogs.name": "Transfer",
+						"parsedLogs.parsedFromAbi": "ERC20",
+						"$or": [
+							{
+								"parsedLogs.args.from": address,
+							},
+							{
+								"parsedLogs.args.to": address,
+							},
+						],
 					},
-					action: {
-						$push: {
-							$cond: {
-								if: {
-									$eq: ["$to", address],
+				},
+				{
+					$unwind: "$parsedLogs",
+				},
+				{
+					$match: {
+						"parsedLogs.name": "Transfer",
+						"parsedLogs.parsedFromAbi": "ERC20",
+					},
+				},
+				{
+					$sort: {
+						blockNumber: 1,
+					},
+				},
+				{
+					$project: {
+						event: "$parsedLogs.name",
+						from: "$parsedLogs.args.from",
+						to: "$parsedLogs.args.to",
+						value: "$parsedLogs.args.value",
+						address: "$parsedLogs.address",
+						blockNumber: "$parsedLogs.blockNumber",
+					},
+				},
+				{
+					$group: {
+						_id: "$address",
+						balance: {
+							$push: "$value",
+						},
+						action: {
+							$push: {
+								$cond: {
+									if: {
+										$eq: ["$to", address],
+									},
+									then: "increase",
+									else: "decrease",
 								},
-								then: "increase",
-								else: "decrease",
 							},
 						},
 					},
 				},
-			},
-			{
-				$addFields: {
-					address: "$_id",
+				{
+					$addFields: {
+						address: "$_id",
+					},
 				},
-			},
-			{
-				$unset: "_id",
-			},
-			{
-				$lookup: {
-					from: "Contractaddresses",
-					localField: "address",
-					foreignField: "address",
-					as: "contractData",
+				{
+					$unset: "_id",
 				},
-			},
-		]);
+				{
+					$lookup: {
+						from: "Contractaddresses",
+						localField: "address",
+						foreignField: "address",
+						as: "contractData",
+					},
+				},
+			],
+		});
 
-		if (data?.length > 0) {
-			let contracts: any = Object.assign([], data);
+		if (data?.documents?.length > 0) {
+			let contracts: any = Object.assign([], data.documents);
 			for (const contract of contracts) {
 				let newBalance = new BigNumber(0);
 				const { balance, action }: any = contract;

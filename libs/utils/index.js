@@ -4,7 +4,8 @@ export * from "./formatExtrinsicId";
 export * from "./getAssetMetadata";
 export * from "./formatBalance";
 export * from "./formatTimeAgo";
-export * from "./getMongoInstance";
+export * from "./fetchEvmData";
+export * from "./extractDataFromAggregate";
 
 export const formatUSD = (amount) => {
 	return new Intl.NumberFormat("en-EN", {

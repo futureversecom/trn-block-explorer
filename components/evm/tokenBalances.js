@@ -25,6 +25,7 @@ export default function TokenBalances({ walletAddress }) {
 			enabled: walletAddress ? true : false,
 		}
 	);
+
 	return (
 		<Menu as="div" className="relative inline-block text-left">
 			<div>
