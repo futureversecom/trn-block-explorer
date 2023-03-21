@@ -4,7 +4,7 @@ export * from "./formatExtrinsicId";
 export * from "./getAssetMetadata";
 export * from "./formatBalance";
 export * from "./formatTimeAgo";
-export * from "./fetchEvmData";
+export * from "./fetchMongoData";
 export * from "./extractDataFromAggregate";
 
 export const formatUSD = (amount) => {

@@ -1,7 +1,7 @@
 import { utils as ethers } from "ethers";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { fetchEvmData } from "@/libs/utils";
+import { fetchMongoData } from "@/libs/utils";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -11,7 +11,7 @@ export default async function handler(
 		const { address } = req.body;
 		if (!ethers.isAddress(address)) throw { message: "Invalid address" };
 
-		const data = await fetchEvmData("action/findOne", "Contractaddresses", {
+		const data = await fetchMongoData("action/findOne", "Contractaddresses", {
 			filter: {
 				address: ethers.getAddress(address),
 			},

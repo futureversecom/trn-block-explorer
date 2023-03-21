@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { fetchEvmData } from "@/libs/utils";
+import { fetchMongoData } from "@/libs/utils";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -12,7 +12,7 @@ export default async function handler(
 			throw { message: "Invalid txHash" };
 
 		const [query, price] = await Promise.all([
-			fetchEvmData("action/aggregate", "Transactions", {
+			fetchMongoData("action/aggregate", "Transactions", {
 				pipeline: [
 					{
 						$match: {
@@ -45,7 +45,7 @@ export default async function handler(
 					},
 				],
 			}),
-			fetchEvmData("action/findOne", "Prices", {
+			fetchMongoData("action/findOne", "Prices", {
 				filter: { name: "XRP" },
 			}),
 		]);

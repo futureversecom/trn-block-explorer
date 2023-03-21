@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { extractDataFromAggregate, fetchEvmData } from "@/libs/utils";
+import { extractDataFromAggregate, fetchMongoData } from "@/libs/utils";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -11,7 +11,7 @@ export default async function handler(
 		if (!page) page = 1;
 		if (!limit) limit = 10;
 
-		const agg = await fetchEvmData("action/aggregate", "Transactions", {
+		const agg = await fetchMongoData("action/aggregate", "Transactions", {
 			pipeline: [
 				{
 					$lookup: {

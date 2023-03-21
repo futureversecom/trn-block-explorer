@@ -1,7 +1,7 @@
 import { utils as ethers } from "ethers";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { extractDataFromAggregate, fetchEvmData } from "@/libs/utils";
+import { extractDataFromAggregate, fetchMongoData } from "@/libs/utils";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -14,7 +14,7 @@ export default async function handler(
 		const limit = 10;
 		address = ethers.getAddress(address);
 
-		const agg = await fetchEvmData("action/aggregate", "Transactions", {
+		const agg = await fetchMongoData("action/aggregate", "Transactions", {
 			pipeline: [
 				{
 					$match: {

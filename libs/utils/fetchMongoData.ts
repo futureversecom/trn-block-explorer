@@ -1,6 +1,6 @@
 import { MONGO_API_KEY, ROOT_NETWORK } from "@/libs/constants";
 
-export const fetchEvmData = async (
+export const fetchMongoData = async (
 	slug: string,
 	collection: string,
 	options: object
