@@ -61,8 +61,8 @@ export default function EVMTransactionsTable({ query, walletAddress }) {
 									success={tx?.status == 1 ? true : false}
 									type={type}
 									value={tx?.value}
-									fromContract={tx?.fromContract}
-									toContract={tx?.toContract}
+									fromContract={tx?.fromContract?.[0]}
+									toContract={tx?.toContract?.[0]}
 									tx={tx}
 								/>
 							);

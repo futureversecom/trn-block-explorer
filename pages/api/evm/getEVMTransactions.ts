@@ -10,10 +10,25 @@ export default async function handler(
 		let { page, limit } = req.body;
 		if (!page) page = 1;
 		if (!limit) limit = 10;
-		console.log("yeet", (page - 1) * limit);
 
 		const agg = await fetchEvmData("action/aggregate", "Transactions", {
 			pipeline: [
+				{
+					$lookup: {
+						from: "Contractaddresses",
+						localField: "from",
+						foreignField: "address",
+						as: "fromContract",
+					},
+				},
+				{
+					$lookup: {
+						from: "Contractaddresses",
+						localField: "to",
+						foreignField: "address",
+						as: "toContract",
+					},
+				},
 				{ $sort: { blockNumber: -1, firstSeen: 1 } },
 				{
 					$facet: {
