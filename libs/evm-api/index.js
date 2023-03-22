@@ -22,13 +22,13 @@ const extractBody = (res) => {
 };
 
 const fetchEvmData = async (slug, variables, options) => {
-	const params = new URLSearchParams(variables);
+	let params = new URLSearchParams(variables);
+	if (options?.invalidateCache) params.append("_vercel_no_cache", "1");
 
 	return await fetch(`/api/evm/${slug}/?${params.toString()}`, {
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json",
-			...(options?.invalidateCache && { cookie: "_vercel_no_cache=1" }),
 		},
 	}).then(extractBody);
 };
