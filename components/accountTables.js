@@ -36,9 +36,11 @@ export const AccountTables = ({ walletAddress }) => {
 	const isContractQuery = useQuery(
 		[walletAddress, "isContract"],
 		() => {
-			return isContract(walletAddress).then((data) => {
-				return data;
-			});
+			return isContract(walletAddress, { invalidateCache: true }).then(
+				(data) => {
+					return data;
+				}
+			);
 		},
 		{
 			refetchInterval: 0,

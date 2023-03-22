@@ -18,6 +18,11 @@ export default async function handler(
 		});
 
 		const contractData = data?.document;
+
+		if (contractData)
+			// Revalidate every 30 minutes in case of contract verification
+			res.setHeader("Cache-Control", "max-age=1800, stale-while-revalidate");
+
 		return res.json({ isContract: !!contractData, contractData });
 	} catch (err: any) {
 		res.status(500).json({ error: err.message });
