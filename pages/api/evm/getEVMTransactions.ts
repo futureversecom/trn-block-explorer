@@ -7,9 +7,9 @@ export default async function handler(
 	res: NextApiResponse
 ) {
 	try {
-		let { page, limit } = req.body;
-		if (!page) page = 1;
-		if (!limit) limit = 10;
+		let page: number, limit: number;
+		page = Number(req.query?.page) ?? 1;
+		limit = Number(req.query?.limit) ?? 10;
 
 		const agg = await fetchMongoData("action/aggregate", "Transactions", {
 			pipeline: [

@@ -8,7 +8,7 @@ export default async function handler(
 	res: NextApiResponse
 ) {
 	try {
-		const { address } = req.body;
+		let address = req.query?.address as string;
 		if (!ethers.isAddress(address)) throw { message: "Invalid address" };
 
 		const data = await fetchMongoData("action/findOne", "Contractaddresses", {

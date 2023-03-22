@@ -8,10 +8,11 @@ export default async function handler(
 	res: NextApiResponse
 ) {
 	try {
-		let { address, page } = req.body;
-		if (!ethers.isAddress(address)) throw { message: "Invalid address" };
-		if (!page) page = 1;
 		const limit = 10;
+		const page = Number(req.query?.page) ?? 1;
+		let address: string = req.query?.address as string;
+
+		if (!ethers.isAddress(address)) throw { message: "Invalid address" };
 		address = ethers.getAddress(address);
 
 		const agg = await fetchMongoData("action/aggregate", "Transactions", {

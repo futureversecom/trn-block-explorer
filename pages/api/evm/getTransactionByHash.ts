@@ -7,7 +7,7 @@ export default async function handler(
 	res: NextApiResponse
 ) {
 	try {
-		const { transactionHash } = req.body;
+		const transactionHash = req.query?.transactionHash as string;
 		if (!transactionHash.startsWith("0x") || transactionHash?.length !== 66)
 			throw { message: "Invalid txHash" };
 

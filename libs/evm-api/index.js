@@ -30,65 +30,72 @@ const extractBody = (res) => {
 };
 
 export const getTransactionByHash = async (transactionHash) => {
-	return await fetch("/api/evm/getTransactionByHash", {
-		method: "POST",
-		...headers(),
-		body: JSON.stringify({ transactionHash }),
-	}).then(extractBody);
+	return await fetch(
+		`/api/evm/getTransactionByHash?transactionHash=${transactionHash}`,
+		{
+			method: "GET",
+			...headers(),
+		}
+	).then(extractBody);
 };
 
 export const getTransactionsForAddress = async (address, page) => {
-	return await fetch("/api/evm/getTransactionsForAddress", {
-		method: "POST",
-		...headers(),
-		body: JSON.stringify({ address, page }),
-	}).then(extractBody);
+	return await fetch(
+		`/api/evm/getTransactionsForAddress?address=${address}&page=${page}`,
+		{
+			method: "GET",
+			...headers(),
+		}
+	).then(extractBody);
 };
 
 export const getERC721TransferForAddress = async (address, page) => {
-	return await fetch("/api/evm/getERC721TransferForAddress", {
-		method: "POST",
-		...headers(),
-		body: JSON.stringify({ address, page }),
-	}).then(extractBody);
+	return await fetch(
+		`/api/evm/getERC721TransferForAddress?address=${address}&page=${page}`,
+		{
+			method: "GET",
+			...headers(),
+		}
+	).then(extractBody);
 };
 
 export const getERC20TransferForAddress = async (address, page) => {
-	return await fetch("/api/evm/getERC20TransferForAddress", {
-		method: "POST",
-		...headers(),
-		body: JSON.stringify({ address, page }),
-	}).then(extractBody);
+	return await fetch(
+		`/api/evm/getERC20TransferForAddress?address=${address}&page=${page}`,
+		{
+			method: "GET",
+			...headers(),
+		}
+	).then(extractBody);
 };
 
 export const getERC20Balance = async (address) => {
-	return await fetch("/api/evm/getERC20Balance", {
-		method: "POST",
+	return await fetch(`/api/evm/getERC20Balance?address=${address}`, {
+		method: "GET",
 		...headers(),
-		body: JSON.stringify({ address }),
 	}).then(extractBody);
 };
 
 export const getERC721Balance = async (address) => {
-	return await fetch("/api/evm/getERC721Balance", {
-		method: "POST",
+	return await fetch(`/api/evm/getERC721Balance?address=${address}`, {
+		method: "GET",
 		...headers(),
-		body: JSON.stringify({ address }),
 	}).then(extractBody);
 };
 
 export const isContract = async (address) => {
-	return await fetch("/api/evm/isContract", {
-		method: "POST",
+	return await fetch(`/api/evm/isContract?address=${address}`, {
+		method: "GET",
 		...headers(),
-		body: JSON.stringify({ address }),
 	}).then(extractBody);
 };
 
 export const getEVMTransactions = async (page, limit) => {
-	return await fetch("/api/evm/getEVMTransactions", {
-		method: "POST",
-		...headers(),
-		body: JSON.stringify({ page, limit }),
-	}).then(extractBody);
+	return await fetch(
+		`/api/evm/getEVMTransactions?page=${page}&limit=${limit}`,
+		{
+			method: "GET",
+			...headers(),
+		}
+	).then(extractBody);
 };
