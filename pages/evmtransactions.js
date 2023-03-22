@@ -21,7 +21,7 @@ export default function EVMTransactions() {
 	const query = useQuery(
 		["evm_transactions_overview", limit, currentPage],
 		() => {
-			return getEVMTransactions(currentPage, limit);
+			return getEVMTransactions(currentPage, limit, { invalidateCache: true });
 		},
 		{
 			refetchInterval: 15_000,
