@@ -128,7 +128,7 @@ export default function EVMTransaction({ hash }) {
 										<Fragment />
 									)}
 									{parsedData?.name && (
-										<span className="capitalize">parsedData.name</span>
+										<span className="capitalize">{parsedData.name}</span>
 									)}
 								</span>
 							</DetailsLayout.Data>
