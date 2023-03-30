@@ -39,7 +39,7 @@ export default function EVMTransaction({ hash }) {
 	});
 
 	const parsedData = query?.data?.parsedData;
-	const contractData = query?.data?.contractData;
+	const contractData = query?.data?.contractData?.[0];
 
 	let txUsdPrice;
 	if (query?.data?.xrpPrice?.price && query?.data?.value) {
@@ -150,7 +150,7 @@ export default function EVMTransaction({ hash }) {
 									{query?.data?.parsedLogs.map((log, i) => {
 										const allowed = ["ERC20", "ERC1155", "ERC721"];
 										const childClasses = "py-2";
-										log = { ...log, contractData: contractData?.[i] };
+										log = { ...log, contractData };
 
 										if (!allowed.includes(log?.parsedFromAbi))
 											return (

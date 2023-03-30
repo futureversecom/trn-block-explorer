@@ -1,4 +1,5 @@
 import {
+	ArrowsRightLeftIcon,
 	ChevronRightIcon,
 	ShieldExclamationIcon,
 } from "@heroicons/react/24/outline";
@@ -14,32 +15,30 @@ import { formatAddress } from "@/libs/utils";
 const Transfer = ({ log }) => {
 	return (
 		<div className="flex items-center space-x-2 overflow-x-scroll whitespace-nowrap capitalize">
-			<div className="flex-grow space-x-2">
-				<span className="font-semibold">Transfer</span>
-				<span className="font-semibold">From</span>
-				<TextLink
-					link={`/address/${log?.args?.to}`}
-					text={formatAddress(log?.args?.from)}
-				/>
-				<span className="font-semibold">To</span>
-				<TextLink
-					link={`/address/${log?.args?.to}`}
-					text={formatAddress(log?.args?.to)}
-				/>
-				<span className="font-semibold">TokenId</span>
-				<span>{log?.args?.tokenId}</span>
-				<span>
-					{log?.contractData?.name} ({log?.contractData?.symbol})
-				</span>
+			<div className="flex">
+				<ArrowsRightLeftIcon className="mr-2 h-5 w-5" /> Transfer{" "}
 			</div>
-			<div className="flex-shrink">
-				<DisplayNFTImage
-					args={log?.args}
-					uri={log?.contractData?.uri}
-					height={50}
-					width={50}
-				/>
-			</div>
+			<span className="font-semibold">From</span>
+			<TextLink
+				link={`/address/${log?.args?.to}`}
+				text={formatAddress(log?.args?.from)}
+			/>
+			<span className="font-semibold">To</span>
+			<TextLink
+				link={`/address/${log?.args?.to}`}
+				text={formatAddress(log?.args?.to)}
+			/>
+			<span className="font-semibold">TokenId</span>
+			<span>{log?.args?.tokenId}</span>
+			<span>
+				{log?.contractData?.name} ({log?.contractData?.symbol})
+			</span>
+			<DisplayNFTImage
+				args={log?.args}
+				uri={log?.contractData?.uri}
+				height={50}
+				width={50}
+			/>
 		</div>
 	);
 };
@@ -81,22 +80,21 @@ const TransferBatch = ({ log }) => {
 	return (
 		<Fragment>
 			<div className="flex items-center space-x-2 overflow-x-scroll whitespace-nowrap capitalize">
-				<div className="flex-grow space-x-2">
-					<span className="font-semibold">TransferBatch</span>
-					<span className="font-semibold">From</span>
-					<TextLink
-						link={`/address/${log?.args?.from}`}
-						text={formatAddress(log?.args?.from)}
-					/>
-					<span className="font-semibold">To</span>
-					<TextLink
-						link={`/address/${log?.args?.to}`}
-						text={formatAddress(log?.args?.to)}
-					/>
-					<span>
-						{log?.contractData?.name} ({log?.contractData?.symbol})
-					</span>
+				<div className="flex">
+					<ArrowsRightLeftIcon className="mr-2 h-5 w-5" /> TransferBatch{" "}
 				</div>
+				<TextLink
+					link={`/address/${log?.args?.from}`}
+					text={formatAddress(log?.args?.from)}
+				/>
+				<span className="font-semibold">To</span>
+				<TextLink
+					link={`/address/${log?.args?.to}`}
+					text={formatAddress(log?.args?.to)}
+				/>
+				<span>
+					{log?.contractData?.name} ({log?.contractData?.symbol})
+				</span>
 			</div>
 			{log?.args?.ids?.map((tokenId, key) => (
 				<div className="flex space-x-2" key={key}>
@@ -107,14 +105,12 @@ const TransferBatch = ({ log }) => {
 						<span className="font-semibold">Quantity</span>
 						<span>{log?.args?.[4]?.[key]}</span>
 					</div>
-					<div className="flex-shrink">
-						<DisplayNFTImage
-							args={{ tokenId }}
-							uri={log?.contractData?.uri}
-							height={50}
-							width={50}
-						/>
-					</div>
+					<DisplayNFTImage
+						args={{ tokenId }}
+						uri={log?.contractData?.uri}
+						height={50}
+						width={50}
+					/>
 				</div>
 			))}
 		</Fragment>
@@ -125,34 +121,32 @@ const TransferBatch = ({ log }) => {
 const TransferSingle = ({ log }) => {
 	return (
 		<div className="flex items-center space-x-2 overflow-x-scroll whitespace-nowrap capitalize">
-			<div className="flex-grow space-x-2">
-				<span className="font-semibold">Transfer</span>
-				<span className="font-semibold">From</span>
-				<TextLink
-					link={`/address/${log?.args?.from}`}
-					text={formatAddress(log?.args?.from)}
-				/>
-				<span className="font-semibold">To</span>
-				<TextLink
-					link={`/address/${log?.args?.to}`}
-					text={formatAddress(log?.args?.to)}
-				/>
-				<span className="font-semibold">TokenId</span>
-				<span>{log?.args?.id}</span>
-				<span className="font-semibold">Qty</span>
-				<span>{log?.args?.value}</span>
-				<span>
-					{log?.contractData?.name} ({log?.contractData?.symbol})
-				</span>
+			<div className="flex">
+				<ArrowsRightLeftIcon className="mr-2 h-5 w-5" /> Transfer{" "}
 			</div>
-			<div className="flex-shrink">
-				<DisplayNFTImage
-					args={{ tokenId: log?.args?.id }}
-					uri={log?.contractData?.uri}
-					height={50}
-					width={50}
-				/>
-			</div>
+			<span className="font-semibold">From</span>
+			<TextLink
+				link={`/address/${log?.args?.from}`}
+				text={formatAddress(log?.args?.from)}
+			/>
+			<span className="font-semibold">To</span>
+			<TextLink
+				link={`/address/${log?.args?.to}`}
+				text={formatAddress(log?.args?.to)}
+			/>
+			<span className="font-semibold">TokenId</span>
+			<span>{log?.args?.id}</span>
+			<span className="font-semibold">Qty</span>
+			<span>{log?.args?.value}</span>
+			<span>
+				{log?.contractData?.name} ({log?.contractData?.symbol})
+			</span>
+			<DisplayNFTImage
+				args={{ tokenId: log?.args?.id }}
+				uri={log?.contractData?.uri}
+				height={50}
+				width={50}
+			/>
 		</div>
 	);
 };
@@ -161,27 +155,27 @@ const TransferSingle = ({ log }) => {
 const ERC20Transfer = ({ log }) => {
 	return (
 		<div className="group flex items-center space-x-2 overflow-x-scroll whitespace-nowrap capitalize">
-			<div className="flex-grow space-x-2">
-				<span className="font-semibold">Transfer</span>
-				<span className="font-semibold">From</span>
-				<TextLink
-					link={`/address/${log?.args?.from}`}
-					text={formatAddress(log?.args?.from)}
-				/>
-				<span className="font-semibold">To</span>
-				<TextLink
-					link={`/address/${log?.args?.to}`}
-					text={formatAddress(log?.args?.to)}
-				/>
-				<span>
-					{ethers.utils
-						.formatUnits(log?.args?.value, log?.contractData?.decimals)
-						.toString()}
-				</span>
-				<span className="truncate group-hover:overflow-visible">
-					{log?.contractData?.name} ({log?.contractData?.symbol})
-				</span>
+			<div className="flex">
+				<ArrowsRightLeftIcon className="mr-2 h-5 w-5" /> Transfer{" "}
 			</div>
+			<span className="font-semibold">From</span>
+			<TextLink
+				link={`/address/${log?.args?.from}`}
+				text={formatAddress(log?.args?.from)}
+			/>
+			<span className="font-semibold">To</span>
+			<TextLink
+				link={`/address/${log?.args?.to}`}
+				text={formatAddress(log?.args?.to)}
+			/>
+			<span>
+				{ethers.utils
+					.formatUnits(log?.args?.value, log?.contractData?.decimals)
+					.toString()}
+			</span>
+			<span className="truncate group-hover:overflow-visible">
+				{log?.contractData?.name} ({log?.contractData?.symbol})
+			</span>
 		</div>
 	);
 };
