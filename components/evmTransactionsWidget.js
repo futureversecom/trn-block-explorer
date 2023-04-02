@@ -13,7 +13,7 @@ export default function EvmTransactionsWidget() {
 	const query = useQuery(
 		["evm_transactions_overview", limit],
 		() => {
-			return getEVMTransactions(0, limit);
+			return getEVMTransactions(1, limit, { invalidateCache: true });
 		},
 		{
 			refetchInterval: 15_000,

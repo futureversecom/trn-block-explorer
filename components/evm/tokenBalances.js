@@ -12,8 +12,12 @@ export default function TokenBalances({ walletAddress }) {
 	const query = useQuery(
 		["erc20_erc721_evm_token_balances", walletAddress],
 		async () => {
-			const erc721 = await getERC721Balance(walletAddress);
-			const erc20 = await getERC20Balance(walletAddress);
+			const erc721 = await getERC721Balance(walletAddress, {
+				invalidateCache: true,
+			});
+			const erc20 = await getERC20Balance(walletAddress, {
+				invalidateCache: true,
+			});
 
 			return {
 				erc721,
@@ -25,6 +29,7 @@ export default function TokenBalances({ walletAddress }) {
 			enabled: walletAddress ? true : false,
 		}
 	);
+
 	return (
 		<Menu as="div" className="relative inline-block text-left">
 			<div>

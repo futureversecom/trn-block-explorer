@@ -26,7 +26,9 @@ export default function Erc721TransfersForAddress({ walletAddress }) {
 	const query = useQuery(
 		["erc721_transfers", walletAddress, currentPage],
 		() => {
-			return getERC721TransferForAddress(walletAddress, currentPage);
+			return getERC721TransferForAddress(walletAddress, currentPage, {
+				invalidateCache: true,
+			});
 		},
 		{
 			refetchInterval: 15_000,
