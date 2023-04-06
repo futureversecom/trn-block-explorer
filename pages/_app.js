@@ -33,7 +33,7 @@ function MyApp({ Component, pageProps }) {
 						name="description"
 						content="Explore and search blocks, extrinsics and accounts on The Root Network."
 					/>
-					<link rel="apple-touch-icon" sizes="256x256" href="/favicon_big" />
+					<link rel="apple-touch-icon" sizes="256x256" href="/favicon.png" />
 					<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
 				</Head>
 				<div className="flex h-full flex-col">
