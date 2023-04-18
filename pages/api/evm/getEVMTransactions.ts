@@ -13,6 +13,8 @@ export default async function handler(
 
 		const agg = await fetchMongoData("action/aggregate", "Transactions", {
 			pipeline: [
+				{ $sort: { blockNumber: -1, firstSeen: 1 } },
+				{ $limit: limit },
 				{
 					$lookup: {
 						from: "Contractaddresses",
@@ -29,7 +31,6 @@ export default async function handler(
 						as: "toContract",
 					},
 				},
-				{ $sort: { blockNumber: -1, firstSeen: 1 } },
 				{
 					$facet: {
 						metadata: [{ $count: "totalDocs" }],
