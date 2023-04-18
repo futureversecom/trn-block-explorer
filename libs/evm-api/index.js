@@ -22,8 +22,10 @@ const extractBody = (res) => {
 };
 
 const fetchEvmData = async (slug, variables, options) => {
-	let params = new URLSearchParams(variables);
-	if (options?.invalidateCache) params.append("_vercel_no_cache", "1");
+	let params = new URLSearchParams({
+		...(options?.invalidateCache && { _vercel_no_cache: "1" }),
+		...variables,
+	});
 
 	return await fetch(`/api/evm/${slug}/?${params.toString()}`, {
 		method: "GET",

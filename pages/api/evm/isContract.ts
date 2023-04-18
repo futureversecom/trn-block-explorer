@@ -18,8 +18,7 @@ export default async function handler(
 		});
 
 		const contractData = data?.document;
-
-		if (contractData)
+		if (contractData && !req.query?._vercel_no_cache)
 			// Revalidate every 30 minutes in case of contract verification
 			res.setHeader("Cache-Control", "max-age=1800, stale-while-revalidate");
 

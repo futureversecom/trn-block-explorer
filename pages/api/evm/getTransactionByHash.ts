@@ -56,7 +56,8 @@ export default async function handler(
 					"Transaction not found. If you just emitted this transaction wait for one of our nodes to pick it up.",
 			};
 
-		res.setHeader("Cache-Control", "max-age=31536000, immutable");
+		if (!req.query?._vercel_no_cache)
+			res.setHeader("Cache-Control", "max-age=31536000, immutable");
 		return res.json({
 			...query.documents[0],
 			xrpPrice: price?.document,
