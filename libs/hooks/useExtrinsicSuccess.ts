@@ -15,10 +15,9 @@ interface Extrinsic {
 
 export const useExtrinsicSuccess = (extrinsic: Extrinsic) => {
 	const isSudo = useMemo(() => {
-		const sudoEventIdx = extrinsic?.events?.findIndex((event) =>
+		return extrinsic?.events?.some((event) =>
 			event.name.includes("Sudo.Sudid")
 		);
-		return sudoEventIdx !== -1;
 	}, [extrinsic]);
 
 	return useMemo(() => {
