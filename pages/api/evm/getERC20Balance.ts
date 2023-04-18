@@ -121,8 +121,7 @@ export default async function handler(
 			data = contracts;
 		}
 
-		if (!req.query?._vercel_no_cache)
-			res.setHeader("Cache-Control", "max-age=1800, stale-while-revalidate");
+		res.setHeader("Cache-Control", "max-age=1800, stale-while-revalidate");
 		return res.json(data);
 	} catch (err: any) {
 		res.status(500).json({ error: err.message });
