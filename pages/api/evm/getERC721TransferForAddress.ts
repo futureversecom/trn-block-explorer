@@ -42,6 +42,13 @@ export default async function handler(
 						"parsedLogs.name": "Transfer",
 					},
 				},
+				{ $sort: { blockNumber: -1, firstSeen: 1 } },
+				{
+					$facet: {
+						metadata: [{ $count: "totalDocs" }],
+						data: [{ $skip: (page - 1) * limit }, { $limit: limit }],
+					},
+				},
 				{
 					$lookup: {
 						from: "Contractaddresses",
@@ -64,13 +71,6 @@ export default async function handler(
 						localField: "toContract",
 						foreignField: "address",
 						as: "toContract",
-					},
-				},
-				{ $sort: { blockNumber: -1, firstSeen: 1 } },
-				{
-					$facet: {
-						metadata: [{ $count: "totalDocs" }],
-						data: [{ $skip: (page - 1) * limit }, { $limit: limit }],
 					},
 				},
 			],
