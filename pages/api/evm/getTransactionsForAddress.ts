@@ -23,10 +23,23 @@ export default async function handler(
 					},
 				},
 				{ $sort: { blockNumber: -1, firstSeen: 1 } },
+				{ $limit: limit },
 				{
-					$facet: {
-						metadata: [{ $count: "totalDocs" }],
-						data: [{ $skip: (page - 1) * limit }, { $limit: limit }],
+					$project: {
+						_id: false,
+						args: true,
+						parsedLogs: true,
+						contractData: true,
+						hash: true,
+						transactionHash: true,
+						blockNumber: true,
+						from: true,
+						to: true,
+						timestamp: true,
+						firstSeen: true,
+						status: true,
+						creates: true,
+						value: true,
 					},
 				},
 				{
@@ -51,6 +64,12 @@ export default async function handler(
 						localField: "to",
 						foreignField: "address",
 						as: "toContract",
+					},
+				},
+				{
+					$facet: {
+						metadata: [{ $count: "totalDocs" }],
+						data: [{ $skip: (page - 1) * limit }, { $limit: limit }],
 					},
 				},
 			],

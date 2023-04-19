@@ -14,10 +14,21 @@ export default async function handler(
 		const agg = await fetchMongoData("action/aggregate", "Transactions", {
 			pipeline: [
 				{ $sort: { blockNumber: -1, firstSeen: 1 } },
+				{ $limit: limit },
 				{
-					$facet: {
-						metadata: [{ $count: "totalDocs" }],
-						data: [{ $skip: (page - 1) * limit }, { $limit: limit }],
+					$project: {
+						_id: false,
+						hash: true,
+						transactionHash: true,
+						blockNumber: true,
+						from: true,
+						to: true,
+						value: true,
+						parsedData: true,
+						timestamp: true,
+						firstSeen: true,
+						creates: true,
+						status: true,
 					},
 				},
 				{
@@ -34,6 +45,12 @@ export default async function handler(
 						localField: "to",
 						foreignField: "address",
 						as: "toContract",
+					},
+				},
+				{
+					$facet: {
+						metadata: [{ $count: "totalDocs" }],
+						data: [{ $skip: (page - 1) * limit }, { $limit: limit }],
 					},
 				},
 			],

@@ -15,6 +15,9 @@ export default async function handler(
 			filter: {
 				address: ethers.getAddress(address),
 			},
+			projection: {
+				_id: true,
+			},
 		});
 
 		const contractData = data?.document;
