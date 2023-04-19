@@ -12,6 +12,9 @@ query GetExtrinsics($limit: Int!, $offset: Int) {
 			calls {
 				name
 			}
+			events {
+				name
+			}
 			block {
 				height
 				timestamp

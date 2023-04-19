@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { extractDataFromAggregate, fetchMongoData } from "@/libs/utils";
+import { fetchMongoData, formatMongoData } from "@/libs/utils";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -11,36 +11,59 @@ export default async function handler(
 		page = Number(req.query?.page) ?? 1;
 		limit = Number(req.query?.limit) ?? 10;
 
-		const agg = await fetchMongoData("action/aggregate", "Transactions", {
-			pipeline: [
-				{
-					$lookup: {
-						from: "Contractaddresses",
-						localField: "from",
-						foreignField: "address",
-						as: "fromContract",
+		const [agg, meta] = await Promise.all([
+			fetchMongoData("action/aggregate", "Transactions", {
+				pipeline: [
+					{ $sort: { blockNumber: -1, firstSeen: 1 } },
+					{ $skip: (page - 1) * limit },
+					{ $limit: limit },
+					{
+						$project: {
+							_id: false,
+							hash: true,
+							transactionHash: true,
+							blockNumber: true,
+							from: true,
+							to: true,
+							value: true,
+							parsedData: true,
+							timestamp: true,
+							firstSeen: true,
+							creates: true,
+							status: true,
+						},
 					},
-				},
-				{
-					$lookup: {
-						from: "Contractaddresses",
-						localField: "to",
-						foreignField: "address",
-						as: "toContract",
+					{
+						$lookup: {
+							from: "Contractaddresses",
+							localField: "from",
+							foreignField: "address",
+							as: "fromContract",
+						},
 					},
-				},
-				{ $sort: { blockNumber: -1, firstSeen: 1 } },
-				{
-					$facet: {
-						metadata: [{ $count: "totalDocs" }],
-						data: [{ $skip: (page - 1) * limit }, { $limit: limit }],
+					{
+						$lookup: {
+							from: "Contractaddresses",
+							localField: "to",
+							foreignField: "address",
+							as: "toContract",
+						},
 					},
-				},
-			],
-		});
+				],
+			}),
+			fetchMongoData("action/aggregate", "Transactions", {
+				pipeline: [
+					{
+						$facet: {
+							metadata: [{ $count: "totalDocs" }],
+						},
+					},
+				],
+			}),
+		]);
 
 		res.setHeader("Cache-Control", "max-age=1800, stale-while-revalidate");
-		return res.json(extractDataFromAggregate(agg, page, limit));
+		return res.json(formatMongoData(agg, meta, page, limit));
 	} catch (err: any) {
 		res.status(500).json({ error: err.message });
 	}

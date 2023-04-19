@@ -1,7 +1,7 @@
 import { utils as ethers } from "ethers";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { extractDataFromAggregate, fetchMongoData } from "@/libs/utils";
+import { fetchMongoData, formatMongoData } from "@/libs/utils";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -15,69 +15,98 @@ export default async function handler(
 		if (!ethers.isAddress(address)) throw { message: "Invalid address" };
 		address = ethers.getAddress(address);
 
-		const agg = await fetchMongoData("action/aggregate", "Transactions", {
-			pipeline: [
+		const $match = {
+			"$or": [
 				{
-					$match: {
-						"$or": [
-							{
-								"parsedLogs.args.from": address,
-							},
-							{
-								"parsedLogs.args.to": address,
-							},
-							{
-								"parsedLogs.address": address,
-							},
-						],
-						"parsedLogs.parsedFromAbi": "ERC20",
-					},
+					"parsedLogs.args.from": address,
 				},
 				{
-					$unwind: "$parsedLogs",
+					"parsedLogs.args.to": address,
 				},
 				{
-					$match: {
-						"parsedLogs.parsedFromAbi": "ERC20",
-						"parsedLogs.name": "Transfer",
-					},
-				},
-				{
-					$lookup: {
-						from: "Contractaddresses",
-						localField: "parsedLogs.address",
-						foreignField: "address",
-						as: "parsedLogs.contractData",
-					},
-				},
-				{
-					$lookup: {
-						from: "Contractaddresses",
-						localField: "parsedLogs.args.from",
-						foreignField: "address",
-						as: "fromContract",
-					},
-				},
-				{
-					$lookup: {
-						from: "Contractaddresses",
-						localField: "parsedLogs.args.to",
-						foreignField: "address",
-						as: "toContract",
-					},
-				},
-				{ $sort: { blockNumber: -1, firstSeen: 1 } },
-				{
-					$facet: {
-						metadata: [{ $count: "totalDocs" }],
-						data: [{ $skip: (page - 1) * limit }, { $limit: limit }],
-					},
+					"parsedLogs.address": address,
 				},
 			],
-		});
+			"parsedLogs.parsedFromAbi": "ERC20",
+		};
+
+		const [agg, meta] = await Promise.all([
+			fetchMongoData("action/aggregate", "Transactions", {
+				pipeline: [
+					{
+						$match,
+					},
+					{
+						$unwind: "$parsedLogs",
+					},
+					{
+						$match: {
+							"parsedLogs.parsedFromAbi": "ERC20",
+							"parsedLogs.name": "Transfer",
+						},
+					},
+					{ $sort: { blockNumber: -1, firstSeen: 1 } },
+					{ $skip: (page - 1) * limit },
+					{ $limit: limit },
+					{
+						$project: {
+							_id: false,
+							args: true,
+							parsedLogs: true,
+							contractData: true,
+							hash: true,
+							transactionHash: true,
+							blockNumber: true,
+							from: true,
+							to: true,
+							timestamp: true,
+							firstSeen: true,
+							status: true,
+							creates: true,
+						},
+					},
+					{
+						$lookup: {
+							from: "Contractaddresses",
+							localField: "parsedLogs.address",
+							foreignField: "address",
+							as: "parsedLogs.contractData",
+						},
+					},
+					{
+						$lookup: {
+							from: "Contractaddresses",
+							localField: "parsedLogs.args.from",
+							foreignField: "address",
+							as: "fromContract",
+						},
+					},
+					{
+						$lookup: {
+							from: "Contractaddresses",
+							localField: "parsedLogs.args.to",
+							foreignField: "address",
+							as: "toContract",
+						},
+					},
+				],
+			}),
+			fetchMongoData("action/aggregate", "Transactions", {
+				pipeline: [
+					{
+						$match,
+					},
+					{
+						$facet: {
+							metadata: [{ $count: "totalDocs" }],
+						},
+					},
+				],
+			}),
+		]);
 
 		res.setHeader("Cache-Control", "max-age=1800, stale-while-revalidate");
-		return res.json(extractDataFromAggregate(agg, page, limit));
+		return res.json(formatMongoData(agg, meta, page, limit));
 	} catch (err: any) {
 		res.status(500).json({ error: err.message });
 	}

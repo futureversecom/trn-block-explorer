@@ -5401,6 +5401,7 @@ export type GetExtrinsicsQuery = {
 			hash: any;
 			success: boolean;
 			calls: Array<{ __typename?: "archive_call"; name: string }>;
+			events: Array<{ __typename?: "archive_event"; name: string }>;
 			block: { __typename?: "archive_block"; height: number; timestamp: any };
 		}>;
 	} | null;
@@ -5879,6 +5880,9 @@ export const GetExtrinsicsDocument = `
       hash
       success
       calls {
+        name
+      }
+      events {
         name
       }
       block {
