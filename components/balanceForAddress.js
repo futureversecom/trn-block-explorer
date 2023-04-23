@@ -106,10 +106,15 @@ export default function BalanceForAddress({ walletAddress }) {
 						>
 							<dl>
 								<Balance title="Root Balance">
-									<FormattedBalance assetId={1} balance={balance?.free ?? 0} />
+									<FormattedBalance
+										assetId={1}
+										balance={balance?.free ?? 0}
+										displaySymbol
+									/>
 								</Balance>
 								<Balance title="XRP Balance">
 									<FormattedBalance
+										displaySymbol
 										assetId={2}
 										balance={xrpBalance?.balance ?? 0}
 									/>
@@ -119,6 +124,7 @@ export default function BalanceForAddress({ walletAddress }) {
 									<Balance title="Other Tokens">
 										{otherTokens.map((asset) => (
 											<FormattedBalance
+												displaySymbol
 												key={asset.assetId}
 												assetId={asset.assetId}
 												balance={asset.balance}

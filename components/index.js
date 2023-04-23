@@ -27,3 +27,4 @@ export * from "./paginationFallback";
 export * from "./timeAgo";
 export * from "./inOutLabel";
 export * from "./textLink";
+export * from "./formattedBalance";
