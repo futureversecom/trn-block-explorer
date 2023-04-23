@@ -15,25 +15,26 @@ import AssetsJson from "@/libs/artifacts/Assets.json";
 import { IS_MAINNET } from "@/libs/constants";
 import { formatAddress, getAssetPrecompileAddress } from "@/libs/utils";
 
-export default function Assets() {
-	const assets = AssetsJson?.tokens
-		?.filter((e) => e.mainnet === IS_MAINNET && e.symbol !== "ROOT")
+const Icons = {
+	ASTO: ASTOIcon,
+	SYLO: SyloIcon,
+	ETH: EthIcon,
+	XRP: XRPIcon,
+	USDC: USDCIcon,
+};
+
+export default function Tokens() {
+	const assets = AssetsJson.tokens
+		.filter((e) => e.mainnet === IS_MAINNET && e.symbol !== "ROOT")
 		.map((asset) => ({
 			...asset,
 			address: getAssetPrecompileAddress(asset.assetId),
 		}));
-	const icons = {
-		ASTO: ASTOIcon,
-		SYLO: SyloIcon,
-		ETH: EthIcon,
-		XRP: XRPIcon,
-		USDC: USDCIcon,
-	};
 
 	return (
 		<ContainerLayout>
 			<PageHeader
-				title={`Assets`}
+				title={`Tokens`}
 				icon={<CurrencyDollarIcon className="my-auto h-5 pr-3 text-white" />}
 			/>
 			<div className="mt-0 flex flex-col">
@@ -44,7 +45,7 @@ export default function Assets() {
 								<thead className="bg-transparent text-white">
 									<tr>
 										<TableLayout.HeadItem />
-										<TableLayout.HeadItem text="Asset Id" />
+										<TableLayout.HeadItem text="Asset ID" />
 										<TableLayout.HeadItem text="Token Name" />
 										<TableLayout.HeadItem text="Symbol" />
 										<TableLayout.HeadItem text="Address" />
@@ -55,16 +56,14 @@ export default function Assets() {
 									{assets.map((asset, key) => (
 										<tr key={key}>
 											<TableLayout.Data dataClassName="w-16" customPadding>
-												{icons[asset?.symbol] ? (
+												{Icons[asset?.symbol] && (
 													<Image
-														src={icons[asset?.symbol]}
+														src={Icons[asset.symbol]}
 														width={24}
 														height={24}
 														alt={asset?.symbol}
 														className="m-2 mx-auto my-auto pl-2 md:pl-0"
 													/>
-												) : (
-													<></>
 												)}
 											</TableLayout.Data>
 											<TableLayout.Data>{asset.assetId}</TableLayout.Data>
