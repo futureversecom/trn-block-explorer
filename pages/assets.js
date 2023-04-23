@@ -3,6 +3,7 @@ import {
 	CurrencyDollarIcon,
 } from "@heroicons/react/24/outline";
 import Image from "next/future/image";
+import Link from "next/link";
 
 import { ContainerLayout, PageHeader, TableLayout } from "@/components";
 import ASTOIcon from "@/components/icons/currencies/asto.png";
@@ -12,11 +13,15 @@ import USDCIcon from "@/components/icons/currencies/usdc.png";
 import XRPIcon from "@/components/icons/currencies/xrp.png";
 import AssetsJson from "@/libs/artifacts/Assets.json";
 import { IS_MAINNET } from "@/libs/constants";
+import { formatAddress, getAssetPrecompileAddress } from "@/libs/utils";
 
 export default function Assets() {
-	const assets = AssetsJson?.tokens?.filter(
-		(e) => e.mainnet === IS_MAINNET && e.symbol !== "ROOT"
-	);
+	const assets = AssetsJson?.tokens
+		?.filter((e) => e.mainnet === IS_MAINNET && e.symbol !== "ROOT")
+		.map((asset) => ({
+			...asset,
+			address: getAssetPrecompileAddress(asset.assetId),
+		}));
 	const icons = {
 		ASTO: ASTOIcon,
 		SYLO: SyloIcon,
@@ -24,6 +29,7 @@ export default function Assets() {
 		XRP: XRPIcon,
 		USDC: USDCIcon,
 	};
+
 	return (
 		<ContainerLayout>
 			<PageHeader
@@ -41,6 +47,7 @@ export default function Assets() {
 										<TableLayout.HeadItem text="Asset Id" />
 										<TableLayout.HeadItem text="Token Name" />
 										<TableLayout.HeadItem text="Symbol" />
+										<TableLayout.HeadItem text="Address" />
 										<TableLayout.HeadItem text="Website" />
 									</tr>
 								</thead>
@@ -63,6 +70,13 @@ export default function Assets() {
 											<TableLayout.Data>{asset.assetId}</TableLayout.Data>
 											<TableLayout.Data>{asset.name}</TableLayout.Data>
 											<TableLayout.Data>{asset.symbol}</TableLayout.Data>
+											<TableLayout.Data>
+												<span className="cursor-pointer text-indigo-500 hover:text-white">
+													<Link href={`/token/${asset.address}`}>
+														{formatAddress(asset.address)}
+													</Link>
+												</span>
+											</TableLayout.Data>
 											<TableLayout.Data>
 												<a
 													href={asset.external_url}
