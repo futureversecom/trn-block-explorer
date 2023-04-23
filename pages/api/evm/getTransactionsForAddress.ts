@@ -86,8 +86,6 @@ export default async function handler(
 			}),
 		]);
 
-		console.log("agg", agg);
-
 		res.setHeader("Cache-Control", "max-age=1800, stale-while-revalidate");
 		return res.json(formatMongoData(agg, meta, page, limit));
 	} catch (err: any) {
