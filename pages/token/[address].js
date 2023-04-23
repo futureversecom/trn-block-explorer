@@ -34,7 +34,6 @@ export const getServerSideProps = (context) => ({
 export default function Token({ address }) {
 	const query = useAssetQuery(address);
 	const asset = query?.data;
-	console.log("asset", asset);
 
 	if (!ethers.isAddress(address)) {
 		return "Invalid address";
