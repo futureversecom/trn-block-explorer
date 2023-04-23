@@ -2,26 +2,13 @@ import {
 	ArrowTopRightOnSquareIcon,
 	CurrencyDollarIcon,
 } from "@heroicons/react/24/outline";
-import Image from "next/future/image";
 import Link from "next/link";
 
 import { ContainerLayout, PageHeader, TableLayout } from "@/components";
-import ASTOIcon from "@/components/icons/currencies/asto.png";
-import EthIcon from "@/components/icons/currencies/eth.png";
-import SyloIcon from "@/components/icons/currencies/sylo.png";
-import USDCIcon from "@/components/icons/currencies/usdc.png";
-import XRPIcon from "@/components/icons/currencies/xrp.png";
+import { TokenIcon } from "@/components/icons";
 import AssetsJson from "@/libs/artifacts/Assets.json";
 import { IS_MAINNET } from "@/libs/constants";
 import { formatAddress, getAssetPrecompileAddress } from "@/libs/utils";
-
-const Icons = {
-	ASTO: ASTOIcon,
-	SYLO: SyloIcon,
-	ETH: EthIcon,
-	XRP: XRPIcon,
-	USDC: USDCIcon,
-};
 
 export default function Tokens() {
 	const assets = AssetsJson.tokens
@@ -56,15 +43,11 @@ export default function Tokens() {
 									{assets.map((asset, key) => (
 										<tr key={key}>
 											<TableLayout.Data dataClassName="w-16" customPadding>
-												{Icons[asset?.symbol] && (
-													<Image
-														src={Icons[asset.symbol]}
-														width={24}
-														height={24}
-														alt={asset?.symbol}
-														className="m-2 mx-auto my-auto pl-2 md:pl-0"
-													/>
-												)}
+												<TokenIcon
+													height={24}
+													symbol={asset?.symbol}
+													iconClassName="m-2 mx-auto my-auto pl-2 md:pl-0"
+												/>
 											</TableLayout.Data>
 											<TableLayout.Data>{asset.assetId}</TableLayout.Data>
 											<TableLayout.Data>{asset.name}</TableLayout.Data>

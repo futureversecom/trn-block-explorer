@@ -1,7 +1,5 @@
-import { hexToString } from "@polkadot/util";
 import { useQuery } from "@tanstack/react-query";
 import { BigNumber, utils as ethers } from "ethers";
-import Image from "next/future/image";
 
 import {
 	ContainerLayout,
@@ -10,23 +8,10 @@ import {
 	PageHead,
 	RefetchIndicator,
 } from "@/components";
+import { TokenIcon } from "@/components/icons";
 import { CopyToClipboard } from "@/components/icons";
-import ASTOIcon from "@/components/icons/currencies/asto.png";
-import EthIcon from "@/components/icons/currencies/eth.png";
-import SyloIcon from "@/components/icons/currencies/sylo.png";
-import USDCIcon from "@/components/icons/currencies/usdc.png";
-import XRPIcon from "@/components/icons/currencies/xrp.png";
 import { useRootApi } from "@/libs/stores";
 import { getAssetMetadata } from "@/libs/utils";
-
-const icons = {
-	ROOT: undefined,
-	ASTO: ASTOIcon,
-	SYLO: SyloIcon,
-	ETH: EthIcon,
-	XRP: XRPIcon,
-	USDC: USDCIcon,
-};
 
 export const getServerSideProps = (context) => ({
 	props: { address: context?.params?.address },
@@ -62,15 +47,11 @@ export default function Token({ address }) {
 						<div className="py-4 px-4 outline outline-0 sm:py-5 sm:px-6">
 							<div className="flex w-full flex-row space-x-3 text-sm font-medium text-white">
 								<div className="flex h-16 items-center">
-									{asset?.icon && (
-										<Image
-											width={48}
-											height={48}
-											src={asset.icon}
-											alt={asset.symbol}
-											className="m-2 mx-auto my-auto pl-2 md:pl-0"
-										/>
-									)}
+									<TokenIcon
+										height={48}
+										symbol={asset.symbol}
+										iconClassName="m-2 mx-auto my-auto pl-2 md:pl-0"
+									/>
 								</div>
 
 								<div className="my-auto flex-col">
@@ -132,13 +113,9 @@ const useAssetQuery = (address) => {
 
 			asset = asset.toJSON();
 			metadata = metadata.toJSON();
-			const symbol = Object.keys(icons).find((symbol) =>
-				hexToString(metadata.symbol).toUpperCase().includes(symbol)
-			);
 
 			return {
 				...getAssetMetadata(assetId),
-				icon: icons[symbol],
 				holders: asset.accounts,
 				decimals: metadata.decimals,
 				supply: BigNumber.from(asset.supply),
