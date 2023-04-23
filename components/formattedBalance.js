@@ -19,12 +19,10 @@ export const FormattedBalance = ({ balance, assetId, displaySymbol }) => {
 
 	const amount = useMemo(() => {
 		let [beforeDec, afterDec] = formatBalance(balance, decimals).split(".");
-		if (afterDec) {
-			if (!viewFull) afterDec = afterDec.slice(0, 6);
-			return `${beforeDec}.${afterDec}`;
-		} else {
-			return beforeDec;
-		}
+		if (!afterDec) return beforeDec;
+
+		afterDec = afterDec.padEnd(decimals, "0");
+		return `${beforeDec}.${viewFull ? afterDec : afterDec.slice(0, 6)}`;
 	}, [balance, decimals, viewFull]);
 
 	return (
