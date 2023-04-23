@@ -17,6 +17,7 @@ import SyloIcon from "@/components/icons/currencies/sylo.png";
 import USDCIcon from "@/components/icons/currencies/usdc.png";
 import XRPIcon from "@/components/icons/currencies/xrp.png";
 import { useRootApi } from "@/libs/stores";
+import { getAssetMetadata } from "@/libs/utils";
 
 const icons = {
 	ROOT: undefined,
@@ -41,7 +42,7 @@ export default function Token({ address }) {
 
 	return (
 		<ContainerLayout>
-			<PageHead title={`Token #${address}`} />
+			<PageHead title={`Token ${address}`} />
 			<div>
 				<div className="flex flex-row justify-between py-3">
 					<div className="flex">
@@ -73,7 +74,12 @@ export default function Token({ address }) {
 								</div>
 
 								<div className="my-auto flex-col">
-									<div className="text-lg">{asset.symbol} Token</div>
+									<div className="flex items-center text-lg">
+										<span className="mr-2 rounded-sm border border-gray-400 px-2 text-sm">
+											{asset.symbol}
+										</span>{" "}
+										{asset.name}
+									</div>
 									<div className="text-md flex flex-wrap items-center leading-6 text-white md:space-x-2">
 										<div className="basis-1/2 truncate md:basis-auto">
 											{address}
@@ -131,8 +137,7 @@ const useAssetQuery = (address) => {
 			);
 
 			return {
-				symbol,
-				assetId,
+				...getAssetMetadata(assetId),
 				icon: icons[symbol],
 				holders: asset.accounts,
 				decimals: metadata.decimals,
