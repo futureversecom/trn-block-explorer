@@ -10,7 +10,7 @@ on:
         type: choice
         required: true
         description: Select a UAT branch
-        options: ["", "uat/porcini"]
+        options: ["", "uat/porcini", "uat/mainnet"]
       token:
         type: string
         description: Deploy token, generate one with `repo` permission
