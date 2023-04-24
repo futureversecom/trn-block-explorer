@@ -16,7 +16,14 @@ export default async function handler(
 				address: ethers.getAddress(address),
 			},
 			projection: {
-				_id: true,
+				_id: false,
+				abi: true,
+				files: true,
+				verified: true,
+				bytecode: true,
+				compilerVersion: true,
+				optimizationRuns: true,
+				optimizationEnabled: true,
 			},
 		});
 

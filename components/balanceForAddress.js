@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
-import { useMemo, useState } from "react";
 import { Fragment } from "react";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 
@@ -10,9 +9,9 @@ import { useGetBalanceQuery } from "@/libs/api/generated.ts";
 import { BURN_ADDRESSES } from "@/libs/constants";
 import { isContract } from "@/libs/evm-api";
 import { usePolling } from "@/libs/hooks";
-import { formatAddress, formatBalance, getAssetMetadata } from "@/libs/utils";
+import { formatAddress } from "@/libs/utils";
 
-import { LoadingBlock, RefetchIndicator, TextLink } from "./";
+import { FormattedBalance, LoadingBlock, RefetchIndicator, TextLink } from "./";
 
 export default function BalanceForAddress({ walletAddress }) {
 	const query = usePolling(
@@ -106,10 +105,15 @@ export default function BalanceForAddress({ walletAddress }) {
 						>
 							<dl>
 								<Balance title="Root Balance">
-									<FormattedBalance assetId={1} balance={balance?.free ?? 0} />
+									<FormattedBalance
+										assetId={1}
+										balance={balance?.free ?? 0}
+										displaySymbol
+									/>
 								</Balance>
 								<Balance title="XRP Balance">
 									<FormattedBalance
+										displaySymbol
 										assetId={2}
 										balance={xrpBalance?.balance ?? 0}
 									/>
@@ -119,6 +123,7 @@ export default function BalanceForAddress({ walletAddress }) {
 									<Balance title="Other Tokens">
 										{otherTokens.map((asset) => (
 											<FormattedBalance
+												displaySymbol
 												key={asset.assetId}
 												assetId={asset.assetId}
 												balance={asset.balance}
@@ -172,45 +177,5 @@ const Balance = ({ title, children }) => {
 				{children}
 			</div>
 		</div>
-	);
-};
-
-const FormattedBalance = ({ balance, assetId }) => {
-	const [viewFull, setViewFull] = useState(false);
-
-	const { symbol, decimals } = useMemo(() => {
-		const assetIdOrMetadata = getAssetMetadata(String(assetId));
-
-		if (!assetIdOrMetadata?.symbol)
-			return {
-				symbol: `Asset #${assetId}`,
-				decimals: 6,
-			};
-
-		return assetIdOrMetadata;
-	}, [assetId]);
-
-	const amount = useMemo(() => {
-		let [beforeDec, afterDec] = formatBalance(balance, decimals).split(".");
-		if (afterDec) {
-			if (!viewFull) afterDec = afterDec.slice(0, 6);
-			return `${beforeDec}.${afterDec}`;
-		} else {
-			return beforeDec;
-		}
-	}, [balance, decimals, viewFull]);
-
-	return (
-		<p
-			className="whitespace-nowrap"
-			onMouseOver={() => setViewFull(true)}
-			onMouseOut={() => setViewFull(false)}
-		>
-			{amount}
-			{decimals > 6 && !viewFull && amount.includes(".") && (
-				<span>...</span>
-			)}{" "}
-			{symbol}
-		</p>
 	);
 };

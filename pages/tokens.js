@@ -2,32 +2,26 @@ import {
 	ArrowTopRightOnSquareIcon,
 	CurrencyDollarIcon,
 } from "@heroicons/react/24/outline";
-import Image from "next/future/image";
+import Link from "next/link";
 
 import { ContainerLayout, PageHeader, TableLayout } from "@/components";
-import ASTOIcon from "@/components/icons/currencies/asto.png";
-import EthIcon from "@/components/icons/currencies/eth.png";
-import SyloIcon from "@/components/icons/currencies/sylo.png";
-import USDCIcon from "@/components/icons/currencies/usdc.png";
-import XRPIcon from "@/components/icons/currencies/xrp.png";
+import { TokenIcon } from "@/components/icons";
 import AssetsJson from "@/libs/artifacts/Assets.json";
 import { IS_MAINNET } from "@/libs/constants";
+import { formatAddress, getAssetPrecompileAddress } from "@/libs/utils";
 
-export default function Assets() {
-	const assets = AssetsJson?.tokens?.filter(
-		(e) => e.mainnet === IS_MAINNET && e.symbol !== "ROOT"
-	);
-	const icons = {
-		ASTO: ASTOIcon,
-		SYLO: SyloIcon,
-		ETH: EthIcon,
-		XRP: XRPIcon,
-		USDC: USDCIcon,
-	};
+export default function Tokens() {
+	const assets = AssetsJson.tokens
+		.filter((e) => e.mainnet === IS_MAINNET && e.symbol !== "ROOT")
+		.map((asset) => ({
+			...asset,
+			address: getAssetPrecompileAddress(asset.assetId),
+		}));
+
 	return (
 		<ContainerLayout>
 			<PageHeader
-				title={`Assets`}
+				title={`Tokens`}
 				icon={<CurrencyDollarIcon className="my-auto h-5 pr-3 text-white" />}
 			/>
 			<div className="mt-0 flex flex-col">
@@ -38,9 +32,10 @@ export default function Assets() {
 								<thead className="bg-transparent text-white">
 									<tr>
 										<TableLayout.HeadItem />
-										<TableLayout.HeadItem text="Asset Id" />
+										<TableLayout.HeadItem text="Asset ID" />
 										<TableLayout.HeadItem text="Token Name" />
 										<TableLayout.HeadItem text="Symbol" />
+										<TableLayout.HeadItem text="Address" />
 										<TableLayout.HeadItem text="Website" />
 									</tr>
 								</thead>
@@ -48,21 +43,22 @@ export default function Assets() {
 									{assets.map((asset, key) => (
 										<tr key={key}>
 											<TableLayout.Data dataClassName="w-16" customPadding>
-												{icons[asset?.symbol] ? (
-													<Image
-														src={icons[asset?.symbol]}
-														width={24}
-														height={24}
-														alt={asset?.symbol}
-														className="m-2 mx-auto my-auto pl-2 md:pl-0"
-													/>
-												) : (
-													<></>
-												)}
+												<TokenIcon
+													height={24}
+													symbol={asset?.symbol}
+													iconClassName="m-2 mx-auto my-auto pl-2 md:pl-0"
+												/>
 											</TableLayout.Data>
 											<TableLayout.Data>{asset.assetId}</TableLayout.Data>
 											<TableLayout.Data>{asset.name}</TableLayout.Data>
 											<TableLayout.Data>{asset.symbol}</TableLayout.Data>
+											<TableLayout.Data>
+												<span className="cursor-pointer text-indigo-500 hover:text-white">
+													<Link href={`/token/${asset.address}`}>
+														{formatAddress(asset.address)}
+													</Link>
+												</span>
+											</TableLayout.Data>
 											<TableLayout.Data>
 												<a
 													href={asset.external_url}

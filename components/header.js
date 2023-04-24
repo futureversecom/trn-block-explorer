@@ -29,8 +29,8 @@ const links = [
 		href: "/accounts",
 	},
 	{
-		title: "Assets",
-		href: "/assets",
+		title: "Tokens",
+		href: "/tokens",
 	},
 ];
 

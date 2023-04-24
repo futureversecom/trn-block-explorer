@@ -2,6 +2,7 @@ import BigNumber from "bignumber.js";
 
 export * from "./formatExtrinsicId";
 export * from "./getAssetMetadata";
+export * from "./getAssetPrecompileAddress";
 export * from "./formatBalance";
 export * from "./formatTimeAgo";
 export * from "./fetchMongoData";
