@@ -24,10 +24,14 @@ export async function fetchContractData(address: string) {
 		),
 		TE.match(
 			(_err) => null,
-			({ files, contractData }) => ({
-				files,
-				...contractData,
-			})
+			({ files, contractData }) => {
+				if (!contractData?.isContract) throw new Error("Not contract data");
+
+				return {
+					files,
+					...contractData,
+				};
+			}
 		)
 	)();
 }
