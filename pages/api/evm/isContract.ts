@@ -17,21 +17,14 @@ export default async function handler(
 			},
 			projection: {
 				_id: false,
-				abi: true,
-				files: true,
-				verified: true,
 				bytecode: true,
-				compilerVersion: true,
-				optimizationRuns: true,
-				optimizationEnabled: true,
 			},
 		});
 
 		const contractData = data?.document;
 
 		if (contractData)
-			// Revalidate every 30 minutes in case of contract verification
-			res.setHeader("Cache-Control", "max-age=1800, stale-while-revalidate");
+			res.setHeader("Cache-Control", "max-age=31536000, immutable");
 
 		return res.json({ isContract: !!contractData, contractData });
 	} catch (err: any) {

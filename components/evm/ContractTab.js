@@ -54,7 +54,7 @@ export default function ContractTab({ walletAddress }) {
 	}, [metadata]);
 
 	return (
-		<div className="min-h-20 space-y-3 border border-gray-400 p-6 text-white">
+		<div className="space-y-3 border border-gray-400 p-6 text-white">
 			{contractQuery?.isLoading && (
 				<div className="px-4 py-3 text-center font-mono font-thin uppercase text-white sm:px-6">
 					Retrieving Contract Data
@@ -65,9 +65,9 @@ export default function ContractTab({ walletAddress }) {
 				<div className="py-2 text-center">😥 No Contract Data</div>
 			)}
 
+			{/* Contract Information Section */}
 			{contractQuery?.isSuccess && (
 				<Fragment>
-					{/* Contract Information Section */}
 					{metadata && (
 						<Fragment>
 							<div className="flex justify-between">
