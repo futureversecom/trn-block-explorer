@@ -133,8 +133,8 @@ export default function ContractTab({ walletAddress }) {
 												</span>
 											</div>
 											<div className="my-auto">
-												<EVMTooltip message="Copy source code to clipboard.">
-													<CopyToClipboard message={content} />
+												<EVMTooltip message={`Copy ${name} to clipboard.`}>
+													<CopyToClipboard value={content} />
 												</EVMTooltip>
 											</div>
 										</div>
@@ -189,8 +189,8 @@ export default function ContractTab({ walletAddress }) {
 					{contractData?.bytecode && (
 						<Fragment>
 							<Clipboard
-								copyText={"demo"}
 								headerText="Deployed Bytecode"
+								copyText={contractData.bytecode}
 								tooltip={"Copy deployed bytecode to clipboard."}
 							/>
 							<div>
@@ -222,7 +222,7 @@ const Clipboard = ({ tooltip, copyText, headerText }) => {
 			</div>
 			<div className="my-auto">
 				<EVMTooltip message={tooltip}>
-					<CopyToClipboard message={copyText} />
+					<CopyToClipboard value={copyText} />
 				</EVMTooltip>
 			</div>
 		</div>
