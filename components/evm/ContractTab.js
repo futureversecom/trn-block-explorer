@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import * as A from "fp-ts/Array";
 import { pipe } from "fp-ts/lib/function";
-import { Fragment, useMemo } from "react";
+import { Fragment, useMemo, useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import {
 	atomDark,
@@ -14,12 +14,15 @@ import { CopyToClipboard } from "@/components/icons";
 import { fetchContractData } from "@/libs/utils";
 
 export default function ContractTab({ walletAddress }) {
+	const isContractFetched = useState(false);
+
 	const contractQuery = useQuery(
 		[walletAddress, "contractData"],
 		async () => {
 			return await fetchContractData(walletAddress);
 		},
 		{
+			enabled: !isContractFetched,
 			refetchInterval: 30000,
 		}
 	);
@@ -32,6 +35,8 @@ export default function ContractTab({ walletAddress }) {
 				files: undefined,
 				metadata: undefined,
 			};
+
+		setIsContractFetched(true);
 
 		const {
 			left: files,
