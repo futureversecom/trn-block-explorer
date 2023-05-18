@@ -50,11 +50,11 @@ export const AccountTables = ({ walletAddress }) => {
 
 	if (isContract) {
 		panelTitles.push(
-			<div className="my-auto flex space-x-1">
+			<div className="flex items-center space-x-2">
+				<div>Contract</div>
 				{contractData?.files && (
 					<CheckCircleIcon className="my-auto h-5 w-5 text-green-500" />
 				)}
-				<div>Contract</div>
 			</div>
 		);
 
