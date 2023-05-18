@@ -11,15 +11,18 @@ import {
 import EVMTooltip from "@/components/evm/evmTooltip";
 import SolidityCompilerBugs from "@/components/evm/SolidityCompilerBugs";
 import { CopyToClipboard } from "@/components/icons";
-import { fetchContractData } from "@/libs/utils";
+import { getContractData } from "@/libs/evm-api";
 
 export default function ContractTab({ walletAddress }) {
-	const isContractFetched = useState(false);
+	const [isContractFetched, setIsContractFetched] = useState(false);
 
 	const contractQuery = useQuery(
 		[walletAddress, "contractData"],
 		async () => {
-			return await fetchContractData(walletAddress);
+			const data = await getContractData(walletAddress);
+			if (data?.files) setIsContractFetched(true);
+
+			return data;
 		},
 		{
 			enabled: !isContractFetched,
@@ -30,7 +33,7 @@ export default function ContractTab({ walletAddress }) {
 	const contractData = contractQuery?.data?.contractData;
 
 	const { files, metadata } = useMemo(() => {
-		if (!contractQuery?.data?.files?.length)
+		if (!contractData?.files?.length)
 			return {
 				files: undefined,
 				metadata: undefined,
@@ -42,7 +45,7 @@ export default function ContractTab({ walletAddress }) {
 			left: files,
 			right: [metadata],
 		} = pipe(
-			contractQuery.data.files,
+			contractData.files,
 			A.partition(({ name }) => name.includes("metadata"))
 		);
 
@@ -50,7 +53,7 @@ export default function ContractTab({ walletAddress }) {
 			files: A.reverse(files),
 			metadata: JSON.parse(metadata.content),
 		};
-	}, [contractQuery?.data]);
+	}, [contractData?.files]);
 
 	const contractName = useMemo(() => {
 		if (!metadata) return undefined;

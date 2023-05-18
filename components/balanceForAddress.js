@@ -7,7 +7,7 @@ import TokenBalances from "@/components/evm/tokenBalances";
 import { CopyToClipboard } from "@/components/icons";
 import { useGetBalanceQuery } from "@/libs/api/generated.ts";
 import { BURN_ADDRESSES } from "@/libs/constants";
-import { isContract } from "@/libs/evm-api";
+import { getContractData } from "@/libs/evm-api";
 import { usePolling } from "@/libs/hooks";
 import { formatAddress } from "@/libs/utils";
 
@@ -29,13 +29,9 @@ export default function BalanceForAddress({ walletAddress }) {
 		(e) => e.assetId != 1 && e.assetId != 2
 	);
 
-	const isContractQuery = useQuery(
+	const contractQuery = useQuery(
 		[walletAddress, "isContract"],
-		() => {
-			return isContract(walletAddress).then((data) => {
-				return data;
-			});
-		},
+		async () => await getContractData(walletAddress),
 		{
 			refetchInterval: 0,
 		}
@@ -68,9 +64,9 @@ export default function BalanceForAddress({ walletAddress }) {
 
 										<div className="my-auto flex-col">
 											<div className="text-lg">
-												{isContractQuery?.data?.isContract == true
+												{contractQuery?.data?.isContract
 													? "Contract Address"
-													: "Wallet"}{" "}
+													: "Wallet"}
 											</div>
 											<div className="text-md flex flex-wrap items-center leading-6 text-white md:space-x-2">
 												<div className="basis-1/2 truncate md:basis-auto">
@@ -134,23 +130,23 @@ export default function BalanceForAddress({ walletAddress }) {
 									<Fragment />
 								)}
 							</dl>
-							{isContractQuery?.data?.contractData?.contractCreator &&
-							isContractQuery?.data?.contractData?.deploymentTransactionHash ? (
+							{contractQuery?.data?.contractData?.contractCreator &&
+							contractQuery?.data?.contractData?.deploymentTransactionHash ? (
 								<Balance title="Contract Creator">
 									<div className="space-x-1 text-sm text-white">
 										<TextLink
 											text={formatAddress(
-												isContractQuery?.data?.contractData?.contractCreator
+												contractQuery?.data?.contractData?.contractCreator
 											)}
-											link={`/address/${isContractQuery?.data?.contractData?.contractCreator}`}
+											link={`/address/${contractQuery?.data?.contractData?.contractCreator}`}
 										/>
 										<span>at txn:</span>
 										<TextLink
 											text={formatAddress(
-												isContractQuery?.data?.contractData
+												contractQuery?.data?.contractData
 													?.deploymentTransactionHash
 											)}
-											link={`/tx/${isContractQuery?.data?.contractData?.deploymentTransactionHash}`}
+											link={`/tx/${contractQuery?.data?.contractData?.deploymentTransactionHash}`}
 										/>
 									</div>
 								</Balance>
