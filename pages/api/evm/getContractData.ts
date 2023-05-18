@@ -1,18 +1,8 @@
 import { utils as ethers } from "ethers";
 import type { NextApiRequest, NextApiResponse } from "next";
 
+import type { ContractData } from "@/libs/providers";
 import { fetchContractFiles, fetchMongoData } from "@/libs/utils";
-
-interface ContractData {
-	bytecode: string;
-	contractCreator: string;
-	deploymentTransactionHash: string;
-	files?: Array<{
-		name: string;
-		path: string;
-		content: string;
-	}>;
-}
 
 export default async function handler(
 	req: NextApiRequest,

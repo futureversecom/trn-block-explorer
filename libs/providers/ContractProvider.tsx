@@ -10,7 +10,7 @@ import {
 
 import { getContractData } from "@/libs/evm-api";
 
-interface ContractData {
+export interface ContractData {
 	bytecode: string;
 	contractCreator: string;
 	deploymentTransactionHash: string;
@@ -26,10 +26,9 @@ interface ContractContextType {
 	contractData: ContractData;
 }
 
-const ContractContext = createContext<ContractContextType>({
-	isContract: false,
-	contractData: {},
-} as ContractContextType);
+const ContractContext = createContext<ContractContextType>(
+	{} as ContractContextType
+);
 
 interface ContractProviderProps extends PropsWithChildren {
 	address: `0x${string}`;
@@ -57,7 +56,10 @@ export const ContractProvider: FC<ContractProviderProps> = ({
 
 	return (
 		<ContractContext.Provider
-			value={contractQuery?.data ?? { isContract: false, contractData: {} }}
+			value={{
+				contractData: contractQuery?.data?.contractData,
+				isContract: contractQuery?.data?.isContract ?? false,
+			}}
 		>
 			{children}
 		</ContractContext.Provider>
