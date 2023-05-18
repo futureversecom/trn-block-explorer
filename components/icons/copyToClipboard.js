@@ -27,17 +27,17 @@ export default function CopyToClipBoard({ value, className }) {
 	const classes = "h-5 w-5 text-gray-600";
 
 	return (
-		<div
+		<span
 			onClick={() => {
 				copyThis();
 			}}
-			className={clsx("cursor-pointer", className)}
+			className={clsx("block cursor-pointer", className)}
 		>
 			{copied ? (
 				<CheckIcon className={classes} />
 			) : (
 				<ClipboardIcon className={classes} />
 			)}
-		</div>
+		</span>
 	);
 }

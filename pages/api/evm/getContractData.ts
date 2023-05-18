@@ -52,6 +52,6 @@ export default async function handler(
 
 		return res.status(200).json({ isContract: true, contractData });
 	} catch (err: any) {
-		res.status(500).json({ error: err.message });
+		res.status(500).json({ isContract: false, error: err.message });
 	}
 }

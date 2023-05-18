@@ -1,7 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
 import * as A from "fp-ts/Array";
 import { pipe } from "fp-ts/lib/function";
-import { Fragment, useMemo, useState } from "react";
+import { Fragment, useMemo } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import {
 	atomDark,
@@ -11,26 +10,10 @@ import {
 import EVMTooltip from "@/components/evm/evmTooltip";
 import SolidityCompilerBugs from "@/components/evm/SolidityCompilerBugs";
 import { CopyToClipboard } from "@/components/icons";
-import { getContractData } from "@/libs/evm-api";
+import { useContract } from "@/libs/providers";
 
-export default function ContractTab({ walletAddress }) {
-	const [isContractFetched, setIsContractFetched] = useState(false);
-
-	const contractQuery = useQuery(
-		[walletAddress, "contractData"],
-		async () => {
-			const data = await getContractData(walletAddress);
-			if (data?.files) setIsContractFetched(true);
-
-			return data;
-		},
-		{
-			enabled: !isContractFetched,
-			refetchInterval: 30000,
-		}
-	);
-
-	const contractData = contractQuery?.data?.contractData;
+export default function ContractTab() {
+	const { contractData } = useContract();
 
 	const { files, metadata } = useMemo(() => {
 		if (!contractData?.files?.length)
@@ -38,8 +21,6 @@ export default function ContractTab({ walletAddress }) {
 				files: undefined,
 				metadata: undefined,
 			};
-
-		setIsContractFetched(true);
 
 		const {
 			left: files,
@@ -63,18 +44,12 @@ export default function ContractTab({ walletAddress }) {
 
 	return (
 		<div className="space-y-3 border border-gray-400 p-6 text-white">
-			{contractQuery?.isLoading && (
-				<div className="px-4 py-3 text-center font-mono font-thin uppercase text-white sm:px-6">
-					Retrieving Contract Data
-				</div>
-			)}
-
-			{contractQuery?.isError && (
+			{!contractData && (
 				<div className="py-2 text-center">😥 No Contract Data</div>
 			)}
 
 			{/* Contract Information Section */}
-			{contractQuery?.isSuccess && (
+			{contractData && (
 				<Fragment>
 					{metadata && (
 						<Fragment>

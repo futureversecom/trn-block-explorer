@@ -1,13 +1,12 @@
 /* eslint-disable react/jsx-key */
 import { Tab } from "@headlessui/react";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
-import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { Fragment } from "react";
 
-import { isContract } from "@/libs/evm-api";
+import { useContract } from "@/libs/providers";
 import { useAccountRefetchStatus } from "@/libs/stores";
 
 import {
@@ -33,19 +32,7 @@ export const AccountTables = ({ walletAddress }) => {
 		"erc20_transfers",
 	];
 
-	const isContractQuery = useQuery(
-		[walletAddress, "isContract"],
-		() => {
-			return isContract(walletAddress, { invalidateCache: true }).then(
-				(data) => {
-					return data;
-				}
-			);
-		},
-		{
-			refetchInterval: 0,
-		}
-	);
+	const { isContract, contractData } = useContract();
 
 	let panelTitles = [
 		"Transfers",
@@ -61,10 +48,10 @@ export const AccountTables = ({ walletAddress }) => {
 		<Erc20TransfersForAddress walletAddress={walletAddress} />,
 	];
 
-	if (isContractQuery?.data?.isContract) {
+	if (isContract) {
 		panelTitles.push(
 			<div className="my-auto flex space-x-1">
-				{isContractQuery?.data?.verified && (
+				{contractData?.files && (
 					<CheckCircleIcon className="my-auto h-5 w-5 text-green-500" />
 				)}
 				<div>Contract</div>
