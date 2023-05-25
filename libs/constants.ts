@@ -15,6 +15,7 @@ const MongoApiEndpoint = `https://ap-southeast-2.aws.data.mongodb-api.com/app/${
 export const ROOT_NETWORK = {
 	porcini: {
 		ChainName: "Porcini",
+		ChainId: 7672,
 		ApiUrl: {
 			InWebSocket: "wss://porcini.au.rootnet.app/ws",
 		},
@@ -24,6 +25,7 @@ export const ROOT_NETWORK = {
 	},
 	mainnet: {
 		ChainName: "ROOT",
+		ChainId: 7668,
 		ApiUrl: {
 			InWebSocket: "wss://root.au.rootnet.live/ws",
 		},

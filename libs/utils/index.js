@@ -7,6 +7,7 @@ export * from "./formatBalance";
 export * from "./formatTimeAgo";
 export * from "./fetchMongoData";
 export * from "./formatMongoData";
+export * from "./fetchContractFiles";
 
 export const formatUSD = (amount) => {
 	return new Intl.NumberFormat("en-EN", {

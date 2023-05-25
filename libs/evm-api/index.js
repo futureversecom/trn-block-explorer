@@ -75,8 +75,8 @@ export const getERC721Balance = async (address, options) => {
 	return await fetchEvmData("getERC721Balance", { address }, options);
 };
 
-export const isContract = async (address, options) => {
-	return await fetchEvmData("isContract", { address }, options);
+export const getContractData = async (address, options) => {
+	return await fetchEvmData("getContractData", { address }, options);
 };
 
 export const getEVMTransactions = async (page, limit, options) => {
