@@ -2,8 +2,8 @@ import fromExponential from "from-exponential";
 import { useMemo } from "react";
 
 import {
-	useGetTransfersFromAddressQuery,
-	useGetTransfersToAddressQuery,
+	useGetTransfersForAddressAggregateQuery,
+	useGetTransfersForAddressQuery,
 } from "@/libs/api/generated.ts";
 import { usePages, usePolling } from "@/libs/hooks";
 import { useAccountRefetchStatus, usePagination } from "@/libs/stores";
@@ -23,15 +23,9 @@ const EntryLimit = 10;
 const PaginationTable = "accountTransfers";
 
 export default function TransfersForAddress({ walletAddress }) {
-	const { pages, currentPage } = usePagination(PaginationTable);
+	const { pages } = usePagination(PaginationTable);
 
 	const query = useTransfers(walletAddress, EntryLimit);
-
-	const pageSlice = useMemo(
-		() => (currentPage - 1) * EntryLimit,
-		[currentPage]
-	);
-
 	useAccountRefetchStatus(PaginationTable, query.isRefetching);
 
 	return (
@@ -45,7 +39,6 @@ export default function TransfersForAddress({ walletAddress }) {
 							<thead className="bg-transparent">
 								<tr>
 									<TableLayout.HeadItem text="Height" />
-									{/* <TableLayout.HeadItem text="Extrinsic" /> */}
 									<TableLayout.HeadItem text="Type" />
 									<TableLayout.HeadItem text="Timestamp" />
 									<TableLayout.HeadItem text="Token" />
@@ -55,24 +48,23 @@ export default function TransfersForAddress({ walletAddress }) {
 								</tr>
 							</thead>
 							<tbody className="divide-y divide-gray-800 bg-transparent">
-								{query.data
-									.slice(pageSlice, pageSlice + 10)
-									.map((transfer, key) => {
-										const asset = getAssetMetadata(transfer.asset_id);
-										return (
-											<TransfersForAddressRow
-												key={key}
-												block_number={transfer.block_number}
-												from_id={transfer.from_id}
-												to_id={transfer.to_id}
-												walletAddress={walletAddress}
-												timestamp={transfer.timestamp}
-												asset={asset}
-												asset_id={transfer.asset_id}
-												amount={transfer.amount}
-											/>
-										);
-									})}
+								{query.data.map((transfer, key) => {
+									const asset = getAssetMetadata(transfer.asset_id);
+
+									return (
+										<TransfersForAddressRow
+											key={key}
+											block_number={transfer.block_number}
+											from_id={transfer.from_id}
+											to_id={transfer.to_id}
+											walletAddress={walletAddress}
+											timestamp={transfer.timestamp}
+											asset={asset}
+											asset_id={transfer.asset_id}
+											amount={transfer.amount}
+										/>
+									);
+								})}
 							</tbody>
 						</TableLayout.Table>
 					) : (
@@ -134,39 +126,37 @@ const TransfersForAddressRow = ({
 };
 
 const useTransfers = (address, limit) => {
-	const toQuery = usePolling(
+	const { currentPage } = usePagination(PaginationTable);
+
+	const query = usePolling(
 		{},
-		useGetTransfersToAddressQuery,
+		useGetTransfersForAddressQuery,
 		{
 			address,
+			limit,
+			offset: (currentPage - 1) * limit,
 		},
 		12000
 	);
+	// Prefetch next page
+	usePolling({}, useGetTransfersForAddressQuery, {
+		limit,
+		offset: currentPage * limit,
+	});
 
-	const fromQuery = usePolling(
+	const aggregateQuery = usePolling(
 		{},
-		useGetTransfersFromAddressQuery,
-		{
-			address,
-		},
-		12000
+		useGetTransfersForAddressAggregateQuery,
+		{ address }
 	);
-
-	const data = useMemo(
-		() =>
-			[
-				...(toQuery?.data?.balances?.transfer ?? []),
-				...(fromQuery?.data?.balances?.transfer ?? []),
-			]
-				.filter((transfer) => transfer?.from_id && transfer?.to_id)
-				.sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1)),
-		[toQuery?.data, fromQuery?.data]
+	usePages(
+		PaginationTable,
+		aggregateQuery?.data?.balances?.transfer_aggregate?.aggregate?.count,
+		limit
 	);
-	usePages(PaginationTable, data?.length, limit);
 
 	return {
-		data,
-		isLoading: toQuery?.isLoading || fromQuery?.isLoading,
-		isRefetching: toQuery?.isRefetching || fromQuery?.isRefetching,
+		...query,
+		data: query?.data?.balances?.transfer,
 	};
 };
