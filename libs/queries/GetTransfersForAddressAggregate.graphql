@@ -1,0 +1,16 @@
+query GetTransfersForAddressAggregate($address: String!) {
+	balances {
+		transfer_aggregate(
+			where: {
+				_or: [
+					{ to_id: { _ilike: $address } }
+					{ from_id: { _ilike: $address } }
+				]
+			}
+		) {
+			aggregate {
+				count
+			}
+		}
+	}
+}

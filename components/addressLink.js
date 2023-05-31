@@ -6,6 +6,8 @@ import { formatAddress } from "@/libs/utils";
 import Tooltip from "./tooltip";
 
 export const AddressLink = ({ isAccount, address }) => {
+	if (!address) address = "0x0000000000000000000000000000000000000000";
+
 	if (isAccount) return <span>{formatAddress(address)}</span>;
 
 	const isBurn = BURN_ADDRESSES.includes(address.toLowerCase());
