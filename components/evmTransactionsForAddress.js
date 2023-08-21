@@ -14,9 +14,7 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 	const query = useQuery(
 		["evm_transactions", walletAddress, currentPage],
 		() => {
-			return getTransactionsForAddress(walletAddress, currentPage, {
-				invalidateCache: true,
-			});
+			return getTransactionsForAddress(walletAddress, currentPage);
 		},
 		{
 			refetchInterval: 15_000,

@@ -26,9 +26,7 @@ export default function Erc20TransfersForAddress({ walletAddress }) {
 	const query = useQuery(
 		["erc20_transfers", walletAddress, currentPage],
 		() => {
-			return getERC20TransferForAddress(walletAddress, currentPage, {
-				invalidateCache: true,
-			});
+			return getERC20TransferForAddress(walletAddress, currentPage);
 		},
 		{
 			refetchInterval: 15_000,
