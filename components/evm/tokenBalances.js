@@ -12,16 +12,14 @@ export default function TokenBalances({ walletAddress }) {
 	const query = useQuery(
 		["erc20_erc721_evm_token_balances", walletAddress],
 		async () => {
-			const erc721 = await getERC721Balance(walletAddress, {
-				invalidateCache: true,
-			});
-			const erc20 = await getERC20Balance(walletAddress, {
-				invalidateCache: true,
-			});
+			const [erc20, erc721] = await Promise.all([
+				getERC20Balance(walletAddress),
+				getERC721Balance(walletAddress)
+			]);
 
 			return {
-				erc721,
 				erc20,
+				erc721,
 			};
 		},
 		{
