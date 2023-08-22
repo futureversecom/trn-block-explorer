@@ -2,7 +2,7 @@ import { Codec } from "@polkadot/types/types";
 import { useEffect, useRef, useState } from "react";
 
 import { useRootApi } from "@/libs/stores";
-import { formatBalance, setStateWithRef } from "@/libs/utils";
+import { setStateWithRef } from "@/libs/utils";
 
 type Ledger =
 	| {
@@ -14,7 +14,7 @@ type Ledger =
 export const useStakedBalance = (address: string) => {
 	const api = useRootApi();
 
-	const [balance, setBalance] = useState<string>();
+	const [balance, setBalance] = useState<number>();
 	const balanceRef = useRef(balance);
 
 	const [unsubs, setUnsubs] = useState<Array<any>>([]);
@@ -34,7 +34,7 @@ export const useStakedBalance = (address: string) => {
 				const ledger = res.toJSON() as unknown as Ledger;
 
 				setStateWithRef(
-					formatBalance(ledger?.active ?? 0, 6),
+					ledger?.active ?? 0,
 					setBalance,
 					balanceRef
 				);

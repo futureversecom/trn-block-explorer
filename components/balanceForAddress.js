@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { Fragment } from "react";
+import { Fragment, useMemo } from "react";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 
 import TokenBalances from "@/components/evm/tokenBalances";
@@ -22,8 +22,6 @@ export default function BalanceForAddress({ walletAddress }) {
 		12000
 	);
 
-	const stakedBalance = useStakedBalance(walletAddress);
-
 	const balance = query?.data?.balances?.account[0];
 	const xrpBalance = balance?.assets?.find((e) => e.assetId == 2);
 	const otherTokens = balance?.assets?.filter(
@@ -31,6 +29,13 @@ export default function BalanceForAddress({ walletAddress }) {
 	);
 
 	const { isContract, contractData } = useContract();
+
+	const stakedBalance = useStakedBalance(walletAddress);
+
+	const rootBalance = useMemo(
+		() => balance?.free ?? 0 - stakedBalance ?? 0,
+		[balance?.free, stakedBalance]
+	);
 
 	return (
 		<div>
@@ -95,8 +100,8 @@ export default function BalanceForAddress({ walletAddress }) {
 							<dl>
 								<Balance title="Root Balance">
 									<p>
-										Free {formatBalance(balance?.free ?? 0, 6)}
-										{stakedBalance && <span> / Staked {stakedBalance}</span>}
+										Free {formatBalance(rootBalance, 6)}
+										{stakedBalance && <span> / Staked {formatBalance(stakedBalance, 6)}</span>}
 									</p>
 								</Balance>
 								<Balance title="XRP Balance">
