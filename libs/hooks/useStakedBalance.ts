@@ -33,11 +33,7 @@ export const useStakedBalance = (address: string) => {
 			const unsub = await api.query.staking.ledger(address, (res: Codec) => {
 				const ledger = res.toJSON() as unknown as Ledger;
 
-				setStateWithRef(
-					ledger?.active ?? 0,
-					setBalance,
-					balanceRef
-				);
+				setStateWithRef(ledger?.active ?? 0, setBalance, balanceRef);
 			});
 
 			setStateWithRef(unsubsRef.current.concat(unsub), setUnsubs, unsubsRef);

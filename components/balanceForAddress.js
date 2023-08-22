@@ -101,7 +101,9 @@ export default function BalanceForAddress({ walletAddress }) {
 								<Balance title="Root Balance">
 									<p>
 										Free {formatBalance(rootBalance, 6)}
-										{stakedBalance && <span> / Staked {formatBalance(stakedBalance, 6)}</span>}
+										{stakedBalance && (
+											<span> / Staked {formatBalance(stakedBalance, 6)}</span>
+										)}
 									</p>
 								</Balance>
 								<Balance title="XRP Balance">
