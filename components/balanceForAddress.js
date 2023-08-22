@@ -6,9 +6,9 @@ import TokenBalances from "@/components/evm/tokenBalances";
 import { CopyToClipboard } from "@/components/icons";
 import { useGetBalanceQuery } from "@/libs/api/generated.ts";
 import { BURN_ADDRESSES } from "@/libs/constants";
-import { usePolling } from "@/libs/hooks";
+import { usePolling, useStakedBalance } from "@/libs/hooks";
 import { useContract } from "@/libs/providers";
-import { formatAddress } from "@/libs/utils";
+import { formatAddress, formatBalance } from "@/libs/utils";
 
 import { FormattedBalance, LoadingBlock, RefetchIndicator, TextLink } from "./";
 
@@ -21,6 +21,8 @@ export default function BalanceForAddress({ walletAddress }) {
 		},
 		12000
 	);
+
+	const stakedBalance = useStakedBalance(walletAddress);
 
 	const balance = query?.data?.balances?.account[0];
 	const xrpBalance = balance?.assets?.find((e) => e.assetId == 2);
@@ -92,11 +94,10 @@ export default function BalanceForAddress({ walletAddress }) {
 						>
 							<dl>
 								<Balance title="Root Balance">
-									<FormattedBalance
-										assetId={1}
-										balance={balance?.free ?? 0}
-										displaySymbol
-									/>
+									<p>
+										Free {formatBalance(balance?.free ?? 0, 6)}
+										{stakedBalance && <span> / Staked {stakedBalance}</span>}
+									</p>
 								</Balance>
 								<Balance title="XRP Balance">
 									<FormattedBalance
