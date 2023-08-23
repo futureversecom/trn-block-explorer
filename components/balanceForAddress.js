@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { capitalize } from "lodash";
 import { Fragment, useMemo } from "react";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 
@@ -32,10 +33,15 @@ export default function BalanceForAddress({ walletAddress }) {
 
 	const stakedBalance = useStakedBalance(walletAddress);
 
-	const rootBalance = useMemo(
-		() => balance?.free ?? 0 - stakedBalance ?? 0,
-		[balance?.free, stakedBalance]
-	);
+	const rootBalance = useMemo(() => {
+		const free = (balance?.free ?? 0) - (stakedBalance?.total ?? 0);
+
+		return {
+			free,
+			staked: stakedBalance?.active,
+			unlocking: stakedBalance?.unlocking,
+		};
+	}, [balance?.free, stakedBalance]);
 
 	return (
 		<div>
@@ -98,14 +104,8 @@ export default function BalanceForAddress({ walletAddress }) {
 							)}
 						>
 							<dl>
-								<Balance title="Root Balance">
-									<p>
-										Free {formatBalance(rootBalance, 6)}
-										{stakedBalance && (
-											<span> / Staked {formatBalance(stakedBalance, 6)}</span>
-										)}
-									</p>
-								</Balance>
+								<RootBalance balance={rootBalance} />
+
 								<Balance title="XRP Balance">
 									<FormattedBalance
 										displaySymbol
@@ -169,5 +169,25 @@ const Balance = ({ title, children }) => {
 				{children}
 			</div>
 		</div>
+	);
+};
+
+const RootBalance = ({ balance }) => {
+	return (
+		<Balance title="Root Balance">
+			{balance ? (
+				<Fragment>
+					{Object.keys(balance)
+						.filter((key) => !!balance[key])
+						.map((key, i) => (
+							<p key={i}>
+								{formatBalance(balance[key] ?? 0, 6)} {capitalize(key)}
+							</p>
+						))}
+				</Fragment>
+			) : (
+				<p>0 ROOT</p>
+			)}
+		</Balance>
 	);
 };
