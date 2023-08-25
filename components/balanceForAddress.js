@@ -108,7 +108,6 @@ export default function BalanceForAddress({ walletAddress }) {
 
 								<Balance title="XRP Balance">
 									<FormattedBalance
-										displaySymbol
 										assetId={2}
 										balance={xrpBalance?.balance ?? 0}
 									/>
