@@ -1,6 +1,6 @@
 {
   "name": "@futureverse/root-block-explorer",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": true,
   "packageManager": "yarn@3.5.0",
   "scripts": {
