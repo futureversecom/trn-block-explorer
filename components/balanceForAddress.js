@@ -1,14 +1,15 @@
 import clsx from "clsx";
-import { Fragment } from "react";
+import { capitalize } from "lodash";
+import { Fragment, useMemo } from "react";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 
 import TokenBalances from "@/components/evm/tokenBalances";
 import { CopyToClipboard } from "@/components/icons";
 import { useGetBalanceQuery } from "@/libs/api/generated.ts";
 import { BURN_ADDRESSES } from "@/libs/constants";
-import { usePolling } from "@/libs/hooks";
+import { usePolling, useStakedBalance } from "@/libs/hooks";
 import { useContract } from "@/libs/providers";
-import { formatAddress } from "@/libs/utils";
+import { formatAddress, formatBalance } from "@/libs/utils";
 
 import { FormattedBalance, LoadingBlock, RefetchIndicator, TextLink } from "./";
 
@@ -29,6 +30,18 @@ export default function BalanceForAddress({ walletAddress }) {
 	);
 
 	const { isContract, contractData } = useContract();
+
+	const stakedBalance = useStakedBalance(walletAddress);
+
+	const rootBalance = useMemo(() => {
+		const free = (balance?.free ?? 0) - (stakedBalance?.total ?? 0);
+
+		return {
+			free,
+			staked: stakedBalance?.active,
+			unlocking: stakedBalance?.unlocking,
+		};
+	}, [balance?.free, stakedBalance]);
 
 	return (
 		<div>
@@ -91,16 +104,10 @@ export default function BalanceForAddress({ walletAddress }) {
 							)}
 						>
 							<dl>
-								<Balance title="Root Balance">
-									<FormattedBalance
-										assetId={1}
-										balance={balance?.free ?? 0}
-										displaySymbol
-									/>
-								</Balance>
+								<RootBalance balance={rootBalance} />
+
 								<Balance title="XRP Balance">
 									<FormattedBalance
-										displaySymbol
 										assetId={2}
 										balance={xrpBalance?.balance ?? 0}
 									/>
@@ -161,5 +168,25 @@ const Balance = ({ title, children }) => {
 				{children}
 			</div>
 		</div>
+	);
+};
+
+const RootBalance = ({ balance }) => {
+	return (
+		<Balance title="Root Balance">
+			{balance ? (
+				<Fragment>
+					{Object.keys(balance)
+						.filter((key) => !!balance[key])
+						.map((key, i) => (
+							<p key={i}>
+								{formatBalance(balance[key] ?? 0, 6)} {capitalize(key)}
+							</p>
+						))}
+				</Fragment>
+			) : (
+				<p>0 ROOT</p>
+			)}
+		</Balance>
 	);
 };

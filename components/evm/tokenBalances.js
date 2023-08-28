@@ -14,7 +14,7 @@ export default function TokenBalances({ walletAddress }) {
 		async () => {
 			const [erc20, erc721] = await Promise.all([
 				getERC20Balance(walletAddress),
-				getERC721Balance(walletAddress)
+				getERC721Balance(walletAddress),
 			]);
 
 			return {
