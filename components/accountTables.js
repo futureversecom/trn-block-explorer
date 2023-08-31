@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { Fragment } from "react";
 
+import { SHOW_CONTRACT_TAB } from "@/libs/constants";
 import { useContract } from "@/libs/providers";
 import { useAccountRefetchStatus } from "@/libs/stores";
 
@@ -48,7 +49,7 @@ export const AccountTables = ({ walletAddress }) => {
 		<Erc20TransfersForAddress walletAddress={walletAddress} />,
 	];
 
-	if (isContract) {
+	if (isContract && SHOW_CONTRACT_TAB) {
 		panelTitles.push(
 			<div className="flex items-center space-x-2">
 				<div>Contract</div>
