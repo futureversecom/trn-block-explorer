@@ -41,5 +41,5 @@ export const BURN_ADDRESSES = [
 	"0xdead000000000000000042069420694206942069",
 ];
 
-export const SHOW_CONTRACT_TAB =
-	process.env.NEXT_PUBLIC_SHOW_CONTRACT_TAB === "true";
+export const SHOW_CONTRACT_SOURCE =
+	process.env.NEXT_PUBLIC_SHOW_CONTRACT_SOURCE === "true";
