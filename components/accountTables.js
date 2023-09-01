@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { Fragment } from "react";
 
+import { SHOW_CONTRACT_SOURCE } from "@/libs/constants";
 import { useContract } from "@/libs/providers";
 import { useAccountRefetchStatus } from "@/libs/stores";
 
@@ -48,11 +49,11 @@ export const AccountTables = ({ walletAddress }) => {
 		<Erc20TransfersForAddress walletAddress={walletAddress} />,
 	];
 
-	if (isContract) {
+	if (isContract && contractData?.bytecode) {
 		panelTitles.push(
 			<div className="flex items-center space-x-2">
 				<div>Contract</div>
-				{contractData?.files && (
+				{SHOW_CONTRACT_SOURCE && contractData?.files && (
 					<CheckCircleIcon className="my-auto h-5 w-5 text-green-500" />
 				)}
 			</div>

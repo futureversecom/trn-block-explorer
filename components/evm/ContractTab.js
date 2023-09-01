@@ -10,6 +10,7 @@ import {
 import EVMTooltip from "@/components/evm/evmTooltip";
 import SolidityCompilerBugs from "@/components/evm/SolidityCompilerBugs";
 import { CopyToClipboard } from "@/components/icons";
+import { SHOW_CONTRACT_SOURCE } from "@/libs/constants";
 import { useContract } from "@/libs/providers";
 
 export default function ContractTab() {
@@ -94,7 +95,7 @@ export default function ContractTab() {
 			)}
 
 			{/* Contract Source Code Section */}
-			{!!files?.length && (
+			{SHOW_CONTRACT_SOURCE && !!files?.length && (
 				<Fragment>
 					<HeaderText message="Source File(s)" />
 
@@ -135,7 +136,7 @@ export default function ContractTab() {
 			)}
 
 			{/* ABI Section */}
-			{metadata?.output?.abi && (
+			{SHOW_CONTRACT_SOURCE && metadata?.output?.abi && (
 				<Fragment>
 					<Clipboard
 						headerText="ABI"
