@@ -31,7 +31,9 @@ export const useStakedBalance = (address: string) => {
 		if (!api) return;
 
 		const subscribeToLedger = async (address: string) => {
-			const unsub = await api.query.staking.ledger(address, (res: Codec) => {
+			const bondedAccount = await api.query.staking.bonded(address);
+			const stakedAccount = bondedAccount.toString() === address ? address : bondedAccount.toString();
+			const unsub = await api.query.staking.ledger(stakedAccount, (res: Codec) => {
 				const ledger = res.toJSON() as unknown as Ledger;
 				const { total, active } = ledger ?? { total: 0, active: 0 };
 
