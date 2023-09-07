@@ -32,12 +32,6 @@ export default async function handler(
 					$unwind: "$parsedLogs",
 				},
 				{
-					$match: {
-						"parsedLogs.name": "Transfer",
-						"parsedLogs.parsedFromAbi": "ERC721",
-					},
-				},
-				{
 					$sort: {
 						blockNumber: 1,
 					},
@@ -69,11 +63,6 @@ export default async function handler(
 					},
 				},
 				{
-					$match: {
-						to: address,
-					},
-				},
-				{
 					$group: {
 						_id: "$address",
 						tokenIds: {
@@ -85,7 +74,7 @@ export default async function handler(
 					},
 				},
 				{
-					$lookup: {
+					$lookup: { // join with table Contractaddresses
 						from: "Contractaddresses",
 						localField: "_id",
 						foreignField: "address",
@@ -99,10 +88,7 @@ export default async function handler(
 				},
 				{
 					$unset: "_id",
-				},
-				{
-					$sort: { balance: -1 },
-				},
+				}
 			],
 		});
 

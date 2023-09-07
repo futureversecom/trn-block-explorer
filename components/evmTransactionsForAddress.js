@@ -17,7 +17,7 @@ export default function EvmTransactionsForAddress({ walletAddress }) {
 			return getTransactionsForAddress(walletAddress, currentPage);
 		},
 		{
-			refetchInterval: 15_000,
+			refetchInterval: 30_000,
 		}
 	);
 	usePages(PaginationTable, query?.data?.totalPages);

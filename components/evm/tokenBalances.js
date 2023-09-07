@@ -23,7 +23,7 @@ export default function TokenBalances({ walletAddress }) {
 			};
 		},
 		{
-			refetchInterval: 30_000,
+			refetchInterval: 60_000,
 			enabled: walletAddress ? true : false,
 		}
 	);

@@ -33,12 +33,6 @@ export default async function handler(
 					$unwind: "$parsedLogs",
 				},
 				{
-					$match: {
-						"parsedLogs.name": "Transfer",
-						"parsedLogs.parsedFromAbi": "ERC20",
-					},
-				},
-				{
 					$sort: {
 						blockNumber: 1,
 					},
@@ -80,7 +74,7 @@ export default async function handler(
 				{
 					$unset: "_id",
 				},
-				{
+				{ // join
 					$lookup: {
 						from: "Contractaddresses",
 						localField: "address",
