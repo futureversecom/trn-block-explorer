@@ -177,23 +177,35 @@ export default function Extrinsic({ extrinsicId }) {
 								</div>
 							</DetailsLayout.Data>
 						</DetailsLayout.Wrapper>
+						{extrinsic?.hash && (
+							<DetailsLayout.Wrapper>
+								<DetailsLayout.Title title="Hash" />
+								<DetailsLayout.Data>{extrinsic.hash}</DetailsLayout.Data>
+							</DetailsLayout.Wrapper>
+						)}
 
-						<DetailsLayout.Wrapper>
-							<DetailsLayout.Title title="Hash" />
-							<DetailsLayout.Data>{extrinsic.hash}</DetailsLayout.Data>
-						</DetailsLayout.Wrapper>
+						{extrinsic?.calls && (
+							<DetailsLayout.Wrapper>
+								<DetailsLayout.Title title="Method" />
+								<DetailsLayout.Data>
+									{extrinsic.calls[0].name}
+								</DetailsLayout.Data>
+							</DetailsLayout.Wrapper>
+						)}
 
-						<DetailsLayout.Wrapper>
-							<DetailsLayout.Title title="Method" />
-							<DetailsLayout.Data>{extrinsic.calls[0].name}</DetailsLayout.Data>
-						</DetailsLayout.Wrapper>
+						{extrinsic?.events && (
+							<>
+								<TransactionActions
+									events={extrinsic.events}
+									isSuccess={extrinsicSuccess}
+								/>
 
-						<TransactionActions
-							events={extrinsic.events}
-							isSuccess={extrinsicSuccess}
-						/>
-
-						<Fee events={extrinsic.events} height={extrinsic?.block?.height} />
+								<Fee
+									events={extrinsic.events}
+									height={extrinsic?.block?.height}
+								/>
+							</>
+						)}
 
 						{extrinsic?.signature?.signature && (
 							<DetailsLayout.Wrapper>
@@ -205,7 +217,7 @@ export default function Extrinsic({ extrinsicId }) {
 						)}
 					</DetailsLayout.Container>
 
-					<Events events={extrinsic.events} />
+					{extrinsic?.events && <Events events={extrinsic.events} />}
 				</>
 			)}
 		</ContainerLayout>
