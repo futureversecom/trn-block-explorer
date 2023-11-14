@@ -15,5 +15,5 @@ yarn && yarn dev
 
 ## 📥 Provide Feedback
 
-- [Start a Discussion](https://github.com/futureversecom/trn-seed/discussions) with a question, piece of feedback, or idea you want to share with the team.
-- [Open an Issue](https://github.com/futureversecom/trn-seed/issues) if you believe you've encountered a bug that you want to flag for the team.
+- [Start a Discussion](https://github.com/futureversecom/trn-block-explorer/discussions) with a question, piece of feedback, or idea you want to share with the team.
+- [Open an Issue](https://github.com/futureversecom/trn-block-explorer/issues) if you believe you've encountered a bug that you want to flag for the team.
