@@ -9,6 +9,7 @@ import { usePages } from "@/libs/hooks";
 import { usePagination } from "@/libs/stores";
 import { formatAddress } from "@/libs/utils";
 
+import { getContractDataForAddress } from "../libs/evm-api";
 import {
 	InOutLabel,
 	LoadingBlock,
@@ -23,7 +24,7 @@ const PaginationTable = "accountErc20Transfers";
 export default function Erc20TransfersForAddress({ walletAddress }) {
 	const { pages, currentPage } = usePagination(PaginationTable);
 
-	const query = useQuery(
+	const queryTxs = useQuery(
 		["erc20_transfers", walletAddress, currentPage],
 		() => {
 			return getERC20TransferForAddress(walletAddress, currentPage);
@@ -32,6 +33,37 @@ export default function Erc20TransfersForAddress({ walletAddress }) {
 			refetchInterval: 15_000,
 		}
 	);
+	const queryContractDetails = useQuery(
+		["evm_transactions_contract_data", walletAddress],
+		() => {
+			return getContractDataForAddress(walletAddress);
+		},
+		{
+			refetchInterval: 85_000,
+		}
+	);
+	const contractData = queryContractDetails?.data?.contractData;
+	const queryTxsData = queryTxs?.data?.docs;
+	const dataDocs = queryTxsData
+		? queryTxsData.map((tx) => {
+				const fromContract = contractData?.find(
+					(data) => data.address === tx.from
+				);
+				const toContract = contractData?.find((data) => data.address === tx.to);
+				if (fromContract) {
+					return { ...tx, fromContract: [fromContract] };
+				} else if (toContract) {
+					return { ...tx, toContract: [toContract] };
+				}
+				return tx;
+		  })
+		: null;
+	const query = dataDocs
+		? {
+				...queryTxs,
+				data: { docs: dataDocs, totalPages: queryTxs.data.totalPages },
+		  }
+		: queryTxs;
 	usePages(PaginationTable, query?.data?.totalPages);
 
 	return (

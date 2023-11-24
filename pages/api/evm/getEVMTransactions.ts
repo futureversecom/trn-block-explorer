@@ -33,22 +33,22 @@ export default async function handler(
 							status: true,
 						},
 					},
-					{
-						$lookup: {
-							from: "Contractaddresses",
-							localField: "from",
-							foreignField: "address",
-							as: "fromContract",
-						},
-					},
-					{
-						$lookup: {
-							from: "Contractaddresses",
-							localField: "to",
-							foreignField: "address",
-							as: "toContract",
-						},
-					},
+					// {
+					// 	$lookup: {
+					// 		from: "Contractaddresses",
+					// 		localField: "from",
+					// 		foreignField: "address",
+					// 		as: "fromContract",
+					// 	},
+					// },
+					// {
+					// 	$lookup: {
+					// 		from: "Contractaddresses",
+					// 		localField: "to",
+					// 		foreignField: "address",
+					// 		as: "toContract",
+					// 	},
+					// },
 				],
 			}),
 			fetchMongoData("action/aggregate", "Transactions", {

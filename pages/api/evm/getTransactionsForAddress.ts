@@ -46,30 +46,39 @@ export default async function handler(
 							value: true,
 						},
 					},
-					{
-						$lookup: {
-							from: "Contractaddresses",
-							localField: "contractAddress",
-							foreignField: "address",
-							as: "parsedLogs.contractData",
-						},
-					},
-					{
-						$lookup: {
-							from: "Contractaddresses",
-							localField: "from",
-							foreignField: "address",
-							as: "fromContract",
-						},
-					},
-					{
-						$lookup: {
-							from: "Contractaddresses",
-							localField: "to",
-							foreignField: "address",
-							as: "toContract",
-						},
-					},
+					//{
+					//    $lookup:
+					//      {
+					//        from: <collection to join>,
+					//        localField: <field from the input documents>,
+					//        foreignField: <field from the documents of the "from" collection>,
+					//        as: <output array field>
+					//      }
+					// }
+					// {
+					// 	$lookup: {
+					// 		from: "Contractaddresses",
+					// 		localField: "contractAddress",
+					// 		foreignField: "address",
+					// 		as: "parsedLogs.contractData",
+					// 	},
+					// },
+					// {
+					// 	$lookup: {
+					// 		from: "Contractaddresses",
+					// 		localField: "from",
+					// 		foreignField: "address",
+					// 		as: "fromContract",
+					// 	},
+					// },
+					// {
+					// 	$lookup: {
+					// 		from: "Contractaddresses",
+					// 		localField: "to",
+					// 		foreignField: "address",
+					// 		as: "toContract",
+					// 	},
+					// },
 				],
 			}),
 			fetchMongoData("action/aggregate", "Transactions", {
