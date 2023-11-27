@@ -65,7 +65,7 @@ const useSearch = () => {
 		if (error) {
 			setError(undefined);
 		}
-	}, [router?.pathname]);
+	}, [error]);
 
 	const getSearchURL = (search) => {
 		if (ethers.utils.isAddress(search)) return `/address/${search}`;

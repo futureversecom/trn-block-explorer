@@ -52,10 +52,10 @@ export default function Tokens() {
 		);
 	}, [assets, api]);
 
-	useInterval(callback, 30000); // every 10 minutes
+	useInterval(callback, 30000); // every 30 seconds
 	useEffect(() => {
 		callback();
-	}, []);
+	}, [callback]);
 
 	return (
 		<ContainerLayout>
