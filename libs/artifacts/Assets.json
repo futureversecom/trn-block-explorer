@@ -5,8 +5,7 @@
       "symbol": "ROOT",
       "decimals": 6,
       "assetId": 1,
-      "mainnet": true,
-      "external_url": "https://futureverse.com"
+      "mainnet": true
     },
 
     {
@@ -14,8 +13,7 @@
       "symbol": "ROOT",
       "decimals": 6,
       "assetId": 1,
-      "mainnet": false,
-      "external_url": "https://futureverse.com"
+      "mainnet": false
     },
 
     {
@@ -23,8 +21,7 @@
       "symbol": "XRP",
       "decimals": 6,
       "assetId": 2,
-      "mainnet": true,
-      "external_url": "https://ripple.com"
+      "mainnet": true
     },
 
     {
@@ -32,8 +29,23 @@
       "symbol": "XRP",
       "decimals": 6,
       "assetId": 2,
-      "mainnet": false,
-      "external_url": "https://ripple.com"
+      "mainnet": false
+    },
+
+    {
+      "name": "Vortex",
+      "symbol": "VTX",
+      "decimals": 6,
+      "assetId": 3,
+      "mainnet": true
+    },
+
+    {
+      "name": "Vortex",
+      "symbol": "VTX",
+      "decimals": 6,
+      "assetId": 3,
+      "mainnet": false
     },
 
     {
@@ -42,8 +54,7 @@
       "address": "0x0000000000000000000000000000000000000000",
       "decimals": 18,
       "assetId": 1124,
-      "mainnet": true,
-      "external_url": "https://ethereum.org"
+      "mainnet": true
     },
 
     {
@@ -52,8 +63,7 @@
       "address": "0x0000000000000000000000000000000000000000",
       "decimals": 18,
       "assetId": 1124,
-      "mainnet": false,
-      "external_url": "https://ethereum.org"
+      "mainnet": false
     },
 
     {
@@ -62,8 +72,7 @@
       "address": "0xf293d23bf2cdc05411ca0eddd588eb1977e8dcd4",
       "decimals": 18,
       "assetId": 2148,
-      "mainnet": true,
-      "external_url": "https://www.sylo.io/"
+      "mainnet": true
     },
 
     {
@@ -72,8 +81,7 @@
       "address": "0x147dE5ddE61c38A5289a398B7bC096DF88E6251F",
       "decimals": 18,
       "assetId": 3172,
-      "mainnet": false,
-      "external_url": "https://www.sylo.io/"
+      "mainnet": false
     },
 
     {
@@ -82,8 +90,7 @@
       "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
       "decimals": 6,
       "assetId": 3172,
-      "mainnet": true,
-      "external_url": "https://www.centre.io/usdc"
+      "mainnet": true
     },
 
     {
@@ -92,8 +99,7 @@
       "address": "0x07865c6e87b9f70255377e024ace6630c1eaa37f",
       "decimals": 6,
       "assetId": 2148,
-      "mainnet": false,
-      "external_url": "https://www.centre.io/usdc"
+      "mainnet": false
     },
 
     {
@@ -102,8 +108,7 @@
       "address": "0x823556202e86763853b40e9cDE725f412e294689",
       "decimals": 18,
       "assetId": 4196,
-      "mainnet": true,
-      "external_url": "https://www.alteredstatemachine.xyz/token-page/"
+      "mainnet": true
     },
 
     {
@@ -112,8 +117,7 @@
       "address": "0xBdc58b286D0e7d433bBcC84a2b7c35f43212EC6C",
       "decimals": 18,
       "assetId": 17508,
-      "mainnet": false,
-      "external_url": "https://www.alteredstatemachine.xyz/token-page/"
+      "mainnet": false
     }
   ]
 }
