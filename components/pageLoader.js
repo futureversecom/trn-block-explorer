@@ -19,7 +19,7 @@ export default function PageLoader({ children }) {
 			router.events.off("routeChangeComplete", handleRouteDone);
 			router.events.off("routeChangeError", handleRouteDone);
 		};
-	}, []);
+	}, [router?.events]);
 
 	return children;
 }
