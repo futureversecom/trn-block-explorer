@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "prettier --config .prettierrc.js --check . && next lint",
     "format": "prettier --config .prettierrc.js --write .",
     "gen": "graphql-codegen --config codegen.yml",
     "schema": "gq $GRAPHQL_ENDPOINT --introspect > libs/schema.graphql"

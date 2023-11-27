@@ -1,0 +1,24 @@
+name: Utility | Sync
+run-name: Sync `main` branch
+on:
+  push:
+    branches: ["main"]
+jobs:
+  sync_branch:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        branch:
+          - uat/porcini
+          - uat/mainnet
+          - prod/porcini
+
+    steps:
+      - name: Checkout latest code
+        uses: actions/checkout@v3
+      - name: Sync `main` to `${{ matrix.branch }}`
+        run: |
+          git fetch
+          git checkout ${{ matrix.branch }}
+          git reset --hard main
+          git push origin ${{ matrix.branch }} --force-with-lease
