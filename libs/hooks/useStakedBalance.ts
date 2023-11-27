@@ -32,21 +32,27 @@ export const useStakedBalance = (address: string) => {
 
 		const subscribeToLedger = async (address: string) => {
 			const bondedAccount = await api.query.staking.bonded(address);
-			const stakedAccount = bondedAccount.toString() === address ? address : bondedAccount.toString();
-			const unsub = await api.query.staking.ledger(stakedAccount, (res: Codec) => {
-				const ledger = res.toJSON() as unknown as Ledger;
-				const { total, active } = ledger ?? { total: 0, active: 0 };
+			const stakedAccount =
+				bondedAccount.toString() === address
+					? address
+					: bondedAccount.toString();
+			const unsub = await api.query.staking.ledger(
+				stakedAccount,
+				(res: Codec) => {
+					const ledger = res.toJSON() as unknown as Ledger;
+					const { total, active } = ledger ?? { total: 0, active: 0 };
 
-				setStateWithRef(
-					{
-						total,
-						active,
-						unlocking: total - active,
-					},
-					setBalance,
-					balanceRef
-				);
-			});
+					setStateWithRef(
+						{
+							total,
+							active,
+							unlocking: total - active,
+						},
+						setBalance,
+						balanceRef
+					);
+				}
+			);
 
 			setStateWithRef(unsubsRef.current.concat(unsub), setUnsubs, unsubsRef);
 		};
