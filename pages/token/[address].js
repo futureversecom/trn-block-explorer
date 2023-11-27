@@ -77,7 +77,7 @@ export default function Token({ address }) {
 						</div>
 						<div className="py-4 px-4 text-white outline outline-0 sm:py-5 sm:px-6">
 							<dl>
-								<MetadataRow label="Asset ID">{asset.assetId}</MetadataRow>
+								<MetadataRow label="ID">{asset.assetId}</MetadataRow>
 								<MetadataRow label="Decimals">{asset.decimals}</MetadataRow>
 								<MetadataRow label="Holders">{asset.holders}</MetadataRow>
 								<MetadataRow label="Total Supply">
