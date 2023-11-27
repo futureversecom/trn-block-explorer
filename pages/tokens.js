@@ -1,22 +1,61 @@
-import {
-	ArrowTopRightOnSquareIcon,
-	CurrencyDollarIcon,
-} from "@heroicons/react/24/outline";
+import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
+import { utils as ethers } from "ethers";
 import Link from "next/link";
+import { useCallback, useEffect, useState } from "react";
 
 import { ContainerLayout, PageHeader, TableLayout } from "@/components";
 import { TokenIcon } from "@/components/icons";
 import AssetsJson from "@/libs/artifacts/Assets.json";
 import { IS_MAINNET } from "@/libs/constants";
+import { useInterval } from "@/libs/hooks";
+import { useRootApi } from "@/libs/stores";
 import { formatAddress, getAssetPrecompileAddress } from "@/libs/utils";
 
 export default function Tokens() {
-	const assets = AssetsJson.tokens
-		.filter((e) => e.mainnet === IS_MAINNET && e.symbol !== "ROOT")
-		.map((asset) => ({
-			...asset,
-			address: getAssetPrecompileAddress(asset.assetId),
-		}));
+	const api = useRootApi();
+
+	const [assets, setAssets] = useState(
+		AssetsJson.tokens
+			.filter((e) => e.mainnet === IS_MAINNET)
+			.map((asset) => ({
+				...asset,
+				address: getAssetPrecompileAddress(asset.assetId),
+				supply: "-",
+			}))
+	);
+
+	const callback = useCallback(async () => {
+		const supplyInfos = await Promise.all(
+			assets.map((asset) => {
+				switch (asset.assetId) {
+					case 1:
+						return api.query.balances
+							.totalIssuance()
+							.then((supply) =>
+								ethers.formatUnits(supply.toJSON(), asset.decimals)
+							);
+					default:
+						return api.query.assets
+							.asset(asset.assetId)
+							.then((assetInfo) =>
+								ethers.formatUnits(assetInfo.toJSON().supply, asset.decimals)
+							);
+				}
+			})
+		);
+
+		setAssets(
+			assets.map((asset, index) => {
+				asset.supply = supplyInfos[index];
+				return asset;
+			})
+		);
+	}, [assets, api]);
+
+	useInterval(callback, 30000); // every 10 minutes
+	useEffect(() => {
+		callback();
+	}, []);
 
 	return (
 		<ContainerLayout>
@@ -32,11 +71,11 @@ export default function Tokens() {
 								<thead className="bg-transparent text-white">
 									<tr>
 										<TableLayout.HeadItem />
-										<TableLayout.HeadItem text="Asset ID" />
+										<TableLayout.HeadItem text="ID" />
 										<TableLayout.HeadItem text="Token Name" />
 										<TableLayout.HeadItem text="Symbol" />
-										<TableLayout.HeadItem text="Address" />
-										<TableLayout.HeadItem text="Website" />
+										<TableLayout.HeadItem text="EVM Address" />
+										<TableLayout.HeadItem text="Supply" />
 									</tr>
 								</thead>
 								<tbody className="divide-y divide-gray-800 bg-transparent">
@@ -55,19 +94,11 @@ export default function Tokens() {
 											<TableLayout.Data>
 												<span className="cursor-pointer text-indigo-500 hover:text-white">
 													<Link href={`/token/${asset.address}`}>
-														{formatAddress(asset.address)}
+														{asset.address}
 													</Link>
 												</span>
 											</TableLayout.Data>
-											<TableLayout.Data>
-												<a
-													href={asset.external_url}
-													target="_blank"
-													rel="noreferrer"
-												>
-													<ArrowTopRightOnSquareIcon className="h-5 w-5 cursor-pointer text-indigo-500 hover:text-white" />
-												</a>
-											</TableLayout.Data>
+											<TableLayout.Data>{asset.supply}</TableLayout.Data>
 										</tr>
 									))}
 								</tbody>
