@@ -19,7 +19,6 @@ export default function EvmTransactionsWidget() {
 			refetchInterval: 15_000,
 		}
 	);
-	console.log("Query....", query);
 
 	return (
 		<div className="flex flex-col">
