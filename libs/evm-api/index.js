@@ -67,7 +67,3 @@ export const getContractData = async (address) => {
 export const getEVMTransactions = async (page, limit) => {
 	return await fetchEvmData("getEVMTransactions", { page, limit });
 };
-
-export const getContractDataForAddresses = async (addresses) => {
-	return await fetchEvmData("getContractDataForAddresses", { addresses });
-};
