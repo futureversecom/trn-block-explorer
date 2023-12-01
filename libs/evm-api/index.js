@@ -40,6 +40,10 @@ export const getTransactionsForAddress = async (address, page) => {
 	return await fetchEvmData("getTransactionsForAddress", { address, page });
 };
 
+export const getContractDataForAddress = async (address) => {
+	return await fetchEvmData("getContractDataForAddress", { address });
+};
+
 export const getERC721TransferForAddress = async (address, page) => {
 	return await fetchEvmData("getERC721TransferForAddress", { address, page });
 };
