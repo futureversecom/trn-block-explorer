@@ -118,6 +118,14 @@
       "decimals": 18,
       "assetId": 17508,
       "mainnet": false
+    },
+
+    {
+      "name": "LP XRP ASTO",
+      "symbol": "LP-2-4196",
+      "decimals": 18,
+      "assetId": 5220,
+      "mainnet": true
     }
   ]
 }
