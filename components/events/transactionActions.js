@@ -13,7 +13,6 @@ export default function TransactionActions({ events, isSuccess }) {
 		"Erc20Peg.Erc20Withdraw": Erc20PegErc20Withdraw,
 		"Assets.Burned": AssetsBurned,
 	};
-
 	const parsedEvents = Object.keys(mapped);
 	const filteredEvents = events?.length
 		? events.filter((e) => parsedEvents.includes(e.name))
@@ -61,7 +60,13 @@ const AssetsBurned = ({ data }) => {
 };
 
 const Erc20PegErc20Withdraw = ({ data }) => {
-	let [assetId, amount, to] = data?.args;
+	const { args } = data;
+	let assetId, amount, to;
+	if (Array.isArray(args)) {
+		[assetId, amount, to] = args;
+	} else {
+		({ assetId, amount, beneficiary: to } = args);
+	}
 	const asset = getAssetMetadata(assetId);
 	const formattedAmount = ethers.utils
 		.formatUnits(amount, asset?.decimals)
