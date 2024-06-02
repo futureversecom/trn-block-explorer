@@ -126,6 +126,22 @@
       "decimals": 18,
       "assetId": 5220,
       "mainnet": true
+    },
+
+    {
+      "name": "30MINMAX",
+      "symbol": "$30MM",
+      "decimals": 6,
+      "assetId": 98404,
+      "mainnet": true
+    },
+
+    {
+      "name": "LP XRP $30MM",
+      "symbol": "LP-2-98404",
+      "decimals": 18,
+      "assetId": 104548,
+      "mainnet": true
     }
   ]
 }
