@@ -1,5 +1,5 @@
 export const IS_MAINNET = process.env.NEXT_PUBLIC_IS_MAINNET === "true";
-
+export const IS_DEVNET = process.env.NEXT_PUBLIC_IS_DEVNET === "true";
 export const ETH_CHAIN_ID = IS_MAINNET ? 1 : 5;
 
 export const ROOT_GAS_TOKEN_PRE_BLOCK = Number(
@@ -33,7 +33,17 @@ export const ROOT_NETWORK = {
 		MongoApiEndpoint,
 		MongoDatabase: "mainnet-ingestor",
 	},
-}[IS_MAINNET ? "mainnet" : "porcini"];
+	devnet: {
+		ChainName: "Devnet",
+		ChainId: 17672,
+		ApiUrl: {
+			InWebSocket: "wss://porcini.devnet.rootnet.app/ws",
+		},
+		GraphQlEndpoint,
+		MongoApiEndpoint,
+		MongoDatabase: "devnet-ingestor",
+	},
+}[IS_MAINNET ? "mainnet" : IS_DEVNET ? "devnet" : "porcini"];
 
 export const BURN_ADDRESSES = [
 	"0x0000000000000000000000000000000000000000",
