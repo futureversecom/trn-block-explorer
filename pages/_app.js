@@ -31,7 +31,7 @@ function MyApp({ Component, pageProps }) {
 					<title>The Root Network Block Explorer</title>
 					<meta
 						name="description"
-						content="Explore and search blocks, extrinsics and accounts on The Root Network."
+						content="Explore and search blocks, extrinsics and accounts on The Root Network (Devnet)."
 					/>
 					<link rel="apple-touch-icon" sizes="256x256" href="/favicon.png" />
 					<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
