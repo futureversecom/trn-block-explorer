@@ -42,7 +42,7 @@ export const ROOT_NETWORK = {
 		GraphQlEndpoint,
 		MongoApiEndpoint,
 		MongoDatabase: "devnet-ingestor",
-	}
+	},
 }[IS_MAINNET ? "mainnet" : IS_DEVNET ? "devnet" : "porcini"];
 
 export const BURN_ADDRESSES = [
