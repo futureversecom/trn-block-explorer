@@ -106,8 +106,9 @@ const EthereumExecuted = ({ data }) => {
 
 const AssetsIssued = ({ data }) => {
 	const asset = getAssetMetadata(data?.args?.assetId);
+	const assetIssued = data?.args?.totalSupply || data?.args?.amount;
 	const formattedAmount = ethers.utils
-		.formatUnits(data?.args?.totalSupply, asset?.decimals)
+		.formatUnits(assetIssued, asset?.decimals)
 		.toString();
 	return (
 		<div className="flex space-x-1">
