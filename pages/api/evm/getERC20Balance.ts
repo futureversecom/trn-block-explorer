@@ -13,7 +13,7 @@ export default async function handler(
 		if (!ethers.isAddress(address)) throw { message: "Invalid address" };
 		address = ethers.getAddress(address);
 
-		let data = await fetchMongoData("action/aggregate", "Transactions", {
+		let data = await fetchMongoData("ingestor/transactions/action/aggregate", "POST", {
 			pipeline: [
 				{
 					$match: {

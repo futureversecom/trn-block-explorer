@@ -2,19 +2,15 @@ import { MONGO_API_KEY, ROOT_NETWORK } from "@/libs/constants";
 
 export const fetchMongoData = async (
 	slug: string,
-	collection: string,
+	method: string,
 	options: object
 ) => {
 	const resp = await fetch(`${ROOT_NETWORK.MongoApiEndpoint}/${slug}`, {
-		method: "POST",
+		method: method,
 		headers: {
 			"Content-Type": "application/json",
-			"api-key": MONGO_API_KEY,
 		},
 		body: JSON.stringify({
-			dataSource: ROOT_NETWORK.MongoDatabase,
-			database: ROOT_NETWORK.MongoDatabase,
-			collection,
 			...options,
 		}),
 	});
