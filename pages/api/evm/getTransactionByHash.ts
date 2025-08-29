@@ -45,10 +45,7 @@ export default async function handler(
 					},
 				],
 			}),
-			/// TODO check this one
-			fetchMongoData("action/findOne", "Prices", {
-				filter: { name: "XRP" },
-			}),
+			fetchMongoData("/ingestor/price/name/XRP", "GET", {}),
 		]);
 
 		if (!query?.documents?.length)
