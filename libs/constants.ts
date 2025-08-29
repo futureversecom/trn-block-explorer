@@ -10,8 +10,6 @@ const MONGO_APP_ID = process.env.MONGO_APP_ID ?? "";
 export const MONGO_API_KEY = process.env.MONGO_API_KEY ?? "";
 
 const GraphQlEndpoint = process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ?? "";
-const MongoApiEndpoint = `https://ap-southeast-2.aws.data.mongodb-api.com/app/${MONGO_APP_ID}/endpoint/data/v1`;
-
 export const ROOT_NETWORK = {
 	porcini: {
 		ChainName: "Porcini",
@@ -20,7 +18,7 @@ export const ROOT_NETWORK = {
 			InWebSocket: "wss://porcini.au.rootnet.app/ws",
 		},
 		GraphQlEndpoint,
-		MongoApiEndpoint,
+		MongoApiEndpoint: '', /// TODO update endpoint
 		MongoDatabase: "porcini-ingestor",
 	},
 	mainnet: {
@@ -30,7 +28,7 @@ export const ROOT_NETWORK = {
 			InWebSocket: "wss://root.au.rootnet.live/ws",
 		},
 		GraphQlEndpoint,
-		MongoApiEndpoint,
+		MongoApiEndpoint: `https://mongo-rest-api.au.prod.rootnet.app/`,
 		MongoDatabase: "mainnet-ingestor",
 	},
 }[IS_MAINNET ? "mainnet" : "porcini"];

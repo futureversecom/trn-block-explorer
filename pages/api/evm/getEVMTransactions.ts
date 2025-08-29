@@ -12,7 +12,7 @@ export default async function handler(
 		limit = Number(req.query?.limit) ?? 10;
 
 		const [agg, meta] = await Promise.all([
-			fetchMongoData("action/aggregate", "Transactions", {
+			fetchMongoData("ingestor/transactions/action/aggregate", "POST", {
 				pipeline: [
 					{ $sort: { blockNumber: -1, firstSeen: 1 } },
 					{ $skip: (page - 1) * limit },
@@ -35,7 +35,7 @@ export default async function handler(
 					},
 				],
 			}),
-			fetchMongoData("action/aggregate", "Transactions", {
+			fetchMongoData("ingestor/transactions/action/aggregate", "POST", {
 				pipeline: [
 					{
 						$facet: {

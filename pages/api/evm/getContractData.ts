@@ -13,19 +13,9 @@ export default async function handler(
 		if (!ethers.isAddress(address)) throw { message: "Invalid address" };
 
 		const mongoData = await fetchMongoData(
-			"action/findOne",
-			"Contractaddresses",
-			{
-				filter: {
-					address: ethers.getAddress(address),
-				},
-				projection: {
-					_id: false,
-					bytecode: true,
-					contractCreator: true,
-					deploymentTransactionHash: true,
-				},
-			}
+			`ingestor/contractAddress/address/${address}`,
+			"GET",
+			{}
 		);
 
 		const contractData = mongoData?.document as ContractData;

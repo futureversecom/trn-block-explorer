@@ -31,7 +31,7 @@ export default async function handler(
 		};
 
 		const [agg, meta] = await Promise.all([
-			fetchMongoData("action/aggregate", "Transactions", {
+			fetchMongoData("ingestor/transactions/action/aggregate", "POST", {
 				pipeline: [
 					{
 						$match,
@@ -67,7 +67,7 @@ export default async function handler(
 					},
 				],
 			}),
-			fetchMongoData("action/aggregate", "Transactions", {
+			fetchMongoData("ingestor/transactions/action/aggregate", "POST", {
 				pipeline: [
 					{
 						$match,

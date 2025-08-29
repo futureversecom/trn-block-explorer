@@ -13,83 +13,87 @@ export default async function handler(
 		if (!ethers.isAddress(address)) throw { message: "Invalid address" };
 		address = ethers.getAddress(address);
 
-		let data = await fetchMongoData("action/aggregate", "Transactions", {
-			pipeline: [
-				{
-					$match: {
-						"parsedLogs.name": "Transfer",
-						"parsedLogs.parsedFromAbi": "ERC20",
-						"$or": [
-							{
-								"parsedLogs.args.from": address,
-							},
-							{
-								"parsedLogs.args.to": address,
-							},
-						],
-					},
-				},
-				{
-					$unwind: "$parsedLogs",
-				},
-				{
-					$match: {
-						"parsedLogs.name": "Transfer",
-						"parsedLogs.parsedFromAbi": "ERC20",
-					},
-				},
-				{
-					$sort: {
-						blockNumber: 1,
-					},
-				},
-				{
-					$project: {
-						event: "$parsedLogs.name",
-						from: "$parsedLogs.args.from",
-						to: "$parsedLogs.args.to",
-						value: "$parsedLogs.args.value",
-						address: "$parsedLogs.address",
-						blockNumber: "$parsedLogs.blockNumber",
-					},
-				},
-				{
-					$group: {
-						_id: "$address",
-						balance: {
-							$push: "$value",
+		let data = await fetchMongoData(
+			"ingestor/transactions/action/aggregate",
+			"POST",
+			{
+				pipeline: [
+					{
+						$match: {
+							"parsedLogs.name": "Transfer",
+							"parsedLogs.parsedFromAbi": "ERC20",
+							"$or": [
+								{
+									"parsedLogs.args.from": address,
+								},
+								{
+									"parsedLogs.args.to": address,
+								},
+							],
 						},
-						action: {
-							$push: {
-								$cond: {
-									if: {
-										$eq: ["$to", address],
+					},
+					{
+						$unwind: "$parsedLogs",
+					},
+					{
+						$match: {
+							"parsedLogs.name": "Transfer",
+							"parsedLogs.parsedFromAbi": "ERC20",
+						},
+					},
+					{
+						$sort: {
+							blockNumber: 1,
+						},
+					},
+					{
+						$project: {
+							event: "$parsedLogs.name",
+							from: "$parsedLogs.args.from",
+							to: "$parsedLogs.args.to",
+							value: "$parsedLogs.args.value",
+							address: "$parsedLogs.address",
+							blockNumber: "$parsedLogs.blockNumber",
+						},
+					},
+					{
+						$group: {
+							_id: "$address",
+							balance: {
+								$push: "$value",
+							},
+							action: {
+								$push: {
+									$cond: {
+										if: {
+											$eq: ["$to", address],
+										},
+										then: "increase",
+										else: "decrease",
 									},
-									then: "increase",
-									else: "decrease",
 								},
 							},
 						},
 					},
-				},
-				{
-					$addFields: {
-						address: "$_id",
+					{
+						$addFields: {
+							address: "$_id",
+						},
 					},
-				},
-				{
-					$unset: "_id",
-				},
-				{
-					$lookup: {
-						from: "Contractaddresses",
-						localField: "address",
-						foreignField: "address",
-						as: "contractData",
+					{
+						$unset: "_id",
 					},
-				},
-			],
-		});
+					{
+						$lookup: {
+							from: "Contractaddresses",
+							localField: "address",
+							foreignField: "address",
+							as: "contractData",
+						},
+					},
+				],
+			}
+		);
 
 		if (data?.documents?.length > 0) {
 			let contracts: any = Object.assign([], data.documents);

@@ -12,7 +12,7 @@ export default async function handler(
 			throw { message: "Invalid txHash" };
 
 		const [query, price] = await Promise.all([
-			fetchMongoData("action/aggregate", "Transactions", {
+			fetchMongoData("ingestor/transactions/action/aggregate", "POST", {
 				pipeline: [
 					{
 						$match: {
@@ -45,9 +45,7 @@ export default async function handler(
 					},
 				],
 			}),
-			fetchMongoData("action/findOne", "Prices", {
-				filter: { name: "XRP" },
-			}),
+			fetchMongoData("/ingestor/price/name/XRP", "GET", {}),
 		]);
 
 		if (!query?.documents?.length)
