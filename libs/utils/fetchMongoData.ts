@@ -1,4 +1,4 @@
-import { MONGO_API_KEY, ROOT_NETWORK } from "@/libs/constants";
+import { ROOT_NETWORK } from "@/libs/constants";
 
 export const fetchMongoData = async (
 	slug: string,
