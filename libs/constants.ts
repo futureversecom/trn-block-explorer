@@ -6,9 +6,6 @@ export const ROOT_GAS_TOKEN_PRE_BLOCK = Number(
 	process.env.NEXT_PUBLIC_ROOT_GAS_TOKEN_PRE_BLOCK
 );
 
-const MONGO_APP_ID = process.env.MONGO_APP_ID ?? "";
-export const MONGO_API_KEY = process.env.MONGO_API_KEY ?? "";
-
 const GraphQlEndpoint = process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ?? "";
 export const ROOT_NETWORK = {
 	porcini: {
@@ -18,7 +15,7 @@ export const ROOT_NETWORK = {
 			InWebSocket: "wss://porcini.au.rootnet.app/ws",
 		},
 		GraphQlEndpoint,
-		MongoApiEndpoint: 'https://mongo-rest-api.au.dev.rootnet.app/',
+		MongoApiEndpoint: "https://mongo-rest-api.au.dev.rootnet.app/",
 		MongoDatabase: "porcini-ingestor",
 	},
 	mainnet: {
