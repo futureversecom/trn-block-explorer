@@ -19,8 +19,8 @@ export default async function handler(
 		};
 
 		const mongoData = await fetchMongoData(
-			"action/aggregate",
-			"Contractaddresses",
+			"ingestor/contractAddress/action/aggregate",
+			"POST",
 			{
 				pipeline: [
 					{
