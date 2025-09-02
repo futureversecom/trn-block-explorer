@@ -18,7 +18,7 @@ export const ROOT_NETWORK = {
 			InWebSocket: "wss://porcini.au.rootnet.app/ws",
 		},
 		GraphQlEndpoint,
-		MongoApiEndpoint: '', /// TODO update endpoint
+		MongoApiEndpoint: 'https://mongo-rest-api.au.dev.rootnet.app/',
 		MongoDatabase: "porcini-ingestor",
 	},
 	mainnet: {
